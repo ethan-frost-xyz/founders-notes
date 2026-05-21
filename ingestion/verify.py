@@ -30,6 +30,10 @@ PER_EPISODE_FILE_RE = re.compile(
 )
 
 BLOCKING_STATUSES = {"pending", "failed"}
+TIMESTAMP_BULLET_RE = re.compile(
+    r"^[\s]*-\s*(\d{1,2}:\d{2}(?::\d{2})?)\s*[-–—]\s*.+$",
+    re.MULTILINE,
+)
 
 # Documented intentional gaps (see catalog/import-review.md)
 POST_EXCEPTIONS: dict[int, str] = {
@@ -38,11 +42,27 @@ POST_EXCEPTIONS: dict[int, str] = {
 }
 
 
-def count_phase2_coverage(rows: list[dict]) -> tuple[int, int, list[int], list[int]]:
-    """Returns (notes_count, posts_count, missing_notes, missing_posts) for numbered complete transcripts."""
-    notes_n = 0
+def notes_body_text(path: Path) -> str:
+    text = path.read_text(encoding="utf-8")
+    if text.startswith("---"):
+        parts = text.split("---", 2)
+        return parts[2] if len(parts) >= 3 else text
+    return text
+
+
+def has_timestamp_datapoints(path: Path) -> bool:
+    return bool(TIMESTAMP_BULLET_RE.search(notes_body_text(path)))
+
+
+def count_phase2_coverage(
+    rows: list[dict],
+) -> tuple[int, int, int, list[int], list[int], list[int]]:
+    """Returns (notes_files, notes_with_datapoints, posts_count, missing_notes, missing_datapoints, missing_posts)."""
+    notes_files = 0
+    notes_with_datapoints = 0
     posts_n = 0
     missing_notes: list[int] = []
+    missing_datapoints: list[int] = []
     missing_posts: list[int] = []
 
     for r in rows:
@@ -53,16 +73,29 @@ def count_phase2_coverage(rows: list[dict]) -> tuple[int, int, list[int], list[i
         ep_id = r["id"]
         slug = r["slug"]
         num = r["episode_number"]
-        if notes_file_path(ep_id, slug, num).exists():
-            notes_n += 1
+        npath = notes_file_path(ep_id, slug, num)
+        if npath.exists():
+            notes_files += 1
+            if has_timestamp_datapoints(npath):
+                notes_with_datapoints += 1
+            else:
+                missing_datapoints.append(num)
         else:
             missing_notes.append(num)
+            missing_datapoints.append(num)
         if post_file_path(ep_id, slug, num).exists():
             posts_n += 1
         else:
             missing_posts.append(num)
 
-    return notes_n, posts_n, missing_notes, missing_posts
+    return (
+        notes_files,
+        notes_with_datapoints,
+        posts_n,
+        missing_notes,
+        missing_datapoints,
+        missing_posts,
+    )
 
 
 def scan_layout_violations(rows: list[dict]) -> list[str]:
@@ -148,7 +181,14 @@ def main() -> None:
         )
     ]
 
-    notes_n, posts_n, missing_notes, missing_posts = count_phase2_coverage(rows)
+    (
+        notes_files,
+        notes_with_datapoints,
+        posts_n,
+        missing_notes,
+        missing_datapoints,
+        missing_posts,
+    ) = count_phase2_coverage(rows)
     transcript_complete_numbered = sum(
         1 for r in numbered if r.get("transcript_status") == "complete"
     )
@@ -162,7 +202,8 @@ def main() -> None:
         "",
         "## Phase 2 coverage",
         "",
-        f"**Notes imported:** {notes_n} / {transcript_complete_numbered} numbered (with transcript)",
+        f"**Notes files:** {notes_files} / {transcript_complete_numbered} numbered (with transcript)",
+        f"**Notes with datapoints:** {notes_with_datapoints} / {transcript_complete_numbered} numbered (timestamp bullets)",
         f"**Posts imported:** {posts_n} / {transcript_complete_numbered} numbered",
         "",
     ]
@@ -174,12 +215,24 @@ def main() -> None:
         lines.append("")
 
     if missing_notes:
-        lines.append(f"## Missing notes ({len(missing_notes)} numbered)")
+        lines.append(f"## Missing notes files ({len(missing_notes)} numbered)")
         lines.append("")
         for n in sorted(missing_notes)[:40]:
             lines.append(f"- `{format_episode_id(n)}`")
         if len(missing_notes) > 40:
             lines.append(f"- … and {len(missing_notes) - 40} more")
+        lines.append("")
+
+    scaffold_only = [n for n in missing_datapoints if n not in missing_notes]
+    if scaffold_only:
+        lines.append(f"## Notes without datapoints ({len(scaffold_only)} numbered)")
+        lines.append("")
+        lines.append("File exists but no `MM:SS —` bullets under `## Raw datapoints` (empty scaffold or not started).")
+        lines.append("")
+        for n in sorted(scaffold_only)[:40]:
+            lines.append(f"- `{format_episode_id(n)}`")
+        if len(scaffold_only) > 40:
+            lines.append(f"- … and {len(scaffold_only) - 40} more")
         lines.append("")
 
     if missing_posts:
@@ -256,7 +309,7 @@ def main() -> None:
 
     print(f"Catalog: {len(rows)} rows")
     print(f"Complete: {len(complete)} / {len(numbered)} numbered")
-    print(f"Notes: {notes_n} | Posts: {posts_n}")
+    print(f"Notes files: {notes_files} | with datapoints: {notes_with_datapoints} | Posts: {posts_n}")
     print(f"Unmapped colossus_url: {len(unmapped)}")
     print(f"Weak founders_url: {len(weak_urls)}")
     print(f"Blocking gaps: {len(blocking)}")

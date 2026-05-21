@@ -79,6 +79,7 @@ def main() -> None:
         print("\nDry-run. Re-run with --apply to add rows, then:")
         print("  python map_colossus.py")
         print("  python fetch_transcripts.py --id ep-0418")
+        print("  python scaffold_notes.py --missing")
         print("  python verify.py")
         return
 
@@ -104,7 +105,10 @@ def main() -> None:
         )
     )
     save_catalog(rows)
-    print(f"Added {len(new_slugs)} rows. Next: map_colossus.py → fetch_transcripts.py → verify.py")
+    print(
+        f"Added {len(new_slugs)} rows. Next: map_colossus.py → fetch_transcripts.py "
+        "→ scaffold_notes.py --missing → verify.py"
+    )
 
 
 if __name__ == "__main__":

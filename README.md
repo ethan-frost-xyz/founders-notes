@@ -7,7 +7,7 @@ Personal knowledge vault for [@ethanfrost](https://x.com/ethanfrost)'s daily Fou
 | Layer | Coverage | Notes |
 |-------|----------|--------|
 | **Transcripts** | 417 / 417 numbered | Phase 1 complete — Colossus archives in `content/transcripts/` |
-| **Notes** | 189 / 417 | Ep 1–189 imported from Apple Notes; **ep 190–417 not written yet** (~1 new note/day as you listen) |
+| **Notes** | 417 files / 189 datapoints | Ep 1–189 have timestamp bullets; ep 0190–0417 scaffolded empty — fill as you listen (~1/day) |
 | **X posts** | 187 / 417 | CSV cache + organizer; 2 documented gaps (ep-0159 skipped, ep-0189 not posted) |
 | **Search** | v1 | `catalog/chunks.jsonl` + `ingestion/search.py` |
 
@@ -49,7 +49,7 @@ python verify.py
 python search.py "rockefeller"
 ```
 
-See [docs/episode-id-rules.md](docs/episode-id-rules.md), [docs/datapoint-workflow.md](docs/datapoint-workflow.md), [docs/retrieval.md](docs/retrieval.md), [AGENTS.md](AGENTS.md).
+See [docs/episode-id-rules.md](docs/episode-id-rules.md), [docs/notes-pipeline.md](docs/notes-pipeline.md), [docs/datapoint-workflow.md](docs/datapoint-workflow.md), [docs/retrieval.md](docs/retrieval.md), [AGENTS.md](AGENTS.md).
 
 ## Layout
 
@@ -88,6 +88,8 @@ python verify.py
 
 # Ongoing — new episodes / URL repair
 python sync_new.py --repair-urls --apply
+# after map_colossus + fetch_transcripts for new rows:
+python scaffold_notes.py --missing
 
 # Phase 2 — notes and posts
 python import_notes.py -i ../import/apple-notes.txt
@@ -103,7 +105,7 @@ Re-fetch one transcript: `python fetch_transcripts.py --id ep-0418 --force`
 
 Phase 1 is complete when `python verify.py` reports no blocking transcript gaps.
 
-Phase 2 progress is in `catalog/gaps.md` (notes/posts counts and missing episode lists).
+Phase 2 progress is in `catalog/gaps.md` (notes files vs datapoints, posts, missing lists).
 
 ---
 
@@ -111,28 +113,21 @@ Phase 2 progress is in `catalog/gaps.md` (notes/posts counts and missing episode
 
 Three high-leverage options, ordered by impact on the daily ritual:
 
-### 1. Notes catch-up plan (episodes 190–417, in progress)
+### 1. Notes catch-up (episodes 0190–0417, in progress)
 
-**Why:** Notes are the study spine. Ep 1–189 are in the vault from a one-time Apple Notes export. You have **not** started notes for ep 190 yet; you add roughly **one episode per day** as you listen, so ep 190–417 will grow over months—not as a single missing export.
+**Primary workflow:** vault-native notes in git — see [docs/notes-pipeline.md](docs/notes-pipeline.md) (Working Copy on phone, Cursor on Mac).
 
-**Recommended workflow (pick one and stay consistent):**
+Ep 1–189 have datapoints from Apple Notes import. Ep 0190–0417 have **empty scaffolds** (`python scaffold_notes.py`); add timestamp bullets as you finish each episode (~1/day).
 
-| Approach | How it works | Best if |
-|----------|----------------|---------|
-| **A. Periodic Apple Notes merge** | Keep writing in Apple Notes (one note per episode, `#N` title). Every week or after every N episodes: export → `import/apple-notes.txt` → `python import_notes.py -i ../import/apple-notes.txt --merge` → `python build_chunks.py` | You want to keep your current Notes habit unchanged |
-| **B. Vault-native notes** | Create `content/notes/ep-NNNN-.../ep-NNNN-....notes.md` directly in git (same `## Raw datapoints` bullets). No export step for new episodes | You are fine leaving Apple Notes for old eps only |
-| **C. Hybrid** | New episodes in the vault (B); occasionally merge an Apple Notes export for anything you still capture there (A) | Transitioning off Notes without retyping 1–189 |
+```bash
+python scaffold_notes.py --next   # path to next file to edit
+python verify.py                  # notes files vs notes with datapoints
+python build_chunks.py            # after adding bullets
+```
 
-**Operational checklist (after each batch or new ep):**
+**Also:** Replace ep-0021 `XYZ` placeholder when that note exists. Optional Apple Notes merge: `import_notes.py --merge` for stragglers only.
 
-1. Ensure the episode block has a clear `#N` / title header (import parser keys off episode number).
-2. `import_notes.py --merge` (A/C) or commit `{folder}.notes.md` directly (B).
-3. `python verify.py` — watch the notes count climb in `catalog/gaps.md`.
-4. `python build_chunks.py` so `search.py` sees new bullets.
-
-**Also:** Replace ep-0021 `XYZ` placeholder when that note shows up in an export or you add it manually.
-
-**Done when:** Notes count tracks how far you have listened (not 417 overnight)—treat 190–417 as a living tail, not a backfill dump.
+**Done when:** `notes with datapoints` in `catalog/gaps.md` tracks how far you have listened—not all 417 overnight.
 
 ### 2. X post corpus completion + native articles
 

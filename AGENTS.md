@@ -42,7 +42,8 @@ python expand_datapoints.py --id ep-0200
 
 | Task | Command |
 |------|---------|
-| New episodes | `python sync_new.py --repair-urls --apply` |
+| New episodes | `python sync_new.py --repair-urls --apply` → `map_colossus.py` → `fetch_transcripts.py` → `scaffold_notes.py --missing` |
+| Notes scaffold | `python scaffold_notes.py --missing` or `--next` (see [`docs/notes-pipeline.md`](docs/notes-pipeline.md)) |
 | Apple Notes | `python import_notes.py -i ../import/apple-notes.txt` |
 | X cache sync | `python sync_x_cache.py` (incremental) or `--full` (backfill) |
 | X organize | `python organize_posts_from_csv.py` (reads CSV only) |
@@ -55,4 +56,4 @@ Do not add embeddings unless grep + chunk index fail for the user's post corpus.
 
 ## Schema
 
-[`docs/episode-id-rules.md`](docs/episode-id-rules.md) — ids, frontmatter, catalog columns.
+[`docs/episode-id-rules.md`](docs/episode-id-rules.md) — ids, frontmatter, catalog columns. Daily notes: [`docs/notes-pipeline.md`](docs/notes-pipeline.md).
