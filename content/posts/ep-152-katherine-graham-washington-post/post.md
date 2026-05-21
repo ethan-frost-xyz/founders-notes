@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2035454697968972275"
 x_post_id: "2035454697968972275"
 published_at: "2026-03-21"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:19Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 152
 ---
@@ -30,7 +30,3 @@ Orangutan Theory.
 Warren Buffett served as her sounding board, using Charlie Munger’s “orangutan theory.”
 
 Simply listening while she talked helped her organize her thoughts and remove mental distortions. (57:00)
-
-@SpiceShorts @SpiceP0dcast @FoundersPodcast Impressive pull 🙏
-
-@SpiceP0dcast @SpiceShorts @FoundersPodcast Shipping fast 🔥

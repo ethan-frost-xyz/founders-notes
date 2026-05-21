@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2035102503038296364"
 x_post_id: "2035102503038296364"
 published_at: "2026-03-20"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:19Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 151
 ---
@@ -26,5 +26,3 @@ Sustained focus reveals hidden problem-solving power.
 
 “Timing is often more important than luck.”
 Smith observed that his Federal Express concept would have failed five years earlier due to missing infrastructure, and five years later, the opportunity would have been too obvious for others to miss. The exact window proved more important than random chance. (1:05:00)
-
-@Chancellorpen We got the same favorites I swear

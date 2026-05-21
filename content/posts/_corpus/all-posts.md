@@ -1,8 +1,8 @@
 # All Founders posts (auto-generated)
 
-**Sections:** 182
+**Sections:** 187
 
-Built at 2026-05-21T19:39:20Z
+Built at 2026-05-21T21:24:40Z
 
 ## #1 — #1 Elon Musk: Tesla, SpaceX, & the Quest for a Fantastic Future
 
@@ -645,34 +645,6 @@ Founders: #100 Warren Buffett
 
 These compound hard when listened in order. Thank you @DavidSenra for all your efforts. 300 more to go.
 
-@FoundersPodcast Thanks David, that’s awesome to hear. I’m 25. Grateful for the podcast.
-
-@calebsloop Thanks man, glad it hit for you.
-
-@Chancellorpen @FoundersPodcast Glad to hear it. Thank you!
-
-@marcosrortiz4 @FoundersPodcast Without a shadow of doubt
-
-@gnagpal1981 @FoundersPodcast 300+ more to go!
-
-@dkhedden @FoundersPodcast Well said. The compound effect is 1:1 with Founders.
-
-You know a show is special when everyone's favorite episode is different.
-
-@0xaniol @FoundersPodcast Why so?
-
-@jacey_opara @FoundersPodcast Appreciate the support! Phil Knight is the best.
-
-@alexanderkmmm @dkhedden @FoundersPodcast My top three from the first 100 in no particular order:
-
-#2: Walt Disney
-#70: Mark Spitznagel
-#90: Charley Munger
-
-If you like the large scale of impact combined with a fantastic story arc in the Haber/Bosch episode, then you will love #37: Samuel Zumurray
-
-@GruntyMcPhere @FoundersPodcast Spot on. Taking an unbiased approach to understanding a large number of founders is key to identifying the recurring ideas.
-
 ## #12 — #12 Elon Musk & How Tesla Will Change The World
 
 Founders #12 Elon Musk II (Elon Musk Blog Series by Tim Urban)
@@ -715,9 +687,13 @@ No idea is too wild, he reduced through experimentation instead of deducting the
 
 ## #16 — #16 Titan: The Life of John D. Rockefeller
 
-Imagine Carlin telling the story of Rockefeller.
+Founders #16 John D. Rockefeller (Titan)
 
-Listening to Founders #16 I realized there are many parallels with Rockefeller and Genghis Khan. Rapid and ruthless expansion, and just like Khan Rockefeller recognized the value of keeping the talented adversaries from his campaigns in business. He also balanced control and delegation extremely well.
+My own thoughts: There are many parallels with Rockefeller and Genghis Khan. Rapid and ruthless expansion, and just like Khan Rockefeller recognized the value of keeping the talented ‘adversaries’ from his campaigns in the business. He balanced control and delegation extremely well.
+
+Extreme control of costs: Rockefeller was trying to buy a refinery, and his competitor was refusing, so he showed the man his books, and the man quickly realized he would never stand a chance and accepted the offer. His obsession with margins also drove his desire for deep vertical expansion. ()
+
+Make money quietly: “And few people beyond the oil business had ever even heard of him. It’s very hard to compete with somebody you don’t even know exists.”() Rockefeller often bought out competitors through his business partners, so the targets usually didn’t realize they were being acquired by Standard Oil.
 
 ## #17 — #17 Jeff Bezos and the Age of Amazon
 
@@ -1051,8 +1027,6 @@ Reminder that in the corporate world, extreme egos exist and supersede fairness 
 
 50:30 is the most insane story between a founder and an investor I have heard so far. Guarantee you will not expect it.
 
-@fordsmith Founders has an episode for everyone, you can’t go wrong!
-
 ## #46 — #46 I Love Capitalism: An American Story
 
 Founders #46 Ken Langone - Home Depot $HD
@@ -1064,8 +1038,6 @@ For example, early on while working on the Street as a salesman, Langone was des
 The story I just told was a small chunk of the man’s story. Senra wraps up the episode with a fitting final takeaway from Langone, stating, “One of the most important lessons in my life is this. Leave more on the table for the other guy than he thinks he should get.” (1:06:00)
 
 This may sound like a minor feat relative to other podcast subjects, but to be this bold so early in one's career is a reminder of what we can do. Don't wait until your next big move or jump; see what you can do now in your current employment situation. There's no point in waiting to do the "big bold moves". At worst, it's fantastic practice.
-
-@ethanmonkhouse 100%. There’s no point in waiting.
 
 ## #47 — #47 Losing My Virginity: How I Survived, Had Fun, and Made a Fortune Doing Business My Way
 
@@ -1331,13 +1303,41 @@ Key note: the Goodyear tire company was founded years later by a different man, 
 
 ## #70 — #70 Mark Spitznagel: The Dao of Capital
 
-@whynesspower The Kobe and Jordan one is an all timer. 
+Founders #70: Mark Spitznagel (author of The Dao of Capital)
 
-Similarly, I heard there’s a Nick Saban one in the works that will be incredible.
+To my few followers, this one is special. If you are or aspire to be a great investor, founder, engineer, etc., listen to this episode. Among the first 70 episodes, it’s easily in my top 5, or as Senra describes the book, “it’s one of the most 10 important books that I’ve read so far.” (12:18)
 
-Check out #70 on Mark Spitznagel, it’s a sleeper favorite of mine.
+Study your heroes’ heroes (11:30). Personal example: MF Doom… your favorite rapper’s favorite rapper.
 
-https://t.co/LttBMp9Hlh
+The whole point of investing is to take the indirect route to our goals, the easy and straightforward path is often deceptively not the best outcome (14:19).
+
+You must choose wisely across slices of time and avoid the “humanness” trait that favors short-term satisfaction, as often better outcomes arise from longer-term, patient thinking (17:01). The pressure for immediate profits is hardwired into our brains (22:55).
+
+Design your conversations/questions within constraints. Instead of saying, “Hey, tell me some of your musicians” say, “If you are going to listen to only one artist, who is that?” Constraining questions not only generate better answers but also reveal how someone thinks (23:46).
+
+Klipp’s Paradox: you must love losing money and hate making money in the short term to win big over the long run (26:20). The author would often wait years for his options to turn profitable, losing small amounts of money daily (27:07).
+
+People use their smartphones to avoid focusing on the present and looking toward the future (27:30).
+
+Misconception about Black Swan events: “The real Black Swan problem of stock market busts is not about a remote event that is considered unforeseeable… is rather about a foreseeable event that is considered remote.” The order of the words matters. (30:04)
+
+It is far better to avoid direct head-on competition for scarce resources, instead pursue the roundabout path for an eventual advantage (31:30).
+
+Don’t go slow to stay slow; instead, go slow to be able to move fast later, which the author calls the Roundabout Process (32:00).
+
+The greatest opportunities in life and in business can only be reached by taking the roundabout way (32:57).
+
+Roundabout process: a counterintuitive strategy based on Austrian economics that prioritizes an indirect path to reaching goals over a direct one. Instead of pursuing immediate gain, the practitioner intentionally accepts an immediate loss or an intermediate step that might seem to move them away from their goal but actually builds a strategic advantage for a much larger future return. (34:00-40:00)
+
+Key example: Instead of catching fish by hand for immediate survival, the subject accepts temporary hunger to build a boat and net, an intermediate step that delays his meal but creates a tool for superior future production.
+
+Henry Ford example: While competitors sought immediate profits by hand-making cars, Ford endured a long period of financial sacrifice to develop a vertically integrated ecosystem and assembly line. The rest is history. (44:10-48:00)
+
+“If I had asked people what they wanted, they would have said faster horses” - Ford (44:50)
+
+If the roundabout process were easy, everyone would do it (48:30).
+
+“The entrepreneur who foresees a profit opportunity in the distant future, and who patiently reinvests earnings into his business year after year in anticipation, has a much greater opportunity for eventually posting an enormous return than entrepreneurs who are engaged in short-term projects.” (57:20)
 
 ## #71 — #71 Jeff Bezos' Shareholder Letters
 
@@ -1484,10 +1484,6 @@ Founders #77: Steve Jobs (NeXT Era)
 If you want to know exactly what not to do when running a startup, study NeXT. He basically front ended every possible mistake before his nearly perfect second run at $AAPL.
 
 See below for the highlight reel:
-
-@fordsmith 100%. It was like when Michael Jordan played baseball before his second three-peat.
-
-It was a mistake, but nobody is complaining about the success that followed.
 
 ## #78 — #78 Charlie Munger (the Tao of Charlie Munger)
 
@@ -1664,6 +1660,18 @@ The episode isn't very insightful compared to previous ones. So, I figured I wou
 
 https://t.co/Xno21YLHLh
 
+## #88 — #88 Warren Buffett's Shareholder Letters— All of them!
+
+#88: Warren Buffett - $BRK
+
+Three hours long. Hard to choose one.
+
+Highest value-to-effort writing down ratio quote of all time: “Repetition is persuasive.” (1:03:00)
+
+“We neglected the Noah principle. Predicting rain doesn't count; building arks does.” (1:07:00)
+
+Don't ask the barber if you need a haircut. (1:13:30)
+
 ## #89 — #89 David Ogilvy (Confessions of an Advertising Man)
 
 Founders: #89 David Ogilvy
@@ -1709,6 +1717,12 @@ Extreme success is often caused by a mix of the following factors:
 1) Extreme maximization or minimization of one or two variables
 2) Adding success factors so that a bigger combination drives success
 3) An extreme of good performance over many factors.
+
+## #91 — #91 Jim Clayton (Sold to Warren Buffett)
+
+Founders: #91: Jim Clayton
+
+“It increases the depth and understanding you listen to this podcast all of them in order... They're going to build on each other.” - David Senra
 
 ## #92 — #92 Ed Thorp and Claude Shannon
 
@@ -2038,12 +2052,6 @@ There is no true mastery, it’s a process. Never stop improving. (53:30)
 
 “In evaluating people, I prize ego. It often translates into a fierce desire to do their best and an inner confidence that stands them in good stead when things really get rough.” (55:00)
 
-@Chancellorpen Love to hear it. It’s a fantastic, fast-paced episode. Winning multiple Super Bowls as an NFL coach is one of the most evident signs of an exceptional leader. Managing that many personalities while requiring an insane level of attention to detail is outrageous.
-
-@Chancellorpen 100%. That also applies to evaluating other people. Actions express priorities, not words.
-
-@Chancellorpen You probably have me beat there. 0.05% is next level.
-
 ## #107 — #107 Sol Price (Costco)
 
 Founders #107 Sol Price
@@ -2114,8 +2122,6 @@ You don't get into this business to make a little bit of money. You want to conq
 
 “Be guided by beauty. It can be the way a company runs, or the way an experiment comes out. There's a sense of beauty when something is working well.” (1:03:30)
 
-@Chancellorpen 100%. One of the brightest minds featured on Founders, yet it took Simons 20 years for RenTech to achieve significant success.
-
 ## #109 — #109 Adi Dassler (Adidas)
 
 Founders #109 Adi Dassler - Adidas
@@ -2136,10 +2142,6 @@ While $ADS targeted elite athletes, $NKE saw the huge potential in expanding the
 The biggest growth often comes not from better serving existing customers (elite athletes), but from redefining who the customer is (making everyone an athlete). (1:00:00)
 
 Nike forgot this concept when $LULU took over the everyday consumer market by establishing the rise of athleisure wear in the 2010s.
-
-@Chancellorpen I agree, but admit I need to learn more about Puma’s story.
-
-@zachtdavidson Right! The Soviets painted over the classic white stripes to try to hide them. It fooled no one.
 
 ## #110 — #110 Henry Singleton (Teledyne)
 
@@ -2165,8 +2167,6 @@ Opportunities are limitless, no matter the era. (12:15)
 There’s no single way to do anything, never forget that. (42:00)
 
 Moving into financial services allowed the company to act as its own bank, providing a capital base to fund future growth and acquisitions. (58:30)
-
-@Chancellorpen Singleton was a genius in every way.
 
 ## #111 — #111 David Geffen
 
@@ -2207,8 +2207,6 @@ Oh the irony.
 When you write, don't overuse AI.
 
 “Anything you do to optimize your work, cut corners or squeeze more efficiency out of it, will eventually make you dislike it.” - Nassim Taleb (6:00)
-
-@Chancellorpen Absolutely. Geffien’s artist catalog was generational. The way he saved Calvin Klein with little effort was remarkable.
 
 ## #112 — #112 Frank Lloyd Wright
 
@@ -2279,10 +2277,6 @@ Identify where they have a unique advantage and compete in those arenas.
 
 Refuse to compete in arenas where you are weak. (18:30)
 
-@Chancellorpen “If people say I'm doing something crazy, that's usually a good sign” - Andy Beal
-
-There needs to be a full biography on him someday.
-
 ## #115 — #115 Ben Franklin: An American Life
 
 Founders #115 Ben Franklin
@@ -2351,12 +2345,6 @@ When Seagram’s attacked a new market or launched a campaign, it was all-in. No
 The best whiskey has not been made.
 Even when they were #1 in the world, Sam walked the floors telling his distillers: “The best whiskey has not yet been made.” Never rest. Never coast. Obsess over quality until the day you die. (56:15)
 
-@Chancellorpen Exactly.
-
-Bronfman’s life proves relentless effort can break generational poverty for your kids.
-
-Even if the scars of hardship stay with you forever.
-
 ## #117 — #117 : Chung Ju-yung founder of Hyundai (the most inspiring autobiography I've read)
 
 Founders #117: Chung Ju Yung (Hyundai)
@@ -2406,8 +2394,6 @@ The man who gives his absolute best every day, stays present, dreams of a better
 This episode will wreck you in the best way if you’re building anything serious.
 
 What’s your favorite lesson here? Drop it below. I’m on to the next one tomorrow.
-
-@Chancellorpen The top ten is so fair. I agree. I need to read his book, it's on my list. Hearing that moved it for sure
 
 ## #118 — #118 Forty Years With Henry Ford
 
@@ -2548,8 +2534,6 @@ No company ever stopped changing.
 
 Your job is to build a framework that turns constant change into progress instead of destruction. (1:18:00)
 
-@HBO_data 121/411+ done
-
 ## #122 — #122 Alfred Sloan (General Motors)
 
 Founders #122: Alfred Sloan (General Motors)
@@ -2595,8 +2579,6 @@ Sloan refused to fight Ford head-on at the cheapest price.
 He placed Chevrolet just above the Model T and steadily expanded that gap as customers wanted more.
 
 Smart positioning plus patience cracks even the strongest competitor. (47:00)
-
-@Chancellorpen MIT Sloan was named after him for a reason
 
 ## #123 — #123 Albert Champion (Record-Setting Racer to Dashing Tycoon)
 
@@ -2699,8 +2681,6 @@ Gain Altitude to Kill Ego
 “Everyone ought to take a ride in an airplane. If the general manager of some great factory reaches an altitude of 5,000 feet and sees his factory the size of a postage stamp, he is bound to realize that he is not so much after all.” 
 Perspective is the best cure for self-importance. (46:00)
 
-@Chancellorpen Great pull. It was an awesome moment.
-
 ## #126 — #126: Larry Ellison (The Billionaire and the Mechanic)
 
 Founders #126: Larry Ellison - $ORCL
@@ -2719,8 +2699,6 @@ Even as one of the richest men alive he refused a relaxed life. His dangerous ho
 
 Born With the Right Disadvantages
 “I was born with all the disadvantages needed to succeed.” His difficult early life gave him exactly the hunger and resilience required to build an empire. (1:01:00)
-
-@Chancellorpen Replace sailing with golf and it’s a carbon copy
 
 ## #127 — #127 Larry Ellison (Oracle)
 
@@ -2741,8 +2719,6 @@ Engage in an enlightened pursuit of happiness.
 Advice to his son, but really to all of us: “He has to engage in an enlightened pursuit of happiness to figure out what makes him happy. That’s all about how you feel about yourself, how you relate to other people, what your work is, what you create and what you make. We are builders. Human beings are builders. He’s going to have to find something he really wants to build.” (58:00)
 
 This was a strong close to the Livin' like Larry series.
-
-@CiaoDottoressa why do you say that?
 
 ## #128 — #128 Henry Leland (Cadillac)
 
@@ -2775,10 +2751,6 @@ About 2,000 automobile companies emerged in the U.S. between 1894 and 1930, but 
 1) General Motors, $GM; 2) Ford, $F; and 3) Chrysler, $STLA.
 
 Leland’s focus on precision is why Cadillac-- which helped GM survive tough times-- was able to make it. (33:00)
-
-@Chancellorpen The end is rather tragic. Ford kinda screws over Leland, who fought hard into his 80s to get retribution for his shareholders. Always two sides to the story, though.
-
-@Chancellorpen @FoundersPodcast Spot on. Ford has some skeletons to say the least… Also has some of the best ideas about business.
 
 ## #129 — #129 Felix Dennis (How to Get Rich)
 
@@ -2837,8 +2809,6 @@ Ownership is half the law.
 
 If you made it this far, thank you for taking the time to read this. It took a while to compile, so I hope you found it as helpful as I have.
 
-@Chancellorpen Yet to read the book but I came a similar conclusion over time.
-
 ## #130 — #130 Walter Chrysler
 
 Founders #130: Walter Chrysler
@@ -2878,7 +2848,15 @@ In the postscript his co author reveals that Chrysler frequently cried when he r
 
 He wanted his story to inspire other lonely ambitious boys still trying to find their way. (1:07:00)
 
-@nickktrannn Count me in
+## #131 — #131 Robert Friedland (Billionaire Miner)
+
+"There is no rational price for something you absolutely must have" - Robert Friedland
+
+Paramount just bid ~10x its own market cap to snag Warner Bros Discovery from Netflix.
+
+Irrational price, rational action.
+
+@founderspodcast ep. 131.
 
 ## #132 — #132 Edwin Land (Steve Jobs's Hero)
 
@@ -2930,10 +2908,6 @@ Not separate compartments.
 He does not see business as this separate thing.
 
 He sees everything is related to everything else. (57:00)
-
-@Chancellorpen The next two episodes are about him as well.
-
-Looking forward to writing the posts. This one was a lot of fun.
 
 ## #133 — #133 Edwin Land (Polaroid and The Man Who Invented It)
 
@@ -3047,8 +3021,6 @@ To outpace rivals, Pulitzer mandated short sentences, paragraphs, and stories, g
 
 A+ episode.
 
-@Chancellorpen That's a great line. Very fitting for Pulitzer.
-
 ## #136 — #136 Estée Lauder
 
 Founders #136: Estée Lauder
@@ -3080,10 +3052,6 @@ On perseverance.
 
 How she stopped corporate espionage.
 "I never give the whole formula. When the mixture is 95% or even 98% completed and the great vats of perfume are ready to be bottled, one member of the Lauder family goes to the factory to supply the missing secret 5% or 2%, the ingredient without which the fragrance can never be complete." (35:00)
-
-@SpiceP0dcast Great shout! @SpiceShorts
-
-@SpiceP0dcast @SpiceShorts @FoundersPodcast When I get to video episodes I’ll definitely check it out!
 
 ## #137 — #137 P.T. Barnum
 
@@ -3136,10 +3104,6 @@ Bell's steady wife grounded his passionate ups and downs, handling what he lacke
 Bell was a tremendous father.
 "He believed that play is nature's method of educating a child and that a parent's duty is to aid nature in the development of her plan." Foster curiosity and exploration over rigid authority. (50:00)
 
-@Chancellorpen I cannot believe he isn’t talked about more. He won at life. 
-
-Immigrant, world-defining inventor, great family man, etc.
-
 ## #139 — #139 J.P. Morgan
 
 Founders #139: J.P. Morgan
@@ -3163,8 +3127,6 @@ At his peak, Morgan controlled 72 directorships across 112 corporations, prompti
 
 People have good, real reasons.
 "A man always has two reasons for the things he does: a good one and the real one." (52:00)
-
-@Chancellorpen I found the episode more storytelling than insight, and his story was not as compelling as his peers' at the time.
 
 ## #140 — #140 Bill Gates (the Making of the Microsoft Empire)
 
@@ -3226,10 +3188,6 @@ Bonus:
 
 (1:02:00)
 
-@noscnana Arnold is everything man.
-
-@Chancellorpen “My definition of living is to have excitement always. That’s the difference between living and existing” - Arnold
-
 ## #142 — #142 Teddy Roosevelt and J.P. Morgan
 
 Founders #142: Teddy Roosevelt vs J.P. Morgan
@@ -3289,8 +3247,6 @@ Many who were involved in developing the radar went on to work in the Manhattan 
 Influence the influencers.
 To build his secret lab team, Loomis first recruited Nobel laureate Ernest Lawrence, using his prestige to attract elite physicists who might otherwise ignore a financier. Once Lawrence joined, many followed. (36:00)
 
-@Chancellorpen When 20th century Ben Franklin and real life Batman are your two comps… insane.
-
 ## #144 — #144 Ernest Shackleton
 
 Founders #144: Ernest Shackleton
@@ -3321,8 +3277,6 @@ Amid stalled progress and retreats, Shackleton battled despair harder than ice o
 
 Survive by mastering the next step alone.
 Like SEAL training wisdom, Shackleton's crew endured by focusing solely on immediate actions, not the vast journey. Break your epic into steps. (41:00)
-
-@Chancellorpen Story hits every time. Going to read his book soon.
 
 ## #145 — #145 William Randolph Hearst
 
@@ -3408,6 +3362,36 @@ Colt ended his letter to his brother with brutal clarity: “You had better blow
 
 Better to end it all than hang your ambition on a low peg. (50:00)
 
+## #148 — #148 John D. Rockefeller (Autobiography)
+
+Founders #148: John D. Rockefeller (Autobiography)
+
+## Introspection Sustains the Empire
+
+Rockefeller was a heavy believer in reflecting every day. Doing trumps thinking 10/10 times, but dismissing the inner monologue is a fatal error.
+
+There is an undeniable truth to Marc Andreessen's core argument. Doing moves the needle. Overthinking paralyzes. But dismissing introspection with that level of certainty actually proves the exact point Rockefeller made over a century ago.
+
+You must reflect to keep your own ego in check. There is nothing wrong with a massive ego. It is a prerequisite to achieving massive success. But Andreessen has mislabeled the nuance.
+
+Rockefeller built the closest thing a company can be to an empire. He did not view introspection as modern therapy. He wasn't paying a guy named Trevor ten grand to watch him dry heave ayahuasca in an Austin yurt.
+
+He studied human nature, as David Senra often advocates. If you go to sleep with a win, you'll wake up with a loss.
+
+Rockefeller used daily introspection as a counterweight to his own hubris:
+
+"As our successes began to come, I seldom put my head upon the pillow at night without speaking a few words to myself in this wise: 'Now a little success, soon you will fall down, soon you will be overthrown. Because you have got a start, you think you are quite a merchant; look out, or you will lose your head, go steady.' These intimate conversations with myself had a great influence on my life."
+
+He viewed his own mind as a liability that needed to be checked just as rigorously as his finances:
+
+"Many people assume that they can get away from the truth by avoiding thinking about it, but the natural law is inevitable, and the sooner it is recognized, the better."
+
+You have to separate yourself from your actions to evaluate them objectively. Avoiding that internal audit is a fatal vulnerability:
+
+"Study diligently your capital requirements, and fortify yourself fully to cover possible set-backs... Be sure that you are not deceiving yourself at any time about actual conditions."
+
+Andreessen's bias toward doing is exactly what it takes to start something massive. But the tools required to start an empire are not the same tools required to sustain one.
+
 ## #149 — #149 The Big Rich (Oil Billionaires)
 
 Founders #149: Roy Cullen, Clint Murchison & H.L. Hunt
@@ -3462,8 +3446,6 @@ Sustained focus reveals hidden problem-solving power.
 “Timing is often more important than luck.”
 Smith observed that his Federal Express concept would have failed five years earlier due to missing infrastructure, and five years later, the opportunity would have been too obvious for others to miss. The exact window proved more important than random chance. (1:05:00)
 
-@Chancellorpen We got the same favorites I swear
-
 ## #152 — #152 Katherine Graham (Washington Post)
 
 Founders #152: Katharine Graham - Washington Post
@@ -3487,10 +3469,6 @@ Warren Buffett served as her sounding board, using Charlie Munger’s “orangut
 
 Simply listening while she talked helped her organize her thoughts and remove mental distortions. (57:00)
 
-@SpiceShorts @SpiceP0dcast @FoundersPodcast Impressive pull 🙏
-
-@SpiceP0dcast @SpiceShorts @FoundersPodcast Shipping fast 🔥
-
 ## #153 — #153 Bill Bowerman (Nike)
 
 Founders #153: Bill Bowerman
@@ -3511,10 +3489,6 @@ Years of experimenting with toxic shoe materials in unventilated spaces left Bow
 Study great lives daily to improve your own.
 Just as running every day builds the body, reading biographies every day builds the mind with proven lessons. 
 Bowerman and Phil Knight both saw daily habits like these as the way to make the world better. (1:16:00)
-
-@Chancellorpen Founders need to beef with cults, as Bowerman did with the Rajneeshees.
-
-They don't make them like they used to.
 
 ## #154 — #154 Charles Schulz (Charlie Brown)
 
@@ -3645,11 +3619,26 @@ strive for balance through contradictions.
 
 ## #161 — #161 Dr. Seuss
 
-@Jayyanginspires Don't look at what I did, look at how I did it. 
+the more that you read
 
-- Kobe Bryant
+the more things you will know
 
-Founders #161
+the more that you learn
+
+the more places you will go
+
+- dr. seuss, founders #161 https://t.co/W2O4VvzdyW
+
+Founders #161 Dr. Suess
+
+The Frank Capra Rule of Storytelling.
+Seuss was mentored by the Oscar-winning director who taught him a brutally effective editing style.
+
+When reviewing a draft, underline only the sentences that actively move the story forward.
+
+Cut the rest. (38:00)
+
+“No matter what discipline you're in, there's a common denominator in how we approach our craft. The attention to detail, the level of commitment, those things are the same across the board. That's my message. Don't look at what I did, but how I did it, the how, and then you can transfer that over to any profession and any discipline.” - Kobe Bryant (11:00)
 
 ## #162 — #162 Chuck Yeager
 
@@ -3674,8 +3663,6 @@ and only one turns out to be good
 i am satisfied.
 
 - Alfred Nobel, Founders #163 https://t.co/xnE5gdvagh
-
-@SpiceP0dcast 🙌🙌🙌
 
 ## #164 — #164 Robert Goddard (Rocket Man)
 
@@ -3887,8 +3874,6 @@ Start with human experience, then apply first principles.
 
 Founders #178 https://t.co/ZgQ8ApmIcZ
 
-@ArpitGuptaJii Thank you! Thats a great way to learn fast!
-
 ## #179 — #179 Jeff Bezos
 
 Communication is a sign of dysfunction. It means people aren't working together in a close, organic way.
@@ -3913,8 +3898,6 @@ Jeff Bezos' Framework for Beating the Innovator's Dilemma:
 
 Founders #180
 
-@noscnana Love it
-
 ## #181 — #181 Paul Orfalea (Kinkos)
 
 If you've stopped asking questions, start asking them again. Learn to be immature, at least some of the time.
@@ -3924,6 +3907,18 @@ It's taken me my whole life to realize I don't have all the answers.
 All I've ever had was a bunch of questions.
 
 - Paul Orfalea, Kinkos, Founders #181 https://t.co/IfjO0bi8rt
+
+## #182 — #182 Warren Buffett (The Making of an American Capitalist)
+
+Founders #183: Warren Buffett
+
+No work about work. (46:00)
+
+Let your company be misunderstood by outsiders. You do not need to justify your strategic decisions to the broader market if your internal logic is sound. (48:00)
+
+How Buffett vets his largest investments.
+
+“Pay no attention to macroeconomic trends or forecasts, focus on long-term business value, stick to stocks within one circle of competence. Look for managers with owner-like care and thoughtfulness, study prospects and their competitors in great detail. The vast majority of stocks would not be compelling, so ignore them. When an investor has conviction, show courage and buy a ton of it.” (1:08:00)
 
 ## #183 — #183 Johnny Carson
 
@@ -3964,10 +3959,6 @@ They don't know what you can do. Only you know what you can do. You know that on
 - David Senra
 
 Founders #185: César Ritz / (29:30)
-
-@SpiceP0dcast @noscnana @FoundersPodcast thank you alon!! love what you have been building lately
-
-@noscnana @SpiceP0dcast @FoundersPodcast champs behave like champions before they’re champs
 
 ## #186 — #186 Phil Knight (Nike)
 

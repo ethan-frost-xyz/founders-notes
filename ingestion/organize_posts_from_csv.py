@@ -117,8 +117,16 @@ def main() -> None:
     if not csv_rows:
         raise SystemExit("CSV is empty")
 
-    units = assemble_threads(csv_rows)
-    print(f"Loaded {len(csv_rows)} CSV rows → {len(units)} thread units")
+    from x_posts_lib import filter_attributable_rows, x_user_id
+
+    uid = x_user_id()
+    attributable = filter_attributable_rows(csv_rows, uid)
+    units = assemble_threads(csv_rows, user_id=uid, attributable_only=True)
+    skipped = len(csv_rows) - len(attributable)
+    print(
+        f"Loaded {len(csv_rows)} CSV rows ({skipped} replies-to-others skipped) "
+        f"→ {len(units)} attributable units"
+    )
 
     rows = load_catalog()
     by_number = catalog_by_number(rows)

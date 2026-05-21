@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2029279209349365911"
 x_post_id: "2029279209349365911"
 published_at: "2026-03-04"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:19Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 136
 ---
@@ -39,7 +39,3 @@ On perseverance.
 
 How she stopped corporate espionage.
 "I never give the whole formula. When the mixture is 95% or even 98% completed and the great vats of perfume are ready to be bottled, one member of the Lauder family goes to the factory to supply the missing secret 5% or 2%, the ingredient without which the fragrance can never be complete." (35:00)
-
-@SpiceP0dcast Great shout! @SpiceShorts
-
-@SpiceP0dcast @SpiceShorts @FoundersPodcast When I get to video episodes I’ll definitely check it out!

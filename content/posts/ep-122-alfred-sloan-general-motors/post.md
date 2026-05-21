@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2024365850048729110"
 x_post_id: "2024365850048729110"
 published_at: "2026-02-19"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 122
 ---
@@ -53,5 +53,3 @@ Sloan refused to fight Ford head-on at the cheapest price.
 He placed Chevrolet just above the Model T and steadily expanded that gap as customers wanted more.
 
 Smart positioning plus patience cracks even the strongest competitor. (47:00)
-
-@Chancellorpen MIT Sloan was named after him for a reason

@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2016586992859963402"
 x_post_id: "2016586992859963402"
 published_at: "2026-01-28"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 11
 ---
@@ -548,31 +548,3 @@ Founders: #100 Warren Buffett
 “When you get to my age, you'll really measure your success in life by how many of the people you want to have love you actually do love you... I don't care how big your bank account is. The only way to get love is to be lovable.” (1:24:30)
 
 These compound hard when listened in order. Thank you @DavidSenra for all your efforts. 300 more to go.
-
-@FoundersPodcast Thanks David, that’s awesome to hear. I’m 25. Grateful for the podcast.
-
-@calebsloop Thanks man, glad it hit for you.
-
-@Chancellorpen @FoundersPodcast Glad to hear it. Thank you!
-
-@marcosrortiz4 @FoundersPodcast Without a shadow of doubt
-
-@gnagpal1981 @FoundersPodcast 300+ more to go!
-
-@dkhedden @FoundersPodcast Well said. The compound effect is 1:1 with Founders.
-
-You know a show is special when everyone's favorite episode is different.
-
-@0xaniol @FoundersPodcast Why so?
-
-@jacey_opara @FoundersPodcast Appreciate the support! Phil Knight is the best.
-
-@alexanderkmmm @dkhedden @FoundersPodcast My top three from the first 100 in no particular order:
-
-#2: Walt Disney
-#70: Mark Spitznagel
-#90: Charley Munger
-
-If you like the large scale of impact combined with a fantastic story arc in the Haber/Bosch episode, then you will love #37: Samuel Zumurray
-
-@GruntyMcPhere @FoundersPodcast Spot on. Taking an unbiased approach to understanding a large number of founders is key to identifying the recurring ideas.

@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2007695072620675465"
 x_post_id: "2007695072620675465"
 published_at: "2026-01-04"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
 episode_number: 77
 ---
@@ -31,7 +31,3 @@ Founders #77: Steve Jobs (NeXT Era)
 If you want to know exactly what not to do when running a startup, study NeXT. He basically front ended every possible mistake before his nearly perfect second run at $AAPL.
 
 See below for the highlight reel:
-
-@fordsmith 100%. It was like when Michael Jordan played baseball before his second three-peat.
-
-It was a mistake, but nobody is complaining about the success that followed.

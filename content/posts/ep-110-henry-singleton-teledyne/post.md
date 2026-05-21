@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2019872941832364240"
 x_post_id: "2019872941832364240"
 published_at: "2026-02-06"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 110
 ---
@@ -32,5 +32,3 @@ Opportunities are limitless, no matter the era. (12:15)
 There’s no single way to do anything, never forget that. (42:00)
 
 Moving into financial services allowed the company to act as its own bank, providing a capital base to fund future growth and acquisitions. (58:30)
-
-@Chancellorpen Singleton was a genius in every way.

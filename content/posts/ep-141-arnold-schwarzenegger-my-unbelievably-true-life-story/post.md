@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2031217551900836194"
 x_post_id: "2031217551900836194"
 published_at: "2026-03-10"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:19Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 141
 ---
@@ -42,7 +42,3 @@ Bonus:
 - Eleanor Roosevelt
 
 (1:02:00)
-
-@noscnana Arnold is everything man.
-
-@Chancellorpen “My definition of living is to have excitement always. That’s the difference between living and existing” - Arnold

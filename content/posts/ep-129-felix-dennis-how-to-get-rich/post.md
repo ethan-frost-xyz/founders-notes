@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2026763818181726577"
 x_post_id: "2026763818181726577"
 published_at: "2026-02-25"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 129
 ---
@@ -64,5 +64,3 @@ Ownership is half the law.
 "If on my deathbed, I had only a very short time to pass, to pass on what wisdom I have accumulated about getting rich to a son or daughter, then it would be this. Ownership shall be half the law, doing an outstanding job should be the other half. There's no point in owning 100% of a rubbish company." (54:00)
 
 If you made it this far, thank you for taking the time to read this. It took a while to compile, so I hope you found it as helpful as I have.
-
-@Chancellorpen Yet to read the book but I came a similar conclusion over time.

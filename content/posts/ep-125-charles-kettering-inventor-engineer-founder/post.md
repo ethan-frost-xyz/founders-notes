@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2025367064123158765"
 x_post_id: "2025367064123158765"
 published_at: "2026-02-22"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 125
 ---
@@ -30,5 +30,3 @@ That constant effort at improvement kept his interest alive for life. (20:00)
 Gain Altitude to Kill Ego
 “Everyone ought to take a ride in an airplane. If the general manager of some great factory reaches an altitude of 5,000 feet and sees his factory the size of a postage stamp, he is bound to realize that he is not so much after all.” 
 Perspective is the best cure for self-importance. (46:00)
-
-@Chancellorpen Great pull. It was an awesome moment.

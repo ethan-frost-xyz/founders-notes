@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2021298623057887539"
 x_post_id: "2021298623057887539"
 published_at: "2026-02-10"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 114
 ---
@@ -29,7 +29,3 @@ Embrace the visceral physical reaction to one’s own failures. (1:12:30)
 Identify where they have a unique advantage and compete in those arenas.
 
 Refuse to compete in arenas where you are weak. (18:30)
-
-@Chancellorpen “If people say I'm doing something crazy, that's usually a good sign” - Andy Beal
-
-There needs to be a full biography on him someday.

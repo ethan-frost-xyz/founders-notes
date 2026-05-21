@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2026188938646327489"
 x_post_id: "2026188938646327489"
 published_at: "2026-02-24"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 127
 ---
@@ -27,5 +27,3 @@ Engage in an enlightened pursuit of happiness.
 Advice to his son, but really to all of us: “He has to engage in an enlightened pursuit of happiness to figure out what makes him happy. That’s all about how you feel about yourself, how you relate to other people, what your work is, what you create and what you make. We are builders. Human beings are builders. He’s going to have to find something he really wants to build.” (58:00)
 
 This was a strong close to the Livin' like Larry series.
-
-@CiaoDottoressa why do you say that?

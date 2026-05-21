@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2019123795718504540"
 x_post_id: "2019123795718504540"
 published_at: "2026-02-04"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 108
 ---
@@ -40,5 +40,3 @@ Emperors want empires.
 You don't get into this business to make a little bit of money. You want to conquer the world. (56:00)
 
 “Be guided by beauty. It can be the way a company runs, or the way an experiment comes out. There's a sense of beauty when something is working well.” (1:03:30)
-
-@Chancellorpen 100%. One of the brightest minds featured on Founders, yet it took Simons 20 years for RenTech to achieve significant success.

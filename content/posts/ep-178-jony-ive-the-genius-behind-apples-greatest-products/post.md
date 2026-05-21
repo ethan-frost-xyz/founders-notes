@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2052607578782208314"
 x_post_id: "2052607578782208314"
 published_at: "2026-05-08"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:19Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
 episode_number: 178
 ---
@@ -19,5 +19,3 @@ He applied the same approach to design during his legendary run of Apple product
 Start with human experience, then apply first principles.
 
 Founders #178 https://t.co/ZgQ8ApmIcZ
-
-@ArpitGuptaJii Thank you! Thats a great way to learn fast!

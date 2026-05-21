@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2030361510011195429"
 x_post_id: "2030361510011195429"
 published_at: "2026-03-07"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:19Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 139
 ---
@@ -31,5 +31,3 @@ At his peak, Morgan controlled 72 directorships across 112 corporations, prompti
 
 People have good, real reasons.
 "A man always has two reasons for the things he does: a good one and the real one." (52:00)
-
-@Chancellorpen I found the episode more storytelling than insight, and his story was not as compelling as his peers' at the time.

@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2026530848971858064"
 x_post_id: "2026530848971858064"
 published_at: "2026-02-25"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 128
 ---
@@ -39,7 +39,3 @@ About 2,000 automobile companies emerged in the U.S. between 1894 and 1930, but 
 1) General Motors, $GM; 2) Ford, $F; and 3) Chrysler, $STLA.
 
 Leland’s focus on precision is why Cadillac-- which helped GM survive tough times-- was able to make it. (33:00)
-
-@Chancellorpen The end is rather tragic. Ford kinda screws over Leland, who fought hard into his 80s to get retribution for his shareholders. Always two sides to the story, though.
-
-@Chancellorpen @FoundersPodcast Spot on. Ford has some skeletons to say the least… Also has some of the best ideas about business.

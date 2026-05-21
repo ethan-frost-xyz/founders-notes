@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2022566789327012324"
 x_post_id: "2022566789327012324"
 published_at: "2026-02-14"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 117
 ---
@@ -57,5 +57,3 @@ The man who gives his absolute best every day, stays present, dreams of a better
 This episode will wreck you in the best way if you’re building anything serious.
 
 What’s your favorite lesson here? Drop it below. I’m on to the next one tomorrow.
-
-@Chancellorpen The top ten is so fair. I agree. I need to read his book, it's on my list. Hearing that moved it for sure

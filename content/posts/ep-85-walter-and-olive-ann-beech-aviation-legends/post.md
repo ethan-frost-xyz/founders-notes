@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2010572770657042625"
 x_post_id: "2010572770657042625"
 published_at: "2026-01-12"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 85
 ---

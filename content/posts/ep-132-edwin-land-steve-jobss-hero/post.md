@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2027969188854153379"
 x_post_id: "2027969188854153379"
 published_at: "2026-03-01"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 132
 ---
@@ -58,7 +58,3 @@ Not separate compartments.
 He does not see business as this separate thing.
 
 He sees everything is related to everything else. (57:00)
-
-@Chancellorpen The next two episodes are about him as well.
-
-Looking forward to writing the posts. This one was a lot of fun.

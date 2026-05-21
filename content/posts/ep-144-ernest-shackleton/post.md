@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2032320972255080543"
 x_post_id: "2032320972255080543"
 published_at: "2026-03-13"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:19Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 144
 ---
@@ -38,5 +38,3 @@ Amid stalled progress and retreats, Shackleton battled despair harder than ice o
 
 Survive by mastering the next step alone.
 Like SEAL training wisdom, Shackleton's crew endured by focusing solely on immediate actions, not the vast journey. Break your epic into steps. (41:00)
-
-@Chancellorpen Story hits every time. Going to read his book soon.

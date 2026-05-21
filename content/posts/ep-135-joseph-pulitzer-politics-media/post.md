@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2028911536991875483"
 x_post_id: "2028911536991875483"
 published_at: "2026-03-03"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:19Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 135
 ---
@@ -47,5 +47,3 @@ Brevity wins reader attention, still does too.
 To outpace rivals, Pulitzer mandated short sentences, paragraphs, and stories, grasping early that concise writing expands reach in an era of limited attention spans. (1:02:00)
 
 A+ episode.
-
-@Chancellorpen That's a great line. Very fitting for Pulitzer.

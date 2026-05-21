@@ -152,6 +152,7 @@ def main() -> None:
         ids_sorted = sorted(all_ids, key=int, reverse=True)
         meta.update(
             {
+                "user_id": user_id,
                 "newest_id": ids_sorted[0] if ids_sorted else meta.get("newest_id"),
                 "oldest_id": ids_sorted[-1] if ids_sorted else meta.get("oldest_id"),
                 "last_sync_at": fetched_at,
@@ -159,6 +160,7 @@ def main() -> None:
             }
         )
     else:
+        meta["user_id"] = user_id
         meta["last_sync_at"] = fetched_at
         meta["row_count"] = len(all_ids)
 

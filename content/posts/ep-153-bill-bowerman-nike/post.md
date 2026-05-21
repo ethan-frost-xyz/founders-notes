@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2036679262921433156"
 x_post_id: "2036679262921433156"
 published_at: "2026-03-25"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:19Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 153
 ---
@@ -28,7 +28,3 @@ Years of experimenting with toxic shoe materials in unventilated spaces left Bow
 Study great lives daily to improve your own.
 Just as running every day builds the body, reading biographies every day builds the mind with proven lessons. 
 Bowerman and Phil Knight both saw daily habits like these as the way to make the world better. (1:16:00)
-
-@Chancellorpen Founders need to beef with cults, as Bowerman did with the Rajneeshees.
-
-They don't make them like they used to.

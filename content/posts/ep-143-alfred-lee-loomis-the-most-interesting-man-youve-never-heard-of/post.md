@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2031830772227981771"
 x_post_id: "2031830772227981771"
 published_at: "2026-03-11"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:19Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 143
 ---
@@ -28,5 +28,3 @@ Many who were involved in developing the radar went on to work in the Manhattan 
 
 Influence the influencers.
 To build his secret lab team, Loomis first recruited Nobel laureate Ernest Lawrence, using his prestige to attract elite physicists who might otherwise ignore a financier. Once Lawrence joined, many followed. (36:00)
-
-@Chancellorpen When 20th century Ben Franklin and real life Batman are your two comps… insane.

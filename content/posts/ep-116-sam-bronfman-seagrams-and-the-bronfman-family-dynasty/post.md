@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2022193944306622926"
 x_post_id: "2022193944306622926"
 published_at: "2026-02-13"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 116
 ---
@@ -38,9 +38,3 @@ When Seagram’s attacked a new market or launched a campaign, it was all-in. No
 
 The best whiskey has not been made.
 Even when they were #1 in the world, Sam walked the floors telling his distillers: “The best whiskey has not yet been made.” Never rest. Never coast. Obsess over quality until the day you die. (56:15)
-
-@Chancellorpen Exactly.
-
-Bronfman’s life proves relentless effort can break generational poverty for your kids.
-
-Even if the scars of hardship stay with you forever.

@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2020339841091686898"
 x_post_id: "2020339841091686898"
 published_at: "2026-02-08"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 111
 ---
@@ -47,5 +47,3 @@ Oh the irony.
 When you write, don't overuse AI.
 
 “Anything you do to optimize your work, cut corners or squeeze more efficiency out of it, will eventually make you dislike it.” - Nassim Taleb (6:00)
-
-@Chancellorpen Absolutely. Geffien’s artist catalog was generational. The way he saved Calvin Klein with little effort was remarkable.

@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2019486185270452394"
 x_post_id: "2019486185270452394"
 published_at: "2026-02-05"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 109
 ---
@@ -28,7 +28,3 @@ While $ADS targeted elite athletes, $NKE saw the huge potential in expanding the
 The biggest growth often comes not from better serving existing customers (elite athletes), but from redefining who the customer is (making everyone an athlete). (1:00:00)
 
 Nike forgot this concept when $LULU took over the everyday consumer market by establishing the rise of athleisure wear in the 2010s.
-
-@Chancellorpen I agree, but admit I need to learn more about Puma’s story.
-
-@zachtdavidson Right! The Soviets painted over the classic white stripes to try to hide them. It fooled no one.

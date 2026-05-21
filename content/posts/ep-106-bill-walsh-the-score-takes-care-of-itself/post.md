@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2018451744196280511"
 x_post_id: "2018451744196280511"
 published_at: "2026-02-02"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 106
 ---
@@ -42,9 +42,3 @@ Don’t waste time thinking about your competitors. (48:30)
 There is no true mastery, it’s a process. Never stop improving. (53:30)
 
 “In evaluating people, I prize ego. It often translates into a fierce desire to do their best and an inner confidence that stands them in good stead when things really get rough.” (55:00)
-
-@Chancellorpen Love to hear it. It’s a fantastic, fast-paced episode. Winning multiple Super Bowls as an NFL coach is one of the most evident signs of an exceptional leader. Managing that many personalities while requiring an insane level of attention to detail is outrageous.
-
-@Chancellorpen 100%. That also applies to evaluating other people. Actions express priorities, not words.
-
-@Chancellorpen You probably have me beat there. 0.05% is next level.

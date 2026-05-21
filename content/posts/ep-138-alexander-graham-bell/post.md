@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2030150819782254975"
 x_post_id: "2030150819782254975"
 published_at: "2026-03-07"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:19Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 138
 ---
@@ -31,7 +31,3 @@ Bell's steady wife grounded his passionate ups and downs, handling what he lacke
 
 Bell was a tremendous father.
 "He believed that play is nature's method of educating a child and that a parent's duty is to aid nature in the development of her plan." Foster curiosity and exploration over rigid authority. (50:00)
-
-@Chancellorpen I cannot believe he isn’t talked about more. He won at life. 
-
-Immigrant, world-defining inventor, great family man, etc.

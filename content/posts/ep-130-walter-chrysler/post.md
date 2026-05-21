@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2027127101459997021"
 x_post_id: "2027127101459997021"
 published_at: "2026-02-26"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 130
 ---
@@ -46,5 +46,3 @@ Maintain gratitude for your humble beginnings.
 In the postscript his co author reveals that Chrysler frequently cried when he remembered his early days as a poor roving mechanic.
 
 He wanted his story to inspire other lonely ambitious boys still trying to find their way. (1:07:00)
-
-@nickktrannn Count me in

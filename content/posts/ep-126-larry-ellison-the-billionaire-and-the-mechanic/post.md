@@ -5,7 +5,7 @@ x_url: "https://x.com/ethanfrost/status/2025825422152183907"
 x_post_id: "2025825422152183907"
 published_at: "2026-02-23"
 source: "x_csv"
-imported_at: "2026-05-21T19:39:20Z"
+imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
 episode_number: 126
 ---
@@ -26,5 +26,3 @@ Even as one of the richest men alive he refused a relaxed life. His dangerous ho
 
 Born With the Right Disadvantages
 “I was born with all the disadvantages needed to succeed.” His difficult early life gave him exactly the hunger and resilience required to build an empire. (1:01:00)
-
-@Chancellorpen Replace sailing with golf and it’s a carbon copy
