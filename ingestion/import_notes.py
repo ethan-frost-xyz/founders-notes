@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Import Apple Notes export into content/notes/{folder}/notes.md."""
+"""Import Apple Notes export into content/notes/{folder}/{folder}.notes.md."""
 
 from __future__ import annotations
 
@@ -11,6 +11,7 @@ from pathlib import Path
 from vault_lib import (
     IMPORT_REVIEW_PATH,
     catalog_by_number,
+    format_episode_id,
     load_catalog,
     write_notes_md,
 )
@@ -179,11 +180,11 @@ def main() -> None:
 
         body = format_notes_body(block)
         if args.dry_run:
-            print(f"[dry-run] ep-{num}: {len(block.bullets)} bullets")
+            print(f"[dry-run] {format_episode_id(num)}: {len(block.bullets)} bullets")
             written.append(num)
             continue
 
-        out_path = write_notes_md(row, body).parent / "notes.md"
+        out_path = write_notes_md(row, body)
         if args.merge and out_path.exists():
             existing = out_path.read_text(encoding="utf-8")
             for bullet in block.bullets:

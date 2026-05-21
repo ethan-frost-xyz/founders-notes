@@ -17,6 +17,7 @@ from vault_lib import (
     is_colossus_transcript_unavailable,
     load_catalog,
     load_cookies_file,
+    parse_numbered_episode_id,
     rate_limit,
     save_catalog,
     session,
@@ -91,7 +92,9 @@ def fetch_one(sess, row: dict, *, force: bool = False) -> None:
     fetched_at = utc_now_iso()
     write_transcript_md(row, body, fetched_at)
     row["transcript_status"] = "complete"
-    row["transcript_path"] = transcript_path(row["id"], row["slug"])
+    row["transcript_path"] = transcript_path(
+        row["id"], row["slug"], row.get("episode_number")
+    )
     row["fetched_at"] = fetched_at
     row["last_error"] = None
 
@@ -100,7 +103,7 @@ def main() -> None:
     load_dotenv(ROOT / ".env")
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--id", help="Fetch single episode id (e.g. ep-418)")
+    parser.add_argument("--id", help="Fetch single episode id (e.g. ep-0418)")
     parser.add_argument("--force", action="store_true", help="Re-fetch even if complete")
     parser.add_argument("--limit", type=int, default=0, help="Max episodes to fetch (0=all)")
     args = parser.parse_args()
@@ -115,6 +118,10 @@ def main() -> None:
     targets = rows
     if args.id:
         targets = [r for r in rows if r["id"] == args.id]
+        if not targets:
+            num = parse_numbered_episode_id(args.id)
+            if num is not None:
+                targets = [r for r in rows if r.get("episode_number") == num]
         if not targets:
             raise SystemExit(f"Unknown id: {args.id}")
 

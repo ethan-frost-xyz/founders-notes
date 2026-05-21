@@ -11,14 +11,14 @@ Personal knowledge vault: Founders podcast transcripts, study notes, and X posts
 
 ## One episode
 
-For `ep-NNN`, use the same folder basename under:
+For `ep-NNNN` (4-digit padded id, e.g. `ep-0200`), use the same `{folder}` basename under each tree:
 
-- `content/transcripts/{folder}/{folder}.md`
-- `content/notes/{folder}/notes.md` (raw datapoints)
-- `content/notes/{folder}/expanded.md` (optional, after datapoint workflow)
-- `content/posts/{folder}/post.md`
+- `content/transcripts/{folder}/{folder}.transcript.md`
+- `content/notes/{folder}/{folder}.notes.md` (raw datapoints)
+- `content/notes/{folder}/{folder}.expanded.md` (optional, after datapoint workflow)
+- `content/posts/{folder}/{folder}.post.md`
 
-Resolve `{folder}` from catalog `id` + `slug` (see [`docs/episode-id-rules.md`](docs/episode-id-rules.md)).
+Resolve `{folder}` from catalog `id` + `slug` via `vault_lib.folder_name` (see [`docs/episode-id-rules.md`](docs/episode-id-rules.md)).
 
 ## Cross-episode search
 
@@ -32,10 +32,10 @@ Or ripgrep: `content/transcripts/`, `content/notes/`, `content/posts/`, `content
 
 ## Datapoint expansion
 
-User workflow: timestamp bullets in `notes.md` → full quotes + takeaways. See [`docs/datapoint-workflow.md`](docs/datapoint-workflow.md).
+User workflow: timestamp bullets in `{folder}.notes.md` → full quotes + takeaways. See [`docs/datapoint-workflow.md`](docs/datapoint-workflow.md).
 
 ```bash
-python expand_datapoints.py --id ep-200
+python expand_datapoints.py --id ep-0200
 ```
 
 ## Ingestion (minimal)

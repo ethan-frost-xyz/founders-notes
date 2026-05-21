@@ -78,7 +78,7 @@ def main() -> None:
     if not args.apply:
         print("\nDry-run. Re-run with --apply to add rows, then:")
         print("  python map_colossus.py")
-        print("  python fetch_transcripts.py --id ep-NNN")
+        print("  python fetch_transcripts.py --id ep-0418")
         print("  python verify.py")
         return
 

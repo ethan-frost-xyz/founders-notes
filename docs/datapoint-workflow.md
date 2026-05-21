@@ -1,27 +1,27 @@
 # Datapoint expansion workflow
 
-Turn half-sentence timestamp bullets in `notes.md` into full transcript quotes and takeaways — without manually pasting the transcript.
+Turn half-sentence timestamp bullets in `{folder}.notes.md` into full transcript quotes and takeaways — without manually pasting the transcript.
 
 ## Files per episode
 
 | File | Role |
 |------|------|
-| `content/notes/{folder}/notes.md` | Raw bullets (`12:34 — …`) |
-| `content/transcripts/{folder}/{folder}.md` | Full transcript |
-| `content/notes/{folder}/expanded.md` | Output (optional, commit when satisfied) |
+| `content/notes/{folder}/{folder}.notes.md` | Raw bullets (`12:34 — …`) |
+| `content/transcripts/{folder}/{folder}.transcript.md` | Full transcript |
+| `content/notes/{folder}/{folder}.expanded.md` | Output (optional, commit when satisfied) |
 
 ## Quick start (Cursor)
 
-1. `@content/notes/ep-200-.../notes.md`
-2. `@content/transcripts/ep-200-.../ep-200-....md`
-3. Paste the prompt from `python expand_datapoints.py --id ep-200` (or use the template below)
-4. Save the model output as `expanded.md` in the same notes folder
+1. `@content/notes/ep-0200-.../ep-0200-....notes.md`
+2. `@content/transcripts/ep-0200-.../ep-0200-....transcript.md`
+3. Paste the prompt from `python expand_datapoints.py --id ep-0200` (or use the template below)
+4. Save the model output as `{folder}.expanded.md` in the same notes folder
 
 ## Quick start (Gemini / other)
 
 ```bash
 cd ingestion
-python expand_datapoints.py --id ep-200 --copy
+python expand_datapoints.py --id ep-0200 --copy
 ```
 
 Copies a single prompt (notes + transcript) to the clipboard on macOS, or prints to stdout.
@@ -50,13 +50,13 @@ Repeat for every bullet. If timestamp is ambiguous, note uncertainty.
 ## CLI
 
 ```bash
-python expand_datapoints.py --id ep-200          # print prompt
-python expand_datapoints.py --id ep-200 --copy   # macOS clipboard
-python expand_datapoints.py --id ep-200 --write  # scaffold expanded.md with prompt in HTML comment
+python expand_datapoints.py --id ep-0200          # print prompt
+python expand_datapoints.py --id ep-0200 --copy   # macOS clipboard
+python expand_datapoints.py --id ep-0200 --write  # scaffold {folder}.expanded.md
 ```
 
 ## Quality tips
 
-- Fix bad timestamps in `notes.md` before expanding.
+- Fix bad timestamps in `{folder}.notes.md` before expanding.
 - Prefer `expanded.md` only when you're happy — it's safe to regenerate.
 - Cross-episode themes: use `python search.py` or `content/posts/_corpus/all-posts.md` after posts are imported.

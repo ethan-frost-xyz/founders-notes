@@ -3,9 +3,31 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
-from vault_lib import GAPS_PATH, ROOT, load_catalog, notes_dir, post_dir
+from vault_lib import (
+    CONTENT_TYPES,
+    EPISODE_NUMBER_WIDTH,
+    GAPS_PATH,
+    NOTES_DIR,
+    POSTS_DIR,
+    ROOT,
+    TRANSCRIPTS_DIR,
+    content_filename,
+    format_episode_id,
+    load_catalog,
+    notes_file_path,
+    post_file_path,
+    transcript_path,
+)
+
+NUMBERED_ID_RE = re.compile(rf"^ep-\d{{{EPISODE_NUMBER_WIDTH}}}$")
+LEGACY_EP_DIR_RE = re.compile(r"^ep-\d{1,3}-")
+LEGACY_BARE_FILES = frozenset({"notes.md", "post.md", "expanded.md", "transcript.md"})
+PER_EPISODE_FILE_RE = re.compile(
+    r"^(?P<folder>.+)\.(?P<ctype>transcript|notes|expanded|post)\.md$"
+)
 
 BLOCKING_STATUSES = {"pending", "failed"}
 
@@ -31,16 +53,66 @@ def count_phase2_coverage(rows: list[dict]) -> tuple[int, int, list[int], list[i
         ep_id = r["id"]
         slug = r["slug"]
         num = r["episode_number"]
-        if (notes_dir(ep_id, slug) / "notes.md").exists():
+        if notes_file_path(ep_id, slug, num).exists():
             notes_n += 1
         else:
             missing_notes.append(num)
-        if (post_dir(ep_id, slug) / "post.md").exists():
+        if post_file_path(ep_id, slug, num).exists():
             posts_n += 1
         else:
             missing_posts.append(num)
 
     return notes_n, posts_n, missing_notes, missing_posts
+
+
+def scan_layout_violations(rows: list[dict]) -> list[str]:
+    """Return human-readable layout/id violations."""
+    errors: list[str] = []
+
+    for r in rows:
+        num = r.get("episode_number")
+        ep_id = r["id"]
+        if num is not None:
+            if not NUMBERED_ID_RE.match(ep_id):
+                errors.append(f"bad id format: {ep_id} (expected ep-{'0' * EPISODE_NUMBER_WIDTH}N)")
+            expected_id = format_episode_id(num)
+            if ep_id != expected_id:
+                errors.append(f"id mismatch ep {num}: catalog {ep_id} != {expected_id}")
+            if r.get("transcript_status") == "complete":
+                expected_tx = transcript_path(ep_id, r["slug"], num)
+                if r.get("transcript_path") != expected_tx:
+                    errors.append(
+                        f"transcript_path mismatch {ep_id}: {r.get('transcript_path')} != {expected_tx}"
+                    )
+
+    for base in (TRANSCRIPTS_DIR, NOTES_DIR, POSTS_DIR):
+        if not base.exists():
+            continue
+        for child in base.iterdir():
+            if not child.is_dir() or child.name.startswith("_"):
+                continue
+            if LEGACY_EP_DIR_RE.match(child.name):
+                errors.append(f"legacy folder name: {child.relative_to(ROOT)}")
+            for f in child.iterdir():
+                if not f.is_file() or not f.name.endswith(".md"):
+                    continue
+                if f.name in LEGACY_BARE_FILES:
+                    errors.append(f"legacy bare filename: {f.relative_to(ROOT)}")
+                    continue
+                m = PER_EPISODE_FILE_RE.match(f.name)
+                if not m:
+                    if f.name == f"{child.name}.md":
+                        errors.append(f"legacy transcript filename: {f.relative_to(ROOT)}")
+                    else:
+                        errors.append(f"unexpected file: {f.relative_to(ROOT)}")
+                    continue
+                if m.group("folder") != child.name:
+                    errors.append(
+                        f"filename folder prefix != dir: {f.relative_to(ROOT)}"
+                    )
+                if m.group("ctype") not in CONTENT_TYPES:
+                    errors.append(f"unknown content type in filename: {f.relative_to(ROOT)}")
+    return errors
 
 
 def main() -> None:
@@ -105,7 +177,7 @@ def main() -> None:
         lines.append(f"## Missing notes ({len(missing_notes)} numbered)")
         lines.append("")
         for n in sorted(missing_notes)[:40]:
-            lines.append(f"- `ep-{n}`")
+            lines.append(f"- `{format_episode_id(n)}`")
         if len(missing_notes) > 40:
             lines.append(f"- … and {len(missing_notes) - 40} more")
         lines.append("")
@@ -117,7 +189,7 @@ def main() -> None:
             lines.append(f"## Missing posts ({len(blocking_post)} numbered)")
             lines.append("")
             for n in sorted(blocking_post)[:40]:
-                lines.append(f"- `ep-{n}`")
+                lines.append(f"- `{format_episode_id(n)}`")
             if len(blocking_post) > 40:
                 lines.append(f"- … and {len(blocking_post) - 40} more")
             lines.append("")
@@ -125,7 +197,7 @@ def main() -> None:
             lines.append(f"## Post gaps (documented, {len(documented_post)})")
             lines.append("")
             for n in sorted(documented_post):
-                lines.append(f"- `ep-{n}` — {POST_EXCEPTIONS[n]}")
+                lines.append(f"- `{format_episode_id(n)}` — {POST_EXCEPTIONS[n]}")
             lines.append("")
 
     if unmapped:
@@ -170,6 +242,16 @@ def main() -> None:
         lines.append("No blocking gaps. Phase 1 transcript archive is complete.")
         lines.append("")
 
+    layout_errors = scan_layout_violations(rows)
+    if layout_errors:
+        lines.append(f"## Layout violations ({len(layout_errors)})")
+        lines.append("")
+        for err in layout_errors[:30]:
+            lines.append(f"- {err}")
+        if len(layout_errors) > 30:
+            lines.append(f"- … and {len(layout_errors) - 30} more")
+        lines.append("")
+
     GAPS_PATH.write_text("\n".join(lines), encoding="utf-8")
 
     print(f"Catalog: {len(rows)} rows")
@@ -188,6 +270,8 @@ def main() -> None:
         raise SystemExit(f"VERIFY FAILED: {len(blocking)} blocking transcript gaps")
     if missing_files:
         raise SystemExit(f"VERIFY FAILED: {len(missing_files)} complete rows missing files")
+    if layout_errors:
+        raise SystemExit(f"VERIFY FAILED: {len(layout_errors)} layout/id violations")
 
 
 if __name__ == "__main__":

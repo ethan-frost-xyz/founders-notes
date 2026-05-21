@@ -9,8 +9,9 @@
 
 - **Index:** `catalog/chunks.jsonl` via `ingestion/build_chunks.py`
 - **Search:** `ingestion/search.py "query"`
-- **Chunk id:** `{episode_id}#{section}#{start_line}` — stable for reindexing
+- **Chunk id:** `{episode_id}#{section}#{start_line}` — stable for reindexing (`episode_id` is padded, e.g. `ep-0200`)
 - **Sections:** `transcript:description`, `transcript:transcript`, `notes:raw_datapoints`, `post:body`, etc.
+- **source_path:** points at `{folder}.{type}.md` files (see [`docs/episode-id-rules.md`](episode-id-rules.md))
 
 Regenerate after bulk import or transcript fetch:
 

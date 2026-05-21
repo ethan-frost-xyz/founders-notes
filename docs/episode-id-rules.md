@@ -1,28 +1,48 @@
 # Episode ID and schema rules
 
-## Episode IDs
+## Rule 1 — Episode IDs (sort-safe)
 
 | Case | `id` format | Example |
 |------|-------------|---------|
-| Numbered episode | `ep-{number}` | `ep-418` |
+| Numbered episode | `ep-{NNNN}` (4-digit zero-padded) | `ep-0418` |
 | Unnumbered (conversations, reposts, specials) | `ep-special-{slug}` | `ep-special-my-conversation-with-todd-graves` |
 
-**Folder name:** `{id}-` + slug without duplicate episode prefix. For numbered episodes, slug `418-phil-knight-founder-of-nike` becomes folder `ep-418-phil-knight-founder-of-nike`. Specials use full slug: `ep-special-{slug}`.
+**`episode_number`** in catalog and frontmatter is always an **integer** (`418`) for display, matching, and X/Apple Notes import. **`id`** is the canonical padded string used in paths and chunk ids.
 
-Full path: `content/transcripts/ep-418-phil-knight-founder-of-nike/ep-418-phil-knight-founder-of-nike.md` (filename matches folder name)
+**`slug`** and `founders_url` stay **unpadded** (`418-phil-knight-founder-of-nike`) — they mirror founders.com URLs and must not be renamed.
 
-Body structure:
+**Folder name:** `{id}-` + slug without duplicate episode prefix. For numbered episodes, slug `418-phil-knight-founder-of-nike` with `id` `ep-0418` becomes folder `ep-0418-phil-knight-founder-of-nike`. Specials use full slug: `ep-special-{slug}`.
 
-1. `## Description` — Colossus episode blurb above the transcript
-2. `## Transcript` — full transcript text
+Padding width is `EPISODE_NUMBER_WIDTH = 4` in `ingestion/vault_lib.py` (supports ep-0001 … ep-9999). Plain alphabetical sort of folders then matches episode order.
+
+## Rule 2 — Per-episode filenames (`{folder}.{type}.md`)
+
+Every episode uses the **same folder basename** under each content tree. Inside the folder, filenames are `{folder}.{type}.md`:
+
+| Type | Path |
+|------|------|
+| Transcript | `content/transcripts/{folder}/{folder}.transcript.md` |
+| Raw notes | `content/notes/{folder}/{folder}.notes.md` |
+| Expanded datapoints (optional) | `content/notes/{folder}/{folder}.expanded.md` |
+| X post | `content/posts/{folder}/{folder}.post.md` |
+
+Allowed `type` values: `transcript`, `notes`, `expanded`, `post`. `.md` remains the real extension.
+
+**Example (episode 418):**
+
+```
+content/transcripts/ep-0418-phil-knight-founder-of-nike/ep-0418-phil-knight-founder-of-nike.transcript.md
+content/notes/ep-0418-phil-knight-founder-of-nike/ep-0418-phil-knight-founder-of-nike.notes.md
+content/posts/ep-0418-phil-knight-founder-of-nike/ep-0418-phil-knight-founder-of-nike.post.md
+```
+
+All path helpers live in `ingestion/vault_lib.py` (`folder_name`, `content_filename`, `transcript_path`, `notes_file_path`, etc.). `ingestion/verify.py` enforces both rules on every run.
 
 ## Transcript file frontmatter
 
-Transcript path: `content/transcripts/{folder}/{folder}.md` (filename matches folder basename).
-
 | Field | Required | Notes |
 |-------|----------|-------|
-| `id` | yes | Canonical id |
+| `id` | yes | Canonical id (`ep-0418`) |
 | `episode_number` | if numbered | Integer |
 | `title` | yes | Display title |
 | `published_at` | yes | `YYYY-MM-DD` |
@@ -31,7 +51,10 @@ Transcript path: `content/transcripts/{folder}/{folder}.md` (filename matches fo
 | `source` | yes | Always `colossus` for Phase 1 |
 | `fetched_at` | yes | ISO 8601 UTC when saved |
 
-Body: plain transcript text below the closing `---` of frontmatter.
+Body structure:
+
+1. `## Description` — Colossus episode blurb above the transcript
+2. `## Transcript` — full transcript text
 
 ## `catalog/episodes.jsonl` columns
 
@@ -54,7 +77,7 @@ One JSON object per line:
 ## `transcript_status` meanings
 
 - **pending** — Not fetched yet
-- **complete** — transcript markdown on disk (`{folder}.md`)
+- **complete** — transcript markdown on disk (`{folder}.transcript.md`)
 - **failed** — Fetch error; see `last_error`
 - **coming_soon** — Colossus page has no transcript yet
 - **no_transcript** — Confirmed no transcript exists for this entry
@@ -63,16 +86,16 @@ One JSON object per line:
 
 ## Phase 2: Notes and posts
 
-Per-episode folders mirror transcripts: same `{id}-{slug}` basename.
+Per-episode folders mirror transcripts: same `{folder}` basename under each tree.
 
 | Content | Path |
 |---------|------|
-| Raw notes | `content/notes/{folder}/notes.md` |
-| X post | `content/posts/{folder}/post.md` |
-| Expanded datapoints (optional) | `content/notes/{folder}/expanded.md` |
+| Raw notes | `content/notes/{folder}/{folder}.notes.md` |
+| X post | `content/posts/{folder}/{folder}.post.md` |
+| Expanded datapoints (optional) | `content/notes/{folder}/{folder}.expanded.md` |
 | All posts corpus | `content/posts/_corpus/all-posts.md` |
 
-### `notes.md` frontmatter
+### `{folder}.notes.md` frontmatter
 
 | Field | Required | Notes |
 |-------|----------|-------|
@@ -92,7 +115,7 @@ Body must include `## Raw datapoints` with timestamp bullets:
 
 Timestamps use `MM:SS` or `H:MM:SS` before the em dash.
 
-### `post.md` frontmatter
+### `{folder}.post.md` frontmatter
 
 | Field | Required | Notes |
 |-------|----------|-------|
@@ -110,7 +133,7 @@ Timestamps use `MM:SS` or `H:MM:SS` before the em dash.
 
 Body: full post text (thread + self-replies merged). Native X articles may publish as a link tweet only in the API — paste full article text manually when needed (`assign_post_manual.py`).
 
-### `expanded.md` (optional)
+### `{folder}.expanded.md` (optional)
 
 Generated by datapoint workflow. Sections: `## Expanded datapoints` with quote + takeaway per bullet.
 

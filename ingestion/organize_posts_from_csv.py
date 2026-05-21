@@ -14,7 +14,7 @@ from vault_lib import (
     ROOT,
     catalog_by_number,
     load_catalog,
-    post_dir,
+    post_file_path,
     utc_now_iso,
     write_frontmatter_md,
 )
@@ -52,7 +52,7 @@ def write_other_post(unit: dict[str, Any], username: str) -> Path:
 
 
 def write_founders_post(row: dict[str, Any], unit: dict[str, Any], username: str) -> Path:
-    path = post_dir(row["id"], row["slug"]) / "post.md"
+    path = post_file_path(row["id"], row["slug"], row.get("episode_number"))
     fm: dict[str, Any] = {
         "id": row["id"],
         "title": row["title"],
@@ -84,7 +84,7 @@ def regenerate_corpus(rows: list[dict[str, Any]], *, founders_only: bool = True)
 
     if founders_only:
         for row in sorted(rows, key=lambda r: r.get("episode_number") or 9999):
-            p = post_dir(row["id"], row["slug"]) / "post.md"
+            p = post_file_path(row["id"], row["slug"], row.get("episode_number"))
             if not p.exists():
                 continue
             body = p.read_text(encoding="utf-8").split("---", 2)[-1].strip()

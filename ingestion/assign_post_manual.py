@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Write a single content/posts/{folder}/post.md from CSV unit or raw text."""
+"""Write a single content/posts/{folder}/{folder}.post.md from CSV unit or raw text."""
 
 from __future__ import annotations
 
@@ -9,7 +9,14 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from vault_lib import ROOT, catalog_by_number, load_catalog, post_dir, utc_now_iso, write_frontmatter_md
+from vault_lib import (
+    ROOT,
+    catalog_by_number,
+    load_catalog,
+    post_file_path,
+    utc_now_iso,
+    write_frontmatter_md,
+)
 
 load_dotenv(ROOT / ".env")
 
@@ -36,7 +43,7 @@ def main() -> None:
         raise SystemExit(f"No catalog row for episode {args.episode}")
 
     body = args.body_file.read_text(encoding="utf-8") if args.body_file else ""
-    path = post_dir(row["id"], row["slug"]) / "post.md"
+    path = post_file_path(row["id"], row["slug"], row.get("episode_number"))
     fm: dict = {
         "id": row["id"],
         "title": row["title"],

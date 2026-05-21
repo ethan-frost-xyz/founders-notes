@@ -8,7 +8,7 @@ Personal knowledge vault for [@ethanfrost](https://x.com/ethanfrost)'s daily Fou
 |-------|----------|--------|
 | **Transcripts** | 417 / 417 numbered | Phase 1 complete — Colossus archives in `content/transcripts/` |
 | **Notes** | 189 / 417 | Ep 1–189 imported from Apple Notes; **ep 190–417 not written yet** (~1 new note/day as you listen) |
-| **X posts** | 187 / 417 | CSV cache + organizer; 2 documented gaps (ep-159 skipped, ep-189 not posted) |
+| **X posts** | 187 / 417 | CSV cache + organizer; 2 documented gaps (ep-0159 skipped, ep-0189 not posted) |
 | **Search** | v1 | `catalog/chunks.jsonl` + `ingestion/search.py` |
 
 Details: `catalog/gaps.md` (auto), `catalog/import-review.md` (manual attributions).
@@ -16,13 +16,13 @@ Details: `catalog/gaps.md` (auto), `catalog/import-review.md` (manual attributio
 ## Phase 1: Transcripts
 
 - **Metadata index:** [founderspodcast.com/episodes](https://www.founderspodcast.com/episodes) → `catalog/episodes.jsonl`
-- **Transcript text:** [Colossus](https://colossus.com/series/founders/) → `content/transcripts/{folder}/{folder}.md` (description + full transcript)
+- **Transcript text:** [Colossus](https://colossus.com/series/founders/) → `content/transcripts/{folder}/{folder}.transcript.md` (description + full transcript)
 - **Gap report:** `catalog/gaps.md` (auto-generated)
 
 ## Phase 2: Notes and posts
 
-- **Notes:** `content/notes/{folder}/notes.md` — timestamp bullets under `## Raw datapoints`. Historical batch: ep 1–189. Ep 190+ fills in over time as you finish each episode (~1/day).
-- **Posts:** `content/posts/{folder}/post.md` — one Founders post per episode (threads + articles)
+- **Notes:** `content/notes/{folder}/{folder}.notes.md` — timestamp bullets under `## Raw datapoints`. Historical batch: ep 1–189. Ep 190+ fills in over time as you finish each episode (~1/day).
+- **Posts:** `content/posts/{folder}/{folder}.post.md` — one Founders post per episode (threads + articles)
 - **Corpus:** `content/posts/_corpus/all-posts.md` — all Founders posts for cross-episode search
 - **X pipeline:** sync API → `import/x-posts-raw.csv` (gitignored) → organize (no API on organize)
 
@@ -67,7 +67,7 @@ ingestion/                      # Build, import, verify scripts
 
 ## Querying in Cursor
 
-- One episode: `@content/transcripts/ep-418-...` plus matching `content/notes/` and `content/posts/` folders
+- One episode: `@content/transcripts/ep-0418-.../ep-0418-....transcript.md` plus matching `.notes.md` / `.post.md` in sibling folders
 - Catalog / missing: `catalog/episodes.jsonl` or `catalog/gaps.md`
 - Cross-episode search: `python search.py "rockefeller"` or ripgrep `content/`
 - Full post corpus: `content/posts/_corpus/all-posts.md`
@@ -97,7 +97,7 @@ python build_chunks.py
 python verify.py
 ```
 
-Re-fetch one transcript: `python fetch_transcripts.py --id ep-418 --force`
+Re-fetch one transcript: `python fetch_transcripts.py --id ep-0418 --force`
 
 ## Completeness
 
@@ -120,31 +120,31 @@ Three high-leverage options, ordered by impact on the daily ritual:
 | Approach | How it works | Best if |
 |----------|----------------|---------|
 | **A. Periodic Apple Notes merge** | Keep writing in Apple Notes (one note per episode, `#N` title). Every week or after every N episodes: export → `import/apple-notes.txt` → `python import_notes.py -i ../import/apple-notes.txt --merge` → `python build_chunks.py` | You want to keep your current Notes habit unchanged |
-| **B. Vault-native notes** | Create `content/notes/ep-NNN-.../notes.md` directly in git (same `## Raw datapoints` bullets). No export step for new episodes | You are fine leaving Apple Notes for old eps only |
+| **B. Vault-native notes** | Create `content/notes/ep-NNNN-.../ep-NNNN-....notes.md` directly in git (same `## Raw datapoints` bullets). No export step for new episodes | You are fine leaving Apple Notes for old eps only |
 | **C. Hybrid** | New episodes in the vault (B); occasionally merge an Apple Notes export for anything you still capture there (A) | Transitioning off Notes without retyping 1–189 |
 
 **Operational checklist (after each batch or new ep):**
 
 1. Ensure the episode block has a clear `#N` / title header (import parser keys off episode number).
-2. `import_notes.py --merge` (A/C) or commit `notes.md` directly (B).
+2. `import_notes.py --merge` (A/C) or commit `{folder}.notes.md` directly (B).
 3. `python verify.py` — watch the notes count climb in `catalog/gaps.md`.
 4. `python build_chunks.py` so `search.py` sees new bullets.
 
-**Also:** Replace ep-21 `XYZ` placeholder when that note shows up in an export or you add it manually.
+**Also:** Replace ep-0021 `XYZ` placeholder when that note shows up in an export or you add it manually.
 
 **Done when:** Notes count tracks how far you have listened (not 417 overnight)—treat 190–417 as a living tail, not a backfill dump.
 
 ### 2. X post corpus completion + native articles
 
-**Why:** Posts are at 187 / 417. The CSV cache (~433 rows) is not full history. Link-only tweets (native X articles) do not carry body text in the API — ep-148 required manual paste. Three rows sit in `catalog/post-mapping-review.jsonl`.
+**Why:** Posts are at 187 / 417. The CSV cache (~433 rows) is not full history. Link-only tweets (native X articles) do not carry body text in the API — ep-0148 required manual paste. Three rows sit in `catalog/post-mapping-review.jsonl`.
 
 **Build:** Deeper `sync_x_cache.py --full` backfill; optional article-body fetch for `x.com/i/article/…` URLs; work through review queue; `assign_post_manual.py` for gaps; assign ep-189 when published. Re-run organize + corpus.
 
-**Done when:** ~400+ `post.md` files (minus documented skips like ep-159) and review queue empty.
+**Done when:** ~400+ `{folder}.post.md` files (minus documented skips like ep-0159) and review queue empty.
 
 ### 3. Datapoint expansion at scale
 
-**Why:** 189 episodes have raw timestamp bullets but almost no `expanded.md`. This is the highest-value daily workflow after import — quotes + takeaways from transcript without hand-copying.
+**Why:** 189 episodes have raw timestamp bullets but almost no `{folder}.expanded.md`. This is the highest-value daily workflow after import — quotes + takeaways from transcript without hand-copying.
 
 **Build:** Batch driver around `expand_datapoints.py` (episode list, optional `--write` scaffolds), quality checklist in `docs/datapoint-workflow.md`, chunk index includes `notes:expanded_datapoints` when present.
 

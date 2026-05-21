@@ -25,8 +25,11 @@ POSTS_CORPUS_PATH = POSTS_DIR / "_corpus" / "all-posts.md"
 CHUNKS_PATH = ROOT / "catalog" / "chunks.jsonl"
 
 USER_AGENT = "founders-notes/1.0"
+EPISODE_NUMBER_WIDTH = 4  # ep-0001 … ep-9999
+CONTENT_TYPES = frozenset({"transcript", "notes", "expanded", "post"})
 EPISODE_NUMBER_RE = re.compile(r"^#(\d+)")
 FOUNDERS_EPISODE_TITLE_RE = re.compile(r"^#\d+[:\s]")
+NUMBERED_EPISODE_ID_RE = re.compile(r"^ep-(\d+)$")
 
 
 def utc_now_iso() -> str:
@@ -38,53 +41,150 @@ def slug_from_founders_url(url: str) -> str:
     return path.split("/")[-1]
 
 
+def format_episode_id(episode_number: int) -> str:
+    return f"ep-{episode_number:0{EPISODE_NUMBER_WIDTH}d}"
+
+
+def parse_numbered_episode_id(episode_id: str) -> int | None:
+    """Parse ep-1 (legacy) or ep-0001 (canonical) to episode number."""
+    m = NUMBERED_EPISODE_ID_RE.match(episode_id)
+    return int(m.group(1)) if m else None
+
+
+def legacy_make_id(episode_number: int) -> str:
+    """Unpadded id used before layout migration (ep-1, ep-418)."""
+    return f"ep-{episode_number}"
+
+
 def make_id(episode_number: int | None, slug: str) -> str:
     if episode_number is not None:
-        return f"ep-{episode_number}"
+        return format_episode_id(episode_number)
     return f"ep-special-{slug}"
 
 
-def folder_name(episode_id: str, slug: str) -> str:
-    """e.g. ep-418 + 418-phil-knight -> ep-418-phil-knight-founder-of-nike"""
-    prefix = episode_id.replace("ep-special-", "").replace("ep-", "")
-    if prefix.isdigit() and slug.startswith(f"{prefix}-"):
-        return f"{episode_id}-{slug[len(prefix) + 1:]}"
+def folder_name(
+    episode_id: str,
+    slug: str,
+    episode_number: int | None = None,
+) -> str:
+    """e.g. ep-0418 + 418-phil-knight -> ep-0418-phil-knight-founder-of-nike"""
+    if episode_number is not None and slug.startswith(f"{episode_number}-"):
+        return f"{episode_id}-{slug[len(str(episode_number)) + 1:]}"
     return f"{episode_id}-{slug}"
 
 
-def transcript_dir(episode_id: str, slug: str) -> Path:
-    return TRANSCRIPTS_DIR / folder_name(episode_id, slug)
+def content_filename(folder: str, content_type: str) -> str:
+    if content_type not in CONTENT_TYPES:
+        raise ValueError(f"content_type must be one of {sorted(CONTENT_TYPES)}")
+    return f"{folder}.{content_type}.md"
 
 
-def transcript_filename(episode_id: str, slug: str) -> str:
-    return f"{folder_name(episode_id, slug)}.md"
+def _episode_folder(episode_id: str, slug: str, episode_number: int | None = None) -> str:
+    return folder_name(episode_id, slug, episode_number)
 
 
-def transcript_path(episode_id: str, slug: str) -> str:
-    rel = transcript_dir(episode_id, slug) / transcript_filename(episode_id, slug)
+def transcript_dir(
+    episode_id: str,
+    slug: str,
+    episode_number: int | None = None,
+) -> Path:
+    return TRANSCRIPTS_DIR / _episode_folder(episode_id, slug, episode_number)
+
+
+def transcript_filename(
+    episode_id: str,
+    slug: str,
+    episode_number: int | None = None,
+) -> str:
+    folder = _episode_folder(episode_id, slug, episode_number)
+    return content_filename(folder, "transcript")
+
+
+def transcript_path(
+    episode_id: str,
+    slug: str,
+    episode_number: int | None = None,
+) -> str:
+    rel = transcript_dir(episode_id, slug, episode_number) / transcript_filename(
+        episode_id, slug, episode_number
+    )
     return str(rel.relative_to(ROOT))
 
 
-def episode_content_dir(episode_id: str, slug: str, base: Path) -> Path:
-    return base / folder_name(episode_id, slug)
+def episode_content_dir(
+    episode_id: str,
+    slug: str,
+    base: Path,
+    episode_number: int | None = None,
+) -> Path:
+    return base / _episode_folder(episode_id, slug, episode_number)
 
 
-def notes_dir(episode_id: str, slug: str) -> Path:
-    return episode_content_dir(episode_id, slug, NOTES_DIR)
+def notes_dir(
+    episode_id: str,
+    slug: str,
+    episode_number: int | None = None,
+) -> Path:
+    return episode_content_dir(episode_id, slug, NOTES_DIR, episode_number)
 
 
-def notes_path(episode_id: str, slug: str) -> str:
-    rel = notes_dir(episode_id, slug) / "notes.md"
-    return str(rel.relative_to(ROOT))
+def notes_file_path(
+    episode_id: str,
+    slug: str,
+    episode_number: int | None = None,
+) -> Path:
+    folder = _episode_folder(episode_id, slug, episode_number)
+    return notes_dir(episode_id, slug, episode_number) / content_filename(folder, "notes")
 
 
-def post_dir(episode_id: str, slug: str) -> Path:
-    return episode_content_dir(episode_id, slug, POSTS_DIR)
+def notes_path(
+    episode_id: str,
+    slug: str,
+    episode_number: int | None = None,
+) -> str:
+    return str(notes_file_path(episode_id, slug, episode_number).relative_to(ROOT))
 
 
-def post_path(episode_id: str, slug: str) -> str:
-    rel = post_dir(episode_id, slug) / "post.md"
-    return str(rel.relative_to(ROOT))
+def expanded_file_path(
+    episode_id: str,
+    slug: str,
+    episode_number: int | None = None,
+) -> Path:
+    folder = _episode_folder(episode_id, slug, episode_number)
+    return notes_dir(episode_id, slug, episode_number) / content_filename(folder, "expanded")
+
+
+def expanded_path(
+    episode_id: str,
+    slug: str,
+    episode_number: int | None = None,
+) -> str:
+    return str(expanded_file_path(episode_id, slug, episode_number).relative_to(ROOT))
+
+
+def post_dir(
+    episode_id: str,
+    slug: str,
+    episode_number: int | None = None,
+) -> Path:
+    return episode_content_dir(episode_id, slug, POSTS_DIR, episode_number)
+
+
+def post_file_path(
+    episode_id: str,
+    slug: str,
+    episode_number: int | None = None,
+) -> Path:
+    folder = _episode_folder(episode_id, slug, episode_number)
+    return post_dir(episode_id, slug, episode_number) / content_filename(folder, "post")
+
+
+def post_path(
+    episode_id: str,
+    slug: str,
+    episode_number: int | None = None,
+) -> str:
+    return str(post_file_path(episode_id, slug, episode_number).relative_to(ROOT))
 
 
 def catalog_by_number(rows: list[dict[str, Any]]) -> dict[int, dict[str, Any]]:
@@ -124,7 +224,8 @@ def write_frontmatter_md(
 def write_notes_md(row: dict[str, Any], body: str, *, source: str = "apple_notes_import") -> Path:
     episode_id = row["id"]
     slug = row["slug"]
-    path = notes_dir(episode_id, slug) / "notes.md"
+    num = row.get("episode_number")
+    path = notes_file_path(episode_id, slug, num)
     fm: dict[str, Any] = {
         "id": episode_id,
         "title": row["title"],
@@ -148,7 +249,8 @@ def write_post_md(
 ) -> Path:
     episode_id = row["id"]
     slug = row["slug"]
-    path = post_dir(episode_id, slug) / "post.md"
+    num = row.get("episode_number")
+    path = post_file_path(episode_id, slug, num)
     fm: dict[str, Any] = {
         "id": episode_id,
         "title": row["title"],
@@ -302,12 +404,14 @@ def extract_episode_body(html: str) -> str | None:
 def write_transcript_md(row: dict[str, Any], body: str, fetched_at: str) -> Path:
     episode_id = row["id"]
     slug = row["slug"]
-    out_dir = transcript_dir(episode_id, slug)
+    num = row.get("episode_number")
+    out_dir = transcript_dir(episode_id, slug, num)
     out_dir.mkdir(parents=True, exist_ok=True)
-    path = out_dir / transcript_filename(episode_id, slug)
-    legacy = out_dir / "transcript.md"
-    if legacy.exists() and legacy != path:
-        legacy.unlink()
+    path = out_dir / transcript_filename(episode_id, slug, num)
+    for legacy_name in ("transcript.md", f"{_episode_folder(episode_id, slug, num)}.md"):
+        legacy = out_dir / legacy_name
+        if legacy.exists() and legacy != path:
+            legacy.unlink()
     lines = [
         "---",
         f"id: {episode_id}",

@@ -11,9 +11,10 @@ from typing import Any
 from vault_lib import (
     CHUNKS_PATH,
     ROOT,
+    expanded_file_path,
     load_catalog,
-    notes_dir,
-    post_dir,
+    notes_file_path,
+    post_file_path,
     transcript_dir,
     transcript_filename,
     utc_now_iso,
@@ -102,18 +103,23 @@ def main() -> None:
     for row in rows:
         ep_id = row["id"]
         slug = row["slug"]
+        num = row.get("episode_number")
 
-        tx_path = transcript_dir(ep_id, slug) / transcript_filename(ep_id, slug)
+        tx_path = transcript_dir(ep_id, slug, num) / transcript_filename(ep_id, slug, num)
         if tx_path.exists():
             all_chunks.extend(index_markdown_file(tx_path, ep_id, "transcript"))
 
-        notes_path = notes_dir(ep_id, slug) / "notes.md"
-        if notes_path.exists():
-            all_chunks.extend(index_markdown_file(notes_path, ep_id, "notes"))
+        npath = notes_file_path(ep_id, slug, num)
+        if npath.exists():
+            all_chunks.extend(index_markdown_file(npath, ep_id, "notes"))
 
-        post_path = post_dir(ep_id, slug) / "post.md"
-        if post_path.exists():
-            all_chunks.extend(index_markdown_file(post_path, ep_id, "post"))
+        expanded = expanded_file_path(ep_id, slug, num)
+        if expanded.exists():
+            all_chunks.extend(index_markdown_file(expanded, ep_id, "expanded"))
+
+        ppath = post_file_path(ep_id, slug, num)
+        if ppath.exists():
+            all_chunks.extend(index_markdown_file(ppath, ep_id, "post"))
 
     CHUNKS_PATH.parent.mkdir(parents=True, exist_ok=True)
     with CHUNKS_PATH.open("w", encoding="utf-8") as f:
