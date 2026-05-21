@@ -22,7 +22,7 @@ cd ingestion && python build_chunks.py
 
 Consider embeddings when **all** are true:
 
-1. Post corpus is largely complete (~400 episodes with posts)
+1. Post corpus is largely complete (today: **187 / 417** numbered posts imported; target ~400+)
 2. `search.py` + `_corpus/all-posts.md` routinely miss paraphrased or thematic queries
 3. You want “find similar ideas” across episodes, not exact keyword match
 

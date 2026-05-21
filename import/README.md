@@ -27,6 +27,13 @@ python organize_posts_from_csv.py --dry-run
 python organize_posts_from_csv.py
 ```
 
+Manual assignment when organize misses an episode (link-only articles, recap threads, wrong `#` on X):
+
+```bash
+python assign_post_manual.py --episode 148 --x-post-id 2034041777489863124 \
+  --published-at 2026-03-17 --post-kind article --body-file ../import/body.txt
+```
+
 Outputs:
 
 - `import/x-posts-raw.csv` — every tweet/reply/article row

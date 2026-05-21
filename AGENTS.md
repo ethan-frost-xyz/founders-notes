@@ -46,6 +46,8 @@ python expand_datapoints.py --id ep-200
 | Apple Notes | `python import_notes.py -i ../import/apple-notes.txt` |
 | X cache sync | `python sync_x_cache.py` (incremental) or `--full` (backfill) |
 | X organize | `python organize_posts_from_csv.py` (reads CSV only) |
+| Manual post | `python assign_post_manual.py --episode N --x-post-id ID --published-at YYYY-MM-DD --body-file path` |
+| Dedupe CSV | `python dedupe_x_csv.py` (after overlapping `--full` syncs) |
 | Chunk index | `python build_chunks.py` |
 | Verify | `python verify.py` |
 

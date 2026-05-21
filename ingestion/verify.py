@@ -9,6 +9,12 @@ from vault_lib import GAPS_PATH, ROOT, load_catalog, notes_dir, post_dir
 
 BLOCKING_STATUSES = {"pending", "failed"}
 
+# Documented intentional gaps (see catalog/import-review.md)
+POST_EXCEPTIONS: dict[int, str] = {
+    159: "skipped — deleted on X or never posted",
+    189: "not posted yet",
+}
+
 
 def count_phase2_coverage(rows: list[dict]) -> tuple[int, int, list[int], list[int]]:
     """Returns (notes_count, posts_count, missing_notes, missing_posts) for numbered complete transcripts."""
@@ -95,23 +101,32 @@ def main() -> None:
         lines.append("Homepage URL instead of `/episodes/…`. Run `python sync_new.py --repair-urls --apply`.")
         lines.append("")
 
-    if missing_notes and notes_n < 50:
+    if missing_notes:
         lines.append(f"## Missing notes ({len(missing_notes)} numbered)")
         lines.append("")
-        for n in sorted(missing_notes)[:30]:
+        for n in sorted(missing_notes)[:40]:
             lines.append(f"- `ep-{n}`")
-        if len(missing_notes) > 30:
-            lines.append(f"- … and {len(missing_notes) - 30} more")
+        if len(missing_notes) > 40:
+            lines.append(f"- … and {len(missing_notes) - 40} more")
         lines.append("")
 
-    if missing_posts and posts_n < 50:
-        lines.append(f"## Missing posts ({len(missing_posts)} numbered)")
-        lines.append("")
-        for n in sorted(missing_posts)[:30]:
-            lines.append(f"- `ep-{n}`")
-        if len(missing_posts) > 30:
-            lines.append(f"- … and {len(missing_posts) - 30} more")
-        lines.append("")
+    if missing_posts:
+        documented_post = [n for n in missing_posts if n in POST_EXCEPTIONS]
+        blocking_post = [n for n in missing_posts if n not in POST_EXCEPTIONS]
+        if blocking_post:
+            lines.append(f"## Missing posts ({len(blocking_post)} numbered)")
+            lines.append("")
+            for n in sorted(blocking_post)[:40]:
+                lines.append(f"- `ep-{n}`")
+            if len(blocking_post) > 40:
+                lines.append(f"- … and {len(blocking_post) - 40} more")
+            lines.append("")
+        if documented_post:
+            lines.append(f"## Post gaps (documented, {len(documented_post)})")
+            lines.append("")
+            for n in sorted(documented_post):
+                lines.append(f"- `ep-{n}` — {POST_EXCEPTIONS[n]}")
+            lines.append("")
 
     if unmapped:
         lines.append(f"## Unmapped Colossus URLs ({len(unmapped)})")

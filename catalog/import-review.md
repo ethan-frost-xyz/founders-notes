@@ -13,7 +13,7 @@
 | ep-91 | Assigned | Same recap thread |
 | ep-131 | Assigned | `2027495250260828541` (Friedland quote + @founderspodcast ep. 131) |
 | ep-182 | Assigned | `2054376932901531937` (X labeled `#183`; content matches ep-182 notes) |
-| ep-148 | Assigned | Promo tweet `2034041777489863124` → [X article](https://x.com/i/article/2034035008998887424) (link-only in API sync) |
+| ep-148 | Assigned | Promo tweet `2034041777489863124` + full article text (manual paste; API sync had link only) |
 | ep-159 | **Skipped** | Deleted on X or accidentally never posted — no `post.md` |
 | ep-189 | **Not posted** | Intentionally empty until you publish on X |
 

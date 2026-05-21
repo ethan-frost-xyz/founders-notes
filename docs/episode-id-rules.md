@@ -16,7 +16,9 @@ Body structure:
 1. `## Description` — Colossus episode blurb above the transcript
 2. `## Transcript` — full transcript text
 
-## `transcript.md` frontmatter
+## Transcript file frontmatter
+
+Transcript path: `content/transcripts/{folder}/{folder}.md` (filename matches folder basename).
 
 | Field | Required | Notes |
 |-------|----------|-------|
@@ -52,7 +54,7 @@ One JSON object per line:
 ## `transcript_status` meanings
 
 - **pending** — Not fetched yet
-- **complete** — `transcript.md` on disk
+- **complete** — transcript markdown on disk (`{folder}.md`)
 - **failed** — Fetch error; see `last_error`
 - **coming_soon** — Colossus page has no transcript yet
 - **no_transcript** — Confirmed no transcript exists for this entry
@@ -100,11 +102,13 @@ Timestamps use `MM:SS` or `H:MM:SS` before the em dash.
 | `x_url` | yes | Canonical X URL |
 | `x_post_id` | yes | X post id |
 | `published_at` | if known | `YYYY-MM-DD` |
-| `source` | yes | e.g. `x_api` |
+| `source` | yes | `x_csv`, `manual_attribution`, or legacy `x_api` |
 | `imported_at` | yes | ISO 8601 UTC |
+| `post_kind` | no | `tweet`, `article`, `quote`, `reply` |
+| `attribution_note` | no | Manual mapping notes (wrong ep number on X, recap thread, etc.) |
 | `alt_source` | no | e.g. `google_doc` when merged |
 
-Body: full post text (thread/self-replies merged).
+Body: full post text (thread + self-replies merged). Native X articles may publish as a link tweet only in the API — paste full article text manually when needed (`assign_post_manual.py`).
 
 ### `expanded.md` (optional)
 
