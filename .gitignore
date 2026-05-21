@@ -1,6 +1,8 @@
 .env
 import/*.txt
 import/*.md
+import/*.csv
+import/x-posts-sync-meta.json
 !import/README.md
 .venv/
 __pycache__/

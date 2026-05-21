@@ -35,8 +35,10 @@ source .venv/bin/activate
 # Import Apple Notes export (see import/README.md)
 python import_notes.py --input ../import/apple-notes.txt
 
-# Import X posts (requires .env — see .env.example)
-python import_posts_x.py
+# X posts: cache to CSV first, then organize (requires .env)
+python sync_x_cache.py --full    # once
+python sync_x_cache.py           # incremental
+python organize_posts_from_csv.py
 
 # Regenerate search chunk index
 python build_chunks.py

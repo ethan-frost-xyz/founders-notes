@@ -1,0 +1,19 @@
+---
+id: "ep-171"
+title: "#171: Chuck Feeney (The Billionaire who gave all of his money away)"
+x_url: "https://x.com/ethanfrost/status/2047167237253902538"
+x_post_id: "2047167237253902538"
+published_at: "2026-04-23"
+source: "x_csv"
+imported_at: "2026-05-21T19:39:19Z"
+post_kind: "tweet"
+episode_number: 171
+---
+
+"I want the last check I write to bounce."
+
+-Chuck Feeney, Founder of Duty Free Shoppers
+
+Forbes listed him as a billionaire for years, completely unaware he had already given away almost all of his $8 billion fortune.
+
+Founders #171 https://t.co/rb9zYNpSen
