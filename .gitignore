@@ -1,4 +1,7 @@
 .env
+import/*.txt
+import/*.md
+!import/README.md
 .venv/
 __pycache__/
 *.pyc

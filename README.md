@@ -13,16 +13,39 @@ Personal knowledge vault for [@ethanfrost](https://x.com/ethanfrost)'s daily Fou
 ```
 catalog/episodes.jsonl   # One JSON row per episode (status + URLs)
 content/transcripts/     # One folder per episode id
-content/notes/             # Phase 2
-content/posts/             # Phase 3
+content/notes/             # Phase 2 — raw datapoints per episode
+content/posts/             # Phase 2 — X posts per episode + _corpus/all-posts.md
 ingestion/                 # Scripts to build and verify the catalog
 ```
 
 ## Querying in Cursor
 
-- One episode: `@content/transcripts/ep-418-...`
+- One episode: `@content/transcripts/ep-418-...` plus matching `content/notes/` and `content/posts/` folders
 - Catalog / missing: `catalog/episodes.jsonl` or `catalog/gaps.md`
-- Cross-episode search: ripgrep `content/transcripts/`
+- Cross-episode search: `python search.py "rockefeller"` or ripgrep `content/`
+- Full post corpus: `content/posts/_corpus/all-posts.md`
+- Agent entrypoint: `AGENTS.md`
+
+## Phase 2: Notes and posts
+
+```bash
+cd ingestion
+source .venv/bin/activate
+
+# Import Apple Notes export (see import/README.md)
+python import_notes.py --input ../import/apple-notes.txt
+
+# Import X posts (requires .env — see .env.example)
+python import_posts_x.py
+
+# Regenerate search chunk index
+python build_chunks.py
+
+# Expand datapoints prompt pack for one episode
+python expand_datapoints.py --id ep-200
+```
+
+See [docs/episode-id-rules.md](docs/episode-id-rules.md) and [docs/datapoint-workflow.md](docs/datapoint-workflow.md).
 
 ## Ingestion
 
@@ -45,6 +68,14 @@ python fetch_transcripts.py --force
 
 # 4. Verify completeness
 python verify.py
+
+# 5. Sync new episodes / repair catalog URLs
+python sync_new.py --repair-urls --apply
+
+# 6. Phase 2 imports (see import/README.md)
+python import_notes.py -i ../import/apple-notes.txt
+python import_posts_x.py
+python build_chunks.py
 ```
 
 Re-fetch a single episode:

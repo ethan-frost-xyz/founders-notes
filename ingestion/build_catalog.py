@@ -93,8 +93,9 @@ def main() -> None:
             title = rss_meta[ep_num]["title"]
             if rss_meta[ep_num].get("published_at"):
                 published_at = rss_meta[ep_num]["published_at"]
-            if rss_meta[ep_num].get("founders_url"):
-                founders_url = rss_meta[ep_num]["founders_url"]
+            rss_url = rss_meta[ep_num].get("founders_url")
+            if rss_url and "/episodes/" in rss_url:
+                founders_url = rss_url
         else:
             low = title.lower()
             if low in rss_meta and rss_meta[low].get("published_at"):

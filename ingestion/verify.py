@@ -5,9 +5,36 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from vault_lib import CATALOG_PATH, GAPS_PATH, ROOT, load_catalog, transcript_dir
+from vault_lib import GAPS_PATH, ROOT, load_catalog, notes_dir, post_dir
 
 BLOCKING_STATUSES = {"pending", "failed"}
+
+
+def count_phase2_coverage(rows: list[dict]) -> tuple[int, int, list[int], list[int]]:
+    """Returns (notes_count, posts_count, missing_notes, missing_posts) for numbered complete transcripts."""
+    notes_n = 0
+    posts_n = 0
+    missing_notes: list[int] = []
+    missing_posts: list[int] = []
+
+    for r in rows:
+        if r.get("episode_number") is None:
+            continue
+        if r.get("transcript_status") != "complete":
+            continue
+        ep_id = r["id"]
+        slug = r["slug"]
+        num = r["episode_number"]
+        if (notes_dir(ep_id, slug) / "notes.md").exists():
+            notes_n += 1
+        else:
+            missing_notes.append(num)
+        if (post_dir(ep_id, slug) / "post.md").exists():
+            posts_n += 1
+        else:
+            missing_posts.append(num)
+
+    return notes_n, posts_n, missing_notes, missing_posts
 
 
 def main() -> None:
@@ -22,7 +49,10 @@ def main() -> None:
         r
         for r in numbered
         if r.get("transcript_status") in BLOCKING_STATUSES
-        or (r.get("colossus_url") and r.get("transcript_status") not in ("complete", "coming_soon", "no_transcript"))
+        or (
+            r.get("colossus_url")
+            and r.get("transcript_status") not in ("complete", "coming_soon", "no_transcript")
+        )
     ]
     unmapped = [r for r in numbered if not r.get("colossus_url")]
     missing_files = []
@@ -31,6 +61,20 @@ def main() -> None:
         if not rel or not (ROOT / rel).exists():
             missing_files.append(r["id"])
 
+    weak_urls = [
+        r
+        for r in rows
+        if (r.get("founders_url") or "").rstrip("/") in (
+            "https://www.founderspodcast.com",
+            "https://www.founderspodcast.com/",
+        )
+    ]
+
+    notes_n, posts_n, missing_notes, missing_posts = count_phase2_coverage(rows)
+    transcript_complete_numbered = sum(
+        1 for r in numbered if r.get("transcript_status") == "complete"
+    )
+
     lines = [
         "# Catalog gaps (auto-generated)",
         "",
@@ -38,7 +82,36 @@ def main() -> None:
         f"**Numbered:** {len(numbered)} | **Specials:** {len(specials)}",
         f"**Transcripts complete:** {len(complete)}",
         "",
+        "## Phase 2 coverage",
+        "",
+        f"**Notes imported:** {notes_n} / {transcript_complete_numbered} numbered (with transcript)",
+        f"**Posts imported:** {posts_n} / {transcript_complete_numbered} numbered",
+        "",
     ]
+
+    if weak_urls:
+        lines.append(f"## Weak founders_url ({len(weak_urls)})")
+        lines.append("")
+        lines.append("Homepage URL instead of `/episodes/…`. Run `python sync_new.py --repair-urls --apply`.")
+        lines.append("")
+
+    if missing_notes and notes_n < 50:
+        lines.append(f"## Missing notes ({len(missing_notes)} numbered)")
+        lines.append("")
+        for n in sorted(missing_notes)[:30]:
+            lines.append(f"- `ep-{n}`")
+        if len(missing_notes) > 30:
+            lines.append(f"- … and {len(missing_notes) - 30} more")
+        lines.append("")
+
+    if missing_posts and posts_n < 50:
+        lines.append(f"## Missing posts ({len(missing_posts)} numbered)")
+        lines.append("")
+        for n in sorted(missing_posts)[:30]:
+            lines.append(f"- `ep-{n}`")
+        if len(missing_posts) > 30:
+            lines.append(f"- … and {len(missing_posts) - 30} more")
+        lines.append("")
 
     if unmapped:
         lines.append(f"## Unmapped Colossus URLs ({len(unmapped)})")
@@ -86,7 +159,9 @@ def main() -> None:
 
     print(f"Catalog: {len(rows)} rows")
     print(f"Complete: {len(complete)} / {len(numbered)} numbered")
+    print(f"Notes: {notes_n} | Posts: {posts_n}")
     print(f"Unmapped colossus_url: {len(unmapped)}")
+    print(f"Weak founders_url: {len(weak_urls)}")
     print(f"Blocking gaps: {len(blocking)}")
     print(f"Wrote {GAPS_PATH.relative_to(ROOT)}")
 

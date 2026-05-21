@@ -16,7 +16,13 @@ from bs4 import BeautifulSoup
 ROOT = Path(__file__).resolve().parent.parent
 CATALOG_PATH = ROOT / "catalog" / "episodes.jsonl"
 GAPS_PATH = ROOT / "catalog" / "gaps.md"
+UNMAPPED_POSTS_PATH = ROOT / "catalog" / "unmapped-posts.jsonl"
+IMPORT_REVIEW_PATH = ROOT / "catalog" / "import-review.md"
 TRANSCRIPTS_DIR = ROOT / "content" / "transcripts"
+NOTES_DIR = ROOT / "content" / "notes"
+POSTS_DIR = ROOT / "content" / "posts"
+POSTS_CORPUS_PATH = POSTS_DIR / "_corpus" / "all-posts.md"
+CHUNKS_PATH = ROOT / "catalog" / "chunks.jsonl"
 
 USER_AGENT = "founders-notes/1.0"
 EPISODE_NUMBER_RE = re.compile(r"^#(\d+)")
@@ -57,6 +63,132 @@ def transcript_filename(episode_id: str, slug: str) -> str:
 def transcript_path(episode_id: str, slug: str) -> str:
     rel = transcript_dir(episode_id, slug) / transcript_filename(episode_id, slug)
     return str(rel.relative_to(ROOT))
+
+
+def episode_content_dir(episode_id: str, slug: str, base: Path) -> Path:
+    return base / folder_name(episode_id, slug)
+
+
+def notes_dir(episode_id: str, slug: str) -> Path:
+    return episode_content_dir(episode_id, slug, NOTES_DIR)
+
+
+def notes_path(episode_id: str, slug: str) -> str:
+    rel = notes_dir(episode_id, slug) / "notes.md"
+    return str(rel.relative_to(ROOT))
+
+
+def post_dir(episode_id: str, slug: str) -> Path:
+    return episode_content_dir(episode_id, slug, POSTS_DIR)
+
+
+def post_path(episode_id: str, slug: str) -> str:
+    rel = post_dir(episode_id, slug) / "post.md"
+    return str(rel.relative_to(ROOT))
+
+
+def catalog_by_number(rows: list[dict[str, Any]]) -> dict[int, dict[str, Any]]:
+    return {r["episode_number"]: r for r in rows if r.get("episode_number") is not None}
+
+
+def catalog_by_id(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    return {r["id"]: r for r in rows}
+
+
+def escape_yaml_value(value: str) -> str:
+    return value.replace('"', "'")
+
+
+def write_frontmatter_md(
+    path: Path,
+    *,
+    frontmatter: dict[str, Any],
+    body: str,
+) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    lines = ["---"]
+    for key, val in frontmatter.items():
+        if val is None:
+            continue
+        if isinstance(val, bool):
+            lines.append(f"{key}: {'true' if val else 'false'}")
+        elif isinstance(val, int):
+            lines.append(f"{key}: {val}")
+        else:
+            lines.append(f'{key}: "{escape_yaml_value(str(val))}"')
+    lines.extend(["---", "", body.strip(), ""])
+    path.write_text("\n".join(lines), encoding="utf-8")
+    return path
+
+
+def write_notes_md(row: dict[str, Any], body: str, *, source: str = "apple_notes_import") -> Path:
+    episode_id = row["id"]
+    slug = row["slug"]
+    path = notes_dir(episode_id, slug) / "notes.md"
+    fm: dict[str, Any] = {
+        "id": episode_id,
+        "title": row["title"],
+        "source": source,
+        "imported_at": utc_now_iso(),
+    }
+    if row.get("episode_number") is not None:
+        fm["episode_number"] = row["episode_number"]
+    return write_frontmatter_md(path, frontmatter=fm, body=body)
+
+
+def write_post_md(
+    row: dict[str, Any],
+    body: str,
+    *,
+    x_url: str,
+    x_post_id: str,
+    published_at: str | None = None,
+    source: str = "x_api",
+    alt_source: str | None = None,
+) -> Path:
+    episode_id = row["id"]
+    slug = row["slug"]
+    path = post_dir(episode_id, slug) / "post.md"
+    fm: dict[str, Any] = {
+        "id": episode_id,
+        "title": row["title"],
+        "x_url": x_url,
+        "x_post_id": x_post_id,
+        "source": source,
+        "imported_at": utc_now_iso(),
+    }
+    if row.get("episode_number") is not None:
+        fm["episode_number"] = row["episode_number"]
+    if published_at:
+        fm["published_at"] = published_at
+    if alt_source:
+        fm["alt_source"] = alt_source
+    return write_frontmatter_md(path, frontmatter=fm, body=body)
+
+
+def append_unmapped_post(record: dict[str, Any]) -> None:
+    UNMAPPED_POSTS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with UNMAPPED_POSTS_PATH.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+
+def load_unmapped_posts() -> list[dict[str, Any]]:
+    if not UNMAPPED_POSTS_PATH.exists():
+        return []
+    rows = []
+    with UNMAPPED_POSTS_PATH.open(encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                rows.append(json.loads(line))
+    return rows
+
+
+def save_unmapped_posts(rows: list[dict[str, Any]]) -> None:
+    UNMAPPED_POSTS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with UNMAPPED_POSTS_PATH.open("w", encoding="utf-8") as f:
+        for row in rows:
+            f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 
 def new_row(

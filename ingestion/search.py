@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+"""Retrieval v1: search catalog/chunks.jsonl and content/ without embeddings."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import subprocess
+from pathlib import Path
+
+from vault_lib import CHUNKS_PATH, ROOT
+
+CONTENT_DIRS = [
+    ROOT / "content" / "transcripts",
+    ROOT / "content" / "notes",
+    ROOT / "content" / "posts",
+]
+
+
+def load_chunks() -> list[dict]:
+    if not CHUNKS_PATH.exists():
+        return []
+    rows = []
+    with CHUNKS_PATH.open(encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                rows.append(json.loads(line))
+    return rows
+
+
+def search_chunks(query: str, limit: int, section_filter: str | None) -> list[tuple[float, dict]]:
+    pattern = re.compile(re.escape(query), re.IGNORECASE)
+    hits: list[tuple[float, dict]] = []
+    for ch in load_chunks():
+        if section_filter and section_filter not in ch.get("section", ""):
+            continue
+        excerpt = ch.get("excerpt") or ""
+        if not pattern.search(excerpt):
+            continue
+        score = len(pattern.findall(excerpt))
+        hits.append((float(score), ch))
+    hits.sort(key=lambda x: (-x[0], x[1].get("id", ""), x[1].get("start_line", 0)))
+    return hits[:limit]
+
+
+def ripgrep_fallback(query: str, limit: int) -> None:
+    cmd = [
+        "rg",
+        "-i",
+        "--line-number",
+        "--max-count",
+        "3",
+        "-m",
+        str(limit),
+        query,
+        *[str(d) for d in CONTENT_DIRS if d.exists()],
+        str(ROOT / "content" / "posts" / "_corpus"),
+    ]
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, cwd=ROOT)
+        if result.stdout:
+            print(result.stdout.rstrip())
+        if result.returncode not in (0, 1):
+            print(result.stderr)
+    except FileNotFoundError:
+        print("ripgrep (rg) not installed — chunk index results only")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Search founders-notes vault")
+    parser.add_argument("query", help="Search string")
+    parser.add_argument("-n", "--limit", type=int, default=20)
+    parser.add_argument(
+        "--type",
+        choices=["transcript", "notes", "post", "all"],
+        default="all",
+        help="Filter chunk section type",
+    )
+    parser.add_argument("--rg", action="store_true", help="Also run ripgrep on content/")
+    args = parser.parse_args()
+
+    section_filter = None if args.type == "all" else args.type
+    hits = search_chunks(args.query, args.limit, section_filter)
+
+    if not hits and not CHUNKS_PATH.exists():
+        print("No chunks index — run: python build_chunks.py")
+        args.rg = True
+    elif not hits:
+        print(f"No chunk hits for: {args.query}")
+        args.rg = True
+
+    for score, ch in hits:
+        cid = ch.get("chunk_id", "")
+        path = ch.get("source_path", "")
+        start = ch.get("start_line", "")
+        excerpt = (ch.get("excerpt") or "").replace("\n", " ")[:120]
+        print(f"{path}:{start}  [{cid}]  {excerpt}…")
+
+    if args.rg or not hits:
+        print("\n# ripgrep")
+        ripgrep_fallback(args.query, args.limit)
+
+
+if __name__ == "__main__":
+    main()
