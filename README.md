@@ -7,7 +7,7 @@ Personal knowledge vault for [@ethanfrost](https://x.com/ethanfrost)'s daily Fou
 | Layer | Coverage | Notes |
 |-------|----------|--------|
 | **Transcripts** | 417 / 417 numbered | Phase 1 complete — Colossus archives in `content/transcripts/` |
-| **Notes** | 189 / 417 | Apple Notes import for ep 1–189; ep-21 manual `XYZ` placeholder |
+| **Notes** | 189 / 417 | Ep 1–189 imported from Apple Notes; **ep 190–417 not written yet** (~1 new note/day as you listen) |
 | **X posts** | 187 / 417 | CSV cache + organizer; 2 documented gaps (ep-159 skipped, ep-189 not posted) |
 | **Search** | v1 | `catalog/chunks.jsonl` + `ingestion/search.py` |
 
@@ -21,7 +21,7 @@ Details: `catalog/gaps.md` (auto), `catalog/import-review.md` (manual attributio
 
 ## Phase 2: Notes and posts
 
-- **Notes:** `content/notes/{folder}/notes.md` — timestamp bullets under `## Raw datapoints`
+- **Notes:** `content/notes/{folder}/notes.md` — timestamp bullets under `## Raw datapoints`. Historical batch: ep 1–189. Ep 190+ fills in over time as you finish each episode (~1/day).
 - **Posts:** `content/posts/{folder}/post.md` — one Founders post per episode (threads + articles)
 - **Corpus:** `content/posts/_corpus/all-posts.md` — all Founders posts for cross-episode search
 - **X pipeline:** sync API → `import/x-posts-raw.csv` (gitignored) → organize (no API on organize)
@@ -111,13 +111,28 @@ Phase 2 progress is in `catalog/gaps.md` (notes/posts counts and missing episode
 
 Three high-leverage options, ordered by impact on the daily ritual:
 
-### 1. Notes backfill (episodes 190–417)
+### 1. Notes catch-up plan (episodes 190–417, in progress)
 
-**Why:** Notes are the study spine — only 189 of 417 episodes have `notes.md`. Episodes 190+ are missing from the Apple Notes export.
+**Why:** Notes are the study spine. Ep 1–189 are in the vault from a one-time Apple Notes export. You have **not** started notes for ep 190 yet; you add roughly **one episode per day** as you listen, so ep 190–417 will grow over months—not as a single missing export.
 
-**Build:** Re-export Notes with ep 190–417 headers, run `import_notes.py --merge`, refresh `build_chunks.py`. Replace ep-21 `XYZ` placeholder when that note exists in export.
+**Recommended workflow (pick one and stay consistent):**
 
-**Done when:** Notes count approaches transcript count (or documented exceptions in `import-review.md`).
+| Approach | How it works | Best if |
+|----------|----------------|---------|
+| **A. Periodic Apple Notes merge** | Keep writing in Apple Notes (one note per episode, `#N` title). Every week or after every N episodes: export → `import/apple-notes.txt` → `python import_notes.py -i ../import/apple-notes.txt --merge` → `python build_chunks.py` | You want to keep your current Notes habit unchanged |
+| **B. Vault-native notes** | Create `content/notes/ep-NNN-.../notes.md` directly in git (same `## Raw datapoints` bullets). No export step for new episodes | You are fine leaving Apple Notes for old eps only |
+| **C. Hybrid** | New episodes in the vault (B); occasionally merge an Apple Notes export for anything you still capture there (A) | Transitioning off Notes without retyping 1–189 |
+
+**Operational checklist (after each batch or new ep):**
+
+1. Ensure the episode block has a clear `#N` / title header (import parser keys off episode number).
+2. `import_notes.py --merge` (A/C) or commit `notes.md` directly (B).
+3. `python verify.py` — watch the notes count climb in `catalog/gaps.md`.
+4. `python build_chunks.py` so `search.py` sees new bullets.
+
+**Also:** Replace ep-21 `XYZ` placeholder when that note shows up in an export or you add it manually.
+
+**Done when:** Notes count tracks how far you have listened (not 417 overnight)—treat 190–417 as a living tail, not a backfill dump.
 
 ### 2. X post corpus completion + native articles
 
