@@ -5,7 +5,7 @@ Personal knowledge vault for [@ethanfrost](https://x.com/ethanfrost)'s daily Fou
 ## Phase 1: Transcripts
 
 - **Metadata index:** [founderspodcast.com/episodes](https://www.founderspodcast.com/episodes) → `catalog/episodes.jsonl`
-- **Transcript text:** [Colossus](https://colossus.com/series/founders/) → `content/transcripts/{id}/transcript.md`
+- **Transcript text:** [Colossus](https://colossus.com/series/founders/) → `content/transcripts/{folder}/{folder}.md` (description + full transcript)
 - **Gap report:** `catalog/gaps.md` (auto-generated)
 
 ## Layout
@@ -40,6 +40,9 @@ python map_colossus.py
 # 3. Fetch transcripts (requires .env — see .env.example)
 python fetch_transcripts.py
 
+# Re-fetch all with description + full transcript (after schema changes)
+python fetch_transcripts.py --force
+
 # 4. Verify completeness
 python verify.py
 ```
@@ -47,7 +50,7 @@ python verify.py
 Re-fetch a single episode:
 
 ```bash
-python fetch_transcripts.py --id ep-418
+python fetch_transcripts.py --id ep-418 --force
 ```
 
 ## Completeness

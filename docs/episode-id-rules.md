@@ -7,9 +7,14 @@
 | Numbered episode | `ep-{number}` | `ep-418` |
 | Unnumbered (conversations, reposts, specials) | `ep-special-{slug}` | `ep-special-my-conversation-with-todd-graves` |
 
-**Folder name:** `{id}-{slug}` where `slug` is the last path segment from founderspodcast.com (e.g. `418-phil-knight-founder-of-nike`).
+**Folder name:** `{id}-` + slug without duplicate episode prefix. For numbered episodes, slug `418-phil-knight-founder-of-nike` becomes folder `ep-418-phil-knight-founder-of-nike`. Specials use full slug: `ep-special-{slug}`.
 
-Full path: `content/transcripts/ep-418-phil-knight-founder-of-nike/transcript.md`
+Full path: `content/transcripts/ep-418-phil-knight-founder-of-nike/ep-418-phil-knight-founder-of-nike.md` (filename matches folder name)
+
+Body structure:
+
+1. `## Description` — Colossus episode blurb above the transcript
+2. `## Transcript` — full transcript text
 
 ## `transcript.md` frontmatter
 

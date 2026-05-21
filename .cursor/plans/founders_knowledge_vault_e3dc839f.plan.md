@@ -4,22 +4,22 @@ overview: Bootstrap founders-notes as a plain-text, git-backed personal vault wi
 todos:
   - id: scaffold-vault
     content: "Scaffold folders + README + .gitignore → verify: tree exists, first commit on main"
-    status: in_progress
+    status: completed
   - id: schema-pilot
     content: "Lock schema in docs/episode-id-rules.md; save 1 manual pilot transcript → verify: open in Cursor, query works"
-    status: pending
+    status: completed
   - id: build-catalog
     content: "Populate catalog/episodes.jsonl from founderspodcast.com → verify: ~400+ rows, gaps.md lists unnumbered only"
-    status: pending
+    status: completed
   - id: map-colossus
     content: "Resolve colossus_url per row → verify: every numbered episode has URL or documented exception in gaps.md"
-    status: pending
+    status: completed
   - id: ingest-transcripts
     content: "One Python script + bulk authenticated fetch → verify: transcript_status complete for all fetchable rows"
-    status: pending
+    status: completed
   - id: verify-complete
     content: "Run verify script → verify: gaps.md empty except documented exceptions; spot-check 3 random episodes"
-    status: pending
+    status: completed
 isProject: false
 ---
 
