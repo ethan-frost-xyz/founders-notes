@@ -1,0 +1,80 @@
+"""Catalog JSONL load/save and row lookup."""
+
+from __future__ import annotations
+
+import json
+from typing import Any
+
+from episode_ids import make_id
+from paths import CATALOG_PATH
+
+
+def load_jsonl(path) -> list[dict[str, Any]]:
+    if not path.exists():
+        return []
+    rows = []
+    with path.open(encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                rows.append(json.loads(line))
+    return rows
+
+
+def load_catalog() -> list[dict[str, Any]]:
+    return load_jsonl(CATALOG_PATH)
+
+
+def save_catalog(rows: list[dict[str, Any]]) -> None:
+    CATALOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with CATALOG_PATH.open("w", encoding="utf-8") as f:
+        for row in rows:
+            f.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+
+def catalog_by_number(rows: list[dict[str, Any]]) -> dict[int, dict[str, Any]]:
+    return {r["episode_number"]: r for r in rows if r.get("episode_number") is not None}
+
+
+def catalog_by_id(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    return {r["id"]: r for r in rows}
+
+
+def resolve_catalog_row(rows: list[dict[str, Any]], episode_id: str) -> dict[str, Any]:
+    """Find catalog row by canonical id or episode number."""
+    for r in rows:
+        if r["id"] == episode_id:
+            return r
+    from episode_ids import parse_numbered_episode_id
+
+    num = parse_numbered_episode_id(episode_id)
+    if num is not None:
+        for r in rows:
+            if r.get("episode_number") == num:
+                return r
+    raise SystemExit(f"Episode not in catalog: {episode_id}")
+
+
+def new_row(
+    *,
+    episode_number: int | None,
+    title: str,
+    slug: str,
+    founders_url: str,
+    published_at: str | None = None,
+    colossus_url: str | None = None,
+) -> dict[str, Any]:
+    episode_id = make_id(episode_number, slug)
+    return {
+        "id": episode_id,
+        "episode_number": episode_number,
+        "title": title,
+        "published_at": published_at,
+        "founders_url": founders_url,
+        "colossus_url": colossus_url,
+        "slug": slug,
+        "transcript_status": "pending",
+        "transcript_path": None,
+        "last_error": None,
+        "fetched_at": None,
+    }

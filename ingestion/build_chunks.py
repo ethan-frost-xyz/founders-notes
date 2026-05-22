@@ -8,16 +8,16 @@ import re
 from pathlib import Path
 from typing import Any
 
-from vault_lib import (
+from catalog import load_catalog
+from markdown_io import read_markdown_body, utc_now_iso
+from paths import (
     CHUNKS_PATH,
     ROOT,
     expanded_file_path,
-    load_catalog,
     notes_file_path,
     post_file_path,
     transcript_dir,
     transcript_filename,
-    utc_now_iso,
 )
 
 SECTION_RE = re.compile(r"^##\s+(.+)$", re.MULTILINE)
@@ -85,9 +85,7 @@ def chunk_body(episode_id: str, section: str, body: str, source_path: str) -> li
 
 
 def index_markdown_file(path: Path, episode_id: str, content_type: str) -> list[dict[str, Any]]:
-    text = path.read_text(encoding="utf-8")
-    if text.startswith("---"):
-        text = text.split("---", 2)[-1]
+    text = read_markdown_body(path)
     rel = str(path.relative_to(ROOT))
     all_chunks: list[dict[str, Any]] = []
     for section, body in split_sections(text):

@@ -147,4 +147,4 @@ python build_chunks.py            # after adding bullets
 
 ---
 
-**Defer for now:** Vector embeddings ([docs/retrieval.md](docs/retrieval.md) v2) until the post corpus is much fuller and `search.py` misses real queries. Legacy `import_posts_x.py` remains for Google Doc fallback; prefer CSV-first sync + organize.
+**Defer for now:** Vector embeddings ([docs/retrieval.md](docs/retrieval.md) v2) until the post corpus is much fuller and `search.py` misses real queries. X posts: `sync_x_cache.py` then `organize_posts_from_csv.py` (see `import/README.md`).

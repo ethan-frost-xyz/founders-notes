@@ -9,15 +9,9 @@ import os
 from pathlib import Path
 from typing import Any
 
-from vault_lib import (
-    POSTS_CORPUS_PATH,
-    ROOT,
-    catalog_by_number,
-    load_catalog,
-    post_file_path,
-    utc_now_iso,
-    write_frontmatter_md,
-)
+from catalog import catalog_by_number, load_catalog
+from markdown_io import read_markdown_body, utc_now_iso, write_frontmatter_md, write_post_md
+from paths import POSTS_CORPUS_PATH, ROOT, post_file_path
 from x_posts_lib import (
     AUTO_ACCEPT_SCORE,
     POSTS_CORPUS_OTHER,
@@ -26,13 +20,12 @@ from x_posts_lib import (
     REVIEW_SCORE,
     X_POSTS_CSV,
     assemble_threads,
+    filter_attributable_rows,
     load_csv_rows,
     match_episode,
+    tweet_url,
+    x_user_id,
 )
-
-
-def tweet_url(username: str, tweet_id: str) -> str:
-    return f"https://x.com/{username}/status/{tweet_id}"
 
 
 def write_other_post(unit: dict[str, Any], username: str) -> Path:
@@ -52,20 +45,15 @@ def write_other_post(unit: dict[str, Any], username: str) -> Path:
 
 
 def write_founders_post(row: dict[str, Any], unit: dict[str, Any], username: str) -> Path:
-    path = post_file_path(row["id"], row["slug"], row.get("episode_number"))
-    fm: dict[str, Any] = {
-        "id": row["id"],
-        "title": row["title"],
-        "x_url": tweet_url(username, unit["x_post_id"]),
-        "x_post_id": unit["x_post_id"],
-        "published_at": unit.get("created_at"),
-        "source": "x_csv",
-        "imported_at": utc_now_iso(),
-        "post_kind": unit.get("post_kind") or "tweet",
-    }
-    if row.get("episode_number") is not None:
-        fm["episode_number"] = row["episode_number"]
-    return write_frontmatter_md(path, frontmatter=fm, body=unit.get("text") or "")
+    return write_post_md(
+        row,
+        unit.get("text") or "",
+        x_url=tweet_url(username, unit["x_post_id"]),
+        x_post_id=unit["x_post_id"],
+        published_at=unit.get("created_at"),
+        source="x_csv",
+        post_kind=unit.get("post_kind") or "tweet",
+    )
 
 
 def save_review_records(records: list[dict[str, Any]]) -> None:
@@ -87,14 +75,14 @@ def regenerate_corpus(rows: list[dict[str, Any]], *, founders_only: bool = True)
             p = post_file_path(row["id"], row["slug"], row.get("episode_number"))
             if not p.exists():
                 continue
-            body = p.read_text(encoding="utf-8").split("---", 2)[-1].strip()
+            body = read_markdown_body(p)
             num = row.get("episode_number")
             label = f"#{num}" if num else row["id"]
             parts.extend([f"## {label} — {row['title']}", "", body, ""])
             count += 1
     else:
         for p in sorted(POSTS_OTHER_DIR.glob("*.md")):
-            body = p.read_text(encoding="utf-8").split("---", 2)[-1].strip()
+            body = read_markdown_body(p)
             parts.extend([f"## {p.stem}", "", body, ""])
             count += 1
 
@@ -116,8 +104,6 @@ def main() -> None:
     csv_rows = load_csv_rows()
     if not csv_rows:
         raise SystemExit("CSV is empty")
-
-    from x_posts_lib import filter_attributable_rows, x_user_id
 
     uid = x_user_id()
     attributable = filter_attributable_rows(csv_rows, uid)

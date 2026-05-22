@@ -6,7 +6,7 @@ Place one-time exports here (gitignored). Pass paths explicitly to ingestion scr
 |--------|----------------|--------|
 | Apple Notes | `apple-notes.txt` or `.md` | `python import_notes.py --input ../import/apple-notes.txt` |
 | X posts (cache) | `x-posts-raw.csv` | `python sync_x_cache.py` then `python organize_posts_from_csv.py` |
-| Google Doc (optional) | `google-doc-posts.txt` | legacy: `import_posts_x.py --doc` |
+| Manual post body | any `.txt` file | `assign_post_manual.py --body-file path` |
 
 Personal exports and X cache are not committed (see `.gitignore`).
 

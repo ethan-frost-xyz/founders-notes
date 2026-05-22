@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from vault_lib import (
+    CATALOG_PATH,
     NOTES_DIR,
     POSTS_DIR,
     ROOT,
@@ -24,8 +25,6 @@ from vault_lib import (
     save_catalog,
     transcript_path,
 )
-
-CATALOG_PATH = ROOT / "catalog" / "episodes.jsonl"
 POST_MAPPING_REVIEW = ROOT / "catalog" / "post-mapping-review.jsonl"
 
 CONTENT_BASES: tuple[tuple[Path, str], ...] = (

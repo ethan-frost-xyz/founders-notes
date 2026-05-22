@@ -6,41 +6,19 @@ from __future__ import annotations
 import argparse
 import re
 
-from vault_lib import (
-    ROOT,
-    catalog_by_id,
-    load_catalog,
-    notes_file_path,
-    parse_numbered_episode_id,
-    write_notes_md,
-)
+from catalog import load_catalog, resolve_catalog_row
+from markdown_io import has_timestamp_datapoints, write_notes_md
+from paths import ROOT, notes_file_path
 
 SCAFFOLD_BODY = "## Raw datapoints\n"
-TIMESTAMP_BULLET_RE = re.compile(
-    r"^[\s]*-\s*(\d{1,2}:\d{2}(?::\d{2})?)\s*[-–—]\s*.+$",
-    re.MULTILINE,
-)
-
-
-def has_timestamp_bullets(path) -> bool:
-    if not path.exists():
-        return False
-    text = path.read_text(encoding="utf-8")
-    if text.startswith("---"):
-        parts = text.split("---", 2)
-        text = parts[2] if len(parts) >= 3 else text
-    return bool(TIMESTAMP_BULLET_RE.search(text))
 
 
 def is_empty_scaffold(path) -> bool:
     if not path.exists():
         return False
-    text = path.read_text(encoding="utf-8")
-    if text.startswith("---"):
-        parts = text.split("---", 2)
-        body = parts[2].strip() if len(parts) >= 3 else text.strip()
-    else:
-        body = text.strip()
+    from markdown_io import read_markdown_body
+
+    body = read_markdown_body(path)
     normalized = re.sub(r"\s+", " ", body)
     return normalized in ("## Raw datapoints", "## Raw datapoints ")
 
@@ -129,15 +107,9 @@ def main() -> None:
         args.missing = True
 
     rows = load_catalog()
-    if args.episode_id:
-        by_id = catalog_by_id(rows)
-        if args.episode_id not in by_id:
-            num = parse_numbered_episode_id(args.episode_id)
-            if num is None:
-                raise SystemExit(f"Episode not in catalog: {args.episode_id}")
-        episode_id = args.episode_id
-    else:
-        episode_id = None
+    episode_id = args.episode_id
+    if episode_id:
+        resolve_catalog_row(rows, episode_id)
 
     selected = eligible_rows(
         rows,
@@ -153,7 +125,7 @@ def main() -> None:
             slug = row["slug"]
             num = row["episode_number"]
             path = notes_file_path(ep_id, slug, num)
-            if not path.exists() or not has_timestamp_bullets(path):
+            if not path.exists() or not has_timestamp_datapoints(path):
                 rel = path.relative_to(ROOT)
                 print(rel)
                 return

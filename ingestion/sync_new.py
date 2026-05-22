@@ -4,34 +4,12 @@
 from __future__ import annotations
 
 import argparse
-import re
-import xml.etree.ElementTree as ET
 
-from vault_lib import load_catalog, new_row, save_catalog, session, slug_from_founders_url
+from catalog import load_catalog, new_row, save_catalog
+from colossus import session
+from sitemap import iter_sitemap_episodes
 
-SITEMAP_URL = "https://www.founderspodcast.com/sitemap.xml"
-EPISODE_PATH_RE = re.compile(r"^/episodes/([^/]+)/?$")
 HOMEPAGE_URL = "https://www.founderspodcast.com/"
-
-
-def sitemap_episodes(sess) -> dict[str, dict]:
-    resp = sess.get(SITEMAP_URL, timeout=60)
-    resp.raise_for_status()
-    root = ET.fromstring(resp.content)
-    ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
-    found: dict[str, dict] = {}
-    for url_el in root.findall("sm:url", ns):
-        loc = url_el.findtext("sm:loc", default="", namespaces=ns)
-        if "/episodes/" not in loc:
-            continue
-        path = loc.split("founderspodcast.com", 1)[-1]
-        m = EPISODE_PATH_RE.match(path)
-        if not m:
-            continue
-        slug = m.group(1)
-        ep_num = int(slug.split("-", 1)[0]) if slug.split("-", 1)[0].isdigit() else None
-        found[slug] = {"slug": slug, "founders_url": loc.strip(), "episode_number": ep_num}
-    return found
 
 
 def repair_founders_urls(rows: list[dict]) -> int:
@@ -64,7 +42,7 @@ def main() -> None:
             save_catalog(rows)
             print("Saved catalog")
 
-    sitemap = sitemap_episodes(sess)
+    sitemap = iter_sitemap_episodes(sess)
     new_slugs = [s for s in sitemap if s not in by_slug]
     if not new_slugs:
         print("No new episodes in sitemap")

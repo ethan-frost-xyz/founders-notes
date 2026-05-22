@@ -3,21 +3,14 @@
 
 from __future__ import annotations
 
-import re
 import xml.etree.ElementTree as ET
 from email.utils import parsedate_to_datetime
 
-from vault_lib import (
-    new_row,
-    parse_episode_number,
-    save_catalog,
-    session,
-    slug_from_founders_url,
-)
+from catalog import new_row, save_catalog
+from colossus import parse_episode_number, session
+from sitemap import iter_sitemap_episodes
 
-SITEMAP_URL = "https://www.founderspodcast.com/sitemap.xml"
 RSS_URL = "https://feeds.megaphone.fm/DSLLC6297708582"
-EPISODE_PATH_RE = re.compile(r"^/episodes/([^/]+)/?$")
 
 
 def load_rss_meta(sess) -> dict[int | str, dict]:
@@ -25,9 +18,6 @@ def load_rss_meta(sess) -> dict[int | str, dict]:
     resp = sess.get(RSS_URL, timeout=60)
     resp.raise_for_status()
     root = ET.fromstring(resp.content)
-    ns = {
-        "itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd",
-    }
     meta: dict[int | str, dict] = {}
     for item in root.findall(".//item"):
         title_el = item.find("title")
@@ -64,29 +54,14 @@ def main() -> None:
     print(f"Loading RSS metadata from {RSS_URL} ...")
     rss_meta = load_rss_meta(sess)
 
-    print(f"Fetching {SITEMAP_URL} ...")
-    resp = sess.get(SITEMAP_URL, timeout=60)
-    resp.raise_for_status()
-    root = ET.fromstring(resp.content)
-    ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+    print("Fetching sitemap ...")
+    sitemap = iter_sitemap_episodes(sess)
 
     rows = []
-    for url_el in root.findall("sm:url", ns):
-        loc = url_el.findtext("sm:loc", default="", namespaces=ns)
-        lastmod = url_el.findtext("sm:lastmod", default="", namespaces=ns)
-        if "/episodes/" not in loc:
-            continue
-        path = loc.split("founderspodcast.com", 1)[-1]
-        m = EPISODE_PATH_RE.match(path)
-        if not m:
-            continue
-        slug = m.group(1)
-        founders_url = loc.strip()
-        published_at = lastmod[:10] if lastmod else None
-
-        ep_num = None
-        if slug.split("-", 1)[0].isdigit():
-            ep_num = int(slug.split("-", 1)[0])
+    for slug, info in sitemap.items():
+        founders_url = info["founders_url"]
+        ep_num = info["episode_number"]
+        published_at = None
 
         title = title_from_slug(slug)
         if ep_num is not None and ep_num in rss_meta:

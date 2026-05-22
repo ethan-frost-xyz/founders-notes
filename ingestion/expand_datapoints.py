@@ -8,15 +8,9 @@ import subprocess
 import sys
 from pathlib import Path
 
-from vault_lib import (
-    ROOT,
-    expanded_file_path,
-    load_catalog,
-    notes_file_path,
-    parse_numbered_episode_id,
-    transcript_dir,
-    transcript_filename,
-)
+from catalog import load_catalog, resolve_catalog_row
+from markdown_io import read_markdown_body
+from paths import ROOT, expanded_file_path, notes_file_path, transcript_dir, transcript_filename
 
 PROMPT_TEMPLATE = """You are expanding Founders podcast study notes.
 
@@ -49,26 +43,10 @@ Repeat for every bullet. If timestamp is ambiguous, note uncertainty.
 """
 
 
-def find_row(rows: list, episode_id: str) -> dict:
-    for r in rows:
-        if r["id"] == episode_id:
-            return r
-    num = parse_numbered_episode_id(episode_id)
-    if num is not None:
-        for r in rows:
-            if r.get("episode_number") == num:
-                return r
-    raise SystemExit(f"Episode not in catalog: {episode_id}")
-
-
 def read_body(path: Path) -> str:
     if not path.exists():
         raise SystemExit(f"Missing file: {path.relative_to(ROOT)}")
-    text = path.read_text(encoding="utf-8")
-    if text.startswith("---"):
-        parts = text.split("---", 2)
-        return parts[2].strip() if len(parts) >= 3 else text
-    return text.strip()
+    return read_markdown_body(path)
 
 
 def main() -> None:
@@ -79,7 +57,7 @@ def main() -> None:
     args = parser.parse_args()
 
     rows = load_catalog()
-    row = find_row(rows, args.id)
+    row = resolve_catalog_row(rows, args.id)
     slug = row["slug"]
     ep_id = row["id"]
     num = row.get("episode_number")

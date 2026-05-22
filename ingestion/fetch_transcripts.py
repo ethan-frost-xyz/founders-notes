@@ -10,23 +10,20 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
-from vault_lib import (
+from catalog import load_catalog, resolve_catalog_row, save_catalog
+from colossus import (
     colossus_login,
     extract_episode_body,
     extract_transcript_text,
     is_colossus_transcript_unavailable,
-    load_catalog,
     load_cookies_file,
-    parse_numbered_episode_id,
     rate_limit,
-    save_catalog,
     session,
-    transcript_path,
-    utc_now_iso,
-    write_transcript_md,
 )
+from markdown_io import utc_now_iso, write_transcript_md
+from paths import ROOT, transcript_path
 
-ROOT = Path(__file__).resolve().parent.parent
+load_dotenv(ROOT / ".env")
 
 
 def authenticate(sess) -> None:
@@ -100,8 +97,6 @@ def fetch_one(sess, row: dict, *, force: bool = False) -> None:
 
 
 def main() -> None:
-    load_dotenv(ROOT / ".env")
-
     parser = argparse.ArgumentParser()
     parser.add_argument("--id", help="Fetch single episode id (e.g. ep-0418)")
     parser.add_argument("--force", action="store_true", help="Re-fetch even if complete")
@@ -117,13 +112,7 @@ def main() -> None:
 
     targets = rows
     if args.id:
-        targets = [r for r in rows if r["id"] == args.id]
-        if not targets:
-            num = parse_numbered_episode_id(args.id)
-            if num is not None:
-                targets = [r for r in rows if r.get("episode_number") == num]
-        if not targets:
-            raise SystemExit(f"Unknown id: {args.id}")
+        targets = [resolve_catalog_row(rows, args.id)]
 
     count = 0
     for row in targets:

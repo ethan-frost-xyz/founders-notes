@@ -25,6 +25,10 @@ EP_MENTION_RE = re.compile(
 AUTO_ACCEPT_SCORE = 0.75
 REVIEW_SCORE = 0.5
 
+
+def tweet_url(username: str, tweet_id: str) -> str:
+    return f"https://x.com/{username}/status/{tweet_id}"
+
 CSV_COLUMNS = [
     "x_post_id",
     "created_at",
