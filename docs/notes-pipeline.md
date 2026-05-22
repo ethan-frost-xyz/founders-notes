@@ -2,6 +2,14 @@
 
 Daily study notes for Founders episodes: timestamp bullets in git, edited on phone or Mac.
 
+## Intentional incompleteness
+
+This vault is **actively being filled in**, not fully backfilled. As of each `verify.py` run, many episodes have an empty `{folder}.notes.md` scaffold (header + `## Raw datapoints` only) because that episode has not been listened to yet.
+
+- **`catalog/gaps.md` “notes without datapoints”** = backlog / not started, **not** a broken import.
+- **Progress metric:** `notes with datapoints` count should climb over weeks as you listen (~1 episode per day).
+- Agents and tools should use `scaffold_notes.py --next` and help with the **current** episode, not bulk-generate bullets for hundreds of episodes.
+
 ## File layout
 
 Per episode (padded id, unified filename):
@@ -108,7 +116,7 @@ python expand_datapoints.py --id ep-0200
 
 | Metric | Meaning |
 |--------|---------|
-| **Notes files** | `{folder}.notes.md` exists |
-| **Notes with datapoints** | At least one `MM:SS —` bullet |
+| **Notes files** | `{folder}.notes.md` exists (includes empty scaffolds) |
+| **Notes with datapoints** | At least one `MM:SS —` bullet (episode actually noted) |
 
-Empty scaffolds count as files but not as datapoints until you add bullets.
+Empty scaffolds count as files but not as datapoints until you add bullets after listening. The long “notes without datapoints” list in `catalog/gaps.md` is **expected** during daily catch-up.

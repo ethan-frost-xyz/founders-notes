@@ -110,6 +110,10 @@ def build_gaps_markdown(
     lines = [
         "# Catalog gaps (auto-generated)",
         "",
+        "> **Work in progress:** Low note/post counts are expected. Ethan adds timestamp bullets",
+        "> daily (~1 episode) while listening; empty scaffolds are placeholders, not import failures.",
+        "> See [docs/notes-pipeline.md](../docs/notes-pipeline.md). Only **blocking** transcript gaps matter for Phase 1.",
+        "",
         f"**Total episodes:** {len(rows)}",
         f"**Numbered:** {len(numbered)} | **Specials:** {len(specials)}",
         f"**Transcripts complete:** {len(complete)}",
@@ -144,7 +148,8 @@ def build_gaps_markdown(
         lines.append(f"## Notes without datapoints ({len(scaffold_only)} numbered)")
         lines.append("")
         lines.append(
-            "File exists but no `MM:SS —` bullets under `## Raw datapoints` (empty scaffold or not started)."
+            "File exists but no `MM:SS —` bullets yet — **expected** for episodes not listened to "
+            "(empty scaffold or backlog). Filled in over time via the daily notes workflow; not a blocking gap."
         )
         lines.append("")
         for n in sorted(scaffold_only)[:40]:

@@ -7,7 +7,7 @@ Personal knowledge vault for [@ethanfrost](https://x.com/ethanfrost)'s daily Fou
 | Layer | Coverage | Notes |
 |-------|----------|--------|
 | **Transcripts** | 417 / 417 numbered | Phase 1 complete — Colossus archives in `content/transcripts/` |
-| **Notes** | 417 files / 176 datapoints | 176 with timestamp bullets; ep 0190–0417 mostly empty scaffolds — fill as you listen (~1/day) |
+| **Notes** | 417 files / 176 datapoints | **In progress (daily):** bullets added ~1 episode/day while listening; empty scaffolds are expected, not missing data |
 | **X posts** | 187 / 417 | CSV cache + organizer; 2 documented gaps (ep-0159 skipped, ep-0189 not posted) |
 | **Search** | v1 | `catalog/chunks.jsonl` + `ingestion/search.py` |
 
@@ -21,7 +21,7 @@ Details: `catalog/gaps.md` (auto), `catalog/import-review.md` (manual attributio
 
 ## Phase 2: Notes and posts
 
-- **Notes:** `content/notes/{folder}/{folder}.notes.md` — timestamp bullets under `## Raw datapoints`. 176 episodes have bullets (mostly ep 1–189 from Apple Notes). Ep 0190–0417 are scaffolded empty until you listen (~1/day).
+- **Notes:** `content/notes/{folder}/{folder}.notes.md` — timestamp bullets under `## Raw datapoints`. Coverage grows daily (~1 episode); 176 have bullets today (Apple Notes import + ongoing vault-native catch-up). Empty scaffolds = not listened yet.
 - **Posts:** `content/posts/{folder}/{folder}.post.md` — one Founders post per episode (threads + articles)
 - **Corpus:** `content/posts/_corpus/all-posts.md` — all Founders posts for cross-episode search
 - **X pipeline:** sync API → `import/x-posts-raw.csv` (gitignored) → organize (no API on organize)
@@ -105,7 +105,7 @@ Re-fetch one transcript: `python fetch_transcripts.py --id ep-0418 --force`
 
 Phase 1 is complete when `python verify.py` reports no blocking transcript gaps.
 
-Phase 2 progress is in `catalog/gaps.md` (notes files vs datapoints, posts, missing lists).
+Phase 2 progress is in `catalog/gaps.md` (notes files vs datapoints, posts). **Low datapoint/post counts are expected** while working through the catalog daily—not ingestion errors.
 
 ---
 

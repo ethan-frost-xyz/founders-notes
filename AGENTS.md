@@ -2,6 +2,16 @@
 
 Personal knowledge vault: Founders podcast transcripts, study notes, and X posts.
 
+## Work in progress (read first)
+
+**Incomplete notes and posts are intentional.** Phase 1 transcripts are complete; Phase 2 is an active daily ritual (~1 episode/day). Most episodes have a `.notes.md` scaffold but only **176/417** have timestamp bullets so far; posts are **187/417** and growing.
+
+- Do **not** treat `catalog/gaps.md` “notes without datapoints” or “missing posts” as bugs to bulk-fix.
+- **Do** help with the current episode: `python scaffold_notes.py --next`, edit `{folder}.notes.md`, then `build_chunks.py`.
+- Blocking gaps = transcript/layout only (`verify.py` exit 1). Empty scaffolds are normal.
+
+Daily workflow: [`docs/notes-pipeline.md`](docs/notes-pipeline.md).
+
 ## Start here
 
 1. **Episode index:** [`catalog/episodes.jsonl`](catalog/episodes.jsonl) — ids, URLs, `transcript_status`, paths

@@ -1,5 +1,9 @@
 # Catalog gaps (auto-generated)
 
+> **Work in progress:** Low note/post counts are expected. Ethan adds timestamp bullets
+> daily (~1 episode) while listening; empty scaffolds are placeholders, not import failures.
+> See [docs/notes-pipeline.md](../docs/notes-pipeline.md). Only **blocking** transcript gaps matter for Phase 1.
+
 **Total episodes:** 442
 **Numbered:** 417 | **Specials:** 25
 **Transcripts complete:** 417
@@ -12,7 +16,7 @@
 
 ## Notes without datapoints (241 numbered)
 
-File exists but no `MM:SS —` bullets under `## Raw datapoints` (empty scaffold or not started).
+File exists but no `MM:SS —` bullets yet — **expected** for episodes not listened to (empty scaffold or backlog). Filled in over time via the daily notes workflow; not a blocking gap.
 
 - `ep-0014`
 - `ep-0021`
