@@ -64,7 +64,7 @@ def write_frontmatter_md(
     return path
 
 
-def write_notes_md(row: dict[str, Any], body: str, *, source: str = "apple_notes_import") -> Path:
+def write_notes_md(row: dict[str, Any], body: str, *, source: str = "vault_native") -> Path:
     episode_id = row["id"]
     slug = row["slug"]
     num = row.get("episode_number")

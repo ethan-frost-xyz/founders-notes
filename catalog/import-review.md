@@ -1,9 +1,10 @@
 # Import review (manual cleanup)
 
-## Apple Notes
+## Apple Notes (completed — archived)
 
-- **189 notes** imported (+ ep-0021 manual `XYZ` placeholder)
-- See prior resolved items in git history
+- **189 notes** imported in one shot; workflow is now vault-native only (edit `.notes.md` in git)
+- ep-0021 still has manual `XYZ` placeholder if you add that note later
+- Script archived: `ingestion/migrations/import_notes_apple.py` — do not re-run (wipes X attribution section in this file)
 
 ## X posts — manual attribution (2026-05-21)
 

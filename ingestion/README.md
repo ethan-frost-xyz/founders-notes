@@ -21,7 +21,6 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`import/REA
 | 4 | `verify.py` | Regenerates `catalog/gaps.md`; exits 1 on blocking gaps |
 | Ongoing | `sync_new.py` | New sitemap episodes; `--repair-urls --apply` |
 | Notes | `scaffold_notes.py` | Empty `{folder}.notes.md` scaffolds |
-| Notes import | `import_notes.py` | Apple Notes export |
 | X sync | `sync_x_cache.py` | API → `import/x-posts-raw.csv` |
 | X organize | `organize_posts_from_csv.py` | CSV → `content/posts/` (no API) |
 | Search | `build_chunks.py` | → `catalog/chunks.jsonl` |

@@ -4,11 +4,12 @@ Place one-time exports here (gitignored). Pass paths explicitly to ingestion scr
 
 | Source | Suggested file | Script |
 |--------|----------------|--------|
-| Apple Notes | `apple-notes.txt` or `.md` | `python import_notes.py --input ../import/apple-notes.txt` |
 | X posts (cache) | `x-posts-raw.csv` | `python sync_x_cache.py` then `python organize_posts_from_csv.py` |
 | Manual post body | any `.txt` file | `assign_post_manual.py --body-file path` |
 
 Personal exports and X cache are not committed (see `.gitignore`).
+
+**Notes:** Study notes live in `content/notes/` and are edited directly in git ([docs/notes-pipeline.md](../docs/notes-pipeline.md)). Apple Notes backfill was a one-shot migration ([`ingestion/migrations/import_notes_apple.py`](../ingestion/migrations/import_notes_apple.py)).
 
 ## X posts workflow (CSV-first)
 

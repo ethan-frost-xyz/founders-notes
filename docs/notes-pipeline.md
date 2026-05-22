@@ -92,15 +92,11 @@ python scaffold_notes.py --missing
 python verify.py
 ```
 
-## Apple Notes (optional)
+## Apple Notes import (archived)
 
-Historical import for ep 1–189 used `import_notes.py`. For stragglers only:
+Episodes 1–189 were bulk-imported once from Apple Notes (`source: apple_notes_import` in frontmatter). **Going forward, edit notes only in this repo** — Working Copy on phone, Cursor on Mac.
 
-1. Export to `import/apple-notes.txt`
-2. `python import_notes.py -i ../import/apple-notes.txt --merge`
-3. `python build_chunks.py`
-
-Import keys off `#N` headers; prefer vault-native for new episodes.
+Recovery only (overwrites `catalog/import-review.md` if run without `--dry-run`): [`ingestion/migrations/import_notes_apple.py`](../ingestion/migrations/import_notes_apple.py). See [`ingestion/migrations/README.md`](../ingestion/migrations/README.md).
 
 ## Datapoint expansion
 

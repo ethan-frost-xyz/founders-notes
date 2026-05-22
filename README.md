@@ -7,7 +7,7 @@ Personal knowledge vault for [@ethanfrost](https://x.com/ethanfrost)'s daily Fou
 | Layer | Coverage | Notes |
 |-------|----------|--------|
 | **Transcripts** | 417 / 417 numbered | Phase 1 complete — Colossus archives in `content/transcripts/` |
-| **Notes** | 417 files / 176 datapoints | **In progress (daily):** bullets added ~1 episode/day while listening; empty scaffolds are expected, not missing data |
+| **Notes** | 417 files / 176 datapoints | **In progress (daily):** edit `.notes.md` in git (~1 episode/day); empty scaffolds = not listened yet |
 | **X posts** | 187 / 417 | CSV cache + organizer; 2 documented gaps (ep-0159 skipped, ep-0189 not posted) |
 | **Search** | v1 | `catalog/chunks.jsonl` + `ingestion/search.py` |
 
@@ -21,7 +21,7 @@ Details: `catalog/gaps.md` (auto), `catalog/import-review.md` (manual attributio
 
 ## Phase 2: Notes and posts
 
-- **Notes:** `content/notes/{folder}/{folder}.notes.md` — timestamp bullets under `## Raw datapoints`. Coverage grows daily (~1 episode); 176 have bullets today (Apple Notes import + ongoing vault-native catch-up). Empty scaffolds = not listened yet.
+- **Notes:** `content/notes/{folder}/{folder}.notes.md` — timestamp bullets under `## Raw datapoints`, edited directly in the repo (see [docs/notes-pipeline.md](docs/notes-pipeline.md)). Coverage grows daily (~1 episode).
 - **Posts:** `content/posts/{folder}/{folder}.post.md` — one Founders post per episode (threads + articles)
 - **Corpus:** `content/posts/_corpus/all-posts.md` — all Founders posts for cross-episode search
 - **X pipeline:** sync API → `import/x-posts-raw.csv` (gitignored) → organize (no API on organize)
@@ -29,10 +29,6 @@ Details: `catalog/gaps.md` (auto), `catalog/import-review.md` (manual attributio
 ```bash
 cd ingestion
 source .venv/bin/activate
-
-# Apple Notes (see import/README.md)
-python import_notes.py -i ../import/apple-notes.txt
-python import_notes.py -i ../import/apple-notes.txt --merge   # append new bullets
 
 # X: cache first, then organize (requires .env)
 python sync_x_cache.py --full    # one-time backfill
@@ -61,7 +57,7 @@ catalog/chunks.jsonl            # Chunk index for search.py
 content/transcripts/            # Colossus transcript per episode
 content/notes/                  # Raw datapoints per episode
 content/posts/                  # X post per episode + _corpus/ + _other/
-import/                         # Gitignored exports (apple-notes.txt, x-posts-raw.csv)
+import/                         # Gitignored exports (x-posts-raw.csv, manual post bodies)
 ingestion/                      # Build, import, verify scripts (see ingestion/README.md)
 ```
 
@@ -91,8 +87,7 @@ python sync_new.py --repair-urls --apply
 # after map_colossus + fetch_transcripts for new rows:
 python scaffold_notes.py --missing
 
-# Phase 2 — notes and posts
-python import_notes.py -i ../import/apple-notes.txt
+# Phase 2 — notes and posts (notes: edit .notes.md directly; see docs/notes-pipeline.md)
 python sync_x_cache.py --full
 python organize_posts_from_csv.py
 python build_chunks.py
@@ -125,7 +120,7 @@ python verify.py                  # notes files vs notes with datapoints
 python build_chunks.py            # after adding bullets
 ```
 
-**Also:** Replace ep-0021 `XYZ` placeholder when that note exists. Optional Apple Notes merge: `import_notes.py --merge` for stragglers only.
+**Also:** Replace ep-0021 `XYZ` placeholder when that note exists.
 
 **Done when:** `notes with datapoints` in `catalog/gaps.md` tracks how far you have listened—not all 417 overnight.
 
