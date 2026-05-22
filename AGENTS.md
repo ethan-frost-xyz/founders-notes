@@ -72,6 +72,10 @@ Full script index: [`ingestion/README.md`](ingestion/README.md).
 
 Do not add embeddings unless grep + chunk index fail for the user's post corpus. See [`docs/retrieval.md`](docs/retrieval.md).
 
+## Cursor plans
+
+When you implement work from a plan in [`.cursor/plans/`](.cursor/plans/), **commit that `.plan.md` in the same commit** as the code/docs changes (or the final commit of that task). Do not ship implementation on `main` while leaving the matching plan untracked.
+
 ## Schema
 
 [`docs/episode-id-rules.md`](docs/episode-id-rules.md) — ids, frontmatter, catalog columns. Daily notes: [`docs/notes-pipeline.md`](docs/notes-pipeline.md).
