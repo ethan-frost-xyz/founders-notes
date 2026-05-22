@@ -5,12 +5,11 @@ from __future__ import annotations
 
 import re
 
-from vault_lib import (
+from catalog import load_catalog, save_catalog
+from colossus import (
     is_founders_numbered_title,
-    load_catalog,
     parse_episode_number,
     rate_limit,
-    save_catalog,
     session,
 )
 

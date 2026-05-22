@@ -8,7 +8,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from catalog import load_catalog, resolve_catalog_row
+from cli_args import add_episode_id_arg, ensure_catalog, resolve_episode_id_arg
 from markdown_io import read_markdown_body
 from paths import ROOT, expanded_file_path, notes_file_path, transcript_dir, transcript_filename
 
@@ -51,13 +51,14 @@ def read_body(path: Path) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Datapoint expansion prompt builder")
-    parser.add_argument("--id", required=True, help="Episode id, e.g. ep-0200")
+    add_episode_id_arg(parser, required=True)
     parser.add_argument("--copy", action="store_true", help="Copy prompt to macOS clipboard")
     parser.add_argument("--write", action="store_true", help="Write expanded.md scaffold")
     args = parser.parse_args()
 
-    rows = load_catalog()
-    row = resolve_catalog_row(rows, args.id)
+    rows = ensure_catalog()
+    row = resolve_episode_id_arg(rows, args.episode_id)
+    assert row is not None
     slug = row["slug"]
     ep_id = row["id"]
     num = row.get("episode_number")

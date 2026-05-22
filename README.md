@@ -7,7 +7,7 @@ Personal knowledge vault for [@ethanfrost](https://x.com/ethanfrost)'s daily Fou
 | Layer | Coverage | Notes |
 |-------|----------|--------|
 | **Transcripts** | 417 / 417 numbered | Phase 1 complete — Colossus archives in `content/transcripts/` |
-| **Notes** | 417 files / 189 datapoints | Ep 1–189 have timestamp bullets; ep 0190–0417 scaffolded empty — fill as you listen (~1/day) |
+| **Notes** | 417 files / 176 datapoints | 176 with timestamp bullets; ep 0190–0417 mostly empty scaffolds — fill as you listen (~1/day) |
 | **X posts** | 187 / 417 | CSV cache + organizer; 2 documented gaps (ep-0159 skipped, ep-0189 not posted) |
 | **Search** | v1 | `catalog/chunks.jsonl` + `ingestion/search.py` |
 
@@ -21,7 +21,7 @@ Details: `catalog/gaps.md` (auto), `catalog/import-review.md` (manual attributio
 
 ## Phase 2: Notes and posts
 
-- **Notes:** `content/notes/{folder}/{folder}.notes.md` — timestamp bullets under `## Raw datapoints`. Historical batch: ep 1–189. Ep 190+ fills in over time as you finish each episode (~1/day).
+- **Notes:** `content/notes/{folder}/{folder}.notes.md` — timestamp bullets under `## Raw datapoints`. 176 episodes have bullets (mostly ep 1–189 from Apple Notes). Ep 0190–0417 are scaffolded empty until you listen (~1/day).
 - **Posts:** `content/posts/{folder}/{folder}.post.md` — one Founders post per episode (threads + articles)
 - **Corpus:** `content/posts/_corpus/all-posts.md` — all Founders posts for cross-episode search
 - **X pipeline:** sync API → `import/x-posts-raw.csv` (gitignored) → organize (no API on organize)
@@ -62,7 +62,7 @@ content/transcripts/            # Colossus transcript per episode
 content/notes/                  # Raw datapoints per episode
 content/posts/                  # X post per episode + _corpus/ + _other/
 import/                         # Gitignored exports (apple-notes.txt, x-posts-raw.csv)
-ingestion/                      # Build, import, verify scripts
+ingestion/                      # Build, import, verify scripts (see ingestion/README.md)
 ```
 
 ## Querying in Cursor
@@ -117,7 +117,7 @@ Three high-leverage options, ordered by impact on the daily ritual:
 
 **Primary workflow:** vault-native notes in git — see [docs/notes-pipeline.md](docs/notes-pipeline.md) (Working Copy on phone, Cursor on Mac).
 
-Ep 1–189 have datapoints from Apple Notes import. Ep 0190–0417 have **empty scaffolds** (`python scaffold_notes.py`); add timestamp bullets as you finish each episode (~1/day).
+176 episodes have datapoints (see `catalog/gaps.md`). Ep 0190–0417 have **empty scaffolds** (`python scaffold_notes.py`); add timestamp bullets as you finish each episode (~1/day).
 
 ```bash
 python scaffold_notes.py --next   # path to next file to edit
@@ -139,7 +139,7 @@ python build_chunks.py            # after adding bullets
 
 ### 3. Datapoint expansion at scale
 
-**Why:** 189 episodes have raw timestamp bullets but almost no `{folder}.expanded.md`. This is the highest-value daily workflow after import — quotes + takeaways from transcript without hand-copying.
+**Why:** 176 episodes have raw timestamp bullets but almost no `{folder}.expanded.md`. This is the highest-value daily workflow after import — quotes + takeaways from transcript without hand-copying.
 
 **Build:** Batch driver around `expand_datapoints.py` (episode list, optional `--write` scaffolds), quality checklist in `docs/datapoint-workflow.md`, chunk index includes `notes:expanded_datapoints` when present.
 

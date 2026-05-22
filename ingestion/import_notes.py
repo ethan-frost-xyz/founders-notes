@@ -8,13 +8,10 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from vault_lib import (
-    IMPORT_REVIEW_PATH,
-    catalog_by_number,
-    format_episode_id,
-    load_catalog,
-    write_notes_md,
-)
+from catalog import catalog_by_number, load_catalog
+from episode_ids import format_episode_id
+from markdown_io import read_markdown_body, write_notes_md
+from paths import IMPORT_REVIEW_PATH, notes_file_path
 
 # Episode header: "#200", "200", "ep 200", "#200 Rockefeller", unbulleted title line
 EP_HEADER_RE = re.compile(
@@ -22,6 +19,7 @@ EP_HEADER_RE = re.compile(
     re.IGNORECASE,
 )
 BULLET_RE = re.compile(r"^[\s]*[-•*]\s+")
+# Apple Notes may use • prefix; verify.py uses stricter bullet regex for gaps.md
 TIMESTAMP_BULLET_RE = re.compile(
     r"^[\s]*[-•*]?\s*(\d{1,2}:\d{2}(?::\d{2})?)\s*[-–—]\s*(.+)$"
 )
@@ -42,9 +40,9 @@ def parse_episode_number_from_line(line: str) -> int | None:
     m = EP_HEADER_RE.match(stripped)
     if m:
         return int(m.group(1))
-    # Bare number on its own line (common in Apple Notes)
-    if re.fullmatch(r"#?\s*(\d{1,3})\s*", stripped):
-        return int(re.fullmatch(r"#?\s*(\d{1,3})\s*", stripped).group(1))
+    bare = re.fullmatch(r"#?\s*(\d{1,3})\s*", stripped)
+    if bare:
+        return int(bare.group(1))
     return None
 
 
@@ -100,6 +98,25 @@ def format_notes_body(block: NoteBlock) -> str:
     return "\n".join(parts)
 
 
+def merge_bullets_into_existing(path: Path, bullets: list[str]) -> None:
+    """Append new bullets to an existing notes file body."""
+    text = path.read_text(encoding="utf-8")
+    if text.startswith("---"):
+        parts = text.split("---", 2)
+        fm_lines = parts[:2]
+        body = parts[2] if len(parts) >= 3 else ""
+        for bullet in bullets:
+            if bullet not in body:
+                body = body.rstrip() + "\n" + bullet + "\n"
+        path.write_text("---".join(fm_lines) + "---" + body, encoding="utf-8")
+    else:
+        body = read_markdown_body(path)
+        for bullet in bullets:
+            if bullet not in body:
+                body = body.rstrip() + "\n" + bullet + "\n"
+        path.write_text(body, encoding="utf-8")
+
+
 def update_import_review(
     *,
     written: list[int],
@@ -149,7 +166,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Import Apple Notes export into content/notes/")
     parser.add_argument("--input", "-i", required=True, type=Path, help="Path to .txt or .md export")
     parser.add_argument("--dry-run", action="store_true", help="Parse only; do not write files")
-    parser.add_argument("--merge", action="store_true", help="Append new bullets to existing notes.md")
+    parser.add_argument(
+        "--merge",
+        action="store_true",
+        help="Append new bullets to existing notes (preserves frontmatter)",
+    )
     args = parser.parse_args()
 
     if not args.input.exists():
@@ -184,13 +205,11 @@ def main() -> None:
             written.append(num)
             continue
 
-        out_path = write_notes_md(row, body)
+        out_path = notes_file_path(row["id"], row["slug"], row.get("episode_number"))
         if args.merge and out_path.exists():
-            existing = out_path.read_text(encoding="utf-8")
-            for bullet in block.bullets:
-                if bullet not in existing:
-                    existing = existing.rstrip() + "\n" + bullet + "\n"
-            out_path.write_text(existing, encoding="utf-8")
+            merge_bullets_into_existing(out_path, block.bullets)
+        else:
+            write_notes_md(row, body)
         written.append(num)
 
     update_import_review(

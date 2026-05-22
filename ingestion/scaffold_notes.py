@@ -6,7 +6,8 @@ from __future__ import annotations
 import argparse
 import re
 
-from catalog import load_catalog, resolve_catalog_row
+from catalog import load_catalog
+from cli_args import resolve_episode_id_arg
 from markdown_io import has_timestamp_datapoints, write_notes_md
 from paths import ROOT, notes_file_path
 
@@ -109,7 +110,7 @@ def main() -> None:
     rows = load_catalog()
     episode_id = args.episode_id
     if episode_id:
-        resolve_catalog_row(rows, episode_id)
+        resolve_episode_id_arg(rows, episode_id)
 
     selected = eligible_rows(
         rows,

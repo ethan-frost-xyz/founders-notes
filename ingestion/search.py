@@ -4,12 +4,11 @@
 from __future__ import annotations
 
 import argparse
-import json
 import re
 import subprocess
-from pathlib import Path
 
-from vault_lib import CHUNKS_PATH, ROOT
+from catalog import load_jsonl
+from paths import CHUNKS_PATH, ROOT
 
 CONTENT_DIRS = [
     ROOT / "content" / "transcripts",
@@ -19,15 +18,7 @@ CONTENT_DIRS = [
 
 
 def load_chunks() -> list[dict]:
-    if not CHUNKS_PATH.exists():
-        return []
-    rows = []
-    with CHUNKS_PATH.open(encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()
-            if line:
-                rows.append(json.loads(line))
-    return rows
+    return load_jsonl(CHUNKS_PATH)
 
 
 def search_chunks(query: str, limit: int, section_filter: str | None) -> list[tuple[float, dict]]:

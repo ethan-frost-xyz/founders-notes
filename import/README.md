@@ -38,7 +38,7 @@ Outputs:
 
 - `import/x-posts-raw.csv` — every tweet/reply/article row
 - `import/x-posts-sync-meta.json` — sync state
-- `content/posts/ep-NNN-.../post.md` — high-confidence Founders matches
+- `content/posts/ep-NNNN-.../ep-NNNN-....post.md` — high-confidence Founders matches
 - `content/posts/_other/{id}.md` — non-Founders and low-confidence
 - `catalog/post-mapping-review.jsonl` — medium-confidence matches for manual review
 - `content/posts/_corpus/all-posts.md` — Founders corpus

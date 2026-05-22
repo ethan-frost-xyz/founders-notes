@@ -10,7 +10,8 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
-from catalog import load_catalog, resolve_catalog_row, save_catalog
+from catalog import save_catalog
+from cli_args import add_episode_id_arg, ensure_catalog, resolve_episode_id_arg
 from colossus import (
     colossus_login,
     extract_episode_body,
@@ -98,27 +99,26 @@ def fetch_one(sess, row: dict, *, force: bool = False) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--id", help="Fetch single episode id (e.g. ep-0418)")
+    add_episode_id_arg(parser)
     parser.add_argument("--force", action="store_true", help="Re-fetch even if complete")
     parser.add_argument("--limit", type=int, default=0, help="Max episodes to fetch (0=all)")
     args = parser.parse_args()
 
-    rows = load_catalog()
-    if not rows:
-        raise SystemExit("Run build_catalog.py first")
+    rows = ensure_catalog()
 
     sess = session()
     authenticate(sess)
 
     targets = rows
-    if args.id:
-        targets = [resolve_catalog_row(rows, args.id)]
+    single = resolve_episode_id_arg(rows, args.episode_id)
+    if single:
+        targets = [single]
 
     count = 0
     for row in targets:
         if args.limit and count >= args.limit:
             break
-        if row.get("transcript_status") == "complete" and not args.force and not args.id:
+        if row.get("transcript_status") == "complete" and not args.force and not args.episode_id:
             continue
         if not row.get("colossus_url"):
             continue
