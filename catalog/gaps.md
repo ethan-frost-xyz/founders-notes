@@ -13,6 +13,8 @@
 **Notes files:** 417 / 417 numbered (with transcript)
 **Notes with datapoints:** 176 / 417 numbered (timestamp bullets)
 **Posts imported:** 187 / 417 numbered
+**Expanded notes:** 0 / 417 numbered (with transcript)
+**Expanded drafts (pending review):** 0 / 417 numbered
 
 ## Notes without datapoints (241 numbered)
 
@@ -59,6 +61,52 @@ File exists but no `MM:SS —` bullets yet — **expected** for episodes not lis
 - `ep-0215`
 - `ep-0216`
 - … and 201 more
+
+## Has datapoints, no expanded.md (176 numbered)
+
+Optional LLM expansion: `python expand_datapoints_llm.py --missing-expanded --dry-run` then `--apply` (draft) and `--promote --apply`. See [docs/datapoint-workflow.md](../docs/datapoint-workflow.md).
+
+- `ep-0001`
+- `ep-0002`
+- `ep-0003`
+- `ep-0004`
+- `ep-0005`
+- `ep-0006`
+- `ep-0007`
+- `ep-0008`
+- `ep-0009`
+- `ep-0010`
+- `ep-0011`
+- `ep-0012`
+- `ep-0013`
+- `ep-0015`
+- `ep-0016`
+- `ep-0017`
+- `ep-0018`
+- `ep-0019`
+- `ep-0020`
+- `ep-0022`
+- `ep-0023`
+- `ep-0024`
+- `ep-0025`
+- `ep-0026`
+- `ep-0027`
+- `ep-0028`
+- `ep-0029`
+- `ep-0030`
+- `ep-0031`
+- `ep-0032`
+- `ep-0033`
+- `ep-0034`
+- `ep-0036`
+- `ep-0037`
+- `ep-0038`
+- `ep-0039`
+- `ep-0040`
+- `ep-0041`
+- `ep-0042`
+- `ep-0043`
+- … and 136 more
 
 ## Missing posts (228 numbered)
 

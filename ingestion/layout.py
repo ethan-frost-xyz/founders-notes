@@ -13,6 +13,7 @@ LEGACY_BARE_FILES = frozenset({"notes.md", "post.md", "expanded.md", "transcript
 PER_EPISODE_FILE_RE = re.compile(
     r"^(?P<folder>.+)\.(?P<ctype>transcript|notes|expanded|post)\.md$"
 )
+EXPANDED_DRAFT_RE = re.compile(r"^(?P<folder>.+)\.expanded\.draft\.md$")
 
 
 def scan_layout_violations(rows: list[dict]) -> list[str]:
@@ -53,6 +54,9 @@ def scan_layout_violations(rows: list[dict]) -> list[str]:
                     continue
                 m = PER_EPISODE_FILE_RE.match(f.name)
                 if not m:
+                    dm = EXPANDED_DRAFT_RE.match(f.name)
+                    if dm and dm.group("folder") == child.name:
+                        continue
                     if f.name == f"{child.name}.md":
                         errors.append(f"legacy transcript filename: {f.relative_to(ROOT)}")
                     else:

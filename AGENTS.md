@@ -25,7 +25,8 @@ For `ep-NNNN` (4-digit padded id, e.g. `ep-0200`), use the same `{folder}` basen
 
 - `content/transcripts/{folder}/{folder}.transcript.md`
 - `content/notes/{folder}/{folder}.notes.md` (raw datapoints)
-- `content/notes/{folder}/{folder}.expanded.md` (optional, after datapoint workflow)
+- `content/notes/{folder}/{folder}.expanded.draft.md` (optional LLM staging; see `expand_datapoints_llm.py`)
+- `content/notes/{folder}/{folder}.expanded.md` (optional, after datapoint workflow / promote)
 - `content/posts/{folder}/{folder}.post.md`
 
 Resolve `{folder}` from catalog `id` + `slug` via `paths.folder_name` (see [`docs/episode-id-rules.md`](docs/episode-id-rules.md)).
@@ -45,8 +46,12 @@ Or ripgrep: `content/transcripts/`, `content/notes/`, `content/posts/`, `content
 User workflow: timestamp bullets in `{folder}.notes.md` → full quotes + takeaways. See [`docs/datapoint-workflow.md`](docs/datapoint-workflow.md).
 
 ```bash
-python expand_datapoints.py --id ep-0200
+python expand_datapoints.py --id ep-0200              # prompt only
+python expand_datapoints_llm.py --id ep-0200 --apply   # OpenRouter → .expanded.draft.md
+python expand_datapoints_llm.py --promote --id ep-0200 --apply
 ```
+
+Backfill many episodes: `--missing-expanded --apply --limit N` or `--subprocess` (see [`docs/datapoint-workflow.md`](docs/datapoint-workflow.md)). Do **not** bulk-generate raw timestamp bullets in `.notes.md`.
 
 ## Ingestion (minimal)
 

@@ -9,38 +9,14 @@ import sys
 from pathlib import Path
 
 from cli_args import add_episode_id_arg, ensure_catalog, resolve_episode_id_arg
+from expand_llm import (
+    build_combined_prompt_for_clipboard,
+    build_user_message,
+    default_prompt_path,
+    load_prompt_template,
+)
 from markdown_io import read_markdown_body
 from paths import ROOT, expanded_file_path, notes_file_path, transcript_dir, transcript_filename
-
-PROMPT_TEMPLATE = """You are expanding Founders podcast study notes.
-
-For each line under "## Raw datapoints" in NOTES:
-- Find the matching moment in TRANSCRIPT using the timestamp (MM:SS or H:MM:SS).
-- Quote the relevant transcript passage verbatim (1–3 sentences).
-- Write one clear takeaway.
-
-Output markdown:
-
-## Expanded datapoints
-
-### 12:34 — [original bullet text]
-**Quote:** "…"
-**Takeaway:** …
-
-Repeat for every bullet. If timestamp is ambiguous, note uncertainty.
-
----
-
-## NOTES
-
-{notes}
-
----
-
-## TRANSCRIPT
-
-{transcript}
-"""
 
 
 def read_body(path: Path) -> str:
@@ -54,6 +30,11 @@ def main() -> None:
     add_episode_id_arg(parser, required=True)
     parser.add_argument("--copy", action="store_true", help="Copy prompt to macOS clipboard")
     parser.add_argument("--write", action="store_true", help="Write expanded.md scaffold")
+    parser.add_argument(
+        "--prompt",
+        type=Path,
+        help="Prompt markdown (<<<SYSTEM>>> / <<<USER>>>); default ingestion/prompts/expand_datapoints.md",
+    )
     args = parser.parse_args()
 
     rows = ensure_catalog()
@@ -68,7 +49,10 @@ def main() -> None:
 
     notes_body = read_body(npath)
     transcript_body = read_body(tx_path)
-    prompt = PROMPT_TEMPLATE.format(notes=notes_body, transcript=transcript_body)
+    prompt_path = args.prompt if args.prompt else default_prompt_path()
+    system, user_tpl = load_prompt_template(prompt_path)
+    user_msg = build_user_message(user_tpl, notes=notes_body, transcript=transcript_body)
+    prompt = build_combined_prompt_for_clipboard(system, user_msg)
 
     if args.write:
         out = expanded_file_path(ep_id, slug, num)

@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 from catalog import load_catalog
-from gaps_report import count_phase2_coverage, write_gaps_report
+from gaps_report import count_expanded_coverage, count_phase2_coverage, write_gaps_report
 from layout import scan_layout_violations
 from paths import GAPS_PATH, ROOT
 
@@ -50,6 +50,7 @@ def main() -> None:
         _,
         _,
     ) = count_phase2_coverage(rows)
+    expanded_n, expanded_drafts_n, _ = count_expanded_coverage(rows)
 
     layout_errors = scan_layout_violations(rows)
     write_gaps_report(rows, layout_errors=layout_errors)
@@ -57,6 +58,7 @@ def main() -> None:
     print(f"Catalog: {len(rows)} rows")
     print(f"Complete: {len(complete)} / {len(numbered)} numbered")
     print(f"Notes files: {notes_files} | with datapoints: {notes_with_datapoints} | Posts: {posts_n}")
+    print(f"Expanded: {expanded_n} | expanded drafts: {expanded_drafts_n}")
     print(f"Unmapped colossus_url: {len(unmapped)}")
     print(f"Weak founders_url: {len(weak_urls)}")
     print(f"Blocking gaps: {len(blocking)}")

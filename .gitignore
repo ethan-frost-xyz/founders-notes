@@ -9,3 +9,4 @@ __pycache__/
 *.pyc
 .DS_Store
 ingestion/.venv/
+catalog/expand-run.jsonl

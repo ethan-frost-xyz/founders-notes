@@ -4,7 +4,13 @@ from __future__ import annotations
 
 from episode_ids import format_episode_id
 from markdown_io import has_timestamp_datapoints
-from paths import GAPS_PATH, notes_file_path, post_file_path
+from paths import (
+    GAPS_PATH,
+    expanded_draft_file_path,
+    expanded_file_path,
+    notes_file_path,
+    post_file_path,
+)
 
 # Documented intentional gaps (see catalog/import-review.md)
 POST_EXCEPTIONS: dict[int, str] = {
@@ -59,6 +65,35 @@ def count_phase2_coverage(
     )
 
 
+def count_expanded_coverage(
+    rows: list[dict],
+) -> tuple[int, int, list[int]]:
+    """Returns (expanded_files, expanded_drafts, missing_expanded_episode_numbers).
+
+    missing_expanded_* counts numbered episodes with transcript + datapoints but no .expanded.md.
+    """
+    expanded_n = 0
+    drafts_n = 0
+    missing_expanded: list[int] = []
+
+    for r in rows:
+        num = r.get("episode_number")
+        if num is None or r.get("transcript_status") != "complete":
+            continue
+        ep_id = r["id"]
+        slug = r["slug"]
+        npath = notes_file_path(ep_id, slug, num)
+        if expanded_file_path(ep_id, slug, num).exists():
+            expanded_n += 1
+        if expanded_draft_file_path(ep_id, slug, num).exists():
+            drafts_n += 1
+        if npath.exists() and has_timestamp_datapoints(npath):
+            if not expanded_file_path(ep_id, slug, num).exists():
+                missing_expanded.append(num)
+
+    return expanded_n, drafts_n, missing_expanded
+
+
 def build_gaps_markdown(
     rows: list[dict],
     *,
@@ -106,6 +141,7 @@ def build_gaps_markdown(
     transcript_complete_numbered = sum(
         1 for r in numbered if r.get("transcript_status") == "complete"
     )
+    expanded_n, expanded_drafts_n, missing_expanded_list = count_expanded_coverage(rows)
 
     lines = [
         "# Catalog gaps (auto-generated)",
@@ -123,6 +159,8 @@ def build_gaps_markdown(
         f"**Notes files:** {notes_files} / {transcript_complete_numbered} numbered (with transcript)",
         f"**Notes with datapoints:** {notes_with_datapoints} / {transcript_complete_numbered} numbered (timestamp bullets)",
         f"**Posts imported:** {posts_n} / {transcript_complete_numbered} numbered",
+        f"**Expanded notes:** {expanded_n} / {transcript_complete_numbered} numbered (with transcript)",
+        f"**Expanded drafts (pending review):** {expanded_drafts_n} / {transcript_complete_numbered} numbered",
         "",
     ]
 
@@ -156,6 +194,23 @@ def build_gaps_markdown(
             lines.append(f"- `{format_episode_id(n)}`")
         if len(scaffold_only) > 40:
             lines.append(f"- … and {len(scaffold_only) - 40} more")
+        lines.append("")
+
+    if missing_expanded_list:
+        lines.append(
+            f"## Has datapoints, no expanded.md ({len(missing_expanded_list)} numbered)"
+        )
+        lines.append("")
+        lines.append(
+            "Optional LLM expansion: `python expand_datapoints_llm.py --missing-expanded --dry-run` "
+            "then `--apply` (draft) and `--promote --apply`. "
+            "See [docs/datapoint-workflow.md](../docs/datapoint-workflow.md)."
+        )
+        lines.append("")
+        for n in sorted(missing_expanded_list)[:40]:
+            lines.append(f"- `{format_episode_id(n)}`")
+        if len(missing_expanded_list) > 40:
+            lines.append(f"- … and {len(missing_expanded_list) - 40} more")
         lines.append("")
 
     if missing_posts:

@@ -22,3 +22,10 @@ def test_notes_file_path_under_notes_dir():
     p = notes_file_path("ep-0001", "1-test", 1)
     assert "content/notes" in str(p)
     assert p.name == "ep-0001-test.notes.md"
+
+
+def test_expanded_draft_file_path():
+    from paths import expanded_draft_file_path
+
+    p = expanded_draft_file_path("ep-0001", "1-test", 1)
+    assert p.name == "ep-0001-test.expanded.draft.md"

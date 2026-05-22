@@ -143,7 +143,7 @@ python attribute_posts_llm.py --apply
 
 **Why:** 176 episodes have raw timestamp bullets but almost no `{folder}.expanded.md`. This is the highest-value daily workflow after import — quotes + takeaways from transcript without hand-copying.
 
-**Build:** Batch driver around `expand_datapoints.py` (episode list, optional `--write` scaffolds), quality checklist in `docs/datapoint-workflow.md`, chunk index includes `notes:expanded_datapoints` when present.
+**Shipped:** `expand_datapoints_llm.py` (OpenRouter → `.expanded.draft.md`, `--promote` → `.expanded.md`), tunable prompt in `ingestion/prompts/expand_datapoints.md`, coverage lines in `catalog/gaps.md`. Chunk index includes expanded sections when `.expanded.md` exists (`build_chunks.py`).
 
 **Done when:** Expanded notes exist for episodes you actively study; search surfaces expanded sections.
 

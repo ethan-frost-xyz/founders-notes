@@ -103,16 +103,20 @@ Recovery only (overwrites `catalog/import-review.md` if run without `--dry-run`)
 When raw bullets are done, expand quotes + takeaways: [datapoint-workflow.md](datapoint-workflow.md).
 
 ```bash
-python expand_datapoints.py --id ep-0200
+python expand_datapoints.py --id ep-0200                    # print prompt (manual / Cursor)
+python expand_datapoints_llm.py --id ep-0200 --apply        # OpenRouter → .expanded.draft.md
+python expand_datapoints_llm.py --promote --id ep-0200 --apply
 ```
 
 ## Coverage in gaps.md
 
-`python verify.py` reports two note metrics:
+`python verify.py` reports note metrics and optional expansion progress:
 
 | Metric | Meaning |
 |--------|---------|
 | **Notes files** | `{folder}.notes.md` exists (includes empty scaffolds) |
 | **Notes with datapoints** | At least one `MM:SS —` bullet (episode actually noted) |
+| **Expanded notes** | `{folder}.expanded.md` exists |
+| **Expanded drafts** | `{folder}.expanded.draft.md` exists (pending promote) |
 
 Empty scaffolds count as files but not as datapoints until you add bullets after listening. The long “notes without datapoints” list in `catalog/gaps.md` is **expected** during daily catch-up.

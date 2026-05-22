@@ -102,6 +102,16 @@ def expanded_file_path(
     return notes_dir(episode_id, slug, episode_number) / content_filename(folder, "expanded")
 
 
+def expanded_draft_file_path(
+    episode_id: str,
+    slug: str,
+    episode_number: int | None = None,
+) -> Path:
+    """LLM staging file; not indexed as chunks until promoted to .expanded.md."""
+    folder = _episode_folder(episode_id, slug, episode_number)
+    return notes_dir(episode_id, slug, episode_number) / f"{folder}.expanded.draft.md"
+
+
 def post_dir(
     episode_id: str,
     slug: str,
