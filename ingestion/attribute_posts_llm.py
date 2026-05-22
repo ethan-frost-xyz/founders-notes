@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Attribute ambiguous X posts in post-mapping-review.jsonl via OpenAI."""
+"""Attribute ambiguous X posts in post-mapping-review.jsonl via OpenRouter."""
 
 from __future__ import annotations
 
@@ -12,6 +12,7 @@ from typing import Any
 from dotenv import load_dotenv
 
 from catalog import catalog_by_number, load_catalog
+from expand_llm import call_openrouter
 from markdown_io import write_post_md
 from paths import ROOT
 from x_posts_csv import (
@@ -23,7 +24,7 @@ from x_posts_match import AUTO_ACCEPT_SCORE, match_episode
 
 load_dotenv(ROOT / ".env")
 
-DEFAULT_MODEL = "gpt-4o-mini"
+DEFAULT_ATTRIBUTION_MODEL = "openai/gpt-4o-mini"
 MIN_CONFIDENCE = 0.7
 MAX_CATALOG_LINES = 450
 
@@ -98,30 +99,31 @@ def attribution_prompt(text: str, catalog_context: str) -> str:
     )
 
 
-def call_openai(
+def call_attribution_llm(
     *,
     text: str,
     catalog_context: str,
     model: str,
     api_key: str,
+    base_url: str | None = None,
 ) -> dict[str, Any]:
-    from openai import OpenAI
-
-    client = OpenAI(api_key=api_key)
-    response = client.chat.completions.create(
+    raw = call_openrouter(
+        system="You attribute X posts to Founders podcast episodes. Respond with JSON only.",
+        user=attribution_prompt(text, catalog_context),
         model=model,
-        messages=[
-            {
-                "role": "system",
-                "content": "You attribute X posts to Founders podcast episodes. Respond with JSON only.",
-            },
-            {"role": "user", "content": attribution_prompt(text, catalog_context)},
-        ],
-        response_format={"type": "json_object"},
+        api_key=api_key,
+        base_url=base_url,
         temperature=0,
+        response_format={"type": "json_object"},
     )
-    raw = response.choices[0].message.content or "{}"
     return parse_llm_attribution_response(raw)
+
+
+def resolve_attribution_model(cli_model: str | None) -> str:
+    if cli_model:
+        return cli_model
+    env_model = os.environ.get("OPENROUTER_ATTRIBUTION_MODEL", "").strip()
+    return env_model or DEFAULT_ATTRIBUTION_MODEL
 
 
 def main() -> None:
@@ -130,14 +132,16 @@ def main() -> None:
     )
     parser.add_argument("--dry-run", action="store_true", help="Print proposals only")
     parser.add_argument("--apply", action="store_true", help="Write .post.md for confident matches")
-    parser.add_argument("--model", default=DEFAULT_MODEL)
+    parser.add_argument("--model", help="Override OPENROUTER_ATTRIBUTION_MODEL")
     args = parser.parse_args()
     if not args.dry_run and not args.apply:
         parser.error("Specify --dry-run or --apply")
 
-    api_key = os.environ.get("OPENAI_API_KEY", "").strip()
+    api_key = os.environ.get("OPENROUTER_API_KEY", "").strip()
     if not api_key:
-        raise SystemExit("Set OPENAI_API_KEY in .env")
+        raise SystemExit("Set OPENROUTER_API_KEY in .env")
+    model = resolve_attribution_model(args.model)
+    base_url = os.environ.get("OPENROUTER_BASE_URL", "").strip() or None
 
     review = load_review_records()
     if not review:
@@ -176,11 +180,12 @@ def main() -> None:
             continue
 
         try:
-            result = call_openai(
+            result = call_attribution_llm(
                 text=text,
                 catalog_context=catalog_context,
-                model=args.model,
+                model=model,
                 api_key=api_key,
+                base_url=base_url,
             )
         except Exception as e:
             print(f"[error] {post_id}: {e}")
@@ -218,7 +223,7 @@ def main() -> None:
             published_at=rec.get("published_at"),
             source="llm_attribution",
             post_kind=csv_row.get("post_kind") if csv_row else "tweet",
-            attribution_note=f"llm:{args.model} conf={confidence:.2f} {reason[:120]}",
+            attribution_note=f"llm:{model} conf={confidence:.2f} {reason[:120]}",
         )
         print(f"[applied] {post_id} → {ep_id} conf={confidence:.2f}")
         applied += 1

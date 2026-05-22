@@ -145,6 +145,7 @@ def call_openrouter(
     api_key: str,
     base_url: str | None = None,
     temperature: float = 0.0,
+    response_format: dict[str, str] | None = None,
 ) -> str:
     from openai import OpenAI
 
@@ -152,14 +153,17 @@ def call_openrouter(
         api_key=api_key,
         base_url=(base_url or "https://openrouter.ai/api/v1").rstrip("/"),
     )
-    response = client.chat.completions.create(
-        model=model,
-        messages=[
+    kwargs: dict[str, Any] = {
+        "model": model,
+        "messages": [
             {"role": "system", "content": system},
             {"role": "user", "content": user},
         ],
-        temperature=temperature,
-    )
+        "temperature": temperature,
+    }
+    if response_format is not None:
+        kwargs["response_format"] = response_format
+    response = client.chat.completions.create(**kwargs)
     raw = response.choices[0].message.content
     if not raw:
         raise ValueError("empty model response")

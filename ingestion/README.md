@@ -25,7 +25,7 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`import/REA
 | Expand (OpenRouter) | `expand_datapoints_llm.py` | `.expanded.draft.md` → `--promote` → `.expanded.md` |
 | X sync | `sync_x_cache.py` | API → `import/x-posts-raw.csv` |
 | X organize | `organize_posts_from_csv.py` | CSV → `content/posts/` (skips articles) |
-| X LLM match | `attribute_posts_llm.py` | Review queue via OpenAI (`OPENAI_API_KEY`) |
+| X LLM match | `attribute_posts_llm.py` | Review queue via OpenRouter (`OPENROUTER_API_KEY`) |
 | Search | `build_chunks.py` | → `catalog/chunks.jsonl` |
 | Search | `search.py` | Query chunks (+ optional `rg`) |
 
@@ -38,8 +38,9 @@ Historical one-shots: [`migrations/`](migrations/) (do not re-run).
 | `COLOSSUS_EMAIL`, `COLOSSUS_PASSWORD` | `fetch_transcripts.py` |
 | `COLOSSUS_COOKIES_FILE` | `fetch_transcripts.py` (alternative to login) |
 | `X_BEARER_TOKEN`, `X_USERNAME` | `sync_x_cache.py`, `assign_post_manual.py`, `attribute_posts_llm.py` |
-| `OPENAI_API_KEY` | `attribute_posts_llm.py` |
-| `OPENROUTER_API_KEY`, `OPENROUTER_MODEL` | `expand_datapoints_llm.py` (`OPENROUTER_BASE_URL` optional) |
+| `OPENROUTER_API_KEY` | `attribute_posts_llm.py`, `expand_datapoints_llm.py` |
+| `OPENROUTER_ATTRIBUTION_MODEL` | `attribute_posts_llm.py` (`--model` overrides) |
+| `OPENROUTER_MODEL` | `expand_datapoints_llm.py` (`--model` overrides; `OPENROUTER_BASE_URL` optional) |
 
 Copy `.env.example` to repo root `.env`.
 

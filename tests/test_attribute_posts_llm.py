@@ -29,30 +29,33 @@ def test_build_catalog_context_includes_numbered_rows():
     assert "Special" not in ctx
 
 
-@patch("openai.OpenAI")
-def test_call_openai_parses_response(mock_openai_cls):
-    mock_client = MagicMock()
-    mock_openai_cls.return_value = mock_client
-    mock_client.chat.completions.create.return_value = MagicMock(
-        choices=[
-            MagicMock(
-                message=MagicMock(
-                    content=json.dumps(
-                        {
-                            "episode_number": 88,
-                            "confidence": 0.85,
-                            "reason": "buffett letters",
-                        }
-                    )
-                )
-            )
-        ]
+def test_resolve_attribution_model_cli_overrides_env(monkeypatch):
+    monkeypatch.setenv("OPENROUTER_ATTRIBUTION_MODEL", "anthropic/claude-3-haiku")
+    assert llm.resolve_attribution_model("openai/gpt-4o-mini") == "openai/gpt-4o-mini"
+
+
+def test_resolve_attribution_model_env_fallback(monkeypatch):
+    monkeypatch.delenv("OPENROUTER_ATTRIBUTION_MODEL", raising=False)
+    assert llm.resolve_attribution_model(None) == llm.DEFAULT_ATTRIBUTION_MODEL
+
+
+@patch("attribute_posts_llm.call_openrouter")
+def test_call_attribution_llm_parses_response(mock_call_openrouter):
+    mock_call_openrouter.return_value = json.dumps(
+        {
+            "episode_number": 88,
+            "confidence": 0.85,
+            "reason": "buffett letters",
+        }
     )
-    result = llm.call_openai(
+    result = llm.call_attribution_llm(
         text="Warren Buffett shareholder letters ep 88",
         catalog_context="88\t2020-01-01\t#88 Buffett",
-        model="gpt-4o-mini",
+        model="openai/gpt-4o-mini",
         api_key="test-key",
     )
     assert result["episode_number"] == 88
     assert result["confidence"] == 0.85
+    mock_call_openrouter.assert_called_once()
+    _, kwargs = mock_call_openrouter.call_args
+    assert kwargs["response_format"] == {"type": "json_object"}

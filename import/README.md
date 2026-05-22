@@ -35,7 +35,7 @@ python verify.py
 
 - **Organize** auto-maps tweets with explicit Founders `#N` / `ep. N` (high confidence).
 - **Native X articles** (`post_kind: article`) are **skipped** by organize — not written to `content/posts/`. You will not post articles going forward; legacy bodies use manual assign below.
-- **LLM** (`attribute_posts_llm.py`) handles medium-confidence rows in `catalog/post-mapping-review.jsonl` (requires `OPENAI_API_KEY`).
+- **LLM** (`attribute_posts_llm.py`) handles medium-confidence rows in `catalog/post-mapping-review.jsonl` (requires `OPENROUTER_API_KEY`, `OPENROUTER_ATTRIBUTION_MODEL` optional).
 
 `organize_posts_from_csv.py` **rewrites** `post-mapping-review.jsonl` each run. Record manual resolutions in [`catalog/import-review.md`](../catalog/import-review.md).
 
