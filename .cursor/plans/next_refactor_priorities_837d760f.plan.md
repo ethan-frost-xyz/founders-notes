@@ -4,16 +4,16 @@ overview: "After the completed ingestion module split, the highest-value next pa
 todos:
   - id: doc-sync
     content: Fix README 176 vs 189, import/README paths, add ingestion/README.md + episode-id-rules CLI table
-    status: in_progress
+    status: completed
   - id: ci-verify
     content: Add .github/workflows/verify.yml running pytest + verify.py
-    status: pending
+    status: completed
   - id: cli-args
     content: Add ingestion/cli_args.py and wire --id into fetch/scaffold/expand scripts
-    status: pending
+    status: completed
   - id: search-import-notes
     content: search.py uses load_jsonl; import_notes uses direct module imports + read_markdown_body for merge
-    status: pending
+    status: completed
 isProject: false
 ---
 
