@@ -55,11 +55,12 @@ Legacy unpadded ids (`ep-200`) are accepted where `--id` is supported.
 
 | Module | Role |
 |--------|------|
-| `vault_lib.py` | Re-export shim (stable imports) |
 | `paths.py`, `catalog.py`, `markdown_io.py` | Paths, catalog I/O, markdown |
 | `colossus.py`, `sitemap.py` | External fetch helpers |
 | `layout.py`, `gaps_report.py` | Used by `verify.py` |
-| `x_posts_lib.py` | X CSV cache and episode matching |
+| `x_posts_csv.py` | X CSV cache I/O and tweet → row conversion |
+| `x_posts_match.py` | Episode attribution scoring |
+| `x_posts_threads.py` | Thread grouping and reply filters |
 | `cli_args.py` | Shared `--id` argparse helper |
 
 ## Tests

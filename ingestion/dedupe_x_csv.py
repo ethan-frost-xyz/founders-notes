@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import csv
 
-from x_posts_lib import CSV_COLUMNS, X_POSTS_CSV, load_meta, save_meta
+from x_posts_csv import CSV_COLUMNS, X_POSTS_CSV, load_meta, save_meta
 
 
 def main() -> None:

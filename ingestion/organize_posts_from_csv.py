@@ -12,20 +12,16 @@ from typing import Any
 from catalog import catalog_by_number, load_catalog
 from markdown_io import read_markdown_body, utc_now_iso, write_frontmatter_md, write_post_md
 from paths import POSTS_CORPUS_PATH, ROOT, post_file_path
-from x_posts_lib import (
-    AUTO_ACCEPT_SCORE,
+from x_posts_csv import (
     POSTS_CORPUS_OTHER,
     POSTS_OTHER_DIR,
     POST_MAPPING_REVIEW,
-    REVIEW_SCORE,
     X_POSTS_CSV,
-    assemble_threads,
-    filter_attributable_rows,
     load_csv_rows,
-    match_episode,
     tweet_url,
-    x_user_id,
 )
+from x_posts_match import AUTO_ACCEPT_SCORE, REVIEW_SCORE, match_episode
+from x_posts_threads import assemble_threads, filter_attributable_rows, x_user_id
 
 
 def write_other_post(unit: dict[str, Any], username: str) -> Path:

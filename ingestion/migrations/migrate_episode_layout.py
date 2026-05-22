@@ -11,7 +11,9 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
-from vault_lib import (
+from catalog import load_catalog, save_catalog
+from episode_ids import format_episode_id, legacy_make_id
+from paths import (
     CATALOG_PATH,
     NOTES_DIR,
     POSTS_DIR,
@@ -19,10 +21,6 @@ from vault_lib import (
     TRANSCRIPTS_DIR,
     content_filename,
     folder_name,
-    format_episode_id,
-    legacy_make_id,
-    load_catalog,
-    save_catalog,
     transcript_path,
 )
 POST_MAPPING_REVIEW = ROOT / "catalog" / "post-mapping-review.jsonl"

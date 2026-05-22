@@ -18,7 +18,7 @@ For `ep-NNNN` (4-digit padded id, e.g. `ep-0200`), use the same `{folder}` basen
 - `content/notes/{folder}/{folder}.expanded.md` (optional, after datapoint workflow)
 - `content/posts/{folder}/{folder}.post.md`
 
-Resolve `{folder}` from catalog `id` + `slug` via `vault_lib.folder_name` (see [`docs/episode-id-rules.md`](docs/episode-id-rules.md)).
+Resolve `{folder}` from catalog `id` + `slug` via `paths.folder_name` (see [`docs/episode-id-rules.md`](docs/episode-id-rules.md)).
 
 ## Cross-episode search
 

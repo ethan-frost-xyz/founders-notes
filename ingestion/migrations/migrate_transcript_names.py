@@ -3,7 +3,7 @@
 
 from pathlib import Path
 
-from vault_lib import TRANSCRIPTS_DIR
+from paths import TRANSCRIPTS_DIR
 
 def main() -> None:
     removed = 0

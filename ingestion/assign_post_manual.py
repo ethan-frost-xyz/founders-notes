@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 from catalog import catalog_by_number, load_catalog
 from markdown_io import write_post_md
 from paths import ROOT
-from x_posts_lib import tweet_url
+from x_posts_csv import tweet_url
 
 load_dotenv(ROOT / ".env")
 

@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 from colossus import session
 from markdown_io import utc_now_iso
 from paths import ROOT
-from x_posts_lib import (
+from x_posts_csv import (
     X_POSTS_CSV,
     append_csv_rows,
     load_existing_ids,
