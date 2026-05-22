@@ -20,6 +20,18 @@
 
 Reply-to-others filter active: 184 rows excluded from attribution (`x_posts_threads.is_reply_to_other`).
 
+Organize skips `post_kind: article` units; assign bodies manually for native X articles.
+
+## Native X articles — needs manual body paste
+
+These episodes were published as X articles. Auto-organize must not own them. Paste full article text into `import/*.txt` (gitignored) and run `assign_post_manual.py`.
+
+| Episode | x_post_id | Issue | Command |
+|---------|-----------|-------|---------|
+| ep-0082 | `2020587382983237949` | Current `.post.md` has wrong reply chatter, not article body | `assign_post_manual.py --episode 82 --x-post-id 2020587382983237949 --published-at 2026-02-08 --post-kind article --body-file ../import/ep-0082-article.txt` |
+| ep-0088 | `2016586992859963402` | Recap excerpt only; need full article body | `assign_post_manual.py --episode 88 --x-post-id 2016586992859963402 --published-at 2026-01-28 --post-kind article --body-file ../import/ep-0088-article.txt` |
+| ep-0148 | `2034041777489863124` | Reference — already assigned with manual paste | Re-run only if you want to replace body |
+
 ## Resolved
 
 - Episode 21 — `XYZ` placeholder in notes (no Apple Notes export)

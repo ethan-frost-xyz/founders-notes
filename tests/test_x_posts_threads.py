@@ -1,6 +1,7 @@
 from x_posts_threads import (
     assemble_threads,
     filter_attributable_rows,
+    is_article_unit,
     is_reply_to_other,
 )
 
@@ -63,3 +64,9 @@ def test_assemble_threads_merges_self_thread_parts():
     assert "Part one" in units[0]["text"]
     assert "Part two" in units[0]["text"]
     assert units[0]["part_ids"] == ["100", "101"]
+
+
+def test_is_article_unit():
+    assert is_article_unit({"post_kind": "article", "x_post_id": "1"}) is True
+    assert is_article_unit({"post_kind": "tweet", "x_post_id": "1"}) is False
+    assert is_article_unit({"x_post_id": "1"}) is False

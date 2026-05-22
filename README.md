@@ -124,13 +124,20 @@ python build_chunks.py            # after adding bullets
 
 **Done when:** `notes with datapoints` in `catalog/gaps.md` tracks how far you have listened—not all 417 overnight.
 
-### 2. X post corpus completion + native articles
+### 2. X posts (recurring, not bulk backfill)
 
-**Why:** Posts are at 187 / 417. The CSV cache (~433 rows) is not full history. Link-only tweets (native X articles) do not carry body text in the API — ep-0148 required manual paste. Three rows sit in `catalog/post-mapping-review.jsonl`.
+**Why:** ~187 posts match episodes you have published on X through ~ep-0188. **Missing posts from ep-0190 onward are expected**—you have not posted those episodes yet. Native X articles are skipped by `organize_posts_from_csv.py`; use `assign_post_manual.py --body-file` for legacy article bodies (ep-0082, ep-0088, ep-0148).
 
-**Build:** Deeper `sync_x_cache.py --full` backfill; optional article-body fetch for `x.com/i/article/…` URLs; work through review queue; `assign_post_manual.py` for gaps; assign ep-189 when published. Re-run organize + corpus.
+**After each X post:**
 
-**Done when:** ~400+ `{folder}.post.md` files (minus documented skips like ep-0159) and review queue empty.
+```bash
+python sync_x_cache.py
+python organize_posts_from_csv.py
+python attribute_posts_llm.py --dry-run   # optional: ambiguous review queue
+python attribute_posts_llm.py --apply
+```
+
+**Done when:** Each new episode you publish gets a `.post.md` via organize (explicit `#`) or LLM/manual—not when all 417 rows are filled.
 
 ### 3. Datapoint expansion at scale
 

@@ -22,7 +22,8 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`import/REA
 | Ongoing | `sync_new.py` | New sitemap episodes; `--repair-urls --apply` |
 | Notes | `scaffold_notes.py` | Empty `{folder}.notes.md` scaffolds |
 | X sync | `sync_x_cache.py` | API → `import/x-posts-raw.csv` |
-| X organize | `organize_posts_from_csv.py` | CSV → `content/posts/` (no API) |
+| X organize | `organize_posts_from_csv.py` | CSV → `content/posts/` (skips articles) |
+| X LLM match | `attribute_posts_llm.py` | Review queue via OpenAI (`OPENAI_API_KEY`) |
 | Search | `build_chunks.py` | → `catalog/chunks.jsonl` |
 | Search | `search.py` | Query chunks (+ optional `rg`) |
 
@@ -34,7 +35,8 @@ Historical one-shots: [`migrations/`](migrations/) (do not re-run).
 |----------|---------|
 | `COLOSSUS_EMAIL`, `COLOSSUS_PASSWORD` | `fetch_transcripts.py` |
 | `COLOSSUS_COOKIES_FILE` | `fetch_transcripts.py` (alternative to login) |
-| `X_BEARER_TOKEN`, `X_USERNAME` | `sync_x_cache.py`, `assign_post_manual.py` |
+| `X_BEARER_TOKEN`, `X_USERNAME` | `sync_x_cache.py`, `assign_post_manual.py`, `attribute_posts_llm.py` |
+| `OPENAI_API_KEY` | `attribute_posts_llm.py` |
 
 Copy `.env.example` to repo root `.env`.
 
@@ -59,7 +61,8 @@ Legacy unpadded ids (`ep-200`) are accepted where `--id` is supported.
 | `layout.py`, `gaps_report.py` | Used by `verify.py` |
 | `x_posts_csv.py` | X CSV cache I/O and tweet → row conversion |
 | `x_posts_match.py` | Episode attribution scoring |
-| `x_posts_threads.py` | Thread grouping and reply filters |
+| `x_posts_threads.py` | Thread grouping, reply filters, article skip |
+| `attribute_posts_llm.py` | LLM attribution for `post-mapping-review.jsonl` |
 | `cli_args.py` | Shared `--id` argparse helper |
 
 ## Tests

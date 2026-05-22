@@ -6,7 +6,7 @@ Personal knowledge vault: Founders podcast transcripts, study notes, and X posts
 
 **Incomplete notes and posts are intentional.** Phase 1 transcripts are complete; Phase 2 is an active daily ritual (~1 episode/day). Most episodes have a `.notes.md` scaffold but only **176/417** have timestamp bullets so far; posts are **187/417** and growing.
 
-- Do **not** treat `catalog/gaps.md` “notes without datapoints” or “missing posts” as bugs to bulk-fix.
+- Do **not** treat `catalog/gaps.md` “notes without datapoints” or “missing posts” as bugs to bulk-fix. Gaps **beyond the current episode** (e.g. missing posts from ep-0190 onward while ~187 posts exist) mean those episodes are **not listened to or posted yet**—not broken import.
 - **Do** help with the current episode: `python scaffold_notes.py --next`, edit `{folder}.notes.md`, then `build_chunks.py`.
 - Blocking gaps = transcript/layout only (`verify.py` exit 1). Empty scaffolds are normal.
 
@@ -58,7 +58,8 @@ Full script index: [`ingestion/README.md`](ingestion/README.md).
 | Notes scaffold | `python scaffold_notes.py --missing` or `--next` (see [`docs/notes-pipeline.md`](docs/notes-pipeline.md)) |
 | Edit notes | Directly in `content/notes/{folder}/{folder}.notes.md` (Working Copy / Cursor) — no Apple Notes import |
 | X cache sync | `python sync_x_cache.py` (incremental) or `--full` (backfill) |
-| X organize | `python organize_posts_from_csv.py` (reads CSV only) |
+| X organize | `python organize_posts_from_csv.py` (reads CSV only; skips native X articles) |
+| X LLM match | `python attribute_posts_llm.py --dry-run` / `--apply` (ambiguous rows in `post-mapping-review.jsonl`) |
 | Manual post | `python assign_post_manual.py --episode N --x-post-id ID --published-at YYYY-MM-DD --body-file path` |
 | Dedupe CSV | `python dedupe_x_csv.py` (after overlapping `--full` syncs) |
 | Chunk index | `python build_chunks.py` |

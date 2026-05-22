@@ -30,6 +30,11 @@ def is_attributable_row(row: dict[str, str], user_id: str) -> bool:
     return not is_reply_to_other(row, user_id)
 
 
+def is_article_unit(unit: dict[str, Any]) -> bool:
+    """Native X article (note_tweet). Not mapped by organize — use assign_post_manual."""
+    return (unit.get("post_kind") or "").strip().lower() == "article"
+
+
 def filter_attributable_rows(rows: list[dict[str, str]], user_id: str | None = None) -> list[dict[str, str]]:
     uid = user_id or x_user_id()
     return [r for r in rows if is_attributable_row(r, uid)]

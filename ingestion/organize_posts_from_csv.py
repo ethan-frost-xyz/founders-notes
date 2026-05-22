@@ -21,7 +21,7 @@ from x_posts_csv import (
     tweet_url,
 )
 from x_posts_match import AUTO_ACCEPT_SCORE, REVIEW_SCORE, match_episode
-from x_posts_threads import assemble_threads, filter_attributable_rows, x_user_id
+from x_posts_threads import assemble_threads, filter_attributable_rows, is_article_unit, x_user_id
 
 
 def write_other_post(unit: dict[str, Any], username: str) -> Path:
@@ -117,10 +117,16 @@ def main() -> None:
     mapped = 0
     review = 0
     other = 0
+    skipped_articles = 0
     review_records: list[dict[str, Any]] = []
     seen_episodes: dict[str, str] = {}
 
     for unit in units:
+        if is_article_unit(unit):
+            skipped_articles += 1
+            if args.dry_run:
+                print(f"[article-skip] {unit['x_post_id']}")
+            continue
         text = unit.get("text") or ""
         post_date = unit.get("created_at")
         row, score, reason = match_episode(text, post_date, by_number)
@@ -163,7 +169,10 @@ def main() -> None:
         if not args.founders_only:
             regenerate_corpus(rows, founders_only=False)
 
-    print(f"Founders mapped: {mapped} | Review: {review} | Other: {other}")
+    print(
+        f"Founders mapped: {mapped} | Review: {review} | Other: {other} "
+        f"| Articles skipped: {skipped_articles}"
+    )
     if review:
         print(f"Review queue → {POST_MAPPING_REVIEW.relative_to(ROOT)}")
     if other and not args.founders_only:
