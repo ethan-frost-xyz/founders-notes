@@ -17,7 +17,7 @@
 | ep-0159 | **Skipped** | Deleted on X or accidentally never posted — no `{folder}.post.md` |
 | ep-0189 | **Not posted** | Intentionally empty until you publish on X |
 
-Reply-to-others filter active: 184 rows excluded from attribution (`x_posts_lib.is_reply_to_other`).
+Reply-to-others filter active: 184 rows excluded from attribution (`x_posts_threads.is_reply_to_other`).
 
 ## Resolved
 
