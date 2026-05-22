@@ -23,6 +23,7 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`import/REA
 | Notes | `scaffold_notes.py` | Empty `{folder}.notes.md` scaffolds |
 | Expand (prompt) | `expand_datapoints.py` | Print/copy prompt from notes + transcript |
 | Expand (OpenRouter) | `expand_datapoints_llm.py` | `.expanded.draft.md` → `--promote` → `.expanded.md` |
+| Expand (prompt A/B tune) | `expand_tune.py` | 10-ep sandbox under `fixtures/expand-runs/`; subprocess per episode |
 | X sync | `sync_x_cache.py` | API → `import/x-posts-raw.csv` |
 | X organize | `organize_posts_from_csv.py` | CSV → `content/posts/` (skips articles) |
 | X LLM match | `attribute_posts_llm.py` | Review queue via OpenRouter (`OPENROUTER_API_KEY`) |
@@ -67,7 +68,7 @@ Legacy unpadded ids (`ep-200`) are accepted where `--id` is supported.
 | `x_posts_match.py` | Episode attribution scoring |
 | `x_posts_threads.py` | Thread grouping, reply filters, article skip |
 | `attribute_posts_llm.py` | LLM attribution for `post-mapping-review.jsonl` |
-| `expand_llm.py`, `expand_datapoints_llm.py` | OpenRouter datapoint expansion + draft promote |
+| `expand_llm.py`, `expand_datapoints_llm.py`, `expand_tune.py` | OpenRouter expansion + draft promote + 10-ep A/B tune sandbox |
 | `cli_args.py` | Shared `--id` argparse helper |
 
 ## Tests

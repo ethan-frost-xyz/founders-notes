@@ -61,6 +61,33 @@ python build_chunks.py
 
 Runs append to `catalog/expand-run.jsonl` (gitignored) for resume / debugging.
 
+## Prompt tuning (10-episode A/B sandbox)
+
+Compare **prompt A** vs **prompt B** on a fixed batch without touching `content/notes/` until you promote a winner. Each episode runs in a **fresh subprocess** (no cross-episode or A/B contamination).
+
+Batch: [`catalog/expand-tune-batch.json`](../catalog/expand-tune-batch.json) (10 episodes). Outputs: `ingestion/fixtures/expand-runs/{run_id}/A/` and `.../B/` (gitignored).
+
+| Prompt | File |
+|--------|------|
+| A (baseline) | `ingestion/prompts/expand_datapoints.md` |
+| B (candidate) | `ingestion/prompts/expand_datapoints.candidate.md` |
+
+```bash
+cd ingestion
+python expand_tune.py init --run-id tune-001
+# Edit prompts/expand_datapoints.candidate.md (prompt B)
+
+python expand_tune.py expand --run-id tune-001 --variant A --dry-run
+python expand_tune.py expand --run-id tune-001 --variant A --apply   # 10 subprocesses
+python expand_tune.py expand --run-id tune-001 --variant B --apply   # 10 subprocesses
+
+python expand_tune.py report --run-id tune-001
+python expand_tune.py promote --run-id tune-001 --variant B --apply  # winner → .expanded.md
+python build_chunks.py
+```
+
+Full A/B apply = **20 API calls**. See [`ingestion/fixtures/expand-runs/README.md`](../ingestion/fixtures/expand-runs/README.md).
+
 ## CLI (prompt only, no API)
 
 ```bash

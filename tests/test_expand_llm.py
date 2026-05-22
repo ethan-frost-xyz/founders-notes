@@ -117,6 +117,10 @@ def test_expand_datapoints_llm_apply_writes_draft(mock_call, monkeypatch, tmp_pa
     monkeypatch.setattr(paths, "ROOT", tmp_path)
     monkeypatch.setattr(paths, "NOTES_DIR", tmp_path / "content" / "notes")
     monkeypatch.setattr(paths, "TRANSCRIPTS_DIR", tmp_path / "content" / "transcripts")
+    monkeypatch.setattr(
+        "expand_llm.expand_run_log_path",
+        lambda: tmp_path / "catalog" / "expand-run.jsonl",
+    )
 
     row = {"id": "ep-0001", "slug": "1-test", "episode_number": 1, "title": "T"}
     npath = paths.notes_file_path("ep-0001", "1-test", 1)

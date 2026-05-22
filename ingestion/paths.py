@@ -112,6 +112,18 @@ def expanded_draft_file_path(
     return notes_dir(episode_id, slug, episode_number) / f"{folder}.expanded.draft.md"
 
 
+def staging_draft_file_path(
+    staging_root: Path,
+    variant: str,
+    episode_id: str,
+    slug: str,
+    episode_number: int | None = None,
+) -> Path:
+    """Sandbox draft for prompt A/B tuning (under ingestion/fixtures/expand-runs/)."""
+    folder = _episode_folder(episode_id, slug, episode_number)
+    return staging_root / variant / folder / f"{folder}.expanded.draft.md"
+
+
 def post_dir(
     episode_id: str,
     slug: str,

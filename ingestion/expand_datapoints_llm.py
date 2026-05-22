@@ -13,6 +13,7 @@ from dotenv import load_dotenv
 
 from cli_args import add_episode_id_arg, ensure_catalog, resolve_episode_id_arg
 from expand_llm import (
+    _count_datapoint_headings,
     append_expand_run_log,
     build_user_message,
     call_openrouter,
@@ -20,8 +21,12 @@ from expand_llm import (
     load_prompt_template,
     parse_expanded_body,
     promote_draft,
+    prompt_file_hash,
+    resolve_draft_path,
+    validate_expanded_draft,
     write_expanded_draft,
 )
+from markdown_io import TIMESTAMP_BULLET_RE
 from markdown_io import has_timestamp_datapoints, read_markdown_body, utc_now_iso
 import paths
 from paths import (
@@ -104,6 +109,33 @@ def select_promote_rows(
     return out
 
 
+def _expand_run_log_base(
+    *,
+    ep_id: str,
+    model: str,
+    prompt_path: Path,
+    staging_dir: Path | None,
+    variant: str | None,
+    n_bullets: int,
+) -> dict:
+    record: dict = {
+        "episode_id": ep_id,
+        "model": model,
+        "prompt_hash": prompt_file_hash(prompt_path),
+        "at": utc_now_iso(),
+    }
+    if staging_dir is not None:
+        try:
+            record["staging_dir"] = str(staging_dir.relative_to(paths.ROOT))
+        except ValueError:
+            record["staging_dir"] = str(staging_dir)
+    if variant:
+        record["variant"] = variant
+    if n_bullets:
+        record["n_bullets"] = n_bullets
+    return record
+
+
 def run_expand_one(
     row: dict,
     *,
@@ -115,12 +147,14 @@ def run_expand_one(
     base_url: str | None,
     dry_run: bool,
     force: bool,
+    staging_dir: Path | None = None,
+    variant: str | None = None,
 ) -> str:
     """Return status: skipped | dry_run | wrote | error."""
     ep_id = row["id"]
     slug = row["slug"]
     num = row.get("episode_number")
-    draft_path = expanded_draft_file_path(ep_id, slug, num)
+    draft_path = resolve_draft_path(row, staging_root=staging_dir, variant=variant)
 
     if draft_path.exists() and not force and not dry_run:
         return "skipped"
@@ -130,6 +164,7 @@ def run_expand_one(
     notes_body = read_body(npath)
     transcript_body = read_body(tx_path)
     user_msg = build_user_message(user_template, notes=notes_body, transcript=transcript_body)
+    n_bullets = len(TIMESTAMP_BULLET_RE.findall(notes_body))
 
     if dry_run:
         est = len(notes_body) + len(transcript_body) + len(system) + len(user_msg)
@@ -149,29 +184,47 @@ def run_expand_one(
             temperature=0.0,
         )
         body = parse_expanded_body(raw)
-        out = write_expanded_draft(row, body, model=model, prompt_path=prompt_path)
+        out = write_expanded_draft(
+            row,
+            body,
+            model=model,
+            prompt_path=prompt_path,
+            staging_root=staging_dir,
+            variant=variant,
+        )
+        n_sections = _count_datapoint_headings(body)
+        val_errors, _ = validate_expanded_draft(npath, body)
         print(f"[wrote] {out.relative_to(paths.ROOT)}")
-        append_expand_run_log(
+        log_rec = _expand_run_log_base(
+            ep_id=ep_id,
+            model=model,
+            prompt_path=prompt_path,
+            staging_dir=staging_dir,
+            variant=variant,
+            n_bullets=n_bullets,
+        )
+        log_rec.update(
             {
-                "episode_id": ep_id,
                 "status": "ok",
                 "error": None,
-                "model": model,
-                "at": utc_now_iso(),
+                "n_sections": n_sections,
+                "validation_errors": val_errors,
             }
         )
+        append_expand_run_log(log_rec)
         return "wrote"
     except Exception as e:
         print(f"[error] {ep_id}: {e}")
-        append_expand_run_log(
-            {
-                "episode_id": ep_id,
-                "status": "error",
-                "error": str(e),
-                "model": model,
-                "at": utc_now_iso(),
-            }
+        log_rec = _expand_run_log_base(
+            ep_id=ep_id,
+            model=model,
+            prompt_path=prompt_path,
+            staging_dir=staging_dir,
+            variant=variant,
+            n_bullets=n_bullets,
         )
+        log_rec.update({"status": "error", "error": str(e)})
+        append_expand_run_log(log_rec)
         return "error"
 
 
@@ -212,14 +265,36 @@ def main() -> None:
         type=Path,
         help="Override prompt markdown (must contain <<<SYSTEM>>> and <<<USER>>>)",
     )
+    parser.add_argument(
+        "--staging-dir",
+        type=Path,
+        help="Write drafts under {staging-dir}/{variant}/ (tune sandbox; requires --variant)",
+    )
+    parser.add_argument(
+        "--variant",
+        choices=("A", "B"),
+        help="A/B variant subfolder when using --staging-dir",
+    )
     args = parser.parse_args()
+
+    if args.staging_dir and not args.variant:
+        parser.error("--staging-dir requires --variant A or B")
 
     if not args.dry_run and not args.apply:
         parser.error("Specify --dry-run or --apply")
 
     rows = ensure_catalog()
     prompt_path = args.prompt if args.prompt else default_prompt_path()
+    if args.prompt and not args.prompt.is_absolute():
+        prompt_path = (paths.ROOT / args.prompt).resolve()
     system, user_template = load_prompt_template(prompt_path)
+    staging_dir = None
+    if args.staging_dir:
+        staging_dir = (
+            args.staging_dir
+            if args.staging_dir.is_absolute()
+            else (paths.ROOT / args.staging_dir).resolve()
+        )
 
     if args.promote:
         if args.all_ready:
@@ -317,7 +392,11 @@ def main() -> None:
             if args.model:
                 cmd.extend(["--model", args.model])
             if args.prompt:
-                cmd.extend(["--prompt", str(args.prompt)])
+                cmd.extend(["--prompt", str(prompt_path)])
+            if staging_dir:
+                cmd.extend(["--staging-dir", str(staging_dir)])
+            if args.variant:
+                cmd.extend(["--variant", args.variant])
             print(f"[subprocess] {' '.join(str(x) for x in cmd)}")
             rc = subprocess.run(cmd, cwd=str(paths.ROOT)).returncode
             if rc != 0:
@@ -335,6 +414,8 @@ def main() -> None:
             base_url=base_url,
             dry_run=args.dry_run,
             force=args.force,
+            staging_dir=staging_dir,
+            variant=args.variant,
         )
 
 

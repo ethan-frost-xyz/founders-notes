@@ -29,3 +29,13 @@ def test_expanded_draft_file_path():
 
     p = expanded_draft_file_path("ep-0001", "1-test", 1)
     assert p.name == "ep-0001-test.expanded.draft.md"
+
+
+def test_staging_draft_file_path(tmp_path):
+    from paths import staging_draft_file_path
+
+    root = tmp_path / "run"
+    p = staging_draft_file_path(root, "B", "ep-0001", "1-test", 1)
+    assert p.parent.name == "ep-0001-test"
+    assert "B" in p.parts
+    assert p.name.endswith(".expanded.draft.md")

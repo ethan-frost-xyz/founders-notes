@@ -10,3 +10,5 @@ __pycache__/
 .DS_Store
 ingestion/.venv/
 catalog/expand-run.jsonl
+ingestion/fixtures/expand-runs/*/
+!ingestion/fixtures/expand-runs/README.md

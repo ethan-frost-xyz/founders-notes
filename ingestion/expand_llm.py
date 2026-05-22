@@ -15,7 +15,12 @@ from markdown_io import (
     write_frontmatter_md,
 )
 import paths
-from paths import expanded_draft_file_path, expanded_file_path, notes_file_path
+from paths import (
+    expanded_draft_file_path,
+    expanded_file_path,
+    notes_file_path,
+    staging_draft_file_path,
+)
 
 DEFAULT_PROMPT_REL = Path("ingestion/prompts/expand_datapoints.md")
 
@@ -177,17 +182,41 @@ def append_expand_run_log(record: dict[str, Any]) -> None:
         f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 
+def resolve_draft_path(
+    row: dict[str, Any],
+    *,
+    staging_root: Path | None = None,
+    variant: str | None = None,
+    out_path: Path | None = None,
+) -> Path:
+    """Resolve draft output path (production notes dir or tune sandbox)."""
+    if out_path is not None:
+        return out_path
+    ep_id = row["id"]
+    slug = row["slug"]
+    num = row.get("episode_number")
+    if staging_root is not None:
+        if not variant:
+            raise ValueError("variant required when staging_root is set")
+        return staging_draft_file_path(staging_root, variant, ep_id, slug, num)
+    return expanded_draft_file_path(ep_id, slug, num)
+
+
 def write_expanded_draft(
     row: dict[str, Any],
     expanded_body: str,
     *,
     model: str,
     prompt_path: Path,
+    out_path: Path | None = None,
+    staging_root: Path | None = None,
+    variant: str | None = None,
 ) -> Path:
     ep_id = row["id"]
-    slug = row["slug"]
     num = row.get("episode_number")
-    out = expanded_draft_file_path(ep_id, slug, num)
+    out = resolve_draft_path(
+        row, staging_root=staging_root, variant=variant, out_path=out_path
+    )
     out.parent.mkdir(parents=True, exist_ok=True)
     try:
         rel_prompt = str(prompt_path.relative_to(paths.ROOT))
@@ -204,6 +233,8 @@ def write_expanded_draft(
     }
     if num is not None:
         fm["episode_number"] = num
+    if variant is not None:
+        fm["tune_variant"] = variant
     write_frontmatter_md(out, frontmatter=fm, body=expanded_body)
     return out
 
@@ -212,6 +243,7 @@ def promote_draft(
     row: dict[str, Any],
     *,
     dry_run: bool,
+    draft_path: Path | None = None,
 ) -> tuple[Path | None, list[str], list[str]]:
     """
     Validate draft, write {folder}.expanded.md, delete draft on success.
@@ -220,7 +252,8 @@ def promote_draft(
     ep_id = row["id"]
     slug = row["slug"]
     num = row.get("episode_number")
-    draft_path = expanded_draft_file_path(ep_id, slug, num)
+    if draft_path is None:
+        draft_path = expanded_draft_file_path(ep_id, slug, num)
     expanded_path = expanded_file_path(ep_id, slug, num)
     npath = notes_file_path(ep_id, slug, num)
 
