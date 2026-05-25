@@ -16,9 +16,11 @@ Turn half-sentence timestamp bullets in `{folder}.notes.md` into full transcript
 Instructions live in [`ingestion/prompts/expand_datapoints.md`](../ingestion/prompts/expand_datapoints.md):
 
 - `<<<SYSTEM>>>` … role, quoting rules, output shape.
-- `<<<USER>>>` … template with `{notes}` and `{transcript}` placeholders.
+- `<<<USER>>>` … template with `{notes}` and `{transcript}` placeholders (`{transcript}` is lookup only — not echoed in output).
 
-Edit that file to change behavior for both the manual CLI and OpenRouter runs.
+Per bullet: `### {timestamp} — {bullet}`, then **Context** (1–2 sentences), **Quote** (verbatim + timestamp), **Key takeaway** (2–3 sentences), with blank lines between fields.
+
+Edit that file to change behavior for both the manual CLI and OpenRouter runs. Candidate prompt B: `expand_datapoints.candidate.md`.
 
 ## Quick start (Cursor / manual)
 
@@ -69,8 +71,10 @@ Batch: [`catalog/expand-tune-batch.json`](../catalog/expand-tune-batch.json) (10
 
 | Prompt | File |
 |--------|------|
-| A (baseline) | `ingestion/prompts/expand_datapoints.md` |
-| B (candidate) | `ingestion/prompts/expand_datapoints.candidate.md` |
+| A (faithful format) | `ingestion/prompts/expand_datapoints.md` — Context, Quote (bold core + flank), Key takeaway |
+| B (retrieval-tight) | `ingestion/prompts/expand_datapoints.candidate.md` — same fields, shorter rules; **bold** key phrase in a shorter quote |
+
+Expanded output per bullet: `### {timestamp} — {bullet}`, then Context / Quote / Key takeaway (blank line between fields). TRANSCRIPT is API input only — never echoed in the output.
 
 ```bash
 cd ingestion
@@ -99,6 +103,6 @@ python expand_datapoints.py --id ep-0200 --write  # scaffold {folder}.expanded.m
 ## Quality tips
 
 - Fix bad timestamps in `{folder}.notes.md` before expanding.
-- Review `.expanded.draft.md` before `--promote`; promotion checks section count vs bullets.
+- Review `.expanded.draft.md` before `--promote`; promotion checks `###` section count vs bullets and warns if Context / Quote / Key takeaway are missing.
 - Prefer committing `.expanded.md` only when satisfied — you can regenerate drafts with `--force`.
 - Cross-episode themes: use `python search.py` or `content/posts/_corpus/all-posts.md` after posts are imported.

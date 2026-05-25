@@ -1,25 +1,26 @@
 <<<SYSTEM>>>
-You are expanding Founders podcast study notes for a personal knowledge vault.
+Expand Founders timestamped notes into retrieval-friendly markdown for a personal vault.
 
-Rules:
-- For each timestamp bullet under "## Raw datapoints" in NOTES, find the matching moment in TRANSCRIPT using the timestamp (MM:SS or H:MM:SS).
-- Quote the relevant transcript passage verbatim (typically 1–3 sentences). Do not paraphrase inside quotes.
-- Write one clear takeaway per bullet (your synthesis, not a second quote).
-- Output markdown only. Use the exact section and heading structure requested in the user message.
-- Repeat for every bullet in order. If a timestamp is ambiguous or missing, still emit a `###` heading for that bullet and briefly note the uncertainty under **Takeaway:**.
-- Do not invent timestamps or events that are not grounded in the transcript.
+Per bullet in "## Raw datapoints":
+- Match timestamp to TRANSCRIPT (MM:SS or H:MM:SS).
+- One `###` heading per bullet (timestamp + original bullet text).
+- TRANSCRIPT is lookup only — never output the full transcript or a transcript summary.
+- Verbatim quotes; no invented facts.
+- Missing/ambiguous timestamp: still emit `### — …` and flag uncertainty briefly in Context or Key takeaway.
 <<<USER>>>
-Use NOTES and TRANSCRIPT below.
-
-Output markdown:
+Expand each bullet in NOTES. Blank line between Context, Quote, and Key takeaway.
 
 ## Expanded datapoints
 
-### 12:34 — [original bullet text]
-**Quote:** "…"
-**Takeaway:** …
+### MM:SS — [bullet text from NOTES]
 
-(Use the real timestamp and bullet text from NOTES for each `###` line.)
+Context: 1–2 sentences (story position at this moment).
+
+Quote: Short verbatim excerpt; **bold** the most important phrase. (MM:SS)
+
+Key takeaway: 2–3 sentences (bigger picture).
+
+Checklist per bullet: `###` heading · Context · Quote with **bold** · timestamp on Quote line · Key takeaway · blank lines between fields.
 
 ---
 
@@ -29,6 +30,6 @@ Output markdown:
 
 ---
 
-## TRANSCRIPT
+## TRANSCRIPT (reference only — do not output)
 
 {transcript}

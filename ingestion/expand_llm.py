@@ -82,6 +82,18 @@ def _count_datapoint_headings(body: str) -> int:
     return len(re.findall(r"^###\s+.+$", body, re.MULTILINE))
 
 
+def _block_has_field(block: str, labels: tuple[str, ...]) -> bool:
+    """True if block contains any label (plain or **Label:** markdown)."""
+    lower = block.lower()
+    for label in labels:
+        if label.lower() in lower:
+            return True
+        bold = f"**{label}**"
+        if bold.lower() in lower:
+            return True
+    return False
+
+
 def validate_expanded_draft(
     notes_path: Path,
     expanded_body: str,
@@ -110,14 +122,20 @@ def validate_expanded_draft(
             f"more ### sections ({n_sections}) than note bullets ({n_bullets})"
         )
 
-    # Each ### block should mention Quote and Takeaway (soft check on whole body)
+    # Each ### block should have Context, Quote, and takeaway (soft check)
     for i, block in enumerate(re.split(r"^###\s+", expanded_body, flags=re.MULTILINE)):
         if i == 0:
             continue  # preamble before first ###
-        if "**Quote:**" not in block and "**quote:**" not in block.lower():
-            warnings.append(f"block after heading #{i} may be missing **Quote:**")
-        if "**Takeaway:**" not in block and "**takeaway:**" not in block.lower():
-            warnings.append(f"block after heading #{i} may be missing **Takeaway:**")
+        if not _block_has_field(block, ("Context:",)):
+            warnings.append(f"block after heading #{i} may be missing Context:")
+        if not _block_has_field(block, ("Quote:",)):
+            warnings.append(f"block after heading #{i} may be missing Quote:")
+        if not _block_has_field(
+            block, ("Key takeaway:", "Takeaway:")
+        ):
+            warnings.append(
+                f"block after heading #{i} may be missing Key takeaway: or Takeaway:"
+            )
 
     return errors, warnings
 

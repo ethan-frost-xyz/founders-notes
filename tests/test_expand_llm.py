@@ -15,12 +15,34 @@ from expand_llm import (
     write_expanded_draft,
 )
 
+SAMPLE_EXPANDED_BODY = """## Expanded datapoints
+
+### 1:00 — a
+
+Context: Story setup at this beat.
+
+Quote: **core phrase** surrounding context words. (1:00)
+
+Key takeaway: Bigger picture lesson one.
+
+### 2:00 — b
+
+Context: Second beat context.
+
+Quote: **key line** from transcript. (2:00)
+
+Key takeaway: Bigger picture lesson two.
+"""
+
 
 def test_load_prompt_template_default():
     system, user = load_prompt_template(default_prompt_path())
     assert "<<<" not in system
     assert "{notes}" in user
     assert "{transcript}" in user
+    assert "Context:" in user
+    assert "Key takeaway:" in user
+    assert "do not output" in user.lower()
 
 
 def test_build_user_message_substitution():
@@ -35,12 +57,8 @@ def test_build_combined_prompt_for_clipboard():
 
 
 def test_parse_expanded_body_fenced():
-    raw = """```markdown
-## Expanded datapoints
-
-### 1:00 — test
-**Quote:** "hi"
-**Takeaway:** ok
+    raw = f"""```markdown
+{SAMPLE_EXPANDED_BODY}
 ```
 """
     out = parse_expanded_body(raw)
@@ -48,7 +66,7 @@ def test_parse_expanded_body_fenced():
 
 
 def test_parse_expanded_body_unfenced():
-    raw = "Preamble\n\n## Expanded datapoints\n\n### 1:00 — x\n**Quote:** a\n**Takeaway:** b\n"
+    raw = f"Preamble\n\n{SAMPLE_EXPANDED_BODY}\n"
     out = parse_expanded_body(raw)
     assert out.startswith("## Expanded datapoints")
 
@@ -59,17 +77,27 @@ def test_validate_expanded_draft_ok(tmp_path: Path):
         "---\nid: x\n---\n\n## Raw datapoints\n\n- 1:00 — a\n- 2:00 — b\n",
         encoding="utf-8",
     )
+    errors, warnings = validate_expanded_draft(npath, SAMPLE_EXPANDED_BODY)
+    assert errors == []
+    assert warnings == []
+
+
+def test_validate_expanded_draft_legacy_takeaway_ok(tmp_path: Path):
+    npath = tmp_path / "n.md"
+    npath.write_text(
+        "---\n---\n\n## Raw datapoints\n\n- 1:00 — a\n", encoding="utf-8"
+    )
     body = """## Expanded datapoints
 
 ### 1:00 — a
-**Quote:** "q1"
-**Takeaway:** t1
 
-### 2:00 — b
-**Quote:** "q2"
-**Takeaway:** t2
+Context: c
+
+Quote: "q" (1:00)
+
+Takeaway: t
 """
-    errors, _warnings = validate_expanded_draft(npath, body)
+    errors, _ = validate_expanded_draft(npath, body)
     assert errors == []
 
 
@@ -78,7 +106,16 @@ def test_validate_expanded_draft_too_few_sections(tmp_path: Path):
     npath.write_text(
         "---\n---\n\n## Raw datapoints\n\n- 1:00 — a\n- 2:00 — b\n", encoding="utf-8"
     )
-    body = "## Expanded datapoints\n\n### 1:00 — a\n**Quote:** x\n**Takeaway:** y\n"
+    body = """## Expanded datapoints
+
+### 1:00 — a
+
+Context: c
+
+Quote: "q" (1:00)
+
+Key takeaway: t
+"""
     errors, _ = validate_expanded_draft(npath, body)
     assert any("fewer expanded" in e for e in errors)
 
@@ -95,7 +132,16 @@ def test_promote_draft_writes_expanded_and_removes_draft(monkeypatch, tmp_path: 
     )
     prompt_file = tmp_path / "prompt.md"
     prompt_file.write_text("<<<SYSTEM>>>\nx\n<<<USER>>>\n{notes}\n{transcript}\n")
-    body = '## Expanded datapoints\n\n### 1:00 — hook\n**Quote:** "x"\n**Takeaway:** y\n'
+    body = """## Expanded datapoints
+
+### 1:00 — hook
+
+Context: c
+
+Quote: **x** (1:00)
+
+Key takeaway: y
+"""
     write_expanded_draft(row, body, model="test-model", prompt_path=prompt_file)
     draft = paths.expanded_draft_file_path("ep-0001", "1-test", 1)
     assert draft.exists()
@@ -111,7 +157,16 @@ def test_promote_draft_writes_expanded_and_removes_draft(monkeypatch, tmp_path: 
 
 @patch(
     "expand_datapoints_llm.call_openrouter",
-    return_value='## Expanded datapoints\n\n### 1:00 — hook\n**Quote:** "x"\n**Takeaway:** y\n',
+    return_value="""## Expanded datapoints
+
+### 1:00 — hook
+
+Context: c
+
+Quote: **x** (1:00)
+
+Key takeaway: y
+""",
 )
 def test_expand_datapoints_llm_apply_writes_draft(mock_call, monkeypatch, tmp_path: Path):
     monkeypatch.setattr(paths, "ROOT", tmp_path)

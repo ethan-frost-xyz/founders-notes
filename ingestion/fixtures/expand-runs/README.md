@@ -23,12 +23,12 @@ Full A/B cycle = **20 OpenRouter calls** (10 × prompt A + 10 × prompt B). Run 
 
 ## Prompts
 
-| Variant | File |
-|---------|------|
-| A (baseline) | `ingestion/prompts/expand_datapoints.md` |
-| B (candidate) | `ingestion/prompts/expand_datapoints.candidate.md` |
+| Variant | File | Style |
+|---------|------|--------|
+| A | `ingestion/prompts/expand_datapoints.md` | Faithful: Context, Quote (**bold** core + unbolded flank), Key takeaway; worked example |
+| B | `ingestion/prompts/expand_datapoints.candidate.md` | Retrieval-tight: same labels, shorter rules; **bold** key phrase in a shorter quote |
 
-`init` copies baseline → candidate if candidate is missing. Edit B for experiments; keep A frozen for the run.
+`init` copies A → B only if B is missing. For format A/B tests, edit B while keeping A frozen for the run.
 
 ## Quick start
 
