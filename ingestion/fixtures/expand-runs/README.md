@@ -1,6 +1,8 @@
-# Expand prompt tuning runs (sandbox)
+# Expand prompt tuning runs
 
-Outputs from `notes/expand_tune.py` land here. **Gitignored** except this README.
+Outputs from `notes/expand_tune.py`. **Committed to git** so A/B drafts are available for prompt comparison without re-running the API.
+
+Default run: **`baseline/`** (10 episodes × prompt A + B).
 
 ## Layout
 
@@ -34,12 +36,35 @@ Full A/B cycle = **20 OpenRouter calls** (10 × prompt A + 10 × prompt B). Run 
 
 ```bash
 cd ingestion
-python notes/expand_tune.py init --run-id tune-001
-python notes/expand_tune.py expand --run-id tune-001 --variant A --dry-run
-python notes/expand_tune.py expand --run-id tune-001 --variant A --apply
-python notes/expand_tune.py expand --run-id tune-001 --variant B --apply
-python notes/expand_tune.py report --run-id tune-001
-python notes/expand_tune.py promote --run-id tune-001 --variant B --apply
+python notes/expand_tune.py init
+python notes/expand_tune.py expand --variant A --dry-run
+python notes/expand_tune.py expand --variant A --apply
+python notes/expand_tune.py expand --variant B --apply
+python notes/expand_tune.py report
+python notes/expand_tune.py verify
+```
+
+## Tuning loop
+
+| Step | Command |
+|------|---------|
+| Compare current A/B | `python notes/expand_tune.py report` |
+| Structural check | `python notes/expand_tune.py verify` |
+| Edit prompt B | `ingestion/prompts/expand_datapoints.candidate.md` |
+| Regenerate B only | `python notes/expand_tune.py expand --variant B --apply --force` |
+| Commit updated drafts | `git add ingestion/fixtures/expand-runs/` |
+| New experimental run | `python notes/expand_tune.py init --run-id tune-002` → expand → commit |
+
+After prompt edits, `verify` warns on `prompt_hash` mismatch — re-expand with `--force`, then commit.
+
+## Regenerate baseline (first-time or full refresh)
+
+```bash
+cd ingestion
+python notes/expand_tune.py init --force
+python notes/expand_tune.py expand --variant A --apply --force
+python notes/expand_tune.py expand --variant B --apply --force
+python notes/expand_tune.py verify
 ```
 
 See [`docs/datapoint-workflow.md`](../../../docs/datapoint-workflow.md).

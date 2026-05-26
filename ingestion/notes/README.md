@@ -20,7 +20,7 @@ See [`docs/notes-pipeline.md`](../../docs/notes-pipeline.md) and [`docs/datapoin
 | `scaffold_notes.py` | Create empty `{folder}.notes.md` (`--next`, `--missing`, `--id`) |
 | `expand_datapoints.py` | Build expansion prompt from notes + transcript (manual / Cursor) |
 | `expand_datapoints_llm.py` | OpenRouter → `.expanded.draft.md`; `--promote` → `.expanded.md` |
-| `expand_tune.py` | 10-episode A/B prompt sandbox under `fixtures/expand-runs/` |
+| `expand_tune.py` | 10-episode A/B under `fixtures/expand-runs/` (`report`, `verify`; default run `baseline/`) |
 
 ## Environment
 

@@ -23,7 +23,7 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`docs/inges
 | [`lib/`](lib/README.md) | Shared Python modules (no CLI) |
 | [`migrations/`](migrations/README.md) | Historical one-shots (do not re-run) |
 | [`prompts/`](prompts/) | LLM prompt templates for expansion |
-| [`fixtures/`](fixtures/) | Test fixtures and expand-tune sandbox output |
+| [`fixtures/`](fixtures/) | Test fixtures and committed expand-tune A/B outputs |
 
 ## Pipeline order
 
@@ -37,7 +37,7 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`docs/inges
 | Notes | `notes/scaffold_notes.py` | Empty `{folder}.notes.md` scaffolds |
 | Expand (prompt) | `notes/expand_datapoints.py` | Print/copy prompt from notes + transcript |
 | Expand (OpenRouter) | `notes/expand_datapoints_llm.py` | `.expanded.draft.md` → `--promote` → `.expanded.md` |
-| Expand (prompt A/B tune) | `notes/expand_tune.py` | 10-ep sandbox under `fixtures/expand-runs/` |
+| Expand (prompt A/B tune) | `notes/expand_tune.py` | 10-ep A/B under `fixtures/expand-runs/` (tracked; default `baseline/`) |
 | X sync | `x/sync_x_cache.py` | API → `import/x-posts-raw.csv` |
 | X organize | `x/organize_posts_from_csv.py` | CSV → `content/posts/` (skips articles) |
 | X LLM match | `x/attribute_posts_llm.py` | Review queue via OpenRouter |

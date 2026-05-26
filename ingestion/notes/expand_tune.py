@@ -49,6 +49,7 @@ from paths import (
 )
 
 EXPAND_RUNS_DIR = INGESTION_DIR / "fixtures" / "expand-runs"
+DEFAULT_RUN_ID = "baseline"
 DEFAULT_BATCH_FILE = paths.ROOT / "catalog" / "expand-tune-batch.json"
 PROMPT_A = INGESTION_DIR / "prompts" / "expand_datapoints.md"
 PROMPT_B = INGESTION_DIR / "prompts" / "expand_datapoints.candidate.md"
@@ -105,9 +106,9 @@ def cmd_init(args: argparse.Namespace) -> None:
             f"Run dir exists: {rd.relative_to(paths.ROOT)} (use --force to re-init)"
         )
     rd.mkdir(parents=True, exist_ok=True)
-    if not PROMPT_B.exists() or args.force:
+    if not PROMPT_B.exists():
         shutil.copy2(PROMPT_A, PROMPT_B)
-        print(f"[init] seeded {PROMPT_B.relative_to(paths.ROOT)} from baseline")
+        print(f"[init] seeded {PROMPT_B.relative_to(paths.ROOT)} from prompt A")
     manifest = {
         "run_id": args.run_id,
         "created_at": utc_now_iso(),
@@ -407,6 +408,67 @@ def cmd_promote(args: argparse.Namespace) -> None:
             print(f"[promoted] {rel}")
 
 
+def cmd_verify(args: argparse.Namespace) -> None:
+    manifest = load_manifest(args.run_id) if manifest_path(args.run_id).exists() else None
+    batch_path = _batch_path_from_args(args, manifest)
+    episode_ids = load_batch_file(batch_path)
+    rows = load_catalog()
+    by_id = catalog_rows_by_id(rows)
+    staging = run_dir(args.run_id)
+
+    errors = 0
+    warnings = 0
+
+    if manifest and manifest.get("variants"):
+        for variant, meta in manifest["variants"].items():
+            prompt_rel = meta.get("prompt_path")
+            if not prompt_rel:
+                continue
+            prompt_path = paths.ROOT / prompt_rel
+            if not prompt_path.exists():
+                print(f"[warn] variant {variant}: prompt missing: {prompt_rel}")
+                warnings += 1
+                continue
+            stored_hash = meta.get("prompt_hash")
+            current_hash = prompt_file_hash(prompt_path)
+            if stored_hash and stored_hash != current_hash:
+                print(
+                    f"[warn] variant {variant}: prompt_hash mismatch "
+                    f"(manifest {stored_hash} vs current {current_hash}) — re-expand after prompt edits"
+                )
+                warnings += 1
+
+    for ep_id in episode_ids:
+        row = by_id.get(ep_id)
+        if not row:
+            print(f"[error] {ep_id}: not in catalog")
+            errors += 1
+            continue
+        for variant in ("A", "B"):
+            r = draft_report_row(row, variant, args.run_id)
+            draft = staging_draft_file_path(
+                staging,
+                variant,
+                row["id"],
+                row["slug"],
+                row.get("episode_number"),
+            )
+            if not r["draft_exists"]:
+                print(f"[error] {ep_id} variant {variant}: missing {draft.relative_to(paths.ROOT)}")
+                errors += 1
+                continue
+            for w in r.get("validation_warnings", []):
+                print(f"[warn] {ep_id} {variant}: {w}")
+                warnings += 1
+            for e in r.get("validation_errors", []):
+                print(f"[error] {ep_id} {variant}: {e}")
+                errors += 1
+
+    print(f"verify run={args.run_id}: {errors} error(s), {warnings} warning(s)")
+    if errors:
+        raise SystemExit(1)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Sandboxed A/B prompt tuning (10-episode batch, subprocess per episode)"
@@ -414,7 +476,7 @@ def main() -> None:
     sub = parser.add_subparsers(dest="command", required=True)
 
     p_init = sub.add_parser("init", help="Create run dir and manifest")
-    p_init.add_argument("--run-id", required=True)
+    p_init.add_argument("--run-id", default=DEFAULT_RUN_ID, help=f"Run folder name (default: {DEFAULT_RUN_ID})")
     p_init.add_argument("--force", action="store_true", help="Re-init and re-seed candidate prompt")
     p_init.add_argument(
         "--batch-file",
@@ -424,7 +486,7 @@ def main() -> None:
     )
 
     p_expand = sub.add_parser("expand", help="Expand batch via one subprocess per episode")
-    p_expand.add_argument("--run-id", required=True)
+    p_expand.add_argument("--run-id", default=DEFAULT_RUN_ID, help=f"Run folder name (default: {DEFAULT_RUN_ID})")
     p_expand.add_argument("--variant", required=True, choices=("A", "B"))
     p_expand.add_argument("--prompt", type=Path, help="Override prompt file for this variant")
     p_expand.add_argument("--model", help="Override OPENROUTER_MODEL")
@@ -435,11 +497,18 @@ def main() -> None:
     p_expand.add_argument("--batch-file", type=Path, default=DEFAULT_BATCH_FILE)
 
     p_report = sub.add_parser("report", help="Compare variant A vs B per episode")
-    p_report.add_argument("--run-id", required=True)
+    p_report.add_argument("--run-id", default=DEFAULT_RUN_ID, help=f"Run folder name (default: {DEFAULT_RUN_ID})")
     p_report.add_argument("--batch-file", type=Path, default=DEFAULT_BATCH_FILE)
 
     p_promote = sub.add_parser("promote", help="Copy staging winner → notes → .expanded.md")
-    p_promote.add_argument("--run-id", required=True)
+    p_promote.add_argument("--run-id", default=DEFAULT_RUN_ID, help=f"Run folder name (default: {DEFAULT_RUN_ID})")
+
+    p_verify = sub.add_parser(
+        "verify",
+        help="Check all A/B drafts exist and validate (no API)",
+    )
+    p_verify.add_argument("--run-id", default=DEFAULT_RUN_ID, help=f"Run folder name (default: {DEFAULT_RUN_ID})")
+    p_verify.add_argument("--batch-file", type=Path, default=DEFAULT_BATCH_FILE)
     p_promote.add_argument("--variant", required=True, choices=("A", "B"))
     p_promote.add_argument("--id", dest="episode_id", help="Single episode (default: full batch)")
     p_promote.add_argument("--dry-run", action="store_true")
@@ -460,6 +529,8 @@ def main() -> None:
         if not args.dry_run and not args.apply:
             p_promote.error("Specify --dry-run or --apply")
         cmd_promote(args)
+    elif args.command == "verify":
+        cmd_verify(args)
 
 
 if __name__ == "__main__":

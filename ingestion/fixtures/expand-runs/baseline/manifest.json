@@ -1,0 +1,19 @@
+{
+  "run_id": "baseline",
+  "created_at": "2026-05-26T02:55:28Z",
+  "batch_file": "catalog/expand-tune-batch.json",
+  "variants": {
+    "A": {
+      "prompt_path": "ingestion/prompts/expand_datapoints.md",
+      "prompt_hash": "e1a183ae7a366ca1",
+      "last_expand_at": "2026-05-26T03:00:39Z",
+      "model": "deepseek/deepseek-v4-flash"
+    },
+    "B": {
+      "prompt_path": "ingestion/prompts/expand_datapoints.candidate.md",
+      "prompt_hash": "3c7f2aabe38485b8",
+      "last_expand_at": "2026-05-26T03:08:27Z",
+      "model": "deepseek/deepseek-v4-flash"
+    }
+  }
+}
