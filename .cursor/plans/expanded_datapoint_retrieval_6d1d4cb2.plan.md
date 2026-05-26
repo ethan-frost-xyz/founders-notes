@@ -3,14 +3,14 @@ name: Expanded datapoint retrieval
 overview: First shrink the A/B batch to 5 episodes and prune legacy fixtures; then edit only expand_datapoints.candidate.md and re-run expand_tune variant B (5 API calls) against frozen A on the same five.
 todos:
   - id: shrink-tune-batch
-    content: "Update catalog/expand-tune-batch.json to 5 eps; delete dropped episode folders from baseline/A and B"
-    status: pending
+    content: Update catalog/expand-tune-batch.json to 5 eps; delete dropped episode folders from baseline/A and B
+    status: completed
   - id: prompt-candidate-only
-    content: "Edit only ingestion/prompts/expand_datapoints.candidate.md (retrieval title, From your note, grounding)"
-    status: pending
+    content: Edit only ingestion/prompts/expand_datapoints.candidate.md (retrieval title, From your note, grounding)
+    status: completed
   - id: tune-variant-b-only
-    content: "Re-run expand_tune --variant B --apply --force (5 episodes); compare B/ vs frozen A/"
-    status: pending
+    content: Re-run expand_tune --variant B --apply --force (5 episodes); compare B/ vs frozen A/
+    status: completed
 isProject: false
 ---
 

@@ -1,37 +1,41 @@
 ---
 id: "ep-0022"
-title: "#22 How To Turn Down A Billion Dollars: The Snapchat Story"
-source: "expand_llm"
-model: "deepseek/deepseek-v4-flash"
-generated_at: "2026-05-26T14:52:12Z"
-prompt_path: "ingestion/prompts/expand_datapoints.md"
-prompt_hash: "e1a183ae7a366ca1"
 episode_number: 22
+title: "#22 How To Turn Down A Billion Dollars: The Snapchat Story"
+content_type: "expanded.draft"
+source: "expand_llm"
+published_at: "2018-03-20"
+founders_url: "https://www.founderspodcast.com/episodes/22-how-to-turn-down-a-billion-dollars-the-snapchat-story"
+created_at: "2026-05-26T18:34:02Z"
+model: "deepseek/deepseek-v4-pro"
+generated_at: "2026-05-26T18:34:02Z"
+prompt_path: "ingestion/prompts/expand_datapoints.md"
+prompt_hash: "f4ffa5a3693602e1"
 tune_variant: "A"
 ---
 
 ## Expanded datapoints
 
-### 22:03 — the idea of "standard" is a construct
+### 22:03 — Evan Spiegel’s costly lesson: “standard” is a construct, not a reality
 
-Context: Evan Spiegel recounts his early mistake with a venture capital term sheet that included a right of first refusal clause that later constrained Snapchat’s fundraising. He reflects on how the word “standard” was used to discourage questioning.
+Context: Evan Spiegel recounts a mistake from Snapchat’s early funding, when Lightspeed’s Jeremy Liew included terms that gave the firm control over the next round. Evan was told the terms were “standard” and accepted them without fully understanding, only to later realize he had been taken advantage of.
 
-Quote: “When I asked a question because I didn't understand something, I was reassured that the term was standard and, therefore, agreeable. I forgot that the idea of standard is a construct. It simply does not exist.”
+Quote: "When I asked a question because I didn't understand something, I was reassured that the term was standard and, therefore, agreeable. **I forgot that the idea of standard is a construct.** It simply does not exist." (22:03)
 
-Key takeaway: Entrepreneurs should challenge any claim that a term is “standard” because no universal benchmark exists; uncritical acceptance of such labels can lead to costly, restrictive agreements.
+Key takeaway: The notion of “standard” is often used to deflect scrutiny and push through unfavorable terms. Founders must resist the comfort of that label and personally understand every clause in a deal, because what is presented as routine may hide significant, costly traps.
 
-### 1:00:05 — privacy is the understanding of context
+### 1:00:05 — Privacy is about context, not secrecy
 
-Context: In a keynote address, Evan Spiegel articulates his philosophy on privacy, referencing the work of Helen Nissenbaum to distinguish secrecy from privacy.
+Context: In a 2014 keynote, Evan Spiegel draws on the work of scholar Helen Nissenbaum to articulate Snapchat’s philosophy on privacy, distinguishing it from the common misconception that privacy equals hiding things.
 
-Quote: “Unfortunately, privacy is too often articulated as secrecy. When as Nissenbaum points out, privacy is actually focused on an understanding of context, not what is said, but where it is said and to whom.”
+Quote: "Unfortunately, privacy is too often articulated as secrecy. **When as Nissenbaum points out, privacy is actually focused on an understanding of context, not what is said, but where it is said and to whom.** Privacy allows us to enjoy and learn from the intimacy that is created when we share different things with different people and different contexts." (1:00:05)
 
-Key takeaway: True privacy is about maintaining appropriate boundaries for sharing based on context and relationship, not about hiding information; social apps should respect these contextual norms.
+Key takeaway: True privacy isn’t about concealing information; it’s about controlling the context in which we share. This insight explains why a one-to-many social network fails to mirror real human relationships, where we naturally vary what we reveal depending on the audience.
 
-### 1:02:29 — social media is the result of capitalism getting into our relationships
+### 1:02:29 — Social media is capitalism invading our personal relationships
 
-Context: Spiegel critiques the economic forces behind social media platforms, arguing that they commodify personal interactions and pressure users to perform.
+Context: Continuing his 2014 keynote, Evan Spiegel critiques how social media platforms turn personal expression into a quantified popularity contest, forcing users to perform for an audience rather than communicate authentically.
 
-Quote: “Social media businesses represent an aggressive expansion of capitalism into our personal relationships.”
+Quote: "Popular expression becomes the most valuable expression. **Social media businesses represent an aggressive expansion of capitalism into our personal relationships.** We are asked to perform for our friends, to create things they like, to work on a personal brand." (1:02:29)
 
-Key takeaway: Platforms that quantify and monetize social interactions distort authentic human connection, turning self-expression into a branded performance measured by popularity.
+Key takeaway: When social platforms optimize for engagement and advertising, they commodify friendship and self-expression. This pressure to maintain a consistent, likable “brand” contradicts the messy, contradictory nature of being human, and it’s a structural problem built into the business model of traditional social media.

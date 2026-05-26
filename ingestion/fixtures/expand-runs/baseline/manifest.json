@@ -5,15 +5,15 @@
   "variants": {
     "A": {
       "prompt_path": "ingestion/prompts/expand_datapoints.md",
-      "prompt_hash": "e1a183ae7a366ca1",
-      "last_expand_at": "2026-05-26T14:56:31Z",
-      "model": "deepseek/deepseek-v4-flash"
+      "prompt_hash": "f4ffa5a3693602e1",
+      "last_expand_at": "2026-05-26T18:40:11Z",
+      "model": "deepseek/deepseek-v4-pro"
     },
     "B": {
       "prompt_path": "ingestion/prompts/expand_datapoints.candidate.md",
-      "prompt_hash": "e350444e5abd35f5",
-      "last_expand_at": "2026-05-26T14:43:41Z",
-      "model": "deepseek/deepseek-v4-flash"
+      "prompt_hash": "f4ffa5a3693602e1",
+      "last_expand_at": "2026-05-26T18:29:40Z",
+      "model": "deepseek/deepseek-v4-pro"
     }
   }
 }

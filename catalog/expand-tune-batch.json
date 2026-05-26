@@ -1,27 +1,17 @@
 {
-  "description": "Fixed 10-episode batch for prompt A/B tuning (evenly spaced across backlog with datapoints, no .expanded.md).",
+  "description": "Fixed 5-episode batch for prompt A/B tuning (curated mix: terse bullets, high count, missing timestamps).",
   "episode_ids": [
     "ep-0001",
     "ep-0022",
-    "ep-0042",
     "ep-0066",
-    "ep-0085",
     "ep-0105",
-    "ep-0125",
-    "ep-0145",
-    "ep-0166",
     "ep-0189"
   ],
   "notes": {
-    "ep-0001": "ep 1, 3 bullets, ~54 KB transcript",
+    "ep-0001": "ep 1, terse bullets, ~54 KB transcript — retrieval title + grounding stress",
     "ep-0022": "ep 22, 3 bullets, ~61 KB",
-    "ep-0042": "ep 42, 4 bullets, ~80 KB",
-    "ep-0066": "ep 66, 8 bullets, ~84 KB",
-    "ep-0085": "ep 85, 4 bullets, ~71 KB",
+    "ep-0066": "ep 66, 8 bullets, missing timestamps, ~84 KB",
     "ep-0105": "ep 105, 8 bullets, ~86 KB",
-    "ep-0125": "ep 125, 5 bullets, ~73 KB",
-    "ep-0145": "ep 145, 3 bullets, ~72 KB",
-    "ep-0166": "ep 166, 2 bullets, ~81 KB",
     "ep-0189": "ep 189, 5 bullets, ~61 KB"
   },
   "optional_stress": {

@@ -83,11 +83,11 @@ python notes/expand_datapoints_llm.py --summarize-log --run-id tune-001 --log-va
 jq -s 'group_by(.status) | map({status: .[0].status, n: length})' catalog/expand-run.jsonl
 ```
 
-## Prompt tuning (10-episode A/B sandbox)
+## Prompt tuning (5-episode A/B sandbox)
 
 Compare **prompt A** vs **prompt B** on a fixed batch without touching `content/notes/` until you promote a winner. Each episode runs in a **fresh subprocess** (no cross-episode or A/B contamination).
 
-Batch: [`catalog/expand-tune-batch.json`](../catalog/expand-tune-batch.json) (10 episodes). Outputs: `ingestion/fixtures/expand-runs/{run_id}/A/` and `.../B/` — **committed** (default run `baseline/`).
+Batch: [`catalog/expand-tune-batch.json`](../catalog/expand-tune-batch.json) (5 episodes: ep-0001, ep-0022, ep-0066, ep-0105, ep-0189). Outputs: `ingestion/fixtures/expand-runs/{run_id}/A/` and `.../B/` — **committed** (default run `baseline/`).
 
 | Prompt | File |
 |--------|------|
@@ -102,8 +102,8 @@ python notes/expand_tune.py init
 # Edit prompts/expand_datapoints.candidate.md (prompt B)
 
 python notes/expand_tune.py expand --variant A --dry-run  # cost table + $ from OpenRouter catalog
-python notes/expand_tune.py expand --variant A --apply   # 10 subprocesses
-python notes/expand_tune.py expand --variant B --apply   # 10 subprocesses
+python notes/expand_tune.py expand --variant A --apply   # 5 subprocesses
+python notes/expand_tune.py expand --variant B --apply   # 5 subprocesses
 
 python notes/expand_tune.py report
 python notes/expand_tune.py verify
@@ -111,7 +111,7 @@ python notes/expand_tune.py promote --variant B --apply  # winner → .expanded.
 python search/build_chunks.py
 ```
 
-Full A/B apply = **20 API calls**. See [`ingestion/fixtures/expand-runs/README.md`](../ingestion/fixtures/expand-runs/README.md).
+Full A/B apply = **10 API calls**. See [`ingestion/fixtures/expand-runs/README.md`](../ingestion/fixtures/expand-runs/README.md).
 
 ## CLI (prompt only, no API)
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sandboxed A/B prompt tuning on a fixed 10-episode batch (subprocess per episode)."""
+"""Sandboxed A/B prompt tuning on a fixed batch (subprocess per episode)."""
 
 from __future__ import annotations
 import sys
@@ -472,7 +472,7 @@ def cmd_verify(args: argparse.Namespace) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Sandboxed A/B prompt tuning (10-episode batch, subprocess per episode)"
+        description="Sandboxed A/B prompt tuning (batch from expand-tune-batch.json, subprocess per episode)"
     )
     sub = parser.add_subparsers(dest="command", required=True)
 

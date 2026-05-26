@@ -2,7 +2,7 @@
 
 Outputs from `notes/expand_tune.py`. **Committed to git** so A/B drafts are available for prompt comparison without re-running the API.
 
-Default run: **`baseline/`** (10 episodes × prompt A + B).
+Default run: **`baseline/`** (5 episodes × prompt A + B: ep-0001, ep-0022, ep-0066, ep-0105, ep-0189).
 
 ## Layout
 
@@ -15,9 +15,9 @@ expand-runs/{run_id}/
 
 ## Cost
 
-Default batch: **10 episodes** in [`catalog/expand-tune-batch.json`](../../../catalog/expand-tune-batch.json).
+Default batch: **5 episodes** in [`catalog/expand-tune-batch.json`](../../../catalog/expand-tune-batch.json).
 
-Full A/B cycle = **20 OpenRouter calls** (10 × prompt A + 10 × prompt B). Run `--dry-run` first — prints a per-episode table with ~input tokens and `$` estimates from whatever model is set in `OPENROUTER_MODEL` (or `--model`). The run’s model is recorded in `manifest.json` and draft frontmatter, not in these docs.
+Full A/B cycle = **10 OpenRouter calls** (5 × prompt A + 5 × prompt B). Run `--dry-run` first — prints a per-episode table with ~input tokens and `$` estimates from whatever model is set in `OPENROUTER_MODEL` (or `--model`). The run’s model is recorded in `manifest.json` and draft frontmatter, not in these docs.
 
 ## Isolation
 
@@ -44,7 +44,7 @@ python notes/expand_tune.py report
 python notes/expand_tune.py verify
 ```
 
-During `--apply`, the parent prints `N/10` per episode; each child streams progress (`waiting for API…`, `first output`, `datapoint k/M`). Add `--no-stream` on `expand` to disable live section progress.
+During `--apply`, the parent prints `N/M` per episode (M = batch size); each child streams progress (`waiting for API…`, `first output`, `datapoint k/M`). Add `--no-stream` on `expand` to disable live section progress.
 
 Full refresh: add `--force` to `init` and both `expand` runs.
 
