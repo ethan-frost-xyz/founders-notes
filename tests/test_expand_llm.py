@@ -77,6 +77,8 @@ def test_estimate_expand_for_row_counts_input_once(monkeypatch, tmp_path: Path):
 def test_load_prompt_template_default():
     system, user = load_prompt_template(default_prompt_path())
     assert "<<<" not in system
+    assert "## Expanded datapoints" in system
+    assert "first line" in system.lower()
     assert "{notes}" in user
     assert "{transcript}" in user
     assert "Context:" in user

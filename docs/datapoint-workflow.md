@@ -20,6 +20,8 @@ Instructions live in [`ingestion/prompts/expand_datapoints.md`](../ingestion/pro
 
 Per bullet: `### {timestamp} — {bullet}`, then **Context** (1–2 sentences), **Quote** (verbatim + timestamp), **Key takeaway** (2–3 sentences), with blank lines between fields.
 
+The LLM reply must start with `## Expanded datapoints` on line 1 (required by the parser).
+
 Edit that file to change behavior for both the manual CLI and OpenRouter runs. Candidate prompt B: `expand_datapoints.candidate.md`.
 
 ## Quick start (Cursor / manual)
@@ -66,7 +68,7 @@ Apply runs append structured rows to `catalog/expand-run.jsonl` (gitignored): `s
 | Field | Meaning |
 |-------|---------|
 | `status` | `ok`, `error`, or `skipped` |
-| `prompt_tokens`, `completion_tokens`, `total_tokens` | From OpenRouter `usage` (apply only) |
+| `prompt_tokens`, `completion_tokens`, `total_tokens` | From OpenRouter `usage` when the API call completed |
 | `cost_usd` | OpenRouter `usage.cost` when present |
 | `duration_ms` | Wall time for the API call |
 | `run_id`, `variant` | Set via `EXPAND_RUN_ID` / `EXPAND_VARIANT` (tune subprocesses) |

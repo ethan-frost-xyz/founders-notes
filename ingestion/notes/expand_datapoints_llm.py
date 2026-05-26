@@ -34,9 +34,11 @@ from expand_llm import (
     load_expand_run_log,
     load_prompt_template,
     log_expand_event,
+    openrouter_completion_log_fields,
     parse_expanded_body,
     print_expand_batch_summary,
     print_expand_dry_run_summary,
+    print_expand_error_line,
     print_expand_ok_line,
     promote_draft,
     prompt_file_hash,
@@ -218,6 +220,7 @@ def run_expand_one(
 
     print(f"[expand] {ep_id}  {n_bullets} bullets  model={model}")
 
+    completion = None
     try:
         completion = call_openrouter(
             system=system,
@@ -260,17 +263,14 @@ def run_expand_one(
                 "draft_path": draft_rel,
                 "n_sections": n_sections,
                 "validation_errors": val_errors,
-                "response_id": completion.response_id,
-                "prompt_tokens": completion.prompt_tokens,
-                "completion_tokens": completion.completion_tokens,
-                "total_tokens": completion.total_tokens,
-                "cost_usd": completion.cost_usd,
-                "duration_ms": completion.duration_ms,
+                **openrouter_completion_log_fields(completion),
             }
         )
         return "wrote", log_expand_event(log_rec)
     except Exception as e:
-        print(f"[error] {ep_id}: {e}")
+        print_expand_error_line(
+            episode_id=ep_id, error=str(e), completion=completion
+        )
         log_rec = _expand_run_log_base(
             ep_id=ep_id,
             model=model,
@@ -280,7 +280,9 @@ def run_expand_one(
             n_bullets=n_bullets,
             input_chars=input_chars,
         )
-        log_rec.update({"status": "error", "error": str(e)})
+        log_rec.update(
+            {"status": "error", "error": str(e), **openrouter_completion_log_fields(completion)}
+        )
         return "error", log_expand_event(log_rec)
 
 

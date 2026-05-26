@@ -480,6 +480,31 @@ def format_cost_usd(cost: float | None) -> str:
     return "$0"
 
 
+def openrouter_completion_log_fields(
+    completion: OpenRouterCompletion | None,
+) -> dict[str, Any]:
+    """Token/cost fields for expand-run.jsonl when a completion exists."""
+    if completion is None:
+        return {}
+    return {
+        "response_id": completion.response_id,
+        "prompt_tokens": completion.prompt_tokens,
+        "completion_tokens": completion.completion_tokens,
+        "total_tokens": completion.total_tokens,
+        "cost_usd": completion.cost_usd,
+        "duration_ms": completion.duration_ms,
+    }
+
+
+def format_expand_usage_suffix(completion: OpenRouterCompletion) -> str:
+    return (
+        f"{format_compact_tokens(completion.prompt_tokens)} in / "
+        f"{format_compact_tokens(completion.completion_tokens)} out  "
+        f"{format_cost_usd(completion.cost_usd)}  "
+        f"{format_duration_sec(completion.duration_ms)}"
+    )
+
+
 def print_expand_ok_line(
     *,
     episode_id: str,
@@ -488,12 +513,20 @@ def print_expand_ok_line(
 ) -> None:
     print(
         f"[ok] {episode_id}  "
-        f"{format_compact_tokens(completion.prompt_tokens)} in / "
-        f"{format_compact_tokens(completion.completion_tokens)} out  "
-        f"{format_cost_usd(completion.cost_usd)}  "
-        f"{format_duration_sec(completion.duration_ms)}  "
+        f"{format_expand_usage_suffix(completion)}  "
         f"→ {draft_rel}"
     )
+
+
+def print_expand_error_line(
+    *,
+    episode_id: str,
+    error: str,
+    completion: OpenRouterCompletion | None = None,
+) -> None:
+    print(f"[error] {episode_id}: {error}")
+    if completion is not None:
+        print(f"         {format_expand_usage_suffix(completion)}")
 
 
 def print_expand_batch_summary(

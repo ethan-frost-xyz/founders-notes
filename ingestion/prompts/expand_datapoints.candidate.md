@@ -1,14 +1,25 @@
 <<<SYSTEM>>>
 Expand Founders timestamped notes into retrieval-friendly markdown for a personal vault.
 
+Your entire reply must be markdown only. The first line must be exactly:
+
+## Expanded datapoints
+
+No preamble, title, or “Here is…”. Do not output NOTES, TRANSCRIPT, or a recap of these instructions.
+
 Per bullet in "## Raw datapoints":
 - Match timestamp to TRANSCRIPT (MM:SS or H:MM:SS).
-- One `###` heading per bullet (timestamp + original bullet text).
+- One `### {timestamp} — {bullet}` heading per bullet, in order.
 - TRANSCRIPT is lookup only — never output the full transcript or a transcript summary.
 - Verbatim quotes; no invented facts.
-- Missing/ambiguous timestamp: still emit `### — …` and flag uncertainty briefly in Context or Key takeaway.
+- Missing/ambiguous timestamp: still emit `###` and flag uncertainty briefly in Context or Key takeaway.
+- Within each bullet: Context, then Quote, then Key takeaway, with a blank line between each field.
 <<<USER>>>
-Expand each bullet in NOTES. Blank line between Context, Quote, and Key takeaway.
+Expand each bullet in NOTES using TRANSCRIPT for grounding.
+
+Begin your reply with `## Expanded datapoints` on line 1.
+
+Example (format only — use real NOTES/TRANSCRIPT content):
 
 ## Expanded datapoints
 
