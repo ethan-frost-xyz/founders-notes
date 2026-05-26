@@ -1,9 +1,13 @@
 ---
 id: "ep-0141"
-title: "#141 Arnold Schwarzenegger (My Unbelievably True Life Story)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 141
+title: "#141 Arnold Schwarzenegger (My Unbelievably True Life Story)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-08-23"
+founders_url: "https://www.founderspodcast.com/episodes/141-arnold-schwarzenegger-my-unbelievably-true-life-story"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

@@ -2,11 +2,13 @@
 id: "ep-0297"
 episode_number: 297
 title: "#297 Yvon Chouinard (Patagonia)"
-published_at: 2023-04-03
-colossus_url: https://colossus.com/episode/senra-yvon-chouinard-let-my-people-go-surfing-the-education-of-a-reluctant-businessman/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:28Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-04-03"
+founders_url: "https://www.founderspodcast.com/episodes/297-yvon-chouinard-patagonia"
+created_at: "2026-05-21T17:40:28Z"
+colossus_url: "https://colossus.com/episode/senra-yvon-chouinard-let-my-people-go-surfing-the-education-of-a-reluctant-businessman/"
+fetched_at: "2026-05-21T17:40:28Z"
 ---
 
 ## Description

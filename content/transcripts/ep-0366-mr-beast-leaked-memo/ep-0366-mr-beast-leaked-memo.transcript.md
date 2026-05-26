@@ -2,11 +2,13 @@
 id: "ep-0366"
 episode_number: 366
 title: "#366 Mr. Beast Leaked Memo"
-published_at: 2024-09-27
-colossus_url: https://colossus.com/episode/366-mr-beast-leaked-memo/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:54Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-09-27"
+founders_url: "https://www.founderspodcast.com/episodes/366-mr-beast-leaked-memo"
+created_at: "2026-05-21T17:41:54Z"
+colossus_url: "https://colossus.com/episode/366-mr-beast-leaked-memo/"
+fetched_at: "2026-05-21T17:41:54Z"
 ---
 
 ## Description

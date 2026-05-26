@@ -2,11 +2,13 @@
 id: "ep-0414"
 episode_number: 414
 title: "#414 How SpaceX Works"
-published_at: 2026-03-08
-colossus_url: https://colossus.com/episode/414-how-spacex-works/
-founders_url: https://www.founderspodcast.com/episodes/414-how-spacex-works
-source: colossus
-fetched_at: 2026-05-21T17:42:52Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2026-03-08"
+founders_url: "https://www.founderspodcast.com/episodes/414-how-spacex-works"
+created_at: "2026-05-21T17:42:52Z"
+colossus_url: "https://colossus.com/episode/414-how-spacex-works/"
+fetched_at: "2026-05-21T17:42:52Z"
 ---
 
 ## Description

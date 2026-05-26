@@ -2,11 +2,13 @@
 id: "ep-0254"
 episode_number: 254
 title: "#254 John D. Rockefeller: The Founding Father of the Rockefellers"
-published_at: 2022-06-27
-colossus_url: https://colossus.com/episode/senra-john-d-rockefeller-the-founding-father-of-the-rockefellers/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:35Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-06-27"
+founders_url: "https://www.founderspodcast.com/episodes/254-john-d-rockefeller-the-founding-father-of-the-rockefellers"
+created_at: "2026-05-21T17:39:35Z"
+colossus_url: "https://colossus.com/episode/senra-john-d-rockefeller-the-founding-father-of-the-rockefellers/"
+fetched_at: "2026-05-21T17:39:35Z"
 ---
 
 ## Description

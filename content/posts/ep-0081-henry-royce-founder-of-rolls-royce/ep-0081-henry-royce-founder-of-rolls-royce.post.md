@@ -1,13 +1,16 @@
 ---
 id: "ep-0081"
+episode_number: 81
 title: "#81 Henry Royce (Founder of Rolls-Royce)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-08"
+founders_url: "https://www.founderspodcast.com/episodes/81-henry-royce-founder-of-rolls-royce"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2009110872908829148"
 x_post_id: "2009110872908829148"
-published_at: "2026-01-08"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 81
 ---
 
 Analyze flaws by looking at yourself dispassionately (29:20)

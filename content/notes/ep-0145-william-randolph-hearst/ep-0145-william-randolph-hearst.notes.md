@@ -1,9 +1,13 @@
 ---
 id: "ep-0145"
-title: "#145 William Randolph Hearst"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 145
+title: "#145 William Randolph Hearst"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-09-20"
+founders_url: "https://www.founderspodcast.com/episodes/145-william-randolph-hearst"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

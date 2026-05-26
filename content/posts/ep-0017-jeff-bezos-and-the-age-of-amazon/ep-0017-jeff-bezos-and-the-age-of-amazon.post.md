@@ -1,13 +1,16 @@
 ---
 id: "ep-0017"
+episode_number: 17
 title: "#17 Jeff Bezos and the Age of Amazon"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-11-04"
+founders_url: "https://www.founderspodcast.com/episodes/17-jeff-bezos-and-the-age-of-amazon"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1985822577382850610"
 x_post_id: "1985822577382850610"
-published_at: "2025-11-04"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 17
 ---
 
 Founders #17 Jeff Bezos and the Rise of Amazon

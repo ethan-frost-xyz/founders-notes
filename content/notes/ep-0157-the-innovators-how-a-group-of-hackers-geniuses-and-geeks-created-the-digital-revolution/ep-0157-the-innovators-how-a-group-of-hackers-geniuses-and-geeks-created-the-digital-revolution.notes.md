@@ -1,9 +1,13 @@
 ---
 id: "ep-0157"
-title: "#157 The Innovators: How a Group of Hackers, Geniuses, and Geeks Created the Digital Revolution"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 157
+title: "#157 The Innovators: How a Group of Hackers, Geniuses, and Geeks Created the Digital Revolution"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-12-07"
+founders_url: "https://www.founderspodcast.com/episodes/157-the-innovators-how-a-group-of-hackers-geniuses-and-geeks-created-the-digital-revolution"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

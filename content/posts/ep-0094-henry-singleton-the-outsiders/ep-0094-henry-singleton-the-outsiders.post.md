@@ -1,13 +1,16 @@
 ---
 id: "ep-0094"
+episode_number: 94
 title: "#94 Henry Singleton (The Outsiders)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-21"
+founders_url: "https://www.founderspodcast.com/episodes/94-henry-singleton-the-outsiders"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2013816875604480091"
 x_post_id: "2013816875604480091"
-published_at: "2026-01-21"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 94
 ---
 
 Founders: #94 Henry Singleton - (Founder of Teledyne)

@@ -37,20 +37,52 @@ content/notes/ep-0418-phil-knight-founder-of-nike/ep-0418-phil-knight-founder-of
 content/posts/ep-0418-phil-knight-founder-of-nike/ep-0418-phil-knight-founder-of-nike.post.md
 ```
 
-All path helpers live in `ingestion/lib/paths.py` (`folder_name`, `content_filename`, `transcript_path`, `notes_file_path`, etc.). `ingestion/pipeline/verify.py` enforces both rules on every run.
+All path helpers live in `ingestion/lib/paths.py` (`folder_name`, `content_filename`, `transcript_path`, `notes_file_path`, etc.). `ingestion/pipeline/verify.py` enforces layout, ids, and frontmatter schema.
 
-## Transcript file frontmatter
+## Canonical episode frontmatter (all types)
+
+Every episode markdown file under `content/` shares a **core** YAML block (same field order). Type-specific fields follow. Frontmatter is always written by ingestion tooling — never by the expansion LLM.
 
 | Field | Required | Notes |
 |-------|----------|-------|
 | `id` | yes | Canonical id (`ep-0418`) |
 | `episode_number` | if numbered | Integer |
-| `title` | yes | Display title |
-| `published_at` | yes | `YYYY-MM-DD` |
+| `title` | yes | Display title from catalog |
+| `content_type` | yes | `transcript`, `notes`, `post`, `expanded`, or `expanded.draft` |
+| `source` | yes | Provenance (`colossus`, `vault_native`, `x_csv`, `expand_llm`, …) |
+| `published_at` | if known | Episode date from catalog; for posts, X post date when set |
+| `founders_url` | if known | From catalog |
+| `created_at` | yes | ISO 8601 UTC — file creation or primary import time |
+
+Example (expanded):
+
+```yaml
+---
+id: "ep-0200"
+episode_number: 200
+title: "#200 …"
+content_type: "expanded"
+source: "expand_llm"
+published_at: "2024-01-15"
+founders_url: "https://www.founderspodcast.com/episodes/..."
+created_at: "2026-05-26T14:37:02Z"
+expanded_at: "2026-05-26T14:37:02Z"
+expanded_model: "provider/model"
+---
+```
+
+Backfill existing files: `python migrations/migrate_episode_frontmatter.py --apply` (body preserved; frontmatter only).
+
+## Transcript file frontmatter
+
+Core fields plus:
+
+| Field | Required | Notes |
+|-------|----------|-------|
 | `colossus_url` | yes | Official transcript source |
-| `founders_url` | yes | Metadata source |
-| `source` | yes | Always `colossus` for Phase 1 |
-| `fetched_at` | yes | ISO 8601 UTC when saved |
+| `fetched_at` | yes | ISO 8601 UTC when saved (also mirrored in `created_at` on fetch) |
+
+`source` is always `colossus` for Phase 1 fetches.
 
 Body structure:
 
@@ -99,13 +131,13 @@ Per-episode folders mirror transcripts: same `{folder}` basename under each tree
 
 ### `{folder}.notes.md` frontmatter
 
+Core fields plus:
+
 | Field | Required | Notes |
 |-------|----------|-------|
-| `id` | yes | Canonical id |
-| `episode_number` | if numbered | Integer |
-| `title` | yes | From catalog |
-| `source` | yes | `vault_native` for new notes; legacy `apple_notes_import` on older files |
-| `imported_at` | yes | ISO 8601 UTC |
+| `imported_at` | yes | ISO 8601 UTC (legacy field; `created_at` uses the same timestamp for new scaffolds) |
+
+`source`: `vault_native` for new notes; legacy `apple_notes_import` on older files.
 
 Body must include `## Raw datapoints` with timestamp bullets:
 
@@ -119,29 +151,46 @@ Timestamps use `MM:SS` or `H:MM:SS` before the em dash.
 
 ### `{folder}.post.md` frontmatter
 
+Core fields plus:
+
 | Field | Required | Notes |
 |-------|----------|-------|
-| `id` | yes | Canonical id |
-| `episode_number` | if numbered | Integer |
-| `title` | yes | From catalog |
 | `x_url` | yes | Canonical X URL |
 | `x_post_id` | yes | X post id |
-| `published_at` | if known | `YYYY-MM-DD` |
-| `source` | yes | `x_csv`, `manual_attribution`, or legacy `x_api` |
 | `imported_at` | yes | ISO 8601 UTC |
 | `post_kind` | no | `tweet`, `article`, `quote`, `reply` |
 | `attribution_note` | no | Manual mapping notes (wrong ep number on X, recap thread, etc.) |
 | `alt_source` | no | e.g. `google_doc` when merged |
 
+`source`: `x_csv`, `manual_attribution`, or legacy `x_api`. `published_at` in core is the X post date when known.
+
 Body: full post text (thread + self-replies merged). Native X articles may publish as a link tweet only in the API — paste full article text manually when needed (`x/assign_post_manual.py`).
 
 ### `{folder}.expanded.draft.md` (optional)
 
-Written by `expand_datapoints_llm.py --apply`. Same body shape as `.expanded.md` plus generation metadata in frontmatter. Run `expand_datapoints_llm.py --promote --apply` after review; promotion deletes the draft.
+Written by `expand_datapoints_llm.py --apply`. **LLM output is body-only** (`## Expanded datapoints` …); Python adds frontmatter. Core fields plus:
+
+| Field | Required | Notes |
+|-------|----------|-------|
+| `model` | yes | OpenRouter model slug |
+| `generated_at` | yes | ISO 8601 UTC |
+| `prompt_path` | yes | Relative path under repo root |
+| `prompt_hash` | yes | SHA-256 prefix of prompt file |
+| `tune_variant` | no | `A` / `B` when run from `expand_tune.py` |
+
+Run `expand_datapoints_llm.py --promote --apply` after review; promotion deletes the draft.
 
 ### `{folder}.expanded.md` (optional)
 
-Generated by datapoint workflow (manual or promoted draft). Sections: `## Expanded datapoints`; per bullet `### {timestamp} — {bullet}`, then Context, Quote, Key takeaway.
+Promoted from draft or written manually. Core fields plus:
+
+| Field | Required | Notes |
+|-------|----------|-------|
+| `expanded_at` | yes | ISO 8601 UTC when promoted |
+| `expanded_model` | no | Model from draft |
+| `prompt_hash` | no | From draft when available |
+
+Body: `## Expanded datapoints`; per bullet `### {timestamp} — {bullet}`, then Context, Quote, Key takeaway.
 
 ### Catalog sidecars
 

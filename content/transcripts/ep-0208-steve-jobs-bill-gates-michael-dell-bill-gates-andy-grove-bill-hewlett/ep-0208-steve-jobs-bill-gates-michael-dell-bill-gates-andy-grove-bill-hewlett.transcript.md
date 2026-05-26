@@ -2,11 +2,13 @@
 id: "ep-0208"
 episode_number: 208
 title: "#208 Steve Jobs, Bill Gates, Michael Dell, Bill Gates, Andy Grove, Bill Hewlett"
-published_at: 2021-09-29
-colossus_url: https://colossus.com/episode/senra-in-the-company-of-giants-candid-conversations-with-the-visionaries-of-the-digital-world/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:38Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-09-29"
+founders_url: "https://www.founderspodcast.com/episodes/208-steve-jobs-bill-gates-michael-dell-bill-gates-andy-grove-bill-hewlett"
+created_at: "2026-05-21T17:38:38Z"
+colossus_url: "https://colossus.com/episode/senra-in-the-company-of-giants-candid-conversations-with-the-visionaries-of-the-digital-world/"
+fetched_at: "2026-05-21T17:38:38Z"
 ---
 
 ## Description

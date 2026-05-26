@@ -2,11 +2,13 @@
 id: "ep-0282"
 episode_number: 282
 title: "#282 Jeff Bezos Shareholder Letters"
-published_at: 2022-12-19
-colossus_url: https://colossus.com/episode/senra-jeff-bezos-his-shareholder-letters/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:10Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-12-19"
+founders_url: "https://www.founderspodcast.com/episodes/282-jeff-bezos-shareholder-letters"
+created_at: "2026-05-21T17:40:10Z"
+colossus_url: "https://colossus.com/episode/senra-jeff-bezos-his-shareholder-letters/"
+fetched_at: "2026-05-21T17:40:10Z"
 ---
 
 ## Description

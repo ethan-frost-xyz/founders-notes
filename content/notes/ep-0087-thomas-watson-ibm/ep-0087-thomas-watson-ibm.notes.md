@@ -1,9 +1,13 @@
 ---
 id: "ep-0087"
-title: "#87 Thomas Watson (IBM)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 87
+title: "#87 Thomas Watson (IBM)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-09-01"
+founders_url: "https://www.founderspodcast.com/episodes/87-thomas-watson-ibm"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

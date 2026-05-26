@@ -2,11 +2,13 @@
 id: "ep-0346"
 episode_number: 346
 title: "#346 How Walt Disney Built Himself"
-published_at: 2024-04-22
-colossus_url: https://colossus.com/episode/senra-346-how-walt-disney-built-himself/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:29Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-04-22"
+founders_url: "https://www.founderspodcast.com/episodes/346-how-walt-disney-built-himself"
+created_at: "2026-05-21T17:41:29Z"
+colossus_url: "https://colossus.com/episode/senra-346-how-walt-disney-built-himself/"
+fetched_at: "2026-05-21T17:41:29Z"
 ---
 
 ## Description

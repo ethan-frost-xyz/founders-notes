@@ -2,11 +2,13 @@
 id: "ep-0317"
 episode_number: 317
 title: "#317 Ed Catmull (Founder of Pixar)"
-published_at: 2023-08-21
-colossus_url: https://colossus.com/episode/catmull-ed-catmull-creativity-inc/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:52Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-08-21"
+founders_url: "https://www.founderspodcast.com/episodes/317-ed-catmull-founder-of-pixar"
+created_at: "2026-05-21T17:40:52Z"
+colossus_url: "https://colossus.com/episode/catmull-ed-catmull-creativity-inc/"
+fetched_at: "2026-05-21T17:40:52Z"
 ---
 
 ## Description

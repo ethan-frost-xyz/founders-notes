@@ -1,13 +1,16 @@
 ---
 id: "ep-0053"
+episode_number: 53
 title: "#53 Who Is Michael Ovitz?"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-10"
+founders_url: "https://www.founderspodcast.com/episodes/53-who-is-michael-ovitz"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1998819264011083830"
 x_post_id: "1998819264011083830"
-published_at: "2025-12-10"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 53
 ---
 
 Founders #53 Michael Ovitz (CAA, $DIS)

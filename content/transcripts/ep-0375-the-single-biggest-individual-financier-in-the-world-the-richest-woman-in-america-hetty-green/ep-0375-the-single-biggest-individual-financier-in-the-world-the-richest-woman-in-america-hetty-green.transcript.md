@@ -2,11 +2,13 @@
 id: "ep-0375"
 episode_number: 375
 title: "#375 The Single Biggest Individual Financier In The World. The Richest Woman In America: Hetty Green"
-published_at: 2025-01-06
-colossus_url: https://colossus.com/episode/375-the-single-biggest-individual-financier-in-the-world-the-richest-woman-in-america-hetty-green/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:42:05Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-01-06"
+founders_url: "https://www.founderspodcast.com/episodes/375-the-single-biggest-individual-financier-in-the-world-the-richest-woman-in-america-hetty-green"
+created_at: "2026-05-21T17:42:05Z"
+colossus_url: "https://colossus.com/episode/375-the-single-biggest-individual-financier-in-the-world-the-richest-woman-in-america-hetty-green/"
+fetched_at: "2026-05-21T17:42:05Z"
 ---
 
 ## Description

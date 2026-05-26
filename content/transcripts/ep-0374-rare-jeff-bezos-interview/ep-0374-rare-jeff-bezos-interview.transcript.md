@@ -2,11 +2,13 @@
 id: "ep-0374"
 episode_number: 374
 title: "#374 Rare Jeff Bezos Interview"
-published_at: 2024-12-15
-colossus_url: https://colossus.com/episode/374-rare-jeff-bezos-interview/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:42:04Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-12-15"
+founders_url: "https://www.founderspodcast.com/episodes/374-rare-jeff-bezos-interview"
+created_at: "2026-05-21T17:42:04Z"
+colossus_url: "https://colossus.com/episode/374-rare-jeff-bezos-interview/"
+fetched_at: "2026-05-21T17:42:04Z"
 ---
 
 ## Description

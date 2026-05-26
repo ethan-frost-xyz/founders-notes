@@ -2,11 +2,13 @@
 id: "ep-0395"
 episode_number: 395
 title: "#395 How Geniuses and Speed Freaks Reengineered F1 into the World's Fastest-Growing Sport"
-published_at: 2025-07-22
-colossus_url: https://colossus.com/episode/395-how-geniuses-and-speed-freaks-reengineered-f1-into-the-worlds-fastest-growing-sport/
-founders_url: https://www.founderspodcast.com/episodes/395-how-geniuses-and-speed-freaks-reengineered-f1-into-the-worlds-fastest-growing-sport
-source: colossus
-fetched_at: 2026-05-21T17:42:29Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-07-22"
+founders_url: "https://www.founderspodcast.com/episodes/395-how-geniuses-and-speed-freaks-reengineered-f1-into-the-worlds-fastest-growing-sport"
+created_at: "2026-05-21T17:42:29Z"
+colossus_url: "https://colossus.com/episode/395-how-geniuses-and-speed-freaks-reengineered-f1-into-the-worlds-fastest-growing-sport/"
+fetched_at: "2026-05-21T17:42:29Z"
 ---
 
 ## Description

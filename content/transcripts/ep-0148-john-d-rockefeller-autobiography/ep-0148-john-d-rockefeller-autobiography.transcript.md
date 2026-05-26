@@ -2,11 +2,13 @@
 id: "ep-0148"
 episode_number: 148
 title: "#148 John D. Rockefeller (Autobiography)"
-published_at: 2020-10-11
-colossus_url: https://colossus.com/episode/senra-the-autobiography-of-john-d-rockefeller/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:24Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-10-11"
+founders_url: "https://www.founderspodcast.com/episodes/148-john-d-rockefeller-autobiography"
+created_at: "2026-05-21T17:37:24Z"
+colossus_url: "https://colossus.com/episode/senra-the-autobiography-of-john-d-rockefeller/"
+fetched_at: "2026-05-21T17:37:24Z"
 ---
 
 ## Description

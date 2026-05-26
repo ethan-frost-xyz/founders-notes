@@ -1,9 +1,13 @@
 ---
 id: "ep-0026"
-title: "#26 My Life and Work: The Autobiography of Henry Ford"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 26
+title: "#26 My Life and Work: The Autobiography of Henry Ford"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2018-05-02"
+founders_url: "https://www.founderspodcast.com/episodes/26-my-life-and-work-the-autobiography-of-henry-ford"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

@@ -2,11 +2,13 @@
 id: "ep-0034"
 episode_number: 34
 title: "#34 Creativity Inc: The Autobiography of the founder of Pixar"
-published_at: 2018-08-20
-colossus_url: https://colossus.com/episode/senra-ed-catmull-creativity-inc/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:02Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-08-20"
+founders_url: "https://www.founderspodcast.com/episodes/34-creativity-inc-the-autobiography-of-the-founder-of-pixar"
+created_at: "2026-05-21T17:35:02Z"
+colossus_url: "https://colossus.com/episode/senra-ed-catmull-creativity-inc/"
+fetched_at: "2026-05-21T17:35:02Z"
 ---
 
 ## Description

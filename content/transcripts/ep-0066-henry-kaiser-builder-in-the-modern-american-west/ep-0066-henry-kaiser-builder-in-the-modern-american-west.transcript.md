@@ -2,11 +2,13 @@
 id: "ep-0066"
 episode_number: 66
 title: "#66 Henry Kaiser: Builder in the Modern American West"
-published_at: 2019-04-07
-colossus_url: https://colossus.com/episode/senra-henry-j-kaiser-builder-in-the-modern-american-west/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:42Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-04-07"
+founders_url: "https://www.founderspodcast.com/episodes/66-henry-kaiser-builder-in-the-modern-american-west"
+created_at: "2026-05-21T17:35:42Z"
+colossus_url: "https://colossus.com/episode/senra-henry-j-kaiser-builder-in-the-modern-american-west/"
+fetched_at: "2026-05-21T17:35:42Z"
 ---
 
 ## Description

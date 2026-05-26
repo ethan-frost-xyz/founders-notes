@@ -2,11 +2,13 @@
 id: "ep-0197"
 episode_number: 197
 title: "#197 Founder of the Rothschild Family Dynasty"
-published_at: 2021-08-11
-colossus_url: https://colossus.com/episode/senra-amos-elon-a-portrait-of-the-first-rothschild/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:24Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-08-11"
+founders_url: "https://www.founderspodcast.com/episodes/197-founder-of-the-rothschild-family-dynasty"
+created_at: "2026-05-21T17:38:24Z"
+colossus_url: "https://colossus.com/episode/senra-amos-elon-a-portrait-of-the-first-rothschild/"
+fetched_at: "2026-05-21T17:38:24Z"
 ---
 
 ## Description

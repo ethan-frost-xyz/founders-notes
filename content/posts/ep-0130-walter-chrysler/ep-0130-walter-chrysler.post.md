@@ -1,13 +1,16 @@
 ---
 id: "ep-0130"
+episode_number: 130
 title: "#130 Walter Chrysler"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-26"
+founders_url: "https://www.founderspodcast.com/episodes/130-walter-chrysler"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2027127101459997021"
 x_post_id: "2027127101459997021"
-published_at: "2026-02-26"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 130
 ---
 
 Founders #130: Walter Chrysler

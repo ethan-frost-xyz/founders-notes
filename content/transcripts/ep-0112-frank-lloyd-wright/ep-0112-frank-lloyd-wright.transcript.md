@@ -2,11 +2,13 @@
 id: "ep-0112"
 episode_number: 112
 title: "#112 Frank Lloyd Wright"
-published_at: 2020-02-24
-colossus_url: https://colossus.com/episode/senra-the-biography-of-frank-lloyd-wright/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:39Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-02-24"
+founders_url: "https://www.founderspodcast.com/episodes/112-frank-lloyd-wright"
+created_at: "2026-05-21T17:36:39Z"
+colossus_url: "https://colossus.com/episode/senra-the-biography-of-frank-lloyd-wright/"
+fetched_at: "2026-05-21T17:36:39Z"
 ---
 
 ## Description

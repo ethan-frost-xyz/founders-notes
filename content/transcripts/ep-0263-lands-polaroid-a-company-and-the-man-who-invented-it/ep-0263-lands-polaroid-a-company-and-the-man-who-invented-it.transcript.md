@@ -2,11 +2,13 @@
 id: "ep-0263"
 episode_number: 263
 title: "#263 Land's Polaroid: A Company and the Man Who Invented It"
-published_at: 2022-08-18
-colossus_url: https://colossus.com/episode/senra-edwin-land-polaroid-and-the-man-who-invented-it/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:46Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-08-18"
+founders_url: "https://www.founderspodcast.com/episodes/263-lands-polaroid-a-company-and-the-man-who-invented-it"
+created_at: "2026-05-21T17:39:46Z"
+colossus_url: "https://colossus.com/episode/senra-edwin-land-polaroid-and-the-man-who-invented-it/"
+fetched_at: "2026-05-21T17:39:46Z"
 ---
 
 ## Description

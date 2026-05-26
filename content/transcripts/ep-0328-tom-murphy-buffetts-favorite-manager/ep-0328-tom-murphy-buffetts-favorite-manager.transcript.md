@@ -2,11 +2,13 @@
 id: "ep-0328"
 episode_number: 328
 title: "#328 Tom Murphy (Buffett's favorite manager)"
-published_at: 2023-11-22
-colossus_url: https://colossus.com/episode/senra-328-tom-murphy-buffetts-favorite-manager/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:06Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-11-22"
+founders_url: "https://www.founderspodcast.com/episodes/328-tom-murphy-buffetts-favorite-manager"
+created_at: "2026-05-21T17:41:06Z"
+colossus_url: "https://colossus.com/episode/senra-328-tom-murphy-buffetts-favorite-manager/"
+fetched_at: "2026-05-21T17:41:06Z"
 ---
 
 ## Description

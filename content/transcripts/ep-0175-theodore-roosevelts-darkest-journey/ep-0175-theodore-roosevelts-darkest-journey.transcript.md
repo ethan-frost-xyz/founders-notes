@@ -2,11 +2,13 @@
 id: "ep-0175"
 episode_number: 175
 title: "#175 Theodore Roosevelt's Darkest Journey"
-published_at: 2021-04-11
-colossus_url: https://colossus.com/episode/senra-theodore-roosevelt-the-river-of-doubt/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:57Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-04-11"
+founders_url: "https://www.founderspodcast.com/episodes/175-theodore-roosevelts-darkest-journey"
+created_at: "2026-05-21T17:37:57Z"
+colossus_url: "https://colossus.com/episode/senra-theodore-roosevelt-the-river-of-doubt/"
+fetched_at: "2026-05-21T17:37:57Z"
 ---
 
 ## Description

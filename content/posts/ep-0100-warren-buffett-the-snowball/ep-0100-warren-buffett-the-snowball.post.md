@@ -1,13 +1,16 @@
 ---
 id: "ep-0100"
+episode_number: 100
 title: "#100 Warren Buffett (The Snowball)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-27"
+founders_url: "https://www.founderspodcast.com/episodes/100-warren-buffett-the-snowball"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2016023102770102623"
 x_post_id: "2016023102770102623"
-published_at: "2026-01-27"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 100
 ---
 
 Founders: #100 Warren Buffett

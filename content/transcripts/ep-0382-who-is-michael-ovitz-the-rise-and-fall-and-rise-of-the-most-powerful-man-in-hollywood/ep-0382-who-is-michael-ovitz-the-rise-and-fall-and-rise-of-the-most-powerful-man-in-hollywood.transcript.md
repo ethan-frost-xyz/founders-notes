@@ -2,11 +2,13 @@
 id: "ep-0382"
 episode_number: 382
 title: "#382 Who Is Michael Ovitz?: The Rise and Fall (and Rise) of the Most Powerful Man in Hollywood"
-published_at: 2025-03-07
-colossus_url: https://colossus.com/episode/382-who-is-michael-ovitz-the-rise-and-fall-and-rise-of-the-most-powerful-man-in-hollywood/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:42:13Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-03-07"
+founders_url: "https://www.founderspodcast.com/episodes/382-who-is-michael-ovitz-the-rise-and-fall-and-rise-of-the-most-powerful-man-in-hollywood"
+created_at: "2026-05-21T17:42:13Z"
+colossus_url: "https://colossus.com/episode/382-who-is-michael-ovitz-the-rise-and-fall-and-rise-of-the-most-powerful-man-in-hollywood/"
+fetched_at: "2026-05-21T17:42:13Z"
 ---
 
 ## Description

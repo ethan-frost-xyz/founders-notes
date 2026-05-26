@@ -1,9 +1,13 @@
 ---
 id: "ep-0092"
-title: "#92 Ed Thorp and Claude Shannon"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 92
+title: "#92 Ed Thorp and Claude Shannon"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-10-07"
+founders_url: "https://www.founderspodcast.com/episodes/92-ed-thorp-and-claude-shannon"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

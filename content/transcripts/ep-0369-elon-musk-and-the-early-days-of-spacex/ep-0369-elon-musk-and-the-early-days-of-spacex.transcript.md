@@ -2,11 +2,13 @@
 id: "ep-0369"
 episode_number: 369
 title: "#369 Elon Musk and The Early Days of SpaceX"
-published_at: 2024-11-01
-colossus_url: https://colossus.com/episode/369-elon-musk-and-the-early-days-of-spacex/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:57Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-11-01"
+founders_url: "https://www.founderspodcast.com/episodes/369-elon-musk-and-the-early-days-of-spacex"
+created_at: "2026-05-21T17:41:57Z"
+colossus_url: "https://colossus.com/episode/369-elon-musk-and-the-early-days-of-spacex/"
+fetched_at: "2026-05-21T17:41:57Z"
 ---
 
 ## Description

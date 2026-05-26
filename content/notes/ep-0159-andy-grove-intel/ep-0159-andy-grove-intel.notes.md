@@ -1,9 +1,13 @@
 ---
 id: "ep-0159"
-title: "#159 Andy Grove (Intel)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 159
+title: "#159 Andy Grove (Intel)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-12-21"
+founders_url: "https://www.founderspodcast.com/episodes/159-andy-grove-intel"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

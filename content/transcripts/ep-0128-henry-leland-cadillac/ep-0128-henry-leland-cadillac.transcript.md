@@ -2,11 +2,13 @@
 id: "ep-0128"
 episode_number: 128
 title: "#128 Henry Leland (Cadillac)"
-published_at: 2020-05-31
-colossus_url: https://colossus.com/episode/senra-henry-leland-master-of-precision/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:58Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-05-31"
+founders_url: "https://www.founderspodcast.com/episodes/128-henry-leland-cadillac"
+created_at: "2026-05-21T17:36:58Z"
+colossus_url: "https://colossus.com/episode/senra-henry-leland-master-of-precision/"
+fetched_at: "2026-05-21T17:36:58Z"
 ---
 
 ## Description

@@ -1,13 +1,16 @@
 ---
 id: "ep-0161"
+episode_number: 161
 title: "#161 Dr. Seuss"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-04-01"
+founders_url: "https://www.founderspodcast.com/episodes/161-dr-seuss"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2039425817563054462"
 x_post_id: "2039425817563054462"
-published_at: "2026-04-01"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 161
 ---
 
 the more that you read

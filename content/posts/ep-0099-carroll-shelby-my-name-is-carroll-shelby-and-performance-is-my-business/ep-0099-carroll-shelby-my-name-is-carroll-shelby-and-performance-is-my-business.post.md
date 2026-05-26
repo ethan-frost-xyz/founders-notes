@@ -1,13 +1,16 @@
 ---
 id: "ep-0099"
+episode_number: 99
 title: "#99 Carroll Shelby (My name is Carroll Shelby and performance is my business)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-26"
+founders_url: "https://www.founderspodcast.com/episodes/99-carroll-shelby-my-name-is-carroll-shelby-and-performance-is-my-business"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2015655575690862965"
 x_post_id: "2015655575690862965"
-published_at: "2026-01-26"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 99
 ---
 
 Founders: #99 Carroll Shelby

@@ -1,13 +1,16 @@
 ---
 id: "ep-0177"
+episode_number: 177
 title: "#177 Robert Campeau (Junk Bonds and Retail Bankruptcy)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-05-07"
+founders_url: "https://www.founderspodcast.com/episodes/177-robert-campeau-junk-bonds-and-retail-bankruptcy"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2052235385611157521"
 x_post_id: "2052235385611157521"
-published_at: "2026-05-07"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 177
 ---
 
 You will bankrupt yourself in your pursuit of others' approval.

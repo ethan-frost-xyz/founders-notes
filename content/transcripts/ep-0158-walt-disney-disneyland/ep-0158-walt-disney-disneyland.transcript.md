@@ -2,11 +2,13 @@
 id: "ep-0158"
 episode_number: 158
 title: "#158 Walt Disney (Disneyland)"
-published_at: 2020-12-14
-colossus_url: https://colossus.com/episode/senra-walt-disney-disneys-land/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:36Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-12-14"
+founders_url: "https://www.founderspodcast.com/episodes/158-walt-disney-disneyland"
+created_at: "2026-05-21T17:37:36Z"
+colossus_url: "https://colossus.com/episode/senra-walt-disney-disneys-land/"
+fetched_at: "2026-05-21T17:37:36Z"
 ---
 
 ## Description

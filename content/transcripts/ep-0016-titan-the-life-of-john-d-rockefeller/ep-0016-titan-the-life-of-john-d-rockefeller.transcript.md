@@ -2,11 +2,13 @@
 id: "ep-0016"
 episode_number: 16
 title: "#16 Titan: The Life of John D. Rockefeller"
-published_at: 2017-12-08
-colossus_url: https://colossus.com/episode/senra-john-d-rockefeller-titan/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:40Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2017-12-08"
+founders_url: "https://www.founderspodcast.com/episodes/16-titan-the-life-of-john-d-rockefeller"
+created_at: "2026-05-21T17:34:40Z"
+colossus_url: "https://colossus.com/episode/senra-john-d-rockefeller-titan/"
+fetched_at: "2026-05-21T17:34:40Z"
 ---
 
 ## Description

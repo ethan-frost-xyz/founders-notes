@@ -2,11 +2,13 @@
 id: "ep-0188"
 episode_number: 188
 title: "#188 Joe Coulombe (Founder of Trader Joes)"
-published_at: 2021-06-28
-colossus_url: https://colossus.com/episode/senra-joe-coulombe-how-i-did-business-my-way-and-still-beat-the-big-guys/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:13Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-06-28"
+founders_url: "https://www.founderspodcast.com/episodes/188-joe-coulombe-founder-of-trader-joes"
+created_at: "2026-05-21T17:38:13Z"
+colossus_url: "https://colossus.com/episode/senra-joe-coulombe-how-i-did-business-my-way-and-still-beat-the-big-guys/"
+fetched_at: "2026-05-21T17:38:13Z"
 ---
 
 ## Description

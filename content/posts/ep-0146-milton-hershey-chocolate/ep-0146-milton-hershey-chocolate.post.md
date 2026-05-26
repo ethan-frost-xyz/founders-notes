@@ -1,13 +1,16 @@
 ---
 id: "ep-0146"
+episode_number: 146
 title: "#146 Milton Hershey (Chocolate)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-16"
+founders_url: "https://www.founderspodcast.com/episodes/146-milton-hershey-chocolate"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2033395609185518069"
 x_post_id: "2033395609185518069"
-published_at: "2026-03-16"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 146
 ---
 
 Founders #146: Milton Hershey

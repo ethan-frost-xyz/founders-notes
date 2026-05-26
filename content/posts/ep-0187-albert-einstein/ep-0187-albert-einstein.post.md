@@ -1,13 +1,16 @@
 ---
 id: "ep-0187"
+episode_number: 187
 title: "#187 Albert Einstein"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-05-20"
+founders_url: "https://www.founderspodcast.com/episodes/187-albert-einstein"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2056914505376883082"
 x_post_id: "2056914505376883082"
-published_at: "2026-05-20"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 187
 ---
 
 Einstein, like an founder, was often wrong: 

@@ -2,11 +2,13 @@
 id: "ep-0195"
 episode_number: 195
 title: "#195 Sid Meier (Computer game designer)"
-published_at: 2021-07-31
-colossus_url: https://colossus.com/episode/senra-sid-meier-a-life-in-computer-games/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:22Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-07-31"
+founders_url: "https://www.founderspodcast.com/episodes/195-sid-meier-computer-game-designer"
+created_at: "2026-05-21T17:38:22Z"
+colossus_url: "https://colossus.com/episode/senra-sid-meier-a-life-in-computer-games/"
+fetched_at: "2026-05-21T17:38:22Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0117"
 episode_number: 117
 title: "#117 : Chung Ju-yung founder of Hyundai (the most inspiring autobiography I've read)"
-published_at: 2020-03-26
-colossus_url: https://colossus.com/episode/senra-chung-ju-yung-my-life-story/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:45Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-03-26"
+founders_url: "https://www.founderspodcast.com/episodes/117-chung-ju-yung-founder-of-hyundai-the-most-inspiring-autobiography-ive-read"
+created_at: "2026-05-21T17:36:45Z"
+colossus_url: "https://colossus.com/episode/senra-chung-ju-yung-my-life-story/"
+fetched_at: "2026-05-21T17:36:45Z"
 ---
 
 ## Description

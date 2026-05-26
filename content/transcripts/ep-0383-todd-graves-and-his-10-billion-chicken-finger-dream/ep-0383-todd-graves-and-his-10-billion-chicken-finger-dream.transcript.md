@@ -2,11 +2,13 @@
 id: "ep-0383"
 episode_number: 383
 title: "#383 Todd Graves and his $10 Billion Chicken Finger Dream"
-published_at: 2025-03-17
-colossus_url: https://colossus.com/episode/383-todd-graves-and-his-10-billion-chicken-finger-dream/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:42:14Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-03-17"
+founders_url: "https://www.founderspodcast.com/episodes/383-todd-graves-and-his-10-billion-chicken-finger-dream"
+created_at: "2026-05-21T17:42:14Z"
+colossus_url: "https://colossus.com/episode/383-todd-graves-and-his-10-billion-chicken-finger-dream/"
+fetched_at: "2026-05-21T17:42:14Z"
 ---
 
 ## Description

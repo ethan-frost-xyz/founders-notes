@@ -1,9 +1,13 @@
 ---
 id: "ep-0054"
-title: "#54 The Epic Life of Cornelius Vanderbilt"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 54
+title: "#54 The Epic Life of Cornelius Vanderbilt"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-01-08"
+founders_url: "https://www.founderspodcast.com/episodes/54-the-epic-life-of-cornelius-vanderbilt"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

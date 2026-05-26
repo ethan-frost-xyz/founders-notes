@@ -2,11 +2,13 @@
 id: "ep-0030"
 episode_number: 30
 title: "#30 Elon Musk: Tesla, SpaceX, and the Quest for a Fantastic Future"
-published_at: 2018-07-09
-colossus_url: https://colossus.com/episode/senra-elon-musk-tesla-spacex-and-the-quest-for-a-fantastic-future/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:58Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-07-09"
+founders_url: "https://www.founderspodcast.com/episodes/30-elon-musk-tesla-spacex-and-the-quest-for-a-fantastic-future"
+created_at: "2026-05-21T17:34:58Z"
+colossus_url: "https://colossus.com/episode/senra-elon-musk-tesla-spacex-and-the-quest-for-a-fantastic-future/"
+fetched_at: "2026-05-21T17:34:58Z"
 ---
 
 ## Description

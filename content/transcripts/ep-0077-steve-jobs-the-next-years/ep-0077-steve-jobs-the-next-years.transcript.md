@@ -2,11 +2,13 @@
 id: "ep-0077"
 episode_number: 77
 title: "#77 Steve Jobs (The NeXT Years)"
-published_at: 2019-06-23
-colossus_url: https://colossus.com/episode/senra-steve-jobs-the-next-big-thing/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:55Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-06-23"
+founders_url: "https://www.founderspodcast.com/episodes/77-steve-jobs-the-next-years"
+created_at: "2026-05-21T17:35:55Z"
+colossus_url: "https://colossus.com/episode/senra-steve-jobs-the-next-big-thing/"
+fetched_at: "2026-05-21T17:35:55Z"
 ---
 
 ## Description

@@ -1,13 +1,16 @@
 ---
 id: "ep-0116"
+episode_number: 116
 title: "#116 Sam Bronfman (Seagram's and the Bronfman family dynasty)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-13"
+founders_url: "https://www.founderspodcast.com/episodes/116-sam-bronfman-seagrams-and-the-bronfman-family-dynasty"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2022193944306622926"
 x_post_id: "2022193944306622926"
-published_at: "2026-02-13"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 116
 ---
 
 Founders #116: Sam Bronfman (Seagram's)

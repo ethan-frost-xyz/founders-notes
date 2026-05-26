@@ -1,9 +1,13 @@
 ---
 id: "ep-0134"
-title: "#134 Edwin Land (Polaroid vs Kodak)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 134
+title: "#134 Edwin Land (Polaroid vs Kodak)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-07-01"
+founders_url: "https://www.founderspodcast.com/episodes/134-edwin-land-polaroid-vs-kodak"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

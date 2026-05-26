@@ -2,11 +2,13 @@
 id: "ep-0264"
 episode_number: 264
 title: "#264 The Story of Edwin Land and Polaroid"
-published_at: 2022-08-24
-colossus_url: https://colossus.com/episode/senra-edwin-land-the-story-of-polaroid/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:47Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-08-24"
+founders_url: "https://www.founderspodcast.com/episodes/264-the-story-of-edwin-land-and-polaroid"
+created_at: "2026-05-21T17:39:47Z"
+colossus_url: "https://colossus.com/episode/senra-edwin-land-the-story-of-polaroid/"
+fetched_at: "2026-05-21T17:39:47Z"
 ---
 
 ## Description

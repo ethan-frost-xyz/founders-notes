@@ -2,11 +2,13 @@
 id: "ep-0022"
 episode_number: 22
 title: "#22 How To Turn Down A Billion Dollars: The Snapchat Story"
-published_at: 2018-03-20
-colossus_url: https://colossus.com/episode/senra-evan-spiegel-the-snapchat-story/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:48Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-03-20"
+founders_url: "https://www.founderspodcast.com/episodes/22-how-to-turn-down-a-billion-dollars-the-snapchat-story"
+created_at: "2026-05-21T17:34:48Z"
+colossus_url: "https://colossus.com/episode/senra-evan-spiegel-the-snapchat-story/"
+fetched_at: "2026-05-21T17:34:48Z"
 ---
 
 ## Description

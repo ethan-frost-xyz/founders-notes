@@ -2,11 +2,13 @@
 id: "ep-0213"
 episode_number: 213
 title: "#213 Michael Jordan: Driven From Within"
-published_at: 2021-10-27
-colossus_url: https://colossus.com/episode/senra-michael-jordan-driven-from-within/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:44Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-10-27"
+founders_url: "https://www.founderspodcast.com/episodes/213-michael-jordan-driven-from-within"
+created_at: "2026-05-21T17:38:44Z"
+colossus_url: "https://colossus.com/episode/senra-michael-jordan-driven-from-within/"
+fetched_at: "2026-05-21T17:38:44Z"
 ---
 
 ## Description

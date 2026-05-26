@@ -2,11 +2,13 @@
 id: "ep-0293"
 episode_number: 293
 title: "#293: Ray Kroc (The Making of McDonald's)"
-published_at: 2023-03-06
-colossus_url: https://colossus.com/episode/senra-ray-kroc-making-mcdonalds/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:23Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-03-06"
+founders_url: "https://www.founderspodcast.com/episodes/293-ray-kroc-the-making-of-mcdonalds"
+created_at: "2026-05-21T17:40:23Z"
+colossus_url: "https://colossus.com/episode/senra-ray-kroc-making-mcdonalds/"
+fetched_at: "2026-05-21T17:40:23Z"
 ---
 
 ## Description

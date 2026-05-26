@@ -1,13 +1,16 @@
 ---
 id: "ep-0125"
+episode_number: 125
 title: "#125 Charles Kettering (inventor, engineer, founder)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-22"
+founders_url: "https://www.founderspodcast.com/episodes/125-charles-kettering-inventor-engineer-founder"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2025367064123158765"
 x_post_id: "2025367064123158765"
-published_at: "2026-02-22"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 125
 ---
 
 Founders #125: Charles Kettering - $GM

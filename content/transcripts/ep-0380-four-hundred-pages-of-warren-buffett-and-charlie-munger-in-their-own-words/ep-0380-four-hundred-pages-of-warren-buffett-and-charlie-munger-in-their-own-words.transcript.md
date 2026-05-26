@@ -2,11 +2,13 @@
 id: "ep-0380"
 episode_number: 380
 title: "#380 Four Hundred Pages of Warren Buffett and Charlie Munger In Their Own Words"
-published_at: 2025-02-25
-colossus_url: https://colossus.com/episode/380-four-hundred-pages-of-warren-buffett-and-charlie-munger-in-their-own-words/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:42:11Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-02-25"
+founders_url: "https://www.founderspodcast.com/episodes/380-four-hundred-pages-of-warren-buffett-and-charlie-munger-in-their-own-words"
+created_at: "2026-05-21T17:42:11Z"
+colossus_url: "https://colossus.com/episode/380-four-hundred-pages-of-warren-buffett-and-charlie-munger-in-their-own-words/"
+fetched_at: "2026-05-21T17:42:11Z"
 ---
 
 ## Description

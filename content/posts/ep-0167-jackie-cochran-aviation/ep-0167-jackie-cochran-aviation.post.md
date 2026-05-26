@@ -1,13 +1,16 @@
 ---
 id: "ep-0167"
+episode_number: 167
 title: "#167 Jackie Cochran (Aviation)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-04-17"
+founders_url: "https://www.founderspodcast.com/episodes/167-jackie-cochran-aviation"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2044989357610688658"
 x_post_id: "2044989357610688658"
-published_at: "2026-04-17"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 167
 ---
 
 I knew I could fly as well as any man.

@@ -1,13 +1,16 @@
 ---
 id: "ep-0174"
+episode_number: 174
 title: "#174 Bill Gates (Overdrive)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-05-01"
+founders_url: "https://www.founderspodcast.com/episodes/174-bill-gates-overdrive"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2050065155044540427"
 x_post_id: "2050065155044540427"
-published_at: "2026-05-01"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 174
 ---
 
 Nobody is immune to the consequences of arrogance.

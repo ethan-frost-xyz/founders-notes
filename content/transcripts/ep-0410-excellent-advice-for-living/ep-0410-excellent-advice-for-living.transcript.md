@@ -2,11 +2,13 @@
 id: "ep-0410"
 episode_number: 410
 title: "#410 Excellent Advice for Living"
-published_at: 2026-01-25
-colossus_url: https://colossus.com/episode/410-excellent-advice-for-living/
-founders_url: https://www.founderspodcast.com/episodes/410-excellent-advice-for-living
-source: colossus
-fetched_at: 2026-05-21T17:42:48Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2026-01-25"
+founders_url: "https://www.founderspodcast.com/episodes/410-excellent-advice-for-living"
+created_at: "2026-05-21T17:42:48Z"
+colossus_url: "https://colossus.com/episode/410-excellent-advice-for-living/"
+fetched_at: "2026-05-21T17:42:48Z"
 ---
 
 ## Description

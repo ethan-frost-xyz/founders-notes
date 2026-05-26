@@ -2,11 +2,13 @@
 id: "ep-0159"
 episode_number: 159
 title: "#159 Andy Grove (Intel)"
-published_at: 2020-12-21
-colossus_url: https://colossus.com/episode/senra-andrew-s-grove-swimming-across/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:37Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-12-21"
+founders_url: "https://www.founderspodcast.com/episodes/159-andy-grove-intel"
+created_at: "2026-05-21T17:37:37Z"
+colossus_url: "https://colossus.com/episode/senra-andrew-s-grove-swimming-across/"
+fetched_at: "2026-05-21T17:37:37Z"
 ---
 
 ## Description

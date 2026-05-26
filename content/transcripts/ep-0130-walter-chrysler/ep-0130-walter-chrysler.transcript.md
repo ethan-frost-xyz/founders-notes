@@ -2,11 +2,13 @@
 id: "ep-0130"
 episode_number: 130
 title: "#130 Walter Chrysler"
-published_at: 2020-06-09
-colossus_url: https://colossus.com/episode/senra-walter-chrysler-life-of-an-american-workman/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:01Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-06-09"
+founders_url: "https://www.founderspodcast.com/episodes/130-walter-chrysler"
+created_at: "2026-05-21T17:37:01Z"
+colossus_url: "https://colossus.com/episode/senra-walter-chrysler-life-of-an-american-workman/"
+fetched_at: "2026-05-21T17:37:01Z"
 ---
 
 ## Description

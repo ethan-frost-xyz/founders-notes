@@ -2,11 +2,13 @@
 id: "ep-0141"
 episode_number: 141
 title: "#141 Arnold Schwarzenegger (My Unbelievably True Life Story)"
-published_at: 2020-08-23
-colossus_url: https://colossus.com/episode/senra-arnold-schwarzenegger-total-recall/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:14Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-08-23"
+founders_url: "https://www.founderspodcast.com/episodes/141-arnold-schwarzenegger-my-unbelievably-true-life-story"
+created_at: "2026-05-21T17:37:14Z"
+colossus_url: "https://colossus.com/episode/senra-arnold-schwarzenegger-total-recall/"
+fetched_at: "2026-05-21T17:37:14Z"
 ---
 
 ## Description

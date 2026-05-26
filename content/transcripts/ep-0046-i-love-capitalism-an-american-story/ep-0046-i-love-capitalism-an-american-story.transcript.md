@@ -2,11 +2,13 @@
 id: "ep-0046"
 episode_number: 46
 title: "#46 I Love Capitalism: An American Story"
-published_at: 2018-11-13
-colossus_url: https://colossus.com/episode/senra-ken-langone-i-love-capitalism/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:17Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-11-13"
+founders_url: "https://www.founderspodcast.com/episodes/46-i-love-capitalism-an-american-story"
+created_at: "2026-05-21T17:35:17Z"
+colossus_url: "https://colossus.com/episode/senra-ken-langone-i-love-capitalism/"
+fetched_at: "2026-05-21T17:35:17Z"
 ---
 
 ## Description

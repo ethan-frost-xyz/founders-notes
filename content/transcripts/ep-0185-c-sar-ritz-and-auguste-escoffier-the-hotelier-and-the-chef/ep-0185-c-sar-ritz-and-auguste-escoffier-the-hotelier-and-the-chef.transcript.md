@@ -2,11 +2,13 @@
 id: "ep-0185"
 episode_number: 185
 title: "#185 César Ritz and Auguste Escoffier (The Hotelier and The Chef)"
-published_at: 2021-06-10
-colossus_url: https://colossus.com/episode/senra-ritz-and-escoffier-the-hotelier-the-chef-and-the-rise-of-the-leisure-class/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:10Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-06-10"
+founders_url: "https://www.founderspodcast.com/episodes/185-c-sar-ritz-and-auguste-escoffier-the-hotelier-and-the-chef"
+created_at: "2026-05-21T17:38:10Z"
+colossus_url: "https://colossus.com/episode/senra-ritz-and-escoffier-the-hotelier-the-chef-and-the-rise-of-the-leisure-class/"
+fetched_at: "2026-05-21T17:38:10Z"
 ---
 
 ## Description

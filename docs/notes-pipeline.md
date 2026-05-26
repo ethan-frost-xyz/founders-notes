@@ -27,7 +27,11 @@ See [episode-id-rules.md](episode-id-rules.md) for frontmatter and bullet format
 id: "ep-0200"
 episode_number: 200
 title: "…"
+content_type: "notes"
 source: "vault_native"
+published_at: "2024-06-01"
+founders_url: "https://www.founderspodcast.com/episodes/..."
+created_at: "2026-05-21T12:00:00Z"
 imported_at: "2026-05-21T12:00:00Z"
 ---
 

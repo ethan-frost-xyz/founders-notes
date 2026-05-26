@@ -2,11 +2,13 @@
 id: "ep-0399"
 episode_number: 399
 title: "#399 How Elon Works"
-published_at: 2025-08-25
-colossus_url: https://colossus.com/episode/399-how-elon-works/
-founders_url: https://www.founderspodcast.com/episodes/399-how-elon-works
-source: colossus
-fetched_at: 2026-05-21T17:42:34Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-08-25"
+founders_url: "https://www.founderspodcast.com/episodes/399-how-elon-works"
+created_at: "2026-05-21T17:42:34Z"
+colossus_url: "https://colossus.com/episode/399-how-elon-works/"
+fetched_at: "2026-05-21T17:42:34Z"
 ---
 
 ## Description

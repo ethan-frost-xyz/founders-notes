@@ -2,11 +2,13 @@
 id: "ep-0207"
 episode_number: 207
 title: "#207 Claude Hopkins (Scientific Advertising)"
-published_at: 2021-09-26
-colossus_url: https://colossus.com/episode/senra-claude-hopkins-scientific-advertising/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:37Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-09-26"
+founders_url: "https://www.founderspodcast.com/episodes/207-claude-hopkins-scientific-advertising"
+created_at: "2026-05-21T17:38:37Z"
+colossus_url: "https://colossus.com/episode/senra-claude-hopkins-scientific-advertising/"
+fetched_at: "2026-05-21T17:38:37Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0182"
 episode_number: 182
 title: "#182 Warren Buffett (The Making of an American Capitalist)"
-published_at: 2021-05-29
-colossus_url: https://colossus.com/episode/senra-buffett-the-making-of-an-american-capitalist/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:06Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-05-29"
+founders_url: "https://www.founderspodcast.com/episodes/182-warren-buffett-the-making-of-an-american-capitalist"
+created_at: "2026-05-21T17:38:06Z"
+colossus_url: "https://colossus.com/episode/senra-buffett-the-making-of-an-american-capitalist/"
+fetched_at: "2026-05-21T17:38:06Z"
 ---
 
 ## Description

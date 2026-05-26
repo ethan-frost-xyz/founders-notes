@@ -1,13 +1,16 @@
 ---
 id: "ep-0010"
+episode_number: 10
 title: "#10 Shoe Dog: A Memoir by the Creator of Nike"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-10-29"
+founders_url: "https://www.founderspodcast.com/episodes/10-shoe-dog-a-memoir-by-the-creator-of-nike"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1983394888595968371"
 x_post_id: "1983394888595968371"
-published_at: "2025-10-29"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 10
 ---
 
 Lessons from Founders #10 Phil Knight, founder of $NKE

@@ -2,11 +2,13 @@
 id: "ep-0211"
 episode_number: 211
 title: "#211 Aristotle Onassis: An Extravagant Life"
-published_at: 2021-10-16
-colossus_url: https://colossus.com/episode/senra-aristotle-onassis-an-extravagant-life/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:42Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-10-16"
+founders_url: "https://www.founderspodcast.com/episodes/211-aristotle-onassis-an-extravagant-life"
+created_at: "2026-05-21T17:38:42Z"
+colossus_url: "https://colossus.com/episode/senra-aristotle-onassis-an-extravagant-life/"
+fetched_at: "2026-05-21T17:38:42Z"
 ---
 
 ## Description

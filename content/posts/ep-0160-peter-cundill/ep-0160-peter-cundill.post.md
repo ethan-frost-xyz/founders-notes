@@ -1,13 +1,16 @@
 ---
 id: "ep-0160"
+episode_number: 160
 title: "#160 Peter Cundill"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-31"
+founders_url: "https://www.founderspodcast.com/episodes/160-peter-cundill"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2038999508441539019"
 x_post_id: "2038999508441539019"
-published_at: "2026-03-31"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 160
 ---
 
 The natural rhythm of human life is routine 

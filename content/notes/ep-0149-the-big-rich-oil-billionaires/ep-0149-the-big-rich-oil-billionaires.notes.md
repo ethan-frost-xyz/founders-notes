@@ -1,9 +1,13 @@
 ---
 id: "ep-0149"
-title: "#149 The Big Rich (Oil Billionaires)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 149
+title: "#149 The Big Rich (Oil Billionaires)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-10-18"
+founders_url: "https://www.founderspodcast.com/episodes/149-the-big-rich-oil-billionaires"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

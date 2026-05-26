@@ -2,11 +2,13 @@
 id: "ep-0093"
 episode_number: 93
 title: "#93 Ed Thorp (A Man for All Markets)"
-published_at: 2019-10-13
-colossus_url: https://colossus.com/episode/senra-ed-thorp-a-man-for-all-markets/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:15Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-10-13"
+founders_url: "https://www.founderspodcast.com/episodes/93-ed-thorp-a-man-for-all-markets"
+created_at: "2026-05-21T17:36:15Z"
+colossus_url: "https://colossus.com/episode/senra-ed-thorp-a-man-for-all-markets/"
+fetched_at: "2026-05-21T17:36:15Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0278"
 episode_number: 278
 title: "#278 Peter Thiel"
-published_at: 2022-11-22
-colossus_url: https://colossus.com/episode/senra-peter-thiel-zero-to-one/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:05Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-11-22"
+founders_url: "https://www.founderspodcast.com/episodes/278-peter-thiel"
+created_at: "2026-05-21T17:40:05Z"
+colossus_url: "https://colossus.com/episode/senra-peter-thiel-zero-to-one/"
+fetched_at: "2026-05-21T17:40:05Z"
 ---
 
 ## Description

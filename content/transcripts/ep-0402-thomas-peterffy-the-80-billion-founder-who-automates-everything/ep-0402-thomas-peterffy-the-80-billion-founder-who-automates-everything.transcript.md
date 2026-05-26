@@ -2,11 +2,13 @@
 id: "ep-0402"
 episode_number: 402
 title: "#402 Thomas Peterffy: The $80 Billion Founder Who Automates Everything"
-published_at: 2025-10-05
-colossus_url: https://colossus.com/episode/402-thomas-peterffy-the-80-billion-founder-who-automates-everything/
-founders_url: https://www.founderspodcast.com/episodes/402-thomas-peterffy-the-80-billion-founder-who-automates-everything
-source: colossus
-fetched_at: 2026-05-21T17:42:38Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-10-05"
+founders_url: "https://www.founderspodcast.com/episodes/402-thomas-peterffy-the-80-billion-founder-who-automates-everything"
+created_at: "2026-05-21T17:42:38Z"
+colossus_url: "https://colossus.com/episode/402-thomas-peterffy-the-80-billion-founder-who-automates-everything/"
+fetched_at: "2026-05-21T17:42:38Z"
 ---
 
 ## Description

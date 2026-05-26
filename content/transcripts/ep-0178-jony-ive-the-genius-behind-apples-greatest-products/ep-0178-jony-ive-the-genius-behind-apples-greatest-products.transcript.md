@@ -2,11 +2,13 @@
 id: "ep-0178"
 episode_number: 178
 title: "#178 Jony Ive: The Genius Behind Apple's Greatest Products"
-published_at: 2021-05-03
-colossus_url: https://colossus.com/episode/senra-jony-ive-the-genius-behind-apples-greatest-products/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:01Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-05-03"
+founders_url: "https://www.founderspodcast.com/episodes/178-jony-ive-the-genius-behind-apples-greatest-products"
+created_at: "2026-05-21T17:38:01Z"
+colossus_url: "https://colossus.com/episode/senra-jony-ive-the-genius-behind-apples-greatest-products/"
+fetched_at: "2026-05-21T17:38:01Z"
 ---
 
 ## Description

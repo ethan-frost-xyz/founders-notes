@@ -2,11 +2,13 @@
 id: "ep-0255"
 episode_number: 255
 title: "#255 Sam Zemurray (Banana King)"
-published_at: 2022-07-02
-colossus_url: https://colossus.com/episode/senra-sam-zemurray-the-life-and-times-of-americas-banana-king/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:36Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-07-02"
+founders_url: "https://www.founderspodcast.com/episodes/255-sam-zemurray-banana-king"
+created_at: "2026-05-21T17:39:36Z"
+colossus_url: "https://colossus.com/episode/senra-sam-zemurray-the-life-and-times-of-americas-banana-king/"
+fetched_at: "2026-05-21T17:39:36Z"
 ---
 
 ## Description

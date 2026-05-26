@@ -2,11 +2,13 @@
 id: "ep-0262"
 episode_number: 262
 title: "#262 Herbie Cohen (World's Greatest Negotiator)"
-published_at: 2022-08-11
-colossus_url: https://colossus.com/episode/senra-herbie-cohen-worlds-greatest-negotiator/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:45Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-08-11"
+founders_url: "https://www.founderspodcast.com/episodes/262-herbie-cohen-worlds-greatest-negotiator"
+created_at: "2026-05-21T17:39:45Z"
+colossus_url: "https://colossus.com/episode/senra-herbie-cohen-worlds-greatest-negotiator/"
+fetched_at: "2026-05-21T17:39:45Z"
 ---
 
 ## Description

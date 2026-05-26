@@ -2,11 +2,13 @@
 id: "ep-0359"
 episode_number: 359
 title: "#359 The Russian Rockefellers: The Nobel Family Dynasty"
-published_at: 2024-08-07
-colossus_url: https://colossus.com/episode/senra-359-the-russian-rockefellers/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:45Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-08-07"
+founders_url: "https://www.founderspodcast.com/episodes/359-the-russian-rockefellers-the-nobel-family-dynasty"
+created_at: "2026-05-21T17:41:45Z"
+colossus_url: "https://colossus.com/episode/senra-359-the-russian-rockefellers/"
+fetched_at: "2026-05-21T17:41:45Z"
 ---
 
 ## Description

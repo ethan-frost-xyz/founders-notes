@@ -1,9 +1,13 @@
 ---
 id: "ep-0060"
-title: "#60 Yvon Chouinard: What We've Learned from Patagonia's First 40 Years"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 60
+title: "#60 Yvon Chouinard: What We've Learned from Patagonia's First 40 Years"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-02-18"
+founders_url: "https://www.founderspodcast.com/episodes/60-yvon-chouinard-what-weve-learned-from-patagonias-first-40-years"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

@@ -2,11 +2,13 @@
 id: "ep-0389"
 episode_number: 389
 title: "#389 The Founder of Jimmy Choo: Tamara Mellon"
-published_at: 2025-05-26
-colossus_url: https://colossus.com/episode/389-the-founder-of-jimmy-choo-tamara-mellon/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:42:22Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-05-26"
+founders_url: "https://www.founderspodcast.com/episodes/389-the-founder-of-jimmy-choo-tamara-mellon"
+created_at: "2026-05-21T17:42:22Z"
+colossus_url: "https://colossus.com/episode/389-the-founder-of-jimmy-choo-tamara-mellon/"
+fetched_at: "2026-05-21T17:42:22Z"
 ---
 
 ## Description

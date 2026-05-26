@@ -2,11 +2,13 @@
 id: "ep-0099"
 episode_number: 99
 title: "#99 Carroll Shelby (My name is Carroll Shelby and performance is my business)"
-published_at: 2019-11-24
-colossus_url: https://colossus.com/episode/senra-carroll-shelby/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:22Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-11-24"
+founders_url: "https://www.founderspodcast.com/episodes/99-carroll-shelby-my-name-is-carroll-shelby-and-performance-is-my-business"
+created_at: "2026-05-21T17:36:22Z"
+colossus_url: "https://colossus.com/episode/senra-carroll-shelby/"
+fetched_at: "2026-05-21T17:36:22Z"
 ---
 
 ## Description

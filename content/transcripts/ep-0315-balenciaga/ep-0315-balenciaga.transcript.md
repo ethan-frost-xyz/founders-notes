@@ -2,11 +2,13 @@
 id: "ep-0315"
 episode_number: 315
 title: "#315 Balenciaga"
-published_at: 2023-08-07
-colossus_url: https://colossus.com/episode/senra-cristobal-balenciaga-and-christian-ernest-dior-creators/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:50Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-08-07"
+founders_url: "https://www.founderspodcast.com/episodes/315-balenciaga"
+created_at: "2026-05-21T17:40:50Z"
+colossus_url: "https://colossus.com/episode/senra-cristobal-balenciaga-and-christian-ernest-dior-creators/"
+fetched_at: "2026-05-21T17:40:50Z"
 ---
 
 ## Description

@@ -1,13 +1,16 @@
 ---
 id: "ep-0127"
+episode_number: 127
 title: "#127 Larry Ellison (Oracle)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-24"
+founders_url: "https://www.founderspodcast.com/episodes/127-larry-ellison-oracle"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2026188938646327489"
 x_post_id: "2026188938646327489"
-published_at: "2026-02-24"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 127
 ---
 
 Founders #127: Larry Ellison - $ORCL

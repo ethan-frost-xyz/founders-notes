@@ -1,13 +1,16 @@
 ---
 id: "ep-0009"
+episode_number: 9
 title: "#9 I Invented the Modern Age: The Rise of Henry Ford"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-10-28"
+founders_url: "https://www.founderspodcast.com/episodes/9-i-invented-the-modern-age-the-rise-of-henry-ford"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1982988203859611691"
 x_post_id: "1982988203859611691"
-published_at: "2025-10-28"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 9
 ---
 
 Founders #9 Henry Ford

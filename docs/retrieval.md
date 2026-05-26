@@ -12,6 +12,7 @@
 - **Chunk id:** `{episode_id}#{section}#{start_line}` — stable for reindexing (`episode_id` is padded, e.g. `ep-0200`)
 - **Sections:** `transcript:description`, `transcript:transcript`, `notes:raw_datapoints`, `post:body`, etc.
 - **source_path:** points at `{folder}.{type}.md` files (see [`docs/episode-id-rules.md`](episode-id-rules.md))
+- **Per-chunk metadata** (from file frontmatter + catalog): `title`, `episode_number`, `content_type`, `published_at`, `founders_url`, `source`
 
 Regenerate after bulk import or transcript fetch:
 
@@ -35,6 +36,7 @@ Consider embeddings when **all** are true:
 | `source_path` + `start_line` | Citation back to git files |
 | `excerpt` | Initial embedding text (or re-read from file) |
 | `section` | Filter (notes vs transcript vs post) |
+| `title`, `episode_number`, `content_type`, `published_at` | Filter / display without re-parsing markdown |
 
 **Do not** store-only vectors without plain-text sources in git. Re-embed from `chunks.jsonl` + on-disk markdown when models change.
 

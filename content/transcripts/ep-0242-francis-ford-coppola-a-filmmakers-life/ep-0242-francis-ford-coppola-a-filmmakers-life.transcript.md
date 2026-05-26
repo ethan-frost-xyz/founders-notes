@@ -2,11 +2,13 @@
 id: "ep-0242"
 episode_number: 242
 title: "#242 Francis Ford Coppola: A Filmmaker's Life"
-published_at: 2022-04-21
-colossus_url: https://colossus.com/episode/senra-francis-ford-coppola-a-filmmakers-life/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:20Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-04-21"
+founders_url: "https://www.founderspodcast.com/episodes/242-francis-ford-coppola-a-filmmakers-life"
+created_at: "2026-05-21T17:39:20Z"
+colossus_url: "https://colossus.com/episode/senra-francis-ford-coppola-a-filmmakers-life/"
+fetched_at: "2026-05-21T17:39:20Z"
 ---
 
 ## Description

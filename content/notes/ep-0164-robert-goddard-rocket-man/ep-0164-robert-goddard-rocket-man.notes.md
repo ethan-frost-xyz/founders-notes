@@ -1,9 +1,13 @@
 ---
 id: "ep-0164"
-title: "#164 Robert Goddard (Rocket Man)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 164
+title: "#164 Robert Goddard (Rocket Man)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2021-01-25"
+founders_url: "https://www.founderspodcast.com/episodes/164-robert-goddard-rocket-man"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

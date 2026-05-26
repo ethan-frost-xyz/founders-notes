@@ -2,11 +2,13 @@
 id: "ep-0216"
 episode_number: 216
 title: "#216 Paul Van Doren (Founder of Vans)"
-published_at: 2021-11-14
-colossus_url: https://colossus.com/episode/senra-paul-van-doren-authentic/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:48Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-11-14"
+founders_url: "https://www.founderspodcast.com/episodes/216-paul-van-doren-founder-of-vans"
+created_at: "2026-05-21T17:38:48Z"
+colossus_url: "https://colossus.com/episode/senra-paul-van-doren-authentic/"
+fetched_at: "2026-05-21T17:38:48Z"
 ---
 
 ## Description

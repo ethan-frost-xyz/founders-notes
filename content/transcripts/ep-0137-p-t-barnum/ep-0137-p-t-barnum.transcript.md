@@ -2,11 +2,13 @@
 id: "ep-0137"
 episode_number: 137
 title: "#137 P.T. Barnum"
-published_at: 2020-07-26
-colossus_url: https://colossus.com/episode/senra-pt-barnum-an-american-life/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:10Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-07-26"
+founders_url: "https://www.founderspodcast.com/episodes/137-p-t-barnum"
+created_at: "2026-05-21T17:37:10Z"
+colossus_url: "https://colossus.com/episode/senra-pt-barnum-an-american-life/"
+fetched_at: "2026-05-21T17:37:10Z"
 ---
 
 ## Description

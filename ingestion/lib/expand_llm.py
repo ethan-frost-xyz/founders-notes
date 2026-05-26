@@ -13,8 +13,11 @@ from typing import Any
 
 from markdown_io import (
     TIMESTAMP_BULLET_RE,
+    parse_frontmatter,
     read_markdown_body,
     utc_now_iso,
+    write_expanded_draft_md,
+    write_expanded_md,
     write_frontmatter_md,
 )
 import paths
@@ -299,21 +302,6 @@ def validate_expanded_draft(
             )
 
     return errors, warnings
-
-
-def _parse_simple_frontmatter(text: str) -> dict[str, str]:
-    """Best-effort key: value from first YAML frontmatter block."""
-    if not text.startswith("---"):
-        return {}
-    parts = text.split("---", 2)
-    if len(parts) < 3:
-        return {}
-    out: dict[str, str] = {}
-    for line in parts[1].strip().splitlines():
-        if ":" in line:
-            k, v = line.split(":", 1)
-            out[k.strip()] = v.strip().strip('"').strip("'")
-    return out
 
 
 def prompt_file_hash(path: Path) -> str:
@@ -608,19 +596,13 @@ def write_expanded_draft(
         rel_prompt = str(prompt_path.relative_to(paths.ROOT))
     except ValueError:
         rel_prompt = str(prompt_path)
-    fm: dict[str, Any] = {
-        "id": ep_id,
-        "title": row["title"],
-        "source": "expand_llm",
-        "model": model,
-        "generated_at": utc_now_iso(),
-        "prompt_path": rel_prompt,
-        "prompt_hash": prompt_file_hash(prompt_path),
-    }
-    if num is not None:
-        fm["episode_number"] = num
-    if variant is not None:
-        fm["tune_variant"] = variant
+    fm = write_expanded_draft_md(
+        row,
+        model=model,
+        prompt_path=rel_prompt,
+        prompt_hash=prompt_file_hash(prompt_path),
+        tune_variant=variant,
+    )
     write_frontmatter_md(out, frontmatter=fm, body=expanded_body)
     return out
 
@@ -655,20 +637,15 @@ def promote_draft(
         return expanded_path, [], warnings
 
     full = draft_path.read_text(encoding="utf-8")
-    draft_fm = _parse_simple_frontmatter(full)
+    draft_fm = parse_frontmatter(full)
     model_val = draft_fm.get("model", "")
+    prompt_hash_val = draft_fm.get("prompt_hash", "")
 
-    fm: dict[str, Any] = {
-        "id": ep_id,
-        "title": row["title"],
-        "source": "expand_llm",
-        "expanded_at": utc_now_iso(),
-    }
-    if num is not None:
-        fm["episode_number"] = num
-    if model_val:
-        fm["expanded_model"] = model_val
-
-    write_frontmatter_md(expanded_path, frontmatter=fm, body=body)
+    write_expanded_md(
+        row,
+        body,
+        expanded_model=model_val or None,
+        prompt_hash=prompt_hash_val or None,
+    )
     draft_path.unlink()
     return expanded_path, [], warnings

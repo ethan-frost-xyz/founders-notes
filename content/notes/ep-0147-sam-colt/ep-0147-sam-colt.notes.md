@@ -1,9 +1,13 @@
 ---
 id: "ep-0147"
-title: "#147 Sam Colt"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 147
+title: "#147 Sam Colt"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-10-05"
+founders_url: "https://www.founderspodcast.com/episodes/147-sam-colt"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

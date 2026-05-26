@@ -2,11 +2,13 @@
 id: "ep-0376"
 episode_number: 376
 title: "#376 Jensen Huang: Founder of Nvidia"
-published_at: 2025-01-13
-colossus_url: https://colossus.com/episode/376-jensen-huang-founder-of-nvidia/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:42:06Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-01-13"
+founders_url: "https://www.founderspodcast.com/episodes/376-jensen-huang-founder-of-nvidia"
+created_at: "2026-05-21T17:42:06Z"
+colossus_url: "https://colossus.com/episode/376-jensen-huang-founder-of-nvidia/"
+fetched_at: "2026-05-21T17:42:06Z"
 ---
 
 ## Description

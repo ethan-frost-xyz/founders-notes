@@ -2,11 +2,13 @@
 id: "ep-0064"
 episode_number: 64
 title: "#64 Coco Chanel: Her Life and Secrets"
-published_at: 2019-03-24
-colossus_url: https://colossus.com/episode/senra-coco-chanel-her-life-her-secrets/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:39Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-03-24"
+founders_url: "https://www.founderspodcast.com/episodes/64-coco-chanel-her-life-and-secrets"
+created_at: "2026-05-21T17:35:39Z"
+colossus_url: "https://colossus.com/episode/senra-coco-chanel-her-life-her-secrets/"
+fetched_at: "2026-05-21T17:35:39Z"
 ---
 
 ## Description

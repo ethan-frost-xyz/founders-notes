@@ -2,11 +2,13 @@
 id: "ep-0277"
 episode_number: 277
 title: "#277 Paul Graham's Essays Part 3"
-published_at: 2022-11-17
-colossus_url: https://colossus.com/episode/senra-paul-graham-lessons-from-his-essays-pt3/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:03Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-11-17"
+founders_url: "https://www.founderspodcast.com/episodes/277-paul-grahams-essays-part-3"
+created_at: "2026-05-21T17:40:03Z"
+colossus_url: "https://colossus.com/episode/senra-paul-graham-lessons-from-his-essays-pt3/"
+fetched_at: "2026-05-21T17:40:03Z"
 ---
 
 ## Description

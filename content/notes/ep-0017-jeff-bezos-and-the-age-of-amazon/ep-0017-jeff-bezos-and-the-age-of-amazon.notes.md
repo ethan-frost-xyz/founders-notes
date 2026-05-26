@@ -1,9 +1,13 @@
 ---
 id: "ep-0017"
-title: "#17 Jeff Bezos and the Age of Amazon"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 17
+title: "#17 Jeff Bezos and the Age of Amazon"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2018-01-01"
+founders_url: "https://www.founderspodcast.com/episodes/17-jeff-bezos-and-the-age-of-amazon"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

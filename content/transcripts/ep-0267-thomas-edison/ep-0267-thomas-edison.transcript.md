@@ -2,11 +2,13 @@
 id: "ep-0267"
 episode_number: 267
 title: "#267 Thomas Edison"
-published_at: 2022-09-14
-colossus_url: https://colossus.com/episode/senra-thomas-edison-a-biography/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:51Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-09-14"
+founders_url: "https://www.founderspodcast.com/episodes/267-thomas-edison"
+created_at: "2026-05-21T17:39:51Z"
+colossus_url: "https://colossus.com/episode/senra-thomas-edison-a-biography/"
+fetched_at: "2026-05-21T17:39:51Z"
 ---
 
 ## Description

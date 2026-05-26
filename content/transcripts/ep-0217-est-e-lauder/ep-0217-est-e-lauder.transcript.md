@@ -2,11 +2,13 @@
 id: "ep-0217"
 episode_number: 217
 title: "#217 Estée Lauder"
-published_at: 2021-11-18
-colossus_url: https://colossus.com/episode/senra-estee-lauder-a-success-story/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:49Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-11-18"
+founders_url: "https://www.founderspodcast.com/episodes/217-est-e-lauder"
+created_at: "2026-05-21T17:38:49Z"
+colossus_url: "https://colossus.com/episode/senra-estee-lauder-a-success-story/"
+fetched_at: "2026-05-21T17:38:49Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0412"
 episode_number: 412
 title: "#412 How Roger Federer Works"
-published_at: 2026-02-19
-colossus_url: https://colossus.com/episode/412-how-roger-federer-works/
-founders_url: https://www.founderspodcast.com/episodes/412-how-roger-federer-works
-source: colossus
-fetched_at: 2026-05-21T17:42:50Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2026-02-19"
+founders_url: "https://www.founderspodcast.com/episodes/412-how-roger-federer-works"
+created_at: "2026-05-21T17:42:50Z"
+colossus_url: "https://colossus.com/episode/412-how-roger-federer-works/"
+fetched_at: "2026-05-21T17:42:50Z"
 ---
 
 ## Description

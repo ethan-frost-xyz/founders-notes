@@ -1,13 +1,16 @@
 ---
 id: "ep-0005"
+episode_number: 5
 title: "#5 Steve Jobs"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-10-23"
+founders_url: "https://www.founderspodcast.com/episodes/5-steve-jobs"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1981471190012121407"
 x_post_id: "1981471190012121407"
-published_at: "2025-10-23"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 5
 ---
 
 Founders #5 Steve Jobs. This episode serves as a fantastic refresher for anyone looking to learn from Jobs. Many of Senra’s later maxims are in proto-form in this one. Jobs refused to accept automatic truths from day one (First Principles). In design, Jobs was obsessed with simplicity. This also applied to Job’s communication style, which Senra breaks down in great detail in #281 and #349. First discussions of A players vs B players.

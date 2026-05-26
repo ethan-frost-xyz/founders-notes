@@ -1,13 +1,16 @@
 ---
 id: "ep-0031"
+episode_number: 31
 title: "#31 Conspiracy: Peter Thiel, Hulk Hogan, Gawker, and the Anatomy of Intrigue and Zero to One: Notes on Startups, or How to Build the Future"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-11-19"
+founders_url: "https://www.founderspodcast.com/episodes/31-conspiracy-peter-thiel-hulk-hogan-gawker-and-the-anatomy-of-intrigue-and-zero-to-one-notes-on-startups-or-how-to-build-the-future"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1990964278292271228"
 x_post_id: "1990964278292271228"
-published_at: "2025-11-19"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 31
 ---
 
 Founders #31: Peter Thiel

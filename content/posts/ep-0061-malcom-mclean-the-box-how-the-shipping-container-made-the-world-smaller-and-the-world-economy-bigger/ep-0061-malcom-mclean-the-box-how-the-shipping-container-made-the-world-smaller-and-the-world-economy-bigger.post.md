@@ -1,13 +1,16 @@
 ---
 id: "ep-0061"
+episode_number: 61
 title: "#61 Malcom McLean: The Box: How the Shipping Container Made the World Smaller and the World Economy Bigger"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-18"
+founders_url: "https://www.founderspodcast.com/episodes/61-malcom-mclean-the-box-how-the-shipping-container-made-the-world-smaller-and-the-world-economy-bigger"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2001790596365594710"
 x_post_id: "2001790596365594710"
-published_at: "2025-12-18"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 61
 ---
 
 #61 Malcolm McLean (The Father of Modern Shipping)

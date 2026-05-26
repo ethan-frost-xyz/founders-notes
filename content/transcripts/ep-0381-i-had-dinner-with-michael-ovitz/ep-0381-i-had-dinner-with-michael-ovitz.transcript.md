@@ -2,11 +2,13 @@
 id: "ep-0381"
 episode_number: 381
 title: "#381 I Had Dinner With Michael Ovitz"
-published_at: 2025-03-07
-colossus_url: https://colossus.com/episode/381-i-had-dinner-with-michael-ovitz/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:42:12Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-03-07"
+founders_url: "https://www.founderspodcast.com/episodes/381-i-had-dinner-with-michael-ovitz"
+created_at: "2026-05-21T17:42:12Z"
+colossus_url: "https://colossus.com/episode/381-i-had-dinner-with-michael-ovitz/"
+fetched_at: "2026-05-21T17:42:12Z"
 ---
 
 ## Description

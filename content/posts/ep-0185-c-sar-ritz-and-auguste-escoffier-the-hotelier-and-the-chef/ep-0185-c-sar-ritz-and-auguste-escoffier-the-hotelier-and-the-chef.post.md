@@ -1,13 +1,16 @@
 ---
 id: "ep-0185"
+episode_number: 185
 title: "#185 César Ritz and Auguste Escoffier (The Hotelier and The Chef)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-05-15"
+founders_url: "https://www.founderspodcast.com/episodes/185-c-sar-ritz-and-auguste-escoffier-the-hotelier-and-the-chef"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2055368619891007972"
 x_post_id: "2055368619891007972"
-published_at: "2026-05-15"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 185
 ---
 
 When people tell you that you can't do something, they're really saying they can't do it.

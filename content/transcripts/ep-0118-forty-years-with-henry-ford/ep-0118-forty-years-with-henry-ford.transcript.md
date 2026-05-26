@@ -2,11 +2,13 @@
 id: "ep-0118"
 episode_number: 118
 title: "#118 Forty Years With Henry Ford"
-published_at: 2020-03-31
-colossus_url: https://colossus.com/episode/senra-charles-sorensen-my-forty-years-with-henry-ford/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:46Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-03-31"
+founders_url: "https://www.founderspodcast.com/episodes/118-forty-years-with-henry-ford"
+created_at: "2026-05-21T17:36:46Z"
+colossus_url: "https://colossus.com/episode/senra-charles-sorensen-my-forty-years-with-henry-ford/"
+fetched_at: "2026-05-21T17:36:46Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0313"
 episode_number: 313
 title: "#313 Christopher Nolan"
-published_at: 2023-07-25
-colossus_url: https://colossus.com/episode/senra-christopher-nolan-the-nolan-variations/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:48Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-07-25"
+founders_url: "https://www.founderspodcast.com/episodes/313-christopher-nolan"
+created_at: "2026-05-21T17:40:48Z"
+colossus_url: "https://colossus.com/episode/senra-christopher-nolan-the-nolan-variations/"
+fetched_at: "2026-05-21T17:40:48Z"
 ---
 
 ## Description

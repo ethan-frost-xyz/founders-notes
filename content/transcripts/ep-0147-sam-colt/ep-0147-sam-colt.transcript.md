@@ -2,11 +2,13 @@
 id: "ep-0147"
 episode_number: 147
 title: "#147 Sam Colt"
-published_at: 2020-10-05
-colossus_url: https://colossus.com/episode/senra-sam-colt/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:23Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-10-05"
+founders_url: "https://www.founderspodcast.com/episodes/147-sam-colt"
+created_at: "2026-05-21T17:37:23Z"
+colossus_url: "https://colossus.com/episode/senra-sam-colt/"
+fetched_at: "2026-05-21T17:37:23Z"
 ---
 
 ## Description

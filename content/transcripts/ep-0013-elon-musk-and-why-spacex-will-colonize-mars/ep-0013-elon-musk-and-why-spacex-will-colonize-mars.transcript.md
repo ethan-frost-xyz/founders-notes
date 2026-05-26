@@ -2,11 +2,13 @@
 id: "ep-0013"
 episode_number: 13
 title: "#13 Elon Musk and Why SpaceX Will Colonize Mars"
-published_at: 2017-08-27
-colossus_url: https://colossus.com/episode/senra-elon-musk-wait-but-why/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:36Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2017-08-27"
+founders_url: "https://www.founderspodcast.com/episodes/13-elon-musk-and-why-spacex-will-colonize-mars"
+created_at: "2026-05-21T17:34:36Z"
+colossus_url: "https://colossus.com/episode/senra-elon-musk-wait-but-why/"
+fetched_at: "2026-05-21T17:34:36Z"
 ---
 
 ## Description

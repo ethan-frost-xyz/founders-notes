@@ -1,13 +1,16 @@
 ---
 id: "ep-0168"
+episode_number: 168
 title: "#168 Larry Miller (Driven: An Autobiography)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-04-18"
+founders_url: "https://www.founderspodcast.com/episodes/168-larry-miller-driven-an-autobiography"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2045610552454463555"
 x_post_id: "2045610552454463555"
-published_at: "2026-04-18"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 168
 ---
 
 At 35 with kids, he used 40x leverage to buy a car dealership. Decades later, he owned over 40 locations, the Utah Jazz, and deep regret.

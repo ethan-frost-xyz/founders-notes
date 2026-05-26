@@ -1,9 +1,13 @@
 ---
 id: "ep-0107"
-title: "#107 Sol Price (Costco)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 107
+title: "#107 Sol Price (Costco)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-01-20"
+founders_url: "https://www.founderspodcast.com/episodes/107-sol-price-costco"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

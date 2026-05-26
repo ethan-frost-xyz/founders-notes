@@ -2,11 +2,13 @@
 id: "ep-0146"
 episode_number: 146
 title: "#146 Milton Hershey (Chocolate)"
-published_at: 2020-09-27
-colossus_url: https://colossus.com/episode/senra-milton-s-hersheys-extraordinary-life-of-wealth-empire-and-utopian-dreams/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:21Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-09-27"
+founders_url: "https://www.founderspodcast.com/episodes/146-milton-hershey-chocolate"
+created_at: "2026-05-21T17:37:21Z"
+colossus_url: "https://colossus.com/episode/senra-milton-s-hersheys-extraordinary-life-of-wealth-empire-and-utopian-dreams/"
+fetched_at: "2026-05-21T17:37:21Z"
 ---
 
 ## Description

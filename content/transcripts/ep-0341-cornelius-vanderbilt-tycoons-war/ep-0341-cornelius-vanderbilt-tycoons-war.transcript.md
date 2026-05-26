@@ -2,11 +2,13 @@
 id: "ep-0341"
 episode_number: 341
 title: "#341 Cornelius Vanderbilt (Tycoon's War)"
-published_at: 2024-03-11
-colossus_url: https://colossus.com/episode/senra-341-cornelius-vanderbilt-tycoons-war/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:22Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-03-11"
+founders_url: "https://www.founderspodcast.com/episodes/341-cornelius-vanderbilt-tycoons-war"
+created_at: "2026-05-21T17:41:22Z"
+colossus_url: "https://colossus.com/episode/senra-341-cornelius-vanderbilt-tycoons-war/"
+fetched_at: "2026-05-21T17:41:22Z"
 ---
 
 ## Description

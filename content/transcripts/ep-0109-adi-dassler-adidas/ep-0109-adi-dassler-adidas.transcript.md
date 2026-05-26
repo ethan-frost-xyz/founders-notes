@@ -2,11 +2,13 @@
 id: "ep-0109"
 episode_number: 109
 title: "#109 Adi Dassler (Adidas)"
-published_at: 2020-02-03
-colossus_url: https://colossus.com/episode/senra-adi-and-rudi-dassler-sneaker-wars/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:35Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-02-03"
+founders_url: "https://www.founderspodcast.com/episodes/109-adi-dassler-adidas"
+created_at: "2026-05-21T17:36:35Z"
+colossus_url: "https://colossus.com/episode/senra-adi-and-rudi-dassler-sneaker-wars/"
+fetched_at: "2026-05-21T17:36:35Z"
 ---
 
 ## Description

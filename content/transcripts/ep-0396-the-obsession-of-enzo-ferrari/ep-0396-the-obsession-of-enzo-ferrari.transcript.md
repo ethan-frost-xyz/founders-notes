@@ -2,11 +2,13 @@
 id: "ep-0396"
 episode_number: 396
 title: "#396 The Obsession of Enzo Ferrari"
-published_at: 2025-07-30
-colossus_url: https://colossus.com/episode/396-the-obsession-of-enzo-ferrari/
-founders_url: https://www.founderspodcast.com/episodes/396-the-obsession-of-enzo-ferrari
-source: colossus
-fetched_at: 2026-05-21T17:42:30Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-07-30"
+founders_url: "https://www.founderspodcast.com/episodes/396-the-obsession-of-enzo-ferrari"
+created_at: "2026-05-21T17:42:30Z"
+colossus_url: "https://colossus.com/episode/396-the-obsession-of-enzo-ferrari/"
+fetched_at: "2026-05-21T17:42:30Z"
 ---
 
 ## Description

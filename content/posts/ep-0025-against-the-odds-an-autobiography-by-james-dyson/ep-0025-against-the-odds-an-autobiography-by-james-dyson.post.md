@@ -1,13 +1,16 @@
 ---
 id: "ep-0025"
+episode_number: 25
 title: "#25 Against the Odds: An Autobiography by James Dyson"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-11-13"
+founders_url: "https://www.founderspodcast.com/episodes/25-against-the-odds-an-autobiography-by-james-dyson"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1988834089831440489"
 x_post_id: "1988834089831440489"
-published_at: "2025-11-13"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 25
 ---
 
 Founders #25: James Dyson (Dyson, Senra’s Favorite Founder)

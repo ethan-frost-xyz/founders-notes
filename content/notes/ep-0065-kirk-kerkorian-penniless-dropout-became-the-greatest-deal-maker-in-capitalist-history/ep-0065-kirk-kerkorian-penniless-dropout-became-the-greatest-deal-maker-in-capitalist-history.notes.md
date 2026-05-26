@@ -1,9 +1,13 @@
 ---
 id: "ep-0065"
-title: "#65 Kirk Kerkorian: Penniless Dropout became the Greatest Deal Maker in Capitalist History"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 65
+title: "#65 Kirk Kerkorian: Penniless Dropout became the Greatest Deal Maker in Capitalist History"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-03-31"
+founders_url: "https://www.founderspodcast.com/episodes/65-kirk-kerkorian-penniless-dropout-became-the-greatest-deal-maker-in-capitalist-history"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

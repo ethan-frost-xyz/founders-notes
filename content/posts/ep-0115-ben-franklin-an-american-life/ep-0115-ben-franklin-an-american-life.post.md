@@ -1,13 +1,16 @@
 ---
 id: "ep-0115"
+episode_number: 115
 title: "#115 Ben Franklin: An American Life"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-11"
+founders_url: "https://www.founderspodcast.com/episodes/115-ben-franklin-an-american-life"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2021663223359914036"
 x_post_id: "2021663223359914036"
-published_at: "2026-02-11"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 115
 ---
 
 Founders #115 Ben Franklin

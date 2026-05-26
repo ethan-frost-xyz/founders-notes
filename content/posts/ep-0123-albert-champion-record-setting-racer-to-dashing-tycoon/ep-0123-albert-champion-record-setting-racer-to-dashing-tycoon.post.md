@@ -1,13 +1,16 @@
 ---
 id: "ep-0123"
+episode_number: 123
 title: "#123 Albert Champion (Record-Setting Racer to Dashing Tycoon)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-20"
+founders_url: "https://www.founderspodcast.com/episodes/123-albert-champion-record-setting-racer-to-dashing-tycoon"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2024697980675039622"
 x_post_id: "2024697980675039622"
-published_at: "2026-02-20"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 123
 ---
 
 >be albert champion

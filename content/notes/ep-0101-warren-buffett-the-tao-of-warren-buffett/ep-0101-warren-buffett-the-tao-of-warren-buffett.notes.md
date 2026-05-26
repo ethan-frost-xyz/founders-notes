@@ -1,9 +1,13 @@
 ---
 id: "ep-0101"
-title: "#101 Warren Buffett (The Tao of Warren Buffett)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 101
+title: "#101 Warren Buffett (The Tao of Warren Buffett)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-12-08"
+founders_url: "https://www.founderspodcast.com/episodes/101-warren-buffett-the-tao-of-warren-buffett"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

@@ -2,11 +2,13 @@
 id: "ep-0063"
 episode_number: 63
 title: "#63 The King of Oil: The Secret Lives of Marc Rich"
-published_at: 2019-03-10
-colossus_url: https://colossus.com/episode/senra-marc-rich-the-king-of-oil/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:38Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-03-10"
+founders_url: "https://www.founderspodcast.com/episodes/63-the-king-of-oil-the-secret-lives-of-marc-rich"
+created_at: "2026-05-21T17:35:38Z"
+colossus_url: "https://colossus.com/episode/senra-marc-rich-the-king-of-oil/"
+fetched_at: "2026-05-21T17:35:38Z"
 ---
 
 ## Description

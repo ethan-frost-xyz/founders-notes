@@ -1,9 +1,13 @@
 ---
 id: "ep-0050"
-title: "#50 Marc Andreessen's Blog Archive"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 50
+title: "#50 Marc Andreessen's Blog Archive"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2018-12-11"
+founders_url: "https://www.founderspodcast.com/episodes/50-marc-andreessens-blog-archive"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

@@ -2,11 +2,13 @@
 id: "ep-0234"
 episode_number: 234
 title: "#234 Sam Walton: Made In America"
-published_at: 2022-02-28
-colossus_url: https://colossus.com/episode/senra-sam-walton-made-in-america/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:10Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-02-28"
+founders_url: "https://www.founderspodcast.com/episodes/234-sam-walton-made-in-america"
+created_at: "2026-05-21T17:39:10Z"
+colossus_url: "https://colossus.com/episode/senra-sam-walton-made-in-america/"
+fetched_at: "2026-05-21T17:39:10Z"
 ---
 
 ## Description

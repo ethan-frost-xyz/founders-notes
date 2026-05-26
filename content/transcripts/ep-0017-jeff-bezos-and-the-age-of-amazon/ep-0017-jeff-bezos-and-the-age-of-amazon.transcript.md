@@ -2,11 +2,13 @@
 id: "ep-0017"
 episode_number: 17
 title: "#17 Jeff Bezos and the Age of Amazon"
-published_at: 2018-01-01
-colossus_url: https://colossus.com/episode/senra-jeff-bezos-and-the-age-of-amazon/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:41Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-01-01"
+founders_url: "https://www.founderspodcast.com/episodes/17-jeff-bezos-and-the-age-of-amazon"
+created_at: "2026-05-21T17:34:41Z"
+colossus_url: "https://colossus.com/episode/senra-jeff-bezos-and-the-age-of-amazon/"
+fetched_at: "2026-05-21T17:34:41Z"
 ---
 
 ## Description

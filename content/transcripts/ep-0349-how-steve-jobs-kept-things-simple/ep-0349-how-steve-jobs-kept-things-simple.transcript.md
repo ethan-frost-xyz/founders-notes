@@ -2,11 +2,13 @@
 id: "ep-0349"
 episode_number: 349
 title: "#349 How Steve Jobs Kept Things Simple"
-published_at: 2024-05-20
-colossus_url: https://colossus.com/episode/senra-349-how-steve-jobs-kept-things-simple/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:33Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-05-20"
+founders_url: "https://www.founderspodcast.com/episodes/349-how-steve-jobs-kept-things-simple"
+created_at: "2026-05-21T17:41:33Z"
+colossus_url: "https://colossus.com/episode/senra-349-how-steve-jobs-kept-things-simple/"
+fetched_at: "2026-05-21T17:41:33Z"
 ---
 
 ## Description

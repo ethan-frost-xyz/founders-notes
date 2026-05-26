@@ -2,11 +2,13 @@
 id: "ep-0186"
 episode_number: 186
 title: "#186 Phil Knight (Nike)"
-published_at: 2021-06-16
-colossus_url: https://colossus.com/episode/senra-phil-knight-a-memoir-by-the-creator-of-nike/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:11Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-06-16"
+founders_url: "https://www.founderspodcast.com/episodes/186-phil-knight-nike"
+created_at: "2026-05-21T17:38:11Z"
+colossus_url: "https://colossus.com/episode/senra-phil-knight-a-memoir-by-the-creator-of-nike/"
+fetched_at: "2026-05-21T17:38:11Z"
 ---
 
 ## Description

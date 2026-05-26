@@ -1,13 +1,16 @@
 ---
 id: "ep-0173"
+episode_number: 173
 title: "#173 Louis B. Mayer (MGM Studios)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-04-29"
+founders_url: "https://www.founderspodcast.com/episodes/173-louis-b-mayer-mgm-studios"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2049556825373028463"
 x_post_id: "2049556825373028463"
-published_at: "2026-04-29"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 173
 ---
 
 The status quo exists to protect those who already have something to lose.

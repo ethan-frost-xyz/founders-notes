@@ -1,13 +1,16 @@
 ---
 id: "ep-0156"
+episode_number: 156
 title: "#156 Theodore Roosevelt"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-27"
+founders_url: "https://www.founderspodcast.com/episodes/156-theodore-roosevelt"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2037623938474188873"
 x_post_id: "2037623938474188873"
-published_at: "2026-03-27"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 156
 ---
 
 Live a life of action and strenuous performance of duty

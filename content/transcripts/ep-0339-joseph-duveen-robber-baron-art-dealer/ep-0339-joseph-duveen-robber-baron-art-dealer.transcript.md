@@ -2,11 +2,13 @@
 id: "ep-0339"
 episode_number: 339
 title: "#339 Joseph Duveen: Robber Baron Art Dealer"
-published_at: 2024-02-20
-colossus_url: https://colossus.com/episode/senra-339-joseph-duveen-robber-baron-art-dealer/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:20Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-02-20"
+founders_url: "https://www.founderspodcast.com/episodes/339-joseph-duveen-robber-baron-art-dealer"
+created_at: "2026-05-21T17:41:20Z"
+colossus_url: "https://colossus.com/episode/senra-339-joseph-duveen-robber-baron-art-dealer/"
+fetched_at: "2026-05-21T17:41:20Z"
 ---
 
 ## Description

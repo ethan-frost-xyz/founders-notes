@@ -2,11 +2,13 @@
 id: "ep-0143"
 episode_number: 143
 title: "#143 Alfred Lee Loomis (the most interesting man you've never heard of)"
-published_at: 2020-09-06
-colossus_url: https://colossus.com/episode/senra-alfred-loomis-tuxedo-park/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:17Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-09-06"
+founders_url: "https://www.founderspodcast.com/episodes/143-alfred-lee-loomis-the-most-interesting-man-youve-never-heard-of"
+created_at: "2026-05-21T17:37:17Z"
+colossus_url: "https://colossus.com/episode/senra-alfred-loomis-tuxedo-park/"
+fetched_at: "2026-05-21T17:37:17Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0236"
 episode_number: 236
 title: "#236 Nims Purja (Mountain Climber)"
-published_at: 2022-03-11
-colossus_url: https://colossus.com/episode/senra-nimsdai-purja-one-man-fourteen-peaks-and-the-mountaineering-achievement-of-a-lifetime/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:13Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-03-11"
+founders_url: "https://www.founderspodcast.com/episodes/236-nims-purja-mountain-climber"
+created_at: "2026-05-21T17:39:13Z"
+colossus_url: "https://colossus.com/episode/senra-nimsdai-purja-one-man-fourteen-peaks-and-the-mountaineering-achievement-of-a-lifetime/"
+fetched_at: "2026-05-21T17:39:13Z"
 ---
 
 ## Description

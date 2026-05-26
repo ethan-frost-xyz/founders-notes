@@ -2,11 +2,13 @@
 id: "ep-0088"
 episode_number: 88
 title: "#88 Warren Buffett's Shareholder Letters— All of them!"
-published_at: 2019-09-08
-colossus_url: https://colossus.com/episode/senra-warren-buffett-letters-to-shareholders/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:09Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-09-08"
+founders_url: "https://www.founderspodcast.com/episodes/88-warren-buffetts-shareholder-letters-all-of-them"
+created_at: "2026-05-21T17:36:09Z"
+colossus_url: "https://colossus.com/episode/senra-warren-buffett-letters-to-shareholders/"
+fetched_at: "2026-05-21T17:36:09Z"
 ---
 
 ## Description

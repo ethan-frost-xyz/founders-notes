@@ -2,11 +2,13 @@
 id: "ep-0301"
 episode_number: 301
 title: "#301 Tiger Woods"
-published_at: 2023-05-01
-colossus_url: https://colossus.com/episode/senra-tiger-woods/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:33Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-05-01"
+founders_url: "https://www.founderspodcast.com/episodes/301-tiger-woods"
+created_at: "2026-05-21T17:40:33Z"
+colossus_url: "https://colossus.com/episode/senra-tiger-woods/"
+fetched_at: "2026-05-21T17:40:33Z"
 ---
 
 ## Description

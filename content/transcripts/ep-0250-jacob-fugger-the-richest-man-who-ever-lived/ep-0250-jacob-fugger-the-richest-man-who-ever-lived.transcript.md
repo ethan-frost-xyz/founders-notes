@@ -2,11 +2,13 @@
 id: "ep-0250"
 episode_number: 250
 title: "#250 Jacob Fugger (The Richest Man Who Ever Lived)"
-published_at: 2022-06-08
-colossus_url: https://colossus.com/episode/senra-jacob-fugger-his-life-and-times/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:30Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-06-08"
+founders_url: "https://www.founderspodcast.com/episodes/250-jacob-fugger-the-richest-man-who-ever-lived"
+created_at: "2026-05-21T17:39:30Z"
+colossus_url: "https://colossus.com/episode/senra-jacob-fugger-his-life-and-times/"
+fetched_at: "2026-05-21T17:39:30Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0025"
 episode_number: 25
 title: "#25 Against the Odds: An Autobiography by James Dyson"
-published_at: 2018-04-22
-colossus_url: https://colossus.com/episode/senra-james-dyson-an-autobiography/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:52Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-04-22"
+founders_url: "https://www.founderspodcast.com/episodes/25-against-the-odds-an-autobiography-by-james-dyson"
+created_at: "2026-05-21T17:34:52Z"
+colossus_url: "https://colossus.com/episode/senra-james-dyson-an-autobiography/"
+fetched_at: "2026-05-21T17:34:52Z"
 ---
 
 ## Description

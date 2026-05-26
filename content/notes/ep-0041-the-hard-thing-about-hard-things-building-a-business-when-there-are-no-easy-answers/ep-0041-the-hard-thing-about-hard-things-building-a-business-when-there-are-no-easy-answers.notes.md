@@ -1,9 +1,13 @@
 ---
 id: "ep-0041"
-title: "#41 The Hard Thing About Hard Things: Building a Business When There Are No Easy Answers"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 41
+title: "#41 The Hard Thing About Hard Things: Building a Business When There Are No Easy Answers"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2018-10-08"
+founders_url: "https://www.founderspodcast.com/episodes/41-the-hard-thing-about-hard-things-building-a-business-when-there-are-no-easy-answers"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

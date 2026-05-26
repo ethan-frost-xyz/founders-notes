@@ -2,11 +2,13 @@
 id: "ep-0292"
 episode_number: 292
 title: "#292 Daniel Ludwig (The Invisible Billionaire)"
-published_at: 2023-02-27
-colossus_url: https://colossus.com/episode/senra-daniel-ludwig-an-invisible-billionaire/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:22Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-02-27"
+founders_url: "https://www.founderspodcast.com/episodes/292-daniel-ludwig-the-invisible-billionaire"
+created_at: "2026-05-21T17:40:22Z"
+colossus_url: "https://colossus.com/episode/senra-daniel-ludwig-an-invisible-billionaire/"
+fetched_at: "2026-05-21T17:40:22Z"
 ---
 
 ## Description

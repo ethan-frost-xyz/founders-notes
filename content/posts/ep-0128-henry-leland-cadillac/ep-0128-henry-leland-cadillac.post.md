@@ -1,13 +1,16 @@
 ---
 id: "ep-0128"
+episode_number: 128
 title: "#128 Henry Leland (Cadillac)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-25"
+founders_url: "https://www.founderspodcast.com/episodes/128-henry-leland-cadillac"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2026530848971858064"
 x_post_id: "2026530848971858064"
-published_at: "2026-02-25"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 128
 ---
 
 Founders #128: Henry Leland (Cadillac / Lincoln)

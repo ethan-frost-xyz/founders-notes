@@ -2,11 +2,13 @@
 id: "ep-0247"
 episode_number: 247
 title: "#247 Henry Flagler (Rockefeller's partner)"
-published_at: 2022-05-19
-colossus_url: https://colossus.com/episode/senra-henry-flagler-the-spectacular-rise-and-fall-of-the-railroad-that-crossed-an-ocean/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:26Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-05-19"
+founders_url: "https://www.founderspodcast.com/episodes/247-henry-flagler-rockefellers-partner"
+created_at: "2026-05-21T17:39:26Z"
+colossus_url: "https://colossus.com/episode/senra-henry-flagler-the-spectacular-rise-and-fall-of-the-railroad-that-crossed-an-ocean/"
+fetched_at: "2026-05-21T17:39:26Z"
 ---
 
 ## Description

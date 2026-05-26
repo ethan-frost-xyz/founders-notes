@@ -2,11 +2,13 @@
 id: "ep-0298"
 episode_number: 298
 title: "#298 I had lunch with Sam Zell"
-published_at: 2023-04-10
-colossus_url: https://colossus.com/episode/senra-william-zeckendorf-the-man-who-played-a-real-life-game-of-monopoly-i-had-lunch-with-sam-zell/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:29Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-04-10"
+founders_url: "https://www.founderspodcast.com/episodes/298-i-had-lunch-with-sam-zell"
+created_at: "2026-05-21T17:40:29Z"
+colossus_url: "https://colossus.com/episode/senra-william-zeckendorf-the-man-who-played-a-real-life-game-of-monopoly-i-had-lunch-with-sam-zell/"
+fetched_at: "2026-05-21T17:40:29Z"
 ---
 
 ## Description

@@ -1,9 +1,13 @@
 ---
 id: "ep-0007"
-title: "#7 Grinding It Out: The Making of McDonald's"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 7
+title: "#7 Grinding It Out: The Making of McDonald's"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2017-05-27"
+founders_url: "https://www.founderspodcast.com/episodes/7-grinding-it-out-the-making-of-mcdonalds"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

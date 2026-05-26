@@ -2,11 +2,13 @@
 id: "ep-0095"
 episode_number: 95
 title: "#95 Claude Shannon"
-published_at: 2019-10-27
-colossus_url: https://colossus.com/episode/senra-claude-shannon-a-mind-at-play/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:17Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-10-27"
+founders_url: "https://www.founderspodcast.com/episodes/95-claude-shannon"
+created_at: "2026-05-21T17:36:17Z"
+colossus_url: "https://colossus.com/episode/senra-claude-shannon-a-mind-at-play/"
+fetched_at: "2026-05-21T17:36:17Z"
 ---
 
 ## Description

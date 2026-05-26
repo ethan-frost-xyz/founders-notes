@@ -1,13 +1,16 @@
 ---
 id: "ep-0148"
+episode_number: 148
 title: "#148 John D. Rockefeller (Autobiography)"
+content_type: "post"
+source: "manual_attribution"
+published_at: "2026-03-17"
+founders_url: "https://www.founderspodcast.com/episodes/148-john-d-rockefeller-autobiography"
+created_at: "2026-05-21T21:22:06Z"
 x_url: "https://x.com/ethanfrost/status/2034041777489863124"
 x_post_id: "2034041777489863124"
-published_at: "2026-03-17"
-source: "manual_attribution"
 imported_at: "2026-05-21T21:22:06Z"
 post_kind: "article"
-episode_number: 148
 ---
 
 Founders #148: John D. Rockefeller (Autobiography)

@@ -2,11 +2,13 @@
 id: "ep-0225"
 episode_number: 225
 title: "#225 Winston Churchill"
-published_at: 2022-01-09
-colossus_url: https://colossus.com/episode/senra-winston-churchill-churchill/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:59Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-01-09"
+founders_url: "https://www.founderspodcast.com/episodes/225-winston-churchill"
+created_at: "2026-05-21T17:38:59Z"
+colossus_url: "https://colossus.com/episode/senra-winston-churchill-churchill/"
+fetched_at: "2026-05-21T17:38:59Z"
 ---
 
 ## Description

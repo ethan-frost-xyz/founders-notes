@@ -2,11 +2,13 @@
 id: "ep-0218"
 episode_number: 218
 title: "#218 Johan Cruyff (A Life of Total Football)"
-published_at: 2021-11-25
-colossus_url: https://colossus.com/episode/senra-johan-cruyff-a-life-of-total-football/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:50Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-11-25"
+founders_url: "https://www.founderspodcast.com/episodes/218-johan-cruyff-a-life-of-total-football"
+created_at: "2026-05-21T17:38:50Z"
+colossus_url: "https://colossus.com/episode/senra-johan-cruyff-a-life-of-total-football/"
+fetched_at: "2026-05-21T17:38:50Z"
 ---
 
 ## Description

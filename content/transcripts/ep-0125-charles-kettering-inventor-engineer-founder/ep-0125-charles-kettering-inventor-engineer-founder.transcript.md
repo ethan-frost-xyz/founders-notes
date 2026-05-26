@@ -2,11 +2,13 @@
 id: "ep-0125"
 episode_number: 125
 title: "#125 Charles Kettering (inventor, engineer, founder)"
-published_at: 2020-05-15
-colossus_url: https://colossus.com/episode/senra-charles-franklin-kettering-professional-amateur/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:55Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-05-15"
+founders_url: "https://www.founderspodcast.com/episodes/125-charles-kettering-inventor-engineer-founder"
+created_at: "2026-05-21T17:36:55Z"
+colossus_url: "https://colossus.com/episode/senra-charles-franklin-kettering-professional-amateur/"
+fetched_at: "2026-05-21T17:36:55Z"
 ---
 
 ## Description

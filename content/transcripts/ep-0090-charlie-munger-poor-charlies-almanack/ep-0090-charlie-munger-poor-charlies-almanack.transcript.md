@@ -2,11 +2,13 @@
 id: "ep-0090"
 episode_number: 90
 title: "#90 Charlie Munger (Poor Charlie's Almanack)"
-published_at: 2019-09-22
-colossus_url: https://colossus.com/episode/senra-charlie-munger-poor-charlies-almanack/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:11Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-09-22"
+founders_url: "https://www.founderspodcast.com/episodes/90-charlie-munger-poor-charlies-almanack"
+created_at: "2026-05-21T17:36:11Z"
+colossus_url: "https://colossus.com/episode/senra-charlie-munger-poor-charlies-almanack/"
+fetched_at: "2026-05-21T17:36:11Z"
 ---
 
 ## Description

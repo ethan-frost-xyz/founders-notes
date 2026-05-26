@@ -2,11 +2,13 @@
 id: "ep-0145"
 episode_number: 145
 title: "#145 William Randolph Hearst"
-published_at: 2020-09-20
-colossus_url: https://colossus.com/episode/senra-the-life-of-william-randolph-hearst/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:20Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-09-20"
+founders_url: "https://www.founderspodcast.com/episodes/145-william-randolph-hearst"
+created_at: "2026-05-21T17:37:20Z"
+colossus_url: "https://colossus.com/episode/senra-the-life-of-william-randolph-hearst/"
+fetched_at: "2026-05-21T17:37:20Z"
 ---
 
 ## Description

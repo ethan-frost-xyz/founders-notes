@@ -2,11 +2,13 @@
 id: "ep-0269"
 episode_number: 269
 title: "#269 Sam Zell"
-published_at: 2022-09-29
-colossus_url: https://colossus.com/episode/senra-269-am-i-being-too-subtle-straight-talk-from-a-business-rebel-the-autobiography-of-sam-zell/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:53Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-09-29"
+founders_url: "https://www.founderspodcast.com/episodes/269-sam-zell"
+created_at: "2026-05-21T17:39:53Z"
+colossus_url: "https://colossus.com/episode/senra-269-am-i-being-too-subtle-straight-talk-from-a-business-rebel-the-autobiography-of-sam-zell/"
+fetched_at: "2026-05-21T17:39:53Z"
 ---
 
 ## Description

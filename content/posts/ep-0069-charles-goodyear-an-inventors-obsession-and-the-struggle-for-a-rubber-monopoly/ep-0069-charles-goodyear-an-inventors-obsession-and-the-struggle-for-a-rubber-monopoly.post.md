@@ -1,13 +1,16 @@
 ---
 id: "ep-0069"
+episode_number: 69
 title: "#69 Charles Goodyear: An Inventor's Obsession and the Struggle for a Rubber Monopoly"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-27"
+founders_url: "https://www.founderspodcast.com/episodes/69-charles-goodyear-an-inventors-obsession-and-the-struggle-for-a-rubber-monopoly"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2004774836187316587"
 x_post_id: "2004774836187316587"
-published_at: "2025-12-27"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 69
 ---
 
 Founders #69: Charles Goodyear (creator of vulcanized rubber)

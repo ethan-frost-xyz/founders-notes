@@ -2,11 +2,13 @@
 id: "ep-0035"
 episode_number: 35
 title: "#35 George Lucas: A Life"
-published_at: 2018-08-26
-colossus_url: https://colossus.com/episode/senra-george-lucas-a-life/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:04Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-08-26"
+founders_url: "https://www.founderspodcast.com/episodes/35-george-lucas-a-life"
+created_at: "2026-05-21T17:35:04Z"
+colossus_url: "https://colossus.com/episode/senra-george-lucas-a-life/"
+fetched_at: "2026-05-21T17:35:04Z"
 ---
 
 ## Description

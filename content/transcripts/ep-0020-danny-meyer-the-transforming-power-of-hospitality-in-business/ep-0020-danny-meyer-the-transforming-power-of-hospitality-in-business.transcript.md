@@ -2,11 +2,13 @@
 id: "ep-0020"
 episode_number: 20
 title: "#20 Danny Meyer (The Transforming Power of Hospitality in Business)"
-published_at: 2018-02-06
-colossus_url: https://colossus.com/episode/senra-danny-meyer-setting-the-table/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:45Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-02-06"
+founders_url: "https://www.founderspodcast.com/episodes/20-danny-meyer-the-transforming-power-of-hospitality-in-business"
+created_at: "2026-05-21T17:34:45Z"
+colossus_url: "https://colossus.com/episode/senra-danny-meyer-setting-the-table/"
+fetched_at: "2026-05-21T17:34:45Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0203"
 episode_number: 203
 title: "#203 Georges Doriot (Birth of Venture Capital)"
-published_at: 2021-09-08
-colossus_url: https://colossus.com/episode/senra-georges-doriot-birth-of-venture-capital/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:32Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-09-08"
+founders_url: "https://www.founderspodcast.com/episodes/203-georges-doriot-birth-of-venture-capital"
+created_at: "2026-05-21T17:38:32Z"
+colossus_url: "https://colossus.com/episode/senra-georges-doriot-birth-of-venture-capital/"
+fetched_at: "2026-05-21T17:38:32Z"
 ---
 
 ## Description

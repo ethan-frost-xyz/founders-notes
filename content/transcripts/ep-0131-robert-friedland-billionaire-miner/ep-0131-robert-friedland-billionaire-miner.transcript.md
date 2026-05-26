@@ -2,11 +2,13 @@
 id: "ep-0131"
 episode_number: 131
 title: "#131 Robert Friedland (Billionaire Miner)"
-published_at: 2020-06-14
-colossus_url: https://colossus.com/episode/senra-robert-friedland-the-big-score/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:02Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-06-14"
+founders_url: "https://www.founderspodcast.com/episodes/131-robert-friedland-billionaire-miner"
+created_at: "2026-05-21T17:37:02Z"
+colossus_url: "https://colossus.com/episode/senra-robert-friedland-the-big-score/"
+fetched_at: "2026-05-21T17:37:02Z"
 ---
 
 ## Description

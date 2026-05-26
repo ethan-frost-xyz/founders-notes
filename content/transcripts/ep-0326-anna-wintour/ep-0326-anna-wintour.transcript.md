@@ -2,11 +2,13 @@
 id: "ep-0326"
 episode_number: 326
 title: "#326 Anna Wintour"
-published_at: 2023-11-06
-colossus_url: https://colossus.com/episode/326-anna-wintour/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:04Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-11-06"
+founders_url: "https://www.founderspodcast.com/episodes/326-anna-wintour"
+created_at: "2026-05-21T17:41:04Z"
+colossus_url: "https://colossus.com/episode/326-anna-wintour/"
+fetched_at: "2026-05-21T17:41:04Z"
 ---
 
 ## Description

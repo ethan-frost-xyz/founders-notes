@@ -2,11 +2,13 @@
 id: "ep-0243"
 episode_number: 243
 title: "#243 Francis Greenburger (Real Estate Billionaire)"
-published_at: 2022-04-25
-colossus_url: https://colossus.com/episode/senra-francis-greenburger-risk-game/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:21Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-04-25"
+founders_url: "https://www.founderspodcast.com/episodes/243-francis-greenburger-real-estate-billionaire"
+created_at: "2026-05-21T17:39:21Z"
+colossus_url: "https://colossus.com/episode/senra-francis-greenburger-risk-game/"
+fetched_at: "2026-05-21T17:39:21Z"
 ---
 
 ## Description

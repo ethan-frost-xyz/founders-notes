@@ -1,13 +1,16 @@
 ---
 id: "ep-0042"
+episode_number: 42
 title: "#42 One From Many: VISA and the Rise of Chaordic Organization"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-11-30"
+founders_url: "https://www.founderspodcast.com/episodes/42-one-from-many-visa-and-the-rise-of-chaordic-organization"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1994976545593577652"
 x_post_id: "1994976545593577652"
-published_at: "2025-11-30"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 42
 ---
 
 Founders #42: Dee Hock (Visa $V)

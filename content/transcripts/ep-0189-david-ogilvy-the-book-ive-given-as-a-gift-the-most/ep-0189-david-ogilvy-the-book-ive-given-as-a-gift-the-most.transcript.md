@@ -2,11 +2,13 @@
 id: "ep-0189"
 episode_number: 189
 title: "#189 David Ogilvy (The book I've given as a gift the most)"
-published_at: 2021-07-05
-colossus_url: https://colossus.com/episode/senra-the-unpublished-david-ogilvy/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:14Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-07-05"
+founders_url: "https://www.founderspodcast.com/episodes/189-david-ogilvy-the-book-ive-given-as-a-gift-the-most"
+created_at: "2026-05-21T17:38:14Z"
+colossus_url: "https://colossus.com/episode/senra-the-unpublished-david-ogilvy/"
+fetched_at: "2026-05-21T17:38:14Z"
 ---
 
 ## Description

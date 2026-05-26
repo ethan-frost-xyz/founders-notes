@@ -2,11 +2,13 @@
 id: "ep-0104"
 episode_number: 104
 title: "#104 Ingvar Kamprad (IKEA)"
-published_at: 2019-12-30
-colossus_url: https://colossus.com/episode/senra-ingvar-kamprad-leading-by-design/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:29Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-12-30"
+founders_url: "https://www.founderspodcast.com/episodes/104-ingvar-kamprad-ikea"
+created_at: "2026-05-21T17:36:29Z"
+colossus_url: "https://colossus.com/episode/senra-ingvar-kamprad-leading-by-design/"
+fetched_at: "2026-05-21T17:36:29Z"
 ---
 
 ## Description

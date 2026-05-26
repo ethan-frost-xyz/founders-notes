@@ -2,11 +2,13 @@
 id: "ep-0237"
 episode_number: 237
 title: "#237 Julio Lobo (Cuba's Last Sugar Tycoon)"
-published_at: 2022-03-16
-colossus_url: https://colossus.com/episode/senra-julio-lobo-the-rise-and-fall-of-cubas-last-tycoon/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:14Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-03-16"
+founders_url: "https://www.founderspodcast.com/episodes/237-julio-lobo-cubas-last-sugar-tycoon"
+created_at: "2026-05-21T17:39:14Z"
+colossus_url: "https://colossus.com/episode/senra-julio-lobo-the-rise-and-fall-of-cubas-last-tycoon/"
+fetched_at: "2026-05-21T17:39:14Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0168"
 episode_number: 168
 title: "#168 Larry Miller (Driven: An Autobiography)"
-published_at: 2021-02-21
-colossus_url: https://colossus.com/episode/senra-larry-miller-an-autobiography/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:49Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-02-21"
+founders_url: "https://www.founderspodcast.com/episodes/168-larry-miller-driven-an-autobiography"
+created_at: "2026-05-21T17:37:49Z"
+colossus_url: "https://colossus.com/episode/senra-larry-miller-an-autobiography/"
+fetched_at: "2026-05-21T17:37:49Z"
 ---
 
 ## Description

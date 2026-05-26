@@ -2,11 +2,13 @@
 id: "ep-0324"
 episode_number: 324
 title: "#324 John D. Rockefeller (38 Letters Rockefeller Wrote to His Son)"
-published_at: 2023-10-21
-colossus_url: https://colossus.com/episode/senra-324-john-d-rockefeller-38-letters-rockefeller-wrote-to-his-son/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:01Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-10-21"
+founders_url: "https://www.founderspodcast.com/episodes/324-john-d-rockefeller-38-letters-rockefeller-wrote-to-his-son"
+created_at: "2026-05-21T17:41:01Z"
+colossus_url: "https://colossus.com/episode/senra-324-john-d-rockefeller-38-letters-rockefeller-wrote-to-his-son/"
+fetched_at: "2026-05-21T17:41:01Z"
 ---
 
 ## Description

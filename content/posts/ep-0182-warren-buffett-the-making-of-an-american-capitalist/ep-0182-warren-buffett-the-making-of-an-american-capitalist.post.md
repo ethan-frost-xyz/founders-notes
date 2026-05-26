@@ -1,13 +1,16 @@
 ---
 id: "ep-0182"
+episode_number: 182
 title: "#182 Warren Buffett (The Making of an American Capitalist)"
+content_type: "post"
+source: "manual_attribution"
+published_at: "2026-05-13"
+founders_url: "https://www.founderspodcast.com/episodes/182-warren-buffett-the-making-of-an-american-capitalist"
+created_at: "2026-05-21T21:07:58Z"
 x_url: "https://x.com/ethanfrost/status/2054376932901531937"
 x_post_id: "2054376932901531937"
-published_at: "2026-05-13"
-source: "manual_attribution"
 imported_at: "2026-05-21T21:07:58Z"
 post_kind: "article"
-episode_number: 182
 attribution_note: "X post says Founders #183; content matches ep-182 per notes"
 ---
 

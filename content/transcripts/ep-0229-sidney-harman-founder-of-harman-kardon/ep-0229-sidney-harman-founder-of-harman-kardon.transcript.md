@@ -2,11 +2,13 @@
 id: "ep-0229"
 episode_number: 229
 title: "#229 Sidney Harman (Founder of Harman Kardon)"
-published_at: 2022-01-30
-colossus_url: https://colossus.com/episode/senra-sidney-harman-a-mavericks-guide-to-business-leadership-and-life/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:04Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-01-30"
+founders_url: "https://www.founderspodcast.com/episodes/229-sidney-harman-founder-of-harman-kardon"
+created_at: "2026-05-21T17:39:04Z"
+colossus_url: "https://colossus.com/episode/senra-sidney-harman-a-mavericks-guide-to-business-leadership-and-life/"
+fetched_at: "2026-05-21T17:39:04Z"
 ---
 
 ## Description

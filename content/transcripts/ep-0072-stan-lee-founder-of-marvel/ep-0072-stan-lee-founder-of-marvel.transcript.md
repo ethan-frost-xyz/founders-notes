@@ -2,11 +2,13 @@
 id: "ep-0072"
 episode_number: 72
 title: "#72 Stan Lee: Founder of Marvel"
-published_at: 2019-05-19
-colossus_url: https://colossus.com/episode/senra-stan-lee-excelsior/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:49Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-05-19"
+founders_url: "https://www.founderspodcast.com/episodes/72-stan-lee-founder-of-marvel"
+created_at: "2026-05-21T17:35:49Z"
+colossus_url: "https://colossus.com/episode/senra-stan-lee-excelsior/"
+fetched_at: "2026-05-21T17:35:49Z"
 ---
 
 ## Description

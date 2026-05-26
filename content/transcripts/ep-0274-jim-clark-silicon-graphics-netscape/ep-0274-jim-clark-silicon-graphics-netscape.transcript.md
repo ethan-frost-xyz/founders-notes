@@ -2,11 +2,13 @@
 id: "ep-0274"
 episode_number: 274
 title: "#274 Jim Clark (Silicon Graphics, Netscape)"
-published_at: 2022-10-27
-colossus_url: https://colossus.com/episode/senra-jim-clark-a-silicon-valley-story/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:00Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-10-27"
+founders_url: "https://www.founderspodcast.com/episodes/274-jim-clark-silicon-graphics-netscape"
+created_at: "2026-05-21T17:40:00Z"
+colossus_url: "https://colossus.com/episode/senra-jim-clark-a-silicon-valley-story/"
+fetched_at: "2026-05-21T17:40:00Z"
 ---
 
 ## Description

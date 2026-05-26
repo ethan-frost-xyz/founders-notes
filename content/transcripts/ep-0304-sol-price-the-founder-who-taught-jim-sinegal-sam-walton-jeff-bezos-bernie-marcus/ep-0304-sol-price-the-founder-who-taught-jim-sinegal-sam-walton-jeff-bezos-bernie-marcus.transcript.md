@@ -2,11 +2,13 @@
 id: "ep-0304"
 episode_number: 304
 title: "#304: Sol Price (The Founder Who Taught Jim Sinegal, Sam Walton, Jeff Bezos, Bernie Marcus)"
-published_at: 2023-05-22
-colossus_url: https://colossus.com/episode/senra-sol-price-retail-revolutionary/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:36Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-05-22"
+founders_url: "https://www.founderspodcast.com/episodes/304-sol-price-the-founder-who-taught-jim-sinegal-sam-walton-jeff-bezos-bernie-marcus"
+created_at: "2026-05-21T17:40:36Z"
+colossus_url: "https://colossus.com/episode/senra-sol-price-retail-revolutionary/"
+fetched_at: "2026-05-21T17:40:36Z"
 ---
 
 ## Description

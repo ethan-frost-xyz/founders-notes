@@ -1,9 +1,13 @@
 ---
 id: "ep-0129"
-title: "#129 Felix Dennis (How to Get Rich)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 129
+title: "#129 Felix Dennis (How to Get Rich)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-06-04"
+founders_url: "https://www.founderspodcast.com/episodes/129-felix-dennis-how-to-get-rich"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

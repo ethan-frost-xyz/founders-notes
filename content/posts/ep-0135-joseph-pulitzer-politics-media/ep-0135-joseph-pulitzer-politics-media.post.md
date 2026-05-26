@@ -1,13 +1,16 @@
 ---
 id: "ep-0135"
+episode_number: 135
 title: "#135 Joseph Pulitzer (Politics & Media)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-03"
+founders_url: "https://www.founderspodcast.com/episodes/135-joseph-pulitzer-politics-media"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2028911536991875483"
 x_post_id: "2028911536991875483"
-published_at: "2026-03-03"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 135
 ---
 
 Founders #135: Joseph Pulitzer

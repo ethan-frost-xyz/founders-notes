@@ -1,9 +1,13 @@
 ---
 id: "ep-0090"
-title: "#90 Charlie Munger (Poor Charlie's Almanack)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 90
+title: "#90 Charlie Munger (Poor Charlie's Almanack)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-09-22"
+founders_url: "https://www.founderspodcast.com/episodes/90-charlie-munger-poor-charlies-almanack"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

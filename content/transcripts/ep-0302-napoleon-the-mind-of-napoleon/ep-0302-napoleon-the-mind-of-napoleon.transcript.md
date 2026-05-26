@@ -2,11 +2,13 @@
 id: "ep-0302"
 episode_number: 302
 title: "#302 Napoleon (The Mind of Napoleon)"
-published_at: 2023-05-08
-colossus_url: https://colossus.com/episode/senra-napoleon-bonaparte-a-selection-of-his-written-and-spoken-words/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:34Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-05-08"
+founders_url: "https://www.founderspodcast.com/episodes/302-napoleon-the-mind-of-napoleon"
+created_at: "2026-05-21T17:40:34Z"
+colossus_url: "https://colossus.com/episode/senra-napoleon-bonaparte-a-selection-of-his-written-and-spoken-words/"
+fetched_at: "2026-05-21T17:40:34Z"
 ---
 
 ## Description

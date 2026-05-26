@@ -2,11 +2,13 @@
 id: "ep-0061"
 episode_number: 61
 title: "#61 Malcom McLean: The Box: How the Shipping Container Made the World Smaller and the World Economy Bigger"
-published_at: 2019-02-25
-colossus_url: https://colossus.com/episode/senra-malcom-mclean-the-box/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:36Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-02-25"
+founders_url: "https://www.founderspodcast.com/episodes/61-malcom-mclean-the-box-how-the-shipping-container-made-the-world-smaller-and-the-world-economy-bigger"
+created_at: "2026-05-21T17:35:36Z"
+colossus_url: "https://colossus.com/episode/senra-malcom-mclean-the-box/"
+fetched_at: "2026-05-21T17:35:36Z"
 ---
 
 ## Description

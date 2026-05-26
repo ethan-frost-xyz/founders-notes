@@ -2,11 +2,13 @@
 id: "ep-0300"
 episode_number: 300
 title: "#300 James Dyson (Against the Odds)"
-published_at: 2023-04-24
-colossus_url: https://colossus.com/episode/senra-james-dyson-against-the-odds-an-autobiography/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:31Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-04-24"
+founders_url: "https://www.founderspodcast.com/episodes/300-james-dyson-against-the-odds"
+created_at: "2026-05-21T17:40:31Z"
+colossus_url: "https://colossus.com/episode/senra-james-dyson-against-the-odds-an-autobiography/"
+fetched_at: "2026-05-21T17:40:31Z"
 ---
 
 ## Description

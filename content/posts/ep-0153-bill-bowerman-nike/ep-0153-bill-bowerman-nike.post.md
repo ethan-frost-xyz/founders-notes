@@ -1,13 +1,16 @@
 ---
 id: "ep-0153"
+episode_number: 153
 title: "#153 Bill Bowerman (Nike)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-25"
+founders_url: "https://www.founderspodcast.com/episodes/153-bill-bowerman-nike"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2036679262921433156"
 x_post_id: "2036679262921433156"
-published_at: "2026-03-25"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 153
 ---
 
 Founders #153: Bill Bowerman

@@ -2,11 +2,13 @@
 id: "ep-0056"
 episode_number: 56
 title: "#56 The Biography of Herb Kelleher"
-published_at: 2019-01-22
-colossus_url: https://colossus.com/episode/senra-herb-kelleher-southwest-airlines-crazy-recipe-for-business-and-personal-success/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:30Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-01-22"
+founders_url: "https://www.founderspodcast.com/episodes/56-the-biography-of-herb-kelleher"
+created_at: "2026-05-21T17:35:30Z"
+colossus_url: "https://colossus.com/episode/senra-herb-kelleher-southwest-airlines-crazy-recipe-for-business-and-personal-success/"
+fetched_at: "2026-05-21T17:35:30Z"
 ---
 
 ## Description

@@ -1,13 +1,16 @@
 ---
 id: "ep-0142"
+episode_number: 142
 title: "#142 Teddy Roosevelt and J.P. Morgan"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-10"
+founders_url: "https://www.founderspodcast.com/episodes/142-teddy-roosevelt-and-j-p-morgan"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2031439192048181727"
 x_post_id: "2031439192048181727"
-published_at: "2026-03-10"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 142
 ---
 
 Founders #142: Teddy Roosevelt vs J.P. Morgan

@@ -2,11 +2,13 @@
 id: "ep-0319"
 episode_number: 319
 title: "#319 The Making of Winston Churchill Part 1"
-published_at: 2023-09-05
-colossus_url: https://colossus.com/episode/senra-winston-churchill-hero-of-the-empire/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:55Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-09-05"
+founders_url: "https://www.founderspodcast.com/episodes/319-the-making-of-winston-churchill-part-1"
+created_at: "2026-05-21T17:40:55Z"
+colossus_url: "https://colossus.com/episode/senra-winston-churchill-hero-of-the-empire/"
+fetched_at: "2026-05-21T17:40:55Z"
 ---
 
 ## Description

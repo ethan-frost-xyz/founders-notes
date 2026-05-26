@@ -1,13 +1,16 @@
 ---
 id: "ep-0028"
+episode_number: 28
 title: "#28 The Wright Brothers"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-11-15"
+founders_url: "https://www.founderspodcast.com/episodes/28-the-wright-brothers"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1989736642190426536"
 x_post_id: "1989736642190426536"
-published_at: "2025-11-15"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 28
 ---
 
 Founders #28: Wright Brothers

@@ -2,11 +2,13 @@
 id: "ep-0116"
 episode_number: 116
 title: "#116 Sam Bronfman (Seagram's and the Bronfman family dynasty)"
-published_at: 2020-03-21
-colossus_url: https://colossus.com/episode/senra-sam-bronfman-the-life-and-times-of-seagrams-mr-sam/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:44Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-03-21"
+founders_url: "https://www.founderspodcast.com/episodes/116-sam-bronfman-seagrams-and-the-bronfman-family-dynasty"
+created_at: "2026-05-21T17:36:44Z"
+colossus_url: "https://colossus.com/episode/senra-sam-bronfman-the-life-and-times-of-seagrams-mr-sam/"
+fetched_at: "2026-05-21T17:36:44Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0281"
 episode_number: 281
 title: "#281 Working with Steve Jobs"
-published_at: 2022-12-12
-colossus_url: https://colossus.com/episode/senra-281-working-with-steve-jobs/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:08Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-12-12"
+founders_url: "https://www.founderspodcast.com/episodes/281-working-with-steve-jobs"
+created_at: "2026-05-21T17:40:08Z"
+colossus_url: "https://colossus.com/episode/senra-281-working-with-steve-jobs/"
+fetched_at: "2026-05-21T17:40:08Z"
 ---
 
 ## Description

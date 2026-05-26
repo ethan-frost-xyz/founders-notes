@@ -2,11 +2,13 @@
 id: "ep-0190"
 episode_number: 190
 title: "#190 Henry Ford and Thomas Edison"
-published_at: 2021-07-10
-colossus_url: https://colossus.com/episode/senra-henry-ford-and-thomas-edison-10-year-road-trip/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:16Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-07-10"
+founders_url: "https://www.founderspodcast.com/episodes/190-henry-ford-and-thomas-edison"
+created_at: "2026-05-21T17:38:16Z"
+colossus_url: "https://colossus.com/episode/senra-henry-ford-and-thomas-edison-10-year-road-trip/"
+fetched_at: "2026-05-21T17:38:16Z"
 ---
 
 ## Description

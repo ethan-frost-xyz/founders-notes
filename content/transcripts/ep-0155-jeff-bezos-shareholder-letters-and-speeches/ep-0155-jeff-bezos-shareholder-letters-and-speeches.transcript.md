@@ -2,11 +2,13 @@
 id: "ep-0155"
 episode_number: 155
 title: "#155 Jeff Bezos (Shareholder Letters and Speeches)"
-published_at: 2020-11-23
-colossus_url: https://colossus.com/episode/senra-jeff-bezos-invent-and-wander/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:33Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-11-23"
+founders_url: "https://www.founderspodcast.com/episodes/155-jeff-bezos-shareholder-letters-and-speeches"
+created_at: "2026-05-21T17:37:33Z"
+colossus_url: "https://colossus.com/episode/senra-jeff-bezos-invent-and-wander/"
+fetched_at: "2026-05-21T17:37:33Z"
 ---
 
 ## Description

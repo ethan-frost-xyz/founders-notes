@@ -1,9 +1,13 @@
 ---
 id: "ep-0182"
-title: "#182 Warren Buffett (The Making of an American Capitalist)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 182
+title: "#182 Warren Buffett (The Making of an American Capitalist)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2021-05-29"
+founders_url: "https://www.founderspodcast.com/episodes/182-warren-buffett-the-making-of-an-american-capitalist"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

@@ -1,13 +1,16 @@
 ---
 id: "ep-0029"
+episode_number: 29
 title: "#29 The HP Way: How Bill Hewlett and I Built Our Company"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-11-16"
+founders_url: "https://www.founderspodcast.com/episodes/29-the-hp-way-how-bill-hewlett-and-i-built-our-company"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1990138362204754010"
 x_post_id: "1990138362204754010"
-published_at: "2025-11-16"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 29
 ---
 
 Founders #29: David Packard (Hewlett-Packard $HPQ)

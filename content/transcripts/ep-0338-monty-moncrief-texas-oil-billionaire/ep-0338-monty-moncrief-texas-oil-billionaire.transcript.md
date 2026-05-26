@@ -2,11 +2,13 @@
 id: "ep-0338"
 episode_number: 338
 title: "#338 Monty Moncrief Texas Oil Billionaire"
-published_at: 2024-02-13
-colossus_url: https://colossus.com/episode/senra-338-monty-moncrief-texas-oil-billionaire/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:19Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-02-13"
+founders_url: "https://www.founderspodcast.com/episodes/338-monty-moncrief-texas-oil-billionaire"
+created_at: "2026-05-21T17:41:19Z"
+colossus_url: "https://colossus.com/episode/senra-338-monty-moncrief-texas-oil-billionaire/"
+fetched_at: "2026-05-21T17:41:19Z"
 ---
 
 ## Description

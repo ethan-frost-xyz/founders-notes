@@ -2,11 +2,13 @@
 id: "ep-0199"
 episode_number: 199
 title: "#199 Coco Chanel: The Legend and the Life"
-published_at: 2021-08-20
-colossus_url: https://colossus.com/episode/senra-coco-chanel-the-legend-and-the-life/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:27Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-08-20"
+founders_url: "https://www.founderspodcast.com/episodes/199-coco-chanel-the-legend-and-the-life"
+created_at: "2026-05-21T17:38:27Z"
+colossus_url: "https://colossus.com/episode/senra-coco-chanel-the-legend-and-the-life/"
+fetched_at: "2026-05-21T17:38:27Z"
 ---
 
 ## Description

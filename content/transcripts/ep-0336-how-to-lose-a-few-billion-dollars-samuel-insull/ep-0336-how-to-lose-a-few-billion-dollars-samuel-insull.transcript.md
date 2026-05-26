@@ -2,11 +2,13 @@
 id: "ep-0336"
 episode_number: 336
 title: "#336 How To Lose A Few Billion Dollars: Samuel Insull"
-published_at: 2024-02-01
-colossus_url: https://colossus.com/episode/336-how-to-lose-a-few-billion-dollars-samuel-insull/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:16Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-02-01"
+founders_url: "https://www.founderspodcast.com/episodes/336-how-to-lose-a-few-billion-dollars-samuel-insull"
+created_at: "2026-05-21T17:41:16Z"
+colossus_url: "https://colossus.com/episode/336-how-to-lose-a-few-billion-dollars-samuel-insull/"
+fetched_at: "2026-05-21T17:41:16Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0296"
 episode_number: 296
 title: "#296 Bernard Arnault (The Richest Man in the World)"
-published_at: 2023-03-27
-colossus_url: https://colossus.com/episode/senra-bernard-arnault-the-taste-of-luxury/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:26Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-03-27"
+founders_url: "https://www.founderspodcast.com/episodes/296-bernard-arnault-the-richest-man-in-the-world"
+created_at: "2026-05-21T17:40:26Z"
+colossus_url: "https://colossus.com/episode/senra-bernard-arnault-the-taste-of-luxury/"
+fetched_at: "2026-05-21T17:40:26Z"
 ---
 
 ## Description

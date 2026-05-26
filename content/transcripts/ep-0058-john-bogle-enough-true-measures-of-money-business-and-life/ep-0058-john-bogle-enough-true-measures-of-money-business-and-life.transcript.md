@@ -2,11 +2,13 @@
 id: "ep-0058"
 episode_number: 58
 title: "#58 John Bogle: Enough: True Measures of Money, Business, and Life"
-published_at: 2019-02-04
-colossus_url: https://colossus.com/episode/senra-john-bogle-true-measures-of-money-business-and-life/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:32Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-02-04"
+founders_url: "https://www.founderspodcast.com/episodes/58-john-bogle-enough-true-measures-of-money-business-and-life"
+created_at: "2026-05-21T17:35:32Z"
+colossus_url: "https://colossus.com/episode/senra-john-bogle-true-measures-of-money-business-and-life/"
+fetched_at: "2026-05-21T17:35:32Z"
 ---
 
 ## Description

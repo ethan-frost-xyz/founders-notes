@@ -2,11 +2,13 @@
 id: "ep-0003"
 episode_number: 3
 title: "#3 The Wizard of Menlo Park: How Thomas Edison Invented The Modern the Modern World"
-published_at: 2017-03-24
-colossus_url: https://colossus.com/episode/senra-thomas-edison-the-wizard-of-menlo-park/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:24Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2017-03-24"
+founders_url: "https://www.founderspodcast.com/episodes/3-the-wizard-of-menlo-park-how-thomas-edison-invented-the-modern-the-modern-world"
+created_at: "2026-05-21T17:34:24Z"
+colossus_url: "https://colossus.com/episode/senra-thomas-edison-the-wizard-of-menlo-park/"
+fetched_at: "2026-05-21T17:34:24Z"
 ---
 
 ## Description

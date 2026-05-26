@@ -2,11 +2,13 @@
 id: "ep-0290"
 episode_number: 290
 title: "#290 Bill Gates"
-published_at: 2023-02-13
-colossus_url: https://colossus.com/episode/senra-bill-gates-microsofts-beginnings/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:19Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-02-13"
+founders_url: "https://www.founderspodcast.com/episodes/290-bill-gates"
+created_at: "2026-05-21T17:40:19Z"
+colossus_url: "https://colossus.com/episode/senra-bill-gates-microsofts-beginnings/"
+fetched_at: "2026-05-21T17:40:19Z"
 ---
 
 ## Description

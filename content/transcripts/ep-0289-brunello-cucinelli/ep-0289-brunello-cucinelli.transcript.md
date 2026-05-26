@@ -2,11 +2,13 @@
 id: "ep-0289"
 episode_number: 289
 title: "#289 Brunello Cucinelli"
-published_at: 2023-02-07
-colossus_url: https://colossus.com/episode/senra-brunello-cucinelli-the-dream-of-solomeo/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:18Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-02-07"
+founders_url: "https://www.founderspodcast.com/episodes/289-brunello-cucinelli"
+created_at: "2026-05-21T17:40:18Z"
+colossus_url: "https://colossus.com/episode/senra-brunello-cucinelli-the-dream-of-solomeo/"
+fetched_at: "2026-05-21T17:40:18Z"
 ---
 
 ## Description

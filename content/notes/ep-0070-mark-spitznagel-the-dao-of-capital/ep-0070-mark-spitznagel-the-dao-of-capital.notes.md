@@ -1,9 +1,13 @@
 ---
 id: "ep-0070"
-title: "#70 Mark Spitznagel: The Dao of Capital"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 70
+title: "#70 Mark Spitznagel: The Dao of Capital"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-05-06"
+founders_url: "https://www.founderspodcast.com/episodes/70-mark-spitznagel-the-dao-of-capital"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

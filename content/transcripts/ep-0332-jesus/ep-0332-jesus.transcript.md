@@ -2,11 +2,13 @@
 id: "ep-0332"
 episode_number: 332
 title: "#332 Jesus"
-published_at: 2023-12-24
-colossus_url: https://colossus.com/episode/senra-332-jesus/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:11Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-12-24"
+founders_url: "https://www.founderspodcast.com/episodes/332-jesus"
+created_at: "2026-05-21T17:41:11Z"
+colossus_url: "https://colossus.com/episode/senra-332-jesus/"
+fetched_at: "2026-05-21T17:41:11Z"
 ---
 
 ## Description

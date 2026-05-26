@@ -2,11 +2,13 @@
 id: "ep-0107"
 episode_number: 107
 title: "#107 Sol Price (Costco)"
-published_at: 2020-01-20
-colossus_url: https://colossus.com/episode/senra-sol-price-retail-revolutionary-social-innovator/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:32Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-01-20"
+founders_url: "https://www.founderspodcast.com/episodes/107-sol-price-costco"
+created_at: "2026-05-21T17:36:32Z"
+colossus_url: "https://colossus.com/episode/senra-sol-price-retail-revolutionary-social-innovator/"
+fetched_at: "2026-05-21T17:36:32Z"
 ---
 
 ## Description

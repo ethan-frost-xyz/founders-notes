@@ -1,13 +1,16 @@
 ---
 id: "ep-0138"
+episode_number: 138
 title: "#138 Alexander Graham Bell"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-07"
+founders_url: "https://www.founderspodcast.com/episodes/138-alexander-graham-bell"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2030150819782254975"
 x_post_id: "2030150819782254975"
-published_at: "2026-03-07"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 138
 ---
 
 Founders #138: Alexander Graham Bell

@@ -2,11 +2,13 @@
 id: "ep-0082"
 episode_number: 82
 title: "#82 David Ogilvy (Ogilvy on Advertising)"
-published_at: 2019-07-28
-colossus_url: https://colossus.com/episode/senra-david-ogilvy-on-advertising/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:01Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-07-28"
+founders_url: "https://www.founderspodcast.com/episodes/82-david-ogilvy-ogilvy-on-advertising"
+created_at: "2026-05-21T17:36:01Z"
+colossus_url: "https://colossus.com/episode/senra-david-ogilvy-on-advertising/"
+fetched_at: "2026-05-21T17:36:01Z"
 ---
 
 ## Description

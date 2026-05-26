@@ -2,11 +2,13 @@
 id: "ep-0334"
 episode_number: 334
 title: "#334 Oprah"
-published_at: 2024-01-16
-colossus_url: https://colossus.com/episode/senra-334-oprah/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:13Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-01-16"
+founders_url: "https://www.founderspodcast.com/episodes/334-oprah"
+created_at: "2026-05-21T17:41:13Z"
+colossus_url: "https://colossus.com/episode/senra-334-oprah/"
+fetched_at: "2026-05-21T17:41:13Z"
 ---
 
 ## Description

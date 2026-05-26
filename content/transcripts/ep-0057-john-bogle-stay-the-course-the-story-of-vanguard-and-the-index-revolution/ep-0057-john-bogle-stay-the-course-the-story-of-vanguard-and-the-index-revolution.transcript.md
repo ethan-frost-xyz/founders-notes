@@ -2,11 +2,13 @@
 id: "ep-0057"
 episode_number: 57
 title: "#57 John Bogle: Stay the Course: The Story of Vanguard and the Index Revolution"
-published_at: 2019-01-28
-colossus_url: https://colossus.com/episode/senra-john-bogle-the-story-of-vanguard-and-the-index-revolution/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:31Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-01-28"
+founders_url: "https://www.founderspodcast.com/episodes/57-john-bogle-stay-the-course-the-story-of-vanguard-and-the-index-revolution"
+created_at: "2026-05-21T17:35:31Z"
+colossus_url: "https://colossus.com/episode/senra-john-bogle-the-story-of-vanguard-and-the-index-revolution/"
+fetched_at: "2026-05-21T17:35:31Z"
 ---
 
 ## Description

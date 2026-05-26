@@ -2,11 +2,13 @@
 id: "ep-0266"
 episode_number: 266
 title: "#266 Henry Ford's Autobiography"
-published_at: 2022-09-08
-colossus_url: https://colossus.com/episode/senra-henry-ford/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:50Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-09-08"
+founders_url: "https://www.founderspodcast.com/episodes/266-henry-fords-autobiography"
+created_at: "2026-05-21T17:39:50Z"
+colossus_url: "https://colossus.com/episode/senra-henry-ford/"
+fetched_at: "2026-05-21T17:39:50Z"
 ---
 
 ## Description

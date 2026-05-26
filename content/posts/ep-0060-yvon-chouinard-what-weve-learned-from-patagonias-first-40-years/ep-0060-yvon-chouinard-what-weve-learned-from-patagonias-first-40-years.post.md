@@ -1,13 +1,16 @@
 ---
 id: "ep-0060"
+episode_number: 60
 title: "#60 Yvon Chouinard: What We've Learned from Patagonia's First 40 Years"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-18"
+founders_url: "https://www.founderspodcast.com/episodes/60-yvon-chouinard-what-weve-learned-from-patagonias-first-40-years"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2001469837420200231"
 x_post_id: "2001469837420200231"
-published_at: "2025-12-18"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 60
 ---
 
 Some additional data points from the @FoundersPodcast episode:

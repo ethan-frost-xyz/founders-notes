@@ -1,13 +1,16 @@
 ---
 id: "ep-0178"
+episode_number: 178
 title: "#178 Jony Ive: The Genius Behind Apple's Greatest Products"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-05-08"
+founders_url: "https://www.founderspodcast.com/episodes/178-jony-ive-the-genius-behind-apples-greatest-products"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2052607578782208314"
 x_post_id: "2052607578782208314"
-published_at: "2026-05-08"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 178
 ---
 
 Jony Ive's pen design from 1988.

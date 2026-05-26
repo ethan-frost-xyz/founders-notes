@@ -2,11 +2,13 @@
 id: "ep-0392"
 episode_number: 392
 title: "#392 Michele Ferrero and His $40 Billion Privately Owned Chocolate Empire"
-published_at: 2025-06-23
-colossus_url: https://colossus.com/episode/392-michele-ferrero-and-his-40-billion-privately-owned-chocolate-empire/
-founders_url: https://www.founderspodcast.com/episodes/392-michele-ferrero-and-his-40-billion-privately-owned-chocolate-empire
-source: colossus
-fetched_at: 2026-05-21T17:42:25Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-06-23"
+founders_url: "https://www.founderspodcast.com/episodes/392-michele-ferrero-and-his-40-billion-privately-owned-chocolate-empire"
+created_at: "2026-05-21T17:42:25Z"
+colossus_url: "https://colossus.com/episode/392-michele-ferrero-and-his-40-billion-privately-owned-chocolate-empire/"
+fetched_at: "2026-05-21T17:42:25Z"
 ---
 
 ## Description

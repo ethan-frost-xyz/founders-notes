@@ -2,11 +2,13 @@
 id: "ep-0323"
 episode_number: 323
 title: "#323 Jimmy Buffett"
-published_at: 2023-10-03
-colossus_url: https://colossus.com/episode/senra-323-jimmy-buffett/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:00Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-10-03"
+founders_url: "https://www.founderspodcast.com/episodes/323-jimmy-buffett"
+created_at: "2026-05-21T17:41:00Z"
+colossus_url: "https://colossus.com/episode/senra-323-jimmy-buffett/"
+fetched_at: "2026-05-21T17:41:00Z"
 ---
 
 ## Description

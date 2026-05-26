@@ -1,13 +1,16 @@
 ---
 id: "ep-0003"
+episode_number: 3
 title: "#3 The Wizard of Menlo Park: How Thomas Edison Invented The Modern the Modern World"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-10-21"
+founders_url: "https://www.founderspodcast.com/episodes/3-the-wizard-of-menlo-park-how-thomas-edison-invented-the-modern-the-modern-world"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1980778877992698187"
 x_post_id: "1980778877992698187"
-published_at: "2025-10-21"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 3
 ---
 
 Founders #3 Thomas Edison. “The names change, the technology changes, but human nature usually stays the same…“ -Senra

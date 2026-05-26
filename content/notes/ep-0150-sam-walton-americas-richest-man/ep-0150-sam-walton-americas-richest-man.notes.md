@@ -1,9 +1,13 @@
 ---
 id: "ep-0150"
-title: "#150 Sam Walton (America's Richest Man)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 150
+title: "#150 Sam Walton (America's Richest Man)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-10-24"
+founders_url: "https://www.founderspodcast.com/episodes/150-sam-walton-americas-richest-man"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

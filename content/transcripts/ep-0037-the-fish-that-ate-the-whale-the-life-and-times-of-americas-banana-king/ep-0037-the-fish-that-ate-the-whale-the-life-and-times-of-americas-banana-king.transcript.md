@@ -2,11 +2,13 @@
 id: "ep-0037"
 episode_number: 37
 title: "#37 The Fish That Ate The Whale: The Life and Times of America's Banana King"
-published_at: 2018-09-09
-colossus_url: https://colossus.com/episode/senra-samuel-zemurray-the-fish-that-ate-the-whale/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:06Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-09-09"
+founders_url: "https://www.founderspodcast.com/episodes/37-the-fish-that-ate-the-whale-the-life-and-times-of-americas-banana-king"
+created_at: "2026-05-21T17:35:06Z"
+colossus_url: "https://colossus.com/episode/senra-samuel-zemurray-the-fish-that-ate-the-whale/"
+fetched_at: "2026-05-21T17:35:06Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0303"
 episode_number: 303
 title: "#303 Rose Blumkin (Warren Buffett's Favorite Founder)"
-published_at: 2023-05-14
-colossus_url: https://colossus.com/episode/senra-rose-blumkin-warren-buffetts-favorite-founder/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:35Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-05-14"
+founders_url: "https://www.founderspodcast.com/episodes/303-rose-blumkin-warren-buffetts-favorite-founder"
+created_at: "2026-05-21T17:40:35Z"
+colossus_url: "https://colossus.com/episode/senra-rose-blumkin-warren-buffetts-favorite-founder/"
+fetched_at: "2026-05-21T17:40:35Z"
 ---
 
 ## Description

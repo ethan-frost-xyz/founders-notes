@@ -2,11 +2,13 @@
 id: "ep-0179"
 episode_number: 179
 title: "#179 Jeff Bezos"
-published_at: 2021-05-10
-colossus_url: https://colossus.com/episode/senra-jeff-bezos-the-everything-store/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:02Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-05-10"
+founders_url: "https://www.founderspodcast.com/episodes/179-jeff-bezos"
+created_at: "2026-05-21T17:38:02Z"
+colossus_url: "https://colossus.com/episode/senra-jeff-bezos-the-everything-store/"
+fetched_at: "2026-05-21T17:38:02Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0086"
 episode_number: 86
 title: "#86 Carl Bosch and Fritz Haber (A Genius and a Doomed Tycoon)"
-published_at: 2019-08-25
-colossus_url: https://colossus.com/episode/senra-carl-bosch-fritz-haber-the-alchemy-of-air/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:06Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-08-25"
+founders_url: "https://www.founderspodcast.com/episodes/86-carl-bosch-and-fritz-haber-a-genius-and-a-doomed-tycoon"
+created_at: "2026-05-21T17:36:06Z"
+colossus_url: "https://colossus.com/episode/senra-carl-bosch-fritz-haber-the-alchemy-of-air/"
+fetched_at: "2026-05-21T17:36:06Z"
 ---
 
 ## Description

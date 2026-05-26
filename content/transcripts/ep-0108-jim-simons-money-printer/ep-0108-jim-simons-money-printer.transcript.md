@@ -2,11 +2,13 @@
 id: "ep-0108"
 episode_number: 108
 title: "#108 Jim Simons (Money Printer)"
-published_at: 2020-01-26
-colossus_url: https://colossus.com/episode/senra-jim-simons-the-man-who-solved-the-market/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:34Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-01-26"
+founders_url: "https://www.founderspodcast.com/episodes/108-jim-simons-money-printer"
+created_at: "2026-05-21T17:36:34Z"
+colossus_url: "https://colossus.com/episode/senra-jim-simons-the-man-who-solved-the-market/"
+fetched_at: "2026-05-21T17:36:34Z"
 ---
 
 ## Description

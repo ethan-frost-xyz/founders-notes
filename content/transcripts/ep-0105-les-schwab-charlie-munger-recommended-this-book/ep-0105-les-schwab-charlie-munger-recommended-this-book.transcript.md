@@ -2,11 +2,13 @@
 id: "ep-0105"
 episode_number: 105
 title: "#105 Les Schwab (Charlie Munger recommended this book)"
-published_at: 2020-01-05
-colossus_url: https://colossus.com/episode/senra-les-schwab-pride-in-performance/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:30Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-01-05"
+founders_url: "https://www.founderspodcast.com/episodes/105-les-schwab-charlie-munger-recommended-this-book"
+created_at: "2026-05-21T17:36:30Z"
+colossus_url: "https://colossus.com/episode/senra-les-schwab-pride-in-performance/"
+fetched_at: "2026-05-21T17:36:30Z"
 ---
 
 ## Description

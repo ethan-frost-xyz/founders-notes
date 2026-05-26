@@ -2,11 +2,13 @@
 id: "ep-0083"
 episode_number: 83
 title: "#83 Thomas Edison, Nikola Tesla, George Westinghouse, and the Race to Electrify the World"
-published_at: 2019-08-04
-colossus_url: https://colossus.com/episode/senra-edison-tesla-and-westinghouse-empires-of-light/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:03Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-08-04"
+founders_url: "https://www.founderspodcast.com/episodes/83-thomas-edison-nikola-tesla-george-westinghouse-and-the-race-to-electrify-the-world"
+created_at: "2026-05-21T17:36:03Z"
+colossus_url: "https://colossus.com/episode/senra-edison-tesla-and-westinghouse-empires-of-light/"
+fetched_at: "2026-05-21T17:36:03Z"
 ---
 
 ## Description

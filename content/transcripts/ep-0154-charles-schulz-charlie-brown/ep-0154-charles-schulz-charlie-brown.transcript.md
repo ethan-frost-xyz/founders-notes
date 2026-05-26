@@ -2,11 +2,13 @@
 id: "ep-0154"
 episode_number: 154
 title: "#154 Charles Schulz (Charlie Brown)"
-published_at: 2020-11-19
-colossus_url: https://colossus.com/episode/senra-charles-schulz-my-life-with-charlie-brown/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:31Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-11-19"
+founders_url: "https://www.founderspodcast.com/episodes/154-charles-schulz-charlie-brown"
+created_at: "2026-05-21T17:37:31Z"
+colossus_url: "https://colossus.com/episode/senra-charles-schulz-my-life-with-charlie-brown/"
+fetched_at: "2026-05-21T17:37:31Z"
 ---
 
 ## Description

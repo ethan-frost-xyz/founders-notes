@@ -1,13 +1,16 @@
 ---
 id: "ep-0026"
+episode_number: 26
 title: "#26 My Life and Work: The Autobiography of Henry Ford"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-11-13"
+founders_url: "https://www.founderspodcast.com/episodes/26-my-life-and-work-the-autobiography-of-henry-ford"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1989090659266097248"
 x_post_id: "1989090659266097248"
-published_at: "2025-11-13"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 26
 ---
 
 Founders #26: Henry Ford ($FORD)

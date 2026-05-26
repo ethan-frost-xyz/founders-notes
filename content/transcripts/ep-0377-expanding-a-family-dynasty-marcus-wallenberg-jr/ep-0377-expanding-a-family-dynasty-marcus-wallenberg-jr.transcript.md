@@ -2,11 +2,13 @@
 id: "ep-0377"
 episode_number: 377
 title: "#377 Expanding A Family Dynasty: Marcus Wallenberg Jr."
-published_at: 2025-01-27
-colossus_url: https://colossus.com/episode/377-expanding-a-family-dynasty-marcus-wallenberg-jr/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:42:07Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-01-27"
+founders_url: "https://www.founderspodcast.com/episodes/377-expanding-a-family-dynasty-marcus-wallenberg-jr"
+created_at: "2026-05-21T17:42:07Z"
+colossus_url: "https://colossus.com/episode/377-expanding-a-family-dynasty-marcus-wallenberg-jr/"
+fetched_at: "2026-05-21T17:42:07Z"
 ---
 
 ## Description

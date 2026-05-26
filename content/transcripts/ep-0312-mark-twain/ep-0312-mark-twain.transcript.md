@@ -2,11 +2,13 @@
 id: "ep-0312"
 episode_number: 312
 title: "#312 Mark Twain"
-published_at: 2023-07-19
-colossus_url: https://colossus.com/episode/senra-mark-twain-lighting-out-for-the-territory/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:46Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-07-19"
+founders_url: "https://www.founderspodcast.com/episodes/312-mark-twain"
+created_at: "2026-05-21T17:40:46Z"
+colossus_url: "https://colossus.com/episode/senra-mark-twain-lighting-out-for-the-territory/"
+fetched_at: "2026-05-21T17:40:46Z"
 ---
 
 ## Description

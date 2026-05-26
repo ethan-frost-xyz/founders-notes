@@ -2,11 +2,13 @@
 id: "ep-0029"
 episode_number: 29
 title: "#29 The HP Way: How Bill Hewlett and I Built Our Company"
-published_at: 2018-07-02
-colossus_url: https://colossus.com/episode/senra-david-packard-how-bill-hewlett-and-i-built-hp/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:56Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-07-02"
+founders_url: "https://www.founderspodcast.com/episodes/29-the-hp-way-how-bill-hewlett-and-i-built-our-company"
+created_at: "2026-05-21T17:34:56Z"
+colossus_url: "https://colossus.com/episode/senra-david-packard-how-bill-hewlett-and-i-built-hp/"
+fetched_at: "2026-05-21T17:34:56Z"
 ---
 
 ## Description

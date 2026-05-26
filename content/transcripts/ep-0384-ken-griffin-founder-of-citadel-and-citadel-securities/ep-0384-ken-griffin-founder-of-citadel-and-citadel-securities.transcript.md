@@ -2,11 +2,13 @@
 id: "ep-0384"
 episode_number: 384
 title: "#384 Ken Griffin: Founder of Citadel and Citadel Securities"
-published_at: 2025-04-01
-colossus_url: https://colossus.com/episode/384-ken-griffin-founder-of-citadel-and-citadel-securities/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:42:16Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-04-01"
+founders_url: "https://www.founderspodcast.com/episodes/384-ken-griffin-founder-of-citadel-and-citadel-securities"
+created_at: "2026-05-21T17:42:16Z"
+colossus_url: "https://colossus.com/episode/384-ken-griffin-founder-of-citadel-and-citadel-securities/"
+fetched_at: "2026-05-21T17:42:16Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0248"
 episode_number: 248
 title: "#248 John D. Rockefeller (Titan)"
-published_at: 2022-05-28
-colossus_url: https://colossus.com/episode/senra-john-d-rockefeller-the-life-of-a-titan/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:27Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-05-28"
+founders_url: "https://www.founderspodcast.com/episodes/248-john-d-rockefeller-titan"
+created_at: "2026-05-21T17:39:27Z"
+colossus_url: "https://colossus.com/episode/senra-john-d-rockefeller-the-life-of-a-titan/"
+fetched_at: "2026-05-21T17:39:27Z"
 ---
 
 ## Description

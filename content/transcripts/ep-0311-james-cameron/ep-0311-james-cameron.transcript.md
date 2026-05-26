@@ -2,11 +2,13 @@
 id: "ep-0311"
 episode_number: 311
 title: "#311 James Cameron"
-published_at: 2023-07-12
-colossus_url: https://colossus.com/episode/senra-james-cameron-the-futurist/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:45Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-07-12"
+founders_url: "https://www.founderspodcast.com/episodes/311-james-cameron"
+created_at: "2026-05-21T17:40:45Z"
+colossus_url: "https://colossus.com/episode/senra-james-cameron-the-futurist/"
+fetched_at: "2026-05-21T17:40:45Z"
 ---
 
 ## Description

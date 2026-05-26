@@ -1,9 +1,13 @@
 ---
 id: "ep-0083"
-title: "#83 Thomas Edison, Nikola Tesla, George Westinghouse, and the Race to Electrify the World"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 83
+title: "#83 Thomas Edison, Nikola Tesla, George Westinghouse, and the Race to Electrify the World"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-08-04"
+founders_url: "https://www.founderspodcast.com/episodes/83-thomas-edison-nikola-tesla-george-westinghouse-and-the-race-to-electrify-the-world"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

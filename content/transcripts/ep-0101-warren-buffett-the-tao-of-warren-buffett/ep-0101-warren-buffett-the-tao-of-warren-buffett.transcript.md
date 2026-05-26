@@ -2,11 +2,13 @@
 id: "ep-0101"
 episode_number: 101
 title: "#101 Warren Buffett (The Tao of Warren Buffett)"
-published_at: 2019-12-08
-colossus_url: https://colossus.com/episode/senra-the-tao-of-warren-buffett/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:25Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-12-08"
+founders_url: "https://www.founderspodcast.com/episodes/101-warren-buffett-the-tao-of-warren-buffett"
+created_at: "2026-05-21T17:36:25Z"
+colossus_url: "https://colossus.com/episode/senra-the-tao-of-warren-buffett/"
+fetched_at: "2026-05-21T17:36:25Z"
 ---
 
 ## Description

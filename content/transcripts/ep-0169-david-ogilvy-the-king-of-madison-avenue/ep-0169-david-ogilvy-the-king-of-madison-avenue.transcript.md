@@ -2,11 +2,13 @@
 id: "ep-0169"
 episode_number: 169
 title: "#169 David Ogilvy (The King of Madison Avenue)"
-published_at: 2021-03-01
-colossus_url: https://colossus.com/episode/senra-david-ogilvy-the-king-of-madison-avenue/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:50Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-03-01"
+founders_url: "https://www.founderspodcast.com/episodes/169-david-ogilvy-the-king-of-madison-avenue"
+created_at: "2026-05-21T17:37:50Z"
+colossus_url: "https://colossus.com/episode/senra-david-ogilvy-the-king-of-madison-avenue/"
+fetched_at: "2026-05-21T17:37:50Z"
 ---
 
 ## Description

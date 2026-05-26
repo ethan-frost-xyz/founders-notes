@@ -1,13 +1,16 @@
 ---
 id: "ep-0080"
+episode_number: 80
 title: "#80 Henry Ford (Today and Tomorrow)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-07"
+founders_url: "https://www.founderspodcast.com/episodes/80-henry-ford-today-and-tomorrow"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2008758685506351268"
 x_post_id: "2008758685506351268"
-published_at: "2026-01-07"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 80
 ---
 
 "The test of the service of a corporation is in how far its benefits are passed on to the consumer." (15:03)

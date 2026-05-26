@@ -1,13 +1,16 @@
 ---
 id: "ep-0105"
+episode_number: 105
 title: "#105 Les Schwab (Charlie Munger recommended this book)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-02"
+founders_url: "https://www.founderspodcast.com/episodes/105-les-schwab-charlie-munger-recommended-this-book"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2018195878054379946"
 x_post_id: "2018195878054379946"
-published_at: "2026-02-02"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 105
 ---
 
 Founders #105 Les Schwab

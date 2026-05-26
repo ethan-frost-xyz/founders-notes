@@ -2,11 +2,13 @@
 id: "ep-0223"
 episode_number: 223
 title: "#223 Unstoppable: Siggi Wilzig's Astonishing Journey from Auschwitz Survivor and Penniless Immigrant to Wall Street Legend"
-published_at: 2021-12-29
-colossus_url: https://colossus.com/episode/senra-siggi-wilzig-astonishing-journey-from-auschwitz-survivor-and-penniless-immigrant-to-wall-street-legend/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:57Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-12-29"
+founders_url: "https://www.founderspodcast.com/episodes/223-unstoppable-siggi-wilzigs-astonishing-journey-from-auschwitz-survivor-and-penniless-immigrant-to-wall-street-legend"
+created_at: "2026-05-21T17:38:57Z"
+colossus_url: "https://colossus.com/episode/senra-siggi-wilzig-astonishing-journey-from-auschwitz-survivor-and-penniless-immigrant-to-wall-street-legend/"
+fetched_at: "2026-05-21T17:38:57Z"
 ---
 
 ## Description

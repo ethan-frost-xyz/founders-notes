@@ -1,13 +1,16 @@
 ---
 id: "ep-0162"
+episode_number: 162
 title: "#162 Chuck Yeager"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-04-07"
+founders_url: "https://www.founderspodcast.com/episodes/162-chuck-yeager"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2041530121580843324"
 x_post_id: "2041530121580843324"
-published_at: "2026-04-07"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 162
 ---
 
 Living to a ripe old age is not an end in itself.

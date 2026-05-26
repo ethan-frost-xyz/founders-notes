@@ -2,11 +2,13 @@
 id: "ep-0333"
 episode_number: 333
 title: "#333 Red Bull's Billionaire Maniac Founder: Dietrich Mateschitz"
-published_at: 2024-01-08
-colossus_url: https://colossus.com/episode/senra-333-red-bulls-billionaire-maniac-founder-dietrich-mateschitz/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:12Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-01-08"
+founders_url: "https://www.founderspodcast.com/episodes/333-red-bulls-billionaire-maniac-founder-dietrich-mateschitz"
+created_at: "2026-05-21T17:41:12Z"
+colossus_url: "https://colossus.com/episode/senra-333-red-bulls-billionaire-maniac-founder-dietrich-mateschitz/"
+fetched_at: "2026-05-21T17:41:12Z"
 ---
 
 ## Description

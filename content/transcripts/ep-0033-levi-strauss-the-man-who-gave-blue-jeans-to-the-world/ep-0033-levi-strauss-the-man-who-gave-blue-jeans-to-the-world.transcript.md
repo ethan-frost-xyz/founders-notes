@@ -2,11 +2,13 @@
 id: "ep-0033"
 episode_number: 33
 title: "#33 Levi Strauss: The Man Who Gave Blue Jeans to the World"
-published_at: 2018-08-12
-colossus_url: https://colossus.com/episode/senra-levi-strauss-the-man-who-gave-blue-jeans-to-the-world/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:01Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-08-12"
+founders_url: "https://www.founderspodcast.com/episodes/33-levi-strauss-the-man-who-gave-blue-jeans-to-the-world"
+created_at: "2026-05-21T17:35:01Z"
+colossus_url: "https://colossus.com/episode/senra-levi-strauss-the-man-who-gave-blue-jeans-to-the-world/"
+fetched_at: "2026-05-21T17:35:01Z"
 ---
 
 ## Description

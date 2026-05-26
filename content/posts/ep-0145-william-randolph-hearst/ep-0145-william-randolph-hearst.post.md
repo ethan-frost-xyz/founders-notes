@@ -1,13 +1,16 @@
 ---
 id: "ep-0145"
+episode_number: 145
 title: "#145 William Randolph Hearst"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-13"
+founders_url: "https://www.founderspodcast.com/episodes/145-william-randolph-hearst"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2032560658693165075"
 x_post_id: "2032560658693165075"
-published_at: "2026-03-13"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 145
 ---
 
 Founders #145: William Randolph Hearst

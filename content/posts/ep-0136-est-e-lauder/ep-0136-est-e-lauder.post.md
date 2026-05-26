@@ -1,13 +1,16 @@
 ---
 id: "ep-0136"
+episode_number: 136
 title: "#136 Estée Lauder"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-04"
+founders_url: "https://www.founderspodcast.com/episodes/136-est-e-lauder"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2029279209349365911"
 x_post_id: "2029279209349365911"
-published_at: "2026-03-04"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 136
 ---
 
 Founders #136: Estée Lauder

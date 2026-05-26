@@ -1,13 +1,16 @@
 ---
 id: "ep-0062"
+episode_number: 62
 title: "#62 The Autobiography of Benjamin Franklin"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-20"
+founders_url: "https://www.founderspodcast.com/episodes/62-the-autobiography-of-benjamin-franklin"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2002208003676844180"
 x_post_id: "2002208003676844180"
-published_at: "2025-12-20"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 62
 ---
 
 Founders #62: Benjamin Franklin

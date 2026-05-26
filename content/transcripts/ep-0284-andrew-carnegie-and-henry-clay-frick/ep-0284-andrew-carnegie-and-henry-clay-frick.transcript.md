@@ -2,11 +2,13 @@
 id: "ep-0284"
 episode_number: 284
 title: "#284 Andrew Carnegie and Henry Clay Frick"
-published_at: 2023-01-02
-colossus_url: https://colossus.com/episode/senra-andrew-carnegie-henry-clay-frick-the-bitter-partnership-that-changed-america/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:12Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-01-02"
+founders_url: "https://www.founderspodcast.com/episodes/284-andrew-carnegie-and-henry-clay-frick"
+created_at: "2026-05-21T17:40:12Z"
+colossus_url: "https://colossus.com/episode/senra-andrew-carnegie-henry-clay-frick-the-bitter-partnership-that-changed-america/"
+fetched_at: "2026-05-21T17:40:12Z"
 ---
 
 ## Description

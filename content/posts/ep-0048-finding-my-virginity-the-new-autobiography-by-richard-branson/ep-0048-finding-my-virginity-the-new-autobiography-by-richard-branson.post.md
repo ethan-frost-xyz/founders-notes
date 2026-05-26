@@ -1,13 +1,16 @@
 ---
 id: "ep-0048"
+episode_number: 48
 title: "#48 Finding My Virginity: The New Autobiography by Richard Branson"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-06"
+founders_url: "https://www.founderspodcast.com/episodes/48-finding-my-virginity-the-new-autobiography-by-richard-branson"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1997104650869174672"
 x_post_id: "1997104650869174672"
-published_at: "2025-12-06"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 48
 ---
 
 Founders #48 Richard Branson - Virgin

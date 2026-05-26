@@ -2,11 +2,13 @@
 id: "ep-0306"
 episode_number: 306
 title: "#306 David Ogilvy (Confessions of an Advertising Man)"
-published_at: 2023-06-05
-colossus_url: https://colossus.com/episode/senra-david-ogilvy-advertising-man/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:39Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-06-05"
+founders_url: "https://www.founderspodcast.com/episodes/306-david-ogilvy-confessions-of-an-advertising-man"
+created_at: "2026-05-21T17:40:39Z"
+colossus_url: "https://colossus.com/episode/senra-david-ogilvy-advertising-man/"
+fetched_at: "2026-05-21T17:40:39Z"
 ---
 
 ## Description

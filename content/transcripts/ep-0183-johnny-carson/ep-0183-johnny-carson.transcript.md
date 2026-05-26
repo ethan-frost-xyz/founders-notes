@@ -2,11 +2,13 @@
 id: "ep-0183"
 episode_number: 183
 title: "#183 Johnny Carson"
-published_at: 2021-06-04
-colossus_url: https://colossus.com/episode/senra-johnny-carson/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:07Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-06-04"
+founders_url: "https://www.founderspodcast.com/episodes/183-johnny-carson"
+created_at: "2026-05-21T17:38:07Z"
+colossus_url: "https://colossus.com/episode/senra-johnny-carson/"
+fetched_at: "2026-05-21T17:38:07Z"
 ---
 
 ## Description

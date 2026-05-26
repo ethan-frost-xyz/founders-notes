@@ -1,13 +1,16 @@
 ---
 id: "ep-0113"
+episode_number: 113
 title: "#113 A.G. Gaston (Black Titan and the Making of a Black American Millionaire)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-09"
+founders_url: "https://www.founderspodcast.com/episodes/113-a-g-gaston-black-titan-and-the-making-of-a-black-american-millionaire"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2020982608918609956"
 x_post_id: "2020982608918609956"
-published_at: "2026-02-09"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 113
 ---
 
 Founders #113

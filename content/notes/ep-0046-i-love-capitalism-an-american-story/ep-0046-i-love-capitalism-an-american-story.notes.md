@@ -1,9 +1,13 @@
 ---
 id: "ep-0046"
-title: "#46 I Love Capitalism: An American Story"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 46
+title: "#46 I Love Capitalism: An American Story"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2018-11-13"
+founders_url: "https://www.founderspodcast.com/episodes/46-i-love-capitalism-an-american-story"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

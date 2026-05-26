@@ -2,11 +2,13 @@
 id: "ep-0228"
 episode_number: 228
 title: "#228 Michael Bloomberg"
-published_at: 2022-01-27
-colossus_url: https://colossus.com/episode/senra-michael-bloomberg-building-bloomberg/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:03Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-01-27"
+founders_url: "https://www.founderspodcast.com/episodes/228-michael-bloomberg"
+created_at: "2026-05-21T17:39:03Z"
+colossus_url: "https://colossus.com/episode/senra-michael-bloomberg-building-bloomberg/"
+fetched_at: "2026-05-21T17:39:03Z"
 ---
 
 ## Description

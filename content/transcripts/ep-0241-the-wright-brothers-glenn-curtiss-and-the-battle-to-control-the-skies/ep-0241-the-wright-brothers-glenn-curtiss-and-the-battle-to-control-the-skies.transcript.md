@@ -2,11 +2,13 @@
 id: "ep-0241"
 episode_number: 241
 title: "#241 The Wright Brothers, Glenn Curtiss, and the Battle to Control the Skies"
-published_at: 2022-04-14
-colossus_url: https://colossus.com/episode/senra-the-wright-brothers-the-battle-to-control-the-skies/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:19Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-04-14"
+founders_url: "https://www.founderspodcast.com/episodes/241-the-wright-brothers-glenn-curtiss-and-the-battle-to-control-the-skies"
+created_at: "2026-05-21T17:39:19Z"
+colossus_url: "https://colossus.com/episode/senra-the-wright-brothers-the-battle-to-control-the-skies/"
+fetched_at: "2026-05-21T17:39:19Z"
 ---
 
 ## Description

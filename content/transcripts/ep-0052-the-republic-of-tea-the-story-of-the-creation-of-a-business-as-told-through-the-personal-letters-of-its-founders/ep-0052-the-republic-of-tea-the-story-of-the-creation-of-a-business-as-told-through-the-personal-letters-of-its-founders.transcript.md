@@ -2,11 +2,13 @@
 id: "ep-0052"
 episode_number: 52
 title: "#52 The Republic of Tea: The Story of the Creation of a Business, as Told Through the Personal Letters of Its Founders"
-published_at: 2018-12-25
-colossus_url: https://colossus.com/episode/senra-mel-ziegler-patricia-ziegler-and-bill-rosenzweig-the-republic-of-tea/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:25Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-12-25"
+founders_url: "https://www.founderspodcast.com/episodes/52-the-republic-of-tea-the-story-of-the-creation-of-a-business-as-told-through-the-personal-letters-of-its-founders"
+created_at: "2026-05-21T17:35:25Z"
+colossus_url: "https://colossus.com/episode/senra-mel-ziegler-patricia-ziegler-and-bill-rosenzweig-the-republic-of-tea/"
+fetched_at: "2026-05-21T17:35:25Z"
 ---
 
 ## Description

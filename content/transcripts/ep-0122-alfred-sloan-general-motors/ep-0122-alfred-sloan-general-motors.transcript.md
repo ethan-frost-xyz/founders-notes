@@ -2,11 +2,13 @@
 id: "ep-0122"
 episode_number: 122
 title: "#122 Alfred Sloan (General Motors)"
-published_at: 2020-04-26
-colossus_url: https://colossus.com/episode/senra-alfred-sloan-general-motors/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:51Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-04-26"
+founders_url: "https://www.founderspodcast.com/episodes/122-alfred-sloan-general-motors"
+created_at: "2026-05-21T17:36:51Z"
+colossus_url: "https://colossus.com/episode/senra-alfred-sloan-general-motors/"
+fetched_at: "2026-05-21T17:36:51Z"
 ---
 
 ## Description

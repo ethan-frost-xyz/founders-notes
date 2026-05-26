@@ -2,11 +2,13 @@
 id: "ep-0330"
 episode_number: 330
 title: "#330 Les Schwab (Charlie Munger recommended this book)"
-published_at: 2023-12-11
-colossus_url: https://colossus.com/episode/senra-330-les-schwab-charlie-munger-recommended-this-book/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:09Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-12-11"
+founders_url: "https://www.founderspodcast.com/episodes/330-les-schwab-charlie-munger-recommended-this-book"
+created_at: "2026-05-21T17:41:09Z"
+colossus_url: "https://colossus.com/episode/senra-330-les-schwab-charlie-munger-recommended-this-book/"
+fetched_at: "2026-05-21T17:41:09Z"
 ---
 
 ## Description

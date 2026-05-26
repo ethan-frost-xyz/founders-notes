@@ -2,11 +2,13 @@
 id: "ep-0005"
 episode_number: 5
 title: "#5 Steve Jobs"
-published_at: 2017-04-30
-colossus_url: https://colossus.com/episode/senra-steve-jobs/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:27Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2017-04-30"
+founders_url: "https://www.founderspodcast.com/episodes/5-steve-jobs"
+created_at: "2026-05-21T17:34:27Z"
+colossus_url: "https://colossus.com/episode/senra-steve-jobs/"
+fetched_at: "2026-05-21T17:34:27Z"
 ---
 
 ## Description

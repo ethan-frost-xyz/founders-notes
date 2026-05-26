@@ -2,11 +2,13 @@
 id: "ep-0060"
 episode_number: 60
 title: "#60 Yvon Chouinard: What We've Learned from Patagonia's First 40 Years"
-published_at: 2019-02-18
-colossus_url: https://colossus.com/episode/senra-yvon-chouinard-patagonias-first-40-years/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:34Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-02-18"
+founders_url: "https://www.founderspodcast.com/episodes/60-yvon-chouinard-what-weve-learned-from-patagonias-first-40-years"
+created_at: "2026-05-21T17:35:34Z"
+colossus_url: "https://colossus.com/episode/senra-yvon-chouinard-patagonias-first-40-years/"
+fetched_at: "2026-05-21T17:35:34Z"
 ---
 
 ## Description

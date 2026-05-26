@@ -1,9 +1,13 @@
 ---
 id: "ep-0106"
-title: "#106 Bill Walsh (The Score Takes Care of Itself)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 106
+title: "#106 Bill Walsh (The Score Takes Care of Itself)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-01-12"
+founders_url: "https://www.founderspodcast.com/episodes/106-bill-walsh-the-score-takes-care-of-itself"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

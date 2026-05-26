@@ -1,13 +1,16 @@
 ---
 id: "ep-0149"
+episode_number: 149
 title: "#149 The Big Rich (Oil Billionaires)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-19"
+founders_url: "https://www.founderspodcast.com/episodes/149-the-big-rich-oil-billionaires"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2034478057398902927"
 x_post_id: "2034478057398902927"
-published_at: "2026-03-19"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 149
 ---
 
 Founders #149: Roy Cullen, Clint Murchison & H.L. Hunt

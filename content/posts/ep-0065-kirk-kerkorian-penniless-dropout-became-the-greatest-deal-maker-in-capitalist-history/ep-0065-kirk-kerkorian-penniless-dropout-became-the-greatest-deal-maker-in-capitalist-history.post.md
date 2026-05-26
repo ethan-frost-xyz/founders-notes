@@ -1,13 +1,16 @@
 ---
 id: "ep-0065"
+episode_number: 65
 title: "#65 Kirk Kerkorian: Penniless Dropout became the Greatest Deal Maker in Capitalist History"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-22"
+founders_url: "https://www.founderspodcast.com/episodes/65-kirk-kerkorian-penniless-dropout-became-the-greatest-deal-maker-in-capitalist-history"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2003209178098332116"
 x_post_id: "2003209178098332116"
-published_at: "2025-12-22"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 65
 ---
 
 Founders #65: Kirk Kerkorian (MGM Grand)

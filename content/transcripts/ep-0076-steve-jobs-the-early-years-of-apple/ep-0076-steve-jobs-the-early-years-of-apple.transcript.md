@@ -2,11 +2,13 @@
 id: "ep-0076"
 episode_number: 76
 title: "#76 Steve Jobs: The Early Years of Apple"
-published_at: 2019-06-16
-colossus_url: https://colossus.com/episode/senra-steve-jobs-the-creation-of-apple/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:54Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-06-16"
+founders_url: "https://www.founderspodcast.com/episodes/76-steve-jobs-the-early-years-of-apple"
+created_at: "2026-05-21T17:35:54Z"
+colossus_url: "https://colossus.com/episode/senra-steve-jobs-the-creation-of-apple/"
+fetched_at: "2026-05-21T17:35:54Z"
 ---
 
 ## Description

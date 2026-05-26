@@ -2,11 +2,13 @@
 id: "ep-0097"
 episode_number: 97
 title: "#97 Enzo Ferrari (Ferrari vs Ford)"
-published_at: 2019-11-10
-colossus_url: https://colossus.com/episode/senra-enzo-ferrari-ford-ferrari-and-their-battle-for-speed/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:20Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-11-10"
+founders_url: "https://www.founderspodcast.com/episodes/97-enzo-ferrari-ferrari-vs-ford"
+created_at: "2026-05-21T17:36:20Z"
+colossus_url: "https://colossus.com/episode/senra-enzo-ferrari-ford-ferrari-and-their-battle-for-speed/"
+fetched_at: "2026-05-21T17:36:20Z"
 ---
 
 ## Description

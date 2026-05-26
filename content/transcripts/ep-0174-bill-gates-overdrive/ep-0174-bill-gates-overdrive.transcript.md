@@ -2,11 +2,13 @@
 id: "ep-0174"
 episode_number: 174
 title: "#174 Bill Gates (Overdrive)"
-published_at: 2021-04-05
-colossus_url: https://colossus.com/episode/senra-bill-gates-overdrive/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:56Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-04-05"
+founders_url: "https://www.founderspodcast.com/episodes/174-bill-gates-overdrive"
+created_at: "2026-05-21T17:37:56Z"
+colossus_url: "https://colossus.com/episode/senra-bill-gates-overdrive/"
+fetched_at: "2026-05-21T17:37:56Z"
 ---
 
 ## Description

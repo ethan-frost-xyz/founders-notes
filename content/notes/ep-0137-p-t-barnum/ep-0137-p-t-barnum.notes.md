@@ -1,9 +1,13 @@
 ---
 id: "ep-0137"
-title: "#137 P.T. Barnum"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 137
+title: "#137 P.T. Barnum"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-07-26"
+founders_url: "https://www.founderspodcast.com/episodes/137-p-t-barnum"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

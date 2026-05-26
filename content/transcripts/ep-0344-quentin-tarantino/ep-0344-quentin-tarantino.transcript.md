@@ -2,11 +2,13 @@
 id: "ep-0344"
 episode_number: 344
 title: "#344 Quentin Tarantino"
-published_at: 2024-03-30
-colossus_url: https://colossus.com/episode/senra-344-quentin-tarantino/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:26Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-03-30"
+founders_url: "https://www.founderspodcast.com/episodes/344-quentin-tarantino"
+created_at: "2026-05-21T17:41:26Z"
+colossus_url: "https://colossus.com/episode/senra-344-quentin-tarantino/"
+fetched_at: "2026-05-21T17:41:26Z"
 ---
 
 ## Description

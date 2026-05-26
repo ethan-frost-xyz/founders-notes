@@ -2,11 +2,13 @@
 id: "ep-0260"
 episode_number: 260
 title: "#260 One from Many: VISA and the Rise of Chaordic Organization"
-published_at: 2022-08-03
-colossus_url: https://colossus.com/episode/senra-dee-hock-visa-and-the-rise-of-chaordic-organization/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:42Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-08-03"
+founders_url: "https://www.founderspodcast.com/episodes/260-one-from-many-visa-and-the-rise-of-chaordic-organization"
+created_at: "2026-05-21T17:39:42Z"
+colossus_url: "https://colossus.com/episode/senra-dee-hock-visa-and-the-rise-of-chaordic-organization/"
+fetched_at: "2026-05-21T17:39:42Z"
 ---
 
 ## Description

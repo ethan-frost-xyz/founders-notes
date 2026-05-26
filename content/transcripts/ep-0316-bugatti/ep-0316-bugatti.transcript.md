@@ -2,11 +2,13 @@
 id: "ep-0316"
 episode_number: 316
 title: "#316 Bugatti"
-published_at: 2023-08-14
-colossus_url: https://colossus.com/episode/senra-ettore-bugatti-the-bugatti-story/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:51Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-08-14"
+founders_url: "https://www.founderspodcast.com/episodes/316-bugatti"
+created_at: "2026-05-21T17:40:51Z"
+colossus_url: "https://colossus.com/episode/senra-ettore-bugatti-the-bugatti-story/"
+fetched_at: "2026-05-21T17:40:51Z"
 ---
 
 ## Description

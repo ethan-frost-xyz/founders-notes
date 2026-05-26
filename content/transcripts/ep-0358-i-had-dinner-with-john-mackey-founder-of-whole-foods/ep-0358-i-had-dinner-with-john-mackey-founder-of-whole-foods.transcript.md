@@ -2,11 +2,13 @@
 id: "ep-0358"
 episode_number: 358
 title: "#358 I had dinner with John Mackey, Founder of Whole Foods"
-published_at: 2024-07-28
-colossus_url: https://colossus.com/episode/senra-358-i-had-dinner-with-john-mackey-founder-of-whole-foods/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:44Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-07-28"
+founders_url: "https://www.founderspodcast.com/episodes/358-i-had-dinner-with-john-mackey-founder-of-whole-foods"
+created_at: "2026-05-21T17:41:44Z"
+colossus_url: "https://colossus.com/episode/senra-358-i-had-dinner-with-john-mackey-founder-of-whole-foods/"
+fetched_at: "2026-05-21T17:41:44Z"
 ---
 
 ## Description

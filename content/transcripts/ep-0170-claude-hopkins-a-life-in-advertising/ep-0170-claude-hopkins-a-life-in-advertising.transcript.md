@@ -2,11 +2,13 @@
 id: "ep-0170"
 episode_number: 170
 title: "#170 Claude Hopkins (A Life in Advertising)"
-published_at: 2021-03-08
-colossus_url: https://colossus.com/episode/senra-claude-hopkins-my-life-in-advertising/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:51Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-03-08"
+founders_url: "https://www.founderspodcast.com/episodes/170-claude-hopkins-a-life-in-advertising"
+created_at: "2026-05-21T17:37:51Z"
+colossus_url: "https://colossus.com/episode/senra-claude-hopkins-my-life-in-advertising/"
+fetched_at: "2026-05-21T17:37:51Z"
 ---
 
 ## Description

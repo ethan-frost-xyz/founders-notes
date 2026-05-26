@@ -2,11 +2,13 @@
 id: "ep-0012"
 episode_number: 12
 title: "#12 Elon Musk & How Tesla Will Change The World"
-published_at: 2017-08-20
-colossus_url: https://colossus.com/episode/senra-elon-musk-how-tesla-will-change-the-world/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:35Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2017-08-20"
+founders_url: "https://www.founderspodcast.com/episodes/12-elon-musk-how-tesla-will-change-the-world"
+created_at: "2026-05-21T17:34:35Z"
+colossus_url: "https://colossus.com/episode/senra-elon-musk-how-tesla-will-change-the-world/"
+fetched_at: "2026-05-21T17:34:35Z"
 ---
 
 ## Description

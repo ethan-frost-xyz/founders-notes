@@ -1,13 +1,16 @@
 ---
 id: "ep-0050"
+episode_number: 50
 title: "#50 Marc Andreessen's Blog Archive"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-08"
+founders_url: "https://www.founderspodcast.com/episodes/50-marc-andreessens-blog-archive"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1997887933164953819"
 x_post_id: "1997887933164953819"
-published_at: "2025-12-08"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 50
 ---
 
 Founders #50 Marc Andreessen

@@ -1,9 +1,13 @@
 ---
 id: "ep-0042"
-title: "#42 One From Many: VISA and the Rise of Chaordic Organization"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 42
+title: "#42 One From Many: VISA and the Rise of Chaordic Organization"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2018-10-16"
+founders_url: "https://www.founderspodcast.com/episodes/42-one-from-many-visa-and-the-rise-of-chaordic-organization"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

@@ -2,11 +2,13 @@
 id: "ep-0051"
 episode_number: 51
 title: "#51 Wild Company: The Untold Story of Banana Republic"
-published_at: 2018-12-17
-colossus_url: https://colossus.com/episode/senra-mel-and-patricia-ziegler-the-untold-story-of-banana-republic/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:24Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-12-17"
+founders_url: "https://www.founderspodcast.com/episodes/51-wild-company-the-untold-story-of-banana-republic"
+created_at: "2026-05-21T17:35:24Z"
+colossus_url: "https://colossus.com/episode/senra-mel-and-patricia-ziegler-the-untold-story-of-banana-republic/"
+fetched_at: "2026-05-21T17:35:24Z"
 ---
 
 ## Description

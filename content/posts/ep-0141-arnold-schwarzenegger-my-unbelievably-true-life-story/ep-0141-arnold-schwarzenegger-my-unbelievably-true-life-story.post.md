@@ -1,13 +1,16 @@
 ---
 id: "ep-0141"
+episode_number: 141
 title: "#141 Arnold Schwarzenegger (My Unbelievably True Life Story)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-10"
+founders_url: "https://www.founderspodcast.com/episodes/141-arnold-schwarzenegger-my-unbelievably-true-life-story"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2031217551900836194"
 x_post_id: "2031217551900836194"
-published_at: "2026-03-10"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 141
 ---
 
 Founders #141: Arnold Schwarzenegger

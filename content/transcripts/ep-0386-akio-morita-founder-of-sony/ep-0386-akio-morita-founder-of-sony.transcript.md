@@ -2,11 +2,13 @@
 id: "ep-0386"
 episode_number: 386
 title: "#386 Akio Morita: Founder of Sony"
-published_at: 2025-04-22
-colossus_url: https://colossus.com/episode/386-akio-morita-founder-of-sony/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:42:18Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-04-22"
+founders_url: "https://www.founderspodcast.com/episodes/386-akio-morita-founder-of-sony"
+created_at: "2026-05-21T17:42:18Z"
+colossus_url: "https://colossus.com/episode/386-akio-morita-founder-of-sony/"
+fetched_at: "2026-05-21T17:42:18Z"
 ---
 
 ## Description

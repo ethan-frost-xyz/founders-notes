@@ -2,11 +2,13 @@
 id: "ep-0142"
 episode_number: 142
 title: "#142 Teddy Roosevelt and J.P. Morgan"
-published_at: 2020-08-30
-colossus_url: https://colossus.com/episode/senra-142-the-hour-of-fate-theodore-roosevelt-jp-morgan-and-the-battle-to-transform-american-capitalism/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:16Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-08-30"
+founders_url: "https://www.founderspodcast.com/episodes/142-teddy-roosevelt-and-j-p-morgan"
+created_at: "2026-05-21T17:37:16Z"
+colossus_url: "https://colossus.com/episode/senra-142-the-hour-of-fate-theodore-roosevelt-jp-morgan-and-the-battle-to-transform-american-capitalism/"
+fetched_at: "2026-05-21T17:37:16Z"
 ---
 
 ## Description

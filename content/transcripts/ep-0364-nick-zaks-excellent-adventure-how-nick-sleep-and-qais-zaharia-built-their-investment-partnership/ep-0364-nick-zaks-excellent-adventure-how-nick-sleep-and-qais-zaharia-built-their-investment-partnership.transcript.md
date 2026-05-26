@@ -2,11 +2,13 @@
 id: "ep-0364"
 episode_number: 364
 title: "#364 Nick & Zak's Excellent Adventure: How Nick Sleep and Qais Zaharia Built Their Investment Partnership"
-published_at: 2024-09-10
-colossus_url: https://colossus.com/episode/364-nick-zaks-excellent-adventure-how-nick-sleep-and-qais-zaharia-built-their-investment-partnership/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:51Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-09-10"
+founders_url: "https://www.founderspodcast.com/episodes/364-nick-zaks-excellent-adventure-how-nick-sleep-and-qais-zaharia-built-their-investment-partnership"
+created_at: "2026-05-21T17:41:51Z"
+colossus_url: "https://colossus.com/episode/364-nick-zaks-excellent-adventure-how-nick-sleep-and-qais-zaharia-built-their-investment-partnership/"
+fetched_at: "2026-05-21T17:41:51Z"
 ---
 
 ## Description

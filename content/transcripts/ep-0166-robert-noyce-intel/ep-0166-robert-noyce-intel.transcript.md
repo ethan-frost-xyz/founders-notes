@@ -2,11 +2,13 @@
 id: "ep-0166"
 episode_number: 166
 title: "#166 Robert Noyce (Intel)"
-published_at: 2021-02-08
-colossus_url: https://colossus.com/episode/senra-robert-noyce-the-man-behind-the-microchip/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:46Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-02-08"
+founders_url: "https://www.founderspodcast.com/episodes/166-robert-noyce-intel"
+created_at: "2026-05-21T17:37:46Z"
+colossus_url: "https://colossus.com/episode/senra-robert-noyce-the-man-behind-the-microchip/"
+fetched_at: "2026-05-21T17:37:46Z"
 ---
 
 ## Description

@@ -1,9 +1,13 @@
 ---
 id: "ep-0112"
-title: "#112 Frank Lloyd Wright"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 112
+title: "#112 Frank Lloyd Wright"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-02-24"
+founders_url: "https://www.founderspodcast.com/episodes/112-frank-lloyd-wright"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

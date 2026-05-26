@@ -1,13 +1,16 @@
 ---
 id: "ep-0058"
+episode_number: 58
 title: "#58 John Bogle: Enough: True Measures of Money, Business, and Life"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-16"
+founders_url: "https://www.founderspodcast.com/episodes/58-john-bogle-enough-true-measures-of-money-business-and-life"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2000747778851451182"
 x_post_id: "2000747778851451182"
-published_at: "2025-12-16"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 58
 ---
 
 Founders #58 John Bogle (Vanguard)

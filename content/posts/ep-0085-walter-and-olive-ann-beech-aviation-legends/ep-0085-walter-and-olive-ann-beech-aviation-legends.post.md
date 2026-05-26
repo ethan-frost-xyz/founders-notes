@@ -1,13 +1,16 @@
 ---
 id: "ep-0085"
+episode_number: 85
 title: "#85 Walter and Olive Ann Beech (Aviation Legends)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-12"
+founders_url: "https://www.founderspodcast.com/episodes/85-walter-and-olive-ann-beech-aviation-legends"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2010572770657042625"
 x_post_id: "2010572770657042625"
-published_at: "2026-01-12"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 85
 ---
 
 Founders #85: Olive Ann Beech
