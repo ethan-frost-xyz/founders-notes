@@ -2,6 +2,16 @@
 """Detect new founderspodcast.com episodes and repair catalog founders_url."""
 
 from __future__ import annotations
+import sys
+from pathlib import Path
+
+_INGESTION = Path(__file__).resolve().parents[1]
+if str(_INGESTION) not in sys.path:
+    sys.path.insert(0, str(_INGESTION))
+
+import _bootstrap
+
+_bootstrap.setup_paths(__file__)
 
 import argparse
 
@@ -55,10 +65,10 @@ def main() -> None:
 
     if not args.apply:
         print("\nDry-run. Re-run with --apply to add rows, then:")
-        print("  python map_colossus.py")
-        print("  python fetch_transcripts.py --id ep-0418")
-        print("  python scaffold_notes.py --missing")
-        print("  python verify.py")
+        print("  python pipeline/map_colossus.py")
+        print("  python transcripts/fetch_transcripts.py --id ep-0418")
+        print("  python notes/scaffold_notes.py --missing")
+        print("  python pipeline/verify.py")
         return
 
     for slug in new_slugs:
@@ -84,8 +94,8 @@ def main() -> None:
     )
     save_catalog(rows)
     print(
-        f"Added {len(new_slugs)} rows. Next: map_colossus.py → fetch_transcripts.py "
-        "→ scaffold_notes.py --missing → verify.py"
+        f"Added {len(new_slugs)} rows. Next: pipeline/map_colossus.py → transcripts/fetch_transcripts.py "
+        "→ notes/scaffold_notes.py --missing → pipeline/verify.py"
     )
 
 

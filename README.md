@@ -9,7 +9,7 @@ Personal knowledge vault for [@ethanfrost](https://x.com/ethanfrost)'s daily Fou
 | **Transcripts** | 417 / 417 numbered | Phase 1 complete — Colossus archives in `content/transcripts/` |
 | **Notes** | 417 files / 176 datapoints | **In progress (daily):** edit `.notes.md` in git (~1 episode/day); empty scaffolds = not listened yet |
 | **X posts** | 187 / 417 | CSV cache + organizer; 2 documented gaps (ep-0159 skipped, ep-0189 not posted) |
-| **Search** | v1 | `catalog/chunks.jsonl` + `ingestion/search.py` |
+| **Search** | v1 | `catalog/chunks.jsonl` + `ingestion/search/search.py` |
 
 Details: `catalog/gaps.md` (auto), `catalog/import-review.md` (manual attributions).
 
@@ -31,18 +31,18 @@ cd ingestion
 source .venv/bin/activate
 
 # X: cache first, then organize (requires .env)
-python sync_x_cache.py --full    # one-time backfill
-python sync_x_cache.py           # incremental
-python organize_posts_from_csv.py
+python x/sync_x_cache.py --full    # one-time backfill
+python x/sync_x_cache.py           # incremental
+python x/organize_posts_from_csv.py
 
 # Manual episode post (article text, wrong ep # on X, recap threads)
-python assign_post_manual.py --episode 148 --x-post-id ID --published-at 2026-03-17 \
+python x/assign_post_manual.py --episode 148 --x-post-id ID --published-at 2026-03-17 \
   --post-kind article --body-file ../import/body.txt
 
 # Search index + verify
-python build_chunks.py
-python verify.py
-python search.py "rockefeller"
+python search/build_chunks.py
+python pipeline/verify.py
+python search/search.py "rockefeller"
 ```
 
 See [docs/episode-id-rules.md](docs/episode-id-rules.md), [docs/notes-pipeline.md](docs/notes-pipeline.md), [docs/datapoint-workflow.md](docs/datapoint-workflow.md), [docs/retrieval.md](docs/retrieval.md), [AGENTS.md](AGENTS.md).
@@ -65,7 +65,7 @@ ingestion/                      # Build, import, verify scripts (see ingestion/R
 
 - One episode: `@content/transcripts/ep-0418-.../ep-0418-....transcript.md` plus matching `.notes.md` / `.post.md` in sibling folders
 - Catalog / missing: `catalog/episodes.jsonl` or `catalog/gaps.md`
-- Cross-episode search: `python search.py "rockefeller"` or ripgrep `content/`
+- Cross-episode search: `python search/search.py "rockefeller"` or ripgrep `content/`
 - Full post corpus: `content/posts/_corpus/all-posts.md`
 - Agent entrypoint: `AGENTS.md`
 
@@ -77,28 +77,28 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
 # Phase 1 — transcripts
-python build_catalog.py
-python map_colossus.py
-python fetch_transcripts.py          # requires .env
-python verify.py
+python pipeline/build_catalog.py
+python pipeline/map_colossus.py
+python transcripts/fetch_transcripts.py          # requires .env
+python pipeline/verify.py
 
 # Ongoing — new episodes / URL repair
-python sync_new.py --repair-urls --apply
+python pipeline/sync_new.py --repair-urls --apply
 # after map_colossus + fetch_transcripts for new rows:
-python scaffold_notes.py --missing
+python notes/scaffold_notes.py --missing
 
 # Phase 2 — notes and posts (notes: edit .notes.md directly; see docs/notes-pipeline.md)
-python sync_x_cache.py --full
-python organize_posts_from_csv.py
-python build_chunks.py
-python verify.py
+python x/sync_x_cache.py --full
+python x/organize_posts_from_csv.py
+python search/build_chunks.py
+python pipeline/verify.py
 ```
 
-Re-fetch one transcript: `python fetch_transcripts.py --id ep-0418 --force`
+Re-fetch one transcript: `python transcripts/fetch_transcripts.py --id ep-0418 --force`
 
 ## Completeness
 
-Phase 1 is complete when `python verify.py` reports no blocking transcript gaps.
+Phase 1 is complete when `python pipeline/verify.py` reports no blocking transcript gaps.
 
 Phase 2 progress is in `catalog/gaps.md` (notes files vs datapoints, posts). **Low datapoint/post counts are expected** while working through the catalog daily—not ingestion errors.
 
@@ -112,12 +112,12 @@ Three high-leverage options, ordered by impact on the daily ritual:
 
 **Primary workflow:** vault-native notes in git — see [docs/notes-pipeline.md](docs/notes-pipeline.md) (Working Copy on phone, Cursor on Mac).
 
-176 episodes have datapoints (see `catalog/gaps.md`). Ep 0190–0417 have **empty scaffolds** (`python scaffold_notes.py`); add timestamp bullets as you finish each episode (~1/day).
+176 episodes have datapoints (see `catalog/gaps.md`). Ep 0190–0417 have **empty scaffolds** (`python notes/scaffold_notes.py`); add timestamp bullets as you finish each episode (~1/day).
 
 ```bash
-python scaffold_notes.py --next   # path to next file to edit
-python verify.py                  # notes files vs notes with datapoints
-python build_chunks.py            # after adding bullets
+python notes/scaffold_notes.py --next   # path to next file to edit
+python pipeline/verify.py                  # notes files vs notes with datapoints
+python search/build_chunks.py            # after adding bullets
 ```
 
 **Also:** Replace ep-0021 `XYZ` placeholder when that note exists.
@@ -131,10 +131,10 @@ python build_chunks.py            # after adding bullets
 **After each X post:**
 
 ```bash
-python sync_x_cache.py
-python organize_posts_from_csv.py
-python attribute_posts_llm.py --dry-run   # optional: ambiguous review queue
-python attribute_posts_llm.py --apply
+python x/sync_x_cache.py
+python x/organize_posts_from_csv.py
+python x/attribute_posts_llm.py --dry-run   # optional: ambiguous review queue
+python x/attribute_posts_llm.py --apply
 ```
 
 **Done when:** Each new episode you publish gets a `.post.md` via organize (explicit `#`) or LLM/manual—not when all 417 rows are filled.

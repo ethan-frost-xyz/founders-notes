@@ -4,8 +4,8 @@ Place one-time exports here (gitignored). Pass paths explicitly to ingestion scr
 
 | Source | Suggested file | Script |
 |--------|----------------|--------|
-| X posts (cache) | `x-posts-raw.csv` | `sync_x_cache.py` then `organize_posts_from_csv.py` |
-| Manual post body | any `.txt` file | `assign_post_manual.py --body-file path` |
+| X posts (cache) | `x-posts-raw.csv` | `x/sync_x_cache.py` then `x/organize_posts_from_csv.py` |
+| Manual post body | any `.txt` file | `x/assign_post_manual.py --body-file path` |
 
 Personal exports and X cache are not committed (see `.gitignore`).
 
@@ -26,11 +26,11 @@ Do not bulk-fix these lists. Only **blocking** gaps are transcript/layout (`veri
 cd ingestion
 source .venv/bin/activate
 
-python sync_x_cache.py
-python organize_posts_from_csv.py
-python attribute_posts_llm.py --dry-run   # optional: ambiguous review queue
-python attribute_posts_llm.py --apply     # when dry-run looks right
-python verify.py
+python x/sync_x_cache.py
+python x/organize_posts_from_csv.py
+python x/attribute_posts_llm.py --dry-run   # optional: ambiguous review queue
+python x/attribute_posts_llm.py --apply     # when dry-run looks right
+python pipeline/verify.py
 ```
 
 - **Organize** auto-maps tweets with explicit Founders `#N` / `ep. N` (high confidence).
@@ -43,7 +43,7 @@ python verify.py
 
 ```bash
 # Grow CSV history (optional; not needed to “close” ep-0190+ gaps)
-python sync_x_cache.py --full
+python x/sync_x_cache.py --full
 ```
 
 ## Manual assignment
@@ -51,7 +51,7 @@ python sync_x_cache.py --full
 For native X articles, recap threads, wrong `#` on X, or link-only promos:
 
 ```bash
-python assign_post_manual.py --episode 82 --x-post-id 2020587382983237949 \
+python x/assign_post_manual.py --episode 82 --x-post-id 2020587382983237949 \
   --published-at 2026-02-08 --post-kind article --body-file ../import/ep-0082-article.txt
 ```
 

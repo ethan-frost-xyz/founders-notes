@@ -16,13 +16,14 @@ from markdown_io import (
 )
 import paths
 from paths import (
+    INGESTION_DIR,
     expanded_draft_file_path,
     expanded_file_path,
     notes_file_path,
     staging_draft_file_path,
 )
 
-DEFAULT_PROMPT_REL = Path("ingestion/prompts/expand_datapoints.md")
+DEFAULT_PROMPT_PATH = INGESTION_DIR / "prompts" / "expand_datapoints.md"
 
 
 def expand_run_log_path() -> Path:
@@ -32,7 +33,7 @@ MARKERS = ("<<<SYSTEM>>>", "<<<USER>>>")
 
 
 def default_prompt_path() -> Path:
-    return paths.ROOT / DEFAULT_PROMPT_REL
+    return DEFAULT_PROMPT_PATH
 
 
 def load_prompt_template(path: Path | None = None) -> tuple[str, str]:

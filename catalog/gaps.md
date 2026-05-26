@@ -64,7 +64,7 @@ File exists but no `MM:SS —` bullets yet — **expected** for episodes not lis
 
 ## Has datapoints, no expanded.md (176 numbered)
 
-Optional LLM expansion: `python expand_datapoints_llm.py --missing-expanded --dry-run` then `--apply` (draft) and `--promote --apply`. See [docs/datapoint-workflow.md](../docs/datapoint-workflow.md).
+Optional LLM expansion: `python notes/expand_datapoints_llm.py --missing-expanded --dry-run` then `--apply` (draft) and `--promote --apply`. See [docs/datapoint-workflow.md](../docs/datapoint-workflow.md).
 
 - `ep-0001`
 - `ep-0002`

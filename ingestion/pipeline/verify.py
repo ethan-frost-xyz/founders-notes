@@ -2,6 +2,16 @@
 """Regenerate catalog/gaps.md and print completeness stats."""
 
 from __future__ import annotations
+import sys
+from pathlib import Path
+
+_INGESTION = Path(__file__).resolve().parents[1]
+if str(_INGESTION) not in sys.path:
+    sys.path.insert(0, str(_INGESTION))
+
+import _bootstrap
+
+_bootstrap.setup_paths(__file__)
 
 from catalog import load_catalog
 from gaps_report import count_expanded_coverage, count_phase2_coverage, write_gaps_report
@@ -12,7 +22,7 @@ from paths import GAPS_PATH, ROOT
 def main() -> None:
     rows = load_catalog()
     if not rows:
-        raise SystemExit("catalog/episodes.jsonl is empty — run build_catalog.py")
+        raise SystemExit("catalog/episodes.jsonl is empty — run pipeline/build_catalog.py")
 
     numbered = [r for r in rows if r.get("episode_number") is not None]
     complete = [r for r in rows if r.get("transcript_status") == "complete"]

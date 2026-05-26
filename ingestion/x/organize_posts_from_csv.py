@@ -2,6 +2,16 @@
 """Organize cached X posts from import/x-posts-raw.csv into content/posts/."""
 
 from __future__ import annotations
+import sys
+from pathlib import Path
+
+_INGESTION = Path(__file__).resolve().parents[1]
+if str(_INGESTION) not in sys.path:
+    sys.path.insert(0, str(_INGESTION))
+
+import _bootstrap
+
+_bootstrap.setup_paths(__file__)
 
 import argparse
 import json
@@ -95,7 +105,7 @@ def main() -> None:
     args = parser.parse_args()
 
     if not X_POSTS_CSV.exists():
-        raise SystemExit(f"Missing {X_POSTS_CSV} — run: python sync_x_cache.py --full")
+        raise SystemExit(f"Missing {X_POSTS_CSV} — run: python x/sync_x_cache.py --full")
 
     csv_rows = load_csv_rows()
     if not csv_rows:

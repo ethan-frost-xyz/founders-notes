@@ -8,7 +8,7 @@ This vault is **actively being filled in**, not fully backfilled. As of each `ve
 
 - **`catalog/gaps.md` “notes without datapoints”** = backlog / not started, **not** a broken import.
 - **Progress metric:** `notes with datapoints` count should climb over weeks as you listen (~1 episode per day).
-- Agents and tools should use `scaffold_notes.py --next` and help with the **current** episode, not bulk-generate bullets for hundreds of episodes.
+- Agents and tools should use `notes/scaffold_notes.py --next` and help with the **current** episode, not bulk-generate bullets for hundreds of episodes.
 
 ## File layout
 
@@ -56,7 +56,7 @@ Optional: open the file in Runestone or iA Writer via Working Copy’s “Open i
 
 ```bash
 cd ingestion
-python scaffold_notes.py --next
+python notes/scaffold_notes.py --next
 ```
 
 Prints the relative path to the first numbered episode missing a notes file (or the next empty slot in your workflow).
@@ -66,8 +66,8 @@ Prints the relative path to the first numbered episode missing a notes file (or 
 ```bash
 git pull
 # edit content/notes/ep-NNNN-.../ep-NNNN-....notes.md
-cd ingestion && python verify.py
-python build_chunks.py   # refresh search index after adding bullets
+cd ingestion && python pipeline/verify.py
+python search/build_chunks.py   # refresh search index after adding bullets
 ```
 
 In Cursor: `@content/notes/ep-0200-.../ep-0200-....notes.md` plus the matching transcript.
@@ -78,18 +78,18 @@ Episodes **0190+** ship with empty scaffolds (`source: vault_native`). To create
 
 ```bash
 cd ingestion
-python scaffold_notes.py --missing    # any complete transcript without .notes.md
-python scaffold_notes.py --id ep-0200 # single episode
-python scaffold_notes.py --dry-run    # preview
+python notes/scaffold_notes.py --missing    # any complete transcript without .notes.md
+python notes/scaffold_notes.py --id ep-0200 # single episode
+python notes/scaffold_notes.py --dry-run    # preview
 ```
 
 New episodes (after `sync_new.py --apply`):
 
 ```bash
-python map_colossus.py
-python fetch_transcripts.py --id ep-0418
-python scaffold_notes.py --missing
-python verify.py
+python pipeline/map_colossus.py
+python transcripts/fetch_transcripts.py --id ep-0418
+python notes/scaffold_notes.py --missing
+python pipeline/verify.py
 ```
 
 ## Apple Notes import (archived)
@@ -103,14 +103,14 @@ Recovery only (overwrites `catalog/import-review.md` if run without `--dry-run`)
 When raw bullets are done, expand quotes + takeaways: [datapoint-workflow.md](datapoint-workflow.md).
 
 ```bash
-python expand_datapoints.py --id ep-0200                    # print prompt (manual / Cursor)
-python expand_datapoints_llm.py --id ep-0200 --apply        # OpenRouter → .expanded.draft.md
-python expand_datapoints_llm.py --promote --id ep-0200 --apply
+python notes/expand_datapoints.py --id ep-0200                    # print prompt (manual / Cursor)
+python notes/expand_datapoints_llm.py --id ep-0200 --apply        # OpenRouter → .expanded.draft.md
+python notes/expand_datapoints_llm.py --promote --id ep-0200 --apply
 ```
 
 ## Coverage in gaps.md
 
-`python verify.py` reports note metrics and optional expansion progress:
+`python pipeline/verify.py` reports note metrics and optional expansion progress:
 
 | Metric | Meaning |
 |--------|---------|

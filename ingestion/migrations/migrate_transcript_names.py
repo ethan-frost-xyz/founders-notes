@@ -1,7 +1,16 @@
 #!/usr/bin/env python3
 """Remove legacy transcript.md files after rename to {folder}/{folder}.md."""
 
+import sys
 from pathlib import Path
+
+_INGESTION = Path(__file__).resolve().parents[1]
+if str(_INGESTION) not in sys.path:
+    sys.path.insert(0, str(_INGESTION))
+
+import _bootstrap
+
+_bootstrap.setup_paths(__file__)
 
 from paths import TRANSCRIPTS_DIR
 

@@ -2,6 +2,16 @@
 """Attribute ambiguous X posts in post-mapping-review.jsonl via OpenRouter."""
 
 from __future__ import annotations
+import sys
+from pathlib import Path
+
+_INGESTION = Path(__file__).resolve().parents[1]
+if str(_INGESTION) not in sys.path:
+    sys.path.insert(0, str(_INGESTION))
+
+import _bootstrap
+
+_bootstrap.setup_paths(__file__)
 
 import argparse
 import json

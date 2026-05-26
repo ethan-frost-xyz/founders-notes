@@ -168,7 +168,7 @@ def build_gaps_markdown(
         lines.append(f"## Weak founders_url ({len(weak_urls)})")
         lines.append("")
         lines.append(
-            "Homepage URL instead of `/episodes/…`. Run `python sync_new.py --repair-urls --apply`."
+            "Homepage URL instead of `/episodes/…`. Run `python pipeline/sync_new.py --repair-urls --apply`."
         )
         lines.append("")
 
@@ -202,7 +202,7 @@ def build_gaps_markdown(
         )
         lines.append("")
         lines.append(
-            "Optional LLM expansion: `python expand_datapoints_llm.py --missing-expanded --dry-run` "
+            "Optional LLM expansion: `python notes/expand_datapoints_llm.py --missing-expanded --dry-run` "
             "then `--apply` (draft) and `--promote --apply`. "
             "See [docs/datapoint-workflow.md](../docs/datapoint-workflow.md)."
         )

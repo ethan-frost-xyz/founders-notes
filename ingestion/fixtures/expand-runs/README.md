@@ -1,6 +1,6 @@
 # Expand prompt tuning runs (sandbox)
 
-Outputs from `expand_tune.py` land here. **Gitignored** except this README.
+Outputs from `notes/expand_tune.py` land here. **Gitignored** except this README.
 
 ## Layout
 
@@ -19,7 +19,7 @@ Full A/B cycle = **20 OpenRouter calls** (10 × prompt A + 10 × prompt B). Run 
 
 ## Isolation
 
-`expand_tune.py expand` runs **one subprocess per episode** (fresh Python process, single `--id`, stateless API). No in-process batch expand for tune mode.
+`notes/expand_tune.py expand` runs **one subprocess per episode** (fresh Python process, single `--id`, stateless API). No in-process batch expand for tune mode.
 
 ## Prompts
 
@@ -34,12 +34,12 @@ Full A/B cycle = **20 OpenRouter calls** (10 × prompt A + 10 × prompt B). Run 
 
 ```bash
 cd ingestion
-python expand_tune.py init --run-id tune-001
-python expand_tune.py expand --run-id tune-001 --variant A --dry-run
-python expand_tune.py expand --run-id tune-001 --variant A --apply
-python expand_tune.py expand --run-id tune-001 --variant B --apply
-python expand_tune.py report --run-id tune-001
-python expand_tune.py promote --run-id tune-001 --variant B --apply
+python notes/expand_tune.py init --run-id tune-001
+python notes/expand_tune.py expand --run-id tune-001 --variant A --dry-run
+python notes/expand_tune.py expand --run-id tune-001 --variant A --apply
+python notes/expand_tune.py expand --run-id tune-001 --variant B --apply
+python notes/expand_tune.py report --run-id tune-001
+python notes/expand_tune.py promote --run-id tune-001 --variant B --apply
 ```
 
 See [`docs/datapoint-workflow.md`](../../../docs/datapoint-workflow.md).

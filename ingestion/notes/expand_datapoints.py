@@ -2,6 +2,16 @@
 """Build datapoint expansion prompt from {folder}.notes.md + {folder}.transcript.md."""
 
 from __future__ import annotations
+import sys
+from pathlib import Path
+
+_INGESTION = Path(__file__).resolve().parents[1]
+if str(_INGESTION) not in sys.path:
+    sys.path.insert(0, str(_INGESTION))
+
+import _bootstrap
+
+_bootstrap.setup_paths(__file__)
 
 import argparse
 import subprocess
@@ -33,7 +43,7 @@ def main() -> None:
     parser.add_argument(
         "--prompt",
         type=Path,
-        help="Prompt markdown (<<<SYSTEM>>> / <<<USER>>>); default ingestion/prompts/expand_datapoints.md",
+        help="Prompt markdown (<<<SYSTEM>>> / <<<USER>>>); default prompts/expand_datapoints.md",
     )
     args = parser.parse_args()
 

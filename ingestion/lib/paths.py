@@ -4,7 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+INGESTION_DIR = Path(__file__).resolve().parent.parent
+ROOT = INGESTION_DIR.parent
 CATALOG_PATH = ROOT / "catalog" / "episodes.jsonl"
 GAPS_PATH = ROOT / "catalog" / "gaps.md"
 UNMAPPED_POSTS_PATH = ROOT / "catalog" / "unmapped-posts.jsonl"

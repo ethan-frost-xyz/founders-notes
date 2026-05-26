@@ -2,6 +2,16 @@
 """Retrieval v1: search catalog/chunks.jsonl and content/ without embeddings."""
 
 from __future__ import annotations
+import sys
+from pathlib import Path
+
+_INGESTION = Path(__file__).resolve().parents[1]
+if str(_INGESTION) not in sys.path:
+    sys.path.insert(0, str(_INGESTION))
+
+import _bootstrap
+
+_bootstrap.setup_paths(__file__)
 
 import argparse
 import re
@@ -76,7 +86,7 @@ def main() -> None:
     hits = search_chunks(args.query, args.limit, section_filter)
 
     if not hits and not CHUNKS_PATH.exists():
-        print("No chunks index — run: python build_chunks.py")
+        print("No chunks index — run: python search/build_chunks.py")
         args.rg = True
     elif not hits:
         print(f"No chunk hits for: {args.query}")

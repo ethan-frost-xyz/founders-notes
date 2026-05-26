@@ -9,6 +9,16 @@ Recovery only, from ingestion/:
 """
 
 from __future__ import annotations
+import sys
+from pathlib import Path
+
+_INGESTION = Path(__file__).resolve().parents[1]
+if str(_INGESTION) not in sys.path:
+    sys.path.insert(0, str(_INGESTION))
+
+import _bootstrap
+
+_bootstrap.setup_paths(__file__)
 
 import argparse
 import re
@@ -16,12 +26,7 @@ import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
-# Run from ingestion/ so parent modules resolve (same as other migrations).
-_INGESTION = Path(__file__).resolve().parent.parent
-if str(_INGESTION) not in sys.path:
-    sys.path.insert(0, str(_INGESTION))
-
-from catalog import catalog_by_number, load_catalog  # noqa: E402
+from catalog import catalog_by_number, load_catalog
 from episode_ids import format_episode_id  # noqa: E402
 from markdown_io import read_markdown_body, write_notes_md  # noqa: E402
 from paths import IMPORT_REVIEW_PATH, notes_file_path  # noqa: E402

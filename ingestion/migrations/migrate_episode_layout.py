@@ -2,6 +2,16 @@
 """One-shot migration: zero-pad episode ids and unify per-episode filenames."""
 
 from __future__ import annotations
+import sys
+from pathlib import Path
+
+_INGESTION = Path(__file__).resolve().parents[1]
+if str(_INGESTION) not in sys.path:
+    sys.path.insert(0, str(_INGESTION))
+
+import _bootstrap
+
+_bootstrap.setup_paths(__file__)
 
 import argparse
 import json
@@ -322,7 +332,7 @@ def main() -> None:
         update_catalog_rows(rows)
         save_catalog(rows)
         print(f"Repaired {fixed} files")
-        print("Next: python build_chunks.py && python verify.py")
+        print("Next: python search/build_chunks.py && python pipeline/verify.py")
         return
     migrations = [m for r in rows if (m := collect_episode_migration(r))]
 
@@ -370,8 +380,8 @@ def main() -> None:
     print(f"Post-mapping review updates: {review_updates}")
     print(f"Manifest: {manifest_path.relative_to(ROOT)}")
     print("\nNext:")
-    print("  python build_chunks.py")
-    print("  python verify.py")
+    print("  python search/build_chunks.py")
+    print("  python pipeline/verify.py")
 
 
 if __name__ == "__main__":

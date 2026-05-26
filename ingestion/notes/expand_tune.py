@@ -2,6 +2,16 @@
 """Sandboxed A/B prompt tuning on a fixed 10-episode batch (subprocess per episode)."""
 
 from __future__ import annotations
+import sys
+from pathlib import Path
+
+_INGESTION = Path(__file__).resolve().parents[1]
+if str(_INGESTION) not in sys.path:
+    sys.path.insert(0, str(_INGESTION))
+
+import _bootstrap
+
+_bootstrap.setup_paths(__file__)
 
 import argparse
 import json
@@ -23,13 +33,18 @@ from expand_llm import (
 )
 from markdown_io import TIMESTAMP_BULLET_RE, read_markdown_body, utc_now_iso
 import paths
-from paths import expanded_draft_file_path, notes_file_path, staging_draft_file_path
+from paths import (
+    INGESTION_DIR,
+    expanded_draft_file_path,
+    notes_file_path,
+    staging_draft_file_path,
+)
 
-EXPAND_RUNS_DIR = paths.ROOT / "ingestion" / "fixtures" / "expand-runs"
+EXPAND_RUNS_DIR = INGESTION_DIR / "fixtures" / "expand-runs"
 DEFAULT_BATCH_FILE = paths.ROOT / "catalog" / "expand-tune-batch.json"
-PROMPT_A = paths.ROOT / "ingestion" / "prompts" / "expand_datapoints.md"
-PROMPT_B = paths.ROOT / "ingestion" / "prompts" / "expand_datapoints.candidate.md"
-LLM_SCRIPT = Path(__file__).resolve().parent / "expand_datapoints_llm.py"
+PROMPT_A = INGESTION_DIR / "prompts" / "expand_datapoints.md"
+PROMPT_B = INGESTION_DIR / "prompts" / "expand_datapoints.candidate.md"
+LLM_SCRIPT = INGESTION_DIR / "notes" / "expand_datapoints_llm.py"
 
 
 def load_batch_file(path: Path) -> list[str]:

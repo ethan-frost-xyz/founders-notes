@@ -2,6 +2,16 @@
 """Build catalog/episodes.jsonl from founderspodcast.com sitemap + RSS metadata."""
 
 from __future__ import annotations
+import sys
+from pathlib import Path
+
+_INGESTION = Path(__file__).resolve().parents[1]
+if str(_INGESTION) not in sys.path:
+    sys.path.insert(0, str(_INGESTION))
+
+import _bootstrap
+
+_bootstrap.setup_paths(__file__)
 
 import xml.etree.ElementTree as ET
 from email.utils import parsedate_to_datetime

@@ -26,7 +26,7 @@ Edit that file to change behavior for both the manual CLI and OpenRouter runs. C
 
 1. `@content/notes/ep-0200-.../ep-0200-....notes.md`
 2. `@content/transcripts/ep-0200-.../ep-0200-....transcript.md`
-3. Paste the prompt from `python expand_datapoints.py --id ep-0200` (optional `--prompt path/to.md`)
+3. Paste the prompt from `python notes/expand_datapoints.py --id ep-0200` (optional `--prompt path/to.md`)
 4. Save the model output as `{folder}.expanded.md` in the same notes folder (or use the draft → promote flow below)
 
 ## Quick start (OpenRouter)
@@ -41,24 +41,24 @@ Set in repo root `.env` (see [`.env.example`](../.env.example)):
 
 ```bash
 cd ingestion
-python expand_datapoints_llm.py --id ep-0200 --dry-run    # char estimates, no API
-python expand_datapoints_llm.py --id ep-0200 --apply     # writes .expanded.draft.md
-python expand_datapoints_llm.py --missing-expanded --apply --limit 5
-python expand_datapoints_llm.py --from 1 --to 50 --apply --subprocess   # one process per episode
+python notes/expand_datapoints_llm.py --id ep-0200 --dry-run    # char estimates, no API
+python notes/expand_datapoints_llm.py --id ep-0200 --apply     # writes .expanded.draft.md
+python notes/expand_datapoints_llm.py --missing-expanded --apply --limit 5
+python notes/expand_datapoints_llm.py --from 1 --to 50 --apply --subprocess   # one process per episode
 ```
 
 **Promote** draft → canonical `.expanded.md` (validates structure vs raw bullets; deletes draft on success):
 
 ```bash
-python expand_datapoints_llm.py --promote --id ep-0200 --dry-run
-python expand_datapoints_llm.py --promote --id ep-0200 --apply
-python expand_datapoints_llm.py --promote --all-ready --apply
+python notes/expand_datapoints_llm.py --promote --id ep-0200 --dry-run
+python notes/expand_datapoints_llm.py --promote --id ep-0200 --apply
+python notes/expand_datapoints_llm.py --promote --all-ready --apply
 ```
 
 After promoting, refresh search chunks:
 
 ```bash
-python build_chunks.py
+python search/build_chunks.py
 ```
 
 Runs append to `catalog/expand-run.jsonl` (gitignored) for resume / debugging.
@@ -78,16 +78,16 @@ Expanded output per bullet: `### {timestamp} — {bullet}`, then Context / Quote
 
 ```bash
 cd ingestion
-python expand_tune.py init --run-id tune-001
+python notes/expand_tune.py init --run-id tune-001
 # Edit prompts/expand_datapoints.candidate.md (prompt B)
 
-python expand_tune.py expand --run-id tune-001 --variant A --dry-run
-python expand_tune.py expand --run-id tune-001 --variant A --apply   # 10 subprocesses
-python expand_tune.py expand --run-id tune-001 --variant B --apply   # 10 subprocesses
+python notes/expand_tune.py expand --run-id tune-001 --variant A --dry-run
+python notes/expand_tune.py expand --run-id tune-001 --variant A --apply   # 10 subprocesses
+python notes/expand_tune.py expand --run-id tune-001 --variant B --apply   # 10 subprocesses
 
-python expand_tune.py report --run-id tune-001
-python expand_tune.py promote --run-id tune-001 --variant B --apply  # winner → .expanded.md
-python build_chunks.py
+python notes/expand_tune.py report --run-id tune-001
+python notes/expand_tune.py promote --run-id tune-001 --variant B --apply  # winner → .expanded.md
+python search/build_chunks.py
 ```
 
 Full A/B apply = **20 API calls**. See [`ingestion/fixtures/expand-runs/README.md`](../ingestion/fixtures/expand-runs/README.md).
@@ -95,9 +95,9 @@ Full A/B apply = **20 API calls**. See [`ingestion/fixtures/expand-runs/README.m
 ## CLI (prompt only, no API)
 
 ```bash
-python expand_datapoints.py --id ep-0200          # print combined prompt
-python expand_datapoints.py --id ep-0200 --copy   # macOS clipboard
-python expand_datapoints.py --id ep-0200 --write  # scaffold {folder}.expanded.md (legacy helper)
+python notes/expand_datapoints.py --id ep-0200          # print combined prompt
+python notes/expand_datapoints.py --id ep-0200 --copy   # macOS clipboard
+python notes/expand_datapoints.py --id ep-0200 --write  # scaffold {folder}.expanded.md (legacy helper)
 ```
 
 ## Quality tips
@@ -105,4 +105,4 @@ python expand_datapoints.py --id ep-0200 --write  # scaffold {folder}.expanded.m
 - Fix bad timestamps in `{folder}.notes.md` before expanding.
 - Review `.expanded.draft.md` before `--promote`; promotion checks `###` section count vs bullets and warns if Context / Quote / Key takeaway are missing.
 - Prefer committing `.expanded.md` only when satisfied — you can regenerate drafts with `--force`.
-- Cross-episode themes: use `python search.py` or `content/posts/_corpus/all-posts.md` after posts are imported.
+- Cross-episode themes: use `python search/search.py` or `content/posts/_corpus/all-posts.md` after posts are imported.

@@ -25,4 +25,4 @@ jobs:
 
       - name: Run verify.py
         working-directory: ingestion
-        run: python verify.py
+        run: python pipeline/verify.py

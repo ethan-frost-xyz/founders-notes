@@ -7,8 +7,8 @@
 
 ## v1 — Chunk index (implemented)
 
-- **Index:** `catalog/chunks.jsonl` via `ingestion/build_chunks.py`
-- **Search:** `ingestion/search.py "query"`
+- **Index:** `catalog/chunks.jsonl` via `ingestion/search/build_chunks.py`
+- **Search:** `ingestion/search/search.py "query"`
 - **Chunk id:** `{episode_id}#{section}#{start_line}` — stable for reindexing (`episode_id` is padded, e.g. `ep-0200`)
 - **Sections:** `transcript:description`, `transcript:transcript`, `notes:raw_datapoints`, `post:body`, etc.
 - **source_path:** points at `{folder}.{type}.md` files (see [`docs/episode-id-rules.md`](episode-id-rules.md))
@@ -16,7 +16,7 @@
 Regenerate after bulk import or transcript fetch:
 
 ```bash
-cd ingestion && python build_chunks.py
+cd ingestion && python search/build_chunks.py
 ```
 
 ## v2 — Embeddings (graduate when)
@@ -24,7 +24,7 @@ cd ingestion && python build_chunks.py
 Consider embeddings when **all** are true:
 
 1. Post corpus is largely complete (today: **187 / 417** numbered posts imported; target ~400+)
-2. `search.py` + `_corpus/all-posts.md` routinely miss paraphrased or thematic queries
+2. `search/search.py` + `_corpus/all-posts.md` routinely miss paraphrased or thematic queries
 3. You want “find similar ideas” across episodes, not exact keyword match
 
 ### What v1 preserves for migration
