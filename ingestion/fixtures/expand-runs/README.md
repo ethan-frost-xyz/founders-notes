@@ -15,7 +15,7 @@ expand-runs/{run_id}/
 
 Default batch: **10 episodes** in [`catalog/expand-tune-batch.json`](../../../catalog/expand-tune-batch.json).
 
-Full A/B cycle = **20 OpenRouter calls** (10 × prompt A + 10 × prompt B). Run `--dry-run` first — prints a per-episode table with ~input tokens and optional `$` if `OPENROUTER_ESTIMATE_INPUT_USD_PER_MTOK` is set in `.env`.
+Full A/B cycle = **20 OpenRouter calls** (10 × prompt A + 10 × prompt B). Run `--dry-run` first — prints a per-episode table with ~input tokens and `$` estimates from the OpenRouter model catalog (`OPENROUTER_MODEL` required).
 
 ## Isolation
 

@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import os
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -17,6 +16,13 @@ from markdown_io import (
     write_frontmatter_md,
 )
 import paths
+from openrouter_pricing import (
+    COMPLETION_TOKENS_PER_BULLET,
+    estimate_cost_usd,
+    format_usd_per_million,
+    model_id_for_pricing,
+    resolve_model_rates,
+)
 from paths import (
     INGESTION_DIR,
     expanded_draft_file_path,
@@ -90,16 +96,6 @@ def format_compact_tokens(n: int) -> str:
     if n < 1_000_000:
         return f"{n / 1000:.1f}k"
     return f"{n / 1_000_000:.2f}M"
-
-
-def input_usd_per_mtok_from_env() -> float | None:
-    raw = os.environ.get("OPENROUTER_ESTIMATE_INPUT_USD_PER_MTOK", "").strip()
-    if not raw:
-        return None
-    try:
-        return float(raw)
-    except ValueError:
-        return None
 
 
 def estimate_expand_for_row(row: dict[str, Any], *, prompt_path: Path) -> ExpandEstimate:
@@ -183,14 +179,33 @@ def print_expand_dry_run_summary(
         f"  ~input tokens (sum): {total_tokens:,}  (chars÷{CHARS_PER_TOKEN} heuristic)"
     )
 
-    rate = input_usd_per_mtok_from_env()
-    if rate is not None:
-        usd = total_tokens * rate / 1_000_000
-        print(f"  ~input cost: ${usd:.2f}  (@ ${rate}/M tok from OPENROUTER_ESTIMATE_INPUT_USD_PER_MTOK)")
+    pricing_model = model_id_for_pricing(model)
+    if pricing_model is None:
+        print("  cost: (set OPENROUTER_MODEL or pass --model for $ estimate)")
     else:
-        print(
-            "  ~input cost: (set OPENROUTER_ESTIMATE_INPUT_USD_PER_MTOK in .env for $ estimate)"
-        )
+        try:
+            rates = resolve_model_rates(pricing_model, input_tokens=total_tokens)
+            costs = estimate_cost_usd(
+                rates,
+                input_tokens=total_tokens,
+                n_calls=n_calls,
+                total_bullets=total_bullets,
+            )
+            print(
+                f"  rates: {format_usd_per_million(rates.prompt_usd_per_token)} input, "
+                f"{format_usd_per_million(rates.completion_usd_per_token)} output  "
+                f"({rates.model_id}, OpenRouter catalog)"
+            )
+            print(f"  ~input cost: ${costs.input_usd:.2f}")
+            if costs.request_usd > 0:
+                print(f"  ~request fees: ${costs.request_usd:.2f}")
+            print(
+                f"  ~output cost (est.): ${costs.output_usd:.2f}  "
+                f"(~{COMPLETION_TOKENS_PER_BULLET} tok/bullet)"
+            )
+            print(f"  ~total (est.): ${costs.total_usd:.2f}")
+        except Exception as e:
+            print(f"  cost: could not load OpenRouter pricing: {e}")
 
     if extra_footer_lines:
         print()

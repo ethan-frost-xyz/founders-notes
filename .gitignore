@@ -10,5 +10,6 @@ __pycache__/
 .DS_Store
 ingestion/.venv/
 catalog/expand-run.jsonl
+catalog/openrouter-models-cache.json
 ingestion/fixtures/expand-runs/*/
 !ingestion/fixtures/expand-runs/README.md
