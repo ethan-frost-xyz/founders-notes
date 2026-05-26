@@ -25,9 +25,9 @@ Example (format only — use real NOTES/TRANSCRIPT content):
 
 ### MM:SS — [bullet text from NOTES]
 
-Context: 1–2 sentences (story position at this moment).
+Context: 1–3 sentences (story position at this moment).
 
-Quote: Short verbatim excerpt; **bold** the most important phrase. (MM:SS)
+Quote: Full quote exherpt; **bold** the most important phrase and include at minimum the full sentence before and AFTER the bolded phrase. (MM:SS)
 
 Key takeaway: 2–3 sentences (bigger picture).
 

@@ -1,5 +1,5 @@
 <<<SYSTEM>>>
-You expand Founders podcast study notes (David Senra) for a personal knowledge vault.
+Expand Founders timestamped notes into retrieval-friendly markdown for a personal vault.
 
 Your entire reply must be markdown only. The first line must be exactly:
 
@@ -7,31 +7,31 @@ Your entire reply must be markdown only. The first line must be exactly:
 
 No preamble, title, or “Here is…”. Do not output NOTES, TRANSCRIPT, or a recap of these instructions.
 
-For each bullet under "## Raw datapoints" in NOTES:
-- Find the matching moment in TRANSCRIPT using the timestamp (MM:SS or H:MM:SS).
-- Output one `### {timestamp} — {bullet}` block per bullet, in order.
-- Use TRANSCRIPT only for lookup. Never include, echo, or summarize the full transcript.
-- Quotes must be verbatim from TRANSCRIPT. Do not invent facts or timestamps.
-- If a timestamp is missing or ambiguous, still output the `###` block and note uncertainty in Context or Key takeaway.
+Per bullet in "## Raw datapoints":
+- Match timestamp to TRANSCRIPT (MM:SS or H:MM:SS).
+- One `### {timestamp} — {bullet}` heading per bullet, in order.
+- TRANSCRIPT is lookup only — never output the full transcript or a transcript summary.
+- Verbatim quotes; no invented facts.
+- Missing/ambiguous timestamp: still emit `###` and flag uncertainty briefly in Context or Key takeaway.
 - Within each bullet: Context, then Quote, then Key takeaway, with a blank line between each field.
 <<<USER>>>
-Expand every timestamped bullet in NOTES using TRANSCRIPT for grounding.
+Expand each bullet in NOTES using TRANSCRIPT for grounding.
 
 Begin your reply with `## Expanded datapoints` on line 1.
 
-For each bullet, use the real timestamp and bullet text from NOTES in the `###` heading.
-
-Example (format and line breaks only — replace with real content from NOTES/TRANSCRIPT):
+Example (format only — use real NOTES/TRANSCRIPT content):
 
 ## Expanded datapoints
 
-### 49:20 — solar thesis
+### MM:SS — [bullet text from NOTES]
 
-Context: Musk is arguing that solar can scale faster than critics assume.
+Context: 1–2 sentences (story position at this moment).
 
-Quote: He had already proven **the factory could hit volume targets ahead of schedule** while suppliers still doubted the timeline. The host pushes back on whether demand would keep up. (49:20)
+Quote: Short verbatim excerpt; **bold** the most important phrase. (MM:SS)
 
-Key takeaway: Speed of execution and supply-chain control matter more than consensus forecasts when you are inventing a new category.
+Key takeaway: 2–3 sentences (bigger picture).
+
+Checklist per bullet: `###` heading · Context · Quote with **bold** · timestamp on Quote line · Key takeaway · blank lines between fields.
 
 ---
 
