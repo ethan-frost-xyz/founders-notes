@@ -38,7 +38,7 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`docs/inges
 | Notes | `notes/scaffold_notes.py` | Empty `{folder}.notes.md` scaffolds |
 | Expand (prompt) | `notes/expand_datapoints.py` | Print/copy prompt from notes + transcript |
 | Expand (OpenRouter) | `notes/expand_datapoints_llm.py` | `.expanded.draft.md` → `--promote` → `.expanded.md` |
-| Expand (prompt A/B tune) | `notes/expand_tune.py` | 5-ep A/B under `fixtures/expand-runs/` (tracked; default `baseline/`) |
+| Expand (prompt A/B tune) | `notes/expand_tune.py` | 23-ep A/B under `fixtures/expand-runs/` (tracked; default `baseline/`) |
 | **Maintenance console** | `python maintain.py` | Menu wrapper for coverage, expand, promote, chunks, tune (see below) |
 | X sync | `x/sync_x_cache.py` | API → `import/x-posts-raw.csv` |
 | X organize | `x/organize_posts_from_csv.py` | CSV → `content/posts/` (skips articles) |

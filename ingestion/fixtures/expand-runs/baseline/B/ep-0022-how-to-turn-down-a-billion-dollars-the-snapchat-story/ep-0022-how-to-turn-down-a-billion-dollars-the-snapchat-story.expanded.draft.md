@@ -6,9 +6,9 @@ content_type: "expanded.draft"
 source: "expand_llm"
 published_at: "2018-03-20"
 founders_url: "https://www.founderspodcast.com/episodes/22-how-to-turn-down-a-billion-dollars-the-snapchat-story"
-created_at: "2026-05-26T19:36:06Z"
+created_at: "2026-05-26T20:31:17Z"
 model: "deepseek/deepseek-v4-flash"
-generated_at: "2026-05-26T19:36:06Z"
+generated_at: "2026-05-26T20:31:17Z"
 prompt_path: "ingestion/prompts/expand_datapoints.candidate.md"
 prompt_hash: "9bc7e6edc42de319"
 tune_variant: "B"
@@ -16,26 +16,26 @@ tune_variant: "B"
 
 ## Expanded datapoints
 
-### 22:03 — The idea of "standard" is a construct, not a reality
+### 22:03 — The concept of 'standard' in venture capital is a construct
 
-Context: Evan Spiegel recounts a major mistake from his first term sheet—accepting terms that Lightspeed claimed were "standard." He later warned other entrepreneurs about this trap. The timestamp aligns with his Stanford Women in Business keynote.
+Context: Evan Spiegel reflects on his early mistake with Lightspeed's term sheet, where he accepted terms because they were called "standard." He later warned other entrepreneurs in a 2013 keynote at Stanford about blindly trusting this label.
 
-Quote: "When I asked a question because I didn't understand something, I was reassured that the term was standard and, therefore, agreeable. I forgot that **the idea of standard is a construct**. It simply does not exist." (22:03)
+Quote: "When I asked a question because I didn't understand something, I was reassured that the term was standard and, therefore, agreeable. I forgot that **the idea of standard is a construct**. It simply does not exist."
 
-Key takeaway: Founders must question every "standard" term in contracts; they are often designed to benefit the other party. Evan's lesson is to never accept a clause just because it's labeled standard—always understand the specific implications before signing.
+Key takeaway: Founders must question every clause in a term sheet, especially when investors or lawyers dismiss concerns with "it's standard." True negotiation requires understanding the document's implications, not accepting a fabricated norm.
 
-### 1:00:05 — Privacy is an understanding of context, not secrecy
+### 1:00:05 — Privacy is actually an understanding of context, not secrecy
 
-Context: Evan quotes privacy scholar Helen Nissenbaum during a keynote to explain Snapchat's design philosophy. He argues that privacy is about where and with whom something is shared, not what is hidden. Timestamp 1:00:05 matches this portion of the talk.
+Context: In an April 2014 keynote, Evan articulates his philosophy on privacy, distinguishing it from secrecy by quoting Professor Helen Nissenbaum. He argues that privacy is about appropriate sharing based on context, not hiding information.
 
-Quote: "Unfortunately, privacy is too often articulated as secrecy. When as Nissenbaum points out, **privacy is actually focused on an understanding of context**, not what is said, but where it is said and to whom." (1:00:05)
+Quote: "Unfortunately, privacy is too often articulated as secrecy. When as Nissenbaum points out, privacy is actually focused on an **understanding of context**, not what is said, but where it is said and to whom. Privacy allows us to enjoy and learn from the intimacy that is created when we share different things with different people and different contexts."
 
-Key takeaway: Privacy is not about hiding information but about controlling the social context of sharing. This insight drove Snapchat's ephemeral, intimate design—mimicking how humans naturally share different things with different people in real life.
+Key takeaway: Product design should respect that humans naturally share different things in different contexts. Social apps that broadcast everything to everyone violate this fundamental truth, which is why Snapchat emphasizes ephemerality and private, small-group communication.
 
-### 1:02:29 — Social media is capitalism aggressively entering personal relationships
+### 1:02:29 — Social media represents capitalism's aggressive expansion into personal relationships
 
-Context: In the same keynote, Evan critiques social media companies for turning personal expression into quantified performance. He contends that platforms like Facebook force users to curate a consistent "brand," which is unnatural. Timestamp 1:02:29 captures this critique.
+Context: Concluding his keynote, Evan critiques how social media platforms quantify and monetize personal expression, forcing users to perform for likes and build a "personal brand." This insight underpins Snapchat's rejection of likes, public follower counts, and permanent profiles.
 
-Quote: "Popular expression becomes the most valuable expression. **Social media businesses represent an aggressive expansion of capitalism into our personal relationships.** We are asked to perform for our friends, to create things they like, to work on a personal brand." (1:02:29)
+Quote: "Popular expression becomes the most valuable expression. **Social media businesses represent an aggressive expansion of capitalism into our personal relationships**. We are asked to perform for our friends, to create things they like, to work on a personal brand."
 
-Key takeaway: Evan argues that traditional social media commodifies human interaction by rewarding popularity and consistency, which contradicts our inherently contradictory and changing nature. This philosophy drove Snapchat's rejection of likes, follower counts, and permanent profiles.
+Key takeaway: When relationships are mediated by platforms that profit from engagement, authentic connection suffers. Founders should design products that prioritize genuine interaction over metrics, recognizing that humans are not brands and should not be forced to perform consistently.
