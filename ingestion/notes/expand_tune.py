@@ -31,6 +31,9 @@ from expand_llm import (
     _count_datapoint_headings,
     default_prompt_path,
     estimate_expand_for_row,
+    filter_expand_run_log,
+    load_expand_run_log,
+    print_expand_batch_summary,
     print_expand_dry_run_summary,
     prompt_file_hash,
     promote_draft,
@@ -213,6 +216,12 @@ def cmd_expand(args: argparse.Namespace) -> None:
             extra_footer_lines=[ab_hint],
         )
     else:
+        child_env = {
+            **os.environ,
+            "EXPAND_RUN_ID": args.run_id,
+            "EXPAND_VARIANT": args.variant,
+        }
+        batch_start = len(load_expand_run_log())
         for ep_id in episode_ids:
             if ep_id not in by_id:
                 print(f"[skip] {ep_id}: not in catalog")
@@ -228,11 +237,27 @@ def cmd_expand(args: argparse.Namespace) -> None:
                 force=args.force,
                 model=model,
             )
-            print(f"[expand] {ep_id} variant {args.variant}")
-            rc = subprocess.run(cmd, cwd=str(paths.ROOT)).returncode
+            if args.verbose:
+                print(f"[subprocess] {' '.join(cmd)}")
+            else:
+                print(f"[expand] {ep_id} variant {args.variant}")
+            rc = subprocess.run(cmd, cwd=str(paths.ROOT), env=child_env).returncode
             if rc != 0:
                 print(f"[error] {ep_id}: subprocess exit {rc}")
                 errors += 1
+        all_log = load_expand_run_log()
+        batch_records = all_log[batch_start:]
+        batch_records = filter_expand_run_log(
+            batch_records, run_id=args.run_id, variant=args.variant
+        )
+        if batch_records:
+            print_expand_batch_summary(
+                batch_records,
+                title=(
+                    f"--- expand batch summary ({len(episode_ids)} episodes, "
+                    f"variant {args.variant}, run={args.run_id}) ---"
+                ),
+            )
 
     if args.apply or args.dry_run:
         update_manifest_variant(args.run_id, args.variant, prompt_path=prompt_path, model=model)
@@ -404,6 +429,7 @@ def main() -> None:
     p_expand.add_argument("--prompt", type=Path, help="Override prompt file for this variant")
     p_expand.add_argument("--model", help="Override OPENROUTER_MODEL")
     p_expand.add_argument("--force", action="store_true", help="Overwrite existing staging drafts")
+    p_expand.add_argument("--verbose", action="store_true", help="Print full subprocess command per episode")
     p_expand.add_argument("--dry-run", action="store_true")
     p_expand.add_argument("--apply", action="store_true")
     p_expand.add_argument("--batch-file", type=Path, default=DEFAULT_BATCH_FILE)

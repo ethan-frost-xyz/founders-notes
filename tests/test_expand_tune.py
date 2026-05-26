@@ -1,6 +1,7 @@
 """Tests for expand_tune and staging paths (no network)."""
 
 import json
+import os
 import sys
 from pathlib import Path
 from unittest.mock import patch
@@ -24,6 +25,18 @@ def test_load_batch_file(tmp_path: Path):
         encoding="utf-8",
     )
     assert load_batch_file(batch) == ["ep-0001", "ep-0002"]
+
+
+def test_build_child_env_for_apply(monkeypatch):
+    monkeypatch.setenv("EXPAND_RUN_ID", "")
+    monkeypatch.setenv("EXPAND_VARIANT", "")
+    child_env = {
+        **os.environ,
+        "EXPAND_RUN_ID": "tune-001",
+        "EXPAND_VARIANT": "A",
+    }
+    assert child_env["EXPAND_RUN_ID"] == "tune-001"
+    assert child_env["EXPAND_VARIANT"] == "A"
 
 
 def test_build_child_cmd_one_episode():
@@ -192,15 +205,21 @@ def test_expand_apply_subprocess_per_episode(mock_run, monkeypatch, tmp_path: Pa
         prompt = None
         model = None
         force = False
+        verbose = False
         dry_run = False
         apply = True
         batch_file = tmp_path / "batch.json"
 
+    monkeypatch.setattr("expand_tune.load_expand_run_log", lambda: [])
     cmd_expand(Args())
     assert mock_run.call_count == 2
     for call in mock_run.call_args_list:
         cmd = call[0][0]
         assert cmd.count("--id") == 1
+        env = call.kwargs.get("env") or call[1].get("env")
+        assert env is not None
+        assert env["EXPAND_RUN_ID"] == "r1"
+        assert env["EXPAND_VARIANT"] == "A"
 
 
 def test_draft_report_row_detects_validation(monkeypatch, tmp_path: Path):

@@ -6,13 +6,16 @@ from unittest.mock import patch
 import paths
 from expand_llm import (
     CHARS_PER_TOKEN,
+    OpenRouterCompletion,
     build_combined_prompt_for_clipboard,
     build_user_message,
     default_prompt_path,
     estimate_expand_for_row,
     load_prompt_template,
     parse_expanded_body,
+    print_expand_batch_summary,
     promote_draft,
+    usage_from_response,
     validate_expanded_draft,
     write_expanded_draft,
 )
@@ -191,9 +194,33 @@ Key takeaway: y
     assert not draft.exists()
 
 
-@patch(
-    "expand_datapoints_llm.call_openrouter",
-    return_value="""## Expanded datapoints
+def test_usage_from_response_extracts_tokens_and_cost():
+    usage = type("Usage", (), {"prompt_tokens": 100, "completion_tokens": 50, "total_tokens": 150, "cost": 0.05})()
+    response = type("Resp", (), {"usage": usage})()
+    parsed = usage_from_response(response)
+    assert parsed["prompt_tokens"] == 100
+    assert parsed["completion_tokens"] == 50
+    assert parsed["cost_usd"] == 0.05
+
+
+def test_print_expand_batch_summary(capsys):
+    records = [
+        {"status": "ok", "prompt_tokens": 1000, "completion_tokens": 200, "cost_usd": 0.01},
+        {"status": "skipped"},
+        {"status": "error"},
+    ]
+    print_expand_batch_summary(records, title="--- test summary ---")
+    out = capsys.readouterr().out
+    assert "ok: 1" in out
+    assert "skipped: 1" in out
+    assert "error: 1" in out
+    assert "1,000 in" in out
+
+
+@patch("expand_datapoints_llm.call_openrouter")
+def test_expand_datapoints_llm_apply_writes_draft(mock_call, monkeypatch, tmp_path: Path):
+    mock_call.return_value = OpenRouterCompletion(
+        content="""## Expanded datapoints
 
 ### 1:00 — hook
 
@@ -203,8 +230,13 @@ Quote: **x** (1:00)
 
 Key takeaway: y
 """,
-)
-def test_expand_datapoints_llm_apply_writes_draft(mock_call, monkeypatch, tmp_path: Path):
+        response_id="r1",
+        prompt_tokens=500,
+        completion_tokens=100,
+        total_tokens=600,
+        cost_usd=0.002,
+        duration_ms=1200,
+    )
     monkeypatch.setattr(paths, "ROOT", tmp_path)
     monkeypatch.setattr(paths, "NOTES_DIR", tmp_path / "content" / "notes")
     monkeypatch.setattr(paths, "TRANSCRIPTS_DIR", tmp_path / "content" / "transcripts")
@@ -230,7 +262,7 @@ def test_expand_datapoints_llm_apply_writes_draft(mock_call, monkeypatch, tmp_pa
 
     import expand_datapoints_llm as cli
 
-    status = cli.run_expand_one(
+    status, _log_rec = cli.run_expand_one(
         row,
         system=system,
         user_template=user_tpl,
@@ -244,3 +276,8 @@ def test_expand_datapoints_llm_apply_writes_draft(mock_call, monkeypatch, tmp_pa
     assert status == "wrote"
     mock_call.assert_called_once()
     assert paths.expanded_draft_file_path("ep-0001", "1-test", 1).exists()
+    log_path = tmp_path / "catalog" / "expand-run.jsonl"
+    assert log_path.exists()
+    log_line = log_path.read_text(encoding="utf-8").strip()
+    assert '"status": "ok"' in log_line
+    assert '"prompt_tokens": 500' in log_line

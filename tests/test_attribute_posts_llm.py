@@ -1,7 +1,8 @@
 import json
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 import attribute_posts_llm as llm
+from expand_llm import OpenRouterCompletion
 
 
 def test_parse_llm_attribution_response_plain_json():
@@ -41,12 +42,20 @@ def test_resolve_attribution_model_env_fallback(monkeypatch):
 
 @patch("attribute_posts_llm.call_openrouter")
 def test_call_attribution_llm_parses_response(mock_call_openrouter):
-    mock_call_openrouter.return_value = json.dumps(
-        {
-            "episode_number": 88,
-            "confidence": 0.85,
-            "reason": "buffett letters",
-        }
+    mock_call_openrouter.return_value = OpenRouterCompletion(
+        content=json.dumps(
+            {
+                "episode_number": 88,
+                "confidence": 0.85,
+                "reason": "buffett letters",
+            }
+        ),
+        response_id="gen-1",
+        prompt_tokens=10,
+        completion_tokens=20,
+        total_tokens=30,
+        cost_usd=0.001,
+        duration_ms=100,
     )
     result = llm.call_attribution_llm(
         text="Warren Buffett shareholder letters ep 88",

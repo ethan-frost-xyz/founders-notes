@@ -25,14 +25,19 @@ from cli_args import add_episode_id_arg, ensure_catalog, resolve_episode_id_arg
 from expand_llm import (
     ExpandEstimate,
     _count_datapoint_headings,
-    append_expand_run_log,
     build_user_message,
     call_openrouter,
     default_prompt_path,
     estimate_expand_for_row,
+    expand_log_context_from_env,
+    filter_expand_run_log,
+    load_expand_run_log,
     load_prompt_template,
+    log_expand_event,
     parse_expanded_body,
+    print_expand_batch_summary,
     print_expand_dry_run_summary,
+    print_expand_ok_line,
     promote_draft,
     prompt_file_hash,
     resolve_draft_path,
@@ -122,6 +127,13 @@ def select_promote_rows(
     return out
 
 
+def _prompt_rel(prompt_path: Path) -> str:
+    try:
+        return str(prompt_path.relative_to(paths.ROOT))
+    except ValueError:
+        return str(prompt_path)
+
+
 def _expand_run_log_base(
     *,
     ep_id: str,
@@ -130,11 +142,13 @@ def _expand_run_log_base(
     staging_dir: Path | None,
     variant: str | None,
     n_bullets: int,
+    input_chars: int | None = None,
 ) -> dict:
     record: dict = {
         "episode_id": ep_id,
         "model": model,
         "prompt_hash": prompt_file_hash(prompt_path),
+        "prompt_path": _prompt_rel(prompt_path),
         "at": utc_now_iso(),
     }
     if staging_dir is not None:
@@ -146,6 +160,9 @@ def _expand_run_log_base(
         record["variant"] = variant
     if n_bullets:
         record["n_bullets"] = n_bullets
+    if input_chars is not None:
+        record["input_chars"] = input_chars
+    record.update(expand_log_context_from_env())
     return record
 
 
@@ -162,15 +179,12 @@ def run_expand_one(
     force: bool,
     staging_dir: Path | None = None,
     variant: str | None = None,
-) -> str:
-    """Return status: skipped | dry_run | wrote | error."""
+) -> tuple[str, dict | None]:
+    """Return (status, log record). status: skipped | dry_run | wrote | error."""
     ep_id = row["id"]
     slug = row["slug"]
     num = row.get("episode_number")
     draft_path = resolve_draft_path(row, staging_root=staging_dir, variant=variant)
-
-    if draft_path.exists() and not force and not dry_run:
-        return "skipped"
 
     npath = notes_file_path(ep_id, slug, num)
     tx_path = transcript_dir(ep_id, slug, num) / transcript_filename(ep_id, slug, num)
@@ -178,12 +192,34 @@ def run_expand_one(
     transcript_body = read_body(tx_path)
     user_msg = build_user_message(user_template, notes=notes_body, transcript=transcript_body)
     n_bullets = len(TIMESTAMP_BULLET_RE.findall(notes_body))
+    input_chars = len(system) + len(user_msg)
+
+    if draft_path.exists() and not force and not dry_run:
+        print(f"[skip] {ep_id} (draft exists)")
+        log_rec = _expand_run_log_base(
+            ep_id=ep_id,
+            model=model,
+            prompt_path=prompt_path,
+            staging_dir=staging_dir,
+            variant=variant,
+            n_bullets=n_bullets,
+            input_chars=input_chars,
+        )
+        log_rec.update(
+            {
+                "status": "skipped",
+                "draft_path": str(draft_path.relative_to(paths.ROOT)),
+            }
+        )
+        return "skipped", log_expand_event(log_rec)
 
     if dry_run:
-        return "dry_run"
+        return "dry_run", None
+
+    print(f"[expand] {ep_id}  {n_bullets} bullets  model={model}")
 
     try:
-        raw = call_openrouter(
+        completion = call_openrouter(
             system=system,
             user=user_msg,
             model=model,
@@ -191,7 +227,7 @@ def run_expand_one(
             base_url=base_url,
             temperature=0.0,
         )
-        body = parse_expanded_body(raw)
+        body = parse_expanded_body(completion.content)
         out = write_expanded_draft(
             row,
             body,
@@ -202,7 +238,12 @@ def run_expand_one(
         )
         n_sections = _count_datapoint_headings(body)
         val_errors, _ = validate_expanded_draft(npath, body)
-        print(f"[wrote] {out.relative_to(paths.ROOT)}")
+        draft_rel = str(out.relative_to(paths.ROOT))
+        print_expand_ok_line(
+            episode_id=ep_id,
+            completion=completion,
+            draft_rel=draft_rel,
+        )
         log_rec = _expand_run_log_base(
             ep_id=ep_id,
             model=model,
@@ -210,17 +251,24 @@ def run_expand_one(
             staging_dir=staging_dir,
             variant=variant,
             n_bullets=n_bullets,
+            input_chars=input_chars,
         )
         log_rec.update(
             {
                 "status": "ok",
                 "error": None,
+                "draft_path": draft_rel,
                 "n_sections": n_sections,
                 "validation_errors": val_errors,
+                "response_id": completion.response_id,
+                "prompt_tokens": completion.prompt_tokens,
+                "completion_tokens": completion.completion_tokens,
+                "total_tokens": completion.total_tokens,
+                "cost_usd": completion.cost_usd,
+                "duration_ms": completion.duration_ms,
             }
         )
-        append_expand_run_log(log_rec)
-        return "wrote"
+        return "wrote", log_expand_event(log_rec)
     except Exception as e:
         print(f"[error] {ep_id}: {e}")
         log_rec = _expand_run_log_base(
@@ -230,10 +278,30 @@ def run_expand_one(
             staging_dir=staging_dir,
             variant=variant,
             n_bullets=n_bullets,
+            input_chars=input_chars,
         )
         log_rec.update({"status": "error", "error": str(e)})
-        append_expand_run_log(log_rec)
-        return "error"
+        return "error", log_expand_event(log_rec)
+
+
+def cmd_summarize_log(args: argparse.Namespace) -> None:
+    records = load_expand_run_log()
+    filtered = filter_expand_run_log(
+        records, run_id=args.log_run_id, variant=args.log_variant, last=args.last
+    )
+    if not filtered:
+        print("No expand-run log entries matched")
+        return
+    label_parts = []
+    if args.log_run_id:
+        label_parts.append(f"run={args.log_run_id}")
+    if args.log_variant:
+        label_parts.append(f"variant={args.log_variant}")
+    title = "--- expand log summary"
+    if label_parts:
+        title += f" ({', '.join(label_parts)})"
+    title += " ---"
+    print_expand_batch_summary(filtered, title=title)
 
 
 def main() -> None:
@@ -283,7 +351,32 @@ def main() -> None:
         choices=("A", "B"),
         help="A/B variant subfolder when using --staging-dir",
     )
+    parser.add_argument(
+        "--summarize-log",
+        action="store_true",
+        help="Print rollup from catalog/expand-run.jsonl (no expand/promote)",
+    )
+    parser.add_argument(
+        "--run-id",
+        dest="log_run_id",
+        help="With --summarize-log: filter by EXPAND_RUN_ID / tune run_id",
+    )
+    parser.add_argument(
+        "--log-variant",
+        choices=("A", "B"),
+        help="With --summarize-log: filter by variant",
+    )
+    parser.add_argument(
+        "--last",
+        type=int,
+        default=None,
+        help="With --summarize-log: only last N log rows after filters",
+    )
     args = parser.parse_args()
+
+    if args.summarize_log:
+        cmd_summarize_log(args)
+        return
 
     if args.staging_dir and not args.variant:
         parser.error("--staging-dir requires --variant A or B")
@@ -409,6 +502,18 @@ def main() -> None:
             rc = subprocess.run(cmd, cwd=str(paths.ROOT)).returncode
             if rc != 0:
                 print(f"[subprocess] exit {rc} for {row['id']}")
+        if args.apply and len(selected) > 1:
+            ctx = expand_log_context_from_env()
+            filtered = filter_expand_run_log(
+                load_expand_run_log(),
+                run_id=ctx.get("run_id"),
+                variant=ctx.get("variant") or args.variant,
+            )
+            if filtered:
+                print_expand_batch_summary(
+                    filtered[-len(selected) :],
+                    title=f"--- expand batch summary ({len(selected)} episodes) ---",
+                )
         return
 
     if args.dry_run:
@@ -430,8 +535,9 @@ def main() -> None:
             raise SystemExit(f"{dry_errors} episode(s) failed")
         return
 
+    batch_records: list[dict] = []
     for row in selected:
-        run_expand_one(
+        status, log_rec = run_expand_one(
             row,
             system=system,
             user_template=user_template,
@@ -444,6 +550,18 @@ def main() -> None:
             staging_dir=staging_dir,
             variant=args.variant,
         )
+        if log_rec:
+            batch_records.append(log_rec)
+
+    if len(selected) > 1 and batch_records:
+        ctx = expand_log_context_from_env()
+        label = f"--- expand batch summary ({len(selected)} episodes)"
+        if ctx.get("run_id"):
+            label += f", run={ctx['run_id']}"
+        if ctx.get("variant") or args.variant:
+            label += f", variant={ctx.get('variant') or args.variant}"
+        label += " ---"
+        print_expand_batch_summary(batch_records, title=label)
 
 
 if __name__ == "__main__":

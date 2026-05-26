@@ -117,7 +117,7 @@ def call_attribution_llm(
     api_key: str,
     base_url: str | None = None,
 ) -> dict[str, Any]:
-    raw = call_openrouter(
+    completion = call_openrouter(
         system="You attribute X posts to Founders podcast episodes. Respond with JSON only.",
         user=attribution_prompt(text, catalog_context),
         model=model,
@@ -126,7 +126,7 @@ def call_attribution_llm(
         temperature=0,
         response_format={"type": "json_object"},
     )
-    return parse_llm_attribution_response(raw)
+    return parse_llm_attribution_response(completion.content)
 
 
 def resolve_attribution_model(cli_model: str | None) -> str:

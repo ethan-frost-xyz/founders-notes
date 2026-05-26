@@ -61,7 +61,23 @@ After promoting, refresh search chunks:
 python search/build_chunks.py
 ```
 
-Runs append to `catalog/expand-run.jsonl` (gitignored) for resume / debugging.
+Apply runs append structured rows to `catalog/expand-run.jsonl` (gitignored): `status`, token counts, `cost_usd`, `duration_ms`, `run_id` / `variant` (when launched from `expand_tune`).
+
+| Field | Meaning |
+|-------|---------|
+| `status` | `ok`, `error`, or `skipped` |
+| `prompt_tokens`, `completion_tokens`, `total_tokens` | From OpenRouter `usage` (apply only) |
+| `cost_usd` | OpenRouter `usage.cost` when present |
+| `duration_ms` | Wall time for the API call |
+| `run_id`, `variant` | Set via `EXPAND_RUN_ID` / `EXPAND_VARIANT` (tune subprocesses) |
+
+Monitor a batch:
+
+```bash
+python notes/expand_datapoints_llm.py --summarize-log --run-id tune-001 --log-variant A
+# or
+jq -s 'group_by(.status) | map({status: .[0].status, n: length})' catalog/expand-run.jsonl
+```
 
 ## Prompt tuning (10-episode A/B sandbox)
 
