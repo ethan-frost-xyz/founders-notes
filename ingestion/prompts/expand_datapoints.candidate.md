@@ -8,7 +8,6 @@ Your entire reply must be markdown only. The first line must be exactly:
 No preamble, title, or “Here is…”. Do not output NOTES, TRANSCRIPT, or a recap of these instructions.
 
 Per bullet in "## Raw datapoints":
-- Match timestamp to TRANSCRIPT (MM:SS or H:MM:SS).
 - One `### {timestamp} — {bullet}` heading per bullet, in order.
 - TRANSCRIPT is lookup only — never output the full transcript or a transcript summary.
 - Verbatim quotes; no invented facts.
