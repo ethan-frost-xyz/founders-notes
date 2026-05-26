@@ -45,6 +45,8 @@ Or ripgrep: `content/transcripts/`, `content/notes/`, `content/posts/`, `content
 
 User workflow: timestamp bullets in `{folder}.notes.md` → full quotes + takeaways. See `[docs/datapoint-workflow.md](docs/datapoint-workflow.md)`.
 
+**Primary console:** `python maintain.py` (from `ingestion/`) — interactive menu for coverage, expand, promote, chunks, and prompt tuning.
+
 ```bash
 python notes/expand_datapoints.py --id ep-0200              # prompt only
 python notes/expand_datapoints_llm.py --id ep-0200 --apply   # OpenRouter → .expanded.draft.md

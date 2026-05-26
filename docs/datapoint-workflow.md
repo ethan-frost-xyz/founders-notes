@@ -31,6 +31,17 @@ Edit that file to change behavior for both the manual CLI and OpenRouter runs. C
 3. Paste the prompt from `python notes/expand_datapoints.py --id ep-0200` (optional `--prompt path/to.md`)
 4. Save the model output as `{folder}.expanded.md` in the same notes folder (or use the draft → promote flow below)
 
+## Maintenance console (recommended)
+
+For day-to-day work, use the interactive menu (wraps the scripts below):
+
+```bash
+cd ingestion
+python maintain.py
+```
+
+Options include coverage/gaps refresh, next notes path, single-episode or backlog expand (dry-run cost first), pending draft list, promote, chunk rebuild, prompt A/B tune, and expand-run log summary.
+
 ## Quick start (OpenRouter)
 
 Set in repo root `.env` (see [`.env.example`](../.env.example)):
