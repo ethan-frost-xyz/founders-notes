@@ -25,13 +25,13 @@ Example (format only — use real NOTES/TRANSCRIPT content):
 
 ### MM:SS — [bullet text from NOTES]
 
-Context: 1–2 sentences (story position at this moment).
+Context: 1–3 sentences (story position at this moment).
 
-Quote: Short verbatim excerpt; **bold** the most important phrase. (MM:SS)
+Quote: "[Complete sentence immediately before the bolded phrase.] **Key phrase.** [Complete sentence immediately after the bolded phrase.]" (MM:SS)
 
 Key takeaway: 2–3 sentences (bigger picture).
 
-Checklist per bullet: `###` heading · Context · Quote with **bold** · timestamp on Quote line · Key takeaway · blank lines between fields.
+Checklist per bullet: `###` heading · Context · Quote (verbatim; **bold** inside quotes; full sentence before + full sentence after the bolded phrase; `(MM:SS)` at end) · Key takeaway · blank lines between fields.
 
 ---
 

@@ -27,11 +27,11 @@ Example (format only — use real NOTES/TRANSCRIPT content):
 
 Context: 1–3 sentences (story position at this moment).
 
-Quote: Full quote exherpt; **bold** the most important phrase and include at minimum the full sentence before and AFTER the bolded phrase. (MM:SS)
+Quote: "[Complete sentence immediately before the bolded phrase.] **Key phrase.** [Complete sentence immediately after the bolded phrase.]" (MM:SS)
 
 Key takeaway: 2–3 sentences (bigger picture).
 
-Checklist per bullet: `###` heading · Context · Quote with **bold** · timestamp on Quote line · Key takeaway · blank lines between fields.
+Checklist per bullet: `###` heading · Context · Quote (verbatim; **bold** inside quotes; full sentence before + full sentence after the bolded phrase; `(MM:SS)` at end) · Key takeaway · blank lines between fields.
 
 ---
 
