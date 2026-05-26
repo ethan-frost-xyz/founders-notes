@@ -2,7 +2,7 @@
 
 Outputs from `notes/expand_tune.py`. **Committed to git** so A/B drafts are available for prompt comparison without re-running the API.
 
-Default run: **`baseline/`** (23 episodes × prompt A + B — see [`catalog/expand-tune-batch.json`](../../../catalog/expand-tune-batch.json)).
+Default run: **`baseline/`** (5 episodes × prompt A + B — see [`catalog/expand-tune-batch.json`](../../../catalog/expand-tune-batch.json)).
 
 ## Layout
 
@@ -15,9 +15,9 @@ expand-runs/{run_id}/
 
 ## Cost
 
-Default batch: **23 episodes** in [`catalog/expand-tune-batch.json`](../../../catalog/expand-tune-batch.json) (ep 10–180 every 10 where notes exist, plus five curated stress cases).
+Default batch: **5 episodes** in [`catalog/expand-tune-batch.json`](../../../catalog/expand-tune-batch.json) (curated stress cases: ep-0001, ep-0022, ep-0066, ep-0105, ep-0189).
 
-Full A/B cycle = **46 OpenRouter calls** (23 × prompt A + 23 × prompt B). Run `--dry-run` first — prints a per-episode table with ~input tokens and `$` estimates from whatever model is set in `OPENROUTER_MODEL` (or `--model`). The run’s model is recorded in `manifest.json` and draft frontmatter, not in these docs.
+Full A/B cycle = **10 OpenRouter calls** (5 × prompt A + 5 × prompt B). Run `--dry-run` first — prints a per-episode table with ~input tokens and `$` estimates from whatever model is set in `OPENROUTER_MODEL` (or `--model`). The run’s model is recorded in `manifest.json` and draft frontmatter, not in these docs.
 
 ## Isolation
 
