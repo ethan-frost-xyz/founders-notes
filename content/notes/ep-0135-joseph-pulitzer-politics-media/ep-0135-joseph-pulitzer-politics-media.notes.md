@@ -1,9 +1,13 @@
 ---
 id: "ep-0135"
-title: "#135 Joseph Pulitzer (Politics & Media)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 135
+title: "#135 Joseph Pulitzer (Politics & Media)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-07-12"
+founders_url: "https://www.founderspodcast.com/episodes/135-joseph-pulitzer-politics-media"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

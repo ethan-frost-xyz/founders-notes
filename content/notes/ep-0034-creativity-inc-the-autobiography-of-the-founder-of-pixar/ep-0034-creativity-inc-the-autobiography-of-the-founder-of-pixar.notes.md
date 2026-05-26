@@ -1,9 +1,13 @@
 ---
 id: "ep-0034"
-title: "#34 Creativity Inc: The Autobiography of the founder of Pixar"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 34
+title: "#34 Creativity Inc: The Autobiography of the founder of Pixar"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2018-08-20"
+founders_url: "https://www.founderspodcast.com/episodes/34-creativity-inc-the-autobiography-of-the-founder-of-pixar"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

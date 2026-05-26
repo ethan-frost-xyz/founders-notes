@@ -2,11 +2,13 @@
 id: "ep-0110"
 episode_number: 110
 title: "#110 Henry Singleton (Teledyne)"
-published_at: 2020-02-10
-colossus_url: https://colossus.com/episode/senra-henry-singleton-a-memoir-of-the-teledyne-corporation-and-the-man-who-created-it/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:36Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-02-10"
+founders_url: "https://www.founderspodcast.com/episodes/110-henry-singleton-teledyne"
+created_at: "2026-05-21T17:36:36Z"
+colossus_url: "https://colossus.com/episode/senra-henry-singleton-a-memoir-of-the-teledyne-corporation-and-the-man-who-created-it/"
+fetched_at: "2026-05-21T17:36:36Z"
 ---
 
 ## Description

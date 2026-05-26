@@ -1,13 +1,16 @@
 ---
 id: "ep-0101"
+episode_number: 101
 title: "#101 Warren Buffett (The Tao of Warren Buffett)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-28"
+founders_url: "https://www.founderspodcast.com/episodes/101-warren-buffett-the-tao-of-warren-buffett"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2016354632973336833"
 x_post_id: "2016354632973336833"
-published_at: "2026-01-28"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 101
 ---
 
 Founders: #101 Warren Buffett - $BRK

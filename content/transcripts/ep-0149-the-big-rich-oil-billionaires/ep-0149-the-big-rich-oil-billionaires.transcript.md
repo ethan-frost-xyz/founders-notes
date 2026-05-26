@@ -2,11 +2,13 @@
 id: "ep-0149"
 episode_number: 149
 title: "#149 The Big Rich (Oil Billionaires)"
-published_at: 2020-10-18
-colossus_url: https://colossus.com/episode/senra-the-big-rich-the-rise-and-fall-of-the-greatest-texas-oil-fortunes/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:25Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-10-18"
+founders_url: "https://www.founderspodcast.com/episodes/149-the-big-rich-oil-billionaires"
+created_at: "2026-05-21T17:37:25Z"
+colossus_url: "https://colossus.com/episode/senra-the-big-rich-the-rise-and-fall-of-the-greatest-texas-oil-fortunes/"
+fetched_at: "2026-05-21T17:37:25Z"
 ---
 
 ## Description

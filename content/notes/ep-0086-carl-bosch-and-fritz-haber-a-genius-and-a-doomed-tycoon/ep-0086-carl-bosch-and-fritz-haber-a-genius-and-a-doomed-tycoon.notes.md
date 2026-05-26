@@ -1,9 +1,13 @@
 ---
 id: "ep-0086"
-title: "#86 Carl Bosch and Fritz Haber (A Genius and a Doomed Tycoon)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 86
+title: "#86 Carl Bosch and Fritz Haber (A Genius and a Doomed Tycoon)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-08-25"
+founders_url: "https://www.founderspodcast.com/episodes/86-carl-bosch-and-fritz-haber-a-genius-and-a-doomed-tycoon"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

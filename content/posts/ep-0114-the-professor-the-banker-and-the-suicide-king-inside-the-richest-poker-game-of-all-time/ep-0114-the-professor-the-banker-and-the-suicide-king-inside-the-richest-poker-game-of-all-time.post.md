@@ -1,13 +1,16 @@
 ---
 id: "ep-0114"
+episode_number: 114
 title: "#114 The Professor, the Banker, and the Suicide King: Inside the Richest Poker Game of All Time"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-10"
+founders_url: "https://www.founderspodcast.com/episodes/114-the-professor-the-banker-and-the-suicide-king-inside-the-richest-poker-game-of-all-time"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2021298623057887539"
 x_post_id: "2021298623057887539"
-published_at: "2026-02-10"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 114
 ---
 
 Founders #114: Andy Beal

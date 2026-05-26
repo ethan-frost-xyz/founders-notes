@@ -2,11 +2,13 @@
 id: "ep-0014"
 episode_number: 14
 title: "#14 The Accidental Billionaires: The Founding of Facebook: A Tale of Sex, Money, Genius, and Betrayal"
-published_at: 2017-09-17
-colossus_url: https://colossus.com/episode/senra-mark-zuckerberg-eduardo-saverin-the-founding-of-facebook/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:38Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2017-09-17"
+founders_url: "https://www.founderspodcast.com/episodes/14-the-accidental-billionaires-the-founding-of-facebook-a-tale-of-sex-money-genius-and-betrayal"
+created_at: "2026-05-21T17:34:38Z"
+colossus_url: "https://colossus.com/episode/senra-mark-zuckerberg-eduardo-saverin-the-founding-of-facebook/"
+fetched_at: "2026-05-21T17:34:38Z"
 ---
 
 ## Description

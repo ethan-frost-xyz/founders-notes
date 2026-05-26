@@ -2,11 +2,13 @@
 id: "ep-0253"
 episode_number: 253
 title: "#253 Henry Goldman (Goldman Sachs)"
-published_at: 2022-06-22
-colossus_url: https://colossus.com/episode/senra-henry-goldman-goldman-sachs-and-the-founding-of-wall-street/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:34Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-06-22"
+founders_url: "https://www.founderspodcast.com/episodes/253-henry-goldman-goldman-sachs"
+created_at: "2026-05-21T17:39:34Z"
+colossus_url: "https://colossus.com/episode/senra-henry-goldman-goldman-sachs-and-the-founding-of-wall-street/"
+fetched_at: "2026-05-21T17:39:34Z"
 ---
 
 ## Description

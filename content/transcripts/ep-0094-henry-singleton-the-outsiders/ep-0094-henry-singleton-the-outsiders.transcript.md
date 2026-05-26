@@ -2,11 +2,13 @@
 id: "ep-0094"
 episode_number: 94
 title: "#94 Henry Singleton (The Outsiders)"
-published_at: 2019-10-20
-colossus_url: https://colossus.com/episode/senra-the-outsiders-eight-unconventional-ceos/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:16Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-10-20"
+founders_url: "https://www.founderspodcast.com/episodes/94-henry-singleton-the-outsiders"
+created_at: "2026-05-21T17:36:16Z"
+colossus_url: "https://colossus.com/episode/senra-the-outsiders-eight-unconventional-ceos/"
+fetched_at: "2026-05-21T17:36:16Z"
 ---
 
 ## Description

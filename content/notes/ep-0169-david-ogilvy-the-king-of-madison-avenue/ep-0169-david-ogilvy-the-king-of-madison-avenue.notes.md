@@ -1,9 +1,13 @@
 ---
 id: "ep-0169"
-title: "#169 David Ogilvy (The King of Madison Avenue)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 169
+title: "#169 David Ogilvy (The King of Madison Avenue)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2021-03-01"
+founders_url: "https://www.founderspodcast.com/episodes/169-david-ogilvy-the-king-of-madison-avenue"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

@@ -2,11 +2,13 @@
 id: "ep-0075"
 episode_number: 75
 title: "#75 Henry Clay Frick: Andrew Carnegie's Partner"
-published_at: 2019-06-09
-colossus_url: https://colossus.com/episode/senra-henry-clay-frick-the-life-of-the-perfect-capitalist/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:53Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-06-09"
+founders_url: "https://www.founderspodcast.com/episodes/75-henry-clay-frick-andrew-carnegies-partner"
+created_at: "2026-05-21T17:35:53Z"
+colossus_url: "https://colossus.com/episode/senra-henry-clay-frick-the-life-of-the-perfect-capitalist/"
+fetched_at: "2026-05-21T17:35:53Z"
 ---
 
 ## Description

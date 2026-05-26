@@ -1,13 +1,16 @@
 ---
 id: "ep-0092"
+episode_number: 92
 title: "#92 Ed Thorp and Claude Shannon"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-19"
+founders_url: "https://www.founderspodcast.com/episodes/92-ed-thorp-and-claude-shannon"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2013112490725384578"
 x_post_id: "2013112490725384578"
-published_at: "2026-01-19"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 92
 ---
 
 Lessons from past experiences often lead to unexpected benefits. (10:45) The Kelly Criterion is a proportional betting system that requires scaling your bet size relative to your current cash balance, ensuring you never risk total ruin. This is achieved by always betting a calculated fraction of your bankroll, increasing your stake as you win and decreasing it as you lose. This makes it impossible to lose all your money.

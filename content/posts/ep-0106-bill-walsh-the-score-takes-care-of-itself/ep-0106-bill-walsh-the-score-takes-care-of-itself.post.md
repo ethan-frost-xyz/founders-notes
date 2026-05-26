@@ -1,13 +1,16 @@
 ---
 id: "ep-0106"
+episode_number: 106
 title: "#106 Bill Walsh (The Score Takes Care of Itself)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-02"
+founders_url: "https://www.founderspodcast.com/episodes/106-bill-walsh-the-score-takes-care-of-itself"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2018451744196280511"
 x_post_id: "2018451744196280511"
-published_at: "2026-02-02"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 106
 ---
 
 Founders #106 Bill Walsh - NFL

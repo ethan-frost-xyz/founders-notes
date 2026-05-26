@@ -2,11 +2,13 @@
 id: "ep-0308"
 episode_number: 308
 title: "#308 The Founder of Glock"
-published_at: 2023-06-19
-colossus_url: https://colossus.com/episode/senra-gaston-glock-the-unlikely-king-of-guns/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:41Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-06-19"
+founders_url: "https://www.founderspodcast.com/episodes/308-the-founder-of-glock"
+created_at: "2026-05-21T17:40:41Z"
+colossus_url: "https://colossus.com/episode/senra-gaston-glock-the-unlikely-king-of-guns/"
+fetched_at: "2026-05-21T17:40:41Z"
 ---
 
 ## Description

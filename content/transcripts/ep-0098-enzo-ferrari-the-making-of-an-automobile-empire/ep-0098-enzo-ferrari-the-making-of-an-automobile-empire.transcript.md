@@ -2,11 +2,13 @@
 id: "ep-0098"
 episode_number: 98
 title: "#98 Enzo Ferrari (the making of an automobile empire)"
-published_at: 2019-11-18
-colossus_url: https://colossus.com/episode/senra-ferrari-power-politics-and-the-making-of-an-automobile-empire/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:21Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-11-18"
+founders_url: "https://www.founderspodcast.com/episodes/98-enzo-ferrari-the-making-of-an-automobile-empire"
+created_at: "2026-05-21T17:36:21Z"
+colossus_url: "https://colossus.com/episode/senra-ferrari-power-politics-and-the-making-of-an-automobile-empire/"
+fetched_at: "2026-05-21T17:36:21Z"
 ---
 
 ## Description

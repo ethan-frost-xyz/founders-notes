@@ -1,9 +1,13 @@
 ---
 id: "ep-0003"
-title: "#3 The Wizard of Menlo Park: How Thomas Edison Invented The Modern the Modern World"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 3
+title: "#3 The Wizard of Menlo Park: How Thomas Edison Invented The Modern the Modern World"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2017-03-24"
+founders_url: "https://www.founderspodcast.com/episodes/3-the-wizard-of-menlo-park-how-thomas-edison-invented-the-modern-the-modern-world"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

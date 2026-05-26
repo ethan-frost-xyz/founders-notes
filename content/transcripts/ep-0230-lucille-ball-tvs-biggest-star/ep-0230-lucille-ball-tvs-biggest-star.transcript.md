@@ -2,11 +2,13 @@
 id: "ep-0230"
 episode_number: 230
 title: "#230 Lucille Ball (TV's biggest star)"
-published_at: 2022-02-07
-colossus_url: https://colossus.com/episode/senra-lucille-ball-love-lucy/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:05Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-02-07"
+founders_url: "https://www.founderspodcast.com/episodes/230-lucille-ball-tvs-biggest-star"
+created_at: "2026-05-21T17:39:05Z"
+colossus_url: "https://colossus.com/episode/senra-lucille-ball-love-lucy/"
+fetched_at: "2026-05-21T17:39:05Z"
 ---
 
 ## Description

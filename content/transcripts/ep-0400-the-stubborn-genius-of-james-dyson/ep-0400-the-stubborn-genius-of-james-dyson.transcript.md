@@ -2,11 +2,13 @@
 id: "ep-0400"
 episode_number: 400
 title: "#400 The Stubborn Genius of James Dyson"
-published_at: 2025-09-12
-colossus_url: https://colossus.com/episode/400-the-stubborn-genius-of-james-dyson/
-founders_url: https://www.founderspodcast.com/episodes/400-the-stubborn-genius-of-james-dyson
-source: colossus
-fetched_at: 2026-05-21T17:42:35Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-09-12"
+founders_url: "https://www.founderspodcast.com/episodes/400-the-stubborn-genius-of-james-dyson"
+created_at: "2026-05-21T17:42:35Z"
+colossus_url: "https://colossus.com/episode/400-the-stubborn-genius-of-james-dyson/"
+fetched_at: "2026-05-21T17:42:35Z"
 ---
 
 ## Description

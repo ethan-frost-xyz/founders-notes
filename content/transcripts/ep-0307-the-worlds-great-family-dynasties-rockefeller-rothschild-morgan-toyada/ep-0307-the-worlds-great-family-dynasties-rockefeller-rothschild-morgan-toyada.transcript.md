@@ -2,11 +2,13 @@
 id: "ep-0307"
 episode_number: 307
 title: "#307: The World's Great Family Dynasties: Rockefeller, Rothschild, Morgan, & Toyada"
-published_at: 2023-06-12
-colossus_url: https://colossus.com/episode/senra-rockefeller-rothschild-morgan-toyota-the-worlds-great-family-dynasties/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:40Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-06-12"
+founders_url: "https://www.founderspodcast.com/episodes/307-the-worlds-great-family-dynasties-rockefeller-rothschild-morgan-toyada"
+created_at: "2026-05-21T17:40:40Z"
+colossus_url: "https://colossus.com/episode/senra-rockefeller-rothschild-morgan-toyota-the-worlds-great-family-dynasties/"
+fetched_at: "2026-05-21T17:40:40Z"
 ---
 
 ## Description

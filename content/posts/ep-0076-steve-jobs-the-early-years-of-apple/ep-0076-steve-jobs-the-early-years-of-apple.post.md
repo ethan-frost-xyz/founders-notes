@@ -1,13 +1,16 @@
 ---
 id: "ep-0076"
+episode_number: 76
 title: "#76 Steve Jobs: The Early Years of Apple"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-02"
+founders_url: "https://www.founderspodcast.com/episodes/76-steve-jobs-the-early-years-of-apple"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2007230762001834005"
 x_post_id: "2007230762001834005"
-published_at: "2026-01-02"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 76
 ---
 
 Founders #76: Steve Jobs (early years at Apple)

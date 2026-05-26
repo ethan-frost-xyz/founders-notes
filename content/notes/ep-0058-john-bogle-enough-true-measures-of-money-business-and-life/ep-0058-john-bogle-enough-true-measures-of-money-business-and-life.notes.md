@@ -1,9 +1,13 @@
 ---
 id: "ep-0058"
-title: "#58 John Bogle: Enough: True Measures of Money, Business, and Life"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 58
+title: "#58 John Bogle: Enough: True Measures of Money, Business, and Life"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-02-04"
+founders_url: "https://www.founderspodcast.com/episodes/58-john-bogle-enough-true-measures-of-money-business-and-life"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

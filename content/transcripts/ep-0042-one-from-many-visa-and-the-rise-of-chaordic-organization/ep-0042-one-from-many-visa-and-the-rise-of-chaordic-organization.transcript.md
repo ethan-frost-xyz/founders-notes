@@ -2,11 +2,13 @@
 id: "ep-0042"
 episode_number: 42
 title: "#42 One From Many: VISA and the Rise of Chaordic Organization"
-published_at: 2018-10-16
-colossus_url: https://colossus.com/episode/senra-dee-hock-one-from-many/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:12Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-10-16"
+founders_url: "https://www.founderspodcast.com/episodes/42-one-from-many-visa-and-the-rise-of-chaordic-organization"
+created_at: "2026-05-21T17:35:12Z"
+colossus_url: "https://colossus.com/episode/senra-dee-hock-one-from-many/"
+fetched_at: "2026-05-21T17:35:12Z"
 ---
 
 ## Description

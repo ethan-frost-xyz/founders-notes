@@ -2,11 +2,13 @@
 id: "ep-0177"
 episode_number: 177
 title: "#177 Robert Campeau (Junk Bonds and Retail Bankruptcy)"
-published_at: 2021-04-26
-colossus_url: https://colossus.com/episode/senra-robert-campeau-going-for-broke/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:00Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-04-26"
+founders_url: "https://www.founderspodcast.com/episodes/177-robert-campeau-junk-bonds-and-retail-bankruptcy"
+created_at: "2026-05-21T17:38:00Z"
+colossus_url: "https://colossus.com/episode/senra-robert-campeau-going-for-broke/"
+fetched_at: "2026-05-21T17:38:00Z"
 ---
 
 ## Description

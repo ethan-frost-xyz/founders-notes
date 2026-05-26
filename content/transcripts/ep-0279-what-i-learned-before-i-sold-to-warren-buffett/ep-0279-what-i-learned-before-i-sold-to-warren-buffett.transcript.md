@@ -2,11 +2,13 @@
 id: "ep-0279"
 episode_number: 279
 title: "#279 What I Learned Before I Sold to Warren Buffett"
-published_at: 2022-11-29
-colossus_url: https://colossus.com/episode/senra-barnett-helzberg-jr-what-i-learned-before-i-sold-to-warren-buffett/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:06Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-11-29"
+founders_url: "https://www.founderspodcast.com/episodes/279-what-i-learned-before-i-sold-to-warren-buffett"
+created_at: "2026-05-21T17:40:06Z"
+colossus_url: "https://colossus.com/episode/senra-barnett-helzberg-jr-what-i-learned-before-i-sold-to-warren-buffett/"
+fetched_at: "2026-05-21T17:40:06Z"
 ---
 
 ## Description

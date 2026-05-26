@@ -2,11 +2,13 @@
 id: "ep-0385"
 episode_number: 385
 title: "#385 Michael Dell"
-published_at: 2025-04-14
-colossus_url: https://colossus.com/episode/385-michael-dell/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:42:17Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-04-14"
+founders_url: "https://www.founderspodcast.com/episodes/385-michael-dell"
+created_at: "2026-05-21T17:42:17Z"
+colossus_url: "https://colossus.com/episode/385-michael-dell/"
+fetched_at: "2026-05-21T17:42:17Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0210"
 episode_number: 210
 title: "#210 Stephen King On Writing: A Memoir of the Craft"
-published_at: 2021-10-10
-colossus_url: https://colossus.com/episode/senra-stephen-king-a-memoir-of-the-craft/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:41Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-10-10"
+founders_url: "https://www.founderspodcast.com/episodes/210-stephen-king-on-writing-a-memoir-of-the-craft"
+created_at: "2026-05-21T17:38:41Z"
+colossus_url: "https://colossus.com/episode/senra-stephen-king-a-memoir-of-the-craft/"
+fetched_at: "2026-05-21T17:38:41Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0409"
 episode_number: 409
 title: "#409 The Creative Genius of Rick Rubin"
-published_at: 2026-01-08
-colossus_url: https://colossus.com/episode/409-the-creative-genius-of-rick-rubin/
-founders_url: https://www.founderspodcast.com/episodes/409-the-creative-genius-of-rick-rubin
-source: colossus
-fetched_at: 2026-05-21T17:42:46Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2026-01-08"
+founders_url: "https://www.founderspodcast.com/episodes/409-the-creative-genius-of-rick-rubin"
+created_at: "2026-05-21T17:42:46Z"
+colossus_url: "https://colossus.com/episode/409-the-creative-genius-of-rick-rubin/"
+fetched_at: "2026-05-21T17:42:46Z"
 ---
 
 ## Description

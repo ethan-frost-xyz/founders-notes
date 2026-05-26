@@ -2,11 +2,13 @@
 id: "ep-0417"
 episode_number: 417
 title: "#417 Arnold Schwarzenegger"
-published_at: 2026-04-19
-colossus_url: https://colossus.com/episode/417-arnold-schwarzenegger/
-founders_url: https://www.founderspodcast.com/episodes/417-arnold-schwarzenegger
-source: colossus
-fetched_at: 2026-05-21T17:42:56Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2026-04-19"
+founders_url: "https://www.founderspodcast.com/episodes/417-arnold-schwarzenegger"
+created_at: "2026-05-21T17:42:56Z"
+colossus_url: "https://colossus.com/episode/417-arnold-schwarzenegger/"
+fetched_at: "2026-05-21T17:42:56Z"
 ---
 
 ## Description

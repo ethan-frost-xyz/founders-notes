@@ -2,11 +2,13 @@
 id: "ep-0053"
 episode_number: 53
 title: "#53 Who Is Michael Ovitz?"
-published_at: 2019-01-01
-colossus_url: https://colossus.com/episode/senra-michael-ovitz-who-is-michael-ovitz/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:26Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-01-01"
+founders_url: "https://www.founderspodcast.com/episodes/53-who-is-michael-ovitz"
+created_at: "2026-05-21T17:35:26Z"
+colossus_url: "https://colossus.com/episode/senra-michael-ovitz-who-is-michael-ovitz/"
+fetched_at: "2026-05-21T17:35:26Z"
 ---
 
 ## Description

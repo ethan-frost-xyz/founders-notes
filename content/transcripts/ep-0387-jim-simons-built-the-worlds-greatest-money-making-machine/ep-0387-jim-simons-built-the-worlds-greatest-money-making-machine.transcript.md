@@ -2,11 +2,13 @@
 id: "ep-0387"
 episode_number: 387
 title: "#387 Jim Simons Built The World’s Greatest Money-Making Machine"
-published_at: 2025-05-01
-colossus_url: https://colossus.com/episode/387-jim-simons-built-the-worlds-greatest-money-making-machine/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:42:19Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-05-01"
+founders_url: "https://www.founderspodcast.com/episodes/387-jim-simons-built-the-worlds-greatest-money-making-machine"
+created_at: "2026-05-21T17:42:19Z"
+colossus_url: "https://colossus.com/episode/387-jim-simons-built-the-worlds-greatest-money-making-machine/"
+fetched_at: "2026-05-21T17:42:19Z"
 ---
 
 ## Description

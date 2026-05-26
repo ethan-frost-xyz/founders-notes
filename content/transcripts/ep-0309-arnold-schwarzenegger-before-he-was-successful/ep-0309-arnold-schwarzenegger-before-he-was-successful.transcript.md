@@ -2,11 +2,13 @@
 id: "ep-0309"
 episode_number: 309
 title: "#309 Arnold Schwarzenegger (Before He Was Successful)"
-published_at: 2023-06-26
-colossus_url: https://colossus.com/episode/senra-arnold-schwarzenegger-barbara-outland-baker/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:43Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-06-26"
+founders_url: "https://www.founderspodcast.com/episodes/309-arnold-schwarzenegger-before-he-was-successful"
+created_at: "2026-05-21T17:40:43Z"
+colossus_url: "https://colossus.com/episode/senra-arnold-schwarzenegger-barbara-outland-baker/"
+fetched_at: "2026-05-21T17:40:43Z"
 ---
 
 ## Description

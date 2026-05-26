@@ -2,11 +2,13 @@
 id: "ep-0215"
 episode_number: 215
 title: "#215: J. Robert Oppenheimer and Leslie Groves (The General and the Genius)"
-published_at: 2021-11-09
-colossus_url: https://colossus.com/episode/senra-leslie-richard-groves-and-j-robert-oppenheimer-the-general-and-the-genius/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:47Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-11-09"
+founders_url: "https://www.founderspodcast.com/episodes/215-j-robert-oppenheimer-and-leslie-groves-the-general-and-the-genius"
+created_at: "2026-05-21T17:38:47Z"
+colossus_url: "https://colossus.com/episode/senra-leslie-richard-groves-and-j-robert-oppenheimer-the-general-and-the-genius/"
+fetched_at: "2026-05-21T17:38:47Z"
 ---
 
 ## Description

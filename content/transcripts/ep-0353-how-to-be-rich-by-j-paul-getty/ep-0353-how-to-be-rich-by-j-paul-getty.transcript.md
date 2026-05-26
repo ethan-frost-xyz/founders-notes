@@ -2,11 +2,13 @@
 id: "ep-0353"
 episode_number: 353
 title: "#353 How To Be Rich by J. Paul Getty"
-published_at: 2024-06-23
-colossus_url: https://colossus.com/episode/senra-353-how-to-be-rich-by-j-paul-getty/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:38Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-06-23"
+founders_url: "https://www.founderspodcast.com/episodes/353-how-to-be-rich-by-j-paul-getty"
+created_at: "2026-05-21T17:41:38Z"
+colossus_url: "https://colossus.com/episode/senra-353-how-to-be-rich-by-j-paul-getty/"
+fetched_at: "2026-05-21T17:41:38Z"
 ---
 
 ## Description

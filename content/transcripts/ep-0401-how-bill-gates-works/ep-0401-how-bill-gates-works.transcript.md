@@ -2,11 +2,13 @@
 id: "ep-0401"
 episode_number: 401
 title: "#401 How Bill Gates Works"
-published_at: 2025-09-24
-colossus_url: https://colossus.com/episode/401-how-bill-gates-works/
-founders_url: https://www.founderspodcast.com/episodes/401-how-bill-gates-works
-source: colossus
-fetched_at: 2026-05-21T17:42:36Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-09-24"
+founders_url: "https://www.founderspodcast.com/episodes/401-how-bill-gates-works"
+created_at: "2026-05-21T17:42:36Z"
+colossus_url: "https://colossus.com/episode/401-how-bill-gates-works/"
+fetched_at: "2026-05-21T17:42:36Z"
 ---
 
 ## Description

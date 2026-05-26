@@ -1,9 +1,13 @@
 ---
 id: "ep-0071"
-title: "#71 Jeff Bezos' Shareholder Letters"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 71
+title: "#71 Jeff Bezos' Shareholder Letters"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-05-12"
+founders_url: "https://www.founderspodcast.com/episodes/71-jeff-bezos-shareholder-letters"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

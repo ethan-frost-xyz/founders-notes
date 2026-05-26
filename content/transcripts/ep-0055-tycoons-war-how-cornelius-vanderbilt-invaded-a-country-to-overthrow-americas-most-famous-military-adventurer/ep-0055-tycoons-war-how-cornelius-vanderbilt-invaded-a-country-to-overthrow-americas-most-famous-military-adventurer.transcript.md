@@ -2,11 +2,13 @@
 id: "ep-0055"
 episode_number: 55
 title: "#55 Tycoon's War: How Cornelius Vanderbilt Invaded a Country to Overthrow America's Most Famous Military Adventurer"
-published_at: 2019-01-14
-colossus_url: https://colossus.com/episode/senra-cornelius-vanderbilt-tycoons-war/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:28Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-01-14"
+founders_url: "https://www.founderspodcast.com/episodes/55-tycoons-war-how-cornelius-vanderbilt-invaded-a-country-to-overthrow-americas-most-famous-military-adventurer"
+created_at: "2026-05-21T17:35:28Z"
+colossus_url: "https://colossus.com/episode/senra-cornelius-vanderbilt-tycoons-war/"
+fetched_at: "2026-05-21T17:35:28Z"
 ---
 
 ## Description

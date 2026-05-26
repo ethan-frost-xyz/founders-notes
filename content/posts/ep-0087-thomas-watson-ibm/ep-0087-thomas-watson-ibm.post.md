@@ -1,13 +1,16 @@
 ---
 id: "ep-0087"
+episode_number: 87
 title: "#87 Thomas Watson (IBM)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-14"
+founders_url: "https://www.founderspodcast.com/episodes/87-thomas-watson-ibm"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2011305601620422762"
 x_post_id: "2011305601620422762"
-published_at: "2026-01-14"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 87
 ---
 
 Founders #87: Thomas Watson - $IBM

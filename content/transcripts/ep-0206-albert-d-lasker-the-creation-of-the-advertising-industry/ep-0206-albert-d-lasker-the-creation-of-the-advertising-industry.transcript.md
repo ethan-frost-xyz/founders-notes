@@ -2,11 +2,13 @@
 id: "ep-0206"
 episode_number: 206
 title: "#206 Albert D. Lasker (the creation of the advertising industry)"
-published_at: 2021-09-23
-colossus_url: https://colossus.com/episode/senra-albert-d-lasker-the-man-who-sold-america/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:35Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-09-23"
+founders_url: "https://www.founderspodcast.com/episodes/206-albert-d-lasker-the-creation-of-the-advertising-industry"
+created_at: "2026-05-21T17:38:35Z"
+colossus_url: "https://colossus.com/episode/senra-albert-d-lasker-the-man-who-sold-america/"
+fetched_at: "2026-05-21T17:38:35Z"
 ---
 
 ## Description

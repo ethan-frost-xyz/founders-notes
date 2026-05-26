@@ -1,9 +1,13 @@
 ---
 id: "ep-0120"
-title: "#120 Billy Durant (Creator of General Motors)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 120
+title: "#120 Billy Durant (Creator of General Motors)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-04-11"
+founders_url: "https://www.founderspodcast.com/episodes/120-billy-durant-creator-of-general-motors"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

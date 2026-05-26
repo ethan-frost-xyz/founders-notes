@@ -1,13 +1,16 @@
 ---
 id: "ep-0107"
+episode_number: 107
 title: "#107 Sol Price (Costco)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-03"
+founders_url: "https://www.founderspodcast.com/episodes/107-sol-price-costco"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2018701010156519613"
 x_post_id: "2018701010156519613"
-published_at: "2026-02-03"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 107
 ---
 
 Founders #107 Sol Price

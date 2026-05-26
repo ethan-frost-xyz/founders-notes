@@ -1,13 +1,16 @@
 ---
 id: "ep-0070"
+episode_number: 70
 title: "#70 Mark Spitznagel: The Dao of Capital"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-27"
+founders_url: "https://www.founderspodcast.com/episodes/70-mark-spitznagel-the-dao-of-capital"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2005027694585540985"
 x_post_id: "2005027694585540985"
-published_at: "2025-12-27"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 70
 ---
 
 Founders #70: Mark Spitznagel (author of The Dao of Capital)

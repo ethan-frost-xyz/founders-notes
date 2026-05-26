@@ -2,11 +2,13 @@
 id: "ep-0127"
 episode_number: 127
 title: "#127 Larry Ellison (Oracle)"
-published_at: 2020-05-25
-colossus_url: https://colossus.com/episode/senra-larry-ellison-founder-of-oracle/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:57Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-05-25"
+founders_url: "https://www.founderspodcast.com/episodes/127-larry-ellison-oracle"
+created_at: "2026-05-21T17:36:57Z"
+colossus_url: "https://colossus.com/episode/senra-larry-ellison-founder-of-oracle/"
+fetched_at: "2026-05-21T17:36:57Z"
 ---
 
 ## Description

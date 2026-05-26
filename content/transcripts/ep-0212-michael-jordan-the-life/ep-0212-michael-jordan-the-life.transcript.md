@@ -2,11 +2,13 @@
 id: "ep-0212"
 episode_number: 212
 title: "#212 Michael Jordan: The Life"
-published_at: 2021-10-23
-colossus_url: https://colossus.com/episode/senra-michael-jordan-driven-from-within/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:43Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-10-23"
+founders_url: "https://www.founderspodcast.com/episodes/212-michael-jordan-the-life"
+created_at: "2026-05-21T17:38:43Z"
+colossus_url: "https://colossus.com/episode/senra-michael-jordan-driven-from-within/"
+fetched_at: "2026-05-21T17:38:43Z"
 ---
 
 ## Description

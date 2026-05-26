@@ -2,11 +2,13 @@
 id: "ep-0276"
 episode_number: 276
 title: "#276 Paul Graham’s Essays Part 2"
-published_at: 2022-11-09
-colossus_url: https://colossus.com/episode/senra-paul-graham-lessons-from-his-essays-pt2/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:02Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-11-09"
+founders_url: "https://www.founderspodcast.com/episodes/276-paul-grahams-essays-part-2"
+created_at: "2026-05-21T17:40:02Z"
+colossus_url: "https://colossus.com/episode/senra-paul-graham-lessons-from-his-essays-pt2/"
+fetched_at: "2026-05-21T17:40:02Z"
 ---
 
 ## Description

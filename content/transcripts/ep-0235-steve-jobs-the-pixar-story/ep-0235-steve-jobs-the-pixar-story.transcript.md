@@ -2,11 +2,13 @@
 id: "ep-0235"
 episode_number: 235
 title: "#235 Steve Jobs (The Pixar Story)"
-published_at: 2022-03-07
-colossus_url: https://colossus.com/episode/senra-lawrence-levy-my-unlikely-journey-with-steve-jobs/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:11Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-03-07"
+founders_url: "https://www.founderspodcast.com/episodes/235-steve-jobs-the-pixar-story"
+created_at: "2026-05-21T17:39:11Z"
+colossus_url: "https://colossus.com/episode/senra-lawrence-levy-my-unlikely-journey-with-steve-jobs/"
+fetched_at: "2026-05-21T17:39:11Z"
 ---
 
 ## Description

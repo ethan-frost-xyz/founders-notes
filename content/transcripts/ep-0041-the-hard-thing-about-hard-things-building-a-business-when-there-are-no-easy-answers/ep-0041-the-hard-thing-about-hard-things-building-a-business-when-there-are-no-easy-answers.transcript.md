@@ -2,11 +2,13 @@
 id: "ep-0041"
 episode_number: 41
 title: "#41 The Hard Thing About Hard Things: Building a Business When There Are No Easy Answers"
-published_at: 2018-10-08
-colossus_url: https://colossus.com/episode/senra-ben-horowitz-the-hard-thing-about-hard-things/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:11Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-10-08"
+founders_url: "https://www.founderspodcast.com/episodes/41-the-hard-thing-about-hard-things-building-a-business-when-there-are-no-easy-answers"
+created_at: "2026-05-21T17:35:11Z"
+colossus_url: "https://colossus.com/episode/senra-ben-horowitz-the-hard-thing-about-hard-things/"
+fetched_at: "2026-05-21T17:35:11Z"
 ---
 
 ## Description

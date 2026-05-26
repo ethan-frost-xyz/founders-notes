@@ -1,13 +1,16 @@
 ---
 id: "ep-0112"
+episode_number: 112
 title: "#112 Frank Lloyd Wright"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-08"
+founders_url: "https://www.founderspodcast.com/episodes/112-frank-lloyd-wright"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2020618559882215696"
 x_post_id: "2020618559882215696"
-published_at: "2026-02-08"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 112
 ---
 
 Founders #112: The Greatest American Architect

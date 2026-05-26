@@ -1,13 +1,16 @@
 ---
 id: "ep-0063"
+episode_number: 63
 title: "#63 The King of Oil: The Secret Lives of Marc Rich"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-20"
+founders_url: "https://www.founderspodcast.com/episodes/63-the-king-of-oil-the-secret-lives-of-marc-rich"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2002512196836966812"
 x_post_id: "2002512196836966812"
-published_at: "2025-12-20"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 63
 ---
 
 Founders #63: Marc Rich

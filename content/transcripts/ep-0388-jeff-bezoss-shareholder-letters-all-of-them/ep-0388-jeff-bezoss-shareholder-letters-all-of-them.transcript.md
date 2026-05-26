@@ -2,11 +2,13 @@
 id: "ep-0388"
 episode_number: 388
 title: "#388 Jeff Bezos's Shareholder Letters: All of Them!"
-published_at: 2025-05-15
-colossus_url: https://colossus.com/episode/388-jeff-bezoss-shareholder-letters/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:42:21Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-05-15"
+founders_url: "https://www.founderspodcast.com/episodes/388-jeff-bezoss-shareholder-letters-all-of-them"
+created_at: "2026-05-21T17:42:21Z"
+colossus_url: "https://colossus.com/episode/388-jeff-bezoss-shareholder-letters/"
+fetched_at: "2026-05-21T17:42:21Z"
 ---
 
 ## Description

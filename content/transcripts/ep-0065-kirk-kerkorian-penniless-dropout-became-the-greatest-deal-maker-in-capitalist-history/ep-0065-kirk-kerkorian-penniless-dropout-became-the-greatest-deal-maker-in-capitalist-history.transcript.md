@@ -2,11 +2,13 @@
 id: "ep-0065"
 episode_number: 65
 title: "#65 Kirk Kerkorian: Penniless Dropout became the Greatest Deal Maker in Capitalist History"
-published_at: 2019-03-31
-colossus_url: https://colossus.com/episode/senra-kirk-kerkorian-from-dropout-to-the-greatest-dealmaker-in-history/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:40Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-03-31"
+founders_url: "https://www.founderspodcast.com/episodes/65-kirk-kerkorian-penniless-dropout-became-the-greatest-deal-maker-in-capitalist-history"
+created_at: "2026-05-21T17:35:40Z"
+colossus_url: "https://colossus.com/episode/senra-kirk-kerkorian-from-dropout-to-the-greatest-dealmaker-in-history/"
+fetched_at: "2026-05-21T17:35:40Z"
 ---
 
 ## Description

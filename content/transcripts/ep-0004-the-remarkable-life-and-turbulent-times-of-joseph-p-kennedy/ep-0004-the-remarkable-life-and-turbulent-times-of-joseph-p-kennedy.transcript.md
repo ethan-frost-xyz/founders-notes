@@ -2,11 +2,13 @@
 id: "ep-0004"
 episode_number: 4
 title: "#4 The Remarkable Life and Turbulent Times of Joseph P. Kennedy"
-published_at: 2017-04-19
-colossus_url: https://colossus.com/episode/senra-joseph-p-kennedy-the-patriarch/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:25Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2017-04-19"
+founders_url: "https://www.founderspodcast.com/episodes/4-the-remarkable-life-and-turbulent-times-of-joseph-p-kennedy"
+created_at: "2026-05-21T17:34:25Z"
+colossus_url: "https://colossus.com/episode/senra-joseph-p-kennedy-the-patriarch/"
+fetched_at: "2026-05-21T17:34:25Z"
 ---
 
 ## Description

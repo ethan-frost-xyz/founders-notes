@@ -1,13 +1,16 @@
 ---
 id: "ep-0108"
+episode_number: 108
 title: "#108 Jim Simons (Money Printer)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-04"
+founders_url: "https://www.founderspodcast.com/episodes/108-jim-simons-money-printer"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2019123795718504540"
 x_post_id: "2019123795718504540"
-published_at: "2026-02-04"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 108
 ---
 
 Founders #108: Jim Simons - Renaissance Technologies

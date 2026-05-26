@@ -2,11 +2,13 @@
 id: "ep-0070"
 episode_number: 70
 title: "#70 Mark Spitznagel: The Dao of Capital"
-published_at: 2019-05-06
-colossus_url: https://colossus.com/episode/senra-mark-spitznagel-austrian-investing-in-a-distorted-world/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:47Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-05-06"
+founders_url: "https://www.founderspodcast.com/episodes/70-mark-spitznagel-the-dao-of-capital"
+created_at: "2026-05-21T17:35:47Z"
+colossus_url: "https://colossus.com/episode/senra-mark-spitznagel-austrian-investing-in-a-distorted-world/"
+fetched_at: "2026-05-21T17:35:47Z"
 ---
 
 ## Description

@@ -1,13 +1,16 @@
 ---
 id: "ep-0004"
+episode_number: 4
 title: "#4 The Remarkable Life and Turbulent Times of Joseph P. Kennedy"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-10-22"
+founders_url: "https://www.founderspodcast.com/episodes/4-the-remarkable-life-and-turbulent-times-of-joseph-p-kennedy"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1981117358522658947"
 x_post_id: "1981117358522658947"
-published_at: "2025-10-22"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 4
 ---
 
 Founders #4 Joseph P. Kennedy. A fascinating man who pushed every rule to the limit to achieve the unique (in terms of Founders) goal of generational power through politics. When you listen to this episode, one thing that Senra only briefly flashed on was that Joseph heavily relied on his networking prowess to move between banking, film production, stock trading, and eventually politics for himself first and later his kids. Yes, he was insanely focused, but what sticks out is that he was willing to do anything and everything to get what he wanted (market manipulation, working with the mob, etc.)

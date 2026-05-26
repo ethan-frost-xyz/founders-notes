@@ -1,9 +1,13 @@
 ---
 id: "ep-0146"
-title: "#146 Milton Hershey (Chocolate)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 146
+title: "#146 Milton Hershey (Chocolate)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-09-27"
+founders_url: "https://www.founderspodcast.com/episodes/146-milton-hershey-chocolate"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

@@ -2,11 +2,13 @@
 id: "ep-0007"
 episode_number: 7
 title: "#7 Grinding It Out: The Making of McDonald's"
-published_at: 2017-05-27
-colossus_url: https://colossus.com/episode/senra-ray-kroc-the-making-of-mcdonalds/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:29Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2017-05-27"
+founders_url: "https://www.founderspodcast.com/episodes/7-grinding-it-out-the-making-of-mcdonalds"
+created_at: "2026-05-21T17:34:29Z"
+colossus_url: "https://colossus.com/episode/senra-ray-kroc-the-making-of-mcdonalds/"
+fetched_at: "2026-05-21T17:34:29Z"
 ---
 
 ## Description

@@ -1,9 +1,13 @@
 ---
 id: "ep-0053"
-title: "#53 Who Is Michael Ovitz?"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 53
+title: "#53 Who Is Michael Ovitz?"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-01-01"
+founders_url: "https://www.founderspodcast.com/episodes/53-who-is-michael-ovitz"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

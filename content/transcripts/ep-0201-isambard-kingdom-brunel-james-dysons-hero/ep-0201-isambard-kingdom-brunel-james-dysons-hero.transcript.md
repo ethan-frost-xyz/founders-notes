@@ -2,11 +2,13 @@
 id: "ep-0201"
 episode_number: 201
 title: "#201 Isambard Kingdom Brunel (James Dyson's Hero)"
-published_at: 2021-08-30
-colossus_url: https://colossus.com/episode/senra-isambard-kingdom-brunel-the-definitive-biography-of-the-engineer-visionary-and-great-briton/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:29Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-08-30"
+founders_url: "https://www.founderspodcast.com/episodes/201-isambard-kingdom-brunel-james-dysons-hero"
+created_at: "2026-05-21T17:38:29Z"
+colossus_url: "https://colossus.com/episode/senra-isambard-kingdom-brunel-the-definitive-biography-of-the-engineer-visionary-and-great-briton/"
+fetched_at: "2026-05-21T17:38:29Z"
 ---
 
 ## Description

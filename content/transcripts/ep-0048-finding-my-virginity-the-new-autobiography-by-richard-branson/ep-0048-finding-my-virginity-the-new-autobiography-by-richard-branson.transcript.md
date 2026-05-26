@@ -2,11 +2,13 @@
 id: "ep-0048"
 episode_number: 48
 title: "#48 Finding My Virginity: The New Autobiography by Richard Branson"
-published_at: 2018-11-26
-colossus_url: https://colossus.com/episode/senra-richard-branson-finding-my-virginity/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:20Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-11-26"
+founders_url: "https://www.founderspodcast.com/episodes/48-finding-my-virginity-the-new-autobiography-by-richard-branson"
+created_at: "2026-05-21T17:35:20Z"
+colossus_url: "https://colossus.com/episode/senra-richard-branson-finding-my-virginity/"
+fetched_at: "2026-05-21T17:35:20Z"
 ---
 
 ## Description

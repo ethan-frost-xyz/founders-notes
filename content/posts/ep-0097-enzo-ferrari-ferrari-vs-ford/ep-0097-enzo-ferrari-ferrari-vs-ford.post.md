@@ -1,13 +1,16 @@
 ---
 id: "ep-0097"
+episode_number: 97
 title: "#97 Enzo Ferrari (Ferrari vs Ford)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-24"
+founders_url: "https://www.founderspodcast.com/episodes/97-enzo-ferrari-ferrari-vs-ford"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2014918299717423227"
 x_post_id: "2014918299717423227"
-published_at: "2026-01-24"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 97
 ---
 
 Founders: #97 Enzo Ferrari - $RACE

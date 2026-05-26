@@ -2,11 +2,13 @@
 id: "ep-0019"
 episode_number: 19
 title: "#19 Becoming Steve Jobs"
-published_at: 2018-01-19
-colossus_url: https://colossus.com/episode/senra-steve-jobs-becoming-steve-jobs/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:44Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-01-19"
+founders_url: "https://www.founderspodcast.com/episodes/19-becoming-steve-jobs"
+created_at: "2026-05-21T17:34:44Z"
+colossus_url: "https://colossus.com/episode/senra-steve-jobs-becoming-steve-jobs/"
+fetched_at: "2026-05-21T17:34:44Z"
 ---
 
 ## Description

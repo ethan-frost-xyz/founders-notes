@@ -2,11 +2,13 @@
 id: "ep-0413"
 episode_number: 413
 title: "#413 How To Run Down A Dream"
-published_at: 2026-03-03
-colossus_url: https://colossus.com/episode/413-how-to-run-down-a-dream/
-founders_url: https://www.founderspodcast.com/episodes/413-how-to-run-down-a-dream
-source: colossus
-fetched_at: 2026-05-21T17:42:51Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2026-03-03"
+founders_url: "https://www.founderspodcast.com/episodes/413-how-to-run-down-a-dream"
+created_at: "2026-05-21T17:42:51Z"
+colossus_url: "https://colossus.com/episode/413-how-to-run-down-a-dream/"
+fetched_at: "2026-05-21T17:42:51Z"
 ---
 
 ## Description

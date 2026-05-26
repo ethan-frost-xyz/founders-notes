@@ -2,11 +2,13 @@
 id: "ep-0123"
 episode_number: 123
 title: "#123 Albert Champion (Record-Setting Racer to Dashing Tycoon)"
-published_at: 2020-05-01
-colossus_url: https://colossus.com/episode/senra-albert-champion-from-record-setting-racer-to-dashing-tycoon/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:52Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-05-01"
+founders_url: "https://www.founderspodcast.com/episodes/123-albert-champion-record-setting-racer-to-dashing-tycoon"
+created_at: "2026-05-21T17:36:52Z"
+colossus_url: "https://colossus.com/episode/senra-albert-champion-from-record-setting-racer-to-dashing-tycoon/"
+fetched_at: "2026-05-21T17:36:52Z"
 ---
 
 ## Description

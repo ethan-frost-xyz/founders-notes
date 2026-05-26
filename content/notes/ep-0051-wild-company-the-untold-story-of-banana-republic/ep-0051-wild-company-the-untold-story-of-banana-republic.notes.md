@@ -1,9 +1,13 @@
 ---
 id: "ep-0051"
-title: "#51 Wild Company: The Untold Story of Banana Republic"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 51
+title: "#51 Wild Company: The Untold Story of Banana Republic"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2018-12-17"
+founders_url: "https://www.founderspodcast.com/episodes/51-wild-company-the-untold-story-of-banana-republic"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

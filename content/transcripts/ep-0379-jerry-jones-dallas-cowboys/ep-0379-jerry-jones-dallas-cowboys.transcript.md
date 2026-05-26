@@ -2,11 +2,13 @@
 id: "ep-0379"
 episode_number: 379
 title: "#379 Jerry Jones (Dallas Cowboys)"
-published_at: 2025-02-18
-colossus_url: https://colossus.com/episode/379-jerry-jones-dallas-cowboys/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:42:10Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-02-18"
+founders_url: "https://www.founderspodcast.com/episodes/379-jerry-jones-dallas-cowboys"
+created_at: "2026-05-21T17:42:10Z"
+colossus_url: "https://colossus.com/episode/379-jerry-jones-dallas-cowboys/"
+fetched_at: "2026-05-21T17:42:10Z"
 ---
 
 ## Description

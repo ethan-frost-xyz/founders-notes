@@ -1,13 +1,16 @@
 ---
 id: "ep-0104"
+episode_number: 104
 title: "#104 Ingvar Kamprad (IKEA)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-31"
+founders_url: "https://www.founderspodcast.com/episodes/104-ingvar-kamprad-ikea"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2017695335431160286"
 x_post_id: "2017695335431160286"
-published_at: "2026-01-31"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 104
 ---
 
 Founders #104 Ingvar Kamprad - IKEA

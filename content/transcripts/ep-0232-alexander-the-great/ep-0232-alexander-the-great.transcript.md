@@ -2,11 +2,13 @@
 id: "ep-0232"
 episode_number: 232
 title: "#232 Alexander the Great"
-published_at: 2022-02-16
-colossus_url: https://colossus.com/episode/senra-alexander-the-great-historys-greatest-conqueror/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:08Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-02-16"
+founders_url: "https://www.founderspodcast.com/episodes/232-alexander-the-great"
+created_at: "2026-05-21T17:39:08Z"
+colossus_url: "https://colossus.com/episode/senra-alexander-the-great-historys-greatest-conqueror/"
+fetched_at: "2026-05-21T17:39:08Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0023"
 episode_number: 23
 title: "#23 The New New Thing: A Silicon Valley Story"
-published_at: 2018-04-07
-colossus_url: https://colossus.com/episode/senra-jim-clark-the-new-new-thing/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:49Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-04-07"
+founders_url: "https://www.founderspodcast.com/episodes/23-the-new-new-thing-a-silicon-valley-story"
+created_at: "2026-05-21T17:34:49Z"
+colossus_url: "https://colossus.com/episode/senra-jim-clark-the-new-new-thing/"
+fetched_at: "2026-05-21T17:34:49Z"
 ---
 
 ## Description

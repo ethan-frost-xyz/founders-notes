@@ -2,11 +2,13 @@
 id: "ep-0221"
 episode_number: 221
 title: "#221 Charlie Munger"
-published_at: 2021-12-13
-colossus_url: https://colossus.com/episode/senra-charlie-munger-behind-the-scenes-with-berkshire-hathaway-billionaire/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:54Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-12-13"
+founders_url: "https://www.founderspodcast.com/episodes/221-charlie-munger"
+created_at: "2026-05-21T17:38:54Z"
+colossus_url: "https://colossus.com/episode/senra-charlie-munger-behind-the-scenes-with-berkshire-hathaway-billionaire/"
+fetched_at: "2026-05-21T17:38:54Z"
 ---
 
 ## Description

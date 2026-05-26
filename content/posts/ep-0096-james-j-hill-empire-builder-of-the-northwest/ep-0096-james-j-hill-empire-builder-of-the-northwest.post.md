@@ -1,13 +1,16 @@
 ---
 id: "ep-0096"
+episode_number: 96
 title: "#96 James J. Hill (Empire Builder of the Northwest)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-22"
+founders_url: "https://www.founderspodcast.com/episodes/96-james-j-hill-empire-builder-of-the-northwest"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2014450718082490435"
 x_post_id: "2014450718082490435"
-published_at: "2026-01-22"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 96
 ---
 
 Founders: #96 James J. Hill - Railroad Tycoon

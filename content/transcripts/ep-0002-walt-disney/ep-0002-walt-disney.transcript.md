@@ -2,11 +2,13 @@
 id: "ep-0002"
 episode_number: 2
 title: "#2 Walt Disney"
-published_at: 2016-10-10
-colossus_url: https://colossus.com/episode/senra-walt-disney-the-triumph-of-the-american-imagination/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:23Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2016-10-10"
+founders_url: "https://www.founderspodcast.com/episodes/2-walt-disney"
+created_at: "2026-05-21T17:34:23Z"
+colossus_url: "https://colossus.com/episode/senra-walt-disney-the-triumph-of-the-american-imagination/"
+fetched_at: "2026-05-21T17:34:23Z"
 ---
 
 ## Description

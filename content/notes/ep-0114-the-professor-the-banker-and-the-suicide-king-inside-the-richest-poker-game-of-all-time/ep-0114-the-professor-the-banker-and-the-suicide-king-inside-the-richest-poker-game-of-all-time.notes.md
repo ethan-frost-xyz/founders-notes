@@ -1,9 +1,13 @@
 ---
 id: "ep-0114"
-title: "#114 The Professor, the Banker, and the Suicide King: Inside the Richest Poker Game of All Time"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 114
+title: "#114 The Professor, the Banker, and the Suicide King: Inside the Richest Poker Game of All Time"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-03-09"
+founders_url: "https://www.founderspodcast.com/episodes/114-the-professor-the-banker-and-the-suicide-king-inside-the-richest-poker-game-of-all-time"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

@@ -1,13 +1,16 @@
 ---
 id: "ep-0151"
+episode_number: 151
 title: "#151 Frederick Smith (FedEx)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-20"
+founders_url: "https://www.founderspodcast.com/episodes/151-frederick-smith-fedex"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2035102503038296364"
 x_post_id: "2035102503038296364"
-published_at: "2026-03-20"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 151
 ---
 
 Founders #151: Frederick Smith - FedEx

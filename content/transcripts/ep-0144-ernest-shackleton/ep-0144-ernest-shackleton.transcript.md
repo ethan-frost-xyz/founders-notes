@@ -2,11 +2,13 @@
 id: "ep-0144"
 episode_number: 144
 title: "#144 Ernest Shackleton"
-published_at: 2020-09-13
-colossus_url: https://colossus.com/episode/senra-ernest-shackleton/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:18Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-09-13"
+founders_url: "https://www.founderspodcast.com/episodes/144-ernest-shackleton"
+created_at: "2026-05-21T17:37:18Z"
+colossus_url: "https://colossus.com/episode/senra-ernest-shackleton/"
+fetched_at: "2026-05-21T17:37:18Z"
 ---
 
 ## Description

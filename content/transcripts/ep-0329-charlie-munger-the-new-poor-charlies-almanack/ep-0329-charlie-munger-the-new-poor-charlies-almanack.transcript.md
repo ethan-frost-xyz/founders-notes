@@ -2,11 +2,13 @@
 id: "ep-0329"
 episode_number: 329
 title: "#329 Charlie Munger (the NEW Poor Charlie's Almanack)"
-published_at: 2023-12-05
-colossus_url: https://colossus.com/episode/senra-329-charlie-munger-the-new-poor-charlies-almanack/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:07Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-12-05"
+founders_url: "https://www.founderspodcast.com/episodes/329-charlie-munger-the-new-poor-charlies-almanack"
+created_at: "2026-05-21T17:41:07Z"
+colossus_url: "https://colossus.com/episode/senra-329-charlie-munger-the-new-poor-charlies-almanack/"
+fetched_at: "2026-05-21T17:41:07Z"
 ---
 
 ## Description

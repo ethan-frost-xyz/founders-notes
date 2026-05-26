@@ -2,11 +2,13 @@
 id: "ep-0135"
 episode_number: 135
 title: "#135 Joseph Pulitzer (Politics & Media)"
-published_at: 2020-07-12
-colossus_url: https://colossus.com/episode/senra-joseph-pulitzer-a-life-in-politics-print-and-power/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:07Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-07-12"
+founders_url: "https://www.founderspodcast.com/episodes/135-joseph-pulitzer-politics-media"
+created_at: "2026-05-21T17:37:07Z"
+colossus_url: "https://colossus.com/episode/senra-joseph-pulitzer-a-life-in-politics-print-and-power/"
+fetched_at: "2026-05-21T17:37:07Z"
 ---
 
 ## Description

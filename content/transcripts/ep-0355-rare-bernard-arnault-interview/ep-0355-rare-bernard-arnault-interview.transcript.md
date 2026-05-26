@@ -2,11 +2,13 @@
 id: "ep-0355"
 episode_number: 355
 title: "#355 Rare Bernard Arnault Interview"
-published_at: 2024-07-04
-colossus_url: https://colossus.com/episode/senra-355-rare-bernard-arnault-interview/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:40Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-07-04"
+founders_url: "https://www.founderspodcast.com/episodes/355-rare-bernard-arnault-interview"
+created_at: "2026-05-21T17:41:40Z"
+colossus_url: "https://colossus.com/episode/senra-355-rare-bernard-arnault-interview/"
+fetched_at: "2026-05-21T17:41:40Z"
 ---
 
 ## Description

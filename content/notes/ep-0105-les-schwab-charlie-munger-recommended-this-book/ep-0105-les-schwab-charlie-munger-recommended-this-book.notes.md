@@ -1,9 +1,13 @@
 ---
 id: "ep-0105"
-title: "#105 Les Schwab (Charlie Munger recommended this book)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 105
+title: "#105 Les Schwab (Charlie Munger recommended this book)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-01-05"
+founders_url: "https://www.founderspodcast.com/episodes/105-les-schwab-charlie-munger-recommended-this-book"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

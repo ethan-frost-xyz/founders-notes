@@ -2,11 +2,13 @@
 id: "ep-0180"
 episode_number: 180
 title: "#180 Jeff Bezos (Invention of a Global Empire)"
-published_at: 2021-05-17
-colossus_url: https://colossus.com/episode/senra-jeff-bezos-invention-of-a-global-empire/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:03Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-05-17"
+founders_url: "https://www.founderspodcast.com/episodes/180-jeff-bezos-invention-of-a-global-empire"
+created_at: "2026-05-21T17:38:03Z"
+colossus_url: "https://colossus.com/episode/senra-jeff-bezos-invention-of-a-global-empire/"
+fetched_at: "2026-05-21T17:38:03Z"
 ---
 
 ## Description

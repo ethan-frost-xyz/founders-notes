@@ -2,11 +2,13 @@
 id: "ep-0079"
 episode_number: 79
 title: "#79 Charlie Munger (The Complete Investor)"
-published_at: 2019-07-07
-colossus_url: https://colossus.com/episode/senra-charlie-munger-the-complete-investor/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:58Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-07-07"
+founders_url: "https://www.founderspodcast.com/episodes/79-charlie-munger-the-complete-investor"
+created_at: "2026-05-21T17:35:58Z"
+colossus_url: "https://colossus.com/episode/senra-charlie-munger-the-complete-investor/"
+fetched_at: "2026-05-21T17:35:58Z"
 ---
 
 ## Description

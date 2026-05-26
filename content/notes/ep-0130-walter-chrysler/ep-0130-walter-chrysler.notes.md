@@ -1,9 +1,13 @@
 ---
 id: "ep-0130"
-title: "#130 Walter Chrysler"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 130
+title: "#130 Walter Chrysler"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-06-09"
+founders_url: "https://www.founderspodcast.com/episodes/130-walter-chrysler"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

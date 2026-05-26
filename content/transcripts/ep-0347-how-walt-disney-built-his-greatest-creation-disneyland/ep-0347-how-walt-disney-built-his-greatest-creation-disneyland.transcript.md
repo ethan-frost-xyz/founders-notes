@@ -2,11 +2,13 @@
 id: "ep-0347"
 episode_number: 347
 title: "#347 How Walt Disney Built His Greatest Creation: Disneyland"
-published_at: 2024-04-29
-colossus_url: https://colossus.com/episode/senra-347-how-walt-disney-built-his-greatest-creation-disneyland/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:30Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-04-29"
+founders_url: "https://www.founderspodcast.com/episodes/347-how-walt-disney-built-his-greatest-creation-disneyland"
+created_at: "2026-05-21T17:41:30Z"
+colossus_url: "https://colossus.com/episode/senra-347-how-walt-disney-built-his-greatest-creation-disneyland/"
+fetched_at: "2026-05-21T17:41:30Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0233"
 episode_number: 233
 title: "#233 Elon Musk, Peter Thiel, Max Levchin (PayPal)"
-published_at: 2022-02-23
-colossus_url: https://colossus.com/episode/senra-elon-musk-peter-thiel-and-max-levchin-the-story-of-paypal/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:09Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-02-23"
+founders_url: "https://www.founderspodcast.com/episodes/233-elon-musk-peter-thiel-max-levchin-paypal"
+created_at: "2026-05-21T17:39:09Z"
+colossus_url: "https://colossus.com/episode/senra-elon-musk-peter-thiel-and-max-levchin-the-story-of-paypal/"
+fetched_at: "2026-05-21T17:39:09Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0397"
 episode_number: 397
 title: "#397 Jiro Ono: Simplicity Is The Ultimate Advantage"
-published_at: 2025-08-04
-colossus_url: https://colossus.com/episode/397-jiro-ono-simplicity-is-the-ultimate-advantage/
-founders_url: https://www.founderspodcast.com/episodes/397-jiro-ono-simplicity-is-the-ultimate-advantage
-source: colossus
-fetched_at: 2026-05-21T17:42:31Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-08-04"
+founders_url: "https://www.founderspodcast.com/episodes/397-jiro-ono-simplicity-is-the-ultimate-advantage"
+created_at: "2026-05-21T17:42:31Z"
+colossus_url: "https://colossus.com/episode/397-jiro-ono-simplicity-is-the-ultimate-advantage/"
+fetched_at: "2026-05-21T17:42:31Z"
 ---
 
 ## Description

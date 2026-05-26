@@ -2,11 +2,13 @@
 id: "ep-0205"
 episode_number: 205
 title: "#205 James Dyson (Invention: A Life)"
-published_at: 2021-09-18
-colossus_url: https://colossus.com/episode/senra-james-dyson-invention/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:34Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-09-18"
+founders_url: "https://www.founderspodcast.com/episodes/205-james-dyson-invention-a-life"
+created_at: "2026-05-21T17:38:34Z"
+colossus_url: "https://colossus.com/episode/senra-james-dyson-invention/"
+fetched_at: "2026-05-21T17:38:34Z"
 ---
 
 ## Description

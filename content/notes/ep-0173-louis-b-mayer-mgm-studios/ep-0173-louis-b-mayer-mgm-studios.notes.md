@@ -1,9 +1,13 @@
 ---
 id: "ep-0173"
-title: "#173 Louis B. Mayer (MGM Studios)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 173
+title: "#173 Louis B. Mayer (MGM Studios)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2021-03-28"
+founders_url: "https://www.founderspodcast.com/episodes/173-louis-b-mayer-mgm-studios"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

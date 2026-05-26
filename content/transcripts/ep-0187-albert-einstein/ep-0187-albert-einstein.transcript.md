@@ -2,11 +2,13 @@
 id: "ep-0187"
 episode_number: 187
 title: "#187 Albert Einstein"
-published_at: 2021-06-22
-colossus_url: https://colossus.com/episode/senra-albert-einstein-his-life-and-universe/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:12Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-06-22"
+founders_url: "https://www.founderspodcast.com/episodes/187-albert-einstein"
+created_at: "2026-05-21T17:38:12Z"
+colossus_url: "https://colossus.com/episode/senra-albert-einstein-his-life-and-universe/"
+fetched_at: "2026-05-21T17:38:12Z"
 ---
 
 ## Description

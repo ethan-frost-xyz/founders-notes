@@ -2,11 +2,13 @@
 id: "ep-0305"
 episode_number: 305
 title: "#305 Robert Caro on power, poverty, ruthlessness, & obsession"
-published_at: 2023-05-29
-colossus_url: https://colossus.com/episode/senra-robert-carothe-relationship-with-your-father-power-poverty-ruthlessness-obsession-and-running/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:38Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-05-29"
+founders_url: "https://www.founderspodcast.com/episodes/305-robert-caro-on-power-poverty-ruthlessness-obsession"
+created_at: "2026-05-21T17:40:38Z"
+colossus_url: "https://colossus.com/episode/senra-robert-carothe-relationship-with-your-father-power-poverty-ruthlessness-obsession-and-running/"
+fetched_at: "2026-05-21T17:40:38Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0172"
 episode_number: 172
 title: "#172 Elon Musk (Early Days of SpaceX)"
-published_at: 2021-03-21
-colossus_url: https://colossus.com/episode/senra-elon-musk-liftoff/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:54Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-03-21"
+founders_url: "https://www.founderspodcast.com/episodes/172-elon-musk-early-days-of-spacex"
+created_at: "2026-05-21T17:37:54Z"
+colossus_url: "https://colossus.com/episode/senra-elon-musk-liftoff/"
+fetched_at: "2026-05-21T17:37:54Z"
 ---
 
 ## Description

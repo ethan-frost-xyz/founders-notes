@@ -1,9 +1,13 @@
 ---
 id: "ep-0074"
-title: "#74 The Autobiography of Andrew Carnegie"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 74
+title: "#74 The Autobiography of Andrew Carnegie"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-06-02"
+founders_url: "https://www.founderspodcast.com/episodes/74-the-autobiography-of-andrew-carnegie"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

@@ -2,11 +2,13 @@
 id: "ep-0404"
 episode_number: 404
 title: "#404 How Larry Ellison Thinks"
-published_at: 2025-11-04
-colossus_url: https://colossus.com/episode/404-how-larry-ellison-thinks/
-founders_url: https://www.founderspodcast.com/episodes/404-how-larry-ellison-thinks
-source: colossus
-fetched_at: 2026-05-21T17:42:40Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-11-04"
+founders_url: "https://www.founderspodcast.com/episodes/404-how-larry-ellison-thinks"
+created_at: "2026-05-21T17:42:40Z"
+colossus_url: "https://colossus.com/episode/404-how-larry-ellison-thinks/"
+fetched_at: "2026-05-21T17:42:40Z"
 ---
 
 ## Description

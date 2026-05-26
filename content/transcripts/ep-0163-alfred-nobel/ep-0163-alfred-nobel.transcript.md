@@ -2,11 +2,13 @@
 id: "ep-0163"
 episode_number: 163
 title: "#163 Alfred Nobel"
-published_at: 2021-01-18
-colossus_url: https://colossus.com/episode/senra-alfred-nobel-a-biography/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:42Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-01-18"
+founders_url: "https://www.founderspodcast.com/episodes/163-alfred-nobel"
+created_at: "2026-05-21T17:37:42Z"
+colossus_url: "https://colossus.com/episode/senra-alfred-nobel-a-biography/"
+fetched_at: "2026-05-21T17:37:42Z"
 ---
 
 ## Description

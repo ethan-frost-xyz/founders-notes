@@ -1,9 +1,13 @@
 ---
 id: "ep-0115"
-title: "#115 Ben Franklin: An American Life"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 115
+title: "#115 Ben Franklin: An American Life"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-03-16"
+founders_url: "https://www.founderspodcast.com/episodes/115-ben-franklin-an-american-life"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

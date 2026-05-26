@@ -2,11 +2,13 @@
 id: "ep-0129"
 episode_number: 129
 title: "#129 Felix Dennis (How to Get Rich)"
-published_at: 2020-06-04
-colossus_url: https://colossus.com/episode/senra-felix-dennis-how-to-get-rich/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:00Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-06-04"
+founders_url: "https://www.founderspodcast.com/episodes/129-felix-dennis-how-to-get-rich"
+created_at: "2026-05-21T17:37:00Z"
+colossus_url: "https://colossus.com/episode/senra-felix-dennis-how-to-get-rich/"
+fetched_at: "2026-05-21T17:37:00Z"
 ---
 
 ## Description

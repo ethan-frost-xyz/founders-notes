@@ -2,11 +2,13 @@
 id: "ep-0322"
 episode_number: 322
 title: "#322 Herb Kelleher (Southwest Airlines)"
-published_at: 2023-09-26
-colossus_url: https://colossus.com/episode/senra-322-herb-kelleher-southwest-airlines/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:58Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-09-26"
+founders_url: "https://www.founderspodcast.com/episodes/322-herb-kelleher-southwest-airlines"
+created_at: "2026-05-21T17:40:58Z"
+colossus_url: "https://colossus.com/episode/senra-322-herb-kelleher-southwest-airlines/"
+fetched_at: "2026-05-21T17:40:58Z"
 ---
 
 ## Description

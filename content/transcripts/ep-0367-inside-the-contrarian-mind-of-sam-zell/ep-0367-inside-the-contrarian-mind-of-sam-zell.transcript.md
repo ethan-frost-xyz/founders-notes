@@ -2,11 +2,13 @@
 id: "ep-0367"
 episode_number: 367
 title: "#367 Inside the Contrarian Mind of Sam Zell"
-published_at: 2024-10-08
-colossus_url: https://colossus.com/episode/367-inside-the-contrarian-mind-of-sam-zell/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:55Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-10-08"
+founders_url: "https://www.founderspodcast.com/episodes/367-inside-the-contrarian-mind-of-sam-zell"
+created_at: "2026-05-21T17:41:55Z"
+colossus_url: "https://colossus.com/episode/367-inside-the-contrarian-mind-of-sam-zell/"
+fetched_at: "2026-05-21T17:41:55Z"
 ---
 
 ## Description

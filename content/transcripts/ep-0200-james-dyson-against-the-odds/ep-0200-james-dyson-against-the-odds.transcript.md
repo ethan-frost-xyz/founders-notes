@@ -2,11 +2,13 @@
 id: "ep-0200"
 episode_number: 200
 title: "#200 James Dyson (Against the Odds)"
-published_at: 2021-08-27
-colossus_url: https://colossus.com/episode/senra-james-dyson-against-the-odds/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:28Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-08-27"
+founders_url: "https://www.founderspodcast.com/episodes/200-james-dyson-against-the-odds"
+created_at: "2026-05-21T17:38:28Z"
+colossus_url: "https://colossus.com/episode/senra-james-dyson-against-the-odds/"
+fetched_at: "2026-05-21T17:38:28Z"
 ---
 
 ## Description

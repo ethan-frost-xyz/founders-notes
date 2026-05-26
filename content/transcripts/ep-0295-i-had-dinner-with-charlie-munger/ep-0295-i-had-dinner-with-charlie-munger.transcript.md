@@ -2,11 +2,13 @@
 id: "ep-0295"
 episode_number: 295
 title: "#295 I had dinner with Charlie Munger"
-published_at: 2023-03-21
-colossus_url: https://colossus.com/episode/senra-charlie-munger-i-had-dinner-with-charlie-munger-the-tao-of-charlie-munger/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:25Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-03-21"
+founders_url: "https://www.founderspodcast.com/episodes/295-i-had-dinner-with-charlie-munger"
+created_at: "2026-05-21T17:40:25Z"
+colossus_url: "https://colossus.com/episode/senra-charlie-munger-i-had-dinner-with-charlie-munger-the-tao-of-charlie-munger/"
+fetched_at: "2026-05-21T17:40:25Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0291"
 episode_number: 291
 title: "#291 David Packard (Founder of HP)"
-published_at: 2023-02-20
-colossus_url: https://colossus.com/episode/senra-david-packard-the-hp-way/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:21Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-02-20"
+founders_url: "https://www.founderspodcast.com/episodes/291-david-packard-founder-of-hp"
+created_at: "2026-05-21T17:40:21Z"
+colossus_url: "https://colossus.com/episode/senra-david-packard-the-hp-way/"
+fetched_at: "2026-05-21T17:40:21Z"
 ---
 
 ## Description

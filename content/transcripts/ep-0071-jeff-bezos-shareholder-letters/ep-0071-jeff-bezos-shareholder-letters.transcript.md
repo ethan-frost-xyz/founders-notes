@@ -2,11 +2,13 @@
 id: "ep-0071"
 episode_number: 71
 title: "#71 Jeff Bezos' Shareholder Letters"
-published_at: 2019-05-12
-colossus_url: https://colossus.com/episode/senra-jeff-bezos-every-shareholder-letter/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:48Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-05-12"
+founders_url: "https://www.founderspodcast.com/episodes/71-jeff-bezos-shareholder-letters"
+created_at: "2026-05-21T17:35:48Z"
+colossus_url: "https://colossus.com/episode/senra-jeff-bezos-every-shareholder-letter/"
+fetched_at: "2026-05-21T17:35:48Z"
 ---
 
 ## Description

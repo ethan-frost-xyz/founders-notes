@@ -1,9 +1,13 @@
 ---
 id: "ep-0072"
-title: "#72 Stan Lee: Founder of Marvel"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 72
+title: "#72 Stan Lee: Founder of Marvel"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-05-19"
+founders_url: "https://www.founderspodcast.com/episodes/72-stan-lee-founder-of-marvel"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

@@ -2,11 +2,13 @@
 id: "ep-0325"
 episode_number: 325
 title: "#325 Larry Gagosian (Billionaire Art Dealer)"
-published_at: 2023-10-29
-colossus_url: https://colossus.com/episode/senra-325-larry-gagosian-billionaire-art-dealer/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:02Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-10-29"
+founders_url: "https://www.founderspodcast.com/episodes/325-larry-gagosian-billionaire-art-dealer"
+created_at: "2026-05-21T17:41:02Z"
+colossus_url: "https://colossus.com/episode/senra-325-larry-gagosian-billionaire-art-dealer/"
+fetched_at: "2026-05-21T17:41:02Z"
 ---
 
 ## Description

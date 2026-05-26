@@ -2,11 +2,13 @@
 id: "ep-0314"
 episode_number: 314
 title: "#314 Paul Graham (How To Do Great Work)"
-published_at: 2023-07-31
-colossus_url: https://colossus.com/episode/senra-paul-graham-how-to-do-great-work/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:49Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-07-31"
+founders_url: "https://www.founderspodcast.com/episodes/314-paul-graham-how-to-do-great-work"
+created_at: "2026-05-21T17:40:49Z"
+colossus_url: "https://colossus.com/episode/senra-paul-graham-how-to-do-great-work/"
+fetched_at: "2026-05-21T17:40:49Z"
 ---
 
 ## Description

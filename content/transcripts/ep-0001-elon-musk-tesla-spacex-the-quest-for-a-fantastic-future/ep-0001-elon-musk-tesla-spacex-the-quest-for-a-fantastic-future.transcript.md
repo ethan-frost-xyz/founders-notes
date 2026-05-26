@@ -2,11 +2,13 @@
 id: "ep-0001"
 episode_number: 1
 title: "#1 Elon Musk: Tesla, SpaceX, & the Quest for a Fantastic Future"
-published_at: 2016-09-19
-colossus_url: https://colossus.com/episode/senra-elon-musk-tesla-spacex-the-quest-for-a-fantastic-future/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:22Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2016-09-19"
+founders_url: "https://www.founderspodcast.com/episodes/1-elon-musk-tesla-spacex-the-quest-for-a-fantastic-future"
+created_at: "2026-05-21T17:34:22Z"
+colossus_url: "https://colossus.com/episode/senra-elon-musk-tesla-spacex-the-quest-for-a-fantastic-future/"
+fetched_at: "2026-05-21T17:34:22Z"
 ---
 
 ## Description

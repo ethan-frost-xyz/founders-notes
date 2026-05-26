@@ -1,13 +1,16 @@
 ---
 id: "ep-0132"
+episode_number: 132
 title: "#132 Edwin Land (Steve Jobs's Hero)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-01"
+founders_url: "https://www.founderspodcast.com/episodes/132-edwin-land-steve-jobss-hero"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2027969188854153379"
 x_post_id: "2027969188854153379"
-published_at: "2026-03-01"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 132
 ---
 
 Founders #132: Edwin Land - Polaroid

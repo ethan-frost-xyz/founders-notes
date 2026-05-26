@@ -1,13 +1,16 @@
 ---
 id: "ep-0066"
+episode_number: 66
 title: "#66 Henry Kaiser: Builder in the Modern American West"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-24"
+founders_url: "https://www.founderspodcast.com/episodes/66-henry-kaiser-builder-in-the-modern-american-west"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2003625311183995357"
 x_post_id: "2003625311183995357"
-published_at: "2025-12-24"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 66
 ---
 
 Founders #66: Henry Kaiser (Industrialist)

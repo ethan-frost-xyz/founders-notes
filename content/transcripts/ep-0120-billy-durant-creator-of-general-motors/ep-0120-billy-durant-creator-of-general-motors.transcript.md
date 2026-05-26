@@ -2,11 +2,13 @@
 id: "ep-0120"
 episode_number: 120
 title: "#120 Billy Durant (Creator of General Motors)"
-published_at: 2020-04-11
-colossus_url: https://colossus.com/episode/senra-billy-durant-the-flamboyant-genius-who-helped-lead-america-into-the-automobile-age/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:49Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-04-11"
+founders_url: "https://www.founderspodcast.com/episodes/120-billy-durant-creator-of-general-motors"
+created_at: "2026-05-21T17:36:49Z"
+colossus_url: "https://colossus.com/episode/senra-billy-durant-the-flamboyant-genius-who-helped-lead-america-into-the-automobile-age/"
+fetched_at: "2026-05-21T17:36:49Z"
 ---
 
 ## Description

@@ -1,13 +1,16 @@
 ---
 id: "ep-0098"
+episode_number: 98
 title: "#98 Enzo Ferrari (the making of an automobile empire)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-24"
+founders_url: "https://www.founderspodcast.com/episodes/98-enzo-ferrari-the-making-of-an-automobile-empire"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2015200995618210215"
 x_post_id: "2015200995618210215"
-published_at: "2026-01-24"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 98
 ---
 
 Founders: #98 Enzo Ferrari - $RACE

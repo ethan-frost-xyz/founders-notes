@@ -2,11 +2,13 @@
 id: "ep-0024"
 episode_number: 24
 title: "#24 No Better Time: The Brief, Remarkable Life of Danny Lewin, the Genius Who Transformed the Internet"
-published_at: 2018-04-15
-colossus_url: https://colossus.com/episode/senra-danny-lewin-no-better-time/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:50Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-04-15"
+founders_url: "https://www.founderspodcast.com/episodes/24-no-better-time-the-brief-remarkable-life-of-danny-lewin-the-genius-who-transformed-the-internet"
+created_at: "2026-05-21T17:34:50Z"
+colossus_url: "https://colossus.com/episode/senra-danny-lewin-no-better-time/"
+fetched_at: "2026-05-21T17:34:50Z"
 ---
 
 ## Description

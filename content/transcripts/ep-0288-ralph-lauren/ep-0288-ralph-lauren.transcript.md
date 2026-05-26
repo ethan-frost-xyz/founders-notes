@@ -2,11 +2,13 @@
 id: "ep-0288"
 episode_number: 288
 title: "#288 Ralph Lauren"
-published_at: 2023-01-31
-colossus_url: https://colossus.com/episode/senra-ralph-lauren-the-man-behind-the-mystique/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:17Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-01-31"
+founders_url: "https://www.founderspodcast.com/episodes/288-ralph-lauren"
+created_at: "2026-05-21T17:40:17Z"
+colossus_url: "https://colossus.com/episode/senra-ralph-lauren-the-man-behind-the-mystique/"
+fetched_at: "2026-05-21T17:40:17Z"
 ---
 
 ## Description

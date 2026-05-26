@@ -1,9 +1,13 @@
 ---
 id: "ep-0078"
-title: "#78 Charlie Munger (the Tao of Charlie Munger)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 78
+title: "#78 Charlie Munger (the Tao of Charlie Munger)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-06-30"
+founders_url: "https://www.founderspodcast.com/episodes/78-charlie-munger-the-tao-of-charlie-munger"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

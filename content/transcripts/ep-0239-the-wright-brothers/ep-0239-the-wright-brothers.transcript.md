@@ -2,11 +2,13 @@
 id: "ep-0239"
 episode_number: 239
 title: "#239 The Wright Brothers"
-published_at: 2022-03-29
-colossus_url: https://colossus.com/episode/senra-the-wright-brothers-orville-wilbur/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:16Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-03-29"
+founders_url: "https://www.founderspodcast.com/episodes/239-the-wright-brothers"
+created_at: "2026-05-21T17:39:16Z"
+colossus_url: "https://colossus.com/episode/senra-the-wright-brothers-orville-wilbur/"
+fetched_at: "2026-05-21T17:39:16Z"
 ---
 
 ## Description

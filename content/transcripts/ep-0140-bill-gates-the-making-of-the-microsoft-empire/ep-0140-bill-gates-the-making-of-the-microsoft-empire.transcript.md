@@ -2,11 +2,13 @@
 id: "ep-0140"
 episode_number: 140
 title: "#140 Bill Gates (the Making of the Microsoft Empire)"
-published_at: 2020-08-16
-colossus_url: https://colossus.com/episode/senra-bill-gates-hard-drive/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:13Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-08-16"
+founders_url: "https://www.founderspodcast.com/episodes/140-bill-gates-the-making-of-the-microsoft-empire"
+created_at: "2026-05-21T17:37:13Z"
+colossus_url: "https://colossus.com/episode/senra-bill-gates-hard-drive/"
+fetched_at: "2026-05-21T17:37:13Z"
 ---
 
 ## Description

@@ -1,9 +1,13 @@
 ---
 id: "ep-0123"
-title: "#123 Albert Champion (Record-Setting Racer to Dashing Tycoon)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 123
+title: "#123 Albert Champion (Record-Setting Racer to Dashing Tycoon)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-05-01"
+founders_url: "https://www.founderspodcast.com/episodes/123-albert-champion-record-setting-racer-to-dashing-tycoon"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

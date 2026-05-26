@@ -2,11 +2,13 @@
 id: "ep-0227"
 episode_number: 227
 title: "#227 The Essays of Warren Buffett"
-published_at: 2022-01-20
-colossus_url: https://colossus.com/episode/senra-warren-buffett-the-essays/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:02Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-01-20"
+founders_url: "https://www.founderspodcast.com/episodes/227-the-essays-of-warren-buffett"
+created_at: "2026-05-21T17:39:02Z"
+colossus_url: "https://colossus.com/episode/senra-warren-buffett-the-essays/"
+fetched_at: "2026-05-21T17:39:02Z"
 ---
 
 ## Description

@@ -1,13 +1,16 @@
 ---
 id: "ep-0077"
+episode_number: 77
 title: "#77 Steve Jobs (The NeXT Years)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-04"
+founders_url: "https://www.founderspodcast.com/episodes/77-steve-jobs-the-next-years"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2007695072620675465"
 x_post_id: "2007695072620675465"
-published_at: "2026-01-04"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 77
 ---
 
 He hired a full-time interior designer as one of his first ten employees and spent more time on his high-end office design than on key product decisions. He abandoned the pressure of frugality from the start.

@@ -2,11 +2,13 @@
 id: "ep-0011"
 episode_number: 11
 title: "#11 The Cook & The Chef: Elon Musk's Secret Sauce"
-published_at: 2017-08-13
-colossus_url: https://colossus.com/episode/senra-elon-musk-the-elon-musk-blog-series/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:34Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2017-08-13"
+founders_url: "https://www.founderspodcast.com/episodes/11-the-cook-the-chef-elon-musks-secret-sauce"
+created_at: "2026-05-21T17:34:34Z"
+colossus_url: "https://colossus.com/episode/senra-elon-musk-the-elon-musk-blog-series/"
+fetched_at: "2026-05-21T17:34:34Z"
 ---
 
 ## Description

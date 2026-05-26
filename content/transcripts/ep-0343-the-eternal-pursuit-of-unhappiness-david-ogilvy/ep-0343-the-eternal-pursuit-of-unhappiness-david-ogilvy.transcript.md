@@ -2,11 +2,13 @@
 id: "ep-0343"
 episode_number: 343
 title: "#343 The Eternal Pursuit of Unhappiness: David Ogilvy"
-published_at: 2024-03-24
-colossus_url: https://colossus.com/episode/343-the-eternal-pursuit-of-unhappiness-david-ogilvy/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:25Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-03-24"
+founders_url: "https://www.founderspodcast.com/episodes/343-the-eternal-pursuit-of-unhappiness-david-ogilvy"
+created_at: "2026-05-21T17:41:25Z"
+colossus_url: "https://colossus.com/episode/343-the-eternal-pursuit-of-unhappiness-david-ogilvy/"
+fetched_at: "2026-05-21T17:41:25Z"
 ---
 
 ## Description

@@ -1,9 +1,13 @@
 ---
 id: "ep-0088"
-title: "#88 Warren Buffett's Shareholder Letters— All of them!"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 88
+title: "#88 Warren Buffett's Shareholder Letters— All of them!"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-09-08"
+founders_url: "https://www.founderspodcast.com/episodes/88-warren-buffetts-shareholder-letters-all-of-them"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

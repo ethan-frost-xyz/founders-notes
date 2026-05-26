@@ -2,11 +2,13 @@
 id: "ep-0371"
 episode_number: 371
 title: "#371 James J. Hill: The Empire Builder"
-published_at: 2024-11-18
-colossus_url: https://colossus.com/episode/371-james-j-hill-the-empire-builder/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:42:00Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-11-18"
+founders_url: "https://www.founderspodcast.com/episodes/371-james-j-hill-the-empire-builder"
+created_at: "2026-05-21T17:42:00Z"
+colossus_url: "https://colossus.com/episode/371-james-j-hill-the-empire-builder/"
+fetched_at: "2026-05-21T17:42:00Z"
 ---
 
 ## Description

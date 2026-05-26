@@ -2,11 +2,13 @@
 id: "ep-0354"
 episode_number: 354
 title: "#354 Sam Walton: The Inside Story of America's Richest Man"
-published_at: 2024-06-29
-colossus_url: https://colossus.com/episode/senra-354-sam-walton-the-inside-story-of-americas-richest-man/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:39Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-06-29"
+founders_url: "https://www.founderspodcast.com/episodes/354-sam-walton-the-inside-story-of-americas-richest-man"
+created_at: "2026-05-21T17:41:39Z"
+colossus_url: "https://colossus.com/episode/senra-354-sam-walton-the-inside-story-of-americas-richest-man/"
+fetched_at: "2026-05-21T17:41:39Z"
 ---
 
 ## Description

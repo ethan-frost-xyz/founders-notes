@@ -2,11 +2,13 @@
 id: "ep-0390"
 episode_number: 390
 title: "#390 Rare Steve Jobs Interview"
-published_at: 2025-06-04
-colossus_url: https://colossus.com/episode/390-rare-steve-jobs-interview/
-founders_url: https://www.founderspodcast.com/episodes/390-rare-steve-jobs-interview
-source: colossus
-fetched_at: 2026-05-21T17:42:23Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-06-04"
+founders_url: "https://www.founderspodcast.com/episodes/390-rare-steve-jobs-interview"
+created_at: "2026-05-21T17:42:23Z"
+colossus_url: "https://colossus.com/episode/390-rare-steve-jobs-interview/"
+fetched_at: "2026-05-21T17:42:23Z"
 ---
 
 ## Description

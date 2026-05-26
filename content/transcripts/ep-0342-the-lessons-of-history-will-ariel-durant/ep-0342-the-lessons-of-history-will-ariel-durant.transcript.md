@@ -2,11 +2,13 @@
 id: "ep-0342"
 episode_number: 342
 title: "#342 The Lessons of History (Will & Ariel Durant)"
-published_at: 2024-03-18
-colossus_url: https://colossus.com/episode/342-the-lessons-of-history-will-ariel-durant/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:24Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-03-18"
+founders_url: "https://www.founderspodcast.com/episodes/342-the-lessons-of-history-will-ariel-durant"
+created_at: "2026-05-21T17:41:24Z"
+colossus_url: "https://colossus.com/episode/342-the-lessons-of-history-will-ariel-durant/"
+fetched_at: "2026-05-21T17:41:24Z"
 ---
 
 ## Description

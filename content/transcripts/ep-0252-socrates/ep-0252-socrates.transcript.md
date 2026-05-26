@@ -2,11 +2,13 @@
 id: "ep-0252"
 episode_number: 252
 title: "#252 Socrates"
-published_at: 2022-06-17
-colossus_url: https://colossus.com/episode/senra-socrates-a-man-for-our-times/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:32Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-06-17"
+founders_url: "https://www.founderspodcast.com/episodes/252-socrates"
+created_at: "2026-05-21T17:39:32Z"
+colossus_url: "https://colossus.com/episode/senra-socrates-a-man-for-our-times/"
+fetched_at: "2026-05-21T17:39:32Z"
 ---
 
 ## Description

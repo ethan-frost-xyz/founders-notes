@@ -1,13 +1,16 @@
 ---
 id: "ep-0059"
+episode_number: 59
 title: "#59 Howard Hughes: The Definitive Biography of the First American Billionaire"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-17"
+founders_url: "https://www.founderspodcast.com/episodes/59-howard-hughes-the-definitive-biography-of-the-first-american-billionaire"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2001202658741264857"
 x_post_id: "2001202658741264857"
-published_at: "2025-12-17"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 59
 ---
 
 Founders #59 Howard Hughes (aerospace engineer, film producer, business magnate, and world record pilot)

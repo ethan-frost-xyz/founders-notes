@@ -2,11 +2,13 @@
 id: "ep-0114"
 episode_number: 114
 title: "#114 The Professor, the Banker, and the Suicide King: Inside the Richest Poker Game of All Time"
-published_at: 2020-03-09
-colossus_url: https://colossus.com/episode/senra-andrew-beal-inside-the-richest-poker-game-of-all-time/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:41Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-03-09"
+founders_url: "https://www.founderspodcast.com/episodes/114-the-professor-the-banker-and-the-suicide-king-inside-the-richest-poker-game-of-all-time"
+created_at: "2026-05-21T17:36:41Z"
+colossus_url: "https://colossus.com/episode/senra-andrew-beal-inside-the-richest-poker-game-of-all-time/"
+fetched_at: "2026-05-21T17:36:41Z"
 ---
 
 ## Description

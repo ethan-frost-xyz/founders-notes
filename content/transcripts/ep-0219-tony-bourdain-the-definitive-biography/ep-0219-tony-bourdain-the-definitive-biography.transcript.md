@@ -2,11 +2,13 @@
 id: "ep-0219"
 episode_number: 219
 title: "#219 Tony Bourdain: The Definitive Biography"
-published_at: 2021-11-30
-colossus_url: https://colossus.com/episode/senra-tony-bourdain-the-definitive-biography/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:52Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-11-30"
+founders_url: "https://www.founderspodcast.com/episodes/219-tony-bourdain-the-definitive-biography"
+created_at: "2026-05-21T17:38:52Z"
+colossus_url: "https://colossus.com/episode/senra-tony-bourdain-the-definitive-biography/"
+fetched_at: "2026-05-21T17:38:52Z"
 ---
 
 ## Description

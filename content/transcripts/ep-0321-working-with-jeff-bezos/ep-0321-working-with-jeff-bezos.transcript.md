@@ -2,11 +2,13 @@
 id: "ep-0321"
 episode_number: 321
 title: "#321 Working with Jeff Bezos"
-published_at: 2023-09-21
-colossus_url: https://colossus.com/episode/senra-jeff-bezos-working-backwards/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:57Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-09-21"
+founders_url: "https://www.founderspodcast.com/episodes/321-working-with-jeff-bezos"
+created_at: "2026-05-21T17:40:57Z"
+colossus_url: "https://colossus.com/episode/senra-jeff-bezos-working-backwards/"
+fetched_at: "2026-05-21T17:40:57Z"
 ---
 
 ## Description

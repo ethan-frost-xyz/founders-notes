@@ -2,11 +2,13 @@
 id: "ep-0036"
 episode_number: 36
 title: "#36 Finding The Next Steve Jobs: How to Find, Keep, and Nurture Talent"
-published_at: 2018-09-03
-colossus_url: https://colossus.com/episode/senra-nolan-bushnell-finding-the-next-steve-jobs/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:05Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-09-03"
+founders_url: "https://www.founderspodcast.com/episodes/36-finding-the-next-steve-jobs-how-to-find-keep-and-nurture-talent"
+created_at: "2026-05-21T17:35:05Z"
+colossus_url: "https://colossus.com/episode/senra-nolan-bushnell-finding-the-next-steve-jobs/"
+fetched_at: "2026-05-21T17:35:05Z"
 ---
 
 ## Description

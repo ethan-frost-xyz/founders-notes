@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any
 
 from catalog import load_catalog
-from markdown_io import read_markdown_body, utc_now_iso
+from markdown_io import parse_frontmatter, read_markdown_body, utc_now_iso
 from paths import (
     CHUNKS_PATH,
     ROOT,
@@ -50,7 +50,37 @@ def split_sections(text: str) -> list[tuple[str, str]]:
     return sections
 
 
-def chunk_body(episode_id: str, section: str, body: str, source_path: str) -> list[dict[str, Any]]:
+def chunk_metadata(
+    row: dict[str, Any],
+    fm: dict[str, str],
+    content_type: str,
+) -> dict[str, Any]:
+    meta: dict[str, Any] = {
+        "title": fm.get("title") or row.get("title"),
+        "content_type": fm.get("content_type") or content_type,
+        "source": fm.get("source"),
+    }
+    ep_num = fm.get("episode_number") or row.get("episode_number")
+    if ep_num is not None:
+        try:
+            meta["episode_number"] = int(ep_num)
+        except (TypeError, ValueError):
+            meta["episode_number"] = ep_num
+    pub = fm.get("published_at") or row.get("published_at")
+    if pub:
+        meta["published_at"] = pub
+    if fm.get("founders_url") or row.get("founders_url"):
+        meta["founders_url"] = fm.get("founders_url") or row.get("founders_url")
+    return meta
+
+
+def chunk_body(
+    episode_id: str,
+    section: str,
+    body: str,
+    source_path: str,
+    meta: dict[str, Any],
+) -> list[dict[str, Any]]:
     lines = body.splitlines()
     chunks: list[dict[str, Any]] = []
     if not lines:
@@ -76,6 +106,7 @@ def chunk_body(episode_id: str, section: str, body: str, source_path: str) -> li
                 "source_path": source_path,
                 "excerpt": excerpt[:2000],
                 "char_count": len(excerpt),
+                **meta,
             }
         )
         buf.clear()
@@ -94,13 +125,21 @@ def chunk_body(episode_id: str, section: str, body: str, source_path: str) -> li
     return chunks
 
 
-def index_markdown_file(path: Path, episode_id: str, content_type: str) -> list[dict[str, Any]]:
+def index_markdown_file(
+    path: Path,
+    episode_id: str,
+    content_type: str,
+    row: dict[str, Any],
+) -> list[dict[str, Any]]:
+    raw = path.read_text(encoding="utf-8")
+    fm = parse_frontmatter(raw)
     text = read_markdown_body(path)
     rel = str(path.relative_to(ROOT))
+    meta = chunk_metadata(row, fm, content_type)
     all_chunks: list[dict[str, Any]] = []
     for section, body in split_sections(text):
         section_key = f"{content_type}:{section}"
-        all_chunks.extend(chunk_body(episode_id, section_key, body, rel))
+        all_chunks.extend(chunk_body(episode_id, section_key, body, rel, meta))
     return all_chunks
 
 
@@ -115,19 +154,19 @@ def main() -> None:
 
         tx_path = transcript_dir(ep_id, slug, num) / transcript_filename(ep_id, slug, num)
         if tx_path.exists():
-            all_chunks.extend(index_markdown_file(tx_path, ep_id, "transcript"))
+            all_chunks.extend(index_markdown_file(tx_path, ep_id, "transcript", row))
 
         npath = notes_file_path(ep_id, slug, num)
         if npath.exists():
-            all_chunks.extend(index_markdown_file(npath, ep_id, "notes"))
+            all_chunks.extend(index_markdown_file(npath, ep_id, "notes", row))
 
         expanded = expanded_file_path(ep_id, slug, num)
         if expanded.exists():
-            all_chunks.extend(index_markdown_file(expanded, ep_id, "expanded"))
+            all_chunks.extend(index_markdown_file(expanded, ep_id, "expanded", row))
 
         ppath = post_file_path(ep_id, slug, num)
         if ppath.exists():
-            all_chunks.extend(index_markdown_file(ppath, ep_id, "post"))
+            all_chunks.extend(index_markdown_file(ppath, ep_id, "post", row))
 
     CHUNKS_PATH.parent.mkdir(parents=True, exist_ok=True)
     with CHUNKS_PATH.open("w", encoding="utf-8") as f:

@@ -1,13 +1,16 @@
 ---
 id: "ep-0016"
+episode_number: 16
 title: "#16 Titan: The Life of John D. Rockefeller"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-11-04"
+founders_url: "https://www.founderspodcast.com/episodes/16-titan-the-life-of-john-d-rockefeller"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1985603068696621302"
 x_post_id: "1985603068696621302"
-published_at: "2025-11-04"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 16
 ---
 
 Founders #16 John D. Rockefeller (Titan)

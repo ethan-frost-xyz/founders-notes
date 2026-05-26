@@ -2,11 +2,13 @@
 id: "ep-0059"
 episode_number: 59
 title: "#59 Howard Hughes: The Definitive Biography of the First American Billionaire"
-published_at: 2019-02-11
-colossus_url: https://colossus.com/episode/senra-howard-hughes-the-first-american-billionaire/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:33Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-02-11"
+founders_url: "https://www.founderspodcast.com/episodes/59-howard-hughes-the-definitive-biography-of-the-first-american-billionaire"
+created_at: "2026-05-21T17:35:33Z"
+colossus_url: "https://colossus.com/episode/senra-howard-hughes-the-first-american-billionaire/"
+fetched_at: "2026-05-21T17:35:33Z"
 ---
 
 ## Description

@@ -1,9 +1,13 @@
 ---
 id: "ep-0104"
-title: "#104 Ingvar Kamprad (IKEA)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 104
+title: "#104 Ingvar Kamprad (IKEA)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-12-30"
+founders_url: "https://www.founderspodcast.com/episodes/104-ingvar-kamprad-ikea"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

@@ -2,11 +2,13 @@
 id: "ep-0299"
 episode_number: 299
 title: "#299 Steve Jobs (Make Something Wonderful)"
-published_at: 2023-04-17
-colossus_url: https://colossus.com/episode/senra-steve-jobs-make-something-wonderful/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:30Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-04-17"
+founders_url: "https://www.founderspodcast.com/episodes/299-steve-jobs-make-something-wonderful"
+created_at: "2026-05-21T17:40:30Z"
+colossus_url: "https://colossus.com/episode/senra-steve-jobs-make-something-wonderful/"
+fetched_at: "2026-05-21T17:40:30Z"
 ---
 
 ## Description

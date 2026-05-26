@@ -1,13 +1,16 @@
 ---
 id: "ep-0039"
+episode_number: 39
 title: "#39 Walt Disney: An American Original"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-11-26"
+founders_url: "https://www.founderspodcast.com/episodes/39-walt-disney-an-american-original"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1993752747074842689"
 x_post_id: "1993752747074842689"
-published_at: "2025-11-26"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "quote"
-episode_number: 39
 ---
 
 Founders #39: Walt Disney

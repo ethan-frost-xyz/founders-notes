@@ -2,11 +2,13 @@
 id: "ep-0416"
 episode_number: 416
 title: "#416 The Relentless Missionary Creating AGI: Demis Hassabis"
-published_at: 2026-04-01
-colossus_url: https://colossus.com/episode/416-the-relentless-missionary-creating-agi-demis-hassabis/
-founders_url: https://www.founderspodcast.com/episodes/416-the-relentless-missionary-creating-agi-demis-hassabis
-source: colossus
-fetched_at: 2026-05-21T17:42:55Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2026-04-01"
+founders_url: "https://www.founderspodcast.com/episodes/416-the-relentless-missionary-creating-agi-demis-hassabis"
+created_at: "2026-05-21T17:42:55Z"
+colossus_url: "https://colossus.com/episode/416-the-relentless-missionary-creating-agi-demis-hassabis/"
+fetched_at: "2026-05-21T17:42:55Z"
 ---
 
 ## Description

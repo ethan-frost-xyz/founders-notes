@@ -1,13 +1,16 @@
 ---
 id: "ep-0072"
+episode_number: 72
 title: "#72 Stan Lee: Founder of Marvel"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-30"
+founders_url: "https://www.founderspodcast.com/episodes/72-stan-lee-founder-of-marvel"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2005819358736461840"
 x_post_id: "2005819358736461840"
-published_at: "2025-12-30"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 72
 ---
 
 Stan Lee found it was easier to reach people or get a point across with humor. (10:35)

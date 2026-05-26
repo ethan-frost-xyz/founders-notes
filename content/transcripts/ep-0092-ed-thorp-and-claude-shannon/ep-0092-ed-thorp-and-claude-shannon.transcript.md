@@ -2,11 +2,13 @@
 id: "ep-0092"
 episode_number: 92
 title: "#92 Ed Thorp and Claude Shannon"
-published_at: 2019-10-07
-colossus_url: https://colossus.com/episode/senra-claude-shannon-and-ed-thorp-fortunes-formula/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:14Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-10-07"
+founders_url: "https://www.founderspodcast.com/episodes/92-ed-thorp-and-claude-shannon"
+created_at: "2026-05-21T17:36:14Z"
+colossus_url: "https://colossus.com/episode/senra-claude-shannon-and-ed-thorp-fortunes-formula/"
+fetched_at: "2026-05-21T17:36:14Z"
 ---
 
 ## Description

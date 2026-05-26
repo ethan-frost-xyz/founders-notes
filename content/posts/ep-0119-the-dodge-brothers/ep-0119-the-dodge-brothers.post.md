@@ -1,13 +1,16 @@
 ---
 id: "ep-0119"
+episode_number: 119
 title: "#119 The Dodge Brothers"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-16"
+founders_url: "https://www.founderspodcast.com/episodes/119-the-dodge-brothers"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2023278644563476563"
 x_post_id: "2023278644563476563"
-published_at: "2026-02-16"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 119
 ---
 
 Founders #119 Dodge Brothers

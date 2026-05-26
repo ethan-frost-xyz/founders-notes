@@ -1,9 +1,13 @@
 ---
 id: "ep-0148"
-title: "#148 John D. Rockefeller (Autobiography)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 148
+title: "#148 John D. Rockefeller (Autobiography)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-10-11"
+founders_url: "https://www.founderspodcast.com/episodes/148-john-d-rockefeller-autobiography"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

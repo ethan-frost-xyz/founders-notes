@@ -1,13 +1,16 @@
 ---
 id: "ep-0137"
+episode_number: 137
 title: "#137 P.T. Barnum"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-06"
+founders_url: "https://www.founderspodcast.com/episodes/137-p-t-barnum"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2029807720065323453"
 x_post_id: "2029807720065323453"
-published_at: "2026-03-06"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 137
 ---
 
 Founders #137: P.T. Barnum

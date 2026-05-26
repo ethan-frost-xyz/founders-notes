@@ -2,11 +2,13 @@
 id: "ep-0407"
 episode_number: 407
 title: "#407 Bruce Springsteen Repairs the Hole in Himself"
-published_at: 2025-12-14
-colossus_url: https://colossus.com/episode/407-bruce-springsteen-repairs-the-hole-in-himself/
-founders_url: https://www.founderspodcast.com/episodes/407-bruce-springsteen-repairs-the-hole-in-himself
-source: colossus
-fetched_at: 2026-05-21T17:42:44Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-12-14"
+founders_url: "https://www.founderspodcast.com/episodes/407-bruce-springsteen-repairs-the-hole-in-himself"
+created_at: "2026-05-21T17:42:44Z"
+colossus_url: "https://colossus.com/episode/407-bruce-springsteen-repairs-the-hole-in-himself/"
+fetched_at: "2026-05-21T17:42:44Z"
 ---
 
 ## Description

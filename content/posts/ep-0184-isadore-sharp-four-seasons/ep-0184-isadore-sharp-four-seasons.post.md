@@ -1,13 +1,16 @@
 ---
 id: "ep-0184"
+episode_number: 184
 title: "#184 Isadore Sharp (Four Seasons)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-05-15"
+founders_url: "https://www.founderspodcast.com/episodes/184-isadore-sharp-four-seasons"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2055162867473625245"
 x_post_id: "2055162867473625245"
-published_at: "2026-05-15"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 184
 ---
 
 "Most people never pick up the phone and call. Most people never ask. 

@@ -1,9 +1,13 @@
 ---
 id: "ep-0139"
-title: "#139 J.P. Morgan"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 139
+title: "#139 J.P. Morgan"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-08-09"
+founders_url: "https://www.founderspodcast.com/episodes/139-j-p-morgan"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

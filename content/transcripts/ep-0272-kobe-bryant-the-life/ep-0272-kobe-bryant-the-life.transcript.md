@@ -2,11 +2,13 @@
 id: "ep-0272"
 episode_number: 272
 title: "#272 Kobe Bryant (The Life)"
-published_at: 2022-10-19
-colossus_url: https://colossus.com/episode/senra-kobe-bryant/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:57Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-10-19"
+founders_url: "https://www.founderspodcast.com/episodes/272-kobe-bryant-the-life"
+created_at: "2026-05-21T17:39:57Z"
+colossus_url: "https://colossus.com/episode/senra-kobe-bryant/"
+fetched_at: "2026-05-21T17:39:57Z"
 ---
 
 ## Description

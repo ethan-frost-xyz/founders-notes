@@ -1,13 +1,16 @@
 ---
 id: "ep-0158"
+episode_number: 158
 title: "#158 Walt Disney (Disneyland)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-30"
+founders_url: "https://www.founderspodcast.com/episodes/158-walt-disney-disneyland"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2038704523951083584"
 x_post_id: "2038704523951083584"
-published_at: "2026-03-30"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "quote"
-episode_number: 158
 ---
 
 We're innovating

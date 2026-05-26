@@ -2,11 +2,13 @@
 id: "ep-0285"
 episode_number: 285
 title: "#285 Jay Gould (How Jay Gould Built Wall Street's Biggest Fortune)"
-published_at: 2023-01-10
-colossus_url: https://colossus.com/episode/senra-jay-gould-american-rascal/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:13Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-01-10"
+founders_url: "https://www.founderspodcast.com/episodes/285-jay-gould-how-jay-gould-built-wall-streets-biggest-fortune"
+created_at: "2026-05-21T17:40:13Z"
+colossus_url: "https://colossus.com/episode/senra-jay-gould-american-rascal/"
+fetched_at: "2026-05-21T17:40:13Z"
 ---
 
 ## Description

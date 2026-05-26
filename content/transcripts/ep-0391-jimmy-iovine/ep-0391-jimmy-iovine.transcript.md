@@ -2,11 +2,13 @@
 id: "ep-0391"
 episode_number: 391
 title: "#391 Jimmy Iovine"
-published_at: 2025-06-13
-colossus_url: https://colossus.com/episode/391-jimmy-iovine/
-founders_url: https://www.founderspodcast.com/episodes/391-jimmy-iovine
-source: colossus
-fetched_at: 2026-05-21T17:42:24Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-06-13"
+founders_url: "https://www.founderspodcast.com/episodes/391-jimmy-iovine"
+created_at: "2026-05-21T17:42:24Z"
+colossus_url: "https://colossus.com/episode/391-jimmy-iovine/"
+fetched_at: "2026-05-21T17:42:24Z"
 ---
 
 ## Description

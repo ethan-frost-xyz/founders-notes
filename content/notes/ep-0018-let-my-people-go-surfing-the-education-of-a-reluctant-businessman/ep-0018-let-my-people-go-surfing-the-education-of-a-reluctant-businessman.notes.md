@@ -1,9 +1,13 @@
 ---
 id: "ep-0018"
-title: "#18 Let My People Go Surfing: The Education of a Reluctant Businessman"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 18
+title: "#18 Let My People Go Surfing: The Education of a Reluctant Businessman"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2018-01-08"
+founders_url: "https://www.founderspodcast.com/episodes/18-let-my-people-go-surfing-the-education-of-a-reluctant-businessman"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

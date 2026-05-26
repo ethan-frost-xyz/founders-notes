@@ -2,11 +2,13 @@
 id: "ep-0352"
 episode_number: 352
 title: "#352 J. Paul Getty: The Richest Private Citizen in America"
-published_at: 2024-06-15
-colossus_url: https://colossus.com/episode/352-j-paul-getty-the-richest-private-citizen-in-america/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:37Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-06-15"
+founders_url: "https://www.founderspodcast.com/episodes/352-j-paul-getty-the-richest-private-citizen-in-america"
+created_at: "2026-05-21T17:41:37Z"
+colossus_url: "https://colossus.com/episode/352-j-paul-getty-the-richest-private-citizen-in-america/"
+fetched_at: "2026-05-21T17:41:37Z"
 ---
 
 ## Description

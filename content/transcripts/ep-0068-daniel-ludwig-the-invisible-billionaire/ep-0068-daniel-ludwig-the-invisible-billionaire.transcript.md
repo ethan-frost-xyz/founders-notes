@@ -2,11 +2,13 @@
 id: "ep-0068"
 episode_number: 68
 title: "#68 Daniel Ludwig: The Invisible Billionaire"
-published_at: 2019-04-21
-colossus_url: https://colossus.com/episode/senra-daniel-ludwig-the-invisible-billionaire/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:44Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-04-21"
+founders_url: "https://www.founderspodcast.com/episodes/68-daniel-ludwig-the-invisible-billionaire"
+created_at: "2026-05-21T17:35:44Z"
+colossus_url: "https://colossus.com/episode/senra-daniel-ludwig-the-invisible-billionaire/"
+fetched_at: "2026-05-21T17:35:44Z"
 ---
 
 ## Description

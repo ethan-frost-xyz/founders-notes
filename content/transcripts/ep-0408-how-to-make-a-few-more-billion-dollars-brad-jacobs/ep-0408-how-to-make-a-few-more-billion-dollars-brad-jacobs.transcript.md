@@ -2,11 +2,13 @@
 id: "ep-0408"
 episode_number: 408
 title: "#408 How to Make a Few MORE Billion Dollars: Brad Jacobs"
-published_at: 2025-12-29
-colossus_url: https://colossus.com/episode/408-how-to-make-a-few-more-billion-dollars-brad-jacobs/
-founders_url: https://www.founderspodcast.com/episodes/408-how-to-make-a-few-more-billion-dollars-brad-jacobs
-source: colossus
-fetched_at: 2026-05-21T17:42:45Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-12-29"
+founders_url: "https://www.founderspodcast.com/episodes/408-how-to-make-a-few-more-billion-dollars-brad-jacobs"
+created_at: "2026-05-21T17:42:45Z"
+colossus_url: "https://colossus.com/episode/408-how-to-make-a-few-more-billion-dollars-brad-jacobs/"
+fetched_at: "2026-05-21T17:42:45Z"
 ---
 
 ## Description

@@ -1,13 +1,16 @@
 ---
 id: "ep-0095"
+episode_number: 95
 title: "#95 Claude Shannon"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-22"
+founders_url: "https://www.founderspodcast.com/episodes/95-claude-shannon"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2014147479537659967"
 x_post_id: "2014147479537659967"
-published_at: "2026-01-22"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 95
 ---
 
 Founders: #95 Claude Shannon

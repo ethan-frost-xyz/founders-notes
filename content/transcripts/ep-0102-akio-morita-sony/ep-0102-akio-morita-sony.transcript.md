@@ -2,11 +2,13 @@
 id: "ep-0102"
 episode_number: 102
 title: "#102 Akio Morita (Sony)"
-published_at: 2019-12-15
-colossus_url: https://colossus.com/episode/senra-akio-morita-made-in-japan/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:26Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-12-15"
+founders_url: "https://www.founderspodcast.com/episodes/102-akio-morita-sony"
+created_at: "2026-05-21T17:36:26Z"
+colossus_url: "https://colossus.com/episode/senra-akio-morita-made-in-japan/"
+fetched_at: "2026-05-21T17:36:26Z"
 ---
 
 ## Description

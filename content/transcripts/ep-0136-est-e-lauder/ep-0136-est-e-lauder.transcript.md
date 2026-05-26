@@ -2,11 +2,13 @@
 id: "ep-0136"
 episode_number: 136
 title: "#136 Estée Lauder"
-published_at: 2020-07-18
-colossus_url: https://colossus.com/episode/senra-estee-lauder-her-success-story/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:08Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-07-18"
+founders_url: "https://www.founderspodcast.com/episodes/136-est-e-lauder"
+created_at: "2026-05-21T17:37:08Z"
+colossus_url: "https://colossus.com/episode/senra-estee-lauder-her-success-story/"
+fetched_at: "2026-05-21T17:37:08Z"
 ---
 
 ## Description

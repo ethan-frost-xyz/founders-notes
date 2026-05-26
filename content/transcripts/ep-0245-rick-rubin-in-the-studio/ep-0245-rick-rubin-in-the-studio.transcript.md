@@ -2,11 +2,13 @@
 id: "ep-0245"
 episode_number: 245
 title: "#245 Rick Rubin (In the Studio)"
-published_at: 2022-05-08
-colossus_url: https://colossus.com/episode/senra-rick-rubin-in-the-studio/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:24Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-05-08"
+founders_url: "https://www.founderspodcast.com/episodes/245-rick-rubin-in-the-studio"
+created_at: "2026-05-21T17:39:24Z"
+colossus_url: "https://colossus.com/episode/senra-rick-rubin-in-the-studio/"
+fetched_at: "2026-05-21T17:39:24Z"
 ---
 
 ## Description

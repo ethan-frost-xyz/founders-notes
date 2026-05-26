@@ -1,13 +1,16 @@
 ---
 id: "ep-0019"
+episode_number: 19
 title: "#19 Becoming Steve Jobs"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-11-07"
+founders_url: "https://www.founderspodcast.com/episodes/19-becoming-steve-jobs"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1986634843208155641"
 x_post_id: "1986634843208155641"
-published_at: "2025-11-07"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 19
 ---
 
 Day 19 listening to every @FoundersPodcast episode

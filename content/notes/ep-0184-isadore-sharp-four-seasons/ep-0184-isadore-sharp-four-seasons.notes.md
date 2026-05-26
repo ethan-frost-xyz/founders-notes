@@ -1,9 +1,13 @@
 ---
 id: "ep-0184"
-title: "#184 Isadore Sharp (Four Seasons)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 184
+title: "#184 Isadore Sharp (Four Seasons)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2021-06-06"
+founders_url: "https://www.founderspodcast.com/episodes/184-isadore-sharp-four-seasons"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

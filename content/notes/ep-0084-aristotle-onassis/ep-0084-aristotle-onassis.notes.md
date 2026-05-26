@@ -1,9 +1,13 @@
 ---
 id: "ep-0084"
-title: "#84 Aristotle Onassis"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 84
+title: "#84 Aristotle Onassis"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-08-11"
+founders_url: "https://www.founderspodcast.com/episodes/84-aristotle-onassis"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

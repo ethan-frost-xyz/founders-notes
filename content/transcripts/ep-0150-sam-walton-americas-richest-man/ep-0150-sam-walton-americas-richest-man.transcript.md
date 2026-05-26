@@ -2,11 +2,13 @@
 id: "ep-0150"
 episode_number: 150
 title: "#150 Sam Walton (America's Richest Man)"
-published_at: 2020-10-24
-colossus_url: https://colossus.com/episode/senra-sam-walton-the-inside-story-of-americas-richest-man/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:26Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-10-24"
+founders_url: "https://www.founderspodcast.com/episodes/150-sam-walton-americas-richest-man"
+created_at: "2026-05-21T17:37:26Z"
+colossus_url: "https://colossus.com/episode/senra-sam-walton-the-inside-story-of-americas-richest-man/"
+fetched_at: "2026-05-21T17:37:26Z"
 ---
 
 ## Description

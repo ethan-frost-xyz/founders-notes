@@ -1,9 +1,13 @@
 ---
 id: "ep-0154"
-title: "#154 Charles Schulz (Charlie Brown)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 154
+title: "#154 Charles Schulz (Charlie Brown)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-11-19"
+founders_url: "https://www.founderspodcast.com/episodes/154-charles-schulz-charlie-brown"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

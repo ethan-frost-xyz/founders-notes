@@ -2,11 +2,13 @@
 id: "ep-0157"
 episode_number: 157
 title: "#157 The Innovators: How a Group of Hackers, Geniuses, and Geeks Created the Digital Revolution"
-published_at: 2020-12-07
-colossus_url: https://colossus.com/episode/senra-the-innovators/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:35Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-12-07"
+founders_url: "https://www.founderspodcast.com/episodes/157-the-innovators-how-a-group-of-hackers-geniuses-and-geeks-created-the-digital-revolution"
+created_at: "2026-05-21T17:37:35Z"
+colossus_url: "https://colossus.com/episode/senra-the-innovators/"
+fetched_at: "2026-05-21T17:37:35Z"
 ---
 
 ## Description

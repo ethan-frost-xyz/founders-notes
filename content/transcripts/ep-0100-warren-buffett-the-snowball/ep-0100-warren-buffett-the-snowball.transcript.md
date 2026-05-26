@@ -2,11 +2,13 @@
 id: "ep-0100"
 episode_number: 100
 title: "#100 Warren Buffett (The Snowball)"
-published_at: 2019-12-01
-colossus_url: https://colossus.com/episode/senra-warren-buffett-the-snowball/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:24Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-12-01"
+founders_url: "https://www.founderspodcast.com/episodes/100-warren-buffett-the-snowball"
+created_at: "2026-05-21T17:36:24Z"
+colossus_url: "https://colossus.com/episode/senra-warren-buffett-the-snowball/"
+fetched_at: "2026-05-21T17:36:24Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0196"
 episode_number: 196
 title: "#196 Winston Churchill (Leadership during WW2)"
-published_at: 2021-08-07
-colossus_url: https://colossus.com/episode/senra-winston-churchill-family-and-defiance-during-the-blitz/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:23Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-08-07"
+founders_url: "https://www.founderspodcast.com/episodes/196-winston-churchill-leadership-during-ww2"
+created_at: "2026-05-21T17:38:23Z"
+colossus_url: "https://colossus.com/episode/senra-winston-churchill-family-and-defiance-during-the-blitz/"
+fetched_at: "2026-05-21T17:38:23Z"
 ---
 
 ## Description

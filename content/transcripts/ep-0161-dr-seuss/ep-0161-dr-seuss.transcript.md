@@ -2,11 +2,13 @@
 id: "ep-0161"
 episode_number: 161
 title: "#161 Dr. Seuss"
-published_at: 2021-01-04
-colossus_url: https://colossus.com/episode/senra-theodor-geisel-becoming-dr-seuss/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:40Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-01-04"
+founders_url: "https://www.founderspodcast.com/episodes/161-dr-seuss"
+created_at: "2026-05-21T17:37:40Z"
+colossus_url: "https://colossus.com/episode/senra-theodor-geisel-becoming-dr-seuss/"
+fetched_at: "2026-05-21T17:37:40Z"
 ---
 
 ## Description

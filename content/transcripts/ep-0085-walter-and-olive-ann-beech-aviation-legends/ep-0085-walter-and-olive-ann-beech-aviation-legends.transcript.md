@@ -2,11 +2,13 @@
 id: "ep-0085"
 episode_number: 85
 title: "#85 Walter and Olive Ann Beech (Aviation Legends)"
-published_at: 2019-08-18
-colossus_url: https://colossus.com/episode/senra-walter-and-olive-ann-beech-the-barnstormer-and-the-lady/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:05Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-08-18"
+founders_url: "https://www.founderspodcast.com/episodes/85-walter-and-olive-ann-beech-aviation-legends"
+created_at: "2026-05-21T17:36:05Z"
+colossus_url: "https://colossus.com/episode/senra-walter-and-olive-ann-beech-the-barnstormer-and-the-lady/"
+fetched_at: "2026-05-21T17:36:05Z"
 ---
 
 ## Description

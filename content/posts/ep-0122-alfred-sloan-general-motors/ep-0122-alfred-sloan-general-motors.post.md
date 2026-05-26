@@ -1,13 +1,16 @@
 ---
 id: "ep-0122"
+episode_number: 122
 title: "#122 Alfred Sloan (General Motors)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-19"
+founders_url: "https://www.founderspodcast.com/episodes/122-alfred-sloan-general-motors"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2024365850048729110"
 x_post_id: "2024365850048729110"
-published_at: "2026-02-19"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 122
 ---
 
 Founders #122: Alfred Sloan (General Motors)

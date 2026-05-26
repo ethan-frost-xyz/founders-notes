@@ -1,9 +1,13 @@
 ---
 id: "ep-0036"
-title: "#36 Finding The Next Steve Jobs: How to Find, Keep, and Nurture Talent"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 36
+title: "#36 Finding The Next Steve Jobs: How to Find, Keep, and Nurture Talent"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2018-09-03"
+founders_url: "https://www.founderspodcast.com/episodes/36-finding-the-next-steve-jobs-how-to-find-keep-and-nurture-talent"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

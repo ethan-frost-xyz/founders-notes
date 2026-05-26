@@ -1,13 +1,16 @@
 ---
 id: "ep-0079"
+episode_number: 79
 title: "#79 Charlie Munger (The Complete Investor)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-06"
+founders_url: "https://www.founderspodcast.com/episodes/79-charlie-munger-the-complete-investor"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2008357392078270963"
 x_post_id: "2008357392078270963"
-published_at: "2026-01-06"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 79
 ---
 
 Founders #79: Charlie Munger (#2 - The Complete Investor)

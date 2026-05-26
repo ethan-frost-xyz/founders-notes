@@ -2,11 +2,13 @@
 id: "ep-0192"
 episode_number: 192
 title: "#192 Jim Casey (Founder of UPS)"
-published_at: 2021-07-19
-colossus_url: https://colossus.com/episode/senra-jim-casey-the-untold-story-of-ups/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:18Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-07-19"
+founders_url: "https://www.founderspodcast.com/episodes/192-jim-casey-founder-of-ups"
+created_at: "2026-05-21T17:38:18Z"
+colossus_url: "https://colossus.com/episode/senra-jim-casey-the-untold-story-of-ups/"
+fetched_at: "2026-05-21T17:38:18Z"
 ---
 
 ## Description

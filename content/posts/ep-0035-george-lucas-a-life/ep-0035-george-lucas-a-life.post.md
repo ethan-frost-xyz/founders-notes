@@ -1,13 +1,16 @@
 ---
 id: "ep-0035"
+episode_number: 35
 title: "#35 George Lucas: A Life"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-11-23"
+founders_url: "https://www.founderspodcast.com/episodes/35-george-lucas-a-life"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1992479682709614730"
 x_post_id: "1992479682709614730"
-published_at: "2025-11-23"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 35
 ---
 
 Founders #35: George Lucas (Star Wars)

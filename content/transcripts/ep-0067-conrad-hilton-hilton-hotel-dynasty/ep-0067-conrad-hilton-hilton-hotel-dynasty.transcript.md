@@ -2,11 +2,13 @@
 id: "ep-0067"
 episode_number: 67
 title: "#67 Conrad Hilton: Hilton Hotel Dynasty"
-published_at: 2019-04-14
-colossus_url: https://colossus.com/episode/senra-conrad-hilton-the-true-story-of-an-american-dynasty/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:43Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-04-14"
+founders_url: "https://www.founderspodcast.com/episodes/67-conrad-hilton-hilton-hotel-dynasty"
+created_at: "2026-05-21T17:35:43Z"
+colossus_url: "https://colossus.com/episode/senra-conrad-hilton-the-true-story-of-an-american-dynasty/"
+fetched_at: "2026-05-21T17:35:43Z"
 ---
 
 ## Description

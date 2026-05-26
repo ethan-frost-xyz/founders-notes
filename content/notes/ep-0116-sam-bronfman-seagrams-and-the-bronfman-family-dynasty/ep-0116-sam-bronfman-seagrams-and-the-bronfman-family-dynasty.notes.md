@@ -1,9 +1,13 @@
 ---
 id: "ep-0116"
-title: "#116 Sam Bronfman (Seagram's and the Bronfman family dynasty)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 116
+title: "#116 Sam Bronfman (Seagram's and the Bronfman family dynasty)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-03-21"
+founders_url: "https://www.founderspodcast.com/episodes/116-sam-bronfman-seagrams-and-the-bronfman-family-dynasty"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

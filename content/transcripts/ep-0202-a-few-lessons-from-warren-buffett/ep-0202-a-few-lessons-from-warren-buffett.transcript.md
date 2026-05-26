@@ -2,11 +2,13 @@
 id: "ep-0202"
 episode_number: 202
 title: "#202 A Few Lessons From Warren Buffett"
-published_at: 2021-09-02
-colossus_url: https://colossus.com/episode/senra-warren-buffett-a-few-lessons-for-investors-and-managers/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:31Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-09-02"
+founders_url: "https://www.founderspodcast.com/episodes/202-a-few-lessons-from-warren-buffett"
+created_at: "2026-05-21T17:38:31Z"
+colossus_url: "https://colossus.com/episode/senra-warren-buffett-a-few-lessons-for-investors-and-managers/"
+fetched_at: "2026-05-21T17:38:31Z"
 ---
 
 ## Description

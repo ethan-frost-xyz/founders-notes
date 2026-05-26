@@ -2,11 +2,13 @@
 id: "ep-0345"
 episode_number: 345
 title: "#345 George Lucas"
-published_at: 2024-04-12
-colossus_url: https://colossus.com/episode/345-george-lucas/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:28Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-04-12"
+founders_url: "https://www.founderspodcast.com/episodes/345-george-lucas"
+created_at: "2026-05-21T17:41:28Z"
+colossus_url: "https://colossus.com/episode/345-george-lucas/"
+fetched_at: "2026-05-21T17:41:28Z"
 ---
 
 ## Description

@@ -1,13 +1,16 @@
 ---
 id: "ep-0175"
+episode_number: 175
 title: "#175 Theodore Roosevelt's Darkest Journey"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-05-05"
+founders_url: "https://www.founderspodcast.com/episodes/175-theodore-roosevelts-darkest-journey"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2051530366146470205"
 x_post_id: "2051530366146470205"
-published_at: "2026-05-05"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 175
 ---
 
 When you are in a rut, do something hard.

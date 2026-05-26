@@ -20,7 +20,7 @@ Instructions live in [`ingestion/prompts/expand_datapoints.md`](../ingestion/pro
 
 Per bullet: `### {timestamp} — {bullet}`, then **Context** (1–2 sentences), **Quote** (verbatim + timestamp), **Key takeaway** (2–3 sentences), with blank lines between fields.
 
-The LLM reply must start with `## Expanded datapoints` on line 1 (required by the parser).
+The LLM reply must start with `## Expanded datapoints` on line 1 (required by the parser). **Do not** ask the model for YAML frontmatter — `expand_datapoints_llm.py` wraps the body with canonical episode headers (`content_type`, `created_at`, model metadata, etc.) via `ingestion/lib/markdown_io.py`.
 
 Edit that file to change behavior for both the manual CLI and OpenRouter runs. Candidate prompt B: `expand_datapoints.candidate.md`.
 

@@ -2,11 +2,13 @@
 id: "ep-0191"
 episode_number: 191
 title: "#191 Naval Ravikant (A Guide to Wealth and Happiness)"
-published_at: 2021-07-13
-colossus_url: https://colossus.com/episode/senra-naval-ravikant-a-guide-to-wealth-and-happiness/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:17Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-07-13"
+founders_url: "https://www.founderspodcast.com/episodes/191-naval-ravikant-a-guide-to-wealth-and-happiness"
+created_at: "2026-05-21T17:38:17Z"
+colossus_url: "https://colossus.com/episode/senra-naval-ravikant-a-guide-to-wealth-and-happiness/"
+fetched_at: "2026-05-21T17:38:17Z"
 ---
 
 ## Description

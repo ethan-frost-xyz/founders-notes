@@ -1,13 +1,16 @@
 ---
 id: "ep-0090"
+episode_number: 90
 title: "#90 Charlie Munger (Poor Charlie's Almanack)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-17"
+founders_url: "https://www.founderspodcast.com/episodes/90-charlie-munger-poor-charlies-almanack"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2012388039587176651"
 x_post_id: "2012388039587176651"
-published_at: "2026-01-17"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 90
 ---
 
 Founders: #90 Charlie Munger

@@ -1,13 +1,16 @@
 ---
 id: "ep-0152"
+episode_number: 152
 title: "#152 Katherine Graham (Washington Post)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-21"
+founders_url: "https://www.founderspodcast.com/episodes/152-katherine-graham-washington-post"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2035454697968972275"
 x_post_id: "2035454697968972275"
-published_at: "2026-03-21"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 152
 ---
 
 Founders #152: Katharine Graham - Washington Post

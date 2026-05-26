@@ -2,11 +2,13 @@
 id: "ep-0103"
 episode_number: 103
 title: "#103 Hetty Green (The Richest Woman in America)"
-published_at: 2019-12-22
-colossus_url: https://colossus.com/episode/senra-hetty-green-the-richest-woman-in-america/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:27Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-12-22"
+founders_url: "https://www.founderspodcast.com/episodes/103-hetty-green-the-richest-woman-in-america"
+created_at: "2026-05-21T17:36:27Z"
+colossus_url: "https://colossus.com/episode/senra-hetty-green-the-richest-woman-in-america/"
+fetched_at: "2026-05-21T17:36:27Z"
 ---
 
 ## Description

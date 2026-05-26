@@ -2,11 +2,13 @@
 id: "ep-0268"
 episode_number: 268
 title: "#268 John Malone (Cable Cowboy)"
-published_at: 2022-09-21
-colossus_url: https://colossus.com/episode/senra-john-malone-the-rise-of-the-modern-cable-business/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:52Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-09-21"
+founders_url: "https://www.founderspodcast.com/episodes/268-john-malone-cable-cowboy"
+created_at: "2026-05-21T17:39:52Z"
+colossus_url: "https://colossus.com/episode/senra-john-malone-the-rise-of-the-modern-cable-business/"
+fetched_at: "2026-05-21T17:39:52Z"
 ---
 
 ## Description

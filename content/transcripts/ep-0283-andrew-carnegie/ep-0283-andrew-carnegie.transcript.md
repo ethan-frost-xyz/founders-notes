@@ -2,11 +2,13 @@
 id: "ep-0283"
 episode_number: 283
 title: "#283 Andrew Carnegie"
-published_at: 2022-12-26
-colossus_url: https://colossus.com/episode/senra-andrew-carnegie/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:11Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-12-26"
+founders_url: "https://www.founderspodcast.com/episodes/283-andrew-carnegie"
+created_at: "2026-05-21T17:40:11Z"
+colossus_url: "https://colossus.com/episode/senra-andrew-carnegie/"
+fetched_at: "2026-05-21T17:40:11Z"
 ---
 
 ## Description

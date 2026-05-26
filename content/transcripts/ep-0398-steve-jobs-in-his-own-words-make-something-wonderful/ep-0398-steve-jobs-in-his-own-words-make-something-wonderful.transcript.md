@@ -2,11 +2,13 @@
 id: "ep-0398"
 episode_number: 398
 title: "#398 Steve Jobs In His Own Words (Make Something Wonderful)"
-published_at: 2025-08-14
-colossus_url: https://colossus.com/episode/398-make-something-wonderful-steve-jobs-in-his-own-words/
-founders_url: https://www.founderspodcast.com/episodes/398-steve-jobs-in-his-own-words-make-something-wonderful
-source: colossus
-fetched_at: 2026-05-21T17:42:33Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-08-14"
+founders_url: "https://www.founderspodcast.com/episodes/398-steve-jobs-in-his-own-words-make-something-wonderful"
+created_at: "2026-05-21T17:42:33Z"
+colossus_url: "https://colossus.com/episode/398-make-something-wonderful-steve-jobs-in-his-own-words/"
+fetched_at: "2026-05-21T17:42:33Z"
 ---
 
 ## Description

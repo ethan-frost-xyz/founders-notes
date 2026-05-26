@@ -2,11 +2,13 @@
 id: "ep-0363"
 episode_number: 363
 title: "#363 Li Lu and Charlie Munger and Warren Buffett"
-published_at: 2024-09-06
-colossus_url: https://colossus.com/episode/363-li-lu-and-charlie-munger-and-warren-buffett/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:50Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-09-06"
+founders_url: "https://www.founderspodcast.com/episodes/363-li-lu-and-charlie-munger-and-warren-buffett"
+created_at: "2026-05-21T17:41:50Z"
+colossus_url: "https://colossus.com/episode/363-li-lu-and-charlie-munger-and-warren-buffett/"
+fetched_at: "2026-05-21T17:41:50Z"
 ---
 
 ## Description

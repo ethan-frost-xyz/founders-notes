@@ -2,11 +2,13 @@
 id: "ep-0121"
 episode_number: 121
 title: "#121 Billy Durant and Alfred Sloan (General Motors)"
-published_at: 2020-04-19
-colossus_url: https://colossus.com/episode/senra-billy-durant-alfred-sloan-and-general-motors/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:50Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-04-19"
+founders_url: "https://www.founderspodcast.com/episodes/121-billy-durant-and-alfred-sloan-general-motors"
+created_at: "2026-05-21T17:36:50Z"
+colossus_url: "https://colossus.com/episode/senra-billy-durant-alfred-sloan-and-general-motors/"
+fetched_at: "2026-05-21T17:36:50Z"
 ---
 
 ## Description

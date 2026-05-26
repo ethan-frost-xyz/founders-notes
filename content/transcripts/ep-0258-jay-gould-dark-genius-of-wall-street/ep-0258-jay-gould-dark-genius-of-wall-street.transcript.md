@@ -2,11 +2,13 @@
 id: "ep-0258"
 episode_number: 258
 title: "#258: Jay Gould (Dark Genius of Wall Street)"
-published_at: 2022-07-22
-colossus_url: https://colossus.com/episode/senra-jay-gould-the-dark-genius-of-wall-street/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:40Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-07-22"
+founders_url: "https://www.founderspodcast.com/episodes/258-jay-gould-dark-genius-of-wall-street"
+created_at: "2026-05-21T17:39:40Z"
+colossus_url: "https://colossus.com/episode/senra-jay-gould-the-dark-genius-of-wall-street/"
+fetched_at: "2026-05-21T17:39:40Z"
 ---
 
 ## Description

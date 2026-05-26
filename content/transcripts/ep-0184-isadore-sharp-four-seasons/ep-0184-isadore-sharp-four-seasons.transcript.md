@@ -2,11 +2,13 @@
 id: "ep-0184"
 episode_number: 184
 title: "#184 Isadore Sharp (Four Seasons)"
-published_at: 2021-06-06
-colossus_url: https://colossus.com/episode/senra-isadore-sharp-the-autobiography-of-the-founder-of-four-seasons/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:08Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-06-06"
+founders_url: "https://www.founderspodcast.com/episodes/184-isadore-sharp-four-seasons"
+created_at: "2026-05-21T17:38:08Z"
+colossus_url: "https://colossus.com/episode/senra-isadore-sharp-the-autobiography-of-the-founder-of-four-seasons/"
+fetched_at: "2026-05-21T17:38:08Z"
 ---
 
 ## Description

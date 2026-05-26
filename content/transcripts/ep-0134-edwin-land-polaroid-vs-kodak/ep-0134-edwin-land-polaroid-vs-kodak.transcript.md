@@ -2,11 +2,13 @@
 id: "ep-0134"
 episode_number: 134
 title: "#134 Edwin Land (Polaroid vs Kodak)"
-published_at: 2020-07-01
-colossus_url: https://colossus.com/episode/senra-edwin-land-a-triumph-of-genius/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:06Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-07-01"
+founders_url: "https://www.founderspodcast.com/episodes/134-edwin-land-polaroid-vs-kodak"
+created_at: "2026-05-21T17:37:06Z"
+colossus_url: "https://colossus.com/episode/senra-edwin-land-a-triumph-of-genius/"
+fetched_at: "2026-05-21T17:37:06Z"
 ---
 
 ## Description

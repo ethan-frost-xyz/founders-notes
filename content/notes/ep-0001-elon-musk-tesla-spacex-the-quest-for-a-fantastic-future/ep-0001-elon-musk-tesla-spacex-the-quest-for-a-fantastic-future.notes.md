@@ -1,9 +1,13 @@
 ---
 id: "ep-0001"
-title: "#1 Elon Musk: Tesla, SpaceX, & the Quest for a Fantastic Future"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 1
+title: "#1 Elon Musk: Tesla, SpaceX, & the Quest for a Fantastic Future"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2016-09-19"
+founders_url: "https://www.founderspodcast.com/episodes/1-elon-musk-tesla-spacex-the-quest-for-a-fantastic-future"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

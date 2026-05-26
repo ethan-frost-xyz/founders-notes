@@ -1,9 +1,13 @@
 ---
 id: "ep-0097"
-title: "#97 Enzo Ferrari (Ferrari vs Ford)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 97
+title: "#97 Enzo Ferrari (Ferrari vs Ford)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-11-10"
+founders_url: "https://www.founderspodcast.com/episodes/97-enzo-ferrari-ferrari-vs-ford"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

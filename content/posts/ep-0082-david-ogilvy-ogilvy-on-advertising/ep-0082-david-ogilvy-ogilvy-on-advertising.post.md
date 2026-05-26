@@ -1,13 +1,16 @@
 ---
 id: "ep-0082"
+episode_number: 82
 title: "#82 David Ogilvy (Ogilvy on Advertising)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-08"
+founders_url: "https://www.founderspodcast.com/episodes/82-david-ogilvy-ogilvy-on-advertising"
+created_at: "2026-05-21T19:39:20Z"
 x_url: "https://x.com/ethanfrost/status/2020587382983237949"
 x_post_id: "2020587382983237949"
-published_at: "2026-02-08"
-source: "x_csv"
 imported_at: "2026-05-21T19:39:20Z"
 post_kind: "reply"
-episode_number: 82
 ---
 
 @SpiceP0dcast @lulumeservey @FoundersPodcast Do not address your readers as though they were gathered together in a stadium. 

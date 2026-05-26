@@ -2,11 +2,13 @@
 id: "ep-0069"
 episode_number: 69
 title: "#69 Charles Goodyear: An Inventor's Obsession and the Struggle for a Rubber Monopoly"
-published_at: 2019-04-28
-colossus_url: https://colossus.com/episode/senra-charles-goodyear-the-struggle-for-a-rubber-monopoly/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:45Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-04-28"
+founders_url: "https://www.founderspodcast.com/episodes/69-charles-goodyear-an-inventors-obsession-and-the-struggle-for-a-rubber-monopoly"
+created_at: "2026-05-21T17:35:45Z"
+colossus_url: "https://colossus.com/episode/senra-charles-goodyear-the-struggle-for-a-rubber-monopoly/"
+fetched_at: "2026-05-21T17:35:45Z"
 ---
 
 ## Description

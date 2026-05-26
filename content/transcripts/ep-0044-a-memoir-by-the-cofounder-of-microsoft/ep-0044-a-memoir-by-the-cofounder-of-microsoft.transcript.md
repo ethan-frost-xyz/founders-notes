@@ -2,11 +2,13 @@
 id: "ep-0044"
 episode_number: 44
 title: "#44 A Memoir by the Cofounder of Microsoft"
-published_at: 2018-10-30
-colossus_url: https://colossus.com/episode/senra-paul-allen-a-microsoft-memoir/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:15Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-10-30"
+founders_url: "https://www.founderspodcast.com/episodes/44-a-memoir-by-the-cofounder-of-microsoft"
+created_at: "2026-05-21T17:35:15Z"
+colossus_url: "https://colossus.com/episode/senra-paul-allen-a-microsoft-memoir/"
+fetched_at: "2026-05-21T17:35:15Z"
 ---
 
 ## Description

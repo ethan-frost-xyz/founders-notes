@@ -2,11 +2,13 @@
 id: "ep-0027"
 episode_number: 27
 title: "#27 A Truck Full of Money: Coding, Mania, Love, Genius: The Life of an American Entrepreneur"
-published_at: 2018-06-15
-colossus_url: https://colossus.com/episode/senra-paul-english-a-truck-full-of-money/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:54Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-06-15"
+founders_url: "https://www.founderspodcast.com/episodes/27-a-truck-full-of-money-coding-mania-love-genius-the-life-of-an-american-entrepreneur"
+created_at: "2026-05-21T17:34:54Z"
+colossus_url: "https://colossus.com/episode/senra-paul-english-a-truck-full-of-money/"
+fetched_at: "2026-05-21T17:34:54Z"
 ---
 
 ## Description

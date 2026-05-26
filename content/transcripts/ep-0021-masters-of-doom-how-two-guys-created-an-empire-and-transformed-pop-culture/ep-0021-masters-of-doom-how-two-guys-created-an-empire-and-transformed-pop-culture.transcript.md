@@ -2,11 +2,13 @@
 id: "ep-0021"
 episode_number: 21
 title: "#21 Masters of Doom: How Two Guys Created an Empire and Transformed Pop Culture"
-published_at: 2018-03-01
-colossus_url: https://colossus.com/episode/senra-john-carmack-and-john-romero-masters-of-doom/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:47Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-03-01"
+founders_url: "https://www.founderspodcast.com/episodes/21-masters-of-doom-how-two-guys-created-an-empire-and-transformed-pop-culture"
+created_at: "2026-05-21T17:34:47Z"
+colossus_url: "https://colossus.com/episode/senra-john-carmack-and-john-romero-masters-of-doom/"
+fetched_at: "2026-05-21T17:34:47Z"
 ---
 
 ## Description

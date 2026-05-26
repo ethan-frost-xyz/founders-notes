@@ -1,13 +1,16 @@
 ---
 id: "ep-0133"
+episode_number: 133
 title: "#133 Edwin Land (Polaroid and The Man Who Invented It)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-01"
+founders_url: "https://www.founderspodcast.com/episodes/133-edwin-land-polaroid-and-the-man-who-invented-it"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2028190787700453439"
 x_post_id: "2028190787700453439"
-published_at: "2026-03-01"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 133
 ---
 
 Founders #133: Edwin Land - Polaroid

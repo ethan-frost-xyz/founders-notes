@@ -2,11 +2,13 @@
 id: "ep-0111"
 episode_number: 111
 title: "#111 David Geffen"
-published_at: 2020-02-16
-colossus_url: https://colossus.com/episode/senra-david-geffen-the-operator/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:37Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-02-16"
+founders_url: "https://www.founderspodcast.com/episodes/111-david-geffen"
+created_at: "2026-05-21T17:36:37Z"
+colossus_url: "https://colossus.com/episode/senra-david-geffen-the-operator/"
+fetched_at: "2026-05-21T17:36:37Z"
 ---
 
 ## Description

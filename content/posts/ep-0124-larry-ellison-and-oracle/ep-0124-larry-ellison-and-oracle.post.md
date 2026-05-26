@@ -1,13 +1,16 @@
 ---
 id: "ep-0124"
+episode_number: 124
 title: "#124 Larry Ellison and Oracle"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-20"
+founders_url: "https://www.founderspodcast.com/episodes/124-larry-ellison-and-oracle"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2024980930239365314"
 x_post_id: "2024980930239365314"
-published_at: "2026-02-20"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 124
 ---
 
 Founders #124: Larry Ellison - $ORCL

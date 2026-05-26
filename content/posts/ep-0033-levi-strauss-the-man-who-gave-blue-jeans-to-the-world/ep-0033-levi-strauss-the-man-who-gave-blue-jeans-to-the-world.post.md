@@ -1,13 +1,16 @@
 ---
 id: "ep-0033"
+episode_number: 33
 title: "#33 Levi Strauss: The Man Who Gave Blue Jeans to the World"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-11-21"
+founders_url: "https://www.founderspodcast.com/episodes/33-levi-strauss-the-man-who-gave-blue-jeans-to-the-world"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1991678869468754095"
 x_post_id: "1991678869468754095"
-published_at: "2025-11-21"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 33
 ---
 
 Founders #33: Levi Strauss (Levi Jeans)

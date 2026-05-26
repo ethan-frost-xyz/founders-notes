@@ -2,11 +2,13 @@
 id: "ep-0231"
 episode_number: 231
 title: "#231 William Rosenberg (Founder of Dunkin Donuts)"
-published_at: 2022-02-12
-colossus_url: https://colossus.com/episode/senra-william-rosenberg-the-founder-of-dunkin-donuts/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:07Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-02-12"
+founders_url: "https://www.founderspodcast.com/episodes/231-william-rosenberg-founder-of-dunkin-donuts"
+created_at: "2026-05-21T17:39:07Z"
+colossus_url: "https://colossus.com/episode/senra-william-rosenberg-the-founder-of-dunkin-donuts/"
+fetched_at: "2026-05-21T17:39:07Z"
 ---
 
 ## Description

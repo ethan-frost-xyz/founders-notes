@@ -1,9 +1,13 @@
 ---
 id: "ep-0010"
-title: "#10 Shoe Dog: A Memoir by the Creator of Nike"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 10
+title: "#10 Shoe Dog: A Memoir by the Creator of Nike"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2017-07-27"
+founders_url: "https://www.founderspodcast.com/episodes/10-shoe-dog-a-memoir-by-the-creator-of-nike"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

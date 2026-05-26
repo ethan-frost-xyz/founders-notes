@@ -2,11 +2,13 @@
 id: "ep-0246"
 episode_number: 246
 title: "#246 Mark Leonard's Shareholder Letters"
-published_at: 2022-05-13
-colossus_url: https://colossus.com/episode/senra-mark-leonard-constellation-software-president/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:25Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-05-13"
+founders_url: "https://www.founderspodcast.com/episodes/246-mark-leonards-shareholder-letters"
+created_at: "2026-05-21T17:39:25Z"
+colossus_url: "https://colossus.com/episode/senra-mark-leonard-constellation-software-president/"
+fetched_at: "2026-05-21T17:39:25Z"
 ---
 
 ## Description

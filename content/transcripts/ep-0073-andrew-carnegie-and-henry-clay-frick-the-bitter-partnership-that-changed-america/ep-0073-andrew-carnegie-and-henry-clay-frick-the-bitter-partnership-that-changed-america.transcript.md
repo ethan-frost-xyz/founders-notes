@@ -2,11 +2,13 @@
 id: "ep-0073"
 episode_number: 73
 title: "#73 Andrew Carnegie and Henry Clay Frick: The Bitter Partnership That Changed America"
-published_at: 2019-05-26
-colossus_url: https://colossus.com/episode/senra-andrew-carnegie-henry-clay-frick-meet-you-in-hell/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:50Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-05-26"
+founders_url: "https://www.founderspodcast.com/episodes/73-andrew-carnegie-and-henry-clay-frick-the-bitter-partnership-that-changed-america"
+created_at: "2026-05-21T17:35:50Z"
+colossus_url: "https://colossus.com/episode/senra-andrew-carnegie-henry-clay-frick-meet-you-in-hell/"
+fetched_at: "2026-05-21T17:35:50Z"
 ---
 
 ## Description

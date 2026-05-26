@@ -1,13 +1,16 @@
 ---
 id: "ep-0083"
+episode_number: 83
 title: "#83 Thomas Edison, Nikola Tesla, George Westinghouse, and the Race to Electrify the World"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-10"
+founders_url: "https://www.founderspodcast.com/episodes/83-thomas-edison-nikola-tesla-george-westinghouse-and-the-race-to-electrify-the-world"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2009889151651344547"
 x_post_id: "2009889151651344547"
-published_at: "2026-01-10"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 83
 ---
 
 Founders #83: Tesla, Edison, & Westinghouse

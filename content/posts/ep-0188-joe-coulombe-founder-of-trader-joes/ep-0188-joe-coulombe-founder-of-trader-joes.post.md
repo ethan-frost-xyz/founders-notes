@@ -1,13 +1,16 @@
 ---
 id: "ep-0188"
+episode_number: 188
 title: "#188 Joe Coulombe (Founder of Trader Joes)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-05-20"
+founders_url: "https://www.founderspodcast.com/episodes/188-joe-coulombe-founder-of-trader-joes"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2057209991661228497"
 x_post_id: "2057209991661228497"
-published_at: "2026-05-20"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 188
 ---
 
 Trying to find an optimal solution in business is a waste of time. 

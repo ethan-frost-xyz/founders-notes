@@ -1,9 +1,13 @@
 ---
 id: "ep-0089"
-title: "#89 David Ogilvy (Confessions of an Advertising Man)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 89
+title: "#89 David Ogilvy (Confessions of an Advertising Man)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-09-15"
+founders_url: "https://www.founderspodcast.com/episodes/89-david-ogilvy-confessions-of-an-advertising-man"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

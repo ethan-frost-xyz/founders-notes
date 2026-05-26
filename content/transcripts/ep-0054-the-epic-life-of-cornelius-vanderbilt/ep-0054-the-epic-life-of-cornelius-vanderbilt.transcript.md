@@ -2,11 +2,13 @@
 id: "ep-0054"
 episode_number: 54
 title: "#54 The Epic Life of Cornelius Vanderbilt"
-published_at: 2019-01-08
-colossus_url: https://colossus.com/episode/senra-cornelius-vanderbilt-the-first-tycoon/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:27Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-01-08"
+founders_url: "https://www.founderspodcast.com/episodes/54-the-epic-life-of-cornelius-vanderbilt"
+created_at: "2026-05-21T17:35:27Z"
+colossus_url: "https://colossus.com/episode/senra-cornelius-vanderbilt-the-first-tycoon/"
+fetched_at: "2026-05-21T17:35:27Z"
 ---
 
 ## Description

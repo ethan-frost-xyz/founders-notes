@@ -1,13 +1,16 @@
 ---
 id: "ep-0074"
+episode_number: 74
 title: "#74 The Autobiography of Andrew Carnegie"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-31"
+founders_url: "https://www.founderspodcast.com/episodes/74-the-autobiography-of-andrew-carnegie"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2006505092673949966"
 x_post_id: "2006505092673949966"
-published_at: "2025-12-31"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 74
 ---
 
 Founders #74: Andrew Carnegie (Carnegie Steel)

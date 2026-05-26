@@ -1,9 +1,13 @@
 ---
 id: "ep-0066"
-title: "#66 Henry Kaiser: Builder in the Modern American West"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 66
+title: "#66 Henry Kaiser: Builder in the Modern American West"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-04-07"
+founders_url: "https://www.founderspodcast.com/episodes/66-henry-kaiser-builder-in-the-modern-american-west"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

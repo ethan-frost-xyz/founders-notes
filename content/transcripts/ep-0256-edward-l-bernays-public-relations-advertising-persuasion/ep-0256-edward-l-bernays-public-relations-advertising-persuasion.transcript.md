@@ -2,11 +2,13 @@
 id: "ep-0256"
 episode_number: 256
 title: "#256 Edward L. Bernays (Public Relations, Advertising, & Persuasion)"
-published_at: 2022-07-09
-colossus_url: https://colossus.com/episode/senra-edward-bernays-the-father-of-spin/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:37Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-07-09"
+founders_url: "https://www.founderspodcast.com/episodes/256-edward-l-bernays-public-relations-advertising-persuasion"
+created_at: "2026-05-21T17:39:37Z"
+colossus_url: "https://colossus.com/episode/senra-edward-bernays-the-father-of-spin/"
+fetched_at: "2026-05-21T17:39:37Z"
 ---
 
 ## Description

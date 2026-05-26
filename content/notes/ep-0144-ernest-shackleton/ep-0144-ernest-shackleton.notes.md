@@ -1,9 +1,13 @@
 ---
 id: "ep-0144"
-title: "#144 Ernest Shackleton"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 144
+title: "#144 Ernest Shackleton"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-09-13"
+founders_url: "https://www.founderspodcast.com/episodes/144-ernest-shackleton"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

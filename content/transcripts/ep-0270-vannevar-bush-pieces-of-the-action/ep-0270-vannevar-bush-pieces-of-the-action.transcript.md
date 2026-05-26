@@ -2,11 +2,13 @@
 id: "ep-0270"
 episode_number: 270
 title: "#270: Vannevar Bush (Pieces of the Action)"
-published_at: 2022-10-06
-colossus_url: https://colossus.com/episode/senra-vannevar-bush-pieces-of-the-action/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:55Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-10-06"
+founders_url: "https://www.founderspodcast.com/episodes/270-vannevar-bush-pieces-of-the-action"
+created_at: "2026-05-21T17:39:55Z"
+colossus_url: "https://colossus.com/episode/senra-vannevar-bush-pieces-of-the-action/"
+fetched_at: "2026-05-21T17:39:55Z"
 ---
 
 ## Description

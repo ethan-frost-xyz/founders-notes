@@ -2,11 +2,13 @@
 id: "ep-0286"
 episode_number: 286
 title: "#286 Warren Buffett and Charlie Munger"
-published_at: 2023-01-16
-colossus_url: https://colossus.com/episode/senra-warren-buffett-charlie-munger-a-study-in-simplicity-and-uncommon-common-sense/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:14Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-01-16"
+founders_url: "https://www.founderspodcast.com/episodes/286-warren-buffett-and-charlie-munger"
+created_at: "2026-05-21T17:40:14Z"
+colossus_url: "https://colossus.com/episode/senra-warren-buffett-charlie-munger-a-study-in-simplicity-and-uncommon-common-sense/"
+fetched_at: "2026-05-21T17:40:14Z"
 ---
 
 ## Description

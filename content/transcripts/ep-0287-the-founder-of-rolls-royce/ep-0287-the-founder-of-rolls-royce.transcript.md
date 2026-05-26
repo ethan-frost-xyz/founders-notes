@@ -2,11 +2,13 @@
 id: "ep-0287"
 episode_number: 287
 title: "#287 The Founder of Rolls-Royce"
-published_at: 2023-01-23
-colossus_url: https://colossus.com/episode/senra-henry-royce-the-founder-of-rolls-royce/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:16Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-01-23"
+founders_url: "https://www.founderspodcast.com/episodes/287-the-founder-of-rolls-royce"
+created_at: "2026-05-21T17:40:16Z"
+colossus_url: "https://colossus.com/episode/senra-henry-royce-the-founder-of-rolls-royce/"
+fetched_at: "2026-05-21T17:40:16Z"
 ---
 
 ## Description

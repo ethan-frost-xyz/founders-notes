@@ -2,11 +2,13 @@
 id: "ep-0040"
 episode_number: 40
 title: "#40 Insisting On The Impossible: The Life of Edwin Land and Instant: The Story of Polaroid"
-published_at: 2018-10-02
-colossus_url: https://colossus.com/episode/senra-edwin-land-insisting-on-the-impossible/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:10Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-10-02"
+founders_url: "https://www.founderspodcast.com/episodes/40-insisting-on-the-impossible-the-life-of-edwin-land-and-instant-the-story-of-polaroid"
+created_at: "2026-05-21T17:35:10Z"
+colossus_url: "https://colossus.com/episode/senra-edwin-land-insisting-on-the-impossible/"
+fetched_at: "2026-05-21T17:35:10Z"
 ---
 
 ## Description

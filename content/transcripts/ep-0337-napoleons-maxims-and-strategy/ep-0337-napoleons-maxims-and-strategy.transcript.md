@@ -2,11 +2,13 @@
 id: "ep-0337"
 episode_number: 337
 title: "#337 Napoleon's Maxims and Strategy"
-published_at: 2024-02-05
-colossus_url: https://colossus.com/episode/senra-337-napoleons-maxims-and-strategy/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:17Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-02-05"
+founders_url: "https://www.founderspodcast.com/episodes/337-napoleons-maxims-and-strategy"
+created_at: "2026-05-21T17:41:17Z"
+colossus_url: "https://colossus.com/episode/senra-337-napoleons-maxims-and-strategy/"
+fetched_at: "2026-05-21T17:41:17Z"
 ---
 
 ## Description

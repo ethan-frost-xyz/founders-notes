@@ -1,9 +1,13 @@
 ---
 id: "ep-0188"
-title: "#188 Joe Coulombe (Founder of Trader Joes)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 188
+title: "#188 Joe Coulombe (Founder of Trader Joes)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2021-06-28"
+founders_url: "https://www.founderspodcast.com/episodes/188-joe-coulombe-founder-of-trader-joes"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

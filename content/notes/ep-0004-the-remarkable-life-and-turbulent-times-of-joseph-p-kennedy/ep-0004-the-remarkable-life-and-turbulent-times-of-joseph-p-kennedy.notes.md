@@ -1,9 +1,13 @@
 ---
 id: "ep-0004"
-title: "#4 The Remarkable Life and Turbulent Times of Joseph P. Kennedy"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 4
+title: "#4 The Remarkable Life and Turbulent Times of Joseph P. Kennedy"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2017-04-19"
+founders_url: "https://www.founderspodcast.com/episodes/4-the-remarkable-life-and-turbulent-times-of-joseph-p-kennedy"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

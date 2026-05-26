@@ -1,13 +1,16 @@
 ---
 id: "ep-0011"
+episode_number: 11
 title: "#11 The Cook & The Chef: Elon Musk's Secret Sauce"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-28"
+founders_url: "https://www.founderspodcast.com/episodes/11-the-cook-the-chef-elon-musks-secret-sauce"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2016586992859963402"
 x_post_id: "2016586992859963402"
-published_at: "2026-01-28"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 11
 ---
 
 11-20

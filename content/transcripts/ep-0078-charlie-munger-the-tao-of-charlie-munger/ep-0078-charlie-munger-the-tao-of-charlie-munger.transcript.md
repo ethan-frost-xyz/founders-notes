@@ -2,11 +2,13 @@
 id: "ep-0078"
 episode_number: 78
 title: "#78 Charlie Munger (the Tao of Charlie Munger)"
-published_at: 2019-06-30
-colossus_url: https://colossus.com/episode/senra-charlie-munger-tao-of-charlie/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:56Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-06-30"
+founders_url: "https://www.founderspodcast.com/episodes/78-charlie-munger-the-tao-of-charlie-munger"
+created_at: "2026-05-21T17:35:56Z"
+colossus_url: "https://colossus.com/episode/senra-charlie-munger-tao-of-charlie/"
+fetched_at: "2026-05-21T17:35:56Z"
 ---
 
 ## Description

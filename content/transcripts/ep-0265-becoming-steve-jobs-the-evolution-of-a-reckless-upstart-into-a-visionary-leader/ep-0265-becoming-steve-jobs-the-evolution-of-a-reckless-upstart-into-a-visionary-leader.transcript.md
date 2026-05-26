@@ -2,11 +2,13 @@
 id: "ep-0265"
 episode_number: 265
 title: "#265 Becoming Steve Jobs: The Evolution of a Reckless Upstart into a Visionary Leader"
-published_at: 2022-08-30
-colossus_url: https://colossus.com/episode/senra-becoming-steve-jobs-the-evolution-of-a-reckless-upstart-into-a-visionary-leader/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:49Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-08-30"
+founders_url: "https://www.founderspodcast.com/episodes/265-becoming-steve-jobs-the-evolution-of-a-reckless-upstart-into-a-visionary-leader"
+created_at: "2026-05-21T17:39:49Z"
+colossus_url: "https://colossus.com/episode/senra-becoming-steve-jobs-the-evolution-of-a-reckless-upstart-into-a-visionary-leader/"
+fetched_at: "2026-05-21T17:39:49Z"
 ---
 
 ## Description

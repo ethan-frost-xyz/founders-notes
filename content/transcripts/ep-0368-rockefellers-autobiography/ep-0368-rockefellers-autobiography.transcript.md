@@ -2,11 +2,13 @@
 id: "ep-0368"
 episode_number: 368
 title: "#368 Rockefeller's Autobiography"
-published_at: 2024-10-15
-colossus_url: https://colossus.com/episode/368-rockefellers-autobiography/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:56Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-10-15"
+founders_url: "https://www.founderspodcast.com/episodes/368-rockefellers-autobiography"
+created_at: "2026-05-21T17:41:56Z"
+colossus_url: "https://colossus.com/episode/368-rockefellers-autobiography/"
+fetched_at: "2026-05-21T17:41:56Z"
 ---
 
 ## Description

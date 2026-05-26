@@ -2,11 +2,13 @@
 id: "ep-0165"
 episode_number: 165
 title: "#165 William Shockley (Creator of the Electronic Age)"
-published_at: 2021-02-01
-colossus_url: https://colossus.com/episode/senra-william-shockley-broken-genius/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:45Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-02-01"
+founders_url: "https://www.founderspodcast.com/episodes/165-william-shockley-creator-of-the-electronic-age"
+created_at: "2026-05-21T17:37:45Z"
+colossus_url: "https://colossus.com/episode/senra-william-shockley-broken-genius/"
+fetched_at: "2026-05-21T17:37:45Z"
 ---
 
 ## Description

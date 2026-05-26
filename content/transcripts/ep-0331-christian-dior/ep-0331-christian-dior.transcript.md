@@ -2,11 +2,13 @@
 id: "ep-0331"
 episode_number: 331
 title: "#331 Christian Dior"
-published_at: 2023-12-18
-colossus_url: https://colossus.com/episode/senra-331-christian-dior/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:10Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-12-18"
+founders_url: "https://www.founderspodcast.com/episodes/331-christian-dior"
+created_at: "2026-05-21T17:41:10Z"
+colossus_url: "https://colossus.com/episode/senra-331-christian-dior/"
+fetched_at: "2026-05-21T17:41:10Z"
 ---
 
 ## Description

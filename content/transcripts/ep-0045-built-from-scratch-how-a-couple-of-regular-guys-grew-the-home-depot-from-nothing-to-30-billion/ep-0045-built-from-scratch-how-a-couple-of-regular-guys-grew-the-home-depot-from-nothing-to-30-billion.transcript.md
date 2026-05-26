@@ -2,11 +2,13 @@
 id: "ep-0045"
 episode_number: 45
 title: "#45 Built From Scratch: How A Couple of Regular Guys Grew The Home Depot from Nothing to $30 Billion"
-published_at: 2018-11-05
-colossus_url: https://colossus.com/episode/senra-arthur-blank-and-bernie-marcus-built-from-scratch/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:16Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-11-05"
+founders_url: "https://www.founderspodcast.com/episodes/45-built-from-scratch-how-a-couple-of-regular-guys-grew-the-home-depot-from-nothing-to-30-billion"
+created_at: "2026-05-21T17:35:16Z"
+colossus_url: "https://colossus.com/episode/senra-arthur-blank-and-bernie-marcus-built-from-scratch/"
+fetched_at: "2026-05-21T17:35:16Z"
 ---
 
 ## Description

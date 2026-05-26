@@ -2,11 +2,13 @@
 id: "ep-0132"
 episode_number: 132
 title: "#132 Edwin Land (Steve Jobs's Hero)"
-published_at: 2020-06-20
-colossus_url: https://colossus.com/episode/senra-edwin-land-the-polaroid-experience/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:03Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-06-20"
+founders_url: "https://www.founderspodcast.com/episodes/132-edwin-land-steve-jobss-hero"
+created_at: "2026-05-21T17:37:03Z"
+colossus_url: "https://colossus.com/episode/senra-edwin-land-the-polaroid-experience/"
+fetched_at: "2026-05-21T17:37:03Z"
 ---
 
 ## Description

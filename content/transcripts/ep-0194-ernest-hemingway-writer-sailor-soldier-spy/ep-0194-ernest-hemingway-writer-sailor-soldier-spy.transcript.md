@@ -2,11 +2,13 @@
 id: "ep-0194"
 episode_number: 194
 title: "#194 Ernest Hemingway (Writer, Sailor, Soldier, Spy)"
-published_at: 2021-07-27
-colossus_url: https://colossus.com/episode/senra-ernest-hemingways-secret-adventures/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:21Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-07-27"
+founders_url: "https://www.founderspodcast.com/episodes/194-ernest-hemingway-writer-sailor-soldier-spy"
+created_at: "2026-05-21T17:38:21Z"
+colossus_url: "https://colossus.com/episode/senra-ernest-hemingways-secret-adventures/"
+fetched_at: "2026-05-21T17:38:21Z"
 ---
 
 ## Description

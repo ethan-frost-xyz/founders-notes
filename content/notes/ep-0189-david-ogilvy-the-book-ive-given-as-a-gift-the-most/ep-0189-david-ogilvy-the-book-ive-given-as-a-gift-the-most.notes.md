@@ -1,9 +1,13 @@
 ---
 id: "ep-0189"
-title: "#189 David Ogilvy (The book I've given as a gift the most)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 189
+title: "#189 David Ogilvy (The book I've given as a gift the most)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2021-07-05"
+founders_url: "https://www.founderspodcast.com/episodes/189-david-ogilvy-the-book-ive-given-as-a-gift-the-most"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

@@ -2,11 +2,13 @@
 id: "ep-0275"
 episode_number: 275
 title: "#275 Paul Graham"
-published_at: 2022-11-03
-colossus_url: https://colossus.com/episode/senra-paul-grahams-essays/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:01Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-11-03"
+founders_url: "https://www.founderspodcast.com/episodes/275-paul-graham"
+created_at: "2026-05-21T17:40:01Z"
+colossus_url: "https://colossus.com/episode/senra-paul-grahams-essays/"
+fetched_at: "2026-05-21T17:40:01Z"
 ---
 
 ## Description

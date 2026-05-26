@@ -2,11 +2,13 @@
 id: "ep-0156"
 episode_number: 156
 title: "#156 Theodore Roosevelt"
-published_at: 2020-11-30
-colossus_url: https://colossus.com/episode/senra-theodore-roosevelt-mornings-on-horseback/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:34Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-11-30"
+founders_url: "https://www.founderspodcast.com/episodes/156-theodore-roosevelt"
+created_at: "2026-05-21T17:37:34Z"
+colossus_url: "https://colossus.com/episode/senra-theodore-roosevelt-mornings-on-horseback/"
+fetched_at: "2026-05-21T17:37:34Z"
 ---
 
 ## Description

@@ -1,9 +1,13 @@
 ---
 id: "ep-0178"
-title: "#178 Jony Ive: The Genius Behind Apple's Greatest Products"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 178
+title: "#178 Jony Ive: The Genius Behind Apple's Greatest Products"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2021-05-03"
+founders_url: "https://www.founderspodcast.com/episodes/178-jony-ive-the-genius-behind-apples-greatest-products"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

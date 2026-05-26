@@ -1,13 +1,16 @@
 ---
 id: "ep-0071"
+episode_number: 71
 title: "#71 Jeff Bezos' Shareholder Letters"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-29"
+founders_url: "https://www.founderspodcast.com/episodes/71-jeff-bezos-shareholder-letters"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2005527267053642127"
 x_post_id: "2005527267053642127"
-published_at: "2025-12-29"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 71
 ---
 
 Founders #71: Jeff Bezos - $AMZN shareholder letters

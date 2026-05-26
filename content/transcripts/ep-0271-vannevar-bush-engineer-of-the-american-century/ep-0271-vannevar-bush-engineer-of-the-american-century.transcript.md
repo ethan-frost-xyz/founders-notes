@@ -2,11 +2,13 @@
 id: "ep-0271"
 episode_number: 271
 title: "#271 Vannevar Bush (Engineer of the American Century)"
-published_at: 2022-10-12
-colossus_url: https://colossus.com/episode/senra-vannevar-bush-engineer-of-the-american-century/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:56Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-10-12"
+founders_url: "https://www.founderspodcast.com/episodes/271-vannevar-bush-engineer-of-the-american-century"
+created_at: "2026-05-21T17:39:56Z"
+colossus_url: "https://colossus.com/episode/senra-vannevar-bush-engineer-of-the-american-century/"
+fetched_at: "2026-05-21T17:39:56Z"
 ---
 
 ## Description

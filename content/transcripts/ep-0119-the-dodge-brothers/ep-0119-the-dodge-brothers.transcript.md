@@ -2,11 +2,13 @@
 id: "ep-0119"
 episode_number: 119
 title: "#119 The Dodge Brothers"
-published_at: 2020-04-05
-colossus_url: https://colossus.com/episode/senra-john-and-horace-dodge/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:47Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-04-05"
+founders_url: "https://www.founderspodcast.com/episodes/119-the-dodge-brothers"
+created_at: "2026-05-21T17:36:47Z"
+colossus_url: "https://colossus.com/episode/senra-john-and-horace-dodge/"
+fetched_at: "2026-05-21T17:36:47Z"
 ---
 
 ## Description

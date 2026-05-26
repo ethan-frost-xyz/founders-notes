@@ -1,9 +1,13 @@
 ---
 id: "ep-0079"
-title: "#79 Charlie Munger (The Complete Investor)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 79
+title: "#79 Charlie Munger (The Complete Investor)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-07-07"
+founders_url: "https://www.founderspodcast.com/episodes/79-charlie-munger-the-complete-investor"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

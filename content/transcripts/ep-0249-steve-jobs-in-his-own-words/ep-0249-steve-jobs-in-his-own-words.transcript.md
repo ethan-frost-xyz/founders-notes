@@ -2,11 +2,13 @@
 id: "ep-0249"
 episode_number: 249
 title: "#249 Steve Jobs In His Own Words"
-published_at: 2022-06-01
-colossus_url: https://colossus.com/episode/senra-steve-jobs-in-his-own-words/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:29Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-06-01"
+founders_url: "https://www.founderspodcast.com/episodes/249-steve-jobs-in-his-own-words"
+created_at: "2026-05-21T17:39:29Z"
+colossus_url: "https://colossus.com/episode/senra-steve-jobs-in-his-own-words/"
+fetched_at: "2026-05-21T17:39:29Z"
 ---
 
 ## Description

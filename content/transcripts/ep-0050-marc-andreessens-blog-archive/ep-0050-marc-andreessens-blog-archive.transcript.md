@@ -2,11 +2,13 @@
 id: "ep-0050"
 episode_number: 50
 title: "#50 Marc Andreessen's Blog Archive"
-published_at: 2018-12-11
-colossus_url: https://colossus.com/episode/senra-marc-andreessen-the-pmarca-blog-archive/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:22Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-12-11"
+founders_url: "https://www.founderspodcast.com/episodes/50-marc-andreessens-blog-archive"
+created_at: "2026-05-21T17:35:22Z"
+colossus_url: "https://colossus.com/episode/senra-marc-andreessen-the-pmarca-blog-archive/"
+fetched_at: "2026-05-21T17:35:22Z"
 ---
 
 ## Description

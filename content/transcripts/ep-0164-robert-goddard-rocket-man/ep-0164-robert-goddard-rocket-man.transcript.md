@@ -2,11 +2,13 @@
 id: "ep-0164"
 episode_number: 164
 title: "#164 Robert Goddard (Rocket Man)"
-published_at: 2021-01-25
-colossus_url: https://colossus.com/episode/senra-robert-goddard-rocket-man/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:44Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-01-25"
+founders_url: "https://www.founderspodcast.com/episodes/164-robert-goddard-rocket-man"
+created_at: "2026-05-21T17:37:44Z"
+colossus_url: "https://colossus.com/episode/senra-robert-goddard-rocket-man/"
+fetched_at: "2026-05-21T17:37:44Z"
 ---
 
 ## Description

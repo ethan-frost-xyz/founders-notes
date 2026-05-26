@@ -2,11 +2,13 @@
 id: "ep-0084"
 episode_number: 84
 title: "#84 Aristotle Onassis"
-published_at: 2019-08-11
-colossus_url: https://colossus.com/episode/senra-aristotle-onassis-the-definitive-biography/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:04Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-08-11"
+founders_url: "https://www.founderspodcast.com/episodes/84-aristotle-onassis"
+created_at: "2026-05-21T17:36:04Z"
+colossus_url: "https://colossus.com/episode/senra-aristotle-onassis-the-definitive-biography/"
+fetched_at: "2026-05-21T17:36:04Z"
 ---
 
 ## Description

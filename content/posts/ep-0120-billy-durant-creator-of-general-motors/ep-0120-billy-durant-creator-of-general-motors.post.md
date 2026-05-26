@@ -1,13 +1,16 @@
 ---
 id: "ep-0120"
+episode_number: 120
 title: "#120 Billy Durant (Creator of General Motors)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-17"
+founders_url: "https://www.founderspodcast.com/episodes/120-billy-durant-creator-of-general-motors"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2023650549992722863"
 x_post_id: "2023650549992722863"
-published_at: "2026-02-17"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 120
 ---
 
 Founders #120: Billy Durant (General Motors)

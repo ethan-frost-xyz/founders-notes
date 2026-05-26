@@ -2,11 +2,13 @@
 id: "ep-0411"
 episode_number: 411
 title: "#411 Tortured Into Greatness: The Life of Andre Agassi"
-published_at: 2026-02-04
-colossus_url: https://colossus.com/episode/411-tortured-into-greatness-the-life-of-andre-agassi/
-founders_url: https://www.founderspodcast.com/episodes/411-tortured-into-greatness-the-life-of-andre-agassi
-source: colossus
-fetched_at: 2026-05-21T17:42:49Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2026-02-04"
+founders_url: "https://www.founderspodcast.com/episodes/411-tortured-into-greatness-the-life-of-andre-agassi"
+created_at: "2026-05-21T17:42:49Z"
+colossus_url: "https://colossus.com/episode/411-tortured-into-greatness-the-life-of-andre-agassi/"
+fetched_at: "2026-05-21T17:42:49Z"
 ---
 
 ## Description

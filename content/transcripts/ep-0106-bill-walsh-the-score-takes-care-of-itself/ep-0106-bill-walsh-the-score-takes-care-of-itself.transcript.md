@@ -2,11 +2,13 @@
 id: "ep-0106"
 episode_number: 106
 title: "#106 Bill Walsh (The Score Takes Care of Itself)"
-published_at: 2020-01-12
-colossus_url: https://colossus.com/episode/senra-bill-walsh-the-score-takes-care-of-itself/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:31Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-01-12"
+founders_url: "https://www.founderspodcast.com/episodes/106-bill-walsh-the-score-takes-care-of-itself"
+created_at: "2026-05-21T17:36:31Z"
+colossus_url: "https://colossus.com/episode/senra-bill-walsh-the-score-takes-care-of-itself/"
+fetched_at: "2026-05-21T17:36:31Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0032"
 episode_number: 32
 title: "#32 Alibaba: The House That Jack Ma Built"
-published_at: 2018-08-09
-colossus_url: https://colossus.com/episode/senra-jack-ma-alibaba/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:00Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-08-09"
+founders_url: "https://www.founderspodcast.com/episodes/32-alibaba-the-house-that-jack-ma-built"
+created_at: "2026-05-21T17:35:00Z"
+colossus_url: "https://colossus.com/episode/senra-jack-ma-alibaba/"
+fetched_at: "2026-05-21T17:35:00Z"
 ---
 
 ## Description

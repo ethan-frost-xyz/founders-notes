@@ -1,13 +1,16 @@
 ---
 id: "ep-0052"
+episode_number: 52
 title: "#52 The Republic of Tea: The Story of the Creation of a Business, as Told Through the Personal Letters of Its Founders"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-09"
+founders_url: "https://www.founderspodcast.com/episodes/52-the-republic-of-tea-the-story-of-the-creation-of-a-business-as-told-through-the-personal-letters-of-its-founders"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1998502708270293501"
 x_post_id: "1998502708270293501"
-published_at: "2025-12-09"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 52
 ---
 
 Founders #52: Mel Ziegler & Bill Rosenzweig (Republic of Tea)

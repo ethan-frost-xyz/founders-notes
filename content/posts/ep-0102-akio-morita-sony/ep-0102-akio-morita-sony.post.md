@@ -1,13 +1,16 @@
 ---
 id: "ep-0102"
+episode_number: 102
 title: "#102 Akio Morita (Sony)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-29"
+founders_url: "https://www.founderspodcast.com/episodes/102-akio-morita-sony"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2016948896312729759"
 x_post_id: "2016948896312729759"
-published_at: "2026-01-29"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 102
 ---
 
 Founders: #102 Akio Morita - $SONY

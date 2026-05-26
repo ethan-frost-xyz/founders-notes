@@ -2,11 +2,13 @@
 id: "ep-0074"
 episode_number: 74
 title: "#74 The Autobiography of Andrew Carnegie"
-published_at: 2019-06-02
-colossus_url: https://colossus.com/episode/senra-andrew-carnegie-the-autobiography/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:52Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-06-02"
+founders_url: "https://www.founderspodcast.com/episodes/74-the-autobiography-of-andrew-carnegie"
+created_at: "2026-05-21T17:35:52Z"
+colossus_url: "https://colossus.com/episode/senra-andrew-carnegie-the-autobiography/"
+fetched_at: "2026-05-21T17:35:52Z"
 ---
 
 ## Description

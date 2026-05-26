@@ -1,13 +1,16 @@
 ---
 id: "ep-0131"
+episode_number: 131
 title: "#131 Robert Friedland (Billionaire Miner)"
+content_type: "post"
+source: "manual_attribution"
+published_at: "2026-02-27"
+founders_url: "https://www.founderspodcast.com/episodes/131-robert-friedland-billionaire-miner"
+created_at: "2026-05-21T21:07:58Z"
 x_url: "https://x.com/ethanfrost/status/2027495250260828541"
 x_post_id: "2027495250260828541"
-published_at: "2026-02-27"
-source: "manual_attribution"
 imported_at: "2026-05-21T21:07:58Z"
 post_kind: "tweet"
-episode_number: 131
 ---
 
 "There is no rational price for something you absolutely must have" - Robert Friedland

@@ -1,9 +1,13 @@
 ---
 id: "ep-0118"
-title: "#118 Forty Years With Henry Ford"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 118
+title: "#118 Forty Years With Henry Ford"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-03-31"
+founders_url: "https://www.founderspodcast.com/episodes/118-forty-years-with-henry-ford"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

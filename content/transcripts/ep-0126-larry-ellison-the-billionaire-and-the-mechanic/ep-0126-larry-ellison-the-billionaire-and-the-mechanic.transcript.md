@@ -2,11 +2,13 @@
 id: "ep-0126"
 episode_number: 126
 title: "#126: Larry Ellison (The Billionaire and the Mechanic)"
-published_at: 2020-05-20
-colossus_url: https://colossus.com/episode/senra-larry-ellison-norbert-bajurin-the-billionaire-and-the-mechanic/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:56Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-05-20"
+founders_url: "https://www.founderspodcast.com/episodes/126-larry-ellison-the-billionaire-and-the-mechanic"
+created_at: "2026-05-21T17:36:56Z"
+colossus_url: "https://colossus.com/episode/senra-larry-ellison-norbert-bajurin-the-billionaire-and-the-mechanic/"
+fetched_at: "2026-05-21T17:36:56Z"
 ---
 
 ## Description

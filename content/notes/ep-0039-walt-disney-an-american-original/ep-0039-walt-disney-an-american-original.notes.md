@@ -1,9 +1,13 @@
 ---
 id: "ep-0039"
-title: "#39 Walt Disney: An American Original"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 39
+title: "#39 Walt Disney: An American Original"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2018-09-24"
+founders_url: "https://www.founderspodcast.com/episodes/39-walt-disney-an-american-original"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

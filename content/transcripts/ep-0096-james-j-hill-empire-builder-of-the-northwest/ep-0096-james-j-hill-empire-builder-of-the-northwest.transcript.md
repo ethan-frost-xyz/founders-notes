@@ -2,11 +2,13 @@
 id: "ep-0096"
 episode_number: 96
 title: "#96 James J. Hill (Empire Builder of the Northwest)"
-published_at: 2019-11-04
-colossus_url: https://colossus.com/episode/senra-96-james-j-hill-empire-builder-of-the-northwest/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:19Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-11-04"
+founders_url: "https://www.founderspodcast.com/episodes/96-james-j-hill-empire-builder-of-the-northwest"
+created_at: "2026-05-21T17:36:19Z"
+colossus_url: "https://colossus.com/episode/senra-96-james-j-hill-empire-builder-of-the-northwest/"
+fetched_at: "2026-05-21T17:36:19Z"
 ---
 
 ## Description

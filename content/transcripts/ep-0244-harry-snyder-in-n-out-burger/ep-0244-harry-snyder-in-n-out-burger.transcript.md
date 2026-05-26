@@ -2,11 +2,13 @@
 id: "ep-0244"
 episode_number: 244
 title: "#244 Harry Snyder (In-N-Out Burger)"
-published_at: 2022-05-03
-colossus_url: https://colossus.com/episode/senra-in-n-out-burger-a-behind-the-counter-look-at-the-fast-food-chain-that-breaks-all-the-rules/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:45:11Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-05-03"
+founders_url: "https://www.founderspodcast.com/episodes/244-harry-snyder-in-n-out-burger"
+created_at: "2026-05-21T17:45:11Z"
+colossus_url: "https://colossus.com/episode/senra-in-n-out-burger-a-behind-the-counter-look-at-the-fast-food-chain-that-breaks-all-the-rules/"
+fetched_at: "2026-05-21T17:45:11Z"
 ---
 
 ## Description

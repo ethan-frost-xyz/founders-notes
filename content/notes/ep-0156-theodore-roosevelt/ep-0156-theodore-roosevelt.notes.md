@@ -1,9 +1,13 @@
 ---
 id: "ep-0156"
-title: "#156 Theodore Roosevelt"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 156
+title: "#156 Theodore Roosevelt"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-11-30"
+founders_url: "https://www.founderspodcast.com/episodes/156-theodore-roosevelt"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

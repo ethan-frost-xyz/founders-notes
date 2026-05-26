@@ -1,9 +1,13 @@
 ---
 id: "ep-0095"
-title: "#95 Claude Shannon"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 95
+title: "#95 Claude Shannon"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-10-27"
+founders_url: "https://www.founderspodcast.com/episodes/95-claude-shannon"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

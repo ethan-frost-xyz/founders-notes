@@ -1,13 +1,16 @@
 ---
 id: "ep-0126"
+episode_number: 126
 title: "#126: Larry Ellison (The Billionaire and the Mechanic)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-23"
+founders_url: "https://www.founderspodcast.com/episodes/126-larry-ellison-the-billionaire-and-the-mechanic"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2025825422152183907"
 x_post_id: "2025825422152183907"
-published_at: "2026-02-23"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 126
 ---
 
 Founders #126: Larry Ellison - $ORCL

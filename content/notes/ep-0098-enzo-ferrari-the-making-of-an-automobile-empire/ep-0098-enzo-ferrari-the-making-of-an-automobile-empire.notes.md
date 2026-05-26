@@ -1,9 +1,13 @@
 ---
 id: "ep-0098"
-title: "#98 Enzo Ferrari (the making of an automobile empire)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 98
+title: "#98 Enzo Ferrari (the making of an automobile empire)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-11-18"
+founders_url: "https://www.founderspodcast.com/episodes/98-enzo-ferrari-the-making-of-an-automobile-empire"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

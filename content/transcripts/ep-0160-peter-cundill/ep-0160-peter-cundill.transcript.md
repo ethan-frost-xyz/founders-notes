@@ -2,11 +2,13 @@
 id: "ep-0160"
 episode_number: 160
 title: "#160 Peter Cundill"
-published_at: 2020-12-28
-colossus_url: https://colossus.com/episode/senra-peter-cundill-routines-and-orgies/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:39Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-12-28"
+founders_url: "https://www.founderspodcast.com/episodes/160-peter-cundill"
+created_at: "2026-05-21T17:37:39Z"
+colossus_url: "https://colossus.com/episode/senra-peter-cundill-routines-and-orgies/"
+fetched_at: "2026-05-21T17:37:39Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0257"
 episode_number: 257
 title: "#257 Richard Garriott (Video Games and Space Exploration)"
-published_at: 2022-07-15
-colossus_url: https://colossus.com/episode/senra-richard-garriott-in-pursuit-of-new-frontiers-hidden-worlds-and-the-creative-spark/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:39Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-07-15"
+founders_url: "https://www.founderspodcast.com/episodes/257-richard-garriott-video-games-and-space-exploration"
+created_at: "2026-05-21T17:39:39Z"
+colossus_url: "https://colossus.com/episode/senra-richard-garriott-in-pursuit-of-new-frontiers-hidden-worlds-and-the-creative-spark/"
+fetched_at: "2026-05-21T17:39:39Z"
 ---
 
 ## Description

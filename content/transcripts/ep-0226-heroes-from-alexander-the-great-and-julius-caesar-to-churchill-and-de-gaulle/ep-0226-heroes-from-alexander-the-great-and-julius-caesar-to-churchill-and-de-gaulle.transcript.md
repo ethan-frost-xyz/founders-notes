@@ -2,11 +2,13 @@
 id: "ep-0226"
 episode_number: 226
 title: "#226 Heroes: From Alexander the Great and Julius Caesar to Churchill and de Gaulle"
-published_at: 2022-01-12
-colossus_url: https://colossus.com/episode/senra-heroes-from-alexander-the-great-and-julius-caesar-to-churchill-and-de-gaulle/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:00Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-01-12"
+founders_url: "https://www.founderspodcast.com/episodes/226-heroes-from-alexander-the-great-and-julius-caesar-to-churchill-and-de-gaulle"
+created_at: "2026-05-21T17:39:00Z"
+colossus_url: "https://colossus.com/episode/senra-heroes-from-alexander-the-great-and-julius-caesar-to-churchill-and-de-gaulle/"
+fetched_at: "2026-05-21T17:39:00Z"
 ---
 
 ## Description

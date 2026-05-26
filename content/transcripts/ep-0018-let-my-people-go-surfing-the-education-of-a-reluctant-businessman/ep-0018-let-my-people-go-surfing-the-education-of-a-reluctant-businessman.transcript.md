@@ -2,11 +2,13 @@
 id: "ep-0018"
 episode_number: 18
 title: "#18 Let My People Go Surfing: The Education of a Reluctant Businessman"
-published_at: 2018-01-08
-colossus_url: https://colossus.com/episode/senra-yvon-chouinard-let-my-people-go-surfing/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:43Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-01-08"
+founders_url: "https://www.founderspodcast.com/episodes/18-let-my-people-go-surfing-the-education-of-a-reluctant-businessman"
+created_at: "2026-05-21T17:34:43Z"
+colossus_url: "https://colossus.com/episode/senra-yvon-chouinard-let-my-people-go-surfing/"
+fetched_at: "2026-05-21T17:34:43Z"
 ---
 
 ## Description

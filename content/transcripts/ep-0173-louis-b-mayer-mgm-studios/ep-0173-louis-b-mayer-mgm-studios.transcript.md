@@ -2,11 +2,13 @@
 id: "ep-0173"
 episode_number: 173
 title: "#173 Louis B. Mayer (MGM Studios)"
-published_at: 2021-03-28
-colossus_url: https://colossus.com/episode/senra-the-life-and-times-of-louis-b-mayer/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:55Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-03-28"
+founders_url: "https://www.founderspodcast.com/episodes/173-louis-b-mayer-mgm-studios"
+created_at: "2026-05-21T17:37:55Z"
+colossus_url: "https://colossus.com/episode/senra-the-life-and-times-of-louis-b-mayer/"
+fetched_at: "2026-05-21T17:37:55Z"
 ---
 
 ## Description

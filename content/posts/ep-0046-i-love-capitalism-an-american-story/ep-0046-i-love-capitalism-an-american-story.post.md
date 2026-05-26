@@ -1,13 +1,16 @@
 ---
 id: "ep-0046"
+episode_number: 46
 title: "#46 I Love Capitalism: An American Story"
+content_type: "post"
+source: "x_csv"
+published_at: "2025-12-04"
+founders_url: "https://www.founderspodcast.com/episodes/46-i-love-capitalism-an-american-story"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/1996428409157599291"
 x_post_id: "1996428409157599291"
-published_at: "2025-12-04"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 46
 ---
 
 Founders #46 Ken Langone - Home Depot $HD

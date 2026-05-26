@@ -2,11 +2,13 @@
 id: "ep-0318"
 episode_number: 318
 title: "#318 Alistair Urquhart (Listen to this when you’re stressed)"
-published_at: 2023-08-27
-colossus_url: https://colossus.com/episode/senra-alistair-urquhart-the-forgotten-highlander/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:54Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-08-27"
+founders_url: "https://www.founderspodcast.com/episodes/318-alistair-urquhart-listen-to-this-when-youre-stressed"
+created_at: "2026-05-21T17:40:54Z"
+colossus_url: "https://colossus.com/episode/senra-alistair-urquhart-the-forgotten-highlander/"
+fetched_at: "2026-05-21T17:40:54Z"
 ---
 
 ## Description

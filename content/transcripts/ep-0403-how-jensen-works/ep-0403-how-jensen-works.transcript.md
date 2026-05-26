@@ -2,11 +2,13 @@
 id: "ep-0403"
 episode_number: 403
 title: "#403 How Jensen Works"
-published_at: 2025-10-20
-colossus_url: https://colossus.com/episode/403-how-jensen-works/
-founders_url: https://www.founderspodcast.com/episodes/403-how-jensen-works
-source: colossus
-fetched_at: 2026-05-21T17:42:39Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-10-20"
+founders_url: "https://www.founderspodcast.com/episodes/403-how-jensen-works"
+created_at: "2026-05-21T17:42:39Z"
+colossus_url: "https://colossus.com/episode/403-how-jensen-works/"
+fetched_at: "2026-05-21T17:42:39Z"
 ---
 
 ## Description

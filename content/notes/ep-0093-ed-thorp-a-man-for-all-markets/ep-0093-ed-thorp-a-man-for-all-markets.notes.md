@@ -1,9 +1,13 @@
 ---
 id: "ep-0093"
-title: "#93 Ed Thorp (A Man for All Markets)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 93
+title: "#93 Ed Thorp (A Man for All Markets)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-10-13"
+founders_url: "https://www.founderspodcast.com/episodes/93-ed-thorp-a-man-for-all-markets"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

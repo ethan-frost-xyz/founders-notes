@@ -1,13 +1,16 @@
 ---
 id: "ep-0089"
+episode_number: 89
 title: "#89 David Ogilvy (Confessions of an Advertising Man)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-16"
+founders_url: "https://www.founderspodcast.com/episodes/89-david-ogilvy-confessions-of-an-advertising-man"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2012021605241594009"
 x_post_id: "2012021605241594009"
-published_at: "2026-01-16"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 89
 ---
 
 Founders: #89 David Ogilvy

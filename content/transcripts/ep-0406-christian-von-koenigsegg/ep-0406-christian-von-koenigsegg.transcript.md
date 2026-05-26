@@ -2,11 +2,13 @@
 id: "ep-0406"
 episode_number: 406
 title: "#406 Christian von Koenigsegg"
-published_at: 2025-12-03
-colossus_url: https://colossus.com/episode/406-christian-von-koenigsegg-it-is-impossible-to-lead-by-following-therefore-i-am-different/
-founders_url: https://www.founderspodcast.com/episodes/406-christian-von-koenigsegg
-source: colossus
-fetched_at: 2026-05-21T17:42:43Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-12-03"
+founders_url: "https://www.founderspodcast.com/episodes/406-christian-von-koenigsegg"
+created_at: "2026-05-21T17:42:43Z"
+colossus_url: "https://colossus.com/episode/406-christian-von-koenigsegg-it-is-impossible-to-lead-by-following-therefore-i-am-different/"
+fetched_at: "2026-05-21T17:42:43Z"
 ---
 
 ## Description

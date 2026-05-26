@@ -1,9 +1,13 @@
 ---
 id: "ep-0126"
-title: "#126: Larry Ellison (The Billionaire and the Mechanic)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 126
+title: "#126: Larry Ellison (The Billionaire and the Mechanic)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-05-20"
+founders_url: "https://www.founderspodcast.com/episodes/126-larry-ellison-the-billionaire-and-the-mechanic"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

@@ -2,11 +2,13 @@
 id: "ep-0393"
 episode_number: 393
 title: "#393 The Marketing Genius of the Michelin Brothers"
-published_at: 2025-07-03
-colossus_url: https://colossus.com/episode/393-the-marketing-genius-of-the-michelin-brothers/
-founders_url: https://www.founderspodcast.com/episodes/393-the-marketing-genius-of-the-michelin-brothers
-source: colossus
-fetched_at: 2026-05-21T17:42:27Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-07-03"
+founders_url: "https://www.founderspodcast.com/episodes/393-the-marketing-genius-of-the-michelin-brothers"
+created_at: "2026-05-21T17:42:27Z"
+colossus_url: "https://colossus.com/episode/393-the-marketing-genius-of-the-michelin-brothers/"
+fetched_at: "2026-05-21T17:42:27Z"
 ---
 
 ## Description

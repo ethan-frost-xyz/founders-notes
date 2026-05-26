@@ -2,11 +2,13 @@
 id: "ep-0259"
 episode_number: 259
 title: "#259 Bob Dylan"
-published_at: 2022-07-27
-colossus_url: https://colossus.com/episode/senra-bob-dylan-chronicles/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:41Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-07-27"
+founders_url: "https://www.founderspodcast.com/episodes/259-bob-dylan"
+created_at: "2026-05-21T17:39:41Z"
+colossus_url: "https://colossus.com/episode/senra-bob-dylan-chronicles/"
+fetched_at: "2026-05-21T17:39:41Z"
 ---
 
 ## Description

@@ -1,9 +1,13 @@
 ---
 id: "ep-0132"
-title: "#132 Edwin Land (Steve Jobs's Hero)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 132
+title: "#132 Edwin Land (Steve Jobs's Hero)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-06-20"
+founders_url: "https://www.founderspodcast.com/episodes/132-edwin-land-steve-jobss-hero"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

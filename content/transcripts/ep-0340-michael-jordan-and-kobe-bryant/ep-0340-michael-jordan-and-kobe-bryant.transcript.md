@@ -2,11 +2,13 @@
 id: "ep-0340"
 episode_number: 340
 title: "#340 Michael Jordan and Kobe Bryant"
-published_at: 2024-03-01
-colossus_url: https://colossus.com/episode/senra-340-michael-jordan-and-kobe-bryant/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:21Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-03-01"
+founders_url: "https://www.founderspodcast.com/episodes/340-michael-jordan-and-kobe-bryant"
+created_at: "2026-05-21T17:41:21Z"
+colossus_url: "https://colossus.com/episode/senra-340-michael-jordan-and-kobe-bryant/"
+fetched_at: "2026-05-21T17:41:21Z"
 ---
 
 ## Description

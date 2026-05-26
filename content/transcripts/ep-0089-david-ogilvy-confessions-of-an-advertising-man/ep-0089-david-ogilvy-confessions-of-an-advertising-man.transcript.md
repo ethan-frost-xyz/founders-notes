@@ -2,11 +2,13 @@
 id: "ep-0089"
 episode_number: 89
 title: "#89 David Ogilvy (Confessions of an Advertising Man)"
-published_at: 2019-09-15
-colossus_url: https://colossus.com/episode/senra-david-ogilvy-confessions-of-an-advertising-man/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:10Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-09-15"
+founders_url: "https://www.founderspodcast.com/episodes/89-david-ogilvy-confessions-of-an-advertising-man"
+created_at: "2026-05-21T17:36:10Z"
+colossus_url: "https://colossus.com/episode/senra-david-ogilvy-confessions-of-an-advertising-man/"
+fetched_at: "2026-05-21T17:36:10Z"
 ---
 
 ## Description

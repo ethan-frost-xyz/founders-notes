@@ -1,9 +1,13 @@
 ---
 id: "ep-0082"
-title: "#82 David Ogilvy (Ogilvy on Advertising)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 82
+title: "#82 David Ogilvy (Ogilvy on Advertising)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-07-28"
+founders_url: "https://www.founderspodcast.com/episodes/82-david-ogilvy-ogilvy-on-advertising"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

@@ -1,9 +1,13 @@
 ---
 id: "ep-0108"
-title: "#108 Jim Simons (Money Printer)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 108
+title: "#108 Jim Simons (Money Printer)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-01-26"
+founders_url: "https://www.founderspodcast.com/episodes/108-jim-simons-money-printer"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

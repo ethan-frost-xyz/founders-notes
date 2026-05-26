@@ -1,13 +1,16 @@
 ---
 id: "ep-0121"
+episode_number: 121
 title: "#121 Billy Durant and Alfred Sloan (General Motors)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-18"
+founders_url: "https://www.founderspodcast.com/episodes/121-billy-durant-and-alfred-sloan-general-motors"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2024013645575864405"
 x_post_id: "2024013645575864405"
-published_at: "2026-02-18"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 121
 ---
 
 Founders #121: Alfred Sloan and Billy Durant (General Motors)

@@ -2,11 +2,13 @@
 id: "ep-0167"
 episode_number: 167
 title: "#167 Jackie Cochran (Aviation)"
-published_at: 2021-02-19
-colossus_url: https://colossus.com/episode/senra-jackie-cochran-an-autobiography/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:47Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-02-19"
+founders_url: "https://www.founderspodcast.com/episodes/167-jackie-cochran-aviation"
+created_at: "2026-05-21T17:37:47Z"
+colossus_url: "https://colossus.com/episode/senra-jackie-cochran-an-autobiography/"
+fetched_at: "2026-05-21T17:37:47Z"
 ---
 
 ## Description

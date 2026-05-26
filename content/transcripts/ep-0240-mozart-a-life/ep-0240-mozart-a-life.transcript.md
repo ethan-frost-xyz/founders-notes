@@ -2,11 +2,13 @@
 id: "ep-0240"
 episode_number: 240
 title: "#240 Mozart: A Life"
-published_at: 2022-04-07
-colossus_url: https://colossus.com/episode/senra-mozart-a-life/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:18Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-04-07"
+founders_url: "https://www.founderspodcast.com/episodes/240-mozart-a-life"
+created_at: "2026-05-21T17:39:18Z"
+colossus_url: "https://colossus.com/episode/senra-mozart-a-life/"
+fetched_at: "2026-05-21T17:39:18Z"
 ---
 
 ## Description

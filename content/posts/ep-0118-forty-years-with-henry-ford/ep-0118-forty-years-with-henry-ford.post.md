@@ -1,13 +1,16 @@
 ---
 id: "ep-0118"
+episode_number: 118
 title: "#118 Forty Years With Henry Ford"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-14"
+founders_url: "https://www.founderspodcast.com/episodes/118-forty-years-with-henry-ford"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2022791381916270621"
 x_post_id: "2022791381916270621"
-published_at: "2026-02-14"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 118
 ---
 
 Founders #118: Henry Ford - $F

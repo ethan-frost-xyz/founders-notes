@@ -2,11 +2,13 @@
 id: "ep-0010"
 episode_number: 10
 title: "#10 Shoe Dog: A Memoir by the Creator of Nike"
-published_at: 2017-07-27
-colossus_url: https://colossus.com/episode/senra-phil-knight-nike/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:33Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2017-07-27"
+founders_url: "https://www.founderspodcast.com/episodes/10-shoe-dog-a-memoir-by-the-creator-of-nike"
+created_at: "2026-05-21T17:34:33Z"
+colossus_url: "https://colossus.com/episode/senra-phil-knight-nike/"
+fetched_at: "2026-05-21T17:34:33Z"
 ---
 
 ## Description

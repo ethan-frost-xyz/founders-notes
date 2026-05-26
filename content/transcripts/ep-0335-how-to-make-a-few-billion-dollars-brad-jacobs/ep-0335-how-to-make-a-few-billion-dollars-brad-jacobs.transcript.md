@@ -2,11 +2,13 @@
 id: "ep-0335"
 episode_number: 335
 title: "#335 How To Make A Few Billion Dollars: Brad Jacobs"
-published_at: 2024-01-23
-colossus_url: https://colossus.com/episode/senra-335-how-to-make-a-few-billion-dollars-brad-jacobs/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:15Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-01-23"
+founders_url: "https://www.founderspodcast.com/episodes/335-how-to-make-a-few-billion-dollars-brad-jacobs"
+created_at: "2026-05-21T17:41:15Z"
+colossus_url: "https://colossus.com/episode/senra-335-how-to-make-a-few-billion-dollars-brad-jacobs/"
+fetched_at: "2026-05-21T17:41:15Z"
 ---
 
 ## Description

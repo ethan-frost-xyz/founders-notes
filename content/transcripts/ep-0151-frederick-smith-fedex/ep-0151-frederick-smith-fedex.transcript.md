@@ -2,11 +2,13 @@
 id: "ep-0151"
 episode_number: 151
 title: "#151 Frederick Smith (FedEx)"
-published_at: 2020-10-29
-colossus_url: https://colossus.com/episode/senra-frederick-smith-overnight-success/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:28Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-10-29"
+founders_url: "https://www.founderspodcast.com/episodes/151-frederick-smith-fedex"
+created_at: "2026-05-21T17:37:28Z"
+colossus_url: "https://colossus.com/episode/senra-frederick-smith-overnight-success/"
+fetched_at: "2026-05-21T17:37:28Z"
 ---
 
 ## Description

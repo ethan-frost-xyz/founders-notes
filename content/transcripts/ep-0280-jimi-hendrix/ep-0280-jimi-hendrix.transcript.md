@@ -2,11 +2,13 @@
 id: "ep-0280"
 episode_number: 280
 title: "#280 Jimi Hendrix"
-published_at: 2022-12-06
-colossus_url: https://colossus.com/episode/senra-jimi-hendrix-starting-at-zero/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:07Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-12-06"
+founders_url: "https://www.founderspodcast.com/episodes/280-jimi-hendrix"
+created_at: "2026-05-21T17:40:07Z"
+colossus_url: "https://colossus.com/episode/senra-jimi-hendrix-starting-at-zero/"
+fetched_at: "2026-05-21T17:40:07Z"
 ---
 
 ## Description

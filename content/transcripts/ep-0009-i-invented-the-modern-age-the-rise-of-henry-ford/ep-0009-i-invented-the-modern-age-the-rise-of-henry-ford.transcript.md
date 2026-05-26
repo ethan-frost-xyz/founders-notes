@@ -2,11 +2,13 @@
 id: "ep-0009"
 episode_number: 9
 title: "#9 I Invented the Modern Age: The Rise of Henry Ford"
-published_at: 2017-07-10
-colossus_url: https://colossus.com/episode/senra-henry-ford-i-invented-the-modern-age/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:31Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2017-07-10"
+founders_url: "https://www.founderspodcast.com/episodes/9-i-invented-the-modern-age-the-rise-of-henry-ford"
+created_at: "2026-05-21T17:34:31Z"
+colossus_url: "https://colossus.com/episode/senra-henry-ford-i-invented-the-modern-age/"
+fetched_at: "2026-05-21T17:34:31Z"
 ---
 
 ## Description

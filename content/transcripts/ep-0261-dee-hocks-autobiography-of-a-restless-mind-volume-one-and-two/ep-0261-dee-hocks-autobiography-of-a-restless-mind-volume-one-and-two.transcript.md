@@ -2,11 +2,13 @@
 id: "ep-0261"
 episode_number: 261
 title: "#261 Dee Hock's Autobiography of a Restless Mind Volume One and Two"
-published_at: 2022-08-04
-colossus_url: https://colossus.com/episode/senra-dee-hock-autobiographies-of-a-restless-mind/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:44Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-08-04"
+founders_url: "https://www.founderspodcast.com/episodes/261-dee-hocks-autobiography-of-a-restless-mind-volume-one-and-two"
+created_at: "2026-05-21T17:39:44Z"
+colossus_url: "https://colossus.com/episode/senra-dee-hock-autobiographies-of-a-restless-mind/"
+fetched_at: "2026-05-21T17:39:44Z"
 ---
 
 ## Description

@@ -1,13 +1,16 @@
 ---
 id: "ep-0129"
+episode_number: 129
 title: "#129 Felix Dennis (How to Get Rich)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-02-25"
+founders_url: "https://www.founderspodcast.com/episodes/129-felix-dennis-how-to-get-rich"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2026763818181726577"
 x_post_id: "2026763818181726577"
-published_at: "2026-02-25"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 129
 ---
 
 Founders #129: Felix Dennis (How to Get Rich)

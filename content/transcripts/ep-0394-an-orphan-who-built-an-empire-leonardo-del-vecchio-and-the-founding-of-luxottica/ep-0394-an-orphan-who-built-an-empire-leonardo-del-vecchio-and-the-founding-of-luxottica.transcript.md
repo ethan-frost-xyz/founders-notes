@@ -2,11 +2,13 @@
 id: "ep-0394"
 episode_number: 394
 title: "#394 An Orphan Who Built An Empire: Leonardo Del Vecchio and The Founding of Luxottica"
-published_at: 2025-07-13
-colossus_url: https://colossus.com/episode/394-an-orphan-who-built-an-empire-leonardo-del-vecchio-and-the-founding-of-luxottica/
-founders_url: https://www.founderspodcast.com/episodes/394-an-orphan-who-built-an-empire-leonardo-del-vecchio-and-the-founding-of-luxottica
-source: colossus
-fetched_at: 2026-05-21T17:42:28Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-07-13"
+founders_url: "https://www.founderspodcast.com/episodes/394-an-orphan-who-built-an-empire-leonardo-del-vecchio-and-the-founding-of-luxottica"
+created_at: "2026-05-21T17:42:28Z"
+colossus_url: "https://colossus.com/episode/394-an-orphan-who-built-an-empire-leonardo-del-vecchio-and-the-founding-of-luxottica/"
+fetched_at: "2026-05-21T17:42:28Z"
 ---
 
 ## Description

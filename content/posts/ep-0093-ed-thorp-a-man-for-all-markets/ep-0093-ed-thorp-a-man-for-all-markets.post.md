@@ -1,13 +1,16 @@
 ---
 id: "ep-0093"
+episode_number: 93
 title: "#93 Ed Thorp (A Man for All Markets)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-20"
+founders_url: "https://www.founderspodcast.com/episodes/93-ed-thorp-a-man-for-all-markets"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2013431087104409825"
 x_post_id: "2013431087104409825"
-published_at: "2026-01-20"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 93
 ---
 
 Founders: #93 Edward Thorp

@@ -2,11 +2,13 @@
 id: "ep-0310"
 episode_number: 310
 title: "#310 Walt Disney and Picasso"
-published_at: 2023-07-04
-colossus_url: https://colossus.com/episode/senra-pablo-picasso-and-walt-disney-creators/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:44Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-07-04"
+founders_url: "https://www.founderspodcast.com/episodes/310-walt-disney-and-picasso"
+created_at: "2026-05-21T17:40:44Z"
+colossus_url: "https://colossus.com/episode/senra-pablo-picasso-and-walt-disney-creators/"
+fetched_at: "2026-05-21T17:40:44Z"
 ---
 
 ## Description

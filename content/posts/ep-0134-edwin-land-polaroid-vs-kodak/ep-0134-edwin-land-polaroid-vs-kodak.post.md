@@ -1,13 +1,16 @@
 ---
 id: "ep-0134"
+episode_number: 134
 title: "#134 Edwin Land (Polaroid vs Kodak)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-02"
+founders_url: "https://www.founderspodcast.com/episodes/134-edwin-land-polaroid-vs-kodak"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2028556446947029197"
 x_post_id: "2028556446947029197"
-published_at: "2026-03-02"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 134
 ---
 
 Founders #134: Edwin Land - Polaroid

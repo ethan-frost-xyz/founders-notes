@@ -2,11 +2,13 @@
 id: "ep-0405"
 episode_number: 405
 title: "#405 How Rockefeller Worked"
-published_at: 2025-11-17
-colossus_url: https://colossus.com/episode/405-how-rockefeller-worked/
-founders_url: https://www.founderspodcast.com/episodes/405-how-rockefeller-worked
-source: colossus
-fetched_at: 2026-05-21T17:42:41Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2025-11-17"
+founders_url: "https://www.founderspodcast.com/episodes/405-how-rockefeller-worked"
+created_at: "2026-05-21T17:42:41Z"
+colossus_url: "https://colossus.com/episode/405-how-rockefeller-worked/"
+fetched_at: "2026-05-21T17:42:41Z"
 ---
 
 ## Description

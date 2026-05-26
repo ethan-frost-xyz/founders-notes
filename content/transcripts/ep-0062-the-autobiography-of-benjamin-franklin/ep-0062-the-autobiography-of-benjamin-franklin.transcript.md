@@ -2,11 +2,13 @@
 id: "ep-0062"
 episode_number: 62
 title: "#62 The Autobiography of Benjamin Franklin"
-published_at: 2019-03-04
-colossus_url: https://colossus.com/episode/senra-benjamin-franklin/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:37Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-03-04"
+founders_url: "https://www.founderspodcast.com/episodes/62-the-autobiography-of-benjamin-franklin"
+created_at: "2026-05-21T17:35:37Z"
+colossus_url: "https://colossus.com/episode/senra-benjamin-franklin/"
+fetched_at: "2026-05-21T17:35:37Z"
 ---
 
 ## Description

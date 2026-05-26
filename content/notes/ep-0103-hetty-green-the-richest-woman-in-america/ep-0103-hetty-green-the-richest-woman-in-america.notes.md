@@ -1,9 +1,13 @@
 ---
 id: "ep-0103"
-title: "#103 Hetty Green (The Richest Woman in America)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 103
+title: "#103 Hetty Green (The Richest Woman in America)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2019-12-22"
+founders_url: "https://www.founderspodcast.com/episodes/103-hetty-green-the-richest-woman-in-america"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

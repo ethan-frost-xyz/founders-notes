@@ -2,11 +2,13 @@
 id: "ep-0251"
 episode_number: 251
 title: "#251 Ben Franklin and George Washington: The Founding Partnership"
-published_at: 2022-06-13
-colossus_url: https://colossus.com/episode/senra-franklin-washington-the-founding-partnership/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:39:31Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-06-13"
+founders_url: "https://www.founderspodcast.com/episodes/251-ben-franklin-and-george-washington-the-founding-partnership"
+created_at: "2026-05-21T17:39:31Z"
+colossus_url: "https://colossus.com/episode/senra-franklin-washington-the-founding-partnership/"
+fetched_at: "2026-05-21T17:39:31Z"
 ---
 
 ## Description

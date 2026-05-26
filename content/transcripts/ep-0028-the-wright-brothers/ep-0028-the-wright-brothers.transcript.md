@@ -2,11 +2,13 @@
 id: "ep-0028"
 episode_number: 28
 title: "#28 The Wright Brothers"
-published_at: 2018-06-25
-colossus_url: https://colossus.com/episode/senra-orville-and-wilbur-wright-the-wright-brothers/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:55Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-06-25"
+founders_url: "https://www.founderspodcast.com/episodes/28-the-wright-brothers"
+created_at: "2026-05-21T17:34:55Z"
+colossus_url: "https://colossus.com/episode/senra-orville-and-wilbur-wright-the-wright-brothers/"
+fetched_at: "2026-05-21T17:34:55Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0139"
 episode_number: 139
 title: "#139 J.P. Morgan"
-published_at: 2020-08-09
-colossus_url: https://colossus.com/episode/senra-jp-morgan-the-rise-of-modern-finance/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:12Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-08-09"
+founders_url: "https://www.founderspodcast.com/episodes/139-j-p-morgan"
+created_at: "2026-05-21T17:37:12Z"
+colossus_url: "https://colossus.com/episode/senra-jp-morgan-the-rise-of-modern-finance/"
+fetched_at: "2026-05-21T17:37:12Z"
 ---
 
 ## Description

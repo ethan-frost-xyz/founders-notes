@@ -2,11 +2,13 @@
 id: "ep-0162"
 episode_number: 162
 title: "#162 Chuck Yeager"
-published_at: 2021-01-11
-colossus_url: https://colossus.com/episode/senra-chuck-yeager-an-autobiography/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:41Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-01-11"
+founders_url: "https://www.founderspodcast.com/episodes/162-chuck-yeager"
+created_at: "2026-05-21T17:37:41Z"
+colossus_url: "https://colossus.com/episode/senra-chuck-yeager-an-autobiography/"
+fetched_at: "2026-05-21T17:37:41Z"
 ---
 
 ## Description

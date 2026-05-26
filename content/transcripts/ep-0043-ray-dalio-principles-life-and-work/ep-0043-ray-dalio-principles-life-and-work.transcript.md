@@ -2,11 +2,13 @@
 id: "ep-0043"
 episode_number: 43
 title: "#43 Ray Dalio: Principles: Life and Work"
-published_at: 2018-10-22
-colossus_url: https://colossus.com/episode/senra-ray-dalio-principles/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:14Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-10-22"
+founders_url: "https://www.founderspodcast.com/episodes/43-ray-dalio-principles-life-and-work"
+created_at: "2026-05-21T17:35:14Z"
+colossus_url: "https://colossus.com/episode/senra-ray-dalio-principles/"
+fetched_at: "2026-05-21T17:35:14Z"
 ---
 
 ## Description

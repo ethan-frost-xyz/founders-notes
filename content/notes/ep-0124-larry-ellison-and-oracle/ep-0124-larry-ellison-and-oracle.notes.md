@@ -1,9 +1,13 @@
 ---
 id: "ep-0124"
-title: "#124 Larry Ellison and Oracle"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 124
+title: "#124 Larry Ellison and Oracle"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-05-09"
+founders_url: "https://www.founderspodcast.com/episodes/124-larry-ellison-and-oracle"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

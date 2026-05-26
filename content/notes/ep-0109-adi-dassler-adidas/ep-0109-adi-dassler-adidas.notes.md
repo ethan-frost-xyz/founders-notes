@@ -1,9 +1,13 @@
 ---
 id: "ep-0109"
-title: "#109 Adi Dassler (Adidas)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 109
+title: "#109 Adi Dassler (Adidas)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-02-03"
+founders_url: "https://www.founderspodcast.com/episodes/109-adi-dassler-adidas"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

@@ -2,11 +2,13 @@
 id: "ep-0115"
 episode_number: 115
 title: "#115 Ben Franklin: An American Life"
-published_at: 2020-03-16
-colossus_url: https://colossus.com/episode/senra-benjamin-franklin-an-american-life/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:42Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-03-16"
+founders_url: "https://www.founderspodcast.com/episodes/115-ben-franklin-an-american-life"
+created_at: "2026-05-21T17:36:42Z"
+colossus_url: "https://colossus.com/episode/senra-benjamin-franklin-an-american-life/"
+fetched_at: "2026-05-21T17:36:42Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0039"
 episode_number: 39
 title: "#39 Walt Disney: An American Original"
-published_at: 2018-09-24
-colossus_url: https://colossus.com/episode/senra-walt-disney-an-american-original/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:09Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-09-24"
+founders_url: "https://www.founderspodcast.com/episodes/39-walt-disney-an-american-original"
+created_at: "2026-05-21T17:35:09Z"
+colossus_url: "https://colossus.com/episode/senra-walt-disney-an-american-original/"
+fetched_at: "2026-05-21T17:35:09Z"
 ---
 
 ## Description

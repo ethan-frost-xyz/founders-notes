@@ -1,13 +1,16 @@
 ---
 id: "ep-0143"
+episode_number: 143
 title: "#143 Alfred Lee Loomis (the most interesting man you've never heard of)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-03-11"
+founders_url: "https://www.founderspodcast.com/episodes/143-alfred-lee-loomis-the-most-interesting-man-youve-never-heard-of"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2031830772227981771"
 x_post_id: "2031830772227981771"
-published_at: "2026-03-11"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 143
 ---
 
 Founders #143: Alfred Lee Loomis

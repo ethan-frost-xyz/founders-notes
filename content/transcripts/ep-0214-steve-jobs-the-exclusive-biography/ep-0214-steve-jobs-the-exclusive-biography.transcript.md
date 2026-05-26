@@ -2,11 +2,13 @@
 id: "ep-0214"
 episode_number: 214
 title: "#214 Steve Jobs: The Exclusive Biography"
-published_at: 2021-11-03
-colossus_url: https://colossus.com/episode/senra-steve-jobs-the-exclusive-biography/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:46Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-11-03"
+founders_url: "https://www.founderspodcast.com/episodes/214-steve-jobs-the-exclusive-biography"
+created_at: "2026-05-21T17:38:46Z"
+colossus_url: "https://colossus.com/episode/senra-steve-jobs-the-exclusive-biography/"
+fetched_at: "2026-05-21T17:38:46Z"
 ---
 
 ## Description

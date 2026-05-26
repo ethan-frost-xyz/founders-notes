@@ -2,11 +2,13 @@
 id: "ep-0152"
 episode_number: 152
 title: "#152 Katherine Graham (Washington Post)"
-published_at: 2020-11-05
-colossus_url: https://colossus.com/episode/senra-katherine-graham-personal-history/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:29Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-11-05"
+founders_url: "https://www.founderspodcast.com/episodes/152-katherine-graham-washington-post"
+created_at: "2026-05-21T17:37:29Z"
+colossus_url: "https://colossus.com/episode/senra-katherine-graham-personal-history/"
+fetched_at: "2026-05-21T17:37:29Z"
 ---
 
 ## Description

@@ -1,9 +1,13 @@
 ---
 id: "ep-0005"
-title: "#5 Steve Jobs"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 5
+title: "#5 Steve Jobs"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2017-04-30"
+founders_url: "https://www.founderspodcast.com/episodes/5-steve-jobs"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

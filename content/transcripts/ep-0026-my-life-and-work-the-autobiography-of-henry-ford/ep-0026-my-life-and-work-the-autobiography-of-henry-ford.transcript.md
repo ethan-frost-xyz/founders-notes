@@ -2,11 +2,13 @@
 id: "ep-0026"
 episode_number: 26
 title: "#26 My Life and Work: The Autobiography of Henry Ford"
-published_at: 2018-05-02
-colossus_url: https://colossus.com/episode/senra-henry-ford-the-autobiography/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:53Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-05-02"
+founders_url: "https://www.founderspodcast.com/episodes/26-my-life-and-work-the-autobiography-of-henry-ford"
+created_at: "2026-05-21T17:34:53Z"
+colossus_url: "https://colossus.com/episode/senra-henry-ford-the-autobiography/"
+fetched_at: "2026-05-21T17:34:53Z"
 ---
 
 ## Description

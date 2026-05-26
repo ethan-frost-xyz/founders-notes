@@ -1,13 +1,16 @@
 ---
 id: "ep-0163"
+episode_number: 163
 title: "#163 Alfred Nobel"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-04-11"
+founders_url: "https://www.founderspodcast.com/episodes/163-alfred-nobel"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2043038169080197344"
 x_post_id: "2043038169080197344"
-published_at: "2026-04-11"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "tweet"
-episode_number: 163
 ---
 
 if i have a thousand ideas

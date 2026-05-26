@@ -2,11 +2,13 @@
 id: "ep-0006"
 episode_number: 6
 title: "#6 Sam Walton"
-published_at: 2017-05-14
-colossus_url: https://colossus.com/episode/senra-sam-walton-walmart/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:28Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2017-05-14"
+founders_url: "https://www.founderspodcast.com/episodes/6-sam-walton"
+created_at: "2026-05-21T17:34:28Z"
+colossus_url: "https://colossus.com/episode/senra-sam-walton-walmart/"
+fetched_at: "2026-05-21T17:34:28Z"
 ---
 
 ## Description

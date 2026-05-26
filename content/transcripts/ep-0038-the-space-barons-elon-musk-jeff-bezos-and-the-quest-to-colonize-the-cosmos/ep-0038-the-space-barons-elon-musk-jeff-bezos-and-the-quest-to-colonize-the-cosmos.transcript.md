@@ -2,11 +2,13 @@
 id: "ep-0038"
 episode_number: 38
 title: "#38 The Space Barons: Elon Musk, Jeff Bezos, and the Quest to Colonize the Cosmos"
-published_at: 2018-09-17
-colossus_url: https://colossus.com/episode/senra-elon-musk-jeff-bezos-the-space-barons/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:07Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-09-17"
+founders_url: "https://www.founderspodcast.com/episodes/38-the-space-barons-elon-musk-jeff-bezos-and-the-quest-to-colonize-the-cosmos"
+created_at: "2026-05-21T17:35:07Z"
+colossus_url: "https://colossus.com/episode/senra-elon-musk-jeff-bezos-the-space-barons/"
+fetched_at: "2026-05-21T17:35:07Z"
 ---
 
 ## Description

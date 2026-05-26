@@ -2,11 +2,13 @@
 id: "ep-0081"
 episode_number: 81
 title: "#81 Henry Royce (Founder of Rolls-Royce)"
-published_at: 2019-07-22
-colossus_url: https://colossus.com/episode/senra-henry-royce-the-first-40-years-of-rolls-royce/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:00Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-07-22"
+founders_url: "https://www.founderspodcast.com/episodes/81-henry-royce-founder-of-rolls-royce"
+created_at: "2026-05-21T17:36:00Z"
+colossus_url: "https://colossus.com/episode/senra-henry-royce-the-first-40-years-of-rolls-royce/"
+fetched_at: "2026-05-21T17:36:00Z"
 ---
 
 ## Description

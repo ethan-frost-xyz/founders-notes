@@ -2,11 +2,13 @@
 id: "ep-0360"
 episode_number: 360
 title: "#360 Robert Kierlin: Founder of Fastenal"
-published_at: 2024-08-12
-colossus_url: https://colossus.com/episode/senra-360-robert-kierlin-founder-of-fastenal/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:47Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-08-12"
+founders_url: "https://www.founderspodcast.com/episodes/360-robert-kierlin-founder-of-fastenal"
+created_at: "2026-05-21T17:41:47Z"
+colossus_url: "https://colossus.com/episode/senra-360-robert-kierlin-founder-of-fastenal/"
+fetched_at: "2026-05-21T17:41:47Z"
 ---
 
 ## Description

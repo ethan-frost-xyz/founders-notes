@@ -2,11 +2,13 @@
 id: "ep-0176"
 episode_number: 176
 title: "#176 Linus Torvalds (Creator of Linux)"
-published_at: 2021-04-18
-colossus_url: https://colossus.com/episode/senra-linus-torvalds-just-for-fun/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:37:59Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-04-18"
+founders_url: "https://www.founderspodcast.com/episodes/176-linus-torvalds-creator-of-linux"
+created_at: "2026-05-21T17:37:59Z"
+colossus_url: "https://colossus.com/episode/senra-linus-torvalds-just-for-fun/"
+fetched_at: "2026-05-21T17:37:59Z"
 ---
 
 ## Description

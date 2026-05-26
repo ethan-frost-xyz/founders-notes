@@ -2,11 +2,13 @@
 id: "ep-0209"
 episode_number: 209
 title: "#209 Steven Spielberg: A Biography"
-published_at: 2021-10-06
-colossus_url: https://colossus.com/episode/senra-steven-spielberg-a-biography/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:39Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-10-06"
+founders_url: "https://www.founderspodcast.com/episodes/209-steven-spielberg-a-biography"
+created_at: "2026-05-21T17:38:39Z"
+colossus_url: "https://colossus.com/episode/senra-steven-spielberg-a-biography/"
+fetched_at: "2026-05-21T17:38:39Z"
 ---
 
 ## Description

@@ -2,11 +2,13 @@
 id: "ep-0294"
 episode_number: 294
 title: "#294 Napoleon"
-published_at: 2023-03-13
-colossus_url: https://colossus.com/episode/senra-napoleon-bonaparte-a-concise-biography/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:24Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-03-13"
+founders_url: "https://www.founderspodcast.com/episodes/294-napoleon"
+created_at: "2026-05-21T17:40:24Z"
+colossus_url: "https://colossus.com/episode/senra-napoleon-bonaparte-a-concise-biography/"
+fetched_at: "2026-05-21T17:40:24Z"
 ---
 
 ## Description

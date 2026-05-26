@@ -2,11 +2,13 @@
 id: "ep-0124"
 episode_number: 124
 title: "#124 Larry Ellison and Oracle"
-published_at: 2020-05-09
-colossus_url: https://colossus.com/episode/senra-larry-ellison-softwar/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:36:54Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2020-05-09"
+founders_url: "https://www.founderspodcast.com/episodes/124-larry-ellison-and-oracle"
+created_at: "2026-05-21T17:36:54Z"
+colossus_url: "https://colossus.com/episode/senra-larry-ellison-softwar/"
+fetched_at: "2026-05-21T17:36:54Z"
 ---
 
 ## Description

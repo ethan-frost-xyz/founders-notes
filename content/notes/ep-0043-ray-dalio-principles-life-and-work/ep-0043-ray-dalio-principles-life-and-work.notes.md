@@ -1,9 +1,13 @@
 ---
 id: "ep-0043"
-title: "#43 Ray Dalio: Principles: Life and Work"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 43
+title: "#43 Ray Dalio: Principles: Life and Work"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2018-10-22"
+founders_url: "https://www.founderspodcast.com/episodes/43-ray-dalio-principles-life-and-work"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

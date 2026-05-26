@@ -2,11 +2,13 @@
 id: "ep-0370"
 episode_number: 370
 title: "#370 The Founder of IKEA: Ingvar Kamprad"
-published_at: 2024-11-12
-colossus_url: https://colossus.com/episode/370-the-founder-of-ikea-ingvar-kamprad/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:59Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-11-12"
+founders_url: "https://www.founderspodcast.com/episodes/370-the-founder-of-ikea-ingvar-kamprad"
+created_at: "2026-05-21T17:41:59Z"
+colossus_url: "https://colossus.com/episode/370-the-founder-of-ikea-ingvar-kamprad/"
+fetched_at: "2026-05-21T17:41:59Z"
 ---
 
 ## Description

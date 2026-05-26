@@ -2,11 +2,13 @@
 id: "ep-0080"
 episode_number: 80
 title: "#80 Henry Ford (Today and Tomorrow)"
-published_at: 2019-07-14
-colossus_url: https://colossus.com/episode/senra-henry-ford-today-and-tomorrow/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:35:59Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2019-07-14"
+founders_url: "https://www.founderspodcast.com/episodes/80-henry-ford-today-and-tomorrow"
+created_at: "2026-05-21T17:35:59Z"
+colossus_url: "https://colossus.com/episode/senra-henry-ford-today-and-tomorrow/"
+fetched_at: "2026-05-21T17:35:59Z"
 ---
 
 ## Description

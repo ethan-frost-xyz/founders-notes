@@ -1,9 +1,13 @@
 ---
 id: "ep-0031"
-title: "#31 Conspiracy: Peter Thiel, Hulk Hogan, Gawker, and the Anatomy of Intrigue and Zero to One: Notes on Startups, or How to Build the Future"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 31
+title: "#31 Conspiracy: Peter Thiel, Hulk Hogan, Gawker, and the Anatomy of Intrigue and Zero to One: Notes on Startups, or How to Build the Future"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2018-08-02"
+founders_url: "https://www.founderspodcast.com/episodes/31-conspiracy-peter-thiel-hulk-hogan-gawker-and-the-anatomy-of-intrigue-and-zero-to-one-notes-on-startups-or-how-to-build-the-future"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints

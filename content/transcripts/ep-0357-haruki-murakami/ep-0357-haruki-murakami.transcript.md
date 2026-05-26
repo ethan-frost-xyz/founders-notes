@@ -2,11 +2,13 @@
 id: "ep-0357"
 episode_number: 357
 title: "#357 Haruki Murakami"
-published_at: 2024-07-21
-colossus_url: https://colossus.com/episode/senra-357-haruki-murakami/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:41:43Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-07-21"
+founders_url: "https://www.founderspodcast.com/episodes/357-haruki-murakami"
+created_at: "2026-05-21T17:41:43Z"
+colossus_url: "https://colossus.com/episode/senra-357-haruki-murakami/"
+fetched_at: "2026-05-21T17:41:43Z"
 ---
 
 ## Description

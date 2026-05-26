@@ -2,11 +2,13 @@
 id: "ep-0320"
 episode_number: 320
 title: "#320 The Making of Winston Churchill Part 2"
-published_at: 2023-09-14
-colossus_url: https://colossus.com/episode/senra-winston-churchill-young-titan/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:40:56Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2023-09-14"
+founders_url: "https://www.founderspodcast.com/episodes/320-the-making-of-winston-churchill-part-2"
+created_at: "2026-05-21T17:40:56Z"
+colossus_url: "https://colossus.com/episode/senra-winston-churchill-young-titan/"
+fetched_at: "2026-05-21T17:40:56Z"
 ---
 
 ## Description

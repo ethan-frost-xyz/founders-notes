@@ -2,11 +2,13 @@
 id: "ep-0222"
 episode_number: 222
 title: "#222 Ed Thorp (My personal blueprint)"
-published_at: 2021-12-20
-colossus_url: https://colossus.com/episode/senra-ed-thorp-my-personal-blueprint/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:55Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-12-20"
+founders_url: "https://www.founderspodcast.com/episodes/222-ed-thorp-my-personal-blueprint"
+created_at: "2026-05-21T17:38:55Z"
+colossus_url: "https://colossus.com/episode/senra-ed-thorp-my-personal-blueprint/"
+fetched_at: "2026-05-21T17:38:55Z"
 ---
 
 ## Description

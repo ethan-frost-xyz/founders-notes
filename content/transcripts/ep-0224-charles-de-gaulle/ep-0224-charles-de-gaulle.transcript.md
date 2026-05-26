@@ -2,11 +2,13 @@
 id: "ep-0224"
 episode_number: 224
 title: "#224 Charles de Gaulle"
-published_at: 2022-01-05
-colossus_url: https://colossus.com/episode/senra-charles-de-gaulle/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:58Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2022-01-05"
+founders_url: "https://www.founderspodcast.com/episodes/224-charles-de-gaulle"
+created_at: "2026-05-21T17:38:58Z"
+colossus_url: "https://colossus.com/episode/senra-charles-de-gaulle/"
+fetched_at: "2026-05-21T17:38:58Z"
 ---
 
 ## Description

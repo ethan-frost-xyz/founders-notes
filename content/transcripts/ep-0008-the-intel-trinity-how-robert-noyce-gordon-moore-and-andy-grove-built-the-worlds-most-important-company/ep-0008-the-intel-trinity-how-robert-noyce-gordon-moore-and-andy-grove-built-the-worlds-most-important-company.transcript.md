@@ -2,11 +2,13 @@
 id: "ep-0008"
 episode_number: 8
 title: "#8 The Intel Trinity: How Robert Noyce, Gordon Moore, and Andy Grove Built the World's Most Important Company"
-published_at: 2017-06-20
-colossus_url: https://colossus.com/episode/senra-robert-noyce-gordon-moore-and-andy-grove-the-intel-trinity/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:30Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2017-06-20"
+founders_url: "https://www.founderspodcast.com/episodes/8-the-intel-trinity-how-robert-noyce-gordon-moore-and-andy-grove-built-the-worlds-most-important-company"
+created_at: "2026-05-21T17:34:30Z"
+colossus_url: "https://colossus.com/episode/senra-robert-noyce-gordon-moore-and-andy-grove-the-intel-trinity/"
+fetched_at: "2026-05-21T17:34:30Z"
 ---
 
 ## Description

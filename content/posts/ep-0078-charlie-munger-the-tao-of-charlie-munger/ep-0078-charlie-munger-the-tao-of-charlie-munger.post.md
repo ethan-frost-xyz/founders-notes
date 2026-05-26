@@ -1,13 +1,16 @@
 ---
 id: "ep-0078"
+episode_number: 78
 title: "#78 Charlie Munger (the Tao of Charlie Munger)"
+content_type: "post"
+source: "x_csv"
+published_at: "2026-01-05"
+founders_url: "https://www.founderspodcast.com/episodes/78-charlie-munger-the-tao-of-charlie-munger"
+created_at: "2026-05-21T21:04:53Z"
 x_url: "https://x.com/ethanfrost/status/2008038814543978894"
 x_post_id: "2008038814543978894"
-published_at: "2026-01-05"
-source: "x_csv"
 imported_at: "2026-05-21T21:04:53Z"
 post_kind: "article"
-episode_number: 78
 ---
 
 #78: Charlie Munger

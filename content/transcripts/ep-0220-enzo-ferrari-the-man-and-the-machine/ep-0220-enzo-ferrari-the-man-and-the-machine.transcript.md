@@ -2,11 +2,13 @@
 id: "ep-0220"
 episode_number: 220
 title: "#220 Enzo Ferrari: The Man and the Machine"
-published_at: 2021-12-09
-colossus_url: https://colossus.com/episode/senra-enzo-ferrari-the-man-and-the-machine/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:38:53Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2021-12-09"
+founders_url: "https://www.founderspodcast.com/episodes/220-enzo-ferrari-the-man-and-the-machine"
+created_at: "2026-05-21T17:38:53Z"
+colossus_url: "https://colossus.com/episode/senra-enzo-ferrari-the-man-and-the-machine/"
+fetched_at: "2026-05-21T17:38:53Z"
 ---
 
 ## Description

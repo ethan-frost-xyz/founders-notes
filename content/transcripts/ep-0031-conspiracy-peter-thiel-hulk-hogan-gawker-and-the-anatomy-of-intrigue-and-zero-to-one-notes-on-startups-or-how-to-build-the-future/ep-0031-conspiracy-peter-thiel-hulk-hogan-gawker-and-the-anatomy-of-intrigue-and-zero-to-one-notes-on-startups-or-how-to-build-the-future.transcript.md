@@ -2,11 +2,13 @@
 id: "ep-0031"
 episode_number: 31
 title: "#31 Conspiracy: Peter Thiel, Hulk Hogan, Gawker, and the Anatomy of Intrigue and Zero to One: Notes on Startups, or How to Build the Future"
-published_at: 2018-08-02
-colossus_url: https://colossus.com/episode/senra-peter-thiel-hulk-hogan-gawker-conspiracy/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:34:59Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2018-08-02"
+founders_url: "https://www.founderspodcast.com/episodes/31-conspiracy-peter-thiel-hulk-hogan-gawker-and-the-anatomy-of-intrigue-and-zero-to-one-notes-on-startups-or-how-to-build-the-future"
+created_at: "2026-05-21T17:34:59Z"
+colossus_url: "https://colossus.com/episode/senra-peter-thiel-hulk-hogan-gawker-conspiracy/"
+fetched_at: "2026-05-21T17:34:59Z"
 ---
 
 ## Description

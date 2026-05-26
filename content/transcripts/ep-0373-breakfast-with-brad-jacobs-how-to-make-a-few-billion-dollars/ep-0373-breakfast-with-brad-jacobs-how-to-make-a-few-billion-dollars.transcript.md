@@ -2,11 +2,13 @@
 id: "ep-0373"
 episode_number: 373
 title: "#373 Breakfast with Brad Jacobs + How To Make A Few Billion Dollars"
-published_at: 2024-12-06
-colossus_url: https://colossus.com/episode/373-breakfast-with-brad-jacobs-how-to-make-a-few-billion-dollars/
-founders_url: https://www.founderspodcast.com/
-source: colossus
-fetched_at: 2026-05-21T17:42:02Z
+content_type: "transcript"
+source: "colossus"
+published_at: "2024-12-06"
+founders_url: "https://www.founderspodcast.com/episodes/373-breakfast-with-brad-jacobs-how-to-make-a-few-billion-dollars"
+created_at: "2026-05-21T17:42:02Z"
+colossus_url: "https://colossus.com/episode/373-breakfast-with-brad-jacobs-how-to-make-a-few-billion-dollars/"
+fetched_at: "2026-05-21T17:42:02Z"
 ---
 
 ## Description

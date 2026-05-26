@@ -1,9 +1,13 @@
 ---
 id: "ep-0117"
-title: "#117 : Chung Ju-yung founder of Hyundai (the most inspiring autobiography I've read)"
-source: "apple_notes_import"
-imported_at: "2026-05-21T19:05:42Z"
 episode_number: 117
+title: "#117 : Chung Ju-yung founder of Hyundai (the most inspiring autobiography I've read)"
+content_type: "notes"
+source: "apple_notes_import"
+published_at: "2020-03-26"
+founders_url: "https://www.founderspodcast.com/episodes/117-chung-ju-yung-founder-of-hyundai-the-most-inspiring-autobiography-ive-read"
+created_at: "2026-05-21T19:05:42Z"
+imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints
