@@ -52,10 +52,10 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`docs/inges
 | `COLOSSUS_COOKIES_FILE` | `transcripts/fetch_transcripts.py` (alternative to login) |
 | `X_BEARER_TOKEN`, `X_USERNAME` | `x/sync_x_cache.py`, `x/assign_post_manual.py`, `x/attribute_posts_llm.py` |
 | `OPENROUTER_API_KEY` | `x/attribute_posts_llm.py`, `notes/expand_datapoints_llm.py` |
-| `OPENROUTER_ATTRIBUTION_MODEL` | `x/attribute_posts_llm.py` (`--model` overrides) |
-| `OPENROUTER_MODEL` | `notes/expand_datapoints_llm.py` (`--model` overrides; `OPENROUTER_BASE_URL` optional) |
+| `OPENROUTER_ATTRIBUTION_MODEL` | `x/attribute_posts_llm.py` — optional; `--model` overrides |
+| `OPENROUTER_MODEL` | `notes/expand_datapoints_llm.py`, `notes/expand_tune.py` — any [OpenRouter](https://openrouter.ai/models) slug; `--model` overrides; `OPENROUTER_BASE_URL` optional |
 
-Copy `.env.example` to repo root `.env`.
+Copy `.env.example` to repo root `.env`. Model choice lives only in `.env` / CLI flags (not in repo docs).
 
 ## CLI conventions
 

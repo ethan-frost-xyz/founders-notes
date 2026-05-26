@@ -29,7 +29,7 @@ See [`import/README.md`](../../import/README.md).
 |----------|---------|
 | `X_BEARER_TOKEN`, `X_USERNAME` | `sync_x_cache.py`, manual assign |
 | `OPENROUTER_API_KEY` | `attribute_posts_llm.py` |
-| `OPENROUTER_ATTRIBUTION_MODEL` | Optional (`--model` overrides) |
+| `OPENROUTER_ATTRIBUTION_MODEL` | Optional attribution model slug (`--model` overrides; separate from expand `OPENROUTER_MODEL`) |
 
 ## Workflow
 

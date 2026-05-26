@@ -36,8 +36,10 @@ Edit that file to change behavior for both the manual CLI and OpenRouter runs. C
 Set in repo root `.env` (see [`.env.example`](../.env.example)):
 
 - `OPENROUTER_API_KEY`
-- `OPENROUTER_MODEL` (e.g. provider slug from OpenRouter’s model list)
+- `OPENROUTER_MODEL` — any model slug from [OpenRouter’s catalog](https://openrouter.ai/models); change in `.env` or pass `--model` per run (docs do not pin a vendor)
 - Optional: `OPENROUTER_BASE_URL` (default `https://openrouter.ai/api/v1`)
+
+Per-episode override: `python notes/expand_datapoints_llm.py --id ep-0200 --apply --model 'provider/model-id'`. Tune runs: `python notes/expand_tune.py expand --variant A --apply --model 'provider/model-id'`.
 
 **Expand** (one stateless API call per episode — notes + transcript only; no cross-episode context):
 

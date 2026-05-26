@@ -26,8 +26,8 @@ See [`docs/notes-pipeline.md`](../../docs/notes-pipeline.md) and [`docs/datapoin
 
 | Variable | Used by |
 |----------|---------|
-| `OPENROUTER_API_KEY` | `expand_datapoints_llm.py` |
-| `OPENROUTER_MODEL` | Optional default model (`--model` overrides) |
+| `OPENROUTER_API_KEY` | `expand_datapoints_llm.py`, `expand_tune.py` |
+| `OPENROUTER_MODEL` | Default expand model — any OpenRouter slug; `--model` overrides per run |
 
 Prompts: [`../prompts/`](../prompts/).
 
