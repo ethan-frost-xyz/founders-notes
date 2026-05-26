@@ -3,17 +3,23 @@
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
+
 import paths
 from expand_llm import (
     CHARS_PER_TOKEN,
+    OPENROUTER_MAX_ATTEMPTS,
     OpenRouterCompletion,
     TerminalExpandProgressReporter,
     build_combined_prompt_for_clipboard,
     build_user_message,
+    call_openrouter,
     call_openrouter_streaming,
     count_datapoint_headings_in_partial,
     default_prompt_path,
     estimate_expand_for_row,
+    execute_openrouter_with_retry,
+    is_retriable_openrouter_error,
     load_prompt_template,
     parse_expanded_body,
     print_expand_batch_summary,
@@ -238,6 +244,84 @@ def test_terminal_expand_progress_reporter(capsys):
     assert "waiting for API" in out
     assert "first output" in out
     assert "datapoint 1/2" in out
+
+
+def test_is_retriable_openrouter_error_empty_response():
+    assert is_retriable_openrouter_error(ValueError("empty model response"))
+
+
+def test_is_retriable_openrouter_error_parse_failure_not_retriable():
+    assert not is_retriable_openrouter_error(
+        ValueError("Model output missing '## Expanded datapoints'")
+    )
+
+
+@patch("expand_llm.time.sleep")
+def test_execute_openrouter_with_retry_succeeds_on_third_attempt(mock_sleep):
+    attempts = {"n": 0}
+
+    def flaky() -> OpenRouterCompletion:
+        attempts["n"] += 1
+        if attempts["n"] < 3:
+            raise ValueError("empty model response")
+        return OpenRouterCompletion(
+            content="ok",
+            response_id=None,
+            prompt_tokens=0,
+            completion_tokens=0,
+            total_tokens=0,
+            cost_usd=None,
+            duration_ms=0,
+        )
+
+    out = execute_openrouter_with_retry(flaky, max_attempts=OPENROUTER_MAX_ATTEMPTS)
+    assert out.content == "ok"
+    assert attempts["n"] == 3
+    assert mock_sleep.call_count == 2
+
+
+@patch("expand_llm.time.sleep")
+def test_execute_openrouter_with_retry_raises_after_max_attempts(mock_sleep):
+    def always_fail() -> OpenRouterCompletion:
+        raise ValueError("empty model response")
+
+    with pytest.raises(ValueError, match="empty model response"):
+        execute_openrouter_with_retry(always_fail, max_attempts=OPENROUTER_MAX_ATTEMPTS)
+    assert mock_sleep.call_count == OPENROUTER_MAX_ATTEMPTS - 1
+
+
+@patch("expand_llm.time.sleep")
+@patch("openai.OpenAI")
+def test_call_openrouter_retries_transient_failure(mock_openai_cls, mock_sleep):
+    usage = type(
+        "Usage",
+        (),
+        {"prompt_tokens": 1, "completion_tokens": 2, "total_tokens": 3, "cost": None},
+    )()
+    ok_response = type(
+        "Resp",
+        (),
+        {
+            "id": "r1",
+            "choices": [type("C", (), {"message": type("M", (), {"content": "## Expanded datapoints\n"})()})()],
+            "usage": usage,
+        },
+    )()
+    mock_openai_cls.return_value.chat.completions.create.side_effect = [
+        ValueError("empty model response"),
+        ok_response,
+    ]
+
+    completion = call_openrouter(
+        system="s",
+        user="u",
+        model="m",
+        api_key="k",
+        episode_id="ep-0001",
+    )
+    assert completion.content.startswith("## Expanded datapoints")
+    assert mock_openai_cls.return_value.chat.completions.create.call_count == 2
+    mock_sleep.assert_called_once()
 
 
 @patch("openai.OpenAI")

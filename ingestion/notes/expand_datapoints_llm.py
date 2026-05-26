@@ -244,6 +244,7 @@ def run_expand_one(
                 temperature=0.0,
                 total_sections=n_bullets,
                 reporter=reporter,
+                episode_id=ep_id,
             )
         else:
             print(
@@ -257,6 +258,7 @@ def run_expand_one(
                 api_key=api_key,
                 base_url=base_url,
                 temperature=0.0,
+                episode_id=ep_id,
             )
         body = parse_expanded_body(completion.content)
         out = write_expanded_draft(
