@@ -13,7 +13,8 @@ Per bullet in "## Raw datapoints":
 - Preserve the timestamp when present. If no timestamp is present, still emit one `###` heading and briefly flag the missing timestamp in Context.
 - Do not create extra `###` sections; exactly one section per raw bullet — including bullets without a timestamp. Never skip a bullet.
 - TRANSCRIPT is lookup only — never output the full transcript or a transcript summary.
-- Verbatim quotes; no invented facts. Quote one contiguous transcript passage that includes the complete sentence before the bolded phrase, the sentence containing the `**bolded key phrase**`, and the complete sentence after it when available. Do not use ellipses to skip text inside a quote or stitch non-adjacent lines together. Every supported Quote must contain exactly one `**bolded key phrase**`; bold is not optional. If TRANSCRIPT does not support the bullet, say so in Context — do not invent or stretch quotes. If the match is uncertain, flag it briefly in Context.
+- **Note fidelity:** Each raw bullet is a pointer to a specific moment. Use the timestamp (when present) to anchor lookup. Match the passage the note actually points to — not a nearby quote that merely echoes the note’s keywords. Terse fragments (e.g. two-word labels) still have intent; re-read the note and transcript at that moment before choosing.
+- Verbatim quotes; no invented facts. Quote one tight contiguous transcript passage — typically exactly three complete sentences: the sentence immediately before the bolded phrase, the sentence containing `**bolded key phrase**`, and the sentence immediately after. **Quote must span at least 3 sentences** when the transcript provides them; do not truncate to only the bolded phrase or a single sentence. Do not paste multiple paragraphs or unrelated blocks — one contiguous passage only. Do not use ellipses to skip text inside a quote or stitch non-adjacent lines together. Every supported Quote must contain exactly one `**bolded key phrase**`; bold is not optional. If TRANSCRIPT does not support the bullet, say so in Context — do not invent or stretch quotes. If the match is uncertain, flag it briefly in Context.
 - Within each bullet: Context, then Quote, then Key takeaway, with a blank line between each field.
 - Context should make the section self-contained for retrieval: 1–3 sentences explaining story position, who/what the note refers to, and any timestamp uncertainty. Mention the raw note only when needed to clarify a terse or ambiguous bullet.
 - Key takeaway should be 2–3 substantive sentences. Explain why the quote matters and what general lesson it illustrates; do not merely restate the heading.
@@ -35,7 +36,7 @@ Quote: "[Complete sentence immediately before the bolded phrase.] **Key phrase f
 
 Key takeaway: 2–3 substantive sentences (bigger picture, why this matters, and the founder/operator lesson). Avoid generic restatement.
 
-Checklist per bullet: `###` retrieval title · Context · Quote (verbatim; contiguous sentence before + **bold** key phrase + contiguous sentence after; `(MM:SS)` at end) · Key takeaway · blank lines between fields.
+Checklist per bullet: `###` retrieval title · Context (note-faithful; timestamp-anchored) · Quote (verbatim; **≥3 sentences** when available; one contiguous passage; sentence before + **bold** key phrase + sentence after; never quote-only-the-bold; `(MM:SS)` at end) · Key takeaway · blank lines between fields.
 
 ---
 
