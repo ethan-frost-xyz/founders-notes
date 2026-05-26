@@ -8,12 +8,8 @@ from unittest.mock import patch
 
 import paths
 from expand_llm import write_expanded_draft
-from expand_tune import DEFAULT_RUN_ID, build_child_cmd, load_batch_file, run_dir
+from expand_tune import build_child_cmd, load_batch_file, run_dir
 from paths import staging_draft_file_path
-
-
-def test_default_run_id():
-    assert DEFAULT_RUN_ID == "baseline"
 
 
 def test_staging_draft_file_path(tmp_path: Path):

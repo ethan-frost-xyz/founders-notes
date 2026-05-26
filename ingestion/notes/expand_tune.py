@@ -414,7 +414,6 @@ def cmd_verify(args: argparse.Namespace) -> None:
     episode_ids = load_batch_file(batch_path)
     rows = load_catalog()
     by_id = catalog_rows_by_id(rows)
-    staging = run_dir(args.run_id)
 
     errors = 0
     warnings = 0
@@ -446,15 +445,8 @@ def cmd_verify(args: argparse.Namespace) -> None:
             continue
         for variant in ("A", "B"):
             r = draft_report_row(row, variant, args.run_id)
-            draft = staging_draft_file_path(
-                staging,
-                variant,
-                row["id"],
-                row["slug"],
-                row.get("episode_number"),
-            )
             if not r["draft_exists"]:
-                print(f"[error] {ep_id} variant {variant}: missing {draft.relative_to(paths.ROOT)}")
+                print(f"[error] {ep_id} variant {variant}: no draft")
                 errors += 1
                 continue
             for w in r.get("validation_warnings", []):
@@ -477,7 +469,7 @@ def main() -> None:
 
     p_init = sub.add_parser("init", help="Create run dir and manifest")
     p_init.add_argument("--run-id", default=DEFAULT_RUN_ID, help=f"Run folder name (default: {DEFAULT_RUN_ID})")
-    p_init.add_argument("--force", action="store_true", help="Re-init and re-seed candidate prompt")
+    p_init.add_argument("--force", action="store_true", help="Re-init run directory (overwrites manifest)")
     p_init.add_argument(
         "--batch-file",
         type=Path,

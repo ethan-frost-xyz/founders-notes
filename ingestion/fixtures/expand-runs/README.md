@@ -32,7 +32,7 @@ Full A/B cycle = **20 OpenRouter calls** (10 × prompt A + 10 × prompt B). Run 
 
 `init` copies A → B only if B is missing. For format A/B tests, edit B while keeping A frozen for the run.
 
-## Quick start
+## Commands
 
 ```bash
 cd ingestion
@@ -43,6 +43,8 @@ python notes/expand_tune.py expand --variant B --apply
 python notes/expand_tune.py report
 python notes/expand_tune.py verify
 ```
+
+Full refresh: add `--force` to `init` and both `expand` runs.
 
 ## Tuning loop
 
@@ -56,15 +58,5 @@ python notes/expand_tune.py verify
 | New experimental run | `python notes/expand_tune.py init --run-id tune-002` → expand → commit |
 
 After prompt edits, `verify` warns on `prompt_hash` mismatch — re-expand with `--force`, then commit.
-
-## Regenerate baseline (first-time or full refresh)
-
-```bash
-cd ingestion
-python notes/expand_tune.py init --force
-python notes/expand_tune.py expand --variant A --apply --force
-python notes/expand_tune.py expand --variant B --apply --force
-python notes/expand_tune.py verify
-```
 
 See [`docs/datapoint-workflow.md`](../../../docs/datapoint-workflow.md).
