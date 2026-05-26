@@ -45,6 +45,8 @@ Or ripgrep: `content/transcripts/`, `content/notes/`, `content/posts/`, `content
 
 User workflow: timestamp bullets in `{folder}.notes.md` → full quotes + takeaways. See `[docs/datapoint-workflow.md](docs/datapoint-workflow.md)`.
 
+**Primary console:** `python maintain.py` (from `ingestion/`) — interactive menu for coverage, expand, promote, chunks, and prompt tuning.
+
 ```bash
 python notes/expand_datapoints.py --id ep-0200              # prompt only
 python notes/expand_datapoints_llm.py --id ep-0200 --apply   # OpenRouter → .expanded.draft.md
@@ -53,7 +55,7 @@ python notes/expand_datapoints_llm.py --promote --id ep-0200 --apply
 
 Backfill many episodes: `--missing-expanded --apply --limit N` or `--subprocess` (see `[docs/datapoint-workflow.md](docs/datapoint-workflow.md)`). Do **not** bulk-generate raw timestamp bullets in `.notes.md`.
 
-Prompt A/B tuning (23-episode sandbox): `python notes/expand_tune.py` — see `[docs/datapoint-workflow.md](docs/datapoint-workflow.md#prompt-tuning-ab-sandbox)`.
+Prompt A/B tuning (5-episode sandbox): `python notes/expand_tune.py` — see `[docs/datapoint-workflow.md](docs/datapoint-workflow.md#prompt-tuning-ab-sandbox)`.
 
 ## Ingestion (minimal)
 

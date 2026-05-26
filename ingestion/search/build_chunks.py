@@ -143,8 +143,10 @@ def index_markdown_file(
     return all_chunks
 
 
-def main() -> None:
-    rows = load_catalog()
+def build_all_chunks(rows: list[dict[str, Any]] | None = None) -> int:
+    """Scan catalog content and overwrite catalog/chunks.jsonl. Returns chunk count."""
+    if rows is None:
+        rows = load_catalog()
     all_chunks: list[dict[str, Any]] = []
 
     for row in rows:
@@ -173,7 +175,12 @@ def main() -> None:
         for ch in all_chunks:
             f.write(json.dumps(ch, ensure_ascii=False) + "\n")
 
-    print(f"Wrote {len(all_chunks)} chunks to {CHUNKS_PATH.relative_to(ROOT)}")
+    return len(all_chunks)
+
+
+def main() -> None:
+    n = build_all_chunks()
+    print(f"Wrote {n} chunks to {CHUNKS_PATH.relative_to(ROOT)}")
     print(f"built_at: {utc_now_iso()}")
 
 
