@@ -53,7 +53,7 @@ python notes/expand_datapoints_llm.py --promote --id ep-0200 --apply
 
 Backfill many episodes: `--missing-expanded --apply --limit N` or `--subprocess` (see `[docs/datapoint-workflow.md](docs/datapoint-workflow.md)`). Do **not** bulk-generate raw timestamp bullets in `.notes.md`.
 
-Prompt A/B tuning (5-episode sandbox): `python notes/expand_tune.py` — see `[docs/datapoint-workflow.md](docs/datapoint-workflow.md#prompt-tuning-5-episode-ab-sandbox)`.
+Prompt A/B tuning (23-episode sandbox): `python notes/expand_tune.py` — see `[docs/datapoint-workflow.md](docs/datapoint-workflow.md#prompt-tuning-ab-sandbox)`.
 
 ## Ingestion (minimal)
 

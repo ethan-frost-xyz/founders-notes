@@ -6,14 +6,14 @@
     "A": {
       "prompt_path": "ingestion/prompts/expand_datapoints.md",
       "prompt_hash": "f4ffa5a3693602e1",
-      "last_expand_at": "2026-05-26T19:12:13Z",
-      "model": "deepseek/deepseek-v4-pro"
+      "last_expand_at": "2026-05-26T19:42:08Z",
+      "model": "deepseek/deepseek-v4-flash"
     },
     "B": {
       "prompt_path": "ingestion/prompts/expand_datapoints.candidate.md",
-      "prompt_hash": "bf93c7a3a1731e7d",
-      "last_expand_at": "2026-05-26T19:03:25Z",
-      "model": "deepseek/deepseek-v4-pro"
+      "prompt_hash": "9bc7e6edc42de319",
+      "last_expand_at": "2026-05-26T19:38:09Z",
+      "model": "deepseek/deepseek-v4-flash"
     }
   }
 }
