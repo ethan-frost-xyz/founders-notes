@@ -38,6 +38,7 @@ Prompts: [`../prompts/`](../prompts/).
 | `--id ep-NNNN` | Single episode |
 | `--dry-run` / `--apply` | Preview vs write |
 | `--force` | Regenerate draft / overwrite empty scaffold |
+| `--no-stream` | Blocking API only (no live `datapoint k/M` progress) |
 | `--subprocess` | `expand_datapoints_llm.py` — one process per episode |
 
 ## Downstream

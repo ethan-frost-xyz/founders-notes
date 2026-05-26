@@ -24,13 +24,16 @@ from dotenv import load_dotenv
 from cli_args import add_episode_id_arg, ensure_catalog, resolve_episode_id_arg
 from expand_llm import (
     ExpandEstimate,
+    TerminalExpandProgressReporter,
     _count_datapoint_headings,
     build_user_message,
     call_openrouter,
+    call_openrouter_streaming,
     default_prompt_path,
     estimate_expand_for_row,
     expand_log_context_from_env,
     filter_expand_run_log,
+    format_compact_chars,
     load_expand_run_log,
     load_prompt_template,
     log_expand_event,
@@ -179,6 +182,7 @@ def run_expand_one(
     base_url: str | None,
     dry_run: bool,
     force: bool,
+    stream: bool = True,
     staging_dir: Path | None = None,
     variant: str | None = None,
 ) -> tuple[str, dict | None]:
@@ -218,18 +222,42 @@ def run_expand_one(
     if dry_run:
         return "dry_run", None
 
-    print(f"[expand] {ep_id}  {n_bullets} bullets  model={model}")
+    print(
+        f"[expand] {ep_id}  {n_bullets} bullets  "
+        f"~{format_compact_chars(input_chars)} chars in  model={model}",
+        flush=True,
+    )
 
     completion = None
     try:
-        completion = call_openrouter(
-            system=system,
-            user=user_msg,
-            model=model,
-            api_key=api_key,
-            base_url=base_url,
-            temperature=0.0,
-        )
+        if stream:
+            reporter = TerminalExpandProgressReporter(
+                episode_id=ep_id,
+                total_sections=n_bullets,
+            )
+            completion = call_openrouter_streaming(
+                system=system,
+                user=user_msg,
+                model=model,
+                api_key=api_key,
+                base_url=base_url,
+                temperature=0.0,
+                total_sections=n_bullets,
+                reporter=reporter,
+            )
+        else:
+            print(
+                f"[expand] {ep_id}  calling API (~{format_compact_chars(input_chars)} chars)…",
+                flush=True,
+            )
+            completion = call_openrouter(
+                system=system,
+                user=user_msg,
+                model=model,
+                api_key=api_key,
+                base_url=base_url,
+                temperature=0.0,
+            )
         body = parse_expanded_body(completion.content)
         out = write_expanded_draft(
             row,
@@ -331,6 +359,11 @@ def main() -> None:
     parser.add_argument("--dry-run", action="store_true", help="No API writes; promote validates only")
     parser.add_argument("--apply", action="store_true", help="Call API (expand) or write files (promote)")
     parser.add_argument("--force", action="store_true", help="Overwrite existing draft when expanding")
+    parser.add_argument(
+        "--no-stream",
+        action="store_true",
+        help="Disable streaming API; no live section progress (blocking request only)",
+    )
     parser.add_argument(
         "--subprocess",
         action="store_true",
@@ -482,7 +515,8 @@ def main() -> None:
 
     if args.subprocess and not args.dry_run:
         script = Path(__file__).resolve()
-        for row in selected:
+        batch_n = len(selected)
+        for batch_i, row in enumerate(selected, start=1):
             cmd: list[str | Path] = [
                 sys.executable,
                 str(script),
@@ -500,6 +534,13 @@ def main() -> None:
                 cmd.extend(["--staging-dir", str(staging_dir)])
             if args.variant:
                 cmd.extend(["--variant", args.variant])
+            if args.no_stream:
+                cmd.append("--no-stream")
+            if batch_n > 1:
+                print(
+                    f"[expand] {batch_i}/{batch_n} {row['id']}",
+                    flush=True,
+                )
             print(f"[subprocess] {' '.join(str(x) for x in cmd)}")
             rc = subprocess.run(cmd, cwd=str(paths.ROOT)).returncode
             if rc != 0:
@@ -538,7 +579,10 @@ def main() -> None:
         return
 
     batch_records: list[dict] = []
-    for row in selected:
+    batch_n = len(selected)
+    for batch_i, row in enumerate(selected, start=1):
+        if batch_n > 1:
+            print(f"[expand] {batch_i}/{batch_n} {row['id']}", flush=True)
         status, log_rec = run_expand_one(
             row,
             system=system,
@@ -549,6 +593,7 @@ def main() -> None:
             base_url=base_url,
             dry_run=False,
             force=args.force,
+            stream=not args.no_stream,
             staging_dir=staging_dir,
             variant=args.variant,
         )

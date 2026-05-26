@@ -61,6 +61,20 @@ def test_build_child_cmd_one_episode():
     assert cmd[0] == sys.executable
 
 
+def test_build_child_cmd_no_stream():
+    cmd = build_child_cmd(
+        episode_id="ep-0001",
+        run_id="baseline",
+        variant="A",
+        prompt_path=Path("/repo/ingestion/prompts/expand_datapoints.md"),
+        apply=True,
+        force=False,
+        model=None,
+        no_stream=True,
+    )
+    assert "--no-stream" in cmd
+
+
 def test_write_expanded_draft_staging(monkeypatch, tmp_path: Path):
     monkeypatch.setattr(paths, "ROOT", tmp_path)
     staging = tmp_path / "runs" / "r1"
@@ -205,6 +219,7 @@ def test_expand_apply_subprocess_per_episode(mock_run, monkeypatch, tmp_path: Pa
         prompt = None
         model = None
         force = False
+        no_stream = False
         verbose = False
         dry_run = False
         apply = True
@@ -213,6 +228,7 @@ def test_expand_apply_subprocess_per_episode(mock_run, monkeypatch, tmp_path: Pa
     monkeypatch.setattr("expand_tune.load_expand_run_log", lambda: [])
     cmd_expand(Args())
     assert mock_run.call_count == 2
+    assert mock_run.call_args.kwargs["env"]["PYTHONUNBUFFERED"] == "1"
     for call in mock_run.call_args_list:
         cmd = call[0][0]
         assert cmd.count("--id") == 1

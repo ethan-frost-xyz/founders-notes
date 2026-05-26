@@ -132,6 +132,7 @@ def build_child_cmd(
     apply: bool,
     force: bool,
     model: str | None,
+    no_stream: bool = False,
 ) -> list[str]:
     cmd: list[str] = [
         sys.executable,
@@ -153,6 +154,8 @@ def build_child_cmd(
         cmd.append("--force")
     if model:
         cmd.extend(["--model", model])
+    if no_stream:
+        cmd.append("--no-stream")
     return cmd
 
 
@@ -221,9 +224,11 @@ def cmd_expand(args: argparse.Namespace) -> None:
             **os.environ,
             "EXPAND_RUN_ID": args.run_id,
             "EXPAND_VARIANT": args.variant,
+            "PYTHONUNBUFFERED": "1",
         }
         batch_start = len(load_expand_run_log())
-        for ep_id in episode_ids:
+        batch_n = len(episode_ids)
+        for batch_i, ep_id in enumerate(episode_ids, start=1):
             if ep_id not in by_id:
                 print(f"[skip] {ep_id}: not in catalog")
                 errors += 1
@@ -237,11 +242,15 @@ def cmd_expand(args: argparse.Namespace) -> None:
                 apply=True,
                 force=args.force,
                 model=model,
+                no_stream=args.no_stream,
             )
             if args.verbose:
-                print(f"[subprocess] {' '.join(cmd)}")
+                print(f"[subprocess] {' '.join(cmd)}", flush=True)
             else:
-                print(f"[expand] {ep_id} variant {args.variant}")
+                print(
+                    f"[expand] {batch_i}/{batch_n} {ep_id} variant {args.variant}",
+                    flush=True,
+                )
             rc = subprocess.run(cmd, cwd=str(paths.ROOT), env=child_env).returncode
             if rc != 0:
                 print(f"[error] {ep_id}: subprocess exit {rc}")
@@ -483,6 +492,11 @@ def main() -> None:
     p_expand.add_argument("--prompt", type=Path, help="Override prompt file for this variant")
     p_expand.add_argument("--model", help="Override OPENROUTER_MODEL")
     p_expand.add_argument("--force", action="store_true", help="Overwrite existing staging drafts")
+    p_expand.add_argument(
+        "--no-stream",
+        action="store_true",
+        help="Pass --no-stream to child expand_datapoints_llm (no live section progress)",
+    )
     p_expand.add_argument("--verbose", action="store_true", help="Print full subprocess command per episode")
     p_expand.add_argument("--dry-run", action="store_true")
     p_expand.add_argument("--apply", action="store_true")

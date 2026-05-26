@@ -44,6 +44,8 @@ python notes/expand_tune.py report
 python notes/expand_tune.py verify
 ```
 
+During `--apply`, the parent prints `N/10` per episode; each child streams progress (`waiting for API…`, `first output`, `datapoint k/M`). Add `--no-stream` on `expand` to disable live section progress.
+
 Full refresh: add `--force` to `init` and both `expand` runs.
 
 ## Tuning loop

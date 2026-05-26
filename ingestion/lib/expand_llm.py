@@ -246,6 +246,11 @@ def _count_datapoint_headings(body: str) -> int:
     return len(re.findall(r"^###\s+.+$", body, re.MULTILINE))
 
 
+def count_datapoint_headings_in_partial(text: str) -> int:
+    """Count completed `###` datapoint headings in a partial stream buffer."""
+    return _count_datapoint_headings(text)
+
+
 def _block_has_field(block: str, labels: tuple[str, ...]) -> bool:
     """True if block contains any label (plain or **Label:** markdown)."""
     lower = block.lower()
@@ -364,6 +369,47 @@ def expand_log_context_from_env() -> dict[str, str]:
     return out
 
 
+class ExpandProgressReporter:
+    """Optional live progress callbacks during a streaming expand call."""
+
+    def waiting(self, *, input_chars: int) -> None:
+        pass
+
+    def first_token(self, *, ttft_ms: int) -> None:
+        pass
+
+    def section(self, *, index: int, total: int) -> None:
+        pass
+
+
+class TerminalExpandProgressReporter(ExpandProgressReporter):
+    """Print expand progress lines to stdout (flush after each)."""
+
+    def __init__(self, *, episode_id: str, total_sections: int) -> None:
+        self.episode_id = episode_id
+        self.total_sections = max(total_sections, 0)
+
+    def waiting(self, *, input_chars: int) -> None:
+        print(
+            f"[expand] {self.episode_id}  waiting for API…  "
+            f"(~{format_compact_chars(input_chars)} chars in)",
+            flush=True,
+        )
+
+    def first_token(self, *, ttft_ms: int) -> None:
+        print(
+            f"[expand] {self.episode_id}  first output ({format_duration_sec(ttft_ms)})",
+            flush=True,
+        )
+
+    def section(self, *, index: int, total: int) -> None:
+        denom = total if total > 0 else self.total_sections or "?"
+        print(
+            f"[expand] {self.episode_id}  datapoint {index}/{denom}",
+            flush=True,
+        )
+
+
 def call_openrouter(
     *,
     system: str,
@@ -400,6 +446,92 @@ def call_openrouter(
     return OpenRouterCompletion(
         content=raw,
         response_id=getattr(response, "id", None),
+        prompt_tokens=usage["prompt_tokens"],
+        completion_tokens=usage["completion_tokens"],
+        total_tokens=usage["total_tokens"],
+        cost_usd=usage["cost_usd"],
+        duration_ms=duration_ms,
+    )
+
+
+def call_openrouter_streaming(
+    *,
+    system: str,
+    user: str,
+    model: str,
+    api_key: str,
+    base_url: str | None = None,
+    temperature: float = 0.0,
+    total_sections: int = 0,
+    reporter: ExpandProgressReporter | None = None,
+) -> OpenRouterCompletion:
+    """Stream chat completion; optional reporter for TTFT and per-section progress."""
+    from openai import OpenAI
+
+    if reporter is not None:
+        reporter.waiting(input_chars=len(system) + len(user))
+
+    client = OpenAI(
+        api_key=api_key,
+        base_url=(base_url or "https://openrouter.ai/api/v1").rstrip("/"),
+    )
+    t0 = time.perf_counter()
+    stream = client.chat.completions.create(
+        model=model,
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user", "content": user},
+        ],
+        temperature=temperature,
+        stream=True,
+        stream_options={"include_usage": True},
+    )
+
+    parts: list[str] = []
+    response_id: str | None = None
+    usage_chunk: Any = None
+    first_token_reported = False
+    last_section_count = 0
+    section_total = max(total_sections, 0)
+
+    for chunk in stream:
+        chunk_id = getattr(chunk, "id", None)
+        if chunk_id:
+            response_id = chunk_id
+        if getattr(chunk, "usage", None) is not None:
+            usage_chunk = chunk
+
+        if not chunk.choices:
+            continue
+        delta = chunk.choices[0].delta.content
+        if not delta:
+            continue
+
+        if not first_token_reported:
+            if reporter is not None:
+                reporter.first_token(ttft_ms=int((time.perf_counter() - t0) * 1000))
+            first_token_reported = True
+
+        parts.append(delta)
+        buffer = "".join(parts)
+        n_sections = count_datapoint_headings_in_partial(buffer)
+        if reporter is not None and n_sections > last_section_count:
+            for idx in range(last_section_count + 1, n_sections + 1):
+                reporter.section(
+                    index=idx,
+                    total=section_total if section_total > 0 else n_sections,
+                )
+            last_section_count = n_sections
+
+    duration_ms = int((time.perf_counter() - t0) * 1000)
+    raw = "".join(parts)
+    if not raw:
+        raise ValueError("empty model response")
+
+    usage = usage_from_response(usage_chunk) if usage_chunk is not None else usage_from_response(None)
+    return OpenRouterCompletion(
+        content=raw,
+        response_id=response_id,
         prompt_tokens=usage["prompt_tokens"],
         completion_tokens=usage["completion_tokens"],
         total_tokens=usage["total_tokens"],

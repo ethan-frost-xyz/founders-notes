@@ -7,8 +7,11 @@ import paths
 from expand_llm import (
     CHARS_PER_TOKEN,
     OpenRouterCompletion,
+    TerminalExpandProgressReporter,
     build_combined_prompt_for_clipboard,
     build_user_message,
+    call_openrouter_streaming,
+    count_datapoint_headings_in_partial,
     default_prompt_path,
     estimate_expand_for_row,
     load_prompt_template,
@@ -219,7 +222,71 @@ def test_print_expand_batch_summary(capsys):
     assert "1,000 in" in out
 
 
-@patch("expand_datapoints_llm.call_openrouter")
+def test_count_datapoint_headings_in_partial():
+    partial = "## Expanded datapoints\n\n### 1:00 — a\n\nContext:\n"
+    assert count_datapoint_headings_in_partial(partial) == 1
+    full = partial + "\n### 2:00 — b\n"
+    assert count_datapoint_headings_in_partial(full) == 2
+
+
+def test_terminal_expand_progress_reporter(capsys):
+    reporter = TerminalExpandProgressReporter(episode_id="ep-0001", total_sections=2)
+    reporter.waiting(input_chars=120_000)
+    reporter.first_token(ttft_ms=1500)
+    reporter.section(index=1, total=2)
+    out = capsys.readouterr().out
+    assert "waiting for API" in out
+    assert "first output" in out
+    assert "datapoint 1/2" in out
+
+
+@patch("openai.OpenAI")
+def test_call_openrouter_streaming_assembles_content(mock_openai_cls):
+    usage = type(
+        "Usage",
+        (),
+        {"prompt_tokens": 10, "completion_tokens": 20, "total_tokens": 30, "cost": 0.01},
+    )()
+
+    def make_chunk(content: str | None, *, with_usage: bool = False):
+        delta = type("Delta", (), {"content": content})()
+        choice = type("Choice", (), {"delta": delta})()
+        return type(
+            "Chunk",
+            (),
+            {
+                "id": "chunk-1",
+                "choices": [choice],
+                "usage": usage if with_usage else None,
+            },
+        )()
+
+    chunks = [
+        make_chunk("## Expanded datapoints\n\n"),
+        make_chunk("### 1:00 — a\n\n"),
+        make_chunk("Context: x\n"),
+        make_chunk(None, with_usage=True),
+    ]
+    mock_openai_cls.return_value.chat.completions.create.return_value = iter(chunks)
+
+    completion = call_openrouter_streaming(
+        system="sys",
+        user="user",
+        model="test/model",
+        api_key="key",
+        total_sections=1,
+    )
+    assert "## Expanded datapoints" in completion.content
+    assert "### 1:00 — a" in completion.content
+    assert completion.prompt_tokens == 10
+    assert completion.completion_tokens == 20
+    mock_openai_cls.return_value.chat.completions.create.assert_called_once()
+    _, kwargs = mock_openai_cls.return_value.chat.completions.create.call_args
+    assert kwargs["stream"] is True
+    assert kwargs["stream_options"] == {"include_usage": True}
+
+
+@patch("expand_datapoints_llm.call_openrouter_streaming")
 def test_expand_datapoints_llm_apply_writes_draft(mock_call, monkeypatch, tmp_path: Path):
     mock_call.return_value = OpenRouterCompletion(
         content="""## Expanded datapoints

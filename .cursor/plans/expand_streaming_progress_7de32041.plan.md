@@ -4,16 +4,16 @@ overview: "Add real-time progress during OpenRouter expand calls: time-to-first-
 todos:
   - id: stream-api
     content: Add call_openrouter streaming path + section counter + flush-based reporter in expand_llm.py
-    status: pending
+    status: completed
   - id: wire-expand
     content: Wire run_expand_one + --no-stream flag in expand_datapoints_llm.py
-    status: pending
+    status: completed
   - id: batch-counters
     content: Add i/N progress in expand_tune and expand_datapoints_llm --subprocess; PYTHONUNBUFFERED in tune child env
-    status: pending
+    status: completed
   - id: tests-docs
     content: Unit tests for stream assembly/sections; brief notes in datapoint-workflow + expand-runs README
-    status: pending
+    status: completed
 isProject: false
 ---
 

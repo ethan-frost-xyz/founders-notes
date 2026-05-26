@@ -69,7 +69,7 @@ def test_filter_expand_run_log_by_run_id():
 
 
 @patch("expand_datapoints_llm.parse_expanded_body")
-@patch("expand_datapoints_llm.call_openrouter")
+@patch("expand_datapoints_llm.call_openrouter_streaming")
 def test_run_expand_one_parse_error_logs_usage(
     mock_call, mock_parse, monkeypatch, tmp_path: Path
 ):

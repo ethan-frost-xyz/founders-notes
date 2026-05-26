@@ -41,7 +41,7 @@ Set in repo root `.env` (see [`.env.example`](../.env.example)):
 
 Per-episode override: `python notes/expand_datapoints_llm.py --id ep-0200 --apply --model 'provider/model-id'`. Tune runs: `python notes/expand_tune.py expand --variant A --apply --model 'provider/model-id'`.
 
-**Expand** (one stateless API call per episode — notes + transcript only; no cross-episode context):
+**Expand** (one stateless API call per episode — notes + transcript only; no cross-episode context). By default `--apply` **streams** the response and prints time-to-first-token plus `datapoint N/M` as each `###` section arrives; use `--no-stream` for a silent blocking request.
 
 ```bash
 cd ingestion
