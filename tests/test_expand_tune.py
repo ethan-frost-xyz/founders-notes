@@ -67,8 +67,78 @@ def test_write_expanded_draft_staging(monkeypatch, tmp_path: Path):
     assert out.exists()
 
 
+def test_expand_dry_run_in_process_no_subprocess(monkeypatch, tmp_path: Path):
+    monkeypatch.setattr("expand_tune.paths.ROOT", tmp_path)
+    monkeypatch.setattr("expand_tune.EXPAND_RUNS_DIR", tmp_path / "expand-runs")
+    monkeypatch.setattr("expand_tune.DEFAULT_BATCH_FILE", tmp_path / "batch.json")
+    prompt_text = "<<<SYSTEM>>>\nsystem block\n<<<USER>>>\nnotes:\n{notes}\ntx:\n{transcript}\n"
+    (tmp_path / "a.md").write_text(prompt_text, encoding="utf-8")
+    monkeypatch.setattr("expand_tune.PROMPT_A", tmp_path / "a.md")
+    monkeypatch.setattr("expand_tune.PROMPT_B", tmp_path / "b.md")
+    (tmp_path / "batch.json").write_text(
+        json.dumps({"episode_ids": ["ep-0001"]}),
+        encoding="utf-8",
+    )
+    manifest_dir = tmp_path / "expand-runs" / "r1"
+    manifest_dir.mkdir(parents=True)
+    (manifest_dir / "manifest.json").write_text(
+        json.dumps({"run_id": "r1", "batch_file": "batch.json", "variants": {}}),
+        encoding="utf-8",
+    )
+
+    notes_dir = tmp_path / "content" / "notes" / "ep-0001-test"
+    notes_dir.mkdir(parents=True)
+    (notes_dir / "ep-0001-test.notes.md").write_text(
+        "---\n---\n\n## Raw datapoints\n\n- 1:00 — a\n",
+        encoding="utf-8",
+    )
+    tx_dir = tmp_path / "content" / "transcripts" / "ep-0001-test"
+    tx_dir.mkdir(parents=True)
+    (tx_dir / "ep-0001-test.transcript.md").write_text(
+        "---\n---\n\ntranscript body\n",
+        encoding="utf-8",
+    )
+
+    catalog = tmp_path / "catalog"
+    catalog.mkdir()
+    rows = [
+        {
+            "id": "ep-0001",
+            "slug": "1-test",
+            "episode_number": 1,
+            "title": "A",
+            "transcript_status": "complete",
+        },
+    ]
+    (catalog / "episodes.jsonl").write_text(
+        json.dumps(rows[0]) + "\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr("catalog.CATALOG_PATH", catalog / "episodes.jsonl")
+    monkeypatch.setattr("expand_tune.paths.NOTES_DIR", tmp_path / "content" / "notes")
+    monkeypatch.setattr(
+        "expand_tune.paths.TRANSCRIPTS_DIR", tmp_path / "content" / "transcripts"
+    )
+
+    from expand_tune import cmd_expand
+
+    class Args:
+        run_id = "r1"
+        variant = "A"
+        prompt = None
+        model = None
+        force = False
+        dry_run = True
+        apply = False
+        batch_file = tmp_path / "batch.json"
+
+    with patch("expand_tune.subprocess.run") as mock_run:
+        cmd_expand(Args())
+        mock_run.assert_not_called()
+
+
 @patch("expand_tune.subprocess.run")
-def test_expand_subprocess_per_episode(mock_run, monkeypatch, tmp_path: Path):
+def test_expand_apply_subprocess_per_episode(mock_run, monkeypatch, tmp_path: Path):
     monkeypatch.setattr("expand_tune.paths.ROOT", tmp_path)
     monkeypatch.setattr("expand_tune.EXPAND_RUNS_DIR", tmp_path / "expand-runs")
     monkeypatch.setattr("expand_tune.DEFAULT_BATCH_FILE", tmp_path / "batch.json")
@@ -109,9 +179,10 @@ def test_expand_subprocess_per_episode(mock_run, monkeypatch, tmp_path: Path):
         "\n".join(json.dumps(r) for r in rows) + "\n",
         encoding="utf-8",
     )
-    monkeypatch.setattr("expand_tune.paths.CATALOG_PATH", catalog / "episodes.jsonl")
+    monkeypatch.setattr("catalog.CATALOG_PATH", catalog / "episodes.jsonl")
 
     mock_run.return_value.returncode = 0
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
 
     from expand_tune import cmd_expand
 
@@ -121,8 +192,8 @@ def test_expand_subprocess_per_episode(mock_run, monkeypatch, tmp_path: Path):
         prompt = None
         model = None
         force = False
-        dry_run = True
-        apply = False
+        dry_run = False
+        apply = True
         batch_file = tmp_path / "batch.json"
 
     cmd_expand(Args())

@@ -81,7 +81,7 @@ cd ingestion
 python notes/expand_tune.py init --run-id tune-001
 # Edit prompts/expand_datapoints.candidate.md (prompt B)
 
-python notes/expand_tune.py expand --run-id tune-001 --variant A --dry-run
+python notes/expand_tune.py expand --run-id tune-001 --variant A --dry-run  # cost table, no API
 python notes/expand_tune.py expand --run-id tune-001 --variant A --apply   # 10 subprocesses
 python notes/expand_tune.py expand --run-id tune-001 --variant B --apply   # 10 subprocesses
 

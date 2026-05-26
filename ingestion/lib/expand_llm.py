@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -21,6 +23,8 @@ from paths import (
     expanded_file_path,
     notes_file_path,
     staging_draft_file_path,
+    transcript_dir,
+    transcript_filename,
 )
 
 DEFAULT_PROMPT_PATH = INGESTION_DIR / "prompts" / "expand_datapoints.md"
@@ -53,6 +57,145 @@ def load_prompt_template(path: Path | None = None) -> tuple[str, str]:
 
 def build_user_message(user_template: str, *, notes: str, transcript: str) -> str:
     return user_template.format(notes=notes, transcript=transcript)
+
+
+CHARS_PER_TOKEN = 4
+
+
+@dataclass(frozen=True)
+class ExpandEstimate:
+    episode_id: str
+    n_bullets: int
+    notes_chars: int
+    transcript_chars: int
+    input_chars: int
+
+    @property
+    def approx_input_tokens(self) -> int:
+        return (self.input_chars + CHARS_PER_TOKEN - 1) // CHARS_PER_TOKEN
+
+
+def format_compact_chars(n: int) -> str:
+    """Human-readable char count (e.g. 54k, 1.2M)."""
+    if n < 1000:
+        return str(n)
+    if n < 1_000_000:
+        return f"{n / 1000:.0f}k"
+    return f"{n / 1_000_000:.2f}M"
+
+
+def format_compact_tokens(n: int) -> str:
+    if n < 1000:
+        return str(n)
+    if n < 1_000_000:
+        return f"{n / 1000:.1f}k"
+    return f"{n / 1_000_000:.2f}M"
+
+
+def input_usd_per_mtok_from_env() -> float | None:
+    raw = os.environ.get("OPENROUTER_ESTIMATE_INPUT_USD_PER_MTOK", "").strip()
+    if not raw:
+        return None
+    try:
+        return float(raw)
+    except ValueError:
+        return None
+
+
+def estimate_expand_for_row(row: dict[str, Any], *, prompt_path: Path) -> ExpandEstimate:
+    """Approximate OpenRouter input size for one expand call (no API)."""
+    system, user_template = load_prompt_template(prompt_path)
+    ep_id = row["id"]
+    slug = row["slug"]
+    num = row.get("episode_number")
+    npath = notes_file_path(ep_id, slug, num)
+    tx_path = transcript_dir(ep_id, slug, num) / transcript_filename(ep_id, slug, num)
+    if not npath.exists():
+        raise FileNotFoundError(f"Missing notes: {npath.relative_to(paths.ROOT)}")
+    if not tx_path.exists():
+        raise FileNotFoundError(f"Missing transcript: {tx_path.relative_to(paths.ROOT)}")
+    notes_body = read_markdown_body(npath)
+    transcript_body = read_markdown_body(tx_path)
+    user_msg = build_user_message(
+        user_template, notes=notes_body, transcript=transcript_body
+    )
+    n_bullets = len(TIMESTAMP_BULLET_RE.findall(notes_body))
+    return ExpandEstimate(
+        episode_id=ep_id,
+        n_bullets=n_bullets,
+        notes_chars=len(notes_body),
+        transcript_chars=len(transcript_body),
+        input_chars=len(system) + len(user_msg),
+    )
+
+
+def _prompt_display_path(prompt_path: Path) -> str:
+    try:
+        return str(prompt_path.relative_to(paths.ROOT))
+    except ValueError:
+        return str(prompt_path)
+
+
+def print_expand_dry_run_summary(
+    estimates: list[ExpandEstimate],
+    *,
+    title: str,
+    prompt_path: Path,
+    model: str,
+    extra_footer_lines: list[str] | None = None,
+) -> None:
+    """Print a table of per-episode input size and roll-up totals."""
+    if not estimates:
+        print("No episodes to estimate")
+        return
+
+    print(title)
+    print(f"  prompt: {_prompt_display_path(prompt_path)}")
+    print(f"  model:  {model}")
+    print()
+    print(f"  {'episode':<10} {'bl':>3} {'notes':>6} {'tx':>6} {'input':>8} {'~tokens':>8}")
+    print(f"  {'-' * 10} {'-' * 3} {'-' * 6} {'-' * 6} {'-' * 8} {'-' * 8}")
+
+    total_bullets = 0
+    total_input = 0
+    for est in estimates:
+        total_bullets += est.n_bullets
+        total_input += est.input_chars
+        print(
+            f"  {est.episode_id:<10} {est.n_bullets:>3} "
+            f"{format_compact_chars(est.notes_chars):>6} "
+            f"{format_compact_chars(est.transcript_chars):>6} "
+            f"{format_compact_chars(est.input_chars):>8} "
+            f"{format_compact_tokens(est.approx_input_tokens):>8}"
+        )
+
+    total_tokens = (total_input + CHARS_PER_TOKEN - 1) // CHARS_PER_TOKEN
+    n_calls = len(estimates)
+    print(f"  {'-' * 10} {'-' * 3} {'-' * 6} {'-' * 6} {'-' * 8} {'-' * 8}")
+    print(
+        f"  {'TOTAL':<10} {total_bullets:>3} {'':>6} {'':>6} "
+        f"{format_compact_chars(total_input):>8} "
+        f"{format_compact_tokens(total_tokens):>8}"
+    )
+    print()
+    print(f"  API calls this pass: {n_calls}")
+    print(
+        f"  ~input tokens (sum): {total_tokens:,}  (chars÷{CHARS_PER_TOKEN} heuristic)"
+    )
+
+    rate = input_usd_per_mtok_from_env()
+    if rate is not None:
+        usd = total_tokens * rate / 1_000_000
+        print(f"  ~input cost: ${usd:.2f}  (@ ${rate}/M tok from OPENROUTER_ESTIMATE_INPUT_USD_PER_MTOK)")
+    else:
+        print(
+            "  ~input cost: (set OPENROUTER_ESTIMATE_INPUT_USD_PER_MTOK in .env for $ estimate)"
+        )
+
+    if extra_footer_lines:
+        print()
+        for line in extra_footer_lines:
+            print(f"  {line}")
 
 
 def build_combined_prompt_for_clipboard(system: str, user_message: str) -> str:

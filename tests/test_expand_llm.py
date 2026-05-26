@@ -5,9 +5,11 @@ from unittest.mock import patch
 
 import paths
 from expand_llm import (
+    CHARS_PER_TOKEN,
     build_combined_prompt_for_clipboard,
     build_user_message,
     default_prompt_path,
+    estimate_expand_for_row,
     load_prompt_template,
     parse_expanded_body,
     promote_draft,
@@ -33,6 +35,40 @@ Quote: **key line** from transcript. (2:00)
 
 Key takeaway: Bigger picture lesson two.
 """
+
+
+def test_estimate_expand_for_row_counts_input_once(monkeypatch, tmp_path: Path):
+    monkeypatch.setattr(paths, "ROOT", tmp_path)
+    monkeypatch.setattr(paths, "NOTES_DIR", tmp_path / "content" / "notes")
+    monkeypatch.setattr(paths, "TRANSCRIPTS_DIR", tmp_path / "content" / "transcripts")
+
+    row = {"id": "ep-0001", "slug": "1-test", "episode_number": 1, "title": "T"}
+    npath = paths.notes_file_path("ep-0001", "1-test", 1)
+    npath.parent.mkdir(parents=True)
+    npath.write_text(
+        "---\n---\n\n## Raw datapoints\n\n- 1:00 — hook\n", encoding="utf-8"
+    )
+    txdir = paths.transcript_dir("ep-0001", "1-test", 1)
+    txdir.mkdir(parents=True)
+    txpath = txdir / paths.transcript_filename("ep-0001", "1-test", 1)
+    txpath.write_text("---\n---\n\nTRANSCRIPT\n", encoding="utf-8")
+
+    prompt_file = tmp_path / "prompt.md"
+    prompt_file.write_text(
+        "<<<SYSTEM>>>\nSYS\n<<<USER>>>\n{notes}\n{transcript}\n", encoding="utf-8"
+    )
+    from markdown_io import read_markdown_body
+
+    system, user_tpl = load_prompt_template(prompt_file)
+    notes_body = read_markdown_body(paths.notes_file_path("ep-0001", "1-test", 1))
+    tx_body = read_markdown_body(txpath)
+    user_msg = build_user_message(user_tpl, notes=notes_body, transcript=tx_body)
+    est = estimate_expand_for_row(row, prompt_path=prompt_file)
+    assert est.n_bullets == 1
+    assert est.input_chars == len(system) + len(user_msg)
+    legacy_double_count = est.notes_chars + est.transcript_chars + len(system) + len(user_msg)
+    assert est.input_chars < legacy_double_count
+    assert est.approx_input_tokens == (est.input_chars + CHARS_PER_TOKEN - 1) // CHARS_PER_TOKEN
 
 
 def test_load_prompt_template_default():

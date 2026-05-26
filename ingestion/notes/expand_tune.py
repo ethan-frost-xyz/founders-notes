@@ -22,11 +22,16 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from dotenv import load_dotenv
+
 from catalog import load_catalog
 from cli_args import resolve_episode_id_arg
 from expand_llm import (
+    ExpandEstimate,
     _count_datapoint_headings,
     default_prompt_path,
+    estimate_expand_for_row,
+    print_expand_dry_run_summary,
     prompt_file_hash,
     promote_draft,
     validate_expanded_draft,
@@ -45,6 +50,8 @@ DEFAULT_BATCH_FILE = paths.ROOT / "catalog" / "expand-tune-batch.json"
 PROMPT_A = INGESTION_DIR / "prompts" / "expand_datapoints.md"
 PROMPT_B = INGESTION_DIR / "prompts" / "expand_datapoints.candidate.md"
 LLM_SCRIPT = INGESTION_DIR / "notes" / "expand_datapoints_llm.py"
+
+load_dotenv(paths.ROOT / ".env")
 
 
 def load_batch_file(path: Path) -> list[str]:
@@ -172,32 +179,60 @@ def cmd_expand(args: argparse.Namespace) -> None:
     rows = load_catalog()
     by_id = catalog_rows_by_id(rows)
     prompt_path = resolve_prompt(args.variant, args.prompt)
+    model_display = (args.model or os.environ.get("OPENROUTER_MODEL", "")).strip() or "(unset)"
     model = (args.model or os.environ.get("OPENROUTER_MODEL", "")).strip() or None
 
     if args.apply and not os.environ.get("OPENROUTER_API_KEY", "").strip():
         raise SystemExit("Set OPENROUTER_API_KEY in .env for --apply")
 
     errors = 0
-    for ep_id in episode_ids:
-        if ep_id not in by_id:
-            print(f"[skip] {ep_id}: not in catalog")
-            errors += 1
-            continue
-        resolve_episode_id_arg(rows, ep_id)
-        cmd = build_child_cmd(
-            episode_id=ep_id,
-            run_id=args.run_id,
-            variant=args.variant,
-            prompt_path=prompt_path,
-            apply=args.apply,
-            force=args.force,
-            model=model,
+
+    if args.dry_run:
+        estimates: list[ExpandEstimate] = []
+        for ep_id in episode_ids:
+            row = by_id.get(ep_id)
+            if not row:
+                print(f"[skip] {ep_id}: not in catalog")
+                errors += 1
+                continue
+            resolve_episode_id_arg(rows, ep_id)
+            try:
+                estimates.append(estimate_expand_for_row(row, prompt_path=prompt_path))
+            except (FileNotFoundError, ValueError) as e:
+                print(f"[error] {ep_id}: {e}")
+                errors += 1
+        ab_hint = (
+            f"Full A/B on this batch: ~{len(estimates) * 2} API calls "
+            f"(run variant A and B with --apply)"
         )
-        print(f"[subprocess] {' '.join(cmd)}")
-        rc = subprocess.run(cmd, cwd=str(paths.ROOT)).returncode
-        if rc != 0:
-            print(f"[subprocess] exit {rc} for {ep_id}")
-            errors += 1
+        print_expand_dry_run_summary(
+            estimates,
+            title=f"Expand dry-run  run={args.run_id}  variant={args.variant}",
+            prompt_path=prompt_path,
+            model=model_display,
+            extra_footer_lines=[ab_hint],
+        )
+    else:
+        for ep_id in episode_ids:
+            if ep_id not in by_id:
+                print(f"[skip] {ep_id}: not in catalog")
+                errors += 1
+                continue
+            resolve_episode_id_arg(rows, ep_id)
+            cmd = build_child_cmd(
+                episode_id=ep_id,
+                run_id=args.run_id,
+                variant=args.variant,
+                prompt_path=prompt_path,
+                apply=True,
+                force=args.force,
+                model=model,
+            )
+            print(f"[expand] {ep_id} variant {args.variant}")
+            rc = subprocess.run(cmd, cwd=str(paths.ROOT)).returncode
+            if rc != 0:
+                print(f"[error] {ep_id}: subprocess exit {rc}")
+                errors += 1
 
     if args.apply or args.dry_run:
         update_manifest_variant(args.run_id, args.variant, prompt_path=prompt_path, model=model)

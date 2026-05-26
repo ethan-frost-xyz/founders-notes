@@ -23,13 +23,16 @@ from dotenv import load_dotenv
 
 from cli_args import add_episode_id_arg, ensure_catalog, resolve_episode_id_arg
 from expand_llm import (
+    ExpandEstimate,
     _count_datapoint_headings,
     append_expand_run_log,
     build_user_message,
     call_openrouter,
     default_prompt_path,
+    estimate_expand_for_row,
     load_prompt_template,
     parse_expanded_body,
+    print_expand_dry_run_summary,
     promote_draft,
     prompt_file_hash,
     resolve_draft_path,
@@ -177,11 +180,6 @@ def run_expand_one(
     n_bullets = len(TIMESTAMP_BULLET_RE.findall(notes_body))
 
     if dry_run:
-        est = len(notes_body) + len(transcript_body) + len(system) + len(user_msg)
-        print(
-            f"[dry-run] {ep_id} notes={len(notes_body)} tx={len(transcript_body)} "
-            f"approx_chars={est}"
-        )
         return "dry_run"
 
     try:
@@ -387,7 +385,7 @@ def main() -> None:
         print("No episodes matched selection")
         return
 
-    if args.subprocess:
+    if args.subprocess and not args.dry_run:
         script = Path(__file__).resolve()
         for row in selected:
             cmd: list[str | Path] = [
@@ -413,6 +411,25 @@ def main() -> None:
                 print(f"[subprocess] exit {rc} for {row['id']}")
         return
 
+    if args.dry_run:
+        estimates: list[ExpandEstimate] = []
+        dry_errors = 0
+        for row in selected:
+            try:
+                estimates.append(estimate_expand_for_row(row, prompt_path=prompt_path))
+            except (FileNotFoundError, ValueError) as e:
+                print(f"[error] {row['id']}: {e}")
+                dry_errors += 1
+        print_expand_dry_run_summary(
+            estimates,
+            title="Expand dry-run",
+            prompt_path=prompt_path,
+            model=model or "(unset)",
+        )
+        if dry_errors:
+            raise SystemExit(f"{dry_errors} episode(s) failed")
+        return
+
     for row in selected:
         run_expand_one(
             row,
@@ -422,7 +439,7 @@ def main() -> None:
             model=model,
             api_key=api_key,
             base_url=base_url,
-            dry_run=args.dry_run,
+            dry_run=False,
             force=args.force,
             staging_dir=staging_dir,
             variant=args.variant,
