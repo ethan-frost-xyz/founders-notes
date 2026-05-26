@@ -149,4 +149,12 @@ python x/attribute_posts_llm.py --apply
 
 ---
 
-**Defer for now:** Vector embeddings ([docs/retrieval.md](docs/retrieval.md) v2) until the post corpus is much fuller and `search.py` misses real queries. X posts: `sync_x_cache.py` then `organize_posts_from_csv.py` (see `import/README.md`).
+## Systems Roadmap: Telegram Vault Bot (RAG)
+
+The target interface for secure, on-the-go retrieval and future automations is a private **Telegram Vault Bot**.
+
+1. **Zero UI Maintenance:** Reuses existing Python ingestion modules, running as a private serverless service (e.g., Cloud Run) with a simple password/invite gate.
+2. **Parent-Child Retrieval:**
+   - **Parent level (Default):** Semantic search queries high-signal files (X posts, `.expanded.md`, and raw `.notes.md`).
+   - **Child level (Fallback / Explicit):** Dense transcript chunks are excluded by default to avoid noise, queried only as an automatic fallback (if parent scores are low) or via explicit slash commands (e.g. `/transcript`).
+3. **Local Vector Storage:** Powered by a flat-file NumPy array index (`embeddings.npy`), synced incrementally via the OpenRouter API.
