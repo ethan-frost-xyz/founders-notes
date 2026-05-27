@@ -36,8 +36,12 @@ Product is a **tool-calling vault agent**, not naive single-shot RAG.
 | `/clear` | Wipe in-memory thread |
 | `/newchat` | Export → `catalog/telegram-sessions/*.jsonl` (gitignored); reset |
 | `/resume` | Reload exported session |
+| `/janitor` | Daily notes ritual: paste bullets → file → expand → promote → reindex |
+| `/librarian` | Exit Janitor back to Q&A |
 
-**Index sync (v0):** manual or cron `sync-and-index.sh` (`git pull` + `build_chunks.py` + `build_embeddings.py`). GitHub webhook deferred.
+**Janitor** (mode-switched, same bot): see [vault_janitor_agent.plan.md](../.cursor/plans/vault_janitor_agent.plan.md). Librarian corpus excludes un-listened episodes (no timestamp bullets in `.notes.md`); see [vault_agent_backlog_8fad41c3.plan.md](../.cursor/plans/vault_agent_backlog_8fad41c3.plan.md).
+
+**Index sync (v0):** manual or cron `sync-and-index.sh` (`git pull` + `build_chunks.py` + `build_embeddings.py`). Install cron on Mac mini: `services/telegram/deploy/install-cron.sh`. GitHub webhook deferred.
 
 After expanded promote on the Mac mini (or any host running the bot), run the same index rebuild so parent-tier chunks include **Quote** / **Key takeaway** sections. See [expanded-backfill.md](expanded-backfill.md).
 

@@ -31,6 +31,7 @@ class BotConfig:
     telegram_token: str
     allowed_user_ids: frozenset[int]
     sessions_dir: Path
+    janitor_clean_model: str | None = None
 
 
 def load_agent_config() -> AgentConfig:
@@ -39,7 +40,10 @@ def load_agent_config() -> AgentConfig:
     if not api_key:
         raise ValueError("OPENROUTER_API_KEY is required")
     if not model:
-        raise ValueError("TELEGRAM_CHAT_MODEL is required")
+        raise ValueError(
+            "TELEGRAM_CHAT_MODEL is required. Source ~/.config/founders-telegram/env "
+            "(see services/telegram/deploy/env.example), not the repo root .env."
+        )
 
     max_steps_raw = os.environ.get("TELEGRAM_MAX_STEPS", "").strip()
     max_steps = int(max_steps_raw) if max_steps_raw else 5
@@ -75,9 +79,11 @@ def load_bot_config() -> BotConfig:
         raise ValueError("TELEGRAM_ALLOWED_USER_IDS must list at least one user id")
 
     sessions_dir = agent.vault_root / "catalog" / "telegram-sessions"
+    janitor_clean = os.environ.get("JANITOR_CLEAN_MODEL", "").strip() or None
     return BotConfig(
         agent=agent,
         telegram_token=token,
         allowed_user_ids=frozenset(allowed),
         sessions_dir=sessions_dir,
+        janitor_clean_model=janitor_clean,
     )

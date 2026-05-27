@@ -88,6 +88,13 @@ Unload: `launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.founders.tele
 
 Run when the bot is **idle** (v0 has no file lock; avoid pulling during active turns):
 
+```bash
+chmod +x services/telegram/deploy/install-cron.sh
+services/telegram/deploy/install-cron.sh
+```
+
+Or add manually:
+
 ```cron
 0 4 * * * /Users/you/founders-notes/services/telegram/deploy/sync-and-index.sh >> ~/Library/Logs/founders-telegram/sync.log 2>&1
 ```
@@ -96,11 +103,18 @@ After promoting new `.expanded.md` files on another machine, run `sync-and-index
 
 ## Run locally (dev)
 
+Telegram secrets live in **`~/.config/founders-telegram/env`**, not the repo root `.env` (that file is for ingestion/X/Colossus). Copy `deploy/env.example` there first.
+
+**Only one poller at a time** — Telegram returns `409 Conflict` if launchd and a terminal bot both run. The bot acquires `~/Library/Logs/founders-telegram/bot.poll.lock`; a second start exits immediately.
+
 ```bash
-pip install -r services/telegram/requirements.txt
-# Set env vars or copy deploy/env.example → .env at repo root
-export VAULT_ROOT=$PWD
-cd services/telegram && python -m bot
+# Mac mini: use launchd (recommended)
+services/telegram/deploy/restart-bot.sh
+
+# Foreground dev (stops launchd + any stray pollers first)
+services/telegram/deploy/stop-bot.sh
+set -a && source ~/.config/founders-telegram/env && set +a
+cd services/telegram && ../../ingestion/.venv/bin/python -m bot
 ```
 
 ## Commands (Telegram)
@@ -112,7 +126,10 @@ cd services/telegram && python -m bot
 | `/newchat` | Export → `catalog/telegram-sessions/*.jsonl`; reset |
 | `/resume` | Load latest (or `/resume <fragment>`) |
 | `/web <query>` | One turn with `allow_web=true` |
-| Free text | Vault only (`allow_web=false`) |
+| `/janitor` | Notes ingest → expand → promote workflow |
+| `/librarian` | Exit Janitor back to Q&A |
+| `/cancel` | Cancel Janitor workflow |
+| Free text | Vault only (`allow_web=false`); in Janitor mode, follows notes workflow |
 
 ## Environment
 
@@ -122,7 +139,10 @@ cd services/telegram && python -m bot
 | `TELEGRAM_BOT_TOKEN` | BotFather token |
 | `TELEGRAM_ALLOWED_USER_IDS` | Comma-separated numeric user ids |
 | `OPENROUTER_API_KEY` | Chat + embed API |
-| `TELEGRAM_CHAT_MODEL` | Agent model |
+| `TELEGRAM_CHAT_MODEL` | Librarian agent model |
+| `JANITOR_CLEAN_MODEL` | Janitor **paste clean** (required for `/janitor`; LLM-first, e.g. `groq/llama-3.1-8b-instant`) |
+| `JANITOR_CLEAN_TEMPERATURE` | Optional (default `0.2`) |
+| `OPENROUTER_MODEL` | Janitor **expand** subprocess (`expand_datapoints_llm.py`) |
 | `OPENROUTER_EMBED_MODEL` | Parent-tier embeddings |
 | `TELEGRAM_MAX_STEPS` | Optional (default 5) |
 | `WEB_SEARCH_API_KEY` | SP3.1 — `/web` provider (stub until wired) |
@@ -131,6 +151,7 @@ cd services/telegram && python -m bot
 
 | Issue | Check |
 |-------|--------|
+| `409 Conflict` / two getUpdates | Run `deploy/stop-bot.sh` then **either** `restart-bot.sh` **or** one terminal `python -m bot` — not both |
 | Bot exits immediately | `bot.stderr.log`; env file sourced; `VAULT_ROOT` correct |
 | `Unauthorized` in Telegram | Your numeric user id in `TELEGRAM_ALLOWED_USER_IDS` |
 | Weak / no search hits | Run `sync-and-index.sh`; confirm `catalog/chunks.jsonl` updated |

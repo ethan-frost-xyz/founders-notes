@@ -1,6 +1,6 @@
 ---
 name: Telegram Vault Agent v0
-overview: Master index for private Mac-mini Telegram vault agent (tool-calling, not naive RAG). SP1–SP4 shipped on main (PR #3); SP5–SP6 deferred.
+overview: Master index for private Mac-mini Telegram vault agent (tool-calling, not naive RAG). SP1–SP4 shipped on main (PR #3); SP5–SP6 deferred. Janitor mode shipped separately — see vault_janitor_agent.plan.md.
 todos:
   - id: branch
     content: Branch feature/telegram-vault-bot off main; focused commits per sub-plan; merge via PR

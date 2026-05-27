@@ -78,14 +78,14 @@ def test_execute_web_blocked_when_allow_web_false(agent_config: AgentConfig):
     assert result.get("error") == "web_search disabled for this turn"
 
 
-def test_load_episode_unlistened_ep_0191(agent_config: AgentConfig):
+def test_load_episode_unlistened_ep_0400(agent_config: AgentConfig):
     result = execute_tool(
         "load_episode",
-        {"episode_id": "ep-0191"},
+        {"episode_id": "ep-0400"},
         config=agent_config,
         allow_web=False,
     )
-    assert result["episode_id"] == "ep-0191"
+    assert result["episode_id"] == "ep-0400"
     assert result["meta"]["listened"] is False
     assert "expanded" not in result.get("sections", {})
 
@@ -93,12 +93,12 @@ def test_load_episode_unlistened_ep_0191(agent_config: AgentConfig):
 def test_list_episode_ids_includes_listened_flag(agent_config: AgentConfig):
     result = execute_tool(
         "list_episode_ids",
-        {"query": "Naval Ravikant", "limit": 3},
+        {"query": "episode 400", "limit": 5},
         config=agent_config,
         allow_web=False,
     )
-    naval = next(e for e in result["episodes"] if e["episode_id"] == "ep-0191")
-    assert naval["listened"] is False
+    ep400 = next(e for e in result["episodes"] if e["episode_id"] == "ep-0400")
+    assert ep400["listened"] is False
 
 
 def _fake_tool_call(name: str, arguments: dict, *, call_id: str = "call_1"):

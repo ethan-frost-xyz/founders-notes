@@ -77,12 +77,19 @@ def split_telegram_text(text: str, limit: int = TELEGRAM_MESSAGE_LIMIT) -> list[
 
 
 if TYPE_CHECKING:
-    from telegram import Message
+    from telegram import InlineKeyboardMarkup, Message
 
 
-async def reply_text_chunked(message: Message, text: str) -> None:
-    for part in split_telegram_text(text):
+async def reply_text_chunked(
+    message: Message,
+    text: str,
+    *,
+    reply_markup: InlineKeyboardMarkup | None = None,
+) -> None:
+    parts = split_telegram_text(text)
+    for idx, part in enumerate(parts):
         await message.reply_text(
             markdown_to_telegram_html(part),
             parse_mode=ParseMode.HTML,
+            reply_markup=reply_markup if idx == len(parts) - 1 else None,
         )

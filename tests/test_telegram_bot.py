@@ -19,7 +19,7 @@ for entry in (str(BOT), str(TOOLS)):
         sys.path.insert(0, entry)
 
 from auth import is_allowed  # noqa: E402
-from config import AgentConfig, BotConfig  # noqa: E402
+from config import AgentConfig, BotConfig, load_bot_config  # noqa: E402
 from handlers import parse_web_query  # noqa: E402
 from messaging import (  # noqa: E402
     TELEGRAM_MESSAGE_LIMIT,
@@ -46,6 +46,18 @@ def bot_config(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> BotConfig:
         allowed_user_ids=frozenset({111, 222}),
         sessions_dir=sessions_dir,
     )
+
+
+def test_load_bot_config_reads_janitor_clean_model(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv("VAULT_ROOT", str(REPO))
+    monkeypatch.setenv("OPENROUTER_API_KEY", "k")
+    monkeypatch.setenv("TELEGRAM_CHAT_MODEL", "librarian/model")
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "t")
+    monkeypatch.setenv("TELEGRAM_ALLOWED_USER_IDS", "111")
+    monkeypatch.setenv("JANITOR_CLEAN_MODEL", "janitor/clean-model")
+    cfg = load_bot_config()
+    assert cfg.agent.model == "librarian/model"
+    assert cfg.janitor_clean_model == "janitor/clean-model"
 
 
 def test_is_allowed_rejects_unknown_user(bot_config: BotConfig):
@@ -187,10 +199,26 @@ def test_run_turn_allow_web_true_registers_web(bot_config: BotConfig):
 
 
 def test_deploy_scripts_exist_and_are_executable():
-    for name in ("sync-and-index.sh", "run-bot.sh"):
+    for name in ("sync-and-index.sh", "run-bot.sh", "install-cron.sh"):
         path = DEPLOY / name
         assert path.is_file(), name
         assert path.stat().st_mode & 0o111, f"{name} should be executable"
+
+
+def test_install_cron_print_includes_sync_script():
+    import subprocess
+
+    proc = subprocess.run(
+        [str(DEPLOY / "install-cron.sh"), "--print"],
+        capture_output=True,
+        text=True,
+        env={"VAULT_ROOT": str(REPO), "HOME": str(Path.home())},
+    )
+    assert proc.returncode == 0
+    assert "sync-and-index.sh" in proc.stdout
+    assert "0 4 * * *" in proc.stdout
+    assert "founders-telegram-sync-and-index" in proc.stdout
+    assert "Installed crontab" not in proc.stdout
 
 
 def test_env_example_lists_required_keys():
@@ -202,6 +230,8 @@ def test_env_example_lists_required_keys():
         "OPENROUTER_API_KEY",
         "TELEGRAM_CHAT_MODEL",
         "OPENROUTER_EMBED_MODEL",
+        "JANITOR_CLEAN_MODEL",
+        "OPENROUTER_MODEL",
     ):
         assert key in text
 

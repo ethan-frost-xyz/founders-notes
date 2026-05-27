@@ -20,13 +20,16 @@ Ask a question in study-notes voice with [ep-NNNN] citations.
 
 Commands:
 /start — this help + vault stats
+/janitor — daily notes ritual (file → expand → promote)
+/librarian — exit Janitor back to Q&A
+/cancel — cancel Janitor workflow
 /clear — wipe the in-memory thread
 /newchat — export thread to catalog/telegram-sessions/ and start fresh
 /resume — load the most recent exported session
 /resume <name> — load a session by filename fragment
 /web <query> — one turn with web search enabled (vault still preferred)
 
-Normal messages never use web search."""
+Normal messages use Librarian Q&A. In Janitor mode, messages follow the notes workflow."""
 
 
 def vault_stats_text(vault_root: Path) -> str:
@@ -125,6 +128,12 @@ async def on_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         return
     if not update.message or not update.message.text:
         return
+    janitor = context.application.bot_data.get("janitor")
+    if janitor is not None and janitor.is_active(update.effective_user.id):
+        from janitor_handlers import on_janitor_text
+
+        if await on_janitor_text(update, context):
+            return
     text = update.message.text.strip()
     web_query = parse_web_query(text)
     if web_query is not None:
