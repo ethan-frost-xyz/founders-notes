@@ -2,7 +2,7 @@
 
 Private on-the-go access to the Founders vault via a **tool-calling agent** — not a fixed embed→top-k→answer pipeline.
 
-**Status:** SP1–SP4 on `feature/telegram-vault-bot`. Ready for Mac mini deploy and PR to `main`.
+**Status:** SP1–SP4 shipped on `main` (PR #3). Mac mini deploy is operator setup — see install below.
 
 **Reviewers:** [REVIEW.md](REVIEW.md) — commit map, risk areas, test commands.
 
@@ -10,11 +10,11 @@ Private on-the-go access to the Founders vault via a **tool-calling agent** — 
 
 | Doc | Role |
 |-----|------|
-| [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../../.cursor/plans/telegram_rag_bot_v0.plan.md) | **Master index** — decisions, shared contracts, success criteria |
-| [`.cursor/plans/telegram_vault_sp1_tools.plan.md`](../../.cursor/plans/telegram_vault_sp1_tools.plan.md) | **SP1** — search + embeddings + vault tools |
-| [`.cursor/plans/telegram_vault_sp2_agent.plan.md`](../../.cursor/plans/telegram_vault_sp2_agent.plan.md) | **SP2** — agent loop + prompt |
-| [`.cursor/plans/telegram_vault_sp3_telegram.plan.md`](../../.cursor/plans/telegram_vault_sp3_telegram.plan.md) | **SP3** — Telegram + sessions |
-| [`.cursor/plans/telegram_vault_sp4_ops.plan.md`](../../.cursor/plans/telegram_vault_sp4_ops.plan.md) | **SP4** — Mac mini deploy |
+| [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../../.cursor/plans/telegram_rag_bot_v0.plan.md) | **Master index** — decisions, SP5/SP6 deferred |
+| [`.cursor/plans/archive/telegram_vault_sp1_tools.plan.md`](../../.cursor/plans/archive/telegram_vault_sp1_tools.plan.md) | **SP1** (archived) — search + embeddings + vault tools |
+| [`.cursor/plans/archive/telegram_vault_sp2_agent.plan.md`](../../.cursor/plans/archive/telegram_vault_sp2_agent.plan.md) | **SP2** (archived) — agent loop + prompt |
+| [`.cursor/plans/archive/telegram_vault_sp3_telegram.plan.md`](../../.cursor/plans/archive/telegram_vault_sp3_telegram.plan.md) | **SP3** (archived) — Telegram + sessions |
+| [`.cursor/plans/archive/telegram_vault_sp4_ops.plan.md`](../../.cursor/plans/archive/telegram_vault_sp4_ops.plan.md) | **SP4** (archived) — Mac mini deploy |
 | [`docs/telegram-vault-agent.md`](../../docs/telegram-vault-agent.md) | Short overview for agents |
 
 ## Architecture

@@ -77,7 +77,7 @@ Full script index: `[ingestion/README.md](ingestion/README.md)`.
 | Tests (CI)     | From repo root: `pytest tests -q` then `cd ingestion && python pipeline/verify.py` — see [`docs/testing.md`](docs/testing.md)                              |
 
 
-Do not add a repo-wide vector DB unless grep + chunk index + agent-style search fail for your real queries. See `[docs/retrieval.md](docs/retrieval.md)`. **Telegram vault agent (planned):** OpenRouter **tool-calling** over vault sources — hybrid chunk search + **parent-tier-only** embeddings inside `search_vault_parent`, not single-shot embed→top-k→answer RAG. Master index: `[.cursor/plans/telegram_rag_bot_v0.plan.md](.cursor/plans/telegram_rag_bot_v0.plan.md)`; **implement one sub-plan per session** (e.g. `[telegram_vault_sp1_tools.plan.md](.cursor/plans/telegram_vault_sp1_tools.plan.md)`); overview: `[docs/telegram-vault-agent.md](docs/telegram-vault-agent.md)`. Branch `feature/telegram-vault-bot` → PR to `main`.
+Do not add a repo-wide vector DB unless grep + chunk index + agent-style search fail for your real queries. See `[docs/retrieval.md](docs/retrieval.md)`. **Telegram vault agent:** shipped on `main` (PR #3) — OpenRouter **tool-calling** over vault sources; hybrid chunk search + **parent-tier-only** embeddings inside `search_vault_parent`. Master index: `[.cursor/plans/telegram_rag_bot_v0.plan.md](.cursor/plans/telegram_rag_bot_v0.plan.md)` (SP5 webhook, SP6 tuning deferred); runbook: `[services/telegram/README.md](services/telegram/README.md)`; overview: `[docs/telegram-vault-agent.md](docs/telegram-vault-agent.md)`.
 
 ## Cursor plans
 

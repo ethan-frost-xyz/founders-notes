@@ -1,6 +1,6 @@
 ---
 name: Telegram Vault Agent v0
-overview: Master index for private Mac-mini Telegram vault agent (tool-calling, not naive RAG). Implement on feature/telegram-vault-bot — one commit per sub-plan; use sub-plan files for agent sessions.
+overview: Master index for private Mac-mini Telegram vault agent (tool-calling, not naive RAG). SP1–SP4 shipped on main (PR #3); SP5–SP6 deferred.
 todos:
   - id: branch
     content: Branch feature/telegram-vault-bot off main; focused commits per sub-plan; merge via PR
@@ -45,10 +45,10 @@ Filename kept as `telegram_rag_bot_v0` for history. **Product:** OpenRouter **to
 
 | SP | Plan file | Delivers |
 |----|-----------|----------|
-| **1** | [telegram_vault_sp1_tools.plan.md](telegram_vault_sp1_tools.plan.md) | `search_retrieval.py`, `build_embeddings.py`, `vault.py`, tests |
-| **2** | [telegram_vault_sp2_agent.plan.md](telegram_vault_sp2_agent.plan.md) | `agent.py`, `vault_agent.md`, mock contract tests |
-| **3** | [telegram_vault_sp3_telegram.plan.md](telegram_vault_sp3_telegram.plan.md) | Handlers, allowlist, sessions, `/web` stub |
-| **4** | [telegram_vault_sp4_ops.plan.md](telegram_vault_sp4_ops.plan.md) | `launchd`, `sync-and-index.sh`, ops README → **PR** |
+| **1** | [telegram_vault_sp1_tools.plan.md](archive/telegram_vault_sp1_tools.plan.md) | `search_retrieval.py`, `build_embeddings.py`, `vault.py`, tests |
+| **2** | [telegram_vault_sp2_agent.plan.md](archive/telegram_vault_sp2_agent.plan.md) | `agent.py`, `vault_agent.md`, mock contract tests |
+| **3** | [telegram_vault_sp3_telegram.plan.md](archive/telegram_vault_sp3_telegram.plan.md) | Handlers, allowlist, sessions, `/web` stub |
+| **4** | [telegram_vault_sp4_ops.plan.md](archive/telegram_vault_sp4_ops.plan.md) | `launchd`, `sync-and-index.sh`, ops README → **PR** |
 | 5 | *(this file § Deferred)* | GitHub webhook → pull + reindex |
 | 6 | *(this file § Deferred)* | Rerank, tool copy, “Searching…” UX |
 
@@ -219,10 +219,10 @@ Push → `git pull` → `sync-and-index.sh`; exposure TBD (Tailscale preferred).
 Implement Founders Telegram vault agent — ONE sub-plan only.
 
 Read and follow ONLY the plan for the current SP, e.g.:
-  .cursor/plans/telegram_vault_sp1_tools.plan.md   (SP1)
-  .cursor/plans/telegram_vault_sp2_agent.plan.md   (SP2)
-  .cursor/plans/telegram_vault_sp3_telegram.plan.md (SP3)
-  .cursor/plans/telegram_vault_sp4_ops.plan.md     (SP4)
+  .cursor/plans/archive/telegram_vault_sp1_tools.plan.md   (SP1)
+  .cursor/plans/archive/telegram_vault_sp2_agent.plan.md   (SP2)
+  .cursor/plans/archive/telegram_vault_sp3_telegram.plan.md (SP3)
+  .cursor/plans/archive/telegram_vault_sp4_ops.plan.md     (SP4)
 
 Skim for contracts/decisions if something is ambiguous:
   .cursor/plans/telegram_rag_bot_v0.plan.md  (master index — do not implement from here)

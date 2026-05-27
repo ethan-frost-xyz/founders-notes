@@ -4,22 +4,22 @@ overview: Unify episode markdown frontmatter across transcripts, raw notes, expa
 todos:
   - id: frontmatter-helper
     content: Create shared episode frontmatter helper and route all markdown writers through it
-    status: pending
+    status: completed
   - id: expanded-workflow
     content: Update expanded draft/promote flow to use canonical headers while keeping model output body-only
-    status: pending
+    status: completed
   - id: schema-verify
     content: Add frontmatter parsing and validation to verify/layout checks
-    status: pending
+    status: completed
   - id: chunk-metadata
     content: Include normalized episode metadata in generated search chunks
-    status: pending
+    status: completed
   - id: migration-docs
     content: Backfill canonical frontmatter across all existing content markdown while preserving bodies, then update schema/retrieval docs
-    status: pending
+    status: completed
   - id: validation
     content: Run verify and rebuild chunk index to validate the change
-    status: pending
+    status: completed
 isProject: false
 ---
 

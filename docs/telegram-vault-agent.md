@@ -1,13 +1,13 @@
 # Telegram vault agent
 
-Short overview for coding agents. **Master index:** [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../.cursor/plans/telegram_rag_bot_v0.plan.md) (decisions + shared contracts). **v0 (SP1–SP4)** is implemented on `feature/telegram-vault-bot`; use sub-plans for follow-ups (SP5 webhook, SP6 tuning):
+Short overview for coding agents. **Master index:** [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../.cursor/plans/telegram_rag_bot_v0.plan.md) (decisions + shared contracts). **v0 (SP1–SP4)** shipped on `main` (PR #3); archived sub-plans below. Follow-ups: SP5 webhook, SP6 tuning.
 
-| SP | Plan |
+| SP | Plan (archived) |
 |----|------|
-| 1 | [telegram_vault_sp1_tools.plan.md](../.cursor/plans/telegram_vault_sp1_tools.plan.md) |
-| 2 | [telegram_vault_sp2_agent.plan.md](../.cursor/plans/telegram_vault_sp2_agent.plan.md) |
-| 3 | [telegram_vault_sp3_telegram.plan.md](../.cursor/plans/telegram_vault_sp3_telegram.plan.md) |
-| 4 | [telegram_vault_sp4_ops.plan.md](../.cursor/plans/telegram_vault_sp4_ops.plan.md) |
+| 1 | [telegram_vault_sp1_tools.plan.md](../.cursor/plans/archive/telegram_vault_sp1_tools.plan.md) |
+| 2 | [telegram_vault_sp2_agent.plan.md](../.cursor/plans/archive/telegram_vault_sp2_agent.plan.md) |
+| 3 | [telegram_vault_sp3_telegram.plan.md](../.cursor/plans/archive/telegram_vault_sp3_telegram.plan.md) |
+| 4 | [telegram_vault_sp4_ops.plan.md](../.cursor/plans/archive/telegram_vault_sp4_ops.plan.md) |
 
 Product is a **tool-calling vault agent**, not naive single-shot RAG.
 
@@ -45,7 +45,7 @@ After expanded promote on the Mac mini (or any host running the bot), run the sa
 
 | SP | Status | Plan |
 |----|--------|------|
-| 1–4 | Shipped (this PR) | sp1_tools … sp4_ops |
+| 1–4 | Shipped on `main` (PR #3) | [archive/sp1_tools … sp4_ops](../.cursor/plans/archive/) |
 | 5 | Deferred | GitHub webhook → pull + reindex |
 | 6 | Deferred | Tool copy, rerank, status UX |
 
