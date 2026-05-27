@@ -1,10 +1,10 @@
 ---
 name: Telegram Vault Agent v0
-overview: "Master plan for a private Mac-mini Telegram vault agent: tool-calling over posts/notes/expanded/transcripts (hybrid chunk search + embeddings as tools, not naive RAG-only), study-notes synthesis, /web for external search only, solo allowlist, session jsonl export. Feature branch feature/telegram-vault-bot; sub-plans per area."
+overview: "Master plan for a private Mac-mini Telegram vault agent: tool-calling over posts/notes/expanded/transcripts (hybrid chunk search + embeddings as tools, not naive RAG-only), study-notes synthesis, /web for external search only, solo allowlist, session jsonl export. Implement on main in focused commits; sub-plans per area."
 todos:
   - id: branch
-    content: "Create feature/telegram-vault-bot from main before any implementation commits"
-    status: pending
+    content: "Implement on main (no feature branch required); focused commits per sub-plan"
+    status: completed
   - id: sp1-vault-tools
     content: "Sub-plan 1 — search_retrieval lib + build_embeddings + vault tool implementations + tests"
     status: pending
@@ -75,9 +75,9 @@ Embeddings remain **one retrieval mechanism inside tools**, not the whole produc
 | Auth | Solo `TELEGRAM_ALLOWED_USER_IDS` |
 | Sessions | In-memory; `/clear`; `/newchat` → export jsonl; `/resume` |
 | Sync v0 | Manual / cron `sync-and-index.sh`; webhook deferred (SP5) |
-| Branch | `feature/telegram-vault-bot` off `main` |
+| Git | **`main`** — focused commits per sub-plan (no separate feature branch) |
 | Chat model | `TELEGRAM_CHAT_MODEL` (faster/cheaper than expand) |
-| Embed model | `OPENROUTER_EMBED_MODEL` for `search_vault_semantic` tool |
+| Embed model | `OPENROUTER_EMBED_MODEL` inside `search_vault_parent` hybrid |
 
 ### Open later
 
@@ -90,21 +90,21 @@ Embeddings remain **one retrieval mechanism inside tools**, not the whole produc
 
 ## Git workflow
 
-1. `git checkout main && git pull && git checkout -b feature/telegram-vault-bot`
-2. Commit plan with SP1 (or plan-only commit first).
-3. `pytest` + `ingestion/pipeline/verify.py` green per PR.
-4. No direct commits on `main`.
+1. Work on **`main`** (pull before starting).
+2. Land changes in **focused commits** aligned to sub-plans (SP1 → SP2 → SP3 → SP4).
+3. **`pytest`** + **`ingestion/pipeline/verify.py`** green before each commit.
+4. Commit this plan with the first implementation commit (per [AGENTS.md](../../AGENTS.md) Cursor plans rule).
 
 ```mermaid
 flowchart LR
-  main[main] --> feature[feature/telegram-vault-bot]
-  feature --> sp1[SP1 vault tools]
-  feature --> sp2[SP2 agent]
-  feature --> sp3[SP3 Telegram]
-  feature --> sp4[SP4 deploy]
-  sp1 --> sp2 --> sp3 --> sp4
-  sp4 --> main
+  main[main]
+  main --> sp1[SP1 vault tools]
+  sp1 --> sp2[SP2 agent]
+  sp2 --> sp3[SP3 Telegram]
+  sp3 --> sp4[SP4 deploy]
 ```
+
+Optional: use PRs on GitHub for review, but **base branch is `main`** — no long-lived `feature/telegram-vault-bot` required.
 
 ---
 
@@ -220,7 +220,7 @@ Merge `search_vault_semantic` into `search_vault_parent` as hybrid (keyword ∪ 
 
 - **Unit:** each tool against fixture `chunks.jsonl` slice in `tests/fixtures/`.
 - **Agent contract:** mock OpenRouter responses that request `search_vault_parent` then final answer; assert no `web_search` when `allow_web=false`.
-- **Integration (optional):** one live turn with real API on dev branch.
+- **Integration (optional):** one live turn with real API locally (not required in CI).
 
 ### Docs for other coding agents
 
@@ -234,8 +234,7 @@ Implemented in [`services/telegram/bot/tools/`](../../services/telegram/bot/tool
 
 | Tool | Purpose | Source tier |
 |------|---------|-------------|
-| `search_vault_parent` | Hybrid keyword + semantic over parent chunks; returns excerpts + metadata | post, notes, expanded |
-| `search_vault_semantic` | Optional split: embed query only (or merge into parent with `--hybrid`) | parent |
+| `search_vault_parent` | **Hybrid** keyword + embeddings over parent chunks; returns evidence JSON | post, notes, expanded |
 | `search_transcript` | Keyword search transcript sections | child |
 | `load_episode` | Load post + notes + expanded (if exists) for one `ep-NNNN` — bounded chars | per-type files |
 | `list_episode_ids` | Resolve “episode 22” → `ep-0022` via catalog | catalog |
@@ -345,10 +344,10 @@ catalog/telegram-sessions/      # gitignored
 
 ---
 
-## PR sequence
+## Commit sequence (on `main`)
 
-| PR | Sub-plan | Delivers |
-|----|----------|----------|
+| Commit batch | Sub-plan | Delivers |
+|--------------|----------|----------|
 | 1 | SP1 | Indexes + vault tool functions + tests |
 | 2 | SP2 + SP3 | Agent + Telegram + sessions + `/web` stub or provider |
 | 3 | SP4 | launchd + ops docs |
@@ -386,6 +385,41 @@ catalog/telegram-sessions/      # gitignored
 
 ---
 
+## Plan review (draft audit)
+
+### Solid
+
+- Clear pivot from naive RAG → **agent + tools** with locked decisions (study-notes voice, `/web` gate, solo allowlist, Mac mini).
+- **Agent concept** section is implementation-ready: turn lifecycle, evidence JSON, guardrails, test strategy.
+- **Parent/child** tiers match existing `chunks.jsonl` sections and [build_chunks.py](../../ingestion/search/build_chunks.py).
+- **SP1 before SP3** avoids Telegram UX work before tool contracts exist.
+- Appendix A handoff separates **docs sync** from **code** for other agents.
+
+### Fixed in this revision
+
+- **Git:** implement on `main` (no `feature/telegram-vault-bot`).
+- **Tools table:** removed duplicate `search_vault_semantic` row — hybrid lives only in `search_vault_parent`.
+- **Embed model** decision log aligned with hybrid parent search.
+
+### Still thin (address during SP1/SP2)
+
+| Gap | Recommendation |
+|-----|----------------|
+| Hybrid merge formula | Document in SP1: RRF or weighted score (keyword rank + cosine); default equal weight, expanded/notes boost |
+| `vault_agent.md` outline | Add stub sections in SP2 before coding agent loop |
+| `list_episode_ids` | Specify fuzzy match on `catalog/episodes.jsonl` title vs episode number |
+| `/web` in SP3 | Stub tool returning “not configured” until provider chosen |
+| AGENTS.md embeddings rule | Docs handoff must clarify: bot parent embed index ≠ repo-wide vector DB |
+| Stale doc links | Run Appendix A — `retrieval.md` / `AGENTS.md` still reference old RAG-only plan |
+
+### Risk watch
+
+- **Bulk expand drafts** on disk are not indexed — agent won’t see them until promote + `build_chunks` + `build_embeddings`.
+- **Agent cost** — up to 5 steps × tools + final; add optional `TELEGRAM_MAX_STEPS=3` env for cheap mode.
+- **Concurrent git pull** on Mac mini while bot runs — `sync-and-index.sh` should not run mid-turn (file lock or single-worker queue in v0.1).
+
+---
+
 ## Appendix A — Copy-paste prompt: docs sync for coding agents
 
 **Use in a new agent session.** Goal: update repo docs only; no `services/telegram` implementation. Source of truth: this plan file.
@@ -411,7 +445,7 @@ Read first:
 5. **Web:** /web slash command ONLY — web_search tool disabled for normal messages; never silently mix web into vault answers.
 6. **Sessions:** In-memory chat; /clear; /newchat exports catalog/telegram-sessions/*.jsonl (gitignored); /resume reloads.
 7. **Index sync (v0):** manual or cron sync-and-index.sh (git pull + build_chunks + build_embeddings). GitHub webhook deferred.
-8. **Branch:** All implementation on feature/telegram-vault-bot off main.
+8. **Git:** Implement on **`main`** in focused commits (no feature branch required).
 9. **Build order:** SP1 vault tools → SP2 agent loop → SP3 Telegram → SP4 Mac mini deploy.
 10. **Embeddings:** Used inside search_vault_parent tool; AGENTS.md "no embeddings" rule means do not add repo-wide vector DB until chunk+agent search fails — Telegram embed index is scoped to parent chunks only.
 

@@ -2,7 +2,7 @@
 
 Private on-the-go access to the Founders vault via a **tool-calling agent** — not a fixed embed→top-k→answer pipeline.
 
-**Status:** Not implemented. **Branch:** `feature/telegram-vault-bot` off `main` before any implementation commits.
+**Status:** Not implemented. **Git:** Implement on `main` in focused commits (see master plan).
 
 ## Plans
 
