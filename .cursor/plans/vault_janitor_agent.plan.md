@@ -99,6 +99,7 @@ See [potential-ideas.md](../../potential-ideas.md) at repo root (streaming clean
 
 ## Related
 
+- Operator guide: [docs/janitor.md](../../docs/janitor.md)
 - Corpus filter (studied episodes only): [vault_agent_backlog_8fad41c3.plan.md](vault_agent_backlog_8fad41c3.plan.md)
 - Librarian master index: [telegram_rag_bot_v0.plan.md](telegram_rag_bot_v0.plan.md)
 - Runbook: [services/telegram/README.md](../../services/telegram/README.md)

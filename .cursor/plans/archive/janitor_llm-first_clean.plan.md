@@ -1,29 +1,33 @@
 ---
 name: Janitor LLM-first clean
-overview: Make Janitor paste normalization LLM-first on every paste (no regex pre-pass), with a flexible prompt for * hook (MM:SS) style, light copy-edit, and fast OpenRouter models via JANITOR_CLEAN_MODEL. Deferred ideas live in potential-ideas.md at repo root.
+overview: "SHIPPED (May 2026). Janitor paste normalization is LLM-first on every paste. Operator guide: docs/janitor.md. Deferred: potential-ideas.md."
 todos:
   - id: potential-ideas-md
     content: Create potential-ideas.md at repo root with Janitor/follow-up deferred items (from this plan)
-    status: pending
+    status: completed
   - id: prompt-file
     content: Add services/telegram/prompts/janitor_clean.md with flexible-format + light-scrub instructions
-    status: pending
+    status: completed
   - id: llm-workflow
     content: "Rewrite llm_clean_pasted_notes: load prompt, catalog context, finalize_notes_body only (no regex)"
-    status: pending
+    status: completed
   - id: handlers-ux
     content: Auto LLM clean in _build_preview; Re-clean button; require JANITOR_CLEAN_MODEL; update help text
-    status: pending
+    status: completed
   - id: trim-regex
     content: Remove clean_pasted_notes from hot path; update tests + env.example (Groq/Cerebras)
-    status: pending
+    status: completed
   - id: verify-restart
     content: pytest + restart-bot.sh; smoke Naval paste in Telegram
-    status: pending
+    status: completed
 isProject: false
 ---
 
 # Janitor LLM-first flexible clean
+
+**Status:** Shipped on `main`. Use [`docs/janitor.md`](../../../docs/janitor.md) and [`potential-ideas.md`](../../../potential-ideas.md) going forward — do not implement from this archive plan unless restoring history.
+
+---
 
 ## Current behavior (problem)
 

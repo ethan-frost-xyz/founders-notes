@@ -6,16 +6,7 @@ Private on-the-go access to the Founders vault via a **tool-calling agent** — 
 
 **Reviewers:** [REVIEW.md](REVIEW.md) — commit map, risk areas, test commands.
 
-## Plans
-
-| Doc | Role |
-|-----|------|
-| [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../../.cursor/plans/telegram_rag_bot_v0.plan.md) | **Master index** — decisions, SP5/SP6 deferred |
-| [`.cursor/plans/archive/telegram_vault_sp1_tools.plan.md`](../../.cursor/plans/archive/telegram_vault_sp1_tools.plan.md) | **SP1** (archived) — search + embeddings + vault tools |
-| [`.cursor/plans/archive/telegram_vault_sp2_agent.plan.md`](../../.cursor/plans/archive/telegram_vault_sp2_agent.plan.md) | **SP2** (archived) — agent loop + prompt |
-| [`.cursor/plans/archive/telegram_vault_sp3_telegram.plan.md`](../../.cursor/plans/archive/telegram_vault_sp3_telegram.plan.md) | **SP3** (archived) — Telegram + sessions |
-| [`.cursor/plans/archive/telegram_vault_sp4_ops.plan.md`](../../.cursor/plans/archive/telegram_vault_sp4_ops.plan.md) | **SP4** (archived) — Mac mini deploy |
-| [`docs/telegram-vault-agent.md`](../../docs/telegram-vault-agent.md) | Short overview for agents |
+**Docs:** [`docs/telegram-vault-agent.md`](../../docs/telegram-vault-agent.md) (overview) · [`docs/janitor.md`](../../docs/janitor.md) (daily notes workflow) · [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../../.cursor/plans/telegram_rag_bot_v0.plan.md) (master index) · [`potential-ideas.md`](../../potential-ideas.md) (deferred backlog)
 
 ## Architecture
 
@@ -43,13 +34,28 @@ ingestion/.venv/bin/pip install -r services/telegram/requirements.txt
 
 Use `ingestion/.venv/bin/python` for the bot and index scripts (recommended). If the venv is missing, `deploy/*.sh` falls back to `python3` on `PATH`.
 
-### 2. Environment file
+### 2. Environment files (two locations)
+
+The Mac mini needs **both**:
+
+| File | Purpose |
+|------|---------|
+| `~/.config/founders-telegram/env` | Bot runtime (launchd, sync scripts) — copy from `deploy/env.example` |
+| `{VAULT_ROOT}/.env` | Ingestion (Colossus, X API); expand subprocess also `load_dotenv` on repo root |
 
 ```bash
 mkdir -p ~/.config/founders-telegram ~/Library/Logs/founders-telegram
 cp services/telegram/deploy/env.example ~/.config/founders-telegram/env
 chmod 600 ~/.config/founders-telegram/env
-# Edit: VAULT_ROOT, TELEGRAM_BOT_TOKEN, TELEGRAM_ALLOWED_USER_IDS, OPENROUTER_*
+cp .env.example .env   # in repo root — edit Colossus/X/OpenRouter as needed
+# Edit Telegram env: VAULT_ROOT, TELEGRAM_BOT_TOKEN, TELEGRAM_ALLOWED_USER_IDS, OPENROUTER_*
+```
+
+Quick view:
+
+```bash
+cat ~/.config/founders-telegram/env    # bot runtime
+cat "$VAULT_ROOT/.env"                 # ingestion / expand (set VAULT_ROOT first)
 ```
 
 Optional: `export FOUNDERS_TELEGRAM_ENV=~/.config/founders-telegram/env` if you use a non-default path.
@@ -117,6 +123,12 @@ set -a && source ~/.config/founders-telegram/env && set +a
 cd services/telegram && ../../ingestion/.venv/bin/python -m bot
 ```
 
+## Janitor (daily notes)
+
+Mode-switched workflow in the same bot: `/janitor` → paste bullets → LLM clean preview → approve → file `.notes.md` → expand → promote → reindex. Full guide: [`docs/janitor.md`](../../docs/janitor.md).
+
+Requires `JANITOR_CLEAN_MODEL` in `~/.config/founders-telegram/env`. Expand uses `OPENROUTER_MODEL` (Telegram env and/or `{VAULT_ROOT}/.env`).
+
 ## Commands (Telegram)
 
 | Command | Behavior |
@@ -131,7 +143,9 @@ cd services/telegram && ../../ingestion/.venv/bin/python -m bot
 | `/cancel` | Cancel Janitor workflow |
 | Free text | Vault only (`allow_web=false`); in Janitor mode, follows notes workflow |
 
-## Environment
+## Environment variables
+
+Set bot vars in `~/.config/founders-telegram/env`. Ensure `{VAULT_ROOT}/.env` has `OPENROUTER_API_KEY` (and optionally `OPENROUTER_MODEL`) for Janitor expand if not duplicated in the Telegram env.
 
 | Variable | Purpose |
 |----------|---------|
@@ -160,5 +174,4 @@ cd services/telegram && ../../ingestion/.venv/bin/python -m bot
 
 ## Deferred (post-v0)
 
-- **SP5:** GitHub push webhook → pull + reindex
-- **SP3.1 / SP6:** Tavily or Brave for `/web`; tool tuning, status messages
+See [`potential-ideas.md`](../../potential-ideas.md) — SP5 webhook, `/web` provider, SP6 tuning, Janitor follow-ups, retrieval ideas.

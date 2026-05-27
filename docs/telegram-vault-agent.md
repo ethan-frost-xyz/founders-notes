@@ -1,6 +1,6 @@
 # Telegram vault agent
 
-Short overview for coding agents. **Master index:** [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../.cursor/plans/telegram_rag_bot_v0.plan.md) (decisions + shared contracts). **v0 (SP1–SP4)** shipped on `main` (PR #3); archived sub-plans below. Follow-ups: SP5 webhook, SP6 tuning.
+Short overview for coding agents. **Master index:** [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../.cursor/plans/telegram_rag_bot_v0.plan.md) (decisions + shared contracts). **v0 (SP1–SP4)** shipped on `main` (PR #3); archived sub-plans below. Follow-ups: see [`potential-ideas.md`](../potential-ideas.md).
 
 | SP | Plan (archived) |
 |----|------|
@@ -14,13 +14,15 @@ Product is a **tool-calling vault agent**, not naive single-shot RAG.
 ## Product
 
 - Private Telegram bot on an always-on **Mac mini** (polling), solo user via `TELEGRAM_ALLOWED_USER_IDS`.
-- Answers in **study-notes voice**: synthesized insights + verbatim quotes + `[ep-NNNN]` citations — not ranked excerpt dumps.
+- **Librarian:** study-notes voice — synthesized insights + verbatim quotes + `[ep-NNNN]` citations — not ranked excerpt dumps.
+- **Janitor:** daily notes ritual in the same bot — see [janitor.md](janitor.md).
 
 ## Architecture
 
 - **OpenRouter agent** (`TELEGRAM_CHAT_MODEL`) with tool calling (`max_steps` ~5).
 - Retrieval lives **inside tools** (`search_vault_parent`, `search_transcript`, `load_episode`, `list_episode_ids`) backed by `catalog/chunks.jsonl` and **parent-tier** hybrid keyword + embeddings (`catalog/embeddings.npy`, gitignored).
 - **`/web <query>` only** for external search (`web_search` tool); normal messages must not silently mix web into vault answers.
+- Librarian corpus = **studied episodes only** (timestamp bullets in `.notes.md`); un-listened episodes return no parent-tier hits.
 
 ## Source priority (agent policy)
 
@@ -36,12 +38,14 @@ Product is a **tool-calling vault agent**, not naive single-shot RAG.
 | `/clear` | Wipe in-memory thread |
 | `/newchat` | Export → `catalog/telegram-sessions/*.jsonl` (gitignored); reset |
 | `/resume` | Reload exported session |
-| `/janitor` | Daily notes ritual: paste bullets → file → expand → promote → reindex |
+| `/web <query>` | One turn with `allow_web=true` |
+| `/janitor` | Enter Janitor — paste bullets → clean → expand → promote |
 | `/librarian` | Exit Janitor back to Q&A |
+| `/cancel` | Cancel Janitor workflow |
 
-**Janitor** (mode-switched, same bot): see [vault_janitor_agent.plan.md](../.cursor/plans/vault_janitor_agent.plan.md). Librarian corpus excludes un-listened episodes (no timestamp bullets in `.notes.md`); see [vault_agent_backlog_8fad41c3.plan.md](../.cursor/plans/vault_agent_backlog_8fad41c3.plan.md).
+**Janitor:** mode-switched workflow (LLM-first paste clean, file, expand subprocess, promote, reindex). Full guide: [janitor.md](janitor.md). Runbook: [services/telegram/README.md](../services/telegram/README.md).
 
-**Index sync (v0):** manual or cron `sync-and-index.sh` (`git pull` + `build_chunks.py` + `build_embeddings.py`). Install cron on Mac mini: `services/telegram/deploy/install-cron.sh`. GitHub webhook deferred.
+**Index sync (v0):** manual or cron `sync-and-index.sh` (`git pull` + `build_chunks.py` + `build_embeddings.py`). Install cron on Mac mini: `services/telegram/deploy/install-cron.sh`. GitHub webhook deferred — [`potential-ideas.md`](../potential-ideas.md).
 
 After expanded promote on the Mac mini (or any host running the bot), run the same index rebuild so parent-tier chunks include **Quote** / **Key takeaway** sections. See [expanded-backfill.md](expanded-backfill.md).
 
@@ -50,8 +54,8 @@ After expanded promote on the Mac mini (or any host running the bot), run the sa
 | SP | Status | Plan |
 |----|--------|------|
 | 1–4 | Shipped on `main` (PR #3) | [archive/sp1_tools … sp4_ops](../.cursor/plans/archive/) |
-| 5 | Deferred | GitHub webhook → pull + reindex |
-| 6 | Deferred | Tool copy, rerank, status UX |
+| Janitor MVP | Shipped | [janitor.md](janitor.md) |
+| 5+ | Deferred | [potential-ideas.md](../potential-ideas.md) |
 
 Runbook and env: [`services/telegram/README.md`](../services/telegram/README.md).
 
@@ -61,6 +65,9 @@ Repo-wide rule: do **not** add a general-purpose vector DB until grep + chunk se
 
 ## Related
 
+- [janitor.md](janitor.md) — daily notes workflow
 - [retrieval.md](retrieval.md) — chunk index + hybrid parent search
 - [expanded-backfill.md](expanded-backfill.md) — corpus quality for parent tier
-- Superseded background: [`.cursor/plans/telegram_vault_bot.plan.md`](../.cursor/plans/telegram_vault_bot.plan.md)
+- [vault-agent-v0-checklist.md](vault-agent-v0-checklist.md) — verification
+- [potential-ideas.md](../potential-ideas.md) — backlog
+- Superseded background: [`.cursor/plans/archive/telegram_vault_bot.plan.md`](../.cursor/plans/archive/telegram_vault_bot.plan.md)

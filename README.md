@@ -2,7 +2,7 @@
 
 Personal knowledge vault for [@ethanfrost](https://x.com/ethanfrost)'s daily Founders podcast ritual — transcripts, study notes, and X posts in one queryable archive.
 
-## Status (2026-05-21)
+## Status (2026-05-27)
 
 | Layer | Coverage | Notes |
 |-------|----------|--------|
@@ -10,8 +10,29 @@ Personal knowledge vault for [@ethanfrost](https://x.com/ethanfrost)'s daily Fou
 | **Notes** | 417 files / 177 datapoints | **In progress (daily):** edit `.notes.md` in git (~1 episode/day); empty scaffolds = not listened yet |
 | **X posts** | 187 / 417 | CSV cache + organizer; 2 documented gaps (ep-0159 skipped, ep-0189 not posted) |
 | **Search** | v1 | `catalog/chunks.jsonl` + `ingestion/search/search.py` |
+| **Telegram** | Shipped | Librarian (vault Q&A) + Janitor (daily notes ingest) on Mac mini — see below |
 
 Details: `catalog/gaps.md` (auto), `catalog/import-review.md` (manual attributions).
+
+## Telegram vault agent (Mac mini)
+
+Private **Telegram bot** on an always-on Mac mini (polling): **Librarian** for study-notes Q&A with quotes and `[ep-NNNN]` citations; **Janitor** for the daily notes ritual (paste → clean → expand → promote → reindex).
+
+| Doc | Role |
+|-----|------|
+| [`docs/telegram-vault-agent.md`](docs/telegram-vault-agent.md) | Overview for agents |
+| [`docs/janitor.md`](docs/janitor.md) | Janitor workflow (daily ritual) |
+| [`services/telegram/README.md`](services/telegram/README.md) | Mac mini runbook, env, deploy |
+| [`docs/vault-agent-v0-checklist.md`](docs/vault-agent-v0-checklist.md) | v0 verification checklist |
+| [`potential-ideas.md`](potential-ideas.md) | Deferred features and follow-ups |
+
+**Master index:** [`.cursor/plans/telegram_rag_bot_v0.plan.md`](.cursor/plans/telegram_rag_bot_v0.plan.md) · **Archived SP plans:** [`sp1`](.cursor/plans/archive/telegram_vault_sp1_tools.plan.md) → [`sp4`](.cursor/plans/archive/telegram_vault_sp4_ops.plan.md)
+
+- **Librarian:** OpenRouter tool-calling over studied episodes only (`search_vault_parent`, transcripts on demand); `/web <query>` for external search.
+- **Janitor:** `/janitor` → paste bullets → LLM clean → approve → file → expand → promote → reindex. See [`docs/janitor.md`](docs/janitor.md).
+- **Ops:** `sync-and-index.sh` (manual or nightly cron); index refresh after promote on the bot host.
+
+Expanded corpus quality: promote `.expanded.md`, then reindex — see [`docs/expanded-backfill.md`](docs/expanded-backfill.md).
 
 ## Phase 1: Transcripts
 
@@ -45,7 +66,7 @@ python pipeline/verify.py
 python search/search.py "rockefeller"
 ```
 
-See [docs/episode-id-rules.md](docs/episode-id-rules.md), [docs/notes-pipeline.md](docs/notes-pipeline.md), [docs/datapoint-workflow.md](docs/datapoint-workflow.md), [docs/retrieval.md](docs/retrieval.md), [docs/telegram-vault-agent.md](docs/telegram-vault-agent.md), [AGENTS.md](AGENTS.md).
+See [docs/episode-id-rules.md](docs/episode-id-rules.md), [docs/notes-pipeline.md](docs/notes-pipeline.md), [docs/datapoint-workflow.md](docs/datapoint-workflow.md), [docs/retrieval.md](docs/retrieval.md), [AGENTS.md](AGENTS.md).
 
 ## Layout
 
@@ -59,6 +80,7 @@ content/notes/                  # Raw datapoints per episode
 content/posts/                  # X post per episode + _corpus/ + _other/
 import/                         # Gitignored exports (x-posts-raw.csv, manual post bodies)
 ingestion/                      # Build, import, verify scripts (see ingestion/README.md)
+services/telegram/              # Telegram vault agent (Librarian + Janitor)
 ```
 
 ## Querying in Cursor
@@ -108,9 +130,15 @@ Phase 2 progress is in `catalog/gaps.md` (notes files vs datapoints, posts). **L
 
 Three high-leverage options, ordered by impact on the daily ritual:
 
-### 1. Notes catch-up (episodes 0190–0417, in progress)
+### 1. Janitor daily ritual (Telegram)
 
-**Primary workflow:** vault-native notes in git — see [docs/notes-pipeline.md](docs/notes-pipeline.md) (Working Copy on phone, Cursor on Mac).
+**Primary workflow on phone:** `/janitor` in the Telegram bot — paste episode + bullets → LLM clean → approve → file → expand → promote → reindex. See [`docs/janitor.md`](docs/janitor.md) and [`services/telegram/README.md`](services/telegram/README.md).
+
+**Also (desktop):** vault-native notes in git — [docs/notes-pipeline.md](docs/notes-pipeline.md) (Working Copy, Cursor).
+
+**Done when:** Each listened episode flows through Janitor (or direct `.notes.md` edit) with promoted `.expanded.md` and a fresh index on the Mac mini.
+
+### 2. Notes catch-up (episodes 0190–0417, in progress)
 
 177 episodes have datapoints (see `catalog/gaps.md`). Ep 0190–0417 have **empty scaffolds** (`python notes/scaffold_notes.py`); add timestamp bullets as you finish each episode (~1/day).
 
@@ -124,9 +152,9 @@ python search/build_chunks.py            # after adding bullets
 
 **Done when:** `notes with datapoints` in `catalog/gaps.md` tracks how far you have listened—not all 417 overnight.
 
-### 2. X posts (recurring, not bulk backfill)
+### 3. X posts (recurring, not bulk backfill)
 
-**Why:** ~187 posts match episodes you have published on X through ~ep-0188. **Missing posts from ep-0190 onward are expected**—you have not posted those episodes yet. Native X articles are skipped by `organize_posts_from_csv.py`; use `assign_post_manual.py --body-file` for legacy article bodies (ep-0082, ep-0088, ep-0148).
+~187 posts match episodes published on X through ~ep-0188. **Missing posts from ep-0190 onward are expected**—those episodes are not posted yet. Native X articles are skipped by `organize_posts_from_csv.py`; use `assign_post_manual.py --body-file` for legacy article bodies (ep-0082, ep-0088, ep-0148).
 
 **After each X post:**
 
@@ -139,27 +167,4 @@ python x/attribute_posts_llm.py --apply
 
 **Done when:** Each new episode you publish gets a `.post.md` via organize (explicit `#`) or LLM/manual—not when all 417 rows are filled.
 
-### 3. Datapoint expansion at scale
-
-**Why:** ~177 episodes have raw timestamp bullets but almost no `{folder}.expanded.md` (see `catalog/gaps.md`). This is the highest-value daily workflow after import — quotes + takeaways from transcript without hand-copying.
-
-**Shipped:** `expand_datapoints_llm.py` (OpenRouter → `.expanded.draft.md`, `--promote` → `.expanded.md`), `python maintain.py` console, tunable prompt in `ingestion/prompts/expand_datapoints.md`. Chunk index includes expanded sections when `.expanded.md` exists (`build_chunks.py`).
-
-**Operator guide:** [`docs/expanded-backfill.md`](docs/expanded-backfill.md) (bulk draft → review → promote → chunks).
-
-**Done when:** Expanded notes exist for episodes you actively study; search surfaces expanded sections.
-
----
-
-## Systems Roadmap: Telegram vault agent
-
-Private **Telegram vault agent** on an always-on Mac mini (polling): study-notes answers with quotes and `[ep-NNNN]` citations, not excerpt dumps.
-
-**Master index:** [`.cursor/plans/telegram_rag_bot_v0.plan.md`](.cursor/plans/telegram_rag_bot_v0.plan.md) · **SP plans (archived):** [`sp1`](.cursor/plans/archive/telegram_vault_sp1_tools.plan.md) → [`sp4`](.cursor/plans/archive/telegram_vault_sp4_ops.plan.md) · **Overview:** [`docs/telegram-vault-agent.md`](docs/telegram-vault-agent.md) · **Runbook:** [`services/telegram/README.md`](services/telegram/README.md)
-
-1. **Agent + tools:** `TELEGRAM_CHAT_MODEL` with OpenRouter tool calling; retrieval inside `search_vault_parent` (hybrid keyword + parent-tier embeddings on `catalog/chunks.jsonl`), `search_transcript`, `load_episode` — not a single embed→top-k→answer pipeline.
-2. **Parent vs child sources:** Default tools hit **parent** tier (posts, `.expanded.md`, raw notes). **Transcript** chunks only when the agent calls `search_transcript` or the user needs dialogue depth.
-3. **`/web` only for the web:** External search is gated to `/web <query>`; vault answers must not silently mix web results.
-4. **Ops:** Solo allowlist; in-memory sessions with `/newchat` export to `catalog/telegram-sessions/`; index refresh via `sync-and-index.sh` (manual/cron; GitHub webhook later).
-
-Expanded corpus quality: promote `.expanded.md`, then reindex — see [`docs/expanded-backfill.md`](docs/expanded-backfill.md).
+**Expansion (bulk backfill):** For episodes with bullets but no `.expanded.md`, use [`docs/expanded-backfill.md`](docs/expanded-backfill.md) or Janitor expand/promote. Shipped: `expand_datapoints_llm.py`, `maintain.py`, chunk index includes expanded sections after promote.

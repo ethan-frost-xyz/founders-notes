@@ -192,22 +192,7 @@ Commit the matching **sub-plan `.plan.md`** with each implementation commit (AGE
 
 ## Deferred
 
-### SP5 — GitHub webhook
-
-Push → `git pull` → `sync-and-index.sh`; exposure TBD (Tailscale preferred).
-
-### SP6 — v0.1 tuning
-
-- Tool descriptions + few-shot in system prompt
-- Optional LLM rerank on top-20 hybrid hits
-- Episode intent classifier before tool storm
-- Telegram “Searching notes…” status messages
-- Golden query set (MRR@8) optional
-- File lock on `sync-and-index.sh` during active turns
-
-### Open questions
-
-- Web provider for `/web`: SP3.1 — Tavily or Brave once `WEB_SEARCH_API_KEY` is set; v0 stub returns `{"error":"not configured"}`
+Consolidated in [`potential-ideas.md`](../../potential-ideas.md) — SP5 webhook, SP3.1 `/web` provider, SP6 tuning (tool copy, rerank, status UX, golden MRR@8, sync file lock), and related follow-ups.
 
 **Decided (not open):** session naming locked as `{utc_iso}_{short_slug}.jsonl`; `TELEGRAM_MAX_STEPS` optional env override (default 5).
 
