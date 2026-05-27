@@ -11,13 +11,13 @@
 ## Phase 2 coverage
 
 **Notes files:** 417 / 417 numbered (with transcript)
-**Notes with datapoints:** 177 / 417 numbered (timestamp bullets)
+**Notes with datapoints:** 178 / 417 numbered (timestamp bullets)
 **Bullets missing timestamp:** 60 across 32 numbered (`- —` without `MM:SS`)
 **Posts imported:** 187 / 417 numbered
 **Expanded notes:** 0 / 417 numbered (with transcript)
-**Expanded drafts (pending review):** 0 / 417 numbered
+**Expanded drafts (pending review):** 62 / 417 numbered
 
-## Notes without datapoints (234 numbered)
+## Notes without datapoints (233 numbered)
 
 File exists but no `MM:SS —` bullets yet — **expected** for episodes not listened to (empty scaffold or backlog). Filled in over time via the daily notes workflow; not a blocking gap.
 
@@ -27,7 +27,6 @@ File exists but no `MM:SS —` bullets yet — **expected** for episodes not lis
 - `ep-0119`
 - `ep-0155`
 - `ep-0186`
-- `ep-0190`
 - `ep-0191`
 - `ep-0192`
 - `ep-0193`
@@ -61,7 +60,8 @@ File exists but no `MM:SS —` bullets yet — **expected** for episodes not lis
 - `ep-0221`
 - `ep-0222`
 - `ep-0223`
-- … and 194 more
+- `ep-0224`
+- … and 193 more
 
 ## Datapoint bullets missing timestamp (32 numbered)
 
@@ -100,9 +100,9 @@ Notes contain `- — …` bullets with no `MM:SS` prefix — timestamp may have 
 - `ep-0171` (1 bullet(s))
 - `ep-0185` (1 bullet(s))
 
-## Has datapoints, no expanded.md (177 numbered)
+## Has datapoints, no expanded.md (178 numbered)
 
-Optional LLM expansion: `python notes/expand_datapoints_llm.py --missing-expanded --dry-run` then `--apply` (draft) and `--promote --apply`. See [docs/datapoint-workflow.md](../docs/datapoint-workflow.md).
+Optional LLM expansion: `python notes/expand_datapoints_llm.py --missing-expanded --dry-run` then `--apply` (draft) and `--promote --apply`. See [docs/expanded-backfill.md](../docs/expanded-backfill.md) and [docs/datapoint-workflow.md](../docs/datapoint-workflow.md).
 
 - `ep-0001`
 - `ep-0002`
@@ -144,7 +144,7 @@ Optional LLM expansion: `python notes/expand_datapoints_llm.py --missing-expande
 - `ep-0041`
 - `ep-0042`
 - `ep-0043`
-- … and 137 more
+- … and 138 more
 
 ## Missing posts (228 numbered)
 
