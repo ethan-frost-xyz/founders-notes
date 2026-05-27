@@ -9,7 +9,7 @@ How to run the Founders Notes vault when you are **not** using the Telegram bot 
 | **Janitor** | Paste bullets → clean → file `.notes.md` → expand → promote → reindex |
 | **Librarian** | Q&A over the studied corpus (hybrid parent-tier search) |
 
-Runbook: [services/telegram/README.md](../services/telegram/README.md). After promote on the Mac mini, refresh the index with `services/telegram/deploy/sync-and-index.sh` (`git pull` + `build_chunks.py` + `build_embeddings.py`). Requires `OPENROUTER_API_KEY` and `OPENROUTER_EMBED_MODEL` for the embedding step.
+Runbook: [services/telegram/README.md](../services/telegram/README.md). After promote on the Mac mini, refresh the index with `services/telegram/deploy/sync-and-index.sh` (`git pull` + `reindex_vault`). Requires `OPENROUTER_API_KEY` and `OPENROUTER_EMBED_MODEL` for the embedding step.
 
 ## Tactical backup (laptop / Cursor)
 
@@ -17,7 +17,7 @@ Use when batching expand/promote, fixing catalog gaps, or working without Telegr
 
 | Tool | Purpose |
 |------|---------|
-| `cd ingestion && python maintain.py` | Interactive menu: coverage, expand backlog, draft review, promote, chunk rebuild, tune |
+| `cd ingestion && python maintain.py` | Interactive menu: coverage, expand backlog, draft review, promote, index rebuild (menu 8), tune |
 | `notes/expand_datapoints_llm.py` | OpenRouter → `.expanded.draft.md`; `--promote` → `.expanded.md` |
 | `notes/expand_tune.py` | 23-episode prompt A/B sandbox (not production drafts) |
 | `pipeline/verify.py` | Regenerate `catalog/gaps.md`; exit 1 on blocking transcript/layout gaps |
@@ -28,16 +28,23 @@ See [datapoint-workflow.md](datapoint-workflow.md), [expanded-backfill.md](expan
 
 ## Index refresh
 
-Canonical on the Mac mini: `sync-and-index.sh` (chunks + parent-tier embeddings).
+Canonical recipe: [`ingestion/lib/reindex_vault.py`](../ingestion/lib/reindex_vault.py) (`reindex_vault`) — runs `search/build_chunks.py` then `search/build_embeddings.py` under `{vault}/ingestion` with `VAULT_ROOT` set.
 
-From `ingestion/` on any machine:
+| Entry | How |
+|-------|-----|
+| Mac mini | `services/telegram/deploy/sync-and-index.sh` (`git pull` + `lib/reindex_vault.py`) |
+| Laptop | `maintain.py` menu **8** (same subprocess recipe) |
+| Janitor | **Promote & reindex** calls `janitor_workflow.run_reindex` → `reindex_vault` |
+
+Embeddings require `OPENROUTER_API_KEY` and `OPENROUTER_EMBED_MODEL` in repo `.env` and/or `~/.config/founders-telegram/env`. If keys are missing, step 2 fails with the same message as running `build_embeddings.py` manually.
+
+From `ingestion/` without the menu:
 
 ```bash
-python search/build_chunks.py
-python search/build_embeddings.py   # needs OPENROUTER_API_KEY + OPENROUTER_EMBED_MODEL
+python lib/reindex_vault.py
+# or
+python search/build_chunks.py && python search/build_embeddings.py
 ```
-
-`maintain.py` menu **8** currently rebuilds **chunks only**; run `build_embeddings.py` separately when the Telegram agent host needs updated vectors. PR3 of [vault cleanup](../.cursor/plans/vault_cleanup_refactors.plan.md) will unify this recipe.
 
 ## Path bootstrap (`VAULT_ROOT`)
 

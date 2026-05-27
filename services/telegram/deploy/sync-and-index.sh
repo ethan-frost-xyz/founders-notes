@@ -24,7 +24,6 @@ cd "${VAULT_ROOT}"
 git pull --ff-only
 
 cd "${VAULT_ROOT}/ingestion"
-"${PYTHON}" search/build_chunks.py
-"${PYTHON}" search/build_embeddings.py
+"${PYTHON}" lib/reindex_vault.py
 
 echo "sync-and-index: done"

@@ -32,7 +32,8 @@ cd ingestion && python pipeline/verify.py
 | `test_vault_v0_checklist.py` | v0 success criteria (mock agent + tools); see [vault-agent-v0-checklist.md](vault-agent-v0-checklist.md) |
 | `test_vault_retrieval_scenarios.py` | Scenario JSONL against `chunks.jsonl` |
 | `test_janitor_notes.py` | Janitor episode parse, finalize_notes_body, merge |
-| `test_janitor_workflow.py` | Janitor LLM clean (mocked), catalog, prompt |
+| `test_janitor_workflow.py` | Janitor LLM clean (mocked), catalog, prompt, `run_reindex` |
+| `test_reindex_vault.py` | `reindex_vault` subprocess order, env, embeddings flag |
 | `test_telegram_bot.py` | Telegram transport, sessions, deploy smoke |
 
 ## Focused runs

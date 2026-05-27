@@ -10,7 +10,7 @@ todos:
     status: completed
   - id: target-2-reindex
     content: "PR3: reindex_vault + callers + tests; affected-doc sweep; make-pr-easy-to-review"
-    status: pending
+    status: completed
   - id: appendix-expand-llm
     content: Future only — methodology in plan appendix; optional separate .cursor/plans/expand_llm_split.plan.md when scheduling work
     status: cancelled
@@ -19,7 +19,7 @@ isProject: false
 
 # Vault cleanup — three low-risk refactors + future `expand_llm` note
 
-**Progress:** PR1 shipped. PR2 (Target 3 bootstrap) — branch `refactor/vault-bootstrap-pr2`. PR3 pending.
+**Progress:** PR1 shipped (#5). PR2 shipped — branch `refactor/vault-bootstrap-pr2`. PR3 — branch `refactor/vault-reindex-pr3`.
 
 ## Success criteria (done when)
 

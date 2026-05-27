@@ -67,7 +67,7 @@ export $(grep -v '^#' ~/.config/founders-telegram/env | xargs)  # or source manu
 services/telegram/deploy/sync-and-index.sh
 ```
 
-Requires `OPENROUTER_API_KEY` and `OPENROUTER_EMBED_MODEL` (any OpenRouter embedding slug) for embeddings.
+After `git pull`, the script runs [`ingestion/lib/reindex_vault.py`](../../ingestion/lib/reindex_vault.py) (chunks + embeddings). Requires `OPENROUTER_API_KEY` and `OPENROUTER_EMBED_MODEL` (any OpenRouter embedding slug) for the embedding step.
 
 ### 4. launchd (always-on bot)
 

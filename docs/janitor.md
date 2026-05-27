@@ -69,7 +69,7 @@ Copy templates: [`services/telegram/deploy/env.example`](../services/telegram/de
 
 ## After promote
 
-Promote runs `build_chunks.py` and `build_embeddings.py` on the Mac mini. If reindex fails, run manually when the bot is idle:
+Promote runs shared `reindex_vault()` (`build_chunks.py` + `build_embeddings.py` subprocesses on the Mac mini). If reindex fails, run manually when the bot is idle:
 
 ```bash
 services/telegram/deploy/sync-and-index.sh

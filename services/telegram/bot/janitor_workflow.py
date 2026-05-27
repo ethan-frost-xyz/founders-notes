@@ -169,29 +169,10 @@ def run_promote(vault_root: Path, episode_id: str) -> tuple[int, str, list[str]]
 
 
 def run_reindex(vault_root: Path) -> tuple[int, str]:
-    py = _python(vault_root)
-    env = os.environ.copy()
-    env["VAULT_ROOT"] = str(vault_root)
-    cwd = str(vault_root / "ingestion")
-    chunks = subprocess.run(
-        [py, "search/build_chunks.py"],
-        cwd=cwd,
-        env=env,
-        capture_output=True,
-        text=True,
-    )
-    if chunks.returncode != 0:
-        return chunks.returncode, _tail((chunks.stdout or "") + (chunks.stderr or ""))
-    emb = subprocess.run(
-        [py, "search/build_embeddings.py"],
-        cwd=cwd,
-        env=env,
-        capture_output=True,
-        text=True,
-    )
-    if emb.returncode != 0:
-        return emb.returncode, _tail((emb.stdout or "") + (emb.stderr or ""))
-    return 0, "Reindexed chunks and embeddings."
+    _ingestion_paths(vault_root)
+    from reindex_vault import reindex_vault
+
+    return reindex_vault(vault_root)
 
 
 def draft_excerpt(vault_root: Path, row: dict[str, Any]) -> str:

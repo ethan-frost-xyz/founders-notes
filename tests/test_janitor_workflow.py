@@ -16,6 +16,7 @@ from janitor_workflow import (  # noqa: E402
     load_janitor_clean_prompt,
     llm_clean_pasted_notes,
     resolve_catalog_row,
+    run_reindex,
 )
 
 NAVAL_PASTE = """191 naval
@@ -89,3 +90,12 @@ def test_llm_clean_naval_paste(mock_call):
     call_kwargs = mock_call.call_args.kwargs
     assert call_kwargs["model"] == "test/model"
     assert "ep-0191" in call_kwargs["user"]
+
+
+@patch("reindex_vault.reindex_vault")
+def test_run_reindex_invokes_both_steps(mock_reindex):
+    mock_reindex.return_value = (0, "Reindexed chunks and embeddings.")
+    code, msg = run_reindex(REPO)
+    assert code == 0
+    assert "embeddings" in msg
+    mock_reindex.assert_called_once_with(REPO)

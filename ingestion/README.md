@@ -20,7 +20,7 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`docs/inges
 | [`notes/`](notes/README.md) | Note scaffolds and datapoint expansion |
 | [`x/`](x/README.md) | X cache sync and post organization |
 | [`search/`](search/README.md) | Chunk index and search |
-| [`maintain.py`](maintain.py) | Interactive console for notes, expansion, promote, chunks, tune |
+| [`maintain.py`](maintain.py) | Interactive console for notes, expansion, promote, index rebuild, tune |
 | [`lib/`](lib/README.md) | Shared Python modules (no CLI) |
 | [`migrations/`](migrations/README.md) | Historical one-shots (do not re-run) |
 | [`prompts/`](prompts/) | LLM prompt templates for expansion |
@@ -39,7 +39,7 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`docs/inges
 | Expand (prompt) | `notes/expand_datapoints.py` | Print/copy prompt from notes + transcript |
 | Expand (OpenRouter) | `notes/expand_datapoints_llm.py` | `.expanded.draft.md` → `--promote` → `.expanded.md` |
 | Expand (prompt A/B tune) | `notes/expand_tune.py` | 23-ep A/B under `fixtures/expand-runs/` (tracked; default `baseline/`) |
-| **Maintenance console** | `python maintain.py` | Menu wrapper for coverage, expand, promote, chunks, tune (see below) |
+| **Maintenance console** | `python maintain.py` | Menu wrapper for coverage, expand, promote, index rebuild, tune (see below) |
 | X sync | `x/sync_x_cache.py` | API → `import/x-posts-raw.csv` |
 | X organize | `x/organize_posts_from_csv.py` | CSV → `content/posts/` (skips articles) |
 | X LLM match | `x/attribute_posts_llm.py` | Review queue via OpenRouter |
@@ -48,7 +48,7 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`docs/inges
 
 ## Maintenance console
 
-Primary interactive entry for ongoing vault work (coverage, next notes path, expand backlog, draft review, promote, chunk rebuild, prompt A/B tune, expand-run log):
+Primary interactive entry for ongoing vault work (coverage, next notes path, expand backlog, draft review, promote, index rebuild via menu 8, prompt A/B tune, expand-run log):
 
 ```bash
 cd ingestion
