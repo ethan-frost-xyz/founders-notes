@@ -321,6 +321,15 @@ class VaultAgent:
 
                 response = completion_fn(**request)
                 msg = response.choices[0].message
+                if is_final_step:
+                    text = (msg.content or "").strip()
+                    if not text:
+                        text = (
+                            "I could not finish an answer in one pass. "
+                            "Try naming an episode id like ep-0100 or a narrower theme."
+                        )
+                    return TurnResult(content=text, tool_trace=trace, steps=step + 1)
+
                 if not msg.tool_calls:
                     text = (msg.content or "").strip()
                     if not text:

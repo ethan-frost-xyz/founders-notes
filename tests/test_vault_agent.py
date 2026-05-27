@@ -78,6 +78,29 @@ def test_execute_web_blocked_when_allow_web_false(agent_config: AgentConfig):
     assert result.get("error") == "web_search disabled for this turn"
 
 
+def test_load_episode_unlistened_ep_0191(agent_config: AgentConfig):
+    result = execute_tool(
+        "load_episode",
+        {"episode_id": "ep-0191"},
+        config=agent_config,
+        allow_web=False,
+    )
+    assert result["episode_id"] == "ep-0191"
+    assert result["meta"]["listened"] is False
+    assert "expanded" not in result.get("sections", {})
+
+
+def test_list_episode_ids_includes_listened_flag(agent_config: AgentConfig):
+    result = execute_tool(
+        "list_episode_ids",
+        {"query": "Naval Ravikant", "limit": 3},
+        config=agent_config,
+        allow_web=False,
+    )
+    naval = next(e for e in result["episodes"] if e["episode_id"] == "ep-0191")
+    assert naval["listened"] is False
+
+
 def _fake_tool_call(name: str, arguments: dict, *, call_id: str = "call_1"):
     return SimpleNamespace(
         id=call_id,
@@ -157,6 +180,27 @@ def test_run_turn_forces_final_answer_on_last_step(agent_config: AgentConfig):
     assert not result.error
     assert "ep-0100" in result.content
     assert calls[-1].get("tool_choice") == "none"
+
+
+def test_run_turn_final_step_ignores_tool_calls(agent_config: AgentConfig):
+    def fake_completion(**kwargs):
+        if kwargs.get("tool_choice") == "none":
+            return _fake_response(
+                tool_calls=[_fake_tool_call("search_vault_parent", {"query": "naval"})],
+                content="You have not studied ep-0191 yet.",
+            )
+        return _fake_response(
+            tool_calls=[
+                _fake_tool_call("list_episode_ids", {"query": "Naval"}, call_id="c1"),
+            ],
+        )
+
+    agent = VaultAgent(config=agent_config)
+    result = agent.run_turn("What about Naval ep 191?", completion_fn=fake_completion)
+
+    assert not result.error
+    assert "ep-0191" in result.content or "studied" in result.content.lower()
+    assert "step limit" not in result.content.lower()
 
 
 def test_run_turn_allows_web_tool_registration(agent_config: AgentConfig):

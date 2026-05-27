@@ -91,6 +91,14 @@ def _load_catalog_rows(vault_root: Path) -> list[dict[str, Any]]:
     return load_jsonl(vault_root / "catalog" / "episodes.jsonl")
 
 
+def _episode_listened(notes_path: Path) -> bool:
+    if not notes_path.is_file():
+        return False
+    from markdown_io import has_timestamp_datapoints
+
+    return has_timestamp_datapoints(notes_path)
+
+
 def load_episode(episode_id: str, *, char_cap: int = 30_000) -> dict[str, Any]:
     """Load on-disk post / notes / expanded; expanded sections first when present."""
     vault_root = _ensure_ingestion_path()
@@ -131,7 +139,20 @@ def load_episode(episode_id: str, *, char_cap: int = 30_000) -> dict[str, Any]:
             remaining = 0
             break
 
-    return {"episode_id": ep_id, "sections": trimmed}
+    notes_path = notes_path_fn(ep_id, slug, num)
+    if not notes_path.is_absolute():
+        notes_path = vault_root / notes_path
+
+    return {
+        "episode_id": ep_id,
+        "sections": trimmed,
+        "meta": {
+            "listened": _episode_listened(notes_path),
+            "has_expanded": "expanded" in trimmed,
+            "has_post": "post" in trimmed,
+            "title": row.get("title"),
+        },
+    }
 
 
 _EPISODE_REF_RE = re.compile(
@@ -180,16 +201,26 @@ def list_episode_ids(query: str, *, limit: int = 8) -> dict[str, Any]:
         seen.add(rid)
         unique.append((score, row))
 
-    episodes = [
-        {
-            "episode_id": row["id"],
-            "title": row.get("title"),
-            "episode_number": row.get("episode_number"),
-            "founders_url": row.get("founders_url"),
-            "score": round(score, 3),
-        }
-        for score, row in unique[:limit]
-    ]
+    from paths import notes_file_path
+
+    episodes = []
+    for score, row in unique[:limit]:
+        ep_id = row["id"]
+        slug = row.get("slug", "")
+        num = row.get("episode_number")
+        npath = notes_file_path(ep_id, slug, num)
+        if not npath.is_absolute():
+            npath = vault_root / npath
+        episodes.append(
+            {
+                "episode_id": ep_id,
+                "title": row.get("title"),
+                "episode_number": row.get("episode_number"),
+                "founders_url": row.get("founders_url"),
+                "score": round(score, 3),
+                "listened": _episode_listened(npath),
+            }
+        )
     return {"query": query, "episodes": episodes}
 
 

@@ -44,6 +44,17 @@ Typical flow: `search_vault_parent` once → answer from hits. Call `load_episod
 - Suggest `search_transcript` if dialogue might exist but parent-tier notes/posts do not.
 - Do not fabricate content to fill gaps.
 
+## Episodes you have not studied yet (`listened: false`)
+
+Many catalog episodes exist as transcripts only until you add timestamp bullets in `.notes.md`.
+
+- If the user names a guest or episode number, call `list_episode_ids` once, then `load_episode` for the best match.
+- When `meta.listened` is **false** (notes are an empty scaffold — only `## Raw datapoints` with no timestamp bullets):
+  - Say clearly that you have **not studied / listened to that episode yet** in this vault.
+  - Do **not** call `search_transcript` for that episode (transcript is excluded from search until studied).
+  - Do **not** keep searching other tools hoping to find a substitute — one `list_episode_ids` + one `load_episode` is enough.
+- If `search_vault_parent` returns hits for **other** episodes but not the episode the user asked about, do not treat those as answers about the requested episode. Explain the gap instead.
+
 ## Web search
 
 - If `allow_web` is **false**, do not call `web_search` under any circumstance.
