@@ -202,7 +202,7 @@ services/telegram/
 | `TELEGRAM_ALLOWED_USER_IDS` | v0 | Comma-separated numeric user ids |
 | `TELEGRAM_GATE_PASSWORD` | v0 | Optional shared password |
 | `OPENROUTER_API_KEY` | v1 | Embeddings |
-| `OPENROUTER_EMBED_MODEL` | v1 | e.g. `openai/text-embedding-3-small` slug |
+| `OPENROUTER_EMBED_MODEL` | v1 | Any OpenRouter embedding slug (operator choice) |
 | `VAULT_ROOT` | v0 | Path to repo root (default: parent of `services/`) |
 
 Secrets live in Cloud Run / local `.env` — **not** committed.

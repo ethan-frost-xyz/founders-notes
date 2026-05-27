@@ -64,6 +64,7 @@ Copy templates: [`services/telegram/deploy/env.example`](../services/telegram/de
 | `JANITOR_CLEAN_TEMPERATURE` | Optional (default `0.2`) |
 | `OPENROUTER_MODEL` | Expand subprocess when you tap Approve |
 | `OPENROUTER_API_KEY` | Chat + embed + expand (set in Telegram env and/or root `.env`) |
+| `OPENROUTER_EMBED_MODEL` | Parent-tier index (`build_embeddings.py`); any OpenRouter embedding slug |
 | `VAULT_ROOT` | Git clone path |
 
 ## After promote

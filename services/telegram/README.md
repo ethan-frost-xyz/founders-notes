@@ -67,7 +67,7 @@ export $(grep -v '^#' ~/.config/founders-telegram/env | xargs)  # or source manu
 services/telegram/deploy/sync-and-index.sh
 ```
 
-Requires `OPENROUTER_API_KEY` and `OPENROUTER_EMBED_MODEL` for embeddings.
+Requires `OPENROUTER_API_KEY` and `OPENROUTER_EMBED_MODEL` (any OpenRouter embedding slug) for embeddings.
 
 ### 4. launchd (always-on bot)
 
@@ -157,7 +157,7 @@ Set bot vars in `~/.config/founders-telegram/env`. Ensure `{VAULT_ROOT}/.env` ha
 | `JANITOR_CLEAN_MODEL` | Janitor **paste clean** (required for `/janitor`; LLM-first, e.g. `groq/llama-3.1-8b-instant`) |
 | `JANITOR_CLEAN_TEMPERATURE` | Optional (default `0.2`) |
 | `OPENROUTER_MODEL` | Janitor **expand** subprocess (`expand_datapoints_llm.py`) |
-| `OPENROUTER_EMBED_MODEL` | Parent-tier embeddings |
+| `OPENROUTER_EMBED_MODEL` | Parent-tier embeddings (any OpenRouter embedding slug) |
 | `TELEGRAM_MAX_STEPS` | Optional (default 5) |
 | `WEB_SEARCH_API_KEY` | SP3.1 — `/web` provider (stub until wired) |
 
