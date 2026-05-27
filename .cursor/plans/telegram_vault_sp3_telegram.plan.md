@@ -12,7 +12,7 @@ todos:
     content: bot/tools/web.py returns not configured until WEB_SEARCH_API_KEY (SP3.1)
     status: pending
   - id: requirements
-    content: python-telegram-bot>=21 in services/telegram/requirements.txt or ingestion/requirements.txt
+    content: services/telegram/requirements.txt with python-telegram-bot>=21 (separate from ingestion)
     status: pending
   - id: gitignore-sessions
     content: catalog/telegram-sessions/ gitignored
@@ -41,20 +41,21 @@ Polling bot on Mac mini (dev: local polling). Solo allowlist. In-memory sessions
 
 ```
 services/telegram/bot/
+  __main__.py        # entrypoint: python -m services.telegram.bot
   handlers.py
   sessions.py
   auth.py
-  config.py          # may extend SP2 config
-  tools/web.py       # stub until provider
+  config.py          # SP2 already created this — extend, do not duplicate
+  tools/web.py       # promote SP2 inline stub to module; returns not configured until provider
 ```
 
-Entrypoint: `python -m` or `services/telegram/bot/__main__.py` (choose one convention; document in README).
+`services/telegram/requirements.txt` — `python-telegram-bot>=21` (separate from `ingestion/requirements.txt`).
 
 ## Commands
 
 | Command | Behavior |
 |---------|----------|
-| `/start` | Help, index stats, tool list |
+| `/start` | Slash command help + vault stats (episode count, last indexed) |
 | `/clear` | Wipe in-memory thread |
 | `/newchat` | Export thread → `catalog/telegram-sessions/*.jsonl`; reset |
 | `/resume` | Load session; warn if index newer than session (warn-only v0) |
@@ -87,7 +88,7 @@ Entrypoint: `python -m` or `services/telegram/bot/__main__.py` (choose one conve
 
 ## Library
 
-`python-telegram-bot` v21+.
+`python-telegram-bot` v21+ in `services/telegram/requirements.txt`. Keep Telegram deps isolated from `ingestion/requirements.txt`.
 
 ## Verify before commit
 

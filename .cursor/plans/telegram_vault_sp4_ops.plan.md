@@ -9,7 +9,7 @@ todos:
     content: services/telegram/deploy/com.founders.telegram.bot.plist + load instructions
     status: pending
   - id: env-template
-    content: deploy/env.example → copy to ~/.config/founders-telegram/env
+    content: services/telegram/deploy/env.example → template for ~/.config/founders-telegram/env
     status: pending
   - id: ops-readme
     content: services/telegram/README.md — install, cron, manual sync, troubleshooting
@@ -38,7 +38,7 @@ Always-on Mac mini: bot via `launchd`, index refresh via manual/cron script (no 
 |------|---------|
 | [`services/telegram/deploy/sync-and-index.sh`](../../services/telegram/deploy/sync-and-index.sh) | `cd $VAULT_ROOT && git pull && cd ingestion && python search/build_chunks.py && python search/build_embeddings.py` |
 | [`services/telegram/deploy/com.founders.telegram.bot.plist`](../../services/telegram/deploy/com.founders.telegram.bot.plist) | `launchd` — `VAULT_ROOT`, env file, working directory |
-| [`services/telegram/deploy/env.example`](../../services/telegram/deploy/env.example) | Template for `~/.config/founders-telegram/env` |
+| [`services/telegram/deploy/env.example`](../../services/telegram/deploy/env.example) | Template → copy to `~/.config/founders-telegram/env` on Mac mini |
 | [`services/telegram/README.md`](../../services/telegram/README.md) | Install, `launchctl load`, cron example, sync cadence |
 
 ## `sync-and-index.sh`
@@ -59,10 +59,10 @@ Example: daily `sync-and-index.sh` at 04:00 local — user enables manually.
 
 ## Post-SP4 PR checklist
 
-- [ ] SP1–SP4 commits on `feature/telegram-vault-bot`
-- [ ] Master plan + sub-plans committed with final SP4 commit (per AGENTS.md)
+- [ ] SP1–SP4 commits on `feature/telegram-vault-bot` (one commit per SP)
+- [ ] Each SP commit includes its own sub-plan `.plan.md` (SP1 with SP1 commit, etc.); this SP4 commit includes `telegram_vault_sp4_ops.plan.md`
 - [ ] `pytest` + `verify.py` green
-- [ ] PR description links master + verify-this table from master plan
+- [ ] PR description links master index + verify-this table (master § Success criteria)
 
 ## Commit message
 

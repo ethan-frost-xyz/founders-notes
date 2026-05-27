@@ -3,7 +3,7 @@ name: Telegram Vault SP1 — Tools + indexes
 overview: "Vault search backends and parent-tier embeddings. No Telegram, no agent loop. Prerequisite for SP2."
 todos:
   - id: search-retrieval
-    content: ingestion/lib/search_retrieval.py — parent/transcript filters, keyword, vector, RRF hybrid, load_excerpt
+    content: ingestion/lib/search_retrieval.py — parent/transcript filters, keyword, vector, RRF hybrid, load_chunk_source_excerpt
     status: pending
   - id: build-embeddings
     content: ingestion/search/build_embeddings.py — incremental parent-only vectors + manifest
@@ -12,7 +12,7 @@ todos:
     content: services/telegram/bot/tools/vault.py — JSON evidence functions (no OpenRouter)
     status: pending
   - id: fixture-tests
-    content: tests/fixtures/chunks_parent_slice.jsonl + pytest for filters, hybrid, embed skip
+    content: ingestion/fixtures/chunks_parent_slice.jsonl + ingestion/tests/test_search_retrieval.py for filters, hybrid, embed skip
     status: pending
   - id: gitignore
     content: Gitignore catalog/embeddings.npy and catalog/embeddings-manifest.jsonl
@@ -44,7 +44,8 @@ Tool backends + indexes testable without API keys. Pure Python functions in `vau
 | [`ingestion/lib/search_retrieval.py`](../../ingestion/lib/search_retrieval.py) | `is_parent_chunk`, `is_transcript_chunk`, keyword search, vector search, `load_chunk_source_excerpt`, `hybrid_search_parent(query, k)` |
 | [`ingestion/search/build_embeddings.py`](../../ingestion/search/build_embeddings.py) | Incremental parent-only vectors |
 | [`services/telegram/bot/tools/vault.py`](../../services/telegram/bot/tools/vault.py) | `search_vault_parent`, `search_transcript`, `load_episode`, `list_episode_ids` |
-| [`tests/fixtures/chunks_parent_slice.jsonl`](../../tests/fixtures/chunks_parent_slice.jsonl) | Synthetic rows incl. one `expanded:*` (no live corpus dependency) |
+| [`ingestion/fixtures/chunks_parent_slice.jsonl`](../../ingestion/fixtures/chunks_parent_slice.jsonl) | Synthetic rows incl. one `expanded:*` (no live corpus dependency) |
+| [`ingestion/tests/test_search_retrieval.py`](../../ingestion/tests/test_search_retrieval.py) | pytest — parent filter, hybrid ordering, embed incremental skip |
 | `.gitignore` | `catalog/embeddings.npy`, `catalog/embeddings-manifest.jsonl` |
 
 **Dependency:** `numpy` for embeddings (add to `ingestion/requirements.txt` if missing).
@@ -62,7 +63,9 @@ Tool backends + indexes testable without API keys. Pure Python functions in `vau
 | `list_episode_ids` | Fuzzy match on `catalog/episodes.jsonl` `title` + numeric episode number → `ep-NNNN` |
 | `load_episode` | All on-disk sections truncated; when `.expanded.md` exists, **expanded sections first** in combined blob (~30k char cap total) |
 
-### Evidence shape (tool return)
+### Evidence shape (implement against master § Shared contracts — canonical)
+
+Reproduced here for the implementing agent:
 
 ```json
 {
@@ -82,7 +85,7 @@ Tool backends + indexes testable without API keys. Pure Python functions in `vau
 }
 ```
 
-`load_episode` returns `{ "episode_id", "sections": { "post": "...", "notes": "...", "expanded": "..." } }`.
+`load_episode` returns `{ "episode_id": "...", "sections": { "post": "...", "notes": "...", "expanded": "..." } }` — only sections present on disk; expanded sections listed first; truncated to ~30k chars total.
 
 ## Tool functions (v0)
 

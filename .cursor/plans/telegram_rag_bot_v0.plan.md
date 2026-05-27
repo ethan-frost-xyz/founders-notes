@@ -111,7 +111,7 @@ sequenceDiagram
   Bot->>User: reply
 ```
 
-### Evidence JSON (search tools)
+### Evidence JSON (canonical — search tools)
 
 ```json
 {
@@ -119,13 +119,17 @@ sequenceDiagram
     "chunk_id": "ep-0022#notes:raw_datapoints#12",
     "episode_id": "ep-0022",
     "section": "notes:raw_datapoints",
+    "title": "...",
     "source_path": "content/notes/.../....notes.md",
     "start_line": 42,
-    "excerpt": "..."
+    "excerpt": "...",
+    "founders_url": "https://..."
   }],
   "meta": { "query": "...", "tier": "parent", "k": 8 }
 }
 ```
+
+`load_episode` returns `{ "episode_id": "...", "sections": { "post": "...", "notes": "...", "expanded": "..." } }` — sections present only when the file exists on disk; truncated to ~30k chars total; expanded sections appear first when present.
 
 ### Source priority
 
@@ -203,9 +207,9 @@ Push → `git pull` → `sync-and-index.sh`; exposure TBD (Tailscale preferred).
 
 ### Open questions
 
-- Web provider: SP3.1 Tavily or Brave + `WEB_SEARCH_API_KEY`
-- Session naming: `{utc_iso}_{short_slug}.jsonl` (locked)
-- `TELEGRAM_MAX_STEPS=3` env for cheap mode
+- Web provider for `/web`: SP3.1 — Tavily or Brave once `WEB_SEARCH_API_KEY` is set; v0 stub returns `{"error":"not configured"}`
+
+**Decided (not open):** session naming locked as `{utc_iso}_{short_slug}.jsonl`; `TELEGRAM_MAX_STEPS` optional env override (default 5).
 
 ---
 
@@ -214,15 +218,18 @@ Push → `git pull` → `sync-and-index.sh`; exposure TBD (Tailscale preferred).
 ```
 Implement Founders Telegram vault agent — ONE sub-plan only.
 
-Read and follow ONLY:
-.cursor/plans/telegram_vault_spN_....plan.md   # pick SP1–SP4
+Read and follow ONLY the plan for the current SP, e.g.:
+  .cursor/plans/telegram_vault_sp1_tools.plan.md   (SP1)
+  .cursor/plans/telegram_vault_sp2_agent.plan.md   (SP2)
+  .cursor/plans/telegram_vault_sp3_telegram.plan.md (SP3)
+  .cursor/plans/telegram_vault_sp4_ops.plan.md     (SP4)
 
-Skim contracts if needed:
-.cursor/plans/telegram_rag_bot_v0.plan.md      # master index — do not implement from memory
+Skim for contracts/decisions if something is ambiguous:
+  .cursor/plans/telegram_rag_bot_v0.plan.md  (master index — do not implement from here)
 
 Branch: feature/telegram-vault-bot
 Before commit: cd ingestion && pytest -q && python pipeline/verify.py
-One commit for this SP only. Include the sub-plan file in the commit.
+One commit for this SP only. Include the sub-plan .plan.md in the commit.
 Do not start the next SP in the same session.
 ```
 

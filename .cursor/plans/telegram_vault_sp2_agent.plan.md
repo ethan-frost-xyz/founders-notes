@@ -28,6 +28,8 @@ isProject: false
 
 Implement **only** `VaultAgent.run_turn()` and prompt. Wire tools to SP1 `vault.py`. Do **not** add `python-telegram-bot`, handlers, or `launchd`.
 
+**`web_search` in SP2:** register its JSON schema and add an inline stub that returns `{"error":"not configured"}` — SP3 promotes this to `bot/tools/web.py`. Do not create `web.py` in this SP.
+
 ## Goal
 
 Multi-step OpenRouter chat with tool calling until final answer or `max_steps`.
@@ -38,7 +40,7 @@ Multi-step OpenRouter chat with tool calling until final answer or `max_steps`.
 |------|---------|
 | [`services/telegram/prompts/vault_agent.md`](../../services/telegram/prompts/vault_agent.md) | Study-notes voice, tool-use policy, citation rules |
 | [`services/telegram/bot/agent.py`](../../services/telegram/bot/agent.py) | Tool loop, accumulate tool results, errors |
-| [`services/telegram/bot/config.py`](../../services/telegram/bot/config.py) | Env: `OPENROUTER_API_KEY`, `TELEGRAM_CHAT_MODEL`, `VAULT_ROOT`, optional `TELEGRAM_MAX_STEPS` |
+| [`services/telegram/bot/config.py`](../../services/telegram/bot/config.py) | Env: `OPENROUTER_API_KEY`, `TELEGRAM_CHAT_MODEL`, `VAULT_ROOT`, optional `TELEGRAM_MAX_STEPS` (default 5) |
 
 **OpenRouter client:** Same pattern as [`expand_llm.py`](../../ingestion/lib/expand_llm.py) (OpenAI client + OpenRouter base URL). Expand does not use tools today — **tool loop is new here**.
 
