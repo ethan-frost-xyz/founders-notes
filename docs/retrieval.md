@@ -10,7 +10,7 @@
 - **Index:** `catalog/chunks.jsonl` via `ingestion/search/build_chunks.py`
 - **Search:** `ingestion/search/search.py "query"`
 - **Chunk id:** `{episode_id}#{section}#{start_line}` — stable for reindexing (`episode_id` is padded, e.g. `ep-0200`)
-- **Sections:** `transcript:description`, `transcript:transcript`, `notes:raw_datapoints`, `post:body`, `notes:expanded_datapoints` (when `.expanded.md` exists), etc.
+- **Sections:** `transcript:description`, `transcript:transcript`, `notes:raw_datapoints`, `post:body`, `expanded:*` (e.g. `expanded:expanded_datapoints` when canonical `.expanded.md` exists — from `build_chunks.py` content type `expanded`), etc.
 - **source_path:** points at `{folder}.{type}.md` files (see [`docs/episode-id-rules.md`](episode-id-rules.md))
 - **Per-chunk metadata** (from file frontmatter + catalog): `title`, `episode_number`, `content_type`, `published_at`, `founders_url`, `source`
 
@@ -67,8 +67,9 @@ Until then, v1 chunks + planned agent tools are sufficient for Cursor and Telegr
 
 ## Open questions (agent / retrieval)
 
-Tracked in the master plan; worth revisiting during SP1–SP3:
+Locked in master plan for v0; revisit in SP3.1 / SP6:
 
-1. **Web provider** for `/web` (Tavily, Brave, SerpAPI, etc.)?
-2. **`load_episode` default:** all sections vs expanded-only when `.expanded.md` exists?
-3. **`/resume` + stale index:** auto-run `sync-and-index.sh` vs warn-only when `chunks.jsonl` is newer than the session file?
+1. **Web provider** — v0 stub (`not configured`); Tavily or Brave when `WEB_SEARCH_API_KEY` is wired.
+2. **`load_episode`** — all on-disk sections, truncated; expanded sections ordered first when present.
+3. **`/resume` + stale index** — v0 warn-only; auto-sync deferred.
+4. **Hybrid quality** — optional golden query set in SP6 (MRR@8 vs keyword-only).

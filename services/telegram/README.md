@@ -2,7 +2,7 @@
 
 Private on-the-go access to the Founders vault via a **tool-calling agent** — not a fixed embed→top-k→answer pipeline.
 
-**Status:** Not implemented. **Git:** Implement on `main` in focused commits (see master plan).
+**Status:** Not implemented. **Git:** Branch `feature/telegram-vault-bot` off `main`; one focused commit per sub-plan SP1–SP4; merge via PR (see master plan).
 
 ## Plans
 
@@ -53,6 +53,6 @@ Target layout (see master plan): `services/telegram/bot/agent.py`, `bot/tools/va
 | `OPENROUTER_API_KEY` | Chat + embed API |
 | `TELEGRAM_CHAT_MODEL` | Agent model (faster/cheaper than expand) |
 | `OPENROUTER_EMBED_MODEL` | Parent-tier vectors for `search_vault_parent` |
-| `WEB_SEARCH_API_KEY` | External search when `/web` is implemented (SP3+) |
+| `WEB_SEARCH_API_KEY` | External search when `/web` provider is wired (SP3.1; v0 stub returns `not configured`) |
 
-Do not add runtime code here until SP1 starts on `feature/telegram-vault-bot`.
+SP1+ implementation lives on `feature/telegram-vault-bot` — see master plan before adding `bot/` code.

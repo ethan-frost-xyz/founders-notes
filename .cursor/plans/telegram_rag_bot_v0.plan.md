@@ -1,34 +1,34 @@
 ---
 name: Telegram Vault Agent v0
-overview: "Master plan for a private Mac-mini Telegram vault agent: tool-calling over posts/notes/expanded/transcripts (hybrid chunk search + embeddings as tools, not naive RAG-only), study-notes synthesis, /web for external search only, solo allowlist, session jsonl export. Implement on main in focused commits; sub-plans per area."
+overview: "Master plan for a private Mac-mini Telegram vault agent: tool-calling over posts/notes/expanded/transcripts (hybrid chunk search + embeddings as tools, not naive RAG-only), study-notes synthesis, /web for external search only, solo allowlist, session jsonl export. Implement on feature/telegram-vault-bot with focused commits per sub-plan; merge via PR."
 todos:
   - id: branch
-    content: "Implement on main (no feature branch required); focused commits per sub-plan"
+    content: Branch feature/telegram-vault-bot off main; focused commits per sub-plan; merge via PR
     status: completed
   - id: sp1-vault-tools
-    content: "Sub-plan 1 — search_retrieval lib + build_embeddings + vault tool implementations + tests"
+    content: Sub-plan 1 — search_retrieval lib + build_embeddings + vault tool implementations + tests
     status: pending
   - id: sp2-agent-loop
-    content: "Sub-plan 2 — OpenRouter tool-calling agent, vault_agent.md prompt, max steps + citations"
+    content: Sub-plan 2 — OpenRouter tool-calling agent, vault_agent.md prompt, max steps + citations
     status: pending
   - id: sp3-telegram-sessions
-    content: "Sub-plan 3 — python-telegram-bot, allowlist, /newchat /resume /clear, /web gate"
+    content: Sub-plan 3 — python-telegram-bot, allowlist, /newchat /resume /clear, /web gate
     status: pending
   - id: sp4-mac-mini-ops
-    content: "Sub-plan 4 — launchd plist, sync-and-index.sh (manual + optional cron), README ops"
+    content: Sub-plan 4 — launchd plist, sync-and-index.sh (manual + optional cron), README ops
     status: pending
   - id: sp5-webhook-deferred
-    content: "Sub-plan 5 (later) — GitHub push webhook → pull + reindex; Tailscale/tunnel TBD"
+    content: Sub-plan 5 (later) — GitHub push webhook → pull + reindex; Tailscale/tunnel TBD
     status: pending
   - id: sp6-tool-tuning
-    content: "Sub-plan 6 (v0.1) — tool descriptions, episode router, optional LLM rerank inside search_parent"
+    content: Sub-plan 6 (v0.1) — tool descriptions, episode router, optional LLM rerank inside search_parent
     status: pending
   - id: docs-handoff
-    content: "Run Appendix A handoff prompt in a separate agent session to sync AGENTS.md, README, retrieval.md, etc."
-    status: pending
+    content: Run Appendix A handoff prompt in a separate agent session to sync AGENTS.md, README, retrieval.md, etc.
+    status: completed
   - id: docs-supersede
-    content: "After docs handoff — verify links point to telegram_rag_bot_v0.plan.md not stale RAG-only wording"
-    status: pending
+    content: After docs handoff — verify links point to telegram_rag_bot_v0.plan.md not stale RAG-only wording
+    status: completed
 isProject: false
 ---
 
@@ -75,7 +75,7 @@ Embeddings remain **one retrieval mechanism inside tools**, not the whole produc
 | Auth | Solo `TELEGRAM_ALLOWED_USER_IDS` |
 | Sessions | In-memory; `/clear`; `/newchat` → export jsonl; `/resume` |
 | Sync v0 | Manual / cron `sync-and-index.sh`; webhook deferred (SP5) |
-| Git | **`main`** — focused commits per sub-plan (no separate feature branch) |
+| Git | **`feature/telegram-vault-bot`** off `main` — focused commits per sub-plan; merge via PR |
 | Chat model | `TELEGRAM_CHAT_MODEL` (faster/cheaper than expand) |
 | Embed model | `OPENROUTER_EMBED_MODEL` inside `search_vault_parent` hybrid |
 
@@ -90,21 +90,22 @@ Embeddings remain **one retrieval mechanism inside tools**, not the whole produc
 
 ## Git workflow
 
-1. Work on **`main`** (pull before starting).
-2. Land changes in **focused commits** aligned to sub-plans (SP1 → SP2 → SP3 → SP4).
+1. Branch **`feature/telegram-vault-bot`** off `main` (pull `main` before branching).
+2. Land changes in **focused commits** aligned to sub-plans (SP1 → SP2 → SP3 → SP4) on the feature branch.
 3. **`pytest`** + **`ingestion/pipeline/verify.py`** green before each commit.
-4. Commit this plan with the first implementation commit (per [AGENTS.md](../../AGENTS.md) Cursor plans rule).
+4. Commit this plan with the first implementation commit on the feature branch (per [AGENTS.md](../../AGENTS.md) Cursor plans rule).
+5. Open a **PR into `main`** when SP1–SP4 (or an agreed slice) are ready; do not long-merge unrelated work on the feature branch.
 
 ```mermaid
 flowchart LR
   main[main]
-  main --> sp1[SP1 vault tools]
+  main --> feat[feature/telegram-vault-bot]
+  feat --> sp1[SP1 vault tools]
   sp1 --> sp2[SP2 agent]
   sp2 --> sp3[SP3 Telegram]
   sp3 --> sp4[SP4 deploy]
+  sp4 --> pr[PR merge to main]
 ```
-
-Optional: use PRs on GitHub for review, but **base branch is `main`** — no long-lived `feature/telegram-vault-bot` required.
 
 ---
 
@@ -179,7 +180,9 @@ Every search tool returns the same JSON array shape so the model learns one form
 }
 ```
 
-`load_episode` returns `{ "episode_id", "sections": { "post": "...", "notes": "...", "expanded": "..." } }` with per-section truncation.
+`load_episode` returns `{ "episode_id", "sections": { "post": "...", "notes": "...", "expanded": "..." } }` with per-section truncation. Tool hits expose **`episode_id`** (alias of chunk field `id`) for citations.
+
+**`load_episode` default (v0):** include all sections that exist on disk, truncated to the char cap; when `.expanded.md` exists, **order expanded sections first** in the combined blob (prompt priority, not omission).
 
 ### Tool catalog (v0)
 
@@ -212,7 +215,7 @@ Merge `search_vault_semantic` into `search_vault_parent` as hybrid (keyword ∪ 
 
 ### Failure modes
 
-- **No hits:** model must say vault has no match; suggest `/transcript` or refining query — no fabrication.
+- **No hits:** model must say vault has no match; suggest refining the query or using `search_transcript` for dialogue — no fabrication (no `/transcript` slash command in v0).
 - **Tool error:** return `{ "error": "..." }` in tool message; model retries or explains.
 - **OpenRouter timeout:** user sees short error; log episode/session id.
 
@@ -257,6 +260,21 @@ Implemented in [`services/telegram/bot/tools/`](../../services/telegram/bot/tool
 - `services/telegram/bot/tools/vault.py` — pure functions returning JSON-serializable evidence (testable without API)
 - Gitignore: `catalog/embeddings.npy`, `catalog/embeddings-manifest.jsonl`
 - Tests: parent filter, hybrid ordering, embed incremental skip
+- Fixture: `tests/fixtures/chunks_parent_slice.jsonl` with at least one synthetic `expanded:*` row (hybrid tests must not depend on live corpus)
+
+**SP1 acceptance criteria (mandatory):**
+
+| Item | Spec |
+|------|------|
+| `is_parent_chunk` | `section` matches `^(post\|notes\|expanded):` |
+| `is_transcript_chunk` | `section` matches `^transcript:` |
+| Keyword leg | Reuse/extend [search.py](../../ingestion/search/search.py) `search_chunks` (case-insensitive substring + hit-count rank) — **not** BM25 in v0 |
+| Vector leg | Cosine similarity over parent-tier rows in `catalog/embeddings.npy` aligned to `chunk_id` |
+| Hybrid merge | **RRF** on keyword rank + cosine rank; dedupe by `chunk_id`; optional score boost: `expanded:*` > `notes:*` > `post:*` (+0.1 tier steps) |
+| Evidence JSON | Every hit includes `episode_id` (= chunk `id`), `chunk_id`, `section`, `source_path`, `start_line`, `excerpt`, metadata fields when present |
+| `list_episode_ids` | Fuzzy match on `catalog/episodes.jsonl` `title` + numeric episode number → `ep-NNNN` |
+
+**Dependencies (SP1/SP3):** `numpy` for embeddings; `python-telegram-bot>=21` added in SP3 (or `services/telegram/requirements.txt` referenced from README).
 
 ---
 
@@ -268,7 +286,7 @@ Implemented in [`services/telegram/bot/tools/`](../../services/telegram/bot/tool
 
 - [`services/telegram/prompts/vault_agent.md`](../../services/telegram/prompts/vault_agent.md) — study-notes voice, tool-use policy, citation rules
 - [`services/telegram/bot/agent.py`](../../services/telegram/bot/agent.py) — loop: `max_steps=5`, accumulate tool results, handle errors
-- Tool JSON schemas registered with OpenRouter-compatible `tools` parameter (same pattern as `expand_llm` OpenAI client)
+- Tool JSON schemas registered with OpenRouter-compatible `tools` parameter (same **OpenAI client + OpenRouter base URL** as [expand_llm.py](../../ingestion/lib/expand_llm.py); add `tools` / multi-turn tool loop in `agent.py` — expand does not use tool calling today)
 - Log `tool_calls` in session jsonl for debugging (optional fields)
 
 **Cost/latency guardrails:**
@@ -292,9 +310,15 @@ Implemented in [`services/telegram/bot/tools/`](../../services/telegram/bot/tool
 | `/web <query>` | Run agent with **`allow_web=true`** only for that turn |
 | Free text | Agent with **`allow_web=false`** |
 
-**Library:** `python-telegram-bot` v21+.
+**Library:** `python-telegram-bot` v21+ (add to `ingestion/requirements.txt` or `services/telegram/requirements.txt`).
 
-**Env:** `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ALLOWED_USER_IDS`, `VAULT_ROOT`, `OPENROUTER_API_KEY`, `TELEGRAM_CHAT_MODEL`, `OPENROUTER_EMBED_MODEL`, `WEB_SEARCH_API_KEY` (when `/web` implemented).
+**`/web` v0:** `web_search` tool returns `{"error":"not configured"}` until a provider and `WEB_SEARCH_API_KEY` are chosen (SP3.1).
+
+**Session export naming:** `catalog/telegram-sessions/{utc_iso}_{short_slug}.jsonl` (gitignored).
+
+**`/resume` + stale index (v0):** warn-only if `chunks.jsonl` / embeddings manifest is newer than session file; auto-sync deferred to SP5/SP6.
+
+**Env:** `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ALLOWED_USER_IDS`, `VAULT_ROOT`, `OPENROUTER_API_KEY`, `TELEGRAM_CHAT_MODEL`, `OPENROUTER_EMBED_MODEL`, `WEB_SEARCH_API_KEY` (when `/web` provider wired).
 
 ---
 
@@ -344,15 +368,18 @@ catalog/telegram-sessions/      # gitignored
 
 ---
 
-## Commit sequence (on `main`)
+## Commit sequence (on `feature/telegram-vault-bot`)
 
-| Commit batch | Sub-plan | Delivers |
-|--------------|----------|----------|
-| 1 | SP1 | Indexes + vault tool functions + tests |
-| 2 | SP2 + SP3 | Agent + Telegram + sessions + `/web` stub or provider |
-| 3 | SP4 | launchd + ops docs |
+| Commit | Sub-plan | Delivers |
+|--------|----------|----------|
+| 1 | SP1 | Indexes + vault tool functions + tests + fixture slice |
+| 2 | SP2 | Agent loop + `vault_agent.md` + mock contract tests |
+| 3 | SP3 | Telegram + sessions + `/web` stub (`not configured`) |
+| 4 | SP4 | launchd + ops docs |
 | later | SP5 | Webhook |
 | later | SP6 | Rerank + UX polish |
+
+One commit per sub-plan keeps verify-this traceability (agent vs transport regressions).
 
 ---
 
@@ -360,8 +387,18 @@ catalog/telegram-sessions/      # gitignored
 
 - Thematic question → agent calls **parent search** (and maybe **load_episode**), then answers with quotes — not transcript walls.
 - `/web` is the **only** path to external search; vault Q&A never cites web without it.
-- After expanded promote + reindex, answers cite **Quote** / **Key takeaway** from `.expanded.md`.
+- **Expanded quotes (deferred until corpus ready):** after ≥1 promoted `.expanded.md` on the bot host and `sync-and-index.sh`, answers can cite **Quote** / **Key takeaway** from `.expanded.md` (`expanded:*` chunks in index). Until then this criterion is **not a v0 ship blocker** (today many clones have 0 `expanded:*` chunks).
 - Sessions export/resume on Mac mini; solo allowlist enforced.
+
+### Post-implementation verify-this (pytest / manual)
+
+| # | Claim | Check |
+|---|-------|-------|
+| 1 | Parent thematic Q avoids transcript walls | Mock turn: `search_vault_parent` in trace; no `search_transcript` unless dialogue asked |
+| 2 | Web only via `/web` | `allow_web=false` → `web_search` never in tool_calls |
+| 3 | Expanded hits after reindex | Promote one ep + reindex → `search_vault_parent` returns `expanded:*` with verbatim Quote |
+| 4 | Allowlist | Non-allowed user id → no agent call |
+| 5 | Session export | `/newchat` writes valid jsonl under `catalog/telegram-sessions/` |
 
 ---
 
@@ -379,9 +416,9 @@ catalog/telegram-sessions/      # gitignored
 
 ## Questions still worth a pass
 
-1. **Web provider** for `/web` (Tavily, Brave, etc.)?
-2. **Session file naming** (timestamp vs first-message slug)?
-3. **`load_episode`** default: all sections vs expanded-only when present?
+1. **Web provider** for `/web` — default v0: stub; SP3.1: Tavily or Brave when `WEB_SEARCH_API_KEY` is set.
+2. **Session file naming** — locked: `{utc_iso}_{short_slug}.jsonl` under `catalog/telegram-sessions/`.
+3. **`load_episode`** — locked: all on-disk sections, truncated; expanded sections first when present.
 
 ---
 
@@ -395,22 +432,22 @@ catalog/telegram-sessions/      # gitignored
 - **SP1 before SP3** avoids Telegram UX work before tool contracts exist.
 - Appendix A handoff separates **docs sync** from **code** for other agents.
 
-### Fixed in this revision
+### Fixed in plan review (May 2026)
 
-- **Git:** implement on `main` (no `feature/telegram-vault-bot`).
-- **Tools table:** removed duplicate `search_vault_semantic` row — hybrid lives only in `search_vault_parent`.
-- **Embed model** decision log aligned with hybrid parent search.
+- **Git:** `feature/telegram-vault-bot` + PR into `main`; one commit per sub-plan SP1–SP4.
+- **SP1:** RRF hybrid, parent/transcript filters, evidence `episode_id` alias, fixture slice — see SP1 acceptance criteria.
+- **Success #3:** expanded corpus precondition documented; not a v0 blocker with zero `expanded:*` chunks.
+- **Failure mode:** no `/transcript` slash in v0 — use `search_transcript` via agent.
+- **Tools table:** hybrid lives only in `search_vault_parent` (no separate semantic tool).
+- **OpenRouter:** reuse expand client pattern; tool loop is new in `agent.py`.
 
-### Still thin (address during SP1/SP2)
+### Still thin (address during SP2/SP6)
 
 | Gap | Recommendation |
 |-----|----------------|
-| Hybrid merge formula | Document in SP1: RRF or weighted score (keyword rank + cosine); default equal weight, expanded/notes boost |
 | `vault_agent.md` outline | Add stub sections in SP2 before coding agent loop |
-| `list_episode_ids` | Specify fuzzy match on `catalog/episodes.jsonl` title vs episode number |
-| `/web` in SP3 | Stub tool returning “not configured” until provider chosen |
-| AGENTS.md embeddings rule | Docs handoff must clarify: bot parent embed index ≠ repo-wide vector DB |
-| Stale doc links | Run Appendix A — `retrieval.md` / `AGENTS.md` still reference old RAG-only plan |
+| Hybrid vs keyword-only quality | Optional golden 10-query set in SP6 (MRR@8) |
+| Concurrent git pull on Mac mini | File lock or queue in v0.1 during `sync-and-index.sh` |
 
 ### Risk watch
 
@@ -445,7 +482,7 @@ Read first:
 5. **Web:** /web slash command ONLY — web_search tool disabled for normal messages; never silently mix web into vault answers.
 6. **Sessions:** In-memory chat; /clear; /newchat exports catalog/telegram-sessions/*.jsonl (gitignored); /resume reloads.
 7. **Index sync (v0):** manual or cron sync-and-index.sh (git pull + build_chunks + build_embeddings). GitHub webhook deferred.
-8. **Git:** Implement on **`main`** in focused commits (no feature branch required).
+8. **Git:** Implement on **`feature/telegram-vault-bot`**; focused commits per sub-plan; PR into `main`.
 9. **Build order:** SP1 vault tools → SP2 agent loop → SP3 Telegram → SP4 Mac mini deploy.
 10. **Embeddings:** Used inside search_vault_parent tool; AGENTS.md "no embeddings" rule means do not add repo-wide vector DB until chunk+agent search fails — Telegram embed index is scoped to parent chunks only.
 

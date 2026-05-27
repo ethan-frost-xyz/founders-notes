@@ -34,11 +34,11 @@ After expanded promote on the Mac mini (or any host running the bot), run the sa
 
 ## Build order and branch
 
-All implementation on **`feature/telegram-vault-bot`** off `main`:
+All implementation on **`feature/telegram-vault-bot`** off `main` (one commit per sub-plan; merge via PR):
 
-1. SP1 — vault tools + `search_retrieval` + `build_embeddings`
+1. SP1 — vault tools + `search_retrieval` + `build_embeddings` + test fixture slice
 2. SP2 — agent loop + `vault_agent.md` prompt
-3. SP3 — Telegram transport, allowlist, sessions, `/web` gate
+3. SP3 — Telegram transport, allowlist, sessions, `/web` stub
 4. SP4 — Mac mini `launchd` + ops
 
 Stub and env reference: [`services/telegram/README.md`](../services/telegram/README.md).

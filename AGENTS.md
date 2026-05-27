@@ -76,7 +76,7 @@ Full script index: `[ingestion/README.md](ingestion/README.md)`.
 | Verify         | `python pipeline/verify.py`                                                                                                                                 |
 
 
-Do not add a repo-wide vector DB unless grep + chunk index + agent-style search fail for your real queries. See `[docs/retrieval.md](docs/retrieval.md)`. **Telegram vault agent (planned):** OpenRouter **tool-calling** over vault sources — hybrid chunk search + **parent-tier-only** embeddings inside tools, not single-shot RAG. Master plan: `[.cursor/plans/telegram_rag_bot_v0.plan.md](.cursor/plans/telegram_rag_bot_v0.plan.md)`; overview: `[docs/telegram-vault-agent.md](docs/telegram-vault-agent.md)`. Implement on branch `feature/telegram-vault-bot`.
+Do not add a repo-wide vector DB unless grep + chunk index + agent-style search fail for your real queries. See `[docs/retrieval.md](docs/retrieval.md)`. **Telegram vault agent (planned):** OpenRouter **tool-calling** over vault sources — hybrid chunk search + **parent-tier-only** embeddings inside `search_vault_parent`, not single-shot embed→top-k→answer RAG. Master plan: `[.cursor/plans/telegram_rag_bot_v0.plan.md](.cursor/plans/telegram_rag_bot_v0.plan.md)`; overview: `[docs/telegram-vault-agent.md](docs/telegram-vault-agent.md)`. Implement on `feature/telegram-vault-bot` (focused commits per sub-plan SP1–SP4); merge via PR into `main`.
 
 ## Cursor plans
 

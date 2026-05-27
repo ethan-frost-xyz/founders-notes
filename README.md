@@ -155,7 +155,7 @@ python x/attribute_posts_llm.py --apply
 
 Private **Telegram vault agent** on an always-on Mac mini (polling): study-notes answers with quotes and `[ep-NNNN]` citations, not excerpt dumps.
 
-**Master plan:** [`.cursor/plans/telegram_rag_bot_v0.plan.md`](.cursor/plans/telegram_rag_bot_v0.plan.md) · **Overview:** [`docs/telegram-vault-agent.md`](docs/telegram-vault-agent.md) · **Stub:** [`services/telegram/README.md`](services/telegram/README.md) · Branch: `feature/telegram-vault-bot`
+**Master plan:** [`.cursor/plans/telegram_rag_bot_v0.plan.md`](.cursor/plans/telegram_rag_bot_v0.plan.md) · **Overview:** [`docs/telegram-vault-agent.md`](docs/telegram-vault-agent.md) · **Stub:** [`services/telegram/README.md`](services/telegram/README.md) · Branch: `feature/telegram-vault-bot` → PR to `main`
 
 1. **Agent + tools:** `TELEGRAM_CHAT_MODEL` with OpenRouter tool calling; retrieval inside `search_vault_parent` (hybrid keyword + parent-tier embeddings on `catalog/chunks.jsonl`), `search_transcript`, `load_episode` — not a single embed→top-k→answer pipeline.
 2. **Parent vs child sources:** Default tools hit **parent** tier (posts, `.expanded.md`, raw notes). **Transcript** chunks only when the agent calls `search_transcript` or the user needs dialogue depth.
