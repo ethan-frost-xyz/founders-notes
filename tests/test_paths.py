@@ -34,8 +34,6 @@ def test_expanded_draft_file_path():
 def test_staging_draft_file_path(tmp_path):
     from paths import staging_draft_file_path
 
-    root = tmp_path / "run"
-    p = staging_draft_file_path(root, "B", "ep-0001", "1-test", 1)
-    assert p.parent.name == "ep-0001-test"
-    assert "B" in p.parts
-    assert p.name.endswith(".expanded.draft.md")
+    root = tmp_path / "runs" / "tune-001"
+    p = staging_draft_file_path(root, "A", "ep-0001", "1-test", 1)
+    assert p == root / "A" / "ep-0001-test" / "ep-0001-test.expanded.draft.md"

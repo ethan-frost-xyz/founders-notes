@@ -4,7 +4,7 @@ Use this with the PR description. **Do not review commit-by-commit noise** — w
 
 ## TL;DR
 
-Private Telegram bot: OpenRouter **tool-calling** agent over the Founders vault (hybrid parent-tier search + transcript tools). Not single-shot RAG. ~2.4k lines, 4 commits, 25 pytest cases (no API keys).
+Private Telegram bot: OpenRouter **tool-calling** agent over the Founders vault (hybrid parent-tier search + transcript tools). Not single-shot RAG. ~2.4k lines, 4 commits. Full repo test suite: `pytest tests -q` from repo root (no API keys).
 
 ## Commit map (review in order)
 
@@ -36,8 +36,7 @@ Plans (context only): `.cursor/plans/telegram_rag_bot_v0.plan.md`, `telegram_vau
 
 - `tests/test_search_retrieval.py`
 - `tests/test_vault_agent.py`
-- `tests/test_telegram_bot.py`
-- `tests/test_telegram_deploy.py`
+- `tests/test_telegram_bot.py` (transport, sessions, deploy smoke)
 
 ## Risk areas
 
@@ -60,7 +59,7 @@ Long agent replies are split in `messaging.split_telegram_text` (4096-char Bot A
 ```bash
 cd /path/to/founders-notes
 ingestion/.venv/bin/pip install -r ingestion/requirements.txt -r ingestion/requirements-dev.txt -r services/telegram/requirements.txt
-ingestion/.venv/bin/python -m pytest tests/test_search_retrieval.py tests/test_vault_agent.py tests/test_telegram_bot.py tests/test_telegram_deploy.py -q
+ingestion/.venv/bin/python -m pytest tests/test_search_retrieval.py tests/test_vault_agent.py tests/test_telegram_bot.py -q
 ```
 
 Optional: `python pipeline/verify.py` from `ingestion/` (repo verify; unchanged contract).

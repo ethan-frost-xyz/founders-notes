@@ -45,7 +45,7 @@ Tool backends + indexes testable without API keys. Pure Python functions in `vau
 | [`ingestion/search/build_embeddings.py`](../../ingestion/search/build_embeddings.py) | Incremental parent-only vectors |
 | [`services/telegram/bot/tools/vault.py`](../../services/telegram/bot/tools/vault.py) | `search_vault_parent`, `search_transcript`, `load_episode`, `list_episode_ids` |
 | [`ingestion/fixtures/chunks_parent_slice.jsonl`](../../ingestion/fixtures/chunks_parent_slice.jsonl) | Synthetic rows incl. one `expanded:*` (no live corpus dependency) |
-| [`ingestion/tests/test_search_retrieval.py`](../../ingestion/tests/test_search_retrieval.py) | pytest — parent filter, hybrid ordering, embed incremental skip |
+| [`tests/test_search_retrieval.py`](../../tests/test_search_retrieval.py) | pytest — parent filter, hybrid ordering, embed incremental skip |
 | `.gitignore` | `catalog/embeddings.npy`, `catalog/embeddings-manifest.jsonl` |
 
 **Dependency:** `numpy` for embeddings (add to `ingestion/requirements.txt` if missing).
