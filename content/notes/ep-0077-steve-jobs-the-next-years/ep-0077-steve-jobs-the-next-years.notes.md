@@ -14,6 +14,6 @@ imported_at: "2026-05-21T19:05:42Z"
 
 - 16:23 — almost all fail in their quest to repeat history
 - 31:44 — Condoned reality distortion field
-- — He hired a full time interior designed as one of the first 10 employees
+- 31:44 — He hired a full time interior designed as one of the first 10 employees
 - 39:30 — save time and money
 - 1:29:30 — steve jobs quote

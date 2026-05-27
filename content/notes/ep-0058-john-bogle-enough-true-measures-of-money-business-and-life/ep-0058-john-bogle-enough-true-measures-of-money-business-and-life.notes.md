@@ -12,5 +12,4 @@ imported_at: "2026-05-21T19:05:42Z"
 
 ## Raw datapoints
 
-- 14:00 — too much emphasis on what can be counted and not enough on trusting and trusted
-- — Not everything that counts can be counted and not everything that can be counted counts... The way we act and the way we measure things are in conflict, and that's when it finally clicked for me.
+- 14:00 — too much emphasis on what can be counted and not enough on trusting and trusted — Not everything that counts can be counted and not everything that can be counted counts... The way we act and the way we measure things are in conflict, and that's when it finally clicked for me.

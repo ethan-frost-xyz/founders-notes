@@ -14,6 +14,4 @@ imported_at: "2026-05-21T19:05:42Z"
 
 - — 19/81 public private
 - 31:00 — reminder that egos exist and supercede fairness
-- 50:30 — "do not work with people who no clue what it means to care about people"
-- — This story is insane!
-- — Know everyone's name
+- 50:30 — "do not work with people who no clue what it means to care about people" — This story is insane! — Know everyone's name

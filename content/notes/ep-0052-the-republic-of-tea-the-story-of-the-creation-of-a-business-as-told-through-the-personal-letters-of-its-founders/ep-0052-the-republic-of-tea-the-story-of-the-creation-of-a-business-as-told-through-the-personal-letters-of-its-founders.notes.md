@@ -13,6 +13,6 @@ imported_at: "2026-05-21T19:05:42Z"
 ## Raw datapoints
 
 - — Book is about the story of idea generation, not the actual company
-- 49:30 — 56:00 — Mel goes on a silent Buddhist retreat specifically to cut off communication with Bill (first time founder). This was a strategic mentorship move to force Bill to stop "building plans" and face the "terror" of his own decision-making. Sometimes the best way to mentor is to remove support.
+- 49:30 — Mel goes on a silent Buddhist retreat specifically to cut off communication with Bill (first time founder). This was a strategic mentorship move to force Bill to stop "building plans" and face the "terror" of his own decision-making. Sometimes the best way to mentor is to remove support.
 - 43:00 — Happiness is not from doing things, happiness needs no cause. It comes from the inside, not outside.
 - 44:00 — Business always thrives on profit

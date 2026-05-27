@@ -14,4 +14,4 @@ imported_at: "2026-05-21T19:05:42Z"
 
 - 6:30 — father made sure Ben and his siblings were included in the the thought provoking conversations at house with kids
 - 28:00 — Internet is widening the gap between those who want to learn and those that want to be entertained
-- — Focus 50:50
+- 28:00 — Focus 50:50

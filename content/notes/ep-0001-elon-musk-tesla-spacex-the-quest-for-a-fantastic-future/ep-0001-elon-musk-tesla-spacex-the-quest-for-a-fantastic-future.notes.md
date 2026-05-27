@@ -12,8 +12,6 @@ imported_at: "2026-05-21T19:05:42Z"
 
 ## Raw datapoints
 
-- 49:20 — [approx] solar thesis (from "49 minutes 20 seconds" in raw)
-- — At the time, Musk had less than 30 total successful launches, now has over 550
-- — Solar thesis was very
-- 55:20 — Elon has way more ideas than he has time, he was just getting started (12:00)
+- 49:20 — solar thesis
+- 55:20 — Elon has way more ideas than he has time, he was just getting started
 - 14:00 — His real passion was teaching the deaf

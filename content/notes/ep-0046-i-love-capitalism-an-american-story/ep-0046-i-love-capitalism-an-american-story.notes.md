@@ -12,7 +12,7 @@ imported_at: "2026-05-21T19:05:42Z"
 
 ## Raw datapoints
 
-- 0:1:00 — winners and losers defined by ability to turn adversity around to resilience and creativity
+- 0:01:00 — winners and losers defined by ability to turn adversity around to resilience and creativity
 - — Constantly following up
 - 49:00 — hubris and redemption
 - 1:00:00 — sol price advice tells him to do home depor

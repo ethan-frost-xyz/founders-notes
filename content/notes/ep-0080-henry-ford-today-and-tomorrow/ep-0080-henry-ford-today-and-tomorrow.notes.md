@@ -21,6 +21,6 @@ imported_at: "2026-05-21T19:05:42Z"
 - 27:37 — Best customers services is customer service that is never required
 - 30:21 — Wasted time there is no salvage, time does not litter the floor like materials on the floor of the factory
 - 32:00 — Wage motive
-- — Underpaid man is a customer that cannot buy
+- 32:00 — Underpaid man is a customer that cannot buy
 - 35:00 — Four principles of management
 - 38:00 — What do I want to do? (actions should lead to objective)

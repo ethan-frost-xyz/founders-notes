@@ -21,5 +21,5 @@ imported_at: "2026-05-21T19:05:42Z"
 - 1:00:44 — Be frugal mfer
 - 1:05:15 — Focus on customers, listen to them, but not always, invent on their behalf
 - 1:27:00 — Avoid one size fits all decision making
-- — For example, some decisions are one way doors, you must think slowly through decisions. Two way door decisions must be made quickly by a small set of smart leadership.
+- 1:27:00 — For example, some decisions are one way doors, you must think slowly through decisions. Two way door decisions must be made quickly by a small set of smart leadership.
 - 1:32:02 — The process is not the thing

@@ -17,5 +17,4 @@ imported_at: "2026-05-21T19:05:42Z"
 - 21:19 — Doubt avoidance tendency
 - 35:32 — Understand probability
 - 41:05 — Passion is more powerful than brain cells (Critical point of Ben Horowitz)
-- 46:10 — Frugal again
-- — Latticework models that cover most of your ground
+- 46:10 — Frugal again — Latticework models that cover most of your ground

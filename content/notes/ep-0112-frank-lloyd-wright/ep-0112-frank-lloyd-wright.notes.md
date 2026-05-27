@@ -23,4 +23,4 @@ imported_at: "2026-05-21T19:05:42Z"
 - 1:08:30 — Back against wall, late 1932, he never gave up
 - 1:18:15 — She gave him a strength that was unquantifiable
 - 1:19:00 — requires spiritual quality quote
-- — "Champions behave like champions before they're champions" - Bill Walsh
+- 1:08:30 — "Champions behave like champions before they're champions" - Bill Walsh

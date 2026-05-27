@@ -19,4 +19,4 @@ imported_at: "2026-05-21T19:05:42Z"
 - — 1960 calc as consumer tech bubbles
 - — IBM helped Msft, Msft helps OpenAI
 - 52:00 — regret
-- — Not worth the one life you have
+- 56:00 — Not worth the one life you have

@@ -15,9 +15,8 @@ imported_at: "2026-05-21T19:05:42Z"
 - — constraints make the business model
 - — Due to owners apprehension the business model was born
 - — Best was ahead of me while he's 50
-- 11:38 —
 - 21:45 — Jack dorsey
-- — real estate play
+- 37:00 — real estate play
 - 40:30 — Bruce Lee everything you do
 - 52:00 — women allowed on stock exchange
 - 55:00 — business is not like painting

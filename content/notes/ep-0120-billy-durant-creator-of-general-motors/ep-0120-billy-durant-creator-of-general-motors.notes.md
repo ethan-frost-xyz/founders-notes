@@ -21,4 +21,4 @@ imported_at: "2026-05-21T19:05:42Z"
 - 56:30 — He starts Chevy then fridgidair
 - 57:00 — He was 95% complete and that 5% screwed him despite multi once in a lifetime businesses
 - 1:05:00 — Opposite of Marc spindle and hetty green
-- — "The unusual happens usually"
+- 1:05:00 — "The unusual happens usually"

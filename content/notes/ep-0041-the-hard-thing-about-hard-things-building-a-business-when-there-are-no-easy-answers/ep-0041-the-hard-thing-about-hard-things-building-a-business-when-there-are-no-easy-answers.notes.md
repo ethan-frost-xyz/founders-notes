@@ -14,5 +14,4 @@ imported_at: "2026-05-21T19:05:42Z"
 
 - 36:24 — 100 100 intelligence determination
 - 42:00 — when to sell your company
-- 49:30 — embraces weirdness "embrace your weirdness, your background, your instinct. If the keys are not in there, they do not exist. I can relate to what they're going through, but I cannot tell them what to do. I can only help them find it in themselves"
-- — Dinosaurs bit about the industry
+- 49:30 — embraces weirdness "embrace your weirdness, your background, your instinct. If the keys are not in there, they do not exist. I can relate to what they're going through, but I cannot tell them what to do. I can only help them find it in themselves" — Dinosaurs bit about the industry

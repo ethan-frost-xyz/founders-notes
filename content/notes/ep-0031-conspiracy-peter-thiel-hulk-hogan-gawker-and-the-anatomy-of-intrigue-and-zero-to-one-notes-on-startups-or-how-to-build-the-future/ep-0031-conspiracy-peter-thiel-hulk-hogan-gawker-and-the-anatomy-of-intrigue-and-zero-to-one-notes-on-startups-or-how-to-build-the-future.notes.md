@@ -14,6 +14,7 @@ imported_at: "2026-05-21T19:05:42Z"
 
 - — Key elements are about privacy, contrary to the tools he created
 - 1:10:10 — no such thing as an obstacle
+- 1:18:00 — David shows some of the most emotion so far
 - 1:36:07 — never interrupt and enemy making a mistake
 - 2:07:53 — I don't keep anyone in my life around me that's cynical or pessimistic
 - 2:11:28 — reading is faster than listening
