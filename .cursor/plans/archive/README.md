@@ -13,7 +13,7 @@ Completed or superseded implementation plans moved out of [`.cursor/plans/`](../
 
 - `telegram_vault_sp1_tools` … `sp4` — shipped in PR #3
 - [`vault_janitor_agent.plan.md`](vault_janitor_agent.plan.md) — Janitor architecture (shipped; operator guide: [`docs/janitor.md`](../../../docs/janitor.md))
-- [`vault_agent_backlog_8fad41c3.plan.md`](vault_agent_backlog_8fad41c3.plan.md) — retrieval/index backlog (completed; historical body)
+- [`vault_agent_backlog_8fad41c3.plan.md`](vault_agent_backlog_8fad41c3.plan.md) — retrieval/index backlog (completed May 2026; Janitor shipped)
 - [`janitor_llm-first_clean.plan.md`](janitor_llm-first_clean.plan.md) — LLM-first paste clean (shipped May 2026)
 - [`telegram_vault_bot.plan.md`](telegram_vault_bot.plan.md) — superseded background sketch
 

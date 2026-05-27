@@ -144,8 +144,8 @@ flowchart TB
 5. **[`ingestion/search/README.md`](ingestion/search/README.md)** — add `build_embeddings.py`; note parent-tier + `OPENROUTER_EMBED_MODEL`.
 6. **[`ingestion/notes/README.md`](ingestion/notes/README.md)** — Downstream: chunks **and** embeddings when Telegram index exists (not chunks-only).
 7. **Archive plans** → [`.cursor/plans/archive/`](.cursor/plans/archive/):
-   - [`vault_janitor_agent.plan.md`](.cursor/plans/vault_janitor_agent.plan.md)
-   - [`vault_agent_backlog_8fad41c3.plan.md`](.cursor/plans/vault_agent_backlog_8fad41c3.plan.md) — trim stale “future Janitor” body; keep historical context in header
+   - [`archive/vault_janitor_agent.plan.md`](.cursor/plans/archive/vault_janitor_agent.plan.md)
+   - [`archive/vault_agent_backlog_8fad41c3.plan.md`](.cursor/plans/archive/vault_agent_backlog_8fad41c3.plan.md) — trim stale “future Janitor” body; keep historical context in header
    - Update [`archive/README.md`](.cursor/plans/archive/README.md) (move entries out of “Active plans”)
    - Fix links in [`telegram_rag_bot_v0.plan.md`](.cursor/plans/telegram_rag_bot_v0.plan.md) → `archive/vault_janitor_agent.plan.md`
 8. **[`services/telegram/REVIEW.md`](services/telegram/REVIEW.md)** — One-line banner: shipped; operator docs = README + `docs/telegram-vault-agent.md` (do not maintain two runbooks).
