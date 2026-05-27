@@ -63,7 +63,7 @@ Founders Notes — maintenance console
  5. Dry-run expansion cost
  6. List pending expanded drafts
  7. Promote drafts
- 8. Rebuild search chunks
+ 8. Rebuild search index (chunks + embeddings)
  9. Prompt tuning (A/B sandbox)
 10. Recent expand run log
  0. Quit
@@ -619,18 +619,19 @@ def action_promote_drafts() -> None:
     _promote_selected(selected, dry_run=dry_run)
 
 
-def action_rebuild_chunks() -> None:
-    from build_chunks import build_all_chunks
-
-    if not confirm_yes("Rebuild catalog/chunks.jsonl from all content?"):
+def action_rebuild_index() -> None:
+    if not confirm_yes(
+        "Rebuild chunks + embeddings (requires OPENROUTER_API_KEY + OPENROUTER_EMBED_MODEL)?"
+    ):
         print("Cancelled.")
         return
-    n = build_all_chunks()
-    from paths import CHUNKS_PATH
-    from markdown_io import utc_now_iso
+    from reindex_vault import reindex_vault
 
-    print(f"Wrote {n} chunks to {CHUNKS_PATH.relative_to(ROOT)}")
-    print(f"built_at: {utc_now_iso()}")
+    code, msg = reindex_vault(ROOT)
+    if code != 0:
+        print(f"Reindex failed (exit {code}):\n{msg}")
+        return
+    print(msg)
 
 
 def _tune_namespace(**kwargs: Any) -> Namespace:
@@ -758,7 +759,7 @@ ACTIONS: dict[str, Callable[[], None]] = {
     "5": action_expand_dry_run,
     "6": action_list_drafts,
     "7": action_promote_drafts,
-    "8": action_rebuild_chunks,
+    "8": action_rebuild_index,
     "9": action_tune_menu,
     "10": action_expand_log,
 }

@@ -45,7 +45,7 @@ Product is a **tool-calling vault agent**, not naive single-shot RAG.
 
 **Janitor:** mode-switched workflow (LLM-first paste clean, file, expand subprocess, promote, reindex). Full guide: [janitor.md](janitor.md). Runbook: [services/telegram/README.md](../services/telegram/README.md).
 
-**Index sync (v0):** manual or cron `sync-and-index.sh` (`git pull` + `build_chunks.py` + `build_embeddings.py`). Install cron on Mac mini: `services/telegram/deploy/install-cron.sh`. GitHub webhook deferred — [`potential-ideas.md`](../potential-ideas.md).
+**Index sync (v0):** manual or cron `sync-and-index.sh` (`git pull` + `ingestion/lib/reindex_vault.py`). Install cron on Mac mini: `services/telegram/deploy/install-cron.sh`. GitHub webhook deferred — [`potential-ideas.md`](../potential-ideas.md).
 
 After expanded promote on the Mac mini (or any host running the bot), run the same index rebuild so parent-tier chunks include **Quote** / **Key takeaway** sections. See [expanded-backfill.md](expanded-backfill.md).
 

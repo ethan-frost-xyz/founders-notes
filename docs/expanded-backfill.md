@@ -61,12 +61,12 @@ python maintain.py
 | 3 | — | Review drafts in editor |
 | 4 | **6** | List drafts + validation errors/warnings |
 | 5 | **7** | Promote — `all-ready` or id/range; confirm apply |
-| 6 | **8** | Rebuild `catalog/chunks.jsonl` (+ `build_embeddings.py` when Telegram index exists on Mac mini) |
+| 6 | **8** | Rebuild chunks + embeddings (`reindex_vault` — same recipe as Mac mini `sync-and-index.sh`) |
 | 7 | **10** | Summarize `expand-run.jsonl` (cost rollup) |
 
 Repeat steps 2–6 until backlog is acceptable.
 
-**Telegram vault agent host:** After promote waves, run `sync-and-index.sh` (or `build_chunks.py` + `build_embeddings.py`) on the Mac mini so parent-tier search includes **Quote** / **Key takeaway** from canonical `.expanded.md`. The agent does not read `.expanded.draft.md`.
+**Telegram vault agent host:** After promote waves, run `sync-and-index.sh` (or `python lib/reindex_vault.py` from `ingestion/`) on the Mac mini so parent-tier search includes **Quote** / **Key takeaway** from canonical `.expanded.md`. The agent does not read `.expanded.draft.md`.
 
 ---
 

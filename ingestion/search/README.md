@@ -21,9 +21,17 @@ See [`docs/retrieval.md`](../../docs/retrieval.md).
 
 Parent-tier embeddings power hybrid search inside Telegram `search_vault_parent` only — not a repo-wide vector DB. See [`docs/retrieval.md`](../../docs/retrieval.md).
 
+## Unified reindex
+
+[`lib/reindex_vault.py`](../lib/reindex_vault.py) runs `build_chunks.py` then `build_embeddings.py` with `cwd` under `ingestion/` and `VAULT_ROOT` set. Used by Janitor promote, `maintain.py` menu 8, and `services/telegram/deploy/sync-and-index.sh`.
+
+```bash
+python lib/reindex_vault.py   # from ingestion/
+```
+
 ## When to rebuild
 
-Run `build_chunks.py` after:
+Run `build_chunks.py` (or `reindex_vault`) after:
 
 - Adding timestamp bullets to `.notes.md`
 - Promoting `.expanded.md`
