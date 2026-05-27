@@ -27,7 +27,7 @@ isProject: false
 
 ## Context
 
-[`.cursor/guidelines.mdc`](.cursor/guidelines.mdc) favors **simplicity**, **surgical diffs**, and **verifiable steps**. Your choices: **code dedup first**, plus **module split**, **pytest**, and **archive migrations** (zero-pad migration is [completed](.cursor/plans/zero-pad_episode_ids_85a85c51.plan.md)).
+[`.cursor/guidelines.mdc`](.cursor/guidelines.mdc) favors **simplicity**, **surgical diffs**, and **verifiable steps**. Your choices: **code dedup first**, plus **module split**, **pytest**, and **archive migrations** (zero-pad migration is [completed](zero-pad_episode_ids_85a85c51.plan.md)).
 
 The ingestion tree is ~3.3k lines across 19 scripts; [`ingestion/vault_lib.py`](ingestion/vault_lib.py) (493 lines) is the hub imported by 16 scripts. There are **no tests** today and **no CI**.
 

@@ -26,7 +26,7 @@ todos:
 isProject: false
 ---
 
-> **Superseded for implementation.** Use **[telegram_rag_bot_v0.plan.md](telegram_rag_bot_v0.plan.md)** (master index) and **sub-plans** `telegram_vault_sp1_tools.plan.md` … `sp4_ops` — one per agent session. This file remains background on parent/child tiers and the original v0/v1 sketch.
+> **Superseded for implementation.** Use **[telegram_rag_bot_v0.plan.md](../telegram_rag_bot_v0.plan.md)** (master index) and **sub-plans** `telegram_vault_sp1_tools.plan.md` … `sp4_ops` — one per agent session. This file remains background on parent/child tiers and the original v0/v1 sketch.
 
 # Telegram Vault Bot (background)
 

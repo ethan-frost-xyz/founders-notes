@@ -30,7 +30,7 @@ isProject: false
 
 ## Current state
 
-[`ingestion/`](ingestion/) has ~28 Python files at the root after the completed [vault_lib split](.cursor/plans/ingestion_refactor_plan_41ab7943.plan.md). Subdirs already exist for [`migrations/`](ingestion/migrations/), [`prompts/`](ingestion/prompts/), and [`fixtures/`](ingestion/fixtures/). Scripts assume:
+[`ingestion/`](ingestion/) has ~28 Python files at the root after the completed [vault_lib split](ingestion_refactor_plan_41ab7943.plan.md). Subdirs already exist for [`migrations/`](ingestion/migrations/), [`prompts/`](ingestion/prompts/), and [`fixtures/`](ingestion/fixtures/). Scripts assume:
 
 - `cd ingestion` then `python verify.py`
 - Flat imports: `from catalog import load_catalog` (via [`tests/conftest.py`](tests/conftest.py) adding `ingestion/` to `sys.path`)
@@ -160,7 +160,7 @@ Each documents: purpose, scripts, typical commands, env vars, upstream/downstrea
 - [`ingestion/fixtures/expand-runs/README.md`](ingestion/fixtures/expand-runs/README.md)
 - [`.github/workflows/verify.yml`](.github/workflows/verify.yml): `python pipeline/verify.py`
 
-Optional small add: [`docs/ingestion-pipeline.md`](docs/ingestion-pipeline.md) as a one-page human overview that links into section READMEs (deferred in [next_refactor_priorities](.cursor/plans/next_refactor_priorities_837d760f.plan.md) — include if time permits in same PR).
+Optional small add: [`docs/ingestion-pipeline.md`](docs/ingestion-pipeline.md) as a one-page human overview that links into section READMEs (deferred in [next_refactor_priorities](next_refactor_priorities_837d760f.plan.md) — include if time permits in same PR).
 
 ## Implementation order
 

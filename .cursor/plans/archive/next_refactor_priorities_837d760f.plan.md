@@ -21,7 +21,7 @@ isProject: false
 
 ## What we already shipped (this thread)
 
-The [ingestion refactor plan](.cursor/plans/ingestion_refactor_plan_41ab7943.plan.md) is **done** on `main` (`a02d035`):
+The [ingestion refactor plan](ingestion_refactor_plan_41ab7943.plan.md) is **done** on `main` (`a02d035`):
 
 - Split [`vault_lib.py`](ingestion/vault_lib.py) into `episode_ids`, `paths`, `catalog`, `markdown_io`, `colossus`, `sitemap`, `layout`, `gaps_report`
 - Deduped helpers (`read_markdown_body`, `resolve_catalog_row`, `iter_sitemap_episodes`, unified writers)
