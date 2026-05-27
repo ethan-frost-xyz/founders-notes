@@ -77,6 +77,8 @@ class CoverageStats:
     transcripts_complete: int
     notes_files: int
     notes_with_datapoints: int
+    bullets_missing_timestamp: int
+    episodes_bullets_missing_timestamp: int
     posts: int
     expanded: int
     expanded_drafts: int
@@ -142,7 +144,9 @@ def refresh_coverage_report(rows: list[dict]) -> tuple[CoverageStats, list[str]]
         _,
         _,
         _,
+        missing_timestamp_episodes,
     ) = count_phase2_coverage(rows)
+    bullets_missing_timestamp = sum(c for _, c in missing_timestamp_episodes)
     expanded_n, expanded_drafts_n, missing_expanded = count_expanded_coverage(rows)
     layout_errors = scan_layout_violations(rows)
     write_gaps_report(rows, layout_errors=layout_errors)
@@ -153,6 +157,8 @@ def refresh_coverage_report(rows: list[dict]) -> tuple[CoverageStats, list[str]]
         transcripts_complete=len(complete),
         notes_files=notes_files,
         notes_with_datapoints=notes_with_datapoints,
+        bullets_missing_timestamp=bullets_missing_timestamp,
+        episodes_bullets_missing_timestamp=len(missing_timestamp_episodes),
         posts=posts_n,
         expanded=expanded_n,
         expanded_drafts=expanded_drafts_n,
@@ -181,9 +187,14 @@ def print_coverage_stats(stats: CoverageStats, blocking_msgs: list[str]) -> None
     print(f"Catalog: {stats.catalog_rows} rows ({stats.numbered} numbered)")
     print(f"Transcripts complete: {stats.transcripts_complete}")
     print(
-        f"Notes: {stats.notes_files} files | {stats.notes_with_datapoints} with datapoints | "
+        f"Notes: {stats.notes_files} files | {stats.notes_with_datapoints} with timestamp datapoints | "
         f"Posts: {stats.posts}"
     )
+    if stats.bullets_missing_timestamp:
+        print(
+            f"  Bullets missing timestamp: {stats.bullets_missing_timestamp} across "
+            f"{stats.episodes_bullets_missing_timestamp} episode(s) (`- —` without MM:SS)"
+        )
     print(
         f"Expanded: {stats.expanded} canonical | {stats.expanded_drafts} drafts pending | "
         f"backlog (datapoints, no expanded): {stats.missing_expanded_count}"

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from episode_ids import format_episode_id
-from markdown_io import has_timestamp_datapoints
+from markdown_io import count_notes_datapoints_file, has_timestamp_datapoints
 from paths import (
     GAPS_PATH,
     expanded_draft_file_path,
@@ -23,14 +23,27 @@ BLOCKING_STATUSES = {"pending", "failed"}
 
 def count_phase2_coverage(
     rows: list[dict],
-) -> tuple[int, int, int, list[int], list[int], list[int]]:
-    """Returns (notes_files, notes_with_datapoints, posts_count, missing_notes, missing_datapoints, missing_posts)."""
+) -> tuple[
+    int,
+    int,
+    int,
+    list[int],
+    list[int],
+    list[int],
+    list[tuple[int, int]],
+]:
+    """Returns (notes_files, notes_with_datapoints, posts_count, missing_notes, missing_datapoints, missing_posts, missing_timestamp_episodes).
+
+    missing_timestamp_episodes: (episode_number, bullet_count) for notes with `- —` bullets lacking MM:SS.
+    missing_datapoints: numbered episodes with no timestamp bullets (includes empty scaffolds and lost-timestamp-only).
+    """
     notes_files = 0
     notes_with_datapoints = 0
     posts_n = 0
     missing_notes: list[int] = []
     missing_datapoints: list[int] = []
     missing_posts: list[int] = []
+    missing_timestamp_episodes: list[tuple[int, int]] = []
 
     for r in rows:
         if r.get("episode_number") is None:
@@ -43,10 +56,13 @@ def count_phase2_coverage(
         npath = notes_file_path(ep_id, slug, num)
         if npath.exists():
             notes_files += 1
-            if has_timestamp_datapoints(npath):
+            counts = count_notes_datapoints_file(npath)
+            if counts.timestamped > 0:
                 notes_with_datapoints += 1
             else:
                 missing_datapoints.append(num)
+            if counts.missing_timestamp > 0:
+                missing_timestamp_episodes.append((num, counts.missing_timestamp))
         else:
             missing_notes.append(num)
             missing_datapoints.append(num)
@@ -62,6 +78,7 @@ def count_phase2_coverage(
         missing_notes,
         missing_datapoints,
         missing_posts,
+        missing_timestamp_episodes,
     )
 
 
@@ -137,7 +154,10 @@ def build_gaps_markdown(
         missing_notes,
         missing_datapoints,
         missing_posts,
+        missing_timestamp_episodes,
     ) = count_phase2_coverage(rows)
+    lost_ts_ep_nums = {n for n, _ in missing_timestamp_episodes}
+    total_lost_ts_bullets = sum(c for _, c in missing_timestamp_episodes)
     transcript_complete_numbered = sum(
         1 for r in numbered if r.get("transcript_status") == "complete"
     )
@@ -158,6 +178,12 @@ def build_gaps_markdown(
         "",
         f"**Notes files:** {notes_files} / {transcript_complete_numbered} numbered (with transcript)",
         f"**Notes with datapoints:** {notes_with_datapoints} / {transcript_complete_numbered} numbered (timestamp bullets)",
+        (
+            f"**Bullets missing timestamp:** {total_lost_ts_bullets} across "
+            f"{len(missing_timestamp_episodes)} numbered (`- —` without `MM:SS`)"
+            if missing_timestamp_episodes
+            else "**Bullets missing timestamp:** 0"
+        ),
         f"**Posts imported:** {posts_n} / {transcript_complete_numbered} numbered",
         f"**Expanded notes:** {expanded_n} / {transcript_complete_numbered} numbered (with transcript)",
         f"**Expanded drafts (pending review):** {expanded_drafts_n} / {transcript_complete_numbered} numbered",
@@ -181,7 +207,9 @@ def build_gaps_markdown(
             lines.append(f"- … and {len(missing_notes) - 40} more")
         lines.append("")
 
-    scaffold_only = [n for n in missing_datapoints if n not in missing_notes]
+    scaffold_only = [
+        n for n in missing_datapoints if n not in missing_notes and n not in lost_ts_ep_nums
+    ]
     if scaffold_only:
         lines.append(f"## Notes without datapoints ({len(scaffold_only)} numbered)")
         lines.append("")
@@ -194,6 +222,22 @@ def build_gaps_markdown(
             lines.append(f"- `{format_episode_id(n)}`")
         if len(scaffold_only) > 40:
             lines.append(f"- … and {len(scaffold_only) - 40} more")
+        lines.append("")
+
+    if missing_timestamp_episodes:
+        lines.append(
+            f"## Datapoint bullets missing timestamp ({len(missing_timestamp_episodes)} numbered)"
+        )
+        lines.append("")
+        lines.append(
+            "Notes contain `- — …` bullets with no `MM:SS` prefix — timestamp may have been lost. "
+            "Re-add times before LLM expand; mixed episodes may still expand from timestamped bullets only."
+        )
+        lines.append("")
+        for n, bullet_count in sorted(missing_timestamp_episodes)[:40]:
+            lines.append(f"- `{format_episode_id(n)}` ({bullet_count} bullet(s))")
+        if len(missing_timestamp_episodes) > 40:
+            lines.append(f"- … and {len(missing_timestamp_episodes) - 40} more")
         lines.append("")
 
     if missing_expanded_list:

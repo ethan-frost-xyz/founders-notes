@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import re
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -65,6 +66,30 @@ TIMESTAMP_BULLET_RE = re.compile(
     re.MULTILINE,
 )
 
+# Bullets with em dash but no MM:SS (timestamp lost or never added).
+LOST_TIMESTAMP_BULLET_RE = re.compile(
+    r"^[\s]*-\s*[-–—]\s*.*$",
+    re.MULTILINE,
+)
+
+
+@dataclass(frozen=True)
+class NotesDatapointCounts:
+    timestamped: int
+    missing_timestamp: int
+
+
+def count_notes_datapoints(body: str) -> NotesDatapointCounts:
+    """Count timestamped vs `- — …` bullets in a notes body."""
+    return NotesDatapointCounts(
+        timestamped=len(TIMESTAMP_BULLET_RE.findall(body)),
+        missing_timestamp=len(LOST_TIMESTAMP_BULLET_RE.findall(body)),
+    )
+
+
+def count_notes_datapoints_file(path: Path) -> NotesDatapointCounts:
+    return count_notes_datapoints(read_markdown_body(path))
+
 
 def escape_yaml_value(value: str) -> str:
     return value.replace('"', "'")
@@ -109,7 +134,7 @@ def read_markdown_body(path: Path) -> str:
 
 
 def has_timestamp_datapoints(path: Path) -> bool:
-    return bool(TIMESTAMP_BULLET_RE.search(read_markdown_body(path)))
+    return count_notes_datapoints_file(path).timestamped > 0
 
 
 def episode_frontmatter(

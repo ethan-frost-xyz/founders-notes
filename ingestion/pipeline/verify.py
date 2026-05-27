@@ -59,7 +59,9 @@ def main() -> None:
         _,
         _,
         _,
+        missing_timestamp_episodes,
     ) = count_phase2_coverage(rows)
+    lost_ts_bullets = sum(c for _, c in missing_timestamp_episodes)
     expanded_n, expanded_drafts_n, _ = count_expanded_coverage(rows)
 
     layout_errors = scan_layout_violations(rows)
@@ -67,7 +69,15 @@ def main() -> None:
 
     print(f"Catalog: {len(rows)} rows")
     print(f"Complete: {len(complete)} / {len(numbered)} numbered")
-    print(f"Notes files: {notes_files} | with datapoints: {notes_with_datapoints} | Posts: {posts_n}")
+    print(
+        f"Notes files: {notes_files} | with timestamp datapoints: {notes_with_datapoints} | "
+        f"Posts: {posts_n}"
+    )
+    if lost_ts_bullets:
+        print(
+            f"Bullets missing timestamp: {lost_ts_bullets} across "
+            f"{len(missing_timestamp_episodes)} episode(s)"
+        )
     print(f"Expanded: {expanded_n} | expanded drafts: {expanded_drafts_n}")
     print(f"Unmapped colossus_url: {len(unmapped)}")
     print(f"Weak founders_url: {len(weak_urls)}")
