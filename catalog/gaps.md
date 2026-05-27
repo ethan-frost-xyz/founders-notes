@@ -14,8 +14,8 @@
 **Notes with datapoints:** 178 / 417 numbered (timestamp bullets)
 **Bullets missing timestamp:** 60 across 32 numbered (`- —` without `MM:SS`)
 **Posts imported:** 187 / 417 numbered
-**Expanded notes:** 0 / 417 numbered (with transcript)
-**Expanded drafts (pending review):** 62 / 417 numbered
+**Expanded notes:** 98 / 417 numbered (with transcript)
+**Expanded drafts (pending review):** 2 / 417 numbered
 
 ## Notes without datapoints (233 numbered)
 
@@ -100,51 +100,51 @@ Notes contain `- — …` bullets with no `MM:SS` prefix — timestamp may have 
 - `ep-0171` (1 bullet(s))
 - `ep-0185` (1 bullet(s))
 
-## Has datapoints, no expanded.md (178 numbered)
+## Has datapoints, no expanded.md (80 numbered)
 
 Optional LLM expansion: `python notes/expand_datapoints_llm.py --missing-expanded --dry-run` then `--apply` (draft) and `--promote --apply`. See [docs/expanded-backfill.md](../docs/expanded-backfill.md) and [docs/datapoint-workflow.md](../docs/datapoint-workflow.md).
 
-- `ep-0001`
 - `ep-0002`
-- `ep-0003`
-- `ep-0004`
-- `ep-0005`
-- `ep-0006`
-- `ep-0007`
-- `ep-0008`
-- `ep-0009`
-- `ep-0010`
-- `ep-0011`
-- `ep-0012`
-- `ep-0013`
-- `ep-0015`
-- `ep-0016`
-- `ep-0017`
-- `ep-0018`
-- `ep-0019`
-- `ep-0020`
-- `ep-0022`
-- `ep-0023`
-- `ep-0024`
-- `ep-0025`
-- `ep-0026`
-- `ep-0027`
-- `ep-0028`
-- `ep-0029`
-- `ep-0030`
 - `ep-0031`
-- `ep-0032`
-- `ep-0033`
-- `ep-0034`
-- `ep-0036`
-- `ep-0037`
-- `ep-0038`
-- `ep-0039`
-- `ep-0040`
-- `ep-0041`
-- `ep-0042`
-- `ep-0043`
-- … and 138 more
+- `ep-0072`
+- `ep-0078`
+- `ep-0082`
+- `ep-0086`
+- `ep-0090`
+- `ep-0111`
+- `ep-0112`
+- `ep-0113`
+- `ep-0114`
+- `ep-0115`
+- `ep-0116`
+- `ep-0117`
+- `ep-0118`
+- `ep-0120`
+- `ep-0121`
+- `ep-0122`
+- `ep-0123`
+- `ep-0124`
+- `ep-0125`
+- `ep-0126`
+- `ep-0127`
+- `ep-0128`
+- `ep-0129`
+- `ep-0130`
+- `ep-0131`
+- `ep-0132`
+- `ep-0133`
+- `ep-0134`
+- `ep-0135`
+- `ep-0136`
+- `ep-0137`
+- `ep-0138`
+- `ep-0139`
+- `ep-0140`
+- `ep-0141`
+- `ep-0142`
+- `ep-0143`
+- `ep-0144`
+- … and 40 more
 
 ## Missing posts (228 numbered)
 
