@@ -10,7 +10,7 @@ todos:
     status: completed
   - id: sp2-agent-loop
     content: SP2 — see telegram_vault_sp2_agent.plan.md
-    status: pending
+    status: completed
   - id: sp3-telegram-sessions
     content: SP3 — see telegram_vault_sp3_telegram.plan.md
     status: pending

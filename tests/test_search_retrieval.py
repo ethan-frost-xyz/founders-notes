@@ -103,16 +103,18 @@ def test_build_embeddings_reuses_manifest_without_api(tmp_path, monkeypatch):
     )
     np.save(emb_path, np.zeros((len(manifest), 4), dtype=np.float32))
 
-    monkeypatch.setattr(
-        "build_embeddings.embed_texts",
-        lambda *a, **k: (_ for _ in ()).throw(AssertionError("should not call API")),
-    )
-
     import sys
 
     search_dir = paths.INGESTION_DIR / "search"
     if str(search_dir) not in sys.path:
         sys.path.insert(0, str(search_dir))
+    import build_embeddings
+
+    monkeypatch.setattr(
+        build_embeddings,
+        "embed_texts",
+        lambda *a, **k: (_ for _ in ()).throw(AssertionError("should not call API")),
+    )
     from build_embeddings import build_parent_embeddings
 
     summary = build_parent_embeddings(

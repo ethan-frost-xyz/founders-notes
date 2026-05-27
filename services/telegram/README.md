@@ -2,7 +2,7 @@
 
 Private on-the-go access to the Founders vault via a **tool-calling agent** — not a fixed embed→top-k→answer pipeline.
 
-**Status:** SP1 vault tools + parent embeddings implemented on `feature/telegram-vault-bot`. SP2–SP4 pending. **Git:** One focused commit per sub-plan; merge via PR (see master plan).
+**Status:** SP1–SP2 on `feature/telegram-vault-bot` (vault tools + agent loop). SP3–SP4 pending. **Git:** One focused commit per sub-plan; merge via PR (see master plan).
 
 ## Plans
 

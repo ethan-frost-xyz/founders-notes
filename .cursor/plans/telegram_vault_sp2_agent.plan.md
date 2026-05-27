@@ -4,16 +4,16 @@ overview: "OpenRouter tool-calling loop + vault_agent.md. Depends on SP1 vault t
 todos:
   - id: vault-agent-prompt
     content: services/telegram/prompts/vault_agent.md — study-notes voice, tool policy, citations
-    status: pending
+    status: completed
   - id: agent-loop
     content: services/telegram/bot/agent.py — max_steps=5, tool execution, error handling, char caps
-    status: pending
+    status: completed
   - id: tool-schemas
     content: OpenRouter-compatible tools JSON wired to vault.py (+ web stub interface)
-    status: pending
+    status: completed
   - id: mock-tests
     content: Mock OR responses — search_vault_parent before thematic answer; no web_search when allow_web=false
-    status: pending
+    status: completed
 isProject: false
 ---
 
