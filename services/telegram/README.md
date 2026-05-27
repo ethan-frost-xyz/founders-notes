@@ -2,7 +2,7 @@
 
 Private on-the-go access to the Founders vault via a **tool-calling agent** — not a fixed embed→top-k→answer pipeline.
 
-**Status:** Not implemented. **Git:** Branch `feature/telegram-vault-bot` off `main`; one focused commit per sub-plan SP1–SP4; merge via PR (see master plan).
+**Status:** SP1 vault tools + parent embeddings implemented on `feature/telegram-vault-bot`. SP2–SP4 pending. **Git:** One focused commit per sub-plan; merge via PR (see master plan).
 
 ## Plans
 
@@ -13,7 +13,7 @@ Private on-the-go access to the Founders vault via a **tool-calling agent** — 
 | [`.cursor/plans/telegram_vault_sp2_agent.plan.md`](../../.cursor/plans/telegram_vault_sp2_agent.plan.md) | **SP2** — agent loop + prompt |
 | [`.cursor/plans/telegram_vault_sp3_telegram.plan.md`](../../.cursor/plans/telegram_vault_sp3_telegram.plan.md) | **SP3** — Telegram + sessions |
 | [`.cursor/plans/telegram_vault_sp4_ops.plan.md`](../../.cursor/plans/telegram_vault_sp4_ops.plan.md) | **SP4** — Mac mini deploy |
-| [`.cursor/plans/telegram_vault_bot.plan.md`](../../.cursor/plans/telegram_vault_bot.plan.md) | Superseded background |
+| [`.cursor/plans/archive/telegram_vault_bot.plan.md`](../../.cursor/plans/archive/telegram_vault_bot.plan.md) | Superseded background |
 | [`docs/telegram-vault-agent.md`](../../docs/telegram-vault-agent.md) | Short overview for agents |
 
 **One sub-plan per agent session** — do not load all plan files at once.

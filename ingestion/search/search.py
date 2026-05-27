@@ -14,11 +14,10 @@ import _bootstrap
 _bootstrap.setup_paths(__file__)
 
 import argparse
-import re
 import subprocess
 
-from catalog import load_jsonl
 from paths import CHUNKS_PATH, ROOT
+from search_retrieval import load_chunks, search_chunks_keyword
 
 CONTENT_DIRS = [
     ROOT / "content" / "transcripts",
@@ -27,23 +26,14 @@ CONTENT_DIRS = [
 ]
 
 
-def load_chunks() -> list[dict]:
-    return load_jsonl(CHUNKS_PATH)
-
-
 def search_chunks(query: str, limit: int, section_filter: str | None) -> list[tuple[float, dict]]:
-    pattern = re.compile(re.escape(query), re.IGNORECASE)
-    hits: list[tuple[float, dict]] = []
-    for ch in load_chunks():
-        if section_filter and section_filter not in ch.get("section", ""):
-            continue
-        excerpt = ch.get("excerpt") or ""
-        if not pattern.search(excerpt):
-            continue
-        score = len(pattern.findall(excerpt))
-        hits.append((float(score), ch))
-    hits.sort(key=lambda x: (-x[0], x[1].get("id", ""), x[1].get("start_line", 0)))
-    return hits[:limit]
+    predicate = None
+    if section_filter:
+
+        def predicate(ch: dict) -> bool:
+            return section_filter in ch.get("section", "")
+
+    return search_chunks_keyword(query, limit, chunk_predicate=predicate)
 
 
 def ripgrep_fallback(query: str, limit: int) -> None:

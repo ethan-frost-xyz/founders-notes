@@ -4,19 +4,19 @@ overview: "Vault search backends and parent-tier embeddings. No Telegram, no age
 todos:
   - id: search-retrieval
     content: ingestion/lib/search_retrieval.py — parent/transcript filters, keyword, vector, RRF hybrid, load_chunk_source_excerpt
-    status: pending
+    status: completed
   - id: build-embeddings
     content: ingestion/search/build_embeddings.py — incremental parent-only vectors + manifest
-    status: pending
+    status: completed
   - id: vault-tools
     content: services/telegram/bot/tools/vault.py — JSON evidence functions (no OpenRouter)
-    status: pending
+    status: completed
   - id: fixture-tests
-    content: ingestion/fixtures/chunks_parent_slice.jsonl + ingestion/tests/test_search_retrieval.py for filters, hybrid, embed skip
-    status: pending
+    content: ingestion/fixtures/chunks_parent_slice.jsonl + tests/test_search_retrieval.py for filters, hybrid, embed skip
+    status: completed
   - id: gitignore
     content: Gitignore catalog/embeddings.npy and catalog/embeddings-manifest.jsonl
-    status: pending
+    status: completed
 isProject: false
 ---
 
