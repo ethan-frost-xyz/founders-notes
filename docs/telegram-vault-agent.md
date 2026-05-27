@@ -1,6 +1,6 @@
-# Telegram vault agent (planned)
+# Telegram vault agent
 
-Short overview for coding agents. **Master index:** [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../.cursor/plans/telegram_rag_bot_v0.plan.md) (decisions + shared contracts). **Implement one sub-plan per session:**
+Short overview for coding agents. **Master index:** [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../.cursor/plans/telegram_rag_bot_v0.plan.md) (decisions + shared contracts). **v0 (SP1–SP4)** is implemented on `feature/telegram-vault-bot`; use sub-plans for follow-ups (SP5 webhook, SP6 tuning):
 
 | SP | Plan |
 |----|------|
@@ -41,16 +41,15 @@ Product is a **tool-calling vault agent**, not naive single-shot RAG.
 
 After expanded promote on the Mac mini (or any host running the bot), run the same index rebuild so parent-tier chunks include **Quote** / **Key takeaway** sections. See [expanded-backfill.md](expanded-backfill.md).
 
-## Build order and branch
+## Implementation status
 
-All implementation on **`feature/telegram-vault-bot`** off `main` (one commit per sub-plan; merge via PR). Use the **SP plan file** for each session — not the full master.
+| SP | Status | Plan |
+|----|--------|------|
+| 1–4 | Shipped (this PR) | sp1_tools … sp4_ops |
+| 5 | Deferred | GitHub webhook → pull + reindex |
+| 6 | Deferred | Tool copy, rerank, status UX |
 
-1. SP1 — [tools plan](../.cursor/plans/telegram_vault_sp1_tools.plan.md)
-2. SP2 — [agent plan](../.cursor/plans/telegram_vault_sp2_agent.plan.md)
-3. SP3 — [Telegram plan](../.cursor/plans/telegram_vault_sp3_telegram.plan.md)
-4. SP4 — [ops plan](../.cursor/plans/telegram_vault_sp4_ops.plan.md)
-
-Stub and env reference: [`services/telegram/README.md`](../services/telegram/README.md).
+Runbook and env: [`services/telegram/README.md`](../services/telegram/README.md).
 
 ## Embeddings vs AGENTS.md
 
@@ -58,6 +57,6 @@ Repo-wide rule: do **not** add a general-purpose vector DB until grep + chunk se
 
 ## Related
 
-- [retrieval.md](retrieval.md) — chunk index today; agent tools next
+- [retrieval.md](retrieval.md) — chunk index + hybrid parent search
 - [expanded-backfill.md](expanded-backfill.md) — corpus quality for parent tier
 - Superseded background: [`.cursor/plans/telegram_vault_bot.plan.md`](../.cursor/plans/telegram_vault_bot.plan.md)

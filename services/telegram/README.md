@@ -4,6 +4,8 @@ Private on-the-go access to the Founders vault via a **tool-calling agent** — 
 
 **Status:** SP1–SP4 on `feature/telegram-vault-bot`. Ready for Mac mini deploy and PR to `main`.
 
+**Reviewers:** [REVIEW.md](REVIEW.md) — commit map, risk areas, test commands.
+
 ## Plans
 
 | Doc | Role |
