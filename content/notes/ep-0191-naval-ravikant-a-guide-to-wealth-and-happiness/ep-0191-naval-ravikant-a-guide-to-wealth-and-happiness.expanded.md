@@ -2,14 +2,13 @@
 id: "ep-0191"
 episode_number: 191
 title: "#191 Naval Ravikant (A Guide to Wealth and Happiness)"
-content_type: "expanded.draft"
+content_type: "expanded"
 source: "expand_llm"
 published_at: "2021-07-13"
 founders_url: "https://www.founderspodcast.com/episodes/191-naval-ravikant-a-guide-to-wealth-and-happiness"
-created_at: "2026-05-27T21:58:11Z"
-model: "deepseek/deepseek-v4-pro"
-generated_at: "2026-05-27T21:58:11Z"
-prompt_path: "ingestion/prompts/expand_datapoints.md"
+created_at: "2026-05-27T22:01:12Z"
+expanded_at: "2026-05-27T22:01:12Z"
+expanded_model: "deepseek/deepseek-v4-pro"
 prompt_hash: "6c7edea7b02a9daa"
 ---
 
