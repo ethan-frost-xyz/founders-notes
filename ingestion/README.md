@@ -86,8 +86,10 @@ Legacy unpadded ids (`ep-200`) are accepted where `--id` is supported.
 
 ## Tests
 
+See [`docs/testing.md`](../docs/testing.md). From repo root (same as CI):
+
 ```bash
 pip install -r requirements-dev.txt
-pytest ../tests -q
-python pipeline/verify.py
+pytest tests -q
+cd ingestion && python pipeline/verify.py
 ```

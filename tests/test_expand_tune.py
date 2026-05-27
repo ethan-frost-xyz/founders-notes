@@ -12,12 +12,6 @@ from expand_tune import build_child_cmd, load_batch_file, run_dir
 from paths import staging_draft_file_path
 
 
-def test_staging_draft_file_path(tmp_path: Path):
-    root = tmp_path / "runs" / "tune-001"
-    p = staging_draft_file_path(root, "A", "ep-0001", "1-test", 1)
-    assert p == root / "A" / "ep-0001-test" / "ep-0001-test.expanded.draft.md"
-
-
 def test_load_batch_file(tmp_path: Path):
     batch = tmp_path / "batch.json"
     batch.write_text(

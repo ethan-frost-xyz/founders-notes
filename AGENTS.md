@@ -74,6 +74,7 @@ Full script index: `[ingestion/README.md](ingestion/README.md)`.
 | Dedupe CSV     | `python x/dedupe_x_csv.py` (after overlapping `--full` syncs)                                                                                               |
 | Chunk index    | `python search/build_chunks.py`                                                                                                                             |
 | Verify         | `python pipeline/verify.py`                                                                                                                                 |
+| Tests (CI)     | From repo root: `pytest tests -q` then `cd ingestion && python pipeline/verify.py` — see [`docs/testing.md`](docs/testing.md)                              |
 
 
 Do not add a repo-wide vector DB unless grep + chunk index + agent-style search fail for your real queries. See `[docs/retrieval.md](docs/retrieval.md)`. **Telegram vault agent (planned):** OpenRouter **tool-calling** over vault sources — hybrid chunk search + **parent-tier-only** embeddings inside `search_vault_parent`, not single-shot embed→top-k→answer RAG. Master index: `[.cursor/plans/telegram_rag_bot_v0.plan.md](.cursor/plans/telegram_rag_bot_v0.plan.md)`; **implement one sub-plan per session** (e.g. `[telegram_vault_sp1_tools.plan.md](.cursor/plans/telegram_vault_sp1_tools.plan.md)`); overview: `[docs/telegram-vault-agent.md](docs/telegram-vault-agent.md)`. Branch `feature/telegram-vault-bot` → PR to `main`.
