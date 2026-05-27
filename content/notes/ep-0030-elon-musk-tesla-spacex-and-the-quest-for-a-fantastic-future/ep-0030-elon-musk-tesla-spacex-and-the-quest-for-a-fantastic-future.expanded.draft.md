@@ -1,6 +1,6 @@
 ---
 id: "ep-0030"
-episode_number: 30
+episode_number: "30"
 title: "#30 Elon Musk: Tesla, SpaceX, and the Quest for a Fantastic Future"
 content_type: "expanded.draft"
 source: "expand_llm"
@@ -25,7 +25,6 @@ Quote:
 
 Key takeaway:
 Musk’s hyperrational focus under extreme pressure allowed him to make clear long-term decisions when others would crumble. This demonstrates that the ability to remain composed and execute during chaos can be a founder’s greatest strategic edge, turning near-failure into a legendary comeback.
-
 ### 29:30 — The coming single-person billion-dollar company
 
 Context:
@@ -36,11 +35,10 @@ Quote:
 
 Key takeaway:
 This prediction highlights how drastically technology can amplify individual output. For founders, the lesson is to leverage tools, automation, and focused solo effort to maximize impact without the friction of large teams. It challenges the assumption that scale always requires headcount.
-
 ### — Grand Theft Life: treating life as a game
 
 Context:
-Toward the end of the episode, Senra introduces the “Grand Theft Life” concept from Tim Urban’s blog. The raw note has no timestamp, but the transcript covers it in the closing minutes. This framework encourages approaching life with the boldness and freedom of a video game character.
+Toward the end of the episode, Senra introduces the “Grand Theft Life” concept from Tim Urban’s blog. This framework encourages approaching life with the boldness and freedom of a video game character.
 
 Quote:
 “And this next note I left myself is time is the currency of life. And finally, this idea of **Grand Theft Life**, which comes from Tim Urban, who’s the founder of the Wait But Why blog. And the idea is basically, if you’re playing a game, treat life like you would Grand Theft Auto, the video game, right?”

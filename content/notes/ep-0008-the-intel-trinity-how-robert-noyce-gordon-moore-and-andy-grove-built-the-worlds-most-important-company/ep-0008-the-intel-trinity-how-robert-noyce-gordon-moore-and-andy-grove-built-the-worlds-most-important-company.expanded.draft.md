@@ -1,6 +1,6 @@
 ---
 id: "ep-0008"
-episode_number: 8
+episode_number: "8"
 title: "#8 The Intel Trinity: How Robert Noyce, Gordon Moore, and Andy Grove Built the World's Most Important Company"
 content_type: "expanded.draft"
 source: "expand_llm"
@@ -41,17 +41,17 @@ Key takeaway: Recognizing that human nature is immutable across eras gives a mas
 
 ### — Higher education as a bubble in cost and value
 
-Context: The host lists examples of speculative bubbles to illustrate recurring human behavior, moving from the internet and housing bubbles to a more recent candidate: the rising cost of higher education relative to its value. No timestamp was provided in the raw note; this reference likely comes from the host’s extemporaneous remark.
+Context: The host lists examples of speculative bubbles to illustrate recurring human behavior, moving from the internet and housing bubbles to a more recent candidate: the rising cost of higher education relative to its value.
 
-Quote: "Some would say like **higher education is going through a bubble** at -- in relation to cost and value." (No timestamp)
+Quote: "Some would say like **higher education is going through a bubble** at -- in relation to cost and value."
 
 Key takeaway: This raw note flags a potential bubble and serves as a prompt for further investigation. Before promoting this idea, verify the specific data and voices that support the “higher education bubble” thesis; it’s a useful mental model to pair with examples of past bubbles in the episode.
 
 ### — 1960s calculator boom as a consumer tech bubble
 
-Context: The host describes the explosive growth and subsequent bust of the calculator industry in the late 1960s, drawing a direct parallel to later consumer technology bubbles. No timestamp is recorded in the raw note; the quote is from the host’s narration.
+Context: The host describes the explosive growth and subsequent bust of the calculator industry in the late 1960s, drawing a direct parallel to later consumer technology bubbles.
 
-Quote: "And so this is a really funny -- I shouldn't say funny, but a really interesting bubble that happened in 1960s. And the note I wrote down was **calculators as consumer tech bubbles.** So see if you recognize some of this behavior in other bubbles." (No timestamp)
+Quote: "And so this is a really funny -- I shouldn't say funny, but a really interesting bubble that happened in 1960s. And the note I wrote down was **calculators as consumer tech bubbles.** So see if you recognize some of this behavior in other bubbles."
 
 Key takeaway: The calculator bubble demonstrates a timeless pattern: a hot product attracts a flood of competitors, margins compress, and a shakeout leaves only a few survivors. Observing this exact sequence in the 1960s reinforces that every generation’s “new” tech craze follows the same script, making historical awareness a powerful tool for founders.
 

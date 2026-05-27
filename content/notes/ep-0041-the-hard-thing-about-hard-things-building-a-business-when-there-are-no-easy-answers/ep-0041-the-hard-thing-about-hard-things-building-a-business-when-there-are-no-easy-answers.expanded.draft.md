@@ -1,6 +1,6 @@
 ---
 id: "ep-0041"
-episode_number: 41
+episode_number: "41"
 title: "#41 The Hard Thing About Hard Things: Building a Business When There Are No Easy Answers"
 content_type: "expanded.draft"
 source: "expand_llm"
@@ -17,7 +17,7 @@ prompt_hash: "f4ffa5a3693602e1"
 
 ### 36:24 — Determination outweighs intelligence in founder success
 
-Context: David Senra shares a story from Paul Graham, founder of Y Combinator, about the relative importance of determination versus intelligence when predicting startup success. The note’s timestamp is approximate; the transcript does not include explicit timestamps.
+Context: David Senra shares a story from Paul Graham, founder of Y Combinator, about the relative importance of determination versus intelligence when predicting startup success.
 
 Quote: "And to illustrate this point, he says, take this hypothetical person that's **100 out of 100 in intelligence and 100 out of 100 in determination. If you slowly start chipping away from the determination, it goes lower, 95, 90, 80, whatever the case is. Eventually, you're left with a brilliant, but ineffectual person.** And so there's plenty of people that I know that are really smart and don't do anything because they're not determined." (36:24)
 
@@ -25,7 +25,7 @@ Key takeaway: Paul Graham’s thought experiment reveals that determination is a
 
 ### 42:00 — When to sell your company: early market leadership means stay independent
 
-Context: Ben Horowitz offers a rule of thumb for founders evaluating acquisition offers, using Google’s early days as a case study. The timestamp is approximate.
+Context: Ben Horowitz offers a rule of thumb for founders evaluating acquisition offers, using Google’s early days as a case study.
 
 Quote: "When analyzing whether you should sell your company, a good basic rule of thumb is, A, you were very early on in a large market; and B, you have a good chance of being #1 in that market, then **you should remain stand-alone.** The reason is that nobody will be able to afford to pay what you are worth because nobody can give you that much forward credit." (42:00)
 

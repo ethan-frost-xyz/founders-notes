@@ -1,6 +1,6 @@
 ---
 id: "ep-0026"
-episode_number: 26
+episode_number: "26"
 title: "#26 My Life and Work: The Autobiography of Henry Ford"
 content_type: "expanded.draft"
 source: "expand_llm"
@@ -17,7 +17,7 @@ prompt_hash: "f4ffa5a3693602e1"
 
 ### 5:05 — Work precedes happiness: honest effort is the natural path
 
-Context: Early in the podcast, David Senra introduces Henry Ford’s core belief that work is not a burden but the natural foundation of prosperity and happiness. The timestamp is approximate, based on the podcast’s progression.
+Context: Early in the podcast, David Senra introduces Henry Ford’s core belief that work is not a burden but the natural foundation of prosperity and happiness.
 
 Quote: "The natural thing to do is work, to recognize that **prosperity and happiness can be obtained only through honest effort.** Human ills flow largely from attempting to escape from this natural course." (5:05)
 
@@ -25,7 +25,7 @@ Key takeaway: Ford argues that genuine fulfillment comes from honest work, not f
 
 ### 18:00 — Humans scorn the abstract: reasoning by analogy vs. first principles
 
-Context: While discussing how people dismissed the automobile by comparing it to the bicycle, Senra highlights the human tendency to reason by analogy rather than from first principles. The timestamp is approximate.
+Context: While discussing how people dismissed the automobile by comparing it to the bicycle, Senra highlights the human tendency to reason by analogy rather than from first principles.
 
 Quote: "And they're saying, 'Okay, well, you might have something there, Mr. Ford, but the most you can hope for is that of the bicycle.' **Humans scorn the abstract.** We only -- we love to jump on things that we see." (18:00)
 
@@ -33,7 +33,7 @@ Key takeaway: People resist new, abstract ideas and instead cling to familiar an
 
 ### 35:00 — Time outside of work with the company is BS: don’t mix work and play
 
-Context: Henry Ford criticizes the practice of forcing employees to socialize outside work hours, arguing that work and personal life should remain separate. The timestamp is approximate.
+Context: Henry Ford criticizes the practice of forcing employees to socialize outside work hours, arguing that work and personal life should remain separate.
 
 Quote: "That is bad for both men. **When we are at work, we ought to be at work. When we are at play, we ought to be at play. There is no use trying to mix the two.** The sole object ought to be able to get the work done and to get paid for it." (35:00)
 
@@ -41,7 +41,7 @@ Key takeaway: Ford believed that blurring work and personal time undermines both
 
 ### 49:34 — Discipline over motivation: fuck your feelings, rely on hardiness
 
-Context: Near the end of the podcast, Senra connects Ford’s disdain for relying on “good feeling” to the modern concept of discipline over motivation. The timestamp is approximate.
+Context: Near the end of the podcast, Senra connects Ford’s disdain for relying on “good feeling” to the modern concept of discipline over motivation.
 
 Quote: "There is altogether too much reliance on good feeling in business organizations. **I pity the poor fellow who is so soft and flabby that he must always have an atmosphere of good feeling around him before he can do his work.** There are such men." (49:34)
 

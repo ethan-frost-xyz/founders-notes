@@ -1,6 +1,6 @@
 ---
 id: "ep-0032"
-episode_number: 32
+episode_number: "32"
 title: "#32 Alibaba: The House That Jack Ma Built"
 content_type: "expanded.draft"
 source: "expand_llm"
@@ -22,10 +22,9 @@ Context: After recounting Jack Ma’s struggles and his time at Harvard, David S
 Quote: "Most MBA graduates are not useful unless they come back from their MBA studies and forget what they've learned at school, then they will be useful. Because schools teach knowledge while starting businesses teach wisdom, **wisdom is acquired through experience, knowledge can be acquired through hard work.** So that quote, I mean, obviously, I think he's got a flare for the dramatic." (1:02:30)
 
 Key takeaway: Jack Ma’s observation underscores a vital founder principle: while knowledge from books or classrooms is valuable, it alone cannot substitute for the wisdom forged in the day-to-day practice of building a business. The messy, iterative process of starting and failing teaches lessons that no curriculum can replicate. For aspiring entrepreneurs, this means prioritizing action and learning by doing, even when you feel unprepared.
-
 ### 1:03:30 — Reading is Theft: Stealing Hard-Won Knowledge
 
-Context: David Senra shares a tweet that captures his philosophy of learning from others’ experiences. The raw note highlights the central metaphor—reading as a shortcut to absorb decades of someone else’s problem-solving. The timestamp is from the raw notes; the transcript does not contain its own timestamps.
+Context: David Senra shares a tweet that captures his philosophy of learning from others’ experiences. The raw note highlights the central metaphor—reading as a shortcut to absorb decades of someone else’s problem-solving.
 
 Quote: "So this is a quote that I came across that I want to share with you. It says, “reading is not a chore. **Reading is theft.** It is a robbery. Someone smarter than you has spent 20 years beating their head against the wall trying to solve the problem you're dealing with. You can steal that hard-won knowledge and make it yours. That is power.” It's part of the reason I love reading it because like I always said, it's like having a one-sided conversation about somebody that's thought a lot about the topic they're writing about because they write a book." (1:03:30)
 

@@ -1,6 +1,6 @@
 ---
 id: "ep-0006"
-episode_number: 6
+episode_number: "6"
 title: "#6 Sam Walton"
 content_type: "expanded.draft"
 source: "expand_llm"
@@ -17,17 +17,17 @@ prompt_hash: "f4ffa5a3693602e1"
 
 ### — Sam Walton’s Obsession with Seeking Information and Copying Others
 
-Context: Early in the transcript, David Senra highlights Sam Walton’s relentless information gathering. The raw note lacks a timestamp, but this theme appears throughout the book, including Walton’s habit of studying competitors and his admission that he copied most of his ideas.
+Context: Early in the transcript, David Senra highlights Sam Walton’s relentless information gathering., but this theme appears throughout the book, including Walton’s habit of studying competitors and his admission that he copied most of his ideas.
 
-Quote: "But he was **obsessed with seeking information**, which I find as a very common trait as I study entrepreneurs, whether they're reading, talking to people, studying their competition. In this case, listening to podcast about entrepreneurship, they're always looking for an edge." (timestamp missing)
+Quote: "But he was **obsessed with seeking information**, which I find as a very common trait as I study entrepreneurs, whether they're reading, talking to people, studying their competition. In this case, listening to podcast about entrepreneurship, they're always looking for an edge."
 
 Key takeaway: Walton’s success was built on voracious learning from every possible source—books, competitors, and mentors. He famously said, “Most everything I’ve done, I’ve copied from somebody else,” underscoring that innovation often comes from synthesizing others’ ideas. The lesson for founders: treat information as a competitive advantage and never stop seeking it.
 
 ### — How Airplane Travel Enabled Walmart’s Expansion
 
-Context: Sam Walton explains how his airplane was crucial for Walmart’s growth. No timestamp in the raw note, but this is from the section where he describes using planes for scouting real estate and staying connected to stores.
+Context: Sam Walton explains how his airplane was crucial for Walmart’s growth.
 
-Quote: "There's no question whatsoever that **we could not have done what we did back then if I hadn't had my airplanes**. I bought that first plane for business to travel between the stores and keep in touch with what was going on." (timestamp missing)
+Quote: "There's no question whatsoever that **we could not have done what we did back then if I hadn't had my airplanes**. I bought that first plane for business to travel between the stores and keep in touch with what was going on."
 
 Key takeaway: Walton’s use of a private plane for real estate scouting gave Walmart a decade-long head start in site selection. By flying low and observing traffic patterns, he could make quick, informed decisions. This shows how unconventional tools can create strategic moats.
 

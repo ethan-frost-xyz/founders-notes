@@ -1,6 +1,6 @@
 ---
 id: "ep-0037"
-episode_number: 37
+episode_number: "37"
 title: "#37 The Fish That Ate The Whale: The Life and Times of America's Banana King"
 content_type: "expanded.draft"
 source: "expand_llm"
@@ -17,15 +17,14 @@ prompt_hash: "f4ffa5a3693602e1"
 
 ### 43:50 — Zemurray’s Secret: Hard Work Unlocks Hidden Knowledge
 
-Context: After describing Zemurray’s hands-on mastery of every job in the banana trade—from docks to fields—the narrative explains why his deep, unteachable knowledge gave him an edge. The timestamp is inferred from the episode’s chronology but not explicitly marked in the transcript.
+Context: After describing Zemurray’s hands-on mastery of every job in the banana trade—from docks to fields—the narrative explains why his deep, unteachable knowledge gave him an edge.
 
 Quote: "There was not a job he could not do nor a task he could not accomplish. **He considered it a secret to his success.** And why is that a secret to his success? Because although it’s obvious that you should be doing this because it’s hard work, most people won’t."
 
 Key takeaway: Zemurray believed that the only way to truly understand a business was to do every part of it yourself. The knowledge gained through that hard, unglamorous labor became a competitive advantage precisely because most people are unwilling to endure it. This illustrates that deep, tacit knowledge cannot be delegated or learned secondhand—it must be earned through direct, physical engagement with the work itself.
-
 ### 53:53 — Wars Are Not Won by Running Your Mouth
 
-Context: The transcript is characterizing Zemurray’s personality and contrasting him with the corporate executives at United Fruit. It explains why his confidence, rooted in past success and a disdain for empty talk, made him a formidable competitor. The timestamp is approximate, taken from the raw note and positioned late in the episode.
+Context: The transcript is characterizing Zemurray’s personality and contrasting him with the corporate executives at United Fruit. It explains why his confidence, rooted in past success and a disdain for empty talk, made him a formidable competitor.
 
 Quote: "If he does not say much, it’s because he considers small talk a weakness. **Wars are not won by running your mouth.** I’m describing a once essential American type that is all but largely vanished, men who channeled all their love and fear into business, the factory, the plantation, the shop."
 

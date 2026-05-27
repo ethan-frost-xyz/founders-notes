@@ -1,6 +1,6 @@
 ---
 id: "ep-0190"
-episode_number: 190
+episode_number: "190"
 title: "#190 Henry Ford and Thomas Edison"
 content_type: "expanded.draft"
 source: "expand_llm"
@@ -17,7 +17,7 @@ prompt_hash: "f4ffa5a3693602e1"
 
 ### 39:00 — Edison’s failure to stay focused lost him market dominance
 
-Context: After the Vagabonds trips end, the transcript reflects on Thomas Edison’s career. The author argues Edison kept inventing groundbreaking products but repeatedly moved on too soon, allowing competitors to capture the value he created. The timestamp is approximate (around 39 minutes into the episode).
+Context: After the Vagabonds trips end, the transcript reflects on Thomas Edison’s career. The author argues Edison kept inventing groundbreaking products but repeatedly moved on too soon, allowing competitors to capture the value he created.
 
 Quote: "Time and again, he invented things with long-term market appeal only to **lose interest** or miscalculate what form of his inventions consumer wanted to buy. Examples were plentiful." (39:00)
 
@@ -25,7 +25,7 @@ Key takeaway: Edison’s pattern shows that innovation alone isn’t enough; sus
 
 ### 48:00 — Henry Ford’s traits: no interest in resting on laurels and fixation on details
 
-Context: As the transcript nears its end, it distills Henry Ford’s personality. The note highlights two traits that defined his later years—a refusal to coast on past success and a near‑obsessive attention to the smallest things. The timestamp is approximate (around 48 minutes in).
+Context: As the transcript nears its end, it distills Henry Ford’s personality. The note highlights two traits that defined his later years—a refusal to coast on past success and a near‑obsessive attention to the smallest things.
 
 Quote: "patience was never Ford's strength. **Ford had no interest in laurel resting. Ford fixated on even the smallest details** and then a sentence about the friendship between Ford and Edison." (48:00)
 

@@ -1,6 +1,6 @@
 ---
 id: "ep-0060"
-episode_number: 60
+episode_number: "60"
 title: "#60 Yvon Chouinard: What We've Learned from Patagonia's First 40 Years"
 content_type: "expanded.draft"
 source: "expand_llm"
@@ -73,7 +73,7 @@ Key takeaway: Remaining private gave Patagonia the freedom to make unconventiona
 
 ### — In 2016, JPMorgan offered Databricks $10M to bring the platform on-prem
 
-Context: This raw note references an anecdote about Databricks rejecting an on-prem offer, but the transcript solely covers Patagonia; no support found. Timestamp is also missing.
+Context: This raw note references an anecdote about Databricks rejecting an on-prem offer, but the transcript solely covers Patagonia; no support found.
 
 Quote: Not supported by transcript.
 
@@ -81,7 +81,7 @@ Key takeaway: Verify the source of this raw note; it does not appear in the Pata
 
 ### — Peers taking companies public in 2021, then layoffs and innovation cuts
 
-Context: This note quotes a founder observing peers going public, facing EBITDA demands, and cutting innovation. The current transcript about Patagonia does not contain this content, and no timestamp is provided.
+Context: This note quotes a founder observing peers going public, facing EBITDA demands, and cutting innovation. The current transcript about Patagonia does not contain this content, and
 
 Quote: Not supported by transcript.
 

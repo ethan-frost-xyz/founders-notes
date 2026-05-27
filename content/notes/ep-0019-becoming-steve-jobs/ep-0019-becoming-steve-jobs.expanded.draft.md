@@ -1,6 +1,6 @@
 ---
 id: "ep-0019"
-episode_number: 19
+episode_number: "19"
 title: "#19 Becoming Steve Jobs"
 content_type: "expanded.draft"
 source: "expand_llm"
@@ -17,7 +17,7 @@ prompt_hash: "f4ffa5a3693602e1"
 
 ### — Steve Jobs’ protracted negotiations with IBM over NeXTSTEP licensing
 
-Context: During NeXT’s struggling years, Steve Jobs negotiated a deal with IBM to license the NeXTSTEP operating system. After the initial agreement, a new IBM executive, James Cannavino, took over, and Steve’s handling of the relationship led to a breakdown. The raw note lacks a timestamp, but the transcript clearly describes this episode.
+Context: During NeXT’s struggling years, Steve Jobs negotiated a deal with IBM to license the NeXTSTEP operating system. After the initial agreement, a new IBM executive, James Cannavino, took over, and Steve’s handling of the relationship led to a breakdown., but the transcript clearly describes this episode.
 
 Quote: "Cannavino logically assumed IBM could use NeXT's 2.0 version of NeXTSTEP on its machines. But Steve, who hadn't even met Cannavino, held up IBM for more money, leading to another round of **protracted negotiations**. He overplayed his hand."
 
@@ -25,7 +25,7 @@ Key takeaway: Steve’s immaturity and hubris during the NeXT era caused him to 
 
 ### — Steve Jobs uses aspirational language: comparing Pixar to Disney and Apple to Rolls-Royce
 
-Context: The raw note highlights Steve’s pattern of using aspirational comparisons to elevate his companies. Early on, he called the Apple II the “Rolls-Royce of personal computers.” Later, when renegotiating Pixar’s distribution deal with Disney, he framed Pixar as a peer to Disney’s animation studio. No timestamp is provided, but both instances appear in the transcript.
+Context: The raw note highlights Steve’s pattern of using aspirational comparisons to elevate his companies. Early on, he called the Apple II the “Rolls-Royce of personal computers.” Later, when renegotiating Pixar’s distribution deal with Disney, he framed Pixar as a peer to Disney’s animation studio.
 
 Quote: "But there are very few relationships between peer companies. But that's how we wanted to think about ourselves. In terms of producing animated films, we wanted to think of ourselves as a **peer of Disney's own animation business**."
 
@@ -49,7 +49,7 @@ Key takeaway: Passion is the engine of resilience and excellence. Jobs’ own jo
 
 ### 58:19 — The fetishization of founders versus real work
 
-Context: The host criticizes the modern performative culture around entrepreneurship, contrasting it with Steve Jobs’ actual habits. Jobs avoided conferences and CEO gatherings, focusing instead on product and family. The raw note’s timestamp is approximate.
+Context: The host criticizes the modern performative culture around entrepreneurship, contrasting it with Steve Jobs’ actual habits. Jobs avoided conferences and CEO gatherings, focusing instead on product and family.
 
 Quote: "I think there's like -- this like -- I don't know how to describe it, this **fetishization of entrepreneurship** and founding companies now. And a lot of it has nothing to do with actual work, it's just looking like a founder and entrepreneur, whatever the hell that means."
 

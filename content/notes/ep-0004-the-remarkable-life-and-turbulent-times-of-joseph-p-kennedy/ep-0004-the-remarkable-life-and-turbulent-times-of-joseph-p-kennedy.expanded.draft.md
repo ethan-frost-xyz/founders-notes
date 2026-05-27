@@ -1,6 +1,6 @@
 ---
 id: "ep-0004"
-episode_number: 4
+episode_number: "4"
 title: "#4 The Remarkable Life and Turbulent Times of Joseph P. Kennedy"
 content_type: "expanded.draft"
 source: "expand_llm"
@@ -25,7 +25,7 @@ Key takeaway: Rather than competing head-to-head in a crowded, gatekept field, K
 
 ### — Going from Brokerage to Film: Network Was Key
 
-Context: Kennedy leveraged his position at the brokerage firm Hayden, Stone to meet Hollywood founders and financiers, using those contacts to enter the film business. No timestamp was provided in the raw note.
+Context: Kennedy leveraged his position at the brokerage firm Hayden, Stone to meet Hollywood founders and financiers, using those contacts to enter the film business.
 
 Quote: "And this time, he starts producing films. **So he uses his position at Hayden, Stone to meet people in the -- in Hollywood that are trying to raise money because Hollywood's going through a massive technological change, and it's going from silent films to what they call talkies, which is just a term for the movies we know now, where there's actually sound, and you can hear what the people are saying.** And it sounds interesting or funny to us 100 years later, but this was a huge technical achievement that they had overcome, and usually huge technical achievements cost a lot of money."
 
@@ -41,7 +41,7 @@ Key takeaway: A near-delusional level of self-confidence—believing you can fig
 
 ### — His Goal: Wealth to Free Children for Public Service
 
-Context: From the start, Kennedy’s financial ambition was tied to a dynastic goal: to earn so much that his children and grandchildren would never need to work for money and could dedicate their lives to public service. No timestamp was provided in the raw note.
+Context: From the start, Kennedy’s financial ambition was tied to a dynastic goal: to earn so much that his children and grandchildren would never need to work for money and could dedicate their lives to public service.
 
 Quote: "That he was only adds to its drama and historical significance. **His primary goal was to make so much money, his children would not have to make any, and then they could devote their lives to public service.** He accomplished that before he was 40."
 

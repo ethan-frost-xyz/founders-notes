@@ -12,6 +12,7 @@ from pathlib import Path
 from collections.abc import Callable
 from typing import Any
 
+from expanded_timestamp_lint import lint_expanded_body
 from markdown_io import (
     TIMESTAMP_BULLET_RE,
     parse_frontmatter,
@@ -308,6 +309,9 @@ def validate_expanded_draft(
             warnings.append(
                 f"block after heading #{i} may be missing Key takeaway: or Takeaway:"
             )
+
+    for msg in lint_expanded_body(expanded_body):
+        warnings.append(f"timestamp meta: {msg}")
 
     return errors, warnings
 

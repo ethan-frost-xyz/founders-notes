@@ -17,7 +17,7 @@ prompt_hash: "f4ffa5a3693602e1"
 
 ### 40:00 — Trust your intuition
 
-Context: In this part of the podcast, David Senra recounts Richard Branson’s experience taking Virgin public in 1986. Branson soon felt stifled by the board and the slow decision‑making of a public company, which clashed with his fast, instinct‑driven style. The timestamp “40:00” is approximate; the provided transcript does not include timestamps. The raw note uses “trust your intuition,” while the closest transcript phrase is “acted on my instinct.”
+Context: In this part of the podcast, David Senra recounts Richard Branson’s experience taking Virgin public in 1986. Branson soon felt stifled by the board and the slow decision‑making of a public company, which clashed with his fast, instinct‑driven style. The raw note uses “trust your intuition,” while the closest transcript phrase is “acted on my instinct.”
 
 Quote: "By then it was too late or they'd say things like, 'Sign The Rolling Stones. My wife doesn't like them.' 'Janet Jackson, who's she?' **I have always made fast decisions and acted on my instinct.** Then I was stifled."
 

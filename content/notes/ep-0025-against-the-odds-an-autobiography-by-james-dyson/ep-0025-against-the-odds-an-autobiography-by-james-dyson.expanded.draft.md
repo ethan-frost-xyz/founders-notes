@@ -33,7 +33,7 @@ Key takeaway: Incumbents often protect legacy revenue streams and dismiss innova
 
 ### 1:21:54 — [Missing topic – verify raw note]
 
-Context: The raw note contains only a timestamp with no description or key phrase. Without a topic or anchor phrase, no reliable transcript match can be made for this moment.
+Context: The raw note has no description or key phrase. Without a topic or anchor phrase, no reliable transcript match can be made for this moment.
 
 Quote: Not supported by transcript.
 

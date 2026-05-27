@@ -33,7 +33,7 @@ Key takeaway: The internet presents a stark choice: an infinite library for self
 
 ### 28:00 — Focus 50:50
 
-Context: This raw note appears at the same timestamp as the previous bullet, but the transcript contains no mention of “Focus 50:50.” It may be a personal productivity cue or a note-taking artifact without direct grounding in the source material.
+Context: This raw note follows the previous bullet in the notes, but the transcript contains no mention of “Focus 50:50.” It may be a personal productivity cue or a note-taking artifact without direct grounding in the source material.
 
 Quote: Not supported by transcript.
 

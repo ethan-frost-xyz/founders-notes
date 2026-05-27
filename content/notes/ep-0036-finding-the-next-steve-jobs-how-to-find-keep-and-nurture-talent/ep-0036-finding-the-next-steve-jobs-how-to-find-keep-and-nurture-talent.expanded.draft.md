@@ -1,6 +1,6 @@
 ---
 id: "ep-0036"
-episode_number: 36
+episode_number: "36"
 title: "#36 Finding The Next Steve Jobs: How to Find, Keep, and Nurture Talent"
 content_type: "expanded.draft"
 source: "expand_llm"
@@ -17,7 +17,7 @@ prompt_hash: "f4ffa5a3693602e1"
 
 ### — Reversing critical instincts into creative instincts
 
-Context: Nolan Bushnell describes a technique he used at Atari to spark creativity: having employees rank ideas from good to bad, then forcing them to work on how to make the worst ideas succeed. The raw note lacks a timestamp; the concept appears in the transcript without a specific time marker.
+Context: Nolan Bushnell describes a technique he used at Atari to spark creativity: having employees rank ideas from good to bad, then forcing them to work on how to make the worst ideas succeed.; the concept appears in the transcript without a specific time marker.
 
 Quote: "This process reverses people's normal mental dynamic. **Instead of trying to figure out what's wrong with something, which triggers people's critical instincts, they had to figure out what was right with something, which triggers people's creative instincts.** I adapted this particular technique from my high school debating coach, who told us on our first day of practice that we were going to have to learn to debate both sides of any proposition."
 
@@ -25,7 +25,7 @@ Key takeaway: By deliberately shifting focus from criticism to possibility, you 
 
 ### 31:15 — Arguing for something you don’t believe turns your understanding of the world upside down
 
-Context: At 31:15, Bushnell credits his high school debate coach for teaching him to argue both sides of any proposition. This mental exercise reshaped how he approached problems and led him to adopt the “champion the bad ideas” pong at Atari.
+Context: Bushnell credits his high school debate coach for teaching him to argue both sides of any proposition. This mental exercise reshaped how he approached problems and led him to adopt the “champion the bad ideas” pong at Atari.
 
 Quote: "I adapted this particular technique from my high school debating coach, who told us on our first day of practice that we were going to have to learn to debate both sides of any proposition. We all soon discovered that **arguing for something you don't believe can turn your understanding of the world upside down and help you see issues you had not been able to see before.**"
 
@@ -33,7 +33,7 @@ Key takeaway: Defending a position you oppose forces you to examine assumptions,
 
 ### 32:18 — Great failure story: WD-40, which stands for water displacement 40th formula
 
-Context: At 32:18, while discussing the importance of celebrating failure, Bushnell shares the origin story of WD-40 as a memorable example of persistence. The product’s name is a direct nod to the 39 failed versions that preceded success.
+Context: While discussing the importance of celebrating failure, Bushnell shares the origin story of WD-40 as a memorable example of persistence. The product’s name is a direct nod to the 39 failed versions that preceded success.
 
 Quote: "One of my favorite failure stories is that of the ubiquitous household product, WD-40. It's called that because the first 39 versions of the product failed. **WD-40 stands for water displacement 40th formula.**"
 
@@ -41,7 +41,7 @@ Key takeaway: Even widely successful products often emerge from a long series of
 
 ### — Idiots can always say no
 
-Context: Bushnell explains that naysayers infest every company, stifling creativity by defaulting to “no” without contributing anything constructive. The raw note omits a timestamp; the insight appears in his “neutralize the naysayers” pong.
+Context: Bushnell explains that naysayers infest every company, stifling creativity by defaulting to “no” without contributing anything constructive.
 
 Quote: "These naysayers—they're really saying no all the time because it's all they know how to do, and most importantly, because they have no ideas of their own. **Any idiot can say no.** There's no mental process there. If you don't like something, the trick is to think of something better."
 
