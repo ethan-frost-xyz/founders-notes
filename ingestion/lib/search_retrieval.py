@@ -74,6 +74,15 @@ def load_embeddings_matrix(path: Path | None = None) -> np.ndarray | None:
     return np.load(p)
 
 
+def _keyword_query_terms(query: str) -> list[str]:
+    """Split multi-word queries into terms; single-token queries stay literal."""
+    terms = [t for t in re.split(r"\W+", query.strip()) if len(t) >= 3]
+    if len(terms) >= 2:
+        return terms
+    q = query.strip()
+    return [q] if q else []
+
+
 def search_chunks_keyword(
     query: str,
     limit: int,
@@ -82,19 +91,40 @@ def search_chunks_keyword(
     chunk_predicate: Callable[[dict[str, Any]], bool] | None = None,
     predicate: Callable[[dict[str, Any]], bool] | None = None,
 ) -> list[tuple[float, dict[str, Any]]]:
-    """Case-insensitive substring match; rank by hit count (not BM25)."""
+    """Keyword match on chunk excerpts; multi-word queries score by term overlap."""
     filt = chunk_predicate or predicate
-    pattern = re.compile(re.escape(query), re.IGNORECASE)
+    terms = _keyword_query_terms(query)
+    if not terms:
+        return []
+
     rows = chunks if chunks is not None else load_chunks()
     hits: list[tuple[float, dict[str, Any]]] = []
-    for ch in rows:
-        if filt and not filt(ch):
-            continue
-        excerpt = ch.get("excerpt") or ""
-        if not pattern.search(excerpt):
-            continue
-        score = float(len(pattern.findall(excerpt)))
-        hits.append((score, ch))
+    if len(terms) == 1:
+        pattern = re.compile(re.escape(terms[0]), re.IGNORECASE)
+        for ch in rows:
+            if filt and not filt(ch):
+                continue
+            excerpt = ch.get("excerpt") or ""
+            if not pattern.search(excerpt):
+                continue
+            score = float(len(pattern.findall(excerpt)))
+            hits.append((score, ch))
+    else:
+        lowered = [t.lower() for t in terms]
+        for ch in rows:
+            if filt and not filt(ch):
+                continue
+            excerpt = (ch.get("excerpt") or "").lower()
+            if not excerpt:
+                continue
+            matched = sum(1 for t in lowered if t in excerpt)
+            if matched == 0:
+                continue
+            score = float(matched)
+            if all(t in excerpt for t in lowered):
+                score += float(len(lowered))
+            hits.append((score, ch))
+
     hits.sort(key=lambda x: (-x[0], x[1].get("id", ""), x[1].get("start_line", 0)))
     return hits[:limit]
 
@@ -279,13 +309,16 @@ def search_transcript_keyword(
 
 
 def chunk_to_hit(ch: dict[str, Any], *, root: Path | None = None) -> dict[str, Any]:
+    stored = (ch.get("excerpt") or "").strip()
+    # start_line in chunks.jsonl is section-relative; prefer the indexed excerpt.
+    excerpt = stored or load_chunk_source_excerpt(ch, root=root)
     hit: dict[str, Any] = {
         "chunk_id": ch.get("chunk_id", ""),
         "episode_id": ch.get("id", ""),
         "section": ch.get("section", ""),
         "source_path": ch.get("source_path", ""),
         "start_line": ch.get("start_line"),
-        "excerpt": load_chunk_source_excerpt(ch, root=root),
+        "excerpt": excerpt,
     }
     if ch.get("title"):
         hit["title"] = ch["title"]

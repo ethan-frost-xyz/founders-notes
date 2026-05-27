@@ -308,12 +308,18 @@ class VaultAgent:
 
         try:
             for step in range(cfg.max_steps):
-                response = completion_fn(
-                    model=cfg.model,
-                    messages=messages,
-                    tools=tools,
-                    tool_choice="auto",
-                )
+                is_final_step = step == cfg.max_steps - 1
+                request: dict[str, Any] = {
+                    "model": cfg.model,
+                    "messages": messages,
+                }
+                if is_final_step:
+                    request["tool_choice"] = "none"
+                else:
+                    request["tools"] = tools
+                    request["tool_choice"] = "auto"
+
+                response = completion_fn(**request)
                 msg = response.choices[0].message
                 if not msg.tool_calls:
                     text = (msg.content or "").strip()

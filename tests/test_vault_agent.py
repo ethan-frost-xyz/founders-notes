@@ -131,6 +131,34 @@ def test_run_turn_never_registers_web_search_when_disabled(agent_config: AgentCo
     assert not any(t["tool"] == "web_search" for t in result.tool_trace)
 
 
+def test_run_turn_forces_final_answer_on_last_step(agent_config: AgentConfig):
+    calls: list[dict] = []
+
+    def fake_completion(**kwargs):
+        calls.append(kwargs)
+        if kwargs.get("tool_choice") == "none":
+            return _fake_response(content="Buffett inner scorecard [ep-0100].")
+        return _fake_response(
+            tool_calls=[
+                _fake_tool_call(
+                    "search_vault_parent",
+                    {"query": "inner scorecard"},
+                    call_id=f"call_{len(calls)}",
+                ),
+            ],
+        )
+
+    agent = VaultAgent(config=agent_config)
+    result = agent.run_turn(
+        "What did Buffett mean by inner scorecard?",
+        completion_fn=fake_completion,
+    )
+
+    assert not result.error
+    assert "ep-0100" in result.content
+    assert calls[-1].get("tool_choice") == "none"
+
+
 def test_run_turn_allows_web_tool_registration(agent_config: AgentConfig):
     seen_web = False
 

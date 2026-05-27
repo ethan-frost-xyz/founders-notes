@@ -21,7 +21,11 @@ for entry in (str(BOT), str(TOOLS)):
 from auth import is_allowed  # noqa: E402
 from config import AgentConfig, BotConfig  # noqa: E402
 from handlers import parse_web_query  # noqa: E402
-from messaging import TELEGRAM_MESSAGE_LIMIT, split_telegram_text  # noqa: E402
+from messaging import (  # noqa: E402
+    TELEGRAM_MESSAGE_LIMIT,
+    markdown_to_telegram_html,
+    split_telegram_text,
+)
 from sessions import SessionStore, session_stale_warning  # noqa: E402
 from web import web_search  # noqa: E402
 
@@ -58,6 +62,13 @@ def test_parse_web_query():
 def test_split_telegram_text_short_unchanged():
     text = "hello"
     assert split_telegram_text(text) == [text]
+
+
+def test_markdown_to_telegram_html_bold_and_escape():
+    html = markdown_to_telegram_html("**inner scorecard** & [ep-0100]")
+    assert "<b>inner scorecard</b>" in html
+    assert "&amp;" in html
+    assert "[ep-0100]" in html
 
 
 def test_split_telegram_text_exact_limit():

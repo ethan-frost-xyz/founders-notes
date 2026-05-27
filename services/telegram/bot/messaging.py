@@ -2,10 +2,40 @@
 
 from __future__ import annotations
 
+import html
+import re
 from typing import TYPE_CHECKING
+
+from telegram.constants import ParseMode
 
 # https://core.telegram.org/bots/api#sendmessage
 TELEGRAM_MESSAGE_LIMIT = 4096
+
+_BOLD_RE = re.compile(r"\*\*(.+?)\*\*")
+_CODE_RE = re.compile(r"`([^`]+)`")
+
+
+def markdown_to_telegram_html(text: str) -> str:
+    """Convert a small markdown subset to Telegram HTML (escape-safe)."""
+    placeholders: list[str] = []
+
+    def stash(html_fragment: str) -> str:
+        key = f"\x00TG{len(placeholders)}\x00"
+        placeholders.append(html_fragment)
+        return key
+
+    def bold_sub(match: re.Match[str]) -> str:
+        return stash(f"<b>{html.escape(match.group(1))}</b>")
+
+    def code_sub(match: re.Match[str]) -> str:
+        return stash(f"<code>{html.escape(match.group(1))}</code>")
+
+    converted = _BOLD_RE.sub(bold_sub, text)
+    converted = _CODE_RE.sub(code_sub, converted)
+    converted = html.escape(converted)
+    for idx, fragment in enumerate(placeholders):
+        converted = converted.replace(f"\x00TG{idx}\x00", fragment)
+    return converted
 
 
 def split_telegram_text(text: str, limit: int = TELEGRAM_MESSAGE_LIMIT) -> list[str]:
@@ -52,4 +82,7 @@ if TYPE_CHECKING:
 
 async def reply_text_chunked(message: Message, text: str) -> None:
     for part in split_telegram_text(text):
-        await message.reply_text(part)
+        await message.reply_text(
+            markdown_to_telegram_html(part),
+            parse_mode=ParseMode.HTML,
+        )

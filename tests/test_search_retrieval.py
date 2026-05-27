@@ -54,6 +54,34 @@ def test_keyword_parent_search():
     assert hits[0][1]["section"].startswith(("expanded:", "notes:", "post:"))
 
 
+def test_keyword_multi_term_overlap():
+    chunks = load_fixture()
+    hits = search_chunks_keyword(
+        "customer focus quality",
+        8,
+        chunks=chunks,
+        predicate=is_parent_chunk,
+    )
+    assert hits
+    assert hits[0][0] >= 2.0
+
+
+def test_chunk_to_hit_prefers_stored_excerpt():
+    from search_retrieval import chunk_to_hit
+
+    ch = {
+        "chunk_id": "ep-0099#expanded:expanded_datapoints#1",
+        "id": "ep-0099",
+        "section": "expanded:expanded_datapoints",
+        "source_path": "content/notes/ep-0099-example/ep-0099-example.expanded.md",
+        "start_line": 1,
+        "excerpt": "Quote: inner scorecard lesson here",
+    }
+    hit = chunk_to_hit(ch, root=Path("/nonexistent"))
+    assert hit["excerpt"] == "Quote: inner scorecard lesson here"
+    assert "inner scorecard" in hit["excerpt"]
+
+
 def test_hybrid_prefers_expanded_section_boost():
     chunks = load_fixture()
     result = hybrid_search_parent(

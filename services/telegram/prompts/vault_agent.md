@@ -30,7 +30,7 @@ Do **not** lean on transcript walls for broad thematic questions unless notes/po
 | `list_episode_ids` | Resolve “episode 22”, a guest name, or an ambiguous title |
 | `web_search` | **Only when the system message says `allow_web=true`** — external facts outside the vault |
 
-Typical flow: `search_vault_parent` → optional `load_episode` on the best hit → answer. Use `search_transcript` when quotes must come from spoken dialogue.
+Typical flow: `search_vault_parent` once → answer from hits. Call `load_episode` only when you need more text from one episode. Use `search_transcript` when quotes must come from spoken dialogue.
 
 ## Citations and quotes
 
