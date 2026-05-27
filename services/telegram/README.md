@@ -8,9 +8,15 @@ Private on-the-go access to the Founders vault via a **tool-calling agent** — 
 
 | Doc | Role |
 |-----|------|
-| [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../../.cursor/plans/telegram_rag_bot_v0.plan.md) | **Master plan** — agent loop, vault tools, Mac mini ops, sub-plans SP1–SP6 |
-| [`.cursor/plans/telegram_vault_bot.plan.md`](../../.cursor/plans/telegram_vault_bot.plan.md) | Superseded background (parent/child tiers, early v0/v1 sketch) |
+| [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../../.cursor/plans/telegram_rag_bot_v0.plan.md) | **Master index** — decisions, shared contracts, success criteria |
+| [`.cursor/plans/telegram_vault_sp1_tools.plan.md`](../../.cursor/plans/telegram_vault_sp1_tools.plan.md) | **SP1** — search + embeddings + vault tools (start here) |
+| [`.cursor/plans/telegram_vault_sp2_agent.plan.md`](../../.cursor/plans/telegram_vault_sp2_agent.plan.md) | **SP2** — agent loop + prompt |
+| [`.cursor/plans/telegram_vault_sp3_telegram.plan.md`](../../.cursor/plans/telegram_vault_sp3_telegram.plan.md) | **SP3** — Telegram + sessions |
+| [`.cursor/plans/telegram_vault_sp4_ops.plan.md`](../../.cursor/plans/telegram_vault_sp4_ops.plan.md) | **SP4** — Mac mini deploy |
+| [`.cursor/plans/telegram_vault_bot.plan.md`](../../.cursor/plans/telegram_vault_bot.plan.md) | Superseded background |
 | [`docs/telegram-vault-agent.md`](../../docs/telegram-vault-agent.md) | Short overview for agents |
+
+**One sub-plan per agent session** — do not load all plan files at once.
 
 ## Architecture (v0)
 

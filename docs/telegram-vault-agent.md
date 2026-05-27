@@ -1,6 +1,15 @@
 # Telegram vault agent (planned)
 
-Short overview for coding agents. **Implementation:** [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../.cursor/plans/telegram_rag_bot_v0.plan.md) (filename kept for history; product is a **tool-calling vault agent**, not naive single-shot RAG).
+Short overview for coding agents. **Master index:** [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../.cursor/plans/telegram_rag_bot_v0.plan.md) (decisions + shared contracts). **Implement one sub-plan per session:**
+
+| SP | Plan |
+|----|------|
+| 1 | [telegram_vault_sp1_tools.plan.md](../.cursor/plans/telegram_vault_sp1_tools.plan.md) |
+| 2 | [telegram_vault_sp2_agent.plan.md](../.cursor/plans/telegram_vault_sp2_agent.plan.md) |
+| 3 | [telegram_vault_sp3_telegram.plan.md](../.cursor/plans/telegram_vault_sp3_telegram.plan.md) |
+| 4 | [telegram_vault_sp4_ops.plan.md](../.cursor/plans/telegram_vault_sp4_ops.plan.md) |
+
+Product is a **tool-calling vault agent**, not naive single-shot RAG.
 
 ## Product
 
@@ -34,12 +43,12 @@ After expanded promote on the Mac mini (or any host running the bot), run the sa
 
 ## Build order and branch
 
-All implementation on **`feature/telegram-vault-bot`** off `main` (one commit per sub-plan; merge via PR):
+All implementation on **`feature/telegram-vault-bot`** off `main` (one commit per sub-plan; merge via PR). Use the **SP plan file** for each session — not the full master.
 
-1. SP1 — vault tools + `search_retrieval` + `build_embeddings` + test fixture slice
-2. SP2 — agent loop + `vault_agent.md` prompt
-3. SP3 — Telegram transport, allowlist, sessions, `/web` stub
-4. SP4 — Mac mini `launchd` + ops
+1. SP1 — [tools plan](../.cursor/plans/telegram_vault_sp1_tools.plan.md)
+2. SP2 — [agent plan](../.cursor/plans/telegram_vault_sp2_agent.plan.md)
+3. SP3 — [Telegram plan](../.cursor/plans/telegram_vault_sp3_telegram.plan.md)
+4. SP4 — [ops plan](../.cursor/plans/telegram_vault_sp4_ops.plan.md)
 
 Stub and env reference: [`services/telegram/README.md`](../services/telegram/README.md).
 

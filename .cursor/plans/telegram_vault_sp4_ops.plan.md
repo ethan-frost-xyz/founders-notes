@@ -1,0 +1,69 @@
+---
+name: Telegram Vault SP4 — Mac mini ops
+overview: "launchd, sync-and-index.sh, env template, ops README. Depends on SP3 bot runnable."
+todos:
+  - id: sync-script
+    content: services/telegram/deploy/sync-and-index.sh — git pull + build_chunks + build_embeddings
+    status: pending
+  - id: launchd
+    content: services/telegram/deploy/com.founders.telegram.bot.plist + load instructions
+    status: pending
+  - id: env-template
+    content: deploy/env.example → copy to ~/.config/founders-telegram/env
+    status: pending
+  - id: ops-readme
+    content: services/telegram/README.md — install, cron, manual sync, troubleshooting
+    status: pending
+isProject: false
+---
+
+# SP4 — Mac mini ops
+
+**Master (contracts only):** [telegram_rag_bot_v0.plan.md](telegram_rag_bot_v0.plan.md)  
+**Requires:** [telegram_vault_sp3_telegram.plan.md](telegram_vault_sp3_telegram.plan.md)  
+**Deferred:** [telegram_rag_bot_v0.plan.md](telegram_rag_bot_v0.plan.md) § SP5 webhook  
+**Branch:** `feature/telegram-vault-bot` · **Commit:** SP4 only · then **PR → `main`**
+
+## Agent handoff
+
+Ops and deploy artifacts only. Do **not** change agent logic or tool contracts unless fixing a deploy blocker.
+
+## Goal
+
+Always-on Mac mini: bot via `launchd`, index refresh via manual/cron script (no GitHub webhook in v0).
+
+## Deliverables
+
+| Path | Purpose |
+|------|---------|
+| [`services/telegram/deploy/sync-and-index.sh`](../../services/telegram/deploy/sync-and-index.sh) | `cd $VAULT_ROOT && git pull && cd ingestion && python search/build_chunks.py && python search/build_embeddings.py` |
+| [`services/telegram/deploy/com.founders.telegram.bot.plist`](../../services/telegram/deploy/com.founders.telegram.bot.plist) | `launchd` — `VAULT_ROOT`, env file, working directory |
+| [`services/telegram/deploy/env.example`](../../services/telegram/deploy/env.example) | Template for `~/.config/founders-telegram/env` |
+| [`services/telegram/README.md`](../../services/telegram/README.md) | Install, `launchctl load`, cron example, sync cadence |
+
+## `sync-and-index.sh`
+
+- Non-interactive; exit non-zero on failure.
+- Assumes `VAULT_ROOT` and Python venv or system `python3` on PATH (document which).
+- **v0.1 note:** avoid concurrent `git pull` during an active agent turn — document “run sync when idle”; file lock deferred.
+
+## `launchd`
+
+- Label: `com.founders.telegram.bot` (or repo-agreed name).
+- `KeepAlive` / `RunAtLoad` as appropriate for polling bot.
+- `StandardOutPath` / `StandardErrorPath` under `~/Library/Logs/founders-telegram/` (document paths).
+
+## Cron (optional, documented)
+
+Example: daily `sync-and-index.sh` at 04:00 local — user enables manually.
+
+## Post-SP4 PR checklist
+
+- [ ] SP1–SP4 commits on `feature/telegram-vault-bot`
+- [ ] Master plan + sub-plans committed with final SP4 commit (per AGENTS.md)
+- [ ] `pytest` + `verify.py` green
+- [ ] PR description links master + verify-this table from master plan
+
+## Commit message
+
+`feat(telegram): SP4 Mac mini launchd and sync-and-index ops`

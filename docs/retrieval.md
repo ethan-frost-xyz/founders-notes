@@ -32,7 +32,7 @@ cd ingestion && python search/build_chunks.py
 | Transcript search | `search_transcript` | Child-tier transcript sections only when needed |
 | Web | `web_search` | **`/web` command only** — never mixed into default vault turns |
 
-Master plan: [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../.cursor/plans/telegram_rag_bot_v0.plan.md). Implementation: [`services/telegram/README.md`](../services/telegram/README.md).
+Master index: [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../.cursor/plans/telegram_rag_bot_v0.plan.md). SP1 implementation: [`.cursor/plans/telegram_vault_sp1_tools.plan.md`](../.cursor/plans/telegram_vault_sp1_tools.plan.md). Bot stub: [`services/telegram/README.md`](../services/telegram/README.md).
 
 Index refresh on the Mac mini host: `sync-and-index.sh` → `build_chunks.py` + `build_embeddings.py` (parent chunks only; `catalog/embeddings.npy` gitignored).
 
