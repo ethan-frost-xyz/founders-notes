@@ -149,7 +149,7 @@ Set bot vars in `~/.config/founders-telegram/env`. Ensure `{VAULT_ROOT}/.env` ha
 
 | Variable | Purpose |
 |----------|---------|
-| `VAULT_ROOT` | Git clone path |
+| `VAULT_ROOT` | Git clone path (repo root; resolved via [`ingestion/_bootstrap.py`](../../ingestion/_bootstrap.py) `resolve_vault_root`) |
 | `TELEGRAM_BOT_TOKEN` | BotFather token |
 | `TELEGRAM_ALLOWED_USER_IDS` | Comma-separated numeric user ids |
 | `OPENROUTER_API_KEY` | Chat + embed API |

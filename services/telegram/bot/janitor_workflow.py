@@ -13,13 +13,10 @@ _DRAFT_EXCERPT_CHARS = 2800
 _PROMPT_PATH = Path(__file__).resolve().parent.parent / "prompts" / "janitor_clean.md"
 
 
-def _setup_ingestion_paths(vault_root: Path) -> None:
-    os.environ.setdefault("VAULT_ROOT", str(vault_root))
-    ingestion = vault_root / "ingestion"
-    lib = ingestion / "lib"
-    for entry in (str(ingestion), str(lib)):
-        if entry not in sys.path:
-            sys.path.insert(0, entry)
+def _ingestion_paths(vault_root: Path) -> None:
+    from _bootstrap import setup_ingestion_paths
+
+    setup_ingestion_paths(vault_root)
 
 
 def _python(vault_root: Path) -> str:
@@ -70,14 +67,14 @@ def build_clean_user_message(
 
 
 def resolve_catalog_row(vault_root: Path, episode_id: str) -> dict[str, Any]:
-    _setup_ingestion_paths(vault_root)
+    _ingestion_paths(vault_root)
     from catalog import load_catalog, resolve_catalog_row as _resolve
 
     return _resolve(load_catalog(), episode_id)
 
 
 def file_notes(vault_root: Path, row: dict[str, Any], cleaned_body: str) -> Path:
-    _setup_ingestion_paths(vault_root)
+    _ingestion_paths(vault_root)
     from janitor_notes import merge_notes_body
     from markdown_io import read_markdown_body, write_notes_md
     import paths as vault_paths
@@ -108,7 +105,7 @@ def llm_clean_pasted_notes(
     feedback: str | None = None,
 ) -> tuple[str, list[str]]:
     """LLM-only paste normalization (no regex re-parse)."""
-    _setup_ingestion_paths(vault_root)
+    _ingestion_paths(vault_root)
     from expand_llm import call_openrouter
     from janitor_notes import finalize_notes_body
 
@@ -159,7 +156,7 @@ def run_expand(vault_root: Path, episode_id: str, *, force: bool) -> tuple[int, 
 
 
 def run_promote(vault_root: Path, episode_id: str) -> tuple[int, str, list[str]]:
-    _setup_ingestion_paths(vault_root)
+    _ingestion_paths(vault_root)
     from catalog import load_catalog, resolve_catalog_row as _resolve
     from expand_llm import promote_draft
 
@@ -198,7 +195,7 @@ def run_reindex(vault_root: Path) -> tuple[int, str]:
 
 
 def draft_excerpt(vault_root: Path, row: dict[str, Any]) -> str:
-    _setup_ingestion_paths(vault_root)
+    _ingestion_paths(vault_root)
     from markdown_io import read_markdown_body
     import paths as vault_paths
 

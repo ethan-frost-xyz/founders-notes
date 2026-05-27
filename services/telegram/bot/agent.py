@@ -26,15 +26,12 @@ class TurnResult:
 
 
 def _ensure_tool_paths(vault_root: Path) -> None:
-    os.environ.setdefault("VAULT_ROOT", str(vault_root))
+    from _bootstrap import setup_ingestion_paths
+
+    setup_ingestion_paths(vault_root)
     tools_dir = Path(__file__).resolve().parent / "tools"
     bot_dir = Path(__file__).resolve().parent
     for entry in (str(tools_dir), str(bot_dir)):
-        if entry not in sys.path:
-            sys.path.insert(0, entry)
-    ingestion = vault_root / "ingestion"
-    lib = ingestion / "lib"
-    for entry in (str(ingestion), str(lib)):
         if entry not in sys.path:
             sys.path.insert(0, entry)
 

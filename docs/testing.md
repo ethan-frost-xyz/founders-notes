@@ -8,7 +8,7 @@ pytest tests -q
 cd ingestion && python pipeline/verify.py
 ```
 
-[`tests/conftest.py`](../tests/conftest.py) adds `ingestion/`, `ingestion/lib/`, `ingestion/notes/`, and `ingestion/x/` to `sys.path` for imports.
+[`tests/conftest.py`](../tests/conftest.py) calls `setup_ingestion_paths(REPO, include_subpackages=True)` from [`ingestion/_bootstrap.py`](../ingestion/_bootstrap.py) (adds `ingestion/`, `lib/`, `search/`, `notes/`, `x/`, `pipeline/`) and puts `services/telegram/bot` (+ `tools/`) on `sys.path` for Telegram tests.
 
 ## Test modules
 

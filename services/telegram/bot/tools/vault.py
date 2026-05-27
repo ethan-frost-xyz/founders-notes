@@ -2,33 +2,23 @@
 
 from __future__ import annotations
 
-import os
 import re
-import sys
 from difflib import SequenceMatcher
 from pathlib import Path
 from typing import Any
 
 
-def _vault_root() -> Path:
-    env = os.environ.get("VAULT_ROOT", "").strip()
-    if env:
-        return Path(env).resolve()
-    return Path(__file__).resolve().parents[4]
-
-
 def _ensure_ingestion_path() -> Path:
-    root = _vault_root()
-    ingestion = root / "ingestion"
-    lib = ingestion / "lib"
-    for entry in (ingestion, lib):
-        s = str(entry)
-        if s not in sys.path:
-            sys.path.insert(0, s)
+    from _bootstrap import resolve_vault_root, setup_ingestion_paths
+
+    root = resolve_vault_root()
+    setup_ingestion_paths(root)
     return root
 
 
 def _paths():
+    from _bootstrap import resolve_vault_root
+
     _ensure_ingestion_path()
     from paths import (
         CHUNKS_PATH,
@@ -40,7 +30,7 @@ def _paths():
         post_file_path,
     )
 
-    root = _vault_root()
+    root = resolve_vault_root()
     if root != ROOT:
         return (
             root / "catalog" / "chunks.jsonl",

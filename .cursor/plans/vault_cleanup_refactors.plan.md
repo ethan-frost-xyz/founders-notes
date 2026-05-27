@@ -7,7 +7,7 @@ todos:
     status: completed
   - id: target-3-bootstrap
     content: "PR2: _bootstrap path helpers + Telegram/tests wiring; affected-doc sweep; make-pr-easy-to-review"
-    status: pending
+    status: completed
   - id: target-2-reindex
     content: "PR3: reindex_vault + callers + tests; affected-doc sweep; make-pr-easy-to-review"
     status: pending
@@ -19,7 +19,7 @@ isProject: false
 
 # Vault cleanup — three low-risk refactors + future `expand_llm` note
 
-**Progress:** PR1 (Target 1 docs/hygiene) — branch `docs/vault-cleanup-pr1`. PR2/PR3 pending.
+**Progress:** PR1 shipped. PR2 (Target 3 bootstrap) — branch `refactor/vault-bootstrap-pr2`. PR3 pending.
 
 ## Success criteria (done when)
 
@@ -31,7 +31,7 @@ isProject: false
 
 **Repo rule:** Commit this plan under [`.cursor/plans/`](.cursor/plans/) in the **same PR** as each target’s code/docs (per [`AGENTS.md`](AGENTS.md)).
 
-**Progress:** PR1 (Target 1 docs/hygiene) — **shipped** on branch `docs/vault-cleanup-pr1`. PR2/PR3 pending.
+**Progress:** PR1 shipped (#5). PR2 (Target 3 bootstrap) — branch `refactor/vault-bootstrap-pr2`. PR3 pending.
 
 **Every PR ends with two mandatory steps:** (1) **affected-doc sweep** (table below — all listed docs for that PR must match the diff), then (2) **`make-pr-easy-to-review`** (open/update PR description and reviewer guidance; no behavior changes in this step).
 
