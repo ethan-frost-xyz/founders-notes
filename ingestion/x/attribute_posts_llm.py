@@ -22,7 +22,7 @@ from typing import Any
 from dotenv import load_dotenv
 
 from catalog import catalog_by_number, load_catalog
-from expand_llm import call_openrouter
+from openrouter_client import call_openrouter
 from markdown_io import write_post_md
 from paths import ROOT
 from x_posts_csv import (

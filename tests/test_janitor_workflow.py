@@ -72,7 +72,7 @@ def test_draft_excerpt_missing_draft():
     assert "no draft" in text.lower()
 
 
-@patch("expand_llm.call_openrouter")
+@patch("openrouter_client.call_openrouter")
 def test_llm_clean_naval_paste(mock_call):
     mock_call.return_value = SimpleNamespace(content=NAVAL_LLM_OUT)
     body, warnings = llm_clean_pasted_notes(

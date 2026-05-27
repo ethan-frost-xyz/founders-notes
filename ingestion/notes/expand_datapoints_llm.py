@@ -22,10 +22,10 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from cli_args import add_episode_id_arg, ensure_catalog, resolve_episode_id_arg
+from expand_validate import count_datapoint_headings
 from expand_llm import (
     ExpandEstimate,
     TerminalExpandProgressReporter,
-    _count_datapoint_headings,
     build_user_message,
     call_openrouter,
     call_openrouter_streaming,
@@ -269,7 +269,7 @@ def run_expand_one(
             staging_root=staging_dir,
             variant=variant,
         )
-        n_sections = _count_datapoint_headings(body)
+        n_sections = count_datapoint_headings(body)
         val_errors, _ = validate_expanded_draft(npath, body)
         draft_rel = str(out.relative_to(paths.ROOT))
         print_expand_ok_line(

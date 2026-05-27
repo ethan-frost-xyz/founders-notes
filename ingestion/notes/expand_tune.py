@@ -26,9 +26,9 @@ from dotenv import load_dotenv
 
 from catalog import load_catalog
 from cli_args import resolve_episode_id_arg
+from expand_validate import count_datapoint_headings
 from expand_llm import (
     ExpandEstimate,
-    _count_datapoint_headings,
     default_prompt_path,
     estimate_expand_for_row,
     filter_expand_run_log,
@@ -295,7 +295,7 @@ def draft_report_row(row: dict, variant: str, run_id: str) -> dict[str, Any]:
     n_bullets = len(TIMESTAMP_BULLET_RE.findall(read_markdown_body(npath)))
     val_errors, val_warnings = validate_expanded_draft(npath, body)
     out["n_bullets"] = n_bullets
-    out["n_sections"] = _count_datapoint_headings(body)
+    out["n_sections"] = count_datapoint_headings(body)
     out["validation_errors"] = val_errors
     out["validation_warnings"] = val_warnings
     text = draft.read_text(encoding="utf-8")

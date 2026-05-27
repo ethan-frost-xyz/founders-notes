@@ -1,28 +1,51 @@
-"""OpenRouter / datapoint expansion: prompts, API call, draft write, promote."""
+"""Datapoint expansion: prompts, cost estimates, progress UI; re-exports split modules."""
 
 from __future__ import annotations
 
-import hashlib
-import json
-import os
-import re
-import time
-from dataclasses import dataclass
 from pathlib import Path
-from collections.abc import Callable
+from dataclasses import dataclass
 from typing import Any
 
-from expanded_timestamp_lint import lint_expanded_body
-from markdown_io import (
-    TIMESTAMP_BULLET_RE,
-    parse_frontmatter,
-    read_markdown_body,
-    utc_now_iso,
-    write_expanded_draft_md,
-    write_expanded_md,
-    write_frontmatter_md,
+from expand_promote import (
+    promote_draft,
+    prompt_file_hash,
+    resolve_draft_path,
+    write_expanded_draft,
 )
-import paths
+from expand_run_log import (
+    append_expand_run_log,
+    expand_log_context_from_env,
+    expand_run_log_path,
+    filter_expand_run_log,
+    format_compact_chars,
+    format_compact_tokens,
+    format_cost_usd,
+    format_duration_sec,
+    format_expand_usage_suffix,
+    load_expand_run_log,
+    log_expand_event,
+    openrouter_completion_log_fields,
+    print_expand_batch_summary,
+    print_expand_error_line,
+    print_expand_ok_line,
+)
+from expand_validate import (
+    count_datapoint_headings,
+    count_datapoint_headings_in_partial,
+    parse_expanded_body,
+    validate_expanded_draft,
+)
+from markdown_io import TIMESTAMP_BULLET_RE, read_markdown_body
+from openrouter_client import (
+    OPENROUTER_MAX_ATTEMPTS,
+    ExpandProgressReporter,
+    OpenRouterCompletion,
+    call_openrouter,
+    call_openrouter_streaming,
+    execute_openrouter_with_retry,
+    is_retriable_openrouter_error,
+    usage_from_response,
+)
 from openrouter_pricing import (
     COMPLETION_TOKENS_PER_BULLET,
     estimate_cost_usd,
@@ -30,23 +53,18 @@ from openrouter_pricing import (
     model_id_for_pricing,
     resolve_model_rates,
 )
+import paths
 from paths import (
     INGESTION_DIR,
-    expanded_draft_file_path,
-    expanded_file_path,
     notes_file_path,
-    staging_draft_file_path,
     transcript_dir,
     transcript_filename,
 )
 
+# Backward compatibility for callers using the private name.
+_count_datapoint_headings = count_datapoint_headings
+
 DEFAULT_PROMPT_PATH = INGESTION_DIR / "prompts" / "expand_datapoints.md"
-
-OPENROUTER_MAX_ATTEMPTS = 3
-
-
-def expand_run_log_path() -> Path:
-    return paths.ROOT / "catalog" / "expand-run.jsonl"
 
 MARKERS = ("<<<SYSTEM>>>", "<<<USER>>>")
 
@@ -90,21 +108,11 @@ class ExpandEstimate:
         return (self.input_chars + CHARS_PER_TOKEN - 1) // CHARS_PER_TOKEN
 
 
-def format_compact_chars(n: int) -> str:
-    """Human-readable char count (e.g. 54k, 1.2M)."""
-    if n < 1000:
-        return str(n)
-    if n < 1_000_000:
-        return f"{n / 1000:.0f}k"
-    return f"{n / 1_000_000:.2f}M"
-
-
-def format_compact_tokens(n: int) -> str:
-    if n < 1000:
-        return str(n)
-    if n < 1_000_000:
-        return f"{n / 1000:.1f}k"
-    return f"{n / 1_000_000:.2f}M"
+def _prompt_display_path(prompt_path: Path) -> str:
+    try:
+        return str(prompt_path.relative_to(paths.ROOT))
+    except ValueError:
+        return str(prompt_path)
 
 
 def estimate_expand_for_row(row: dict[str, Any], *, prompt_path: Path) -> ExpandEstimate:
@@ -132,13 +140,6 @@ def estimate_expand_for_row(row: dict[str, Any], *, prompt_path: Path) -> Expand
         transcript_chars=len(transcript_body),
         input_chars=len(system) + len(user_msg),
     )
-
-
-def _prompt_display_path(prompt_path: Path) -> str:
-    try:
-        return str(prompt_path.relative_to(paths.ROOT))
-    except ValueError:
-        return str(prompt_path)
 
 
 def print_expand_dry_run_summary(
@@ -227,169 +228,7 @@ def build_combined_prompt_for_clipboard(system: str, user_message: str) -> str:
     return f"{system}\n\n---\n\n{user_message}"
 
 
-_FENCE_RE = re.compile(
-    r"^\s*```(?:markdown|md)?\s*\r?\n(.*?)\r?\n```\s*$",
-    re.DOTALL | re.IGNORECASE,
-)
-
-
-def parse_expanded_body(raw: str) -> str:
-    """Strip optional markdown fence and preamble; return body starting at ## Expanded datapoints."""
-    text = raw.strip()
-    m = _FENCE_RE.match(text)
-    if m:
-        text = m.group(1).strip()
-    marker = "## Expanded datapoints"
-    idx = text.find(marker)
-    if idx == -1:
-        raise ValueError(f"Model output missing {marker!r}")
-    return text[idx:].strip()
-
-
-def _count_datapoint_headings(body: str) -> int:
-    return len(re.findall(r"^###\s+.+$", body, re.MULTILINE))
-
-
-def count_datapoint_headings_in_partial(text: str) -> int:
-    """Count completed `###` datapoint headings in a partial stream buffer."""
-    return _count_datapoint_headings(text)
-
-
-def _block_has_field(block: str, labels: tuple[str, ...]) -> bool:
-    """True if block contains any label (plain or **Label:** markdown)."""
-    lower = block.lower()
-    for label in labels:
-        if label.lower() in lower:
-            return True
-        bold = f"**{label}**"
-        if bold.lower() in lower:
-            return True
-    return False
-
-
-def validate_expanded_draft(
-    notes_path: Path,
-    expanded_body: str,
-) -> tuple[list[str], list[str]]:
-    """
-    Return (errors, warnings). Errors block promotion; warnings are advisory.
-    """
-    errors: list[str] = []
-    warnings: list[str] = []
-    if "## Expanded datapoints" not in expanded_body:
-        errors.append("missing ## Expanded datapoints section")
-        return errors, warnings
-
-    n_sections = _count_datapoint_headings(expanded_body)
-    if n_sections == 0:
-        errors.append("no ### datapoint headings found")
-
-    notes_body = read_markdown_body(notes_path)
-    n_bullets = len(TIMESTAMP_BULLET_RE.findall(notes_body))
-    if n_bullets > 0 and n_sections < n_bullets:
-        errors.append(
-            f"fewer expanded sections ({n_sections}) than note bullets ({n_bullets})"
-        )
-    if n_sections > n_bullets and n_bullets > 0:
-        warnings.append(
-            f"more ### sections ({n_sections}) than note bullets ({n_bullets})"
-        )
-
-    # Each ### block should have Context, Quote, and takeaway (soft check)
-    for i, block in enumerate(re.split(r"^###\s+", expanded_body, flags=re.MULTILINE)):
-        if i == 0:
-            continue  # preamble before first ###
-        if not _block_has_field(block, ("Context:",)):
-            warnings.append(f"block after heading #{i} may be missing Context:")
-        if not _block_has_field(block, ("Quote:",)):
-            warnings.append(f"block after heading #{i} may be missing Quote:")
-        if not _block_has_field(
-            block, ("Key takeaway:", "Takeaway:")
-        ):
-            warnings.append(
-                f"block after heading #{i} may be missing Key takeaway: or Takeaway:"
-            )
-
-    for msg in lint_expanded_body(expanded_body):
-        warnings.append(f"timestamp meta: {msg}")
-
-    return errors, warnings
-
-
-def prompt_file_hash(path: Path) -> str:
-    h = hashlib.sha256(path.read_bytes())
-    return h.hexdigest()[:16]
-
-
-@dataclass(frozen=True)
-class OpenRouterCompletion:
-    content: str
-    response_id: str | None
-    prompt_tokens: int
-    completion_tokens: int
-    total_tokens: int
-    cost_usd: float | None
-    duration_ms: int
-
-
-def usage_from_response(response: Any) -> dict[str, Any]:
-    """Normalize OpenRouter/OpenAI usage fields from a chat completion response."""
-    usage = getattr(response, "usage", None)
-    if usage is None:
-        return {
-            "prompt_tokens": 0,
-            "completion_tokens": 0,
-            "total_tokens": 0,
-            "cost_usd": None,
-        }
-    prompt_tokens = int(getattr(usage, "prompt_tokens", None) or 0)
-    completion_tokens = int(getattr(usage, "completion_tokens", None) or 0)
-    total_tokens = int(getattr(usage, "total_tokens", None) or 0)
-    if total_tokens == 0 and (prompt_tokens or completion_tokens):
-        total_tokens = prompt_tokens + completion_tokens
-    cost_raw = getattr(usage, "cost", None)
-    cost_usd: float | None
-    if cost_raw is None:
-        cost_usd = None
-    else:
-        try:
-            cost_usd = float(cost_raw)
-        except (TypeError, ValueError):
-            cost_usd = None
-    return {
-        "prompt_tokens": prompt_tokens,
-        "completion_tokens": completion_tokens,
-        "total_tokens": total_tokens,
-        "cost_usd": cost_usd,
-    }
-
-
-def expand_log_context_from_env() -> dict[str, str]:
-    """Optional tune correlation (set by expand_tune subprocess env)."""
-    out: dict[str, str] = {}
-    run_id = os.environ.get("EXPAND_RUN_ID", "").strip()
-    variant = os.environ.get("EXPAND_VARIANT", "").strip()
-    if run_id:
-        out["run_id"] = run_id
-    if variant:
-        out["variant"] = variant
-    return out
-
-
-class ExpandProgressReporter:
-    """Optional live progress callbacks during a streaming expand call."""
-
-    def waiting(self, *, input_chars: int) -> None:
-        pass
-
-    def first_token(self, *, ttft_ms: int) -> None:
-        pass
-
-    def section(self, *, index: int, total: int) -> None:
-        pass
-
-
-class TerminalExpandProgressReporter(ExpandProgressReporter):
+class TerminalExpandProgressReporter:
     """Print expand progress lines to stdout (flush after each)."""
 
     def __init__(self, *, episode_id: str, total_sections: int) -> None:
@@ -417,445 +256,51 @@ class TerminalExpandProgressReporter(ExpandProgressReporter):
         )
 
 
-def _openrouter_retry_delay_sec(failed_attempt: int) -> float:
-    """Seconds to wait after failed attempt N (1-based) before the next try."""
-    return min(2.0 ** (failed_attempt - 1), 30.0)
-
-
-def is_retriable_openrouter_error(exc: Exception) -> bool:
-    """True for transient API/network failures worth retrying."""
-    if isinstance(exc, ValueError) and "empty model response" in str(exc).lower():
-        return True
-    try:
-        from openai import (
-            APIConnectionError,
-            APIStatusError,
-            APITimeoutError,
-            InternalServerError,
-            RateLimitError,
-        )
-    except ImportError:
-        return False
-    if isinstance(
-        exc,
-        (APIConnectionError, APITimeoutError, RateLimitError, InternalServerError),
-    ):
-        return True
-    if isinstance(exc, APIStatusError):
-        code = getattr(exc, "status_code", None)
-        if code is None:
-            return False
-        return int(code) in (408, 429, 500, 502, 503, 504)
-    return False
-
-
-def execute_openrouter_with_retry(
-    operation: Callable[[], OpenRouterCompletion],
-    *,
-    max_attempts: int = OPENROUTER_MAX_ATTEMPTS,
-    episode_id: str | None = None,
-) -> OpenRouterCompletion:
-    """Run an OpenRouter call up to max_attempts times on retriable errors."""
-    prefix = f"[expand] {episode_id}  " if episode_id else "[expand] "
-    last_exc: Exception | None = None
-    for attempt in range(1, max_attempts + 1):
-        try:
-            return operation()
-        except Exception as e:
-            last_exc = e
-            if attempt >= max_attempts or not is_retriable_openrouter_error(e):
-                raise
-            delay = _openrouter_retry_delay_sec(attempt)
-            print(
-                f"{prefix}API attempt {attempt}/{max_attempts} failed "
-                f"({type(e).__name__}: {e}); retrying in {delay:.0f}s…",
-                flush=True,
-            )
-            time.sleep(delay)
-    assert last_exc is not None
-    raise last_exc
-
-
-def call_openrouter(
-    *,
-    system: str,
-    user: str,
-    model: str,
-    api_key: str,
-    base_url: str | None = None,
-    temperature: float = 0.0,
-    response_format: dict[str, str] | None = None,
-    episode_id: str | None = None,
-) -> OpenRouterCompletion:
-    from openai import OpenAI
-
-    client = OpenAI(
-        api_key=api_key,
-        base_url=(base_url or "https://openrouter.ai/api/v1").rstrip("/"),
-    )
-    kwargs: dict[str, Any] = {
-        "model": model,
-        "messages": [
-            {"role": "system", "content": system},
-            {"role": "user", "content": user},
-        ],
-        "temperature": temperature,
-    }
-    if response_format is not None:
-        kwargs["response_format"] = response_format
-    def _once() -> OpenRouterCompletion:
-        t0 = time.perf_counter()
-        response = client.chat.completions.create(**kwargs)
-        duration_ms = int((time.perf_counter() - t0) * 1000)
-        raw = response.choices[0].message.content
-        if not raw:
-            raise ValueError("empty model response")
-        usage = usage_from_response(response)
-        return OpenRouterCompletion(
-            content=raw,
-            response_id=getattr(response, "id", None),
-            prompt_tokens=usage["prompt_tokens"],
-            completion_tokens=usage["completion_tokens"],
-            total_tokens=usage["total_tokens"],
-            cost_usd=usage["cost_usd"],
-            duration_ms=duration_ms,
-        )
-
-    return execute_openrouter_with_retry(_once, episode_id=episode_id)
-
-
-def call_openrouter_streaming(
-    *,
-    system: str,
-    user: str,
-    model: str,
-    api_key: str,
-    base_url: str | None = None,
-    temperature: float = 0.0,
-    total_sections: int = 0,
-    reporter: ExpandProgressReporter | None = None,
-    episode_id: str | None = None,
-) -> OpenRouterCompletion:
-    """Stream chat completion; optional reporter for TTFT and per-section progress."""
-    from openai import OpenAI
-
-    if reporter is not None:
-        reporter.waiting(input_chars=len(system) + len(user))
-
-    client = OpenAI(
-        api_key=api_key,
-        base_url=(base_url or "https://openrouter.ai/api/v1").rstrip("/"),
-    )
-    def _once() -> OpenRouterCompletion:
-        t0 = time.perf_counter()
-        stream = client.chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": system},
-                {"role": "user", "content": user},
-            ],
-            temperature=temperature,
-            stream=True,
-            stream_options={"include_usage": True},
-        )
-
-        parts: list[str] = []
-        response_id: str | None = None
-        usage_chunk: Any = None
-        first_token_reported = False
-        last_section_count = 0
-        section_total = max(total_sections, 0)
-
-        for chunk in stream:
-            chunk_id = getattr(chunk, "id", None)
-            if chunk_id:
-                response_id = chunk_id
-            if getattr(chunk, "usage", None) is not None:
-                usage_chunk = chunk
-
-            if not chunk.choices:
-                continue
-            delta = chunk.choices[0].delta.content
-            if not delta:
-                continue
-
-            if not first_token_reported:
-                if reporter is not None:
-                    reporter.first_token(ttft_ms=int((time.perf_counter() - t0) * 1000))
-                first_token_reported = True
-
-            parts.append(delta)
-            buffer = "".join(parts)
-            n_sections = count_datapoint_headings_in_partial(buffer)
-            if reporter is not None and n_sections > last_section_count:
-                for idx in range(last_section_count + 1, n_sections + 1):
-                    reporter.section(
-                        index=idx,
-                        total=section_total if section_total > 0 else n_sections,
-                    )
-                last_section_count = n_sections
-
-        duration_ms = int((time.perf_counter() - t0) * 1000)
-        raw = "".join(parts)
-        if not raw:
-            raise ValueError("empty model response")
-
-        usage = (
-            usage_from_response(usage_chunk)
-            if usage_chunk is not None
-            else usage_from_response(None)
-        )
-        return OpenRouterCompletion(
-            content=raw,
-            response_id=response_id,
-            prompt_tokens=usage["prompt_tokens"],
-            completion_tokens=usage["completion_tokens"],
-            total_tokens=usage["total_tokens"],
-            cost_usd=usage["cost_usd"],
-            duration_ms=duration_ms,
-        )
-
-    return execute_openrouter_with_retry(_once, episode_id=episode_id)
-
-
-def append_expand_run_log(record: dict[str, Any]) -> None:
-    log_path = expand_run_log_path()
-    log_path.parent.mkdir(parents=True, exist_ok=True)
-    with log_path.open("a", encoding="utf-8") as f:
-        f.write(json.dumps(record, ensure_ascii=False) + "\n")
-
-
-def log_expand_event(record: dict[str, Any]) -> dict[str, Any]:
-    """Append one expand-run.jsonl row (merges tune env context)."""
-    merged = {**expand_log_context_from_env(), **record}
-    append_expand_run_log(merged)
-    return merged
-
-
-def load_expand_run_log() -> list[dict[str, Any]]:
-    path = expand_run_log_path()
-    if not path.exists():
-        return []
-    rows: list[dict[str, Any]] = []
-    with path.open(encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()
-            if line:
-                rows.append(json.loads(line))
-    return rows
-
-
-def filter_expand_run_log(
-    records: list[dict[str, Any]],
-    *,
-    run_id: str | None = None,
-    variant: str | None = None,
-    last: int | None = None,
-) -> list[dict[str, Any]]:
-    out = records
-    if run_id:
-        out = [r for r in out if r.get("run_id") == run_id]
-    if variant:
-        out = [r for r in out if r.get("variant") == variant]
-    if last is not None and last > 0:
-        out = out[-last:]
-    return out
-
-
-def format_duration_sec(duration_ms: int | None) -> str:
-    if duration_ms is None:
-        return "?"
-    return f"{duration_ms / 1000:.1f}s"
-
-
-def format_cost_usd(cost: float | None) -> str:
-    if cost is None:
-        return "?"
-    if cost >= 0.01:
-        return f"${cost:.2f}"
-    if cost > 0:
-        return f"${cost:.4f}"
-    return "$0"
-
-
-def openrouter_completion_log_fields(
-    completion: OpenRouterCompletion | None,
-) -> dict[str, Any]:
-    """Token/cost fields for expand-run.jsonl when a completion exists."""
-    if completion is None:
-        return {}
-    return {
-        "response_id": completion.response_id,
-        "prompt_tokens": completion.prompt_tokens,
-        "completion_tokens": completion.completion_tokens,
-        "total_tokens": completion.total_tokens,
-        "cost_usd": completion.cost_usd,
-        "duration_ms": completion.duration_ms,
-    }
-
-
-def format_expand_usage_suffix(completion: OpenRouterCompletion) -> str:
-    return (
-        f"{format_compact_tokens(completion.prompt_tokens)} in / "
-        f"{format_compact_tokens(completion.completion_tokens)} out  "
-        f"{format_cost_usd(completion.cost_usd)}  "
-        f"{format_duration_sec(completion.duration_ms)}"
-    )
-
-
-def print_expand_ok_line(
-    *,
-    episode_id: str,
-    completion: OpenRouterCompletion,
-    draft_rel: str,
-) -> None:
-    print(
-        f"[ok] {episode_id}  "
-        f"{format_expand_usage_suffix(completion)}  "
-        f"→ {draft_rel}"
-    )
-
-
-def print_expand_error_line(
-    *,
-    episode_id: str,
-    error: str,
-    completion: OpenRouterCompletion | None = None,
-) -> None:
-    print(f"[error] {episode_id}: {error}")
-    if completion is not None:
-        print(f"         {format_expand_usage_suffix(completion)}")
-
-
-def print_expand_batch_summary(
-    records: list[dict[str, Any]],
-    *,
-    title: str | None = None,
-) -> None:
-    if not records:
-        return
-    if title:
-        print()
-        print(title)
-    counts: dict[str, int] = {}
-    prompt_tok = 0
-    completion_tok = 0
-    cost_sum = 0.0
-    cost_known = 0
-    for r in records:
-        status = r.get("status", "unknown")
-        counts[status] = counts.get(status, 0) + 1
-        if status == "ok":
-            prompt_tok += int(r.get("prompt_tokens") or 0)
-            completion_tok += int(r.get("completion_tokens") or 0)
-            c = r.get("cost_usd")
-            if c is not None:
-                cost_sum += float(c)
-                cost_known += 1
-    print(
-        f"  ok: {counts.get('ok', 0)}  "
-        f"skipped: {counts.get('skipped', 0)}  "
-        f"error: {counts.get('error', 0)}"
-    )
-    if prompt_tok or completion_tok:
-        print(
-            f"  tokens: {prompt_tok:,} in / {completion_tok:,} out"
-        )
-    if cost_known:
-        print(f"  cost: ${cost_sum:.4f} ({cost_known} call(s) with usage.cost)")
-    print(f"  log: {expand_run_log_path().relative_to(paths.ROOT)}")
-
-
-def resolve_draft_path(
-    row: dict[str, Any],
-    *,
-    staging_root: Path | None = None,
-    variant: str | None = None,
-    out_path: Path | None = None,
-) -> Path:
-    """Resolve draft output path (production notes dir or tune sandbox)."""
-    if out_path is not None:
-        return out_path
-    ep_id = row["id"]
-    slug = row["slug"]
-    num = row.get("episode_number")
-    if staging_root is not None:
-        if not variant:
-            raise ValueError("variant required when staging_root is set")
-        return staging_draft_file_path(staging_root, variant, ep_id, slug, num)
-    return expanded_draft_file_path(ep_id, slug, num)
-
-
-def write_expanded_draft(
-    row: dict[str, Any],
-    expanded_body: str,
-    *,
-    model: str,
-    prompt_path: Path,
-    out_path: Path | None = None,
-    staging_root: Path | None = None,
-    variant: str | None = None,
-) -> Path:
-    ep_id = row["id"]
-    num = row.get("episode_number")
-    out = resolve_draft_path(
-        row, staging_root=staging_root, variant=variant, out_path=out_path
-    )
-    out.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        rel_prompt = str(prompt_path.relative_to(paths.ROOT))
-    except ValueError:
-        rel_prompt = str(prompt_path)
-    fm = write_expanded_draft_md(
-        row,
-        model=model,
-        prompt_path=rel_prompt,
-        prompt_hash=prompt_file_hash(prompt_path),
-        tune_variant=variant,
-    )
-    write_frontmatter_md(out, frontmatter=fm, body=expanded_body)
-    return out
-
-
-def promote_draft(
-    row: dict[str, Any],
-    *,
-    dry_run: bool,
-    draft_path: Path | None = None,
-) -> tuple[Path | None, list[str], list[str]]:
-    """
-    Validate draft, write {folder}.expanded.md, delete draft on success.
-    Returns (expanded_path or None if dry_run, errors, warnings).
-    """
-    ep_id = row["id"]
-    slug = row["slug"]
-    num = row.get("episode_number")
-    if draft_path is None:
-        draft_path = expanded_draft_file_path(ep_id, slug, num)
-    expanded_path = expanded_file_path(ep_id, slug, num)
-    npath = notes_file_path(ep_id, slug, num)
-
-    if not draft_path.exists():
-        return None, [f"no draft: {draft_path.relative_to(paths.ROOT)}"], []
-
-    body = read_markdown_body(draft_path)
-    errors, warnings = validate_expanded_draft(npath, body)
-    if errors:
-        return None, errors, warnings
-
-    if dry_run:
-        return expanded_path, [], warnings
-
-    full = draft_path.read_text(encoding="utf-8")
-    draft_fm = parse_frontmatter(full)
-    model_val = draft_fm.get("model", "")
-    prompt_hash_val = draft_fm.get("prompt_hash", "")
-
-    write_expanded_md(
-        row,
-        body,
-        expanded_model=model_val or None,
-        prompt_hash=prompt_hash_val or None,
-    )
-    draft_path.unlink()
-    return expanded_path, [], warnings
+__all__ = [
+    "CHARS_PER_TOKEN",
+    "COMPLETION_TOKENS_PER_BULLET",
+    "DEFAULT_PROMPT_PATH",
+    "ExpandEstimate",
+    "ExpandProgressReporter",
+    "MARKERS",
+    "OPENROUTER_MAX_ATTEMPTS",
+    "OpenRouterCompletion",
+    "TerminalExpandProgressReporter",
+    "_count_datapoint_headings",
+    "append_expand_run_log",
+    "build_combined_prompt_for_clipboard",
+    "build_user_message",
+    "call_openrouter",
+    "call_openrouter_streaming",
+    "count_datapoint_headings",
+    "count_datapoint_headings_in_partial",
+    "default_prompt_path",
+    "estimate_expand_for_row",
+    "execute_openrouter_with_retry",
+    "expand_log_context_from_env",
+    "expand_run_log_path",
+    "filter_expand_run_log",
+    "format_compact_chars",
+    "format_compact_tokens",
+    "format_cost_usd",
+    "format_duration_sec",
+    "format_expand_usage_suffix",
+    "is_retriable_openrouter_error",
+    "load_expand_run_log",
+    "load_prompt_template",
+    "log_expand_event",
+    "model_id_for_pricing",
+    "openrouter_completion_log_fields",
+    "parse_expanded_body",
+    "print_expand_batch_summary",
+    "print_expand_dry_run_summary",
+    "print_expand_error_line",
+    "print_expand_ok_line",
+    "promote_draft",
+    "prompt_file_hash",
+    "resolve_draft_path",
+    "resolve_model_rates",
+    "validate_expanded_draft",
+    "usage_from_response",
+    "write_expanded_draft",
+]

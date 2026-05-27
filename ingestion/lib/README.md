@@ -17,7 +17,11 @@ Run scripts from `ingestion/`; each script calls `_bootstrap.setup_paths(__file_
 | `layout.py` | Filesystem layout and catalog id consistency (used by `pipeline/verify.py`) |
 | `gaps_report.py` | `catalog/gaps.md` generation and Phase 2 coverage stats |
 | `cli_args.py` | Shared `--id ep-NNNN` argparse helpers |
-| `expand_llm.py` | OpenRouter calls, draft validation, promote to `.expanded.md` |
+| `openrouter_client.py` | OpenRouter sync/streaming completions, retries (expand, Janitor clean, X attribution) |
+| `expand_validate.py` | Parse and validate `.expanded.draft.md` bodies |
+| `expand_promote.py` | Write drafts, promote to `.expanded.md` |
+| `expand_run_log.py` | `catalog/expand-run.jsonl` logging and CLI progress output |
+| `expand_llm.py` | Prompts, cost estimates, progress reporters; re-exports split modules |
 | `expanded_timestamp_lint.py` | Timestamp meta validation on expanded drafts (used by promote) |
 | `search_retrieval.py` | Parent/transcript chunk filters, keyword + hybrid RRF (Telegram tools) |
 | `openrouter_pricing.py` | OpenRouter model pricing helpers for expand cost estimates |

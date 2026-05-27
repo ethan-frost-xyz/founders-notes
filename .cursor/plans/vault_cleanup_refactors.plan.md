@@ -12,8 +12,8 @@ todos:
     content: "PR3: reindex_vault + callers + tests; affected-doc sweep; make-pr-easy-to-review"
     status: completed
   - id: appendix-expand-llm
-    content: Future only — methodology in plan appendix; optional separate .cursor/plans/expand_llm_split.plan.md when scheduling work
-    status: cancelled
+    content: Shipped — see .cursor/plans/expand_llm_split.plan.md (split into openrouter_client + expand_* modules)
+    status: completed
 isProject: false
 ---
 
@@ -294,16 +294,9 @@ pytest tests -q
 
 ---
 
-## Deferred — `expand_llm.py` split (separate plan when ready)
+## Shipped — `expand_llm.py` split
 
-**Do not modify** [`ingestion/lib/expand_llm.py`](ingestion/lib/expand_llm.py) in this effort.
-
-| Why high impact | ~861 lines; OpenRouter + validate + promote + logging; Janitor imports `promote_draft`; [`tests/test_expand_llm.py`](tests/test_expand_llm.py) ~572 lines |
-| Suggested modules | `openrouter_chat.py`, `expand_validate.py`, `expand_promote.py`, `expand_run_log.py`; thin `expand_llm.py` re-exports |
-| Order | (1) openrouter client (2) promote (3) validate (4) run log — one PR per step |
-| Bar | `pytest tests -q`; no file >1k lines; keep `from expand_llm import promote_draft` shim one release |
-
-Optional follow-up: create [`.cursor/plans/expand_llm_split.plan.md`](.cursor/plans/expand_llm_split.plan.md) when scheduling.
+Implemented in [`.cursor/plans/expand_llm_split.plan.md`](expand_llm_split.plan.md): `openrouter_client.py`, `expand_validate.py`, `expand_promote.py`, `expand_run_log.py`, thin `expand_llm.py` shim. Optional follow-up: `vault_subprocess.py` (_python/_tail dedupe).
 
 ---
 

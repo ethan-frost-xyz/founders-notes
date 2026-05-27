@@ -258,7 +258,7 @@ def test_is_retriable_openrouter_error_parse_failure_not_retriable():
     )
 
 
-@patch("expand_llm.time.sleep")
+@patch("openrouter_client.time.sleep")
 def test_execute_openrouter_with_retry_succeeds_on_third_attempt(mock_sleep):
     attempts = {"n": 0}
 
@@ -282,7 +282,7 @@ def test_execute_openrouter_with_retry_succeeds_on_third_attempt(mock_sleep):
     assert mock_sleep.call_count == 2
 
 
-@patch("expand_llm.time.sleep")
+@patch("openrouter_client.time.sleep")
 def test_execute_openrouter_with_retry_raises_after_max_attempts(mock_sleep):
     def always_fail() -> OpenRouterCompletion:
         raise ValueError("empty model response")
@@ -292,7 +292,7 @@ def test_execute_openrouter_with_retry_raises_after_max_attempts(mock_sleep):
     assert mock_sleep.call_count == OPENROUTER_MAX_ATTEMPTS - 1
 
 
-@patch("expand_llm.time.sleep")
+@patch("openrouter_client.time.sleep")
 @patch("openai.OpenAI")
 def test_call_openrouter_retries_transient_failure(mock_openai_cls, mock_sleep):
     usage = type(
@@ -396,7 +396,7 @@ Key takeaway: y
     monkeypatch.setattr(paths, "NOTES_DIR", tmp_path / "content" / "notes")
     monkeypatch.setattr(paths, "TRANSCRIPTS_DIR", tmp_path / "content" / "transcripts")
     monkeypatch.setattr(
-        "expand_llm.expand_run_log_path",
+        "expand_run_log.expand_run_log_path",
         lambda: tmp_path / "catalog" / "expand-run.jsonl",
     )
 
@@ -444,7 +444,7 @@ def test_run_expand_one_skipped_logs(mock_call, monkeypatch, tmp_path: Path):
     monkeypatch.setattr(paths, "NOTES_DIR", tmp_path / "content" / "notes")
     monkeypatch.setattr(paths, "TRANSCRIPTS_DIR", tmp_path / "content" / "transcripts")
     monkeypatch.setattr(
-        "expand_llm.expand_run_log_path",
+        "expand_run_log.expand_run_log_path",
         lambda: tmp_path / "catalog" / "expand-run.jsonl",
     )
 
@@ -508,7 +508,7 @@ def test_run_expand_one_parse_error_logs_usage(
     monkeypatch.setattr(paths, "NOTES_DIR", tmp_path / "content" / "notes")
     monkeypatch.setattr(paths, "TRANSCRIPTS_DIR", tmp_path / "content" / "transcripts")
     monkeypatch.setattr(
-        "expand_llm.expand_run_log_path",
+        "expand_run_log.expand_run_log_path",
         lambda: tmp_path / "catalog" / "expand-run.jsonl",
     )
 
@@ -566,7 +566,7 @@ def test_run_expand_one_parse_error_logs_usage(
 
 def test_load_expand_run_log_empty(tmp_path: Path, monkeypatch):
     monkeypatch.setattr(
-        "expand_llm.expand_run_log_path",
+        "expand_run_log.expand_run_log_path",
         lambda: tmp_path / "missing.jsonl",
     )
     assert load_expand_run_log() == []

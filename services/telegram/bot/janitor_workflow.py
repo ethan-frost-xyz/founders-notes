@@ -106,7 +106,7 @@ def llm_clean_pasted_notes(
 ) -> tuple[str, list[str]]:
     """LLM-only paste normalization (no regex re-parse)."""
     _ingestion_paths(vault_root)
-    from expand_llm import call_openrouter
+    from openrouter_client import call_openrouter
     from janitor_notes import finalize_notes_body
 
     if temperature is None:

@@ -2,7 +2,7 @@ import json
 from unittest.mock import patch
 
 import attribute_posts_llm as llm
-from expand_llm import OpenRouterCompletion
+from openrouter_client import OpenRouterCompletion
 
 
 def test_parse_llm_attribution_response_plain_json():
