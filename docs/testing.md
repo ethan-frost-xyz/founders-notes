@@ -22,7 +22,7 @@ cd ingestion && python pipeline/verify.py
 | `test_x_posts_match.py` | `x_posts_match` |
 | `test_x_posts_threads.py` | `x_posts_threads` |
 | `test_attribute_posts_llm.py` | `x/attribute_posts_llm.py` |
-| `test_expand_llm.py` | `expand_llm` + `expand_datapoints_llm` apply/logging |
+| `test_expand_llm.py` | `expand_llm` / `openrouter_client` / `expand_*` + `expand_datapoints_llm` apply/logging |
 | `test_expand_tune.py` | `notes/expand_tune.py` |
 | `test_openrouter_pricing.py` | `openrouter_pricing` |
 | `test_expand_baseline_fixtures.py` | Committed `fixtures/expand-runs/baseline/` + `expand_tune verify` |
