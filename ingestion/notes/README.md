@@ -43,4 +43,9 @@ Prompts: [`../prompts/`](../prompts/).
 
 ## Downstream
 
-After expansion: `search/build_chunks.py` to refresh `catalog/chunks.jsonl`.
+After promote to `.expanded.md`, refresh the index:
+
+- **Chunks:** `search/build_chunks.py` → `catalog/chunks.jsonl`
+- **Embeddings (Telegram / parent-tier):** `search/build_embeddings.py` when the bot host or local env has embed keys — see [`docs/manual-operations.md`](../../docs/manual-operations.md)
+
+On the Mac mini, `services/telegram/deploy/sync-and-index.sh` runs both after `git pull`.

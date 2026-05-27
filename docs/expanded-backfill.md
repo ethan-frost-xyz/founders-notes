@@ -4,7 +4,7 @@ Bulk workflow for turning timestamp bullets in `{folder}.notes.md` into reviewab
 
 **Authoritative counts:** [`catalog/gaps.md`](../catalog/gaps.md) (regenerate via `python pipeline/verify.py` or `python maintain.py` → menu 1).
 
-**Related:** [datapoint-workflow.md](datapoint-workflow.md) (prompt shape, tune sandbox), [retrieval.md](retrieval.md) (when chunks matter), [Telegram vault agent](telegram-vault-agent.md) (reads **`.expanded.md` only**, not drafts).
+**Related:** [datapoint-workflow.md](datapoint-workflow.md) (prompt shape, tune sandbox), [retrieval.md](retrieval.md) (when chunks matter), [manual-operations.md](manual-operations.md) (index: chunks + parent-tier embeddings), [Telegram vault agent](telegram-vault-agent.md) (reads **`.expanded.md` only**, not drafts).
 
 ---
 

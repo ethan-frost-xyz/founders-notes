@@ -1,6 +1,6 @@
 ---
 name: Vault Agent Backlog
-overview: Prioritize foundational Librarian fixes (index noise, chunk quality) before designing the Janitor workflow agent. Architecture separates studied-corpus retrieval from daily notes-ritual tooling.
+overview: "Archived (May 2026): Librarian index/retrieval foundation + Janitor — all todos completed. Operator docs: docs/janitor.md, docs/telegram-vault-agent.md."
 todos:
   - id: commit-fixes
     content: Commit the existing uncommitted fixes, push, then hand off Mac mini pull and launchctl kickstart
@@ -32,7 +32,9 @@ todos:
 isProject: false
 ---
 
-# Founders Vault Agent — Prioritized Backlog
+# Founders Vault Agent — Prioritized Backlog (archived)
+
+**Status:** All todos completed May 2026. Janitor shipped — see [vault_janitor_agent.plan.md](vault_janitor_agent.plan.md) and [docs/janitor.md](../../../docs/janitor.md). Deferred follow-ups: [potential-ideas.md](../../../potential-ideas.md).
 
 ## Architecture Vision (Confirmed)
 
@@ -152,27 +154,15 @@ flowchart TD
 - Systematic test of the 5 checklist items from the master plan: thematic Q, web gate, expanded:* in hits, allowlist block, /newchat export
 - Confirm a question about an un-listened episode returns "no notes yet" (not transcript soup)
 
-**8. Janitor agent — architecture plan**
+**8–10. Janitor + post-promote reindex (shipped May 2026)**
 
-- Separate plan doc before any code
-- Decide: same bot process (mode-switched via /janitor command + menu buttons) vs separate bot process
-- Map the interaction flow: paste notes with ep number → Janitor cleans formatting → files to `.notes.md` → triggers `expand_datapoints_llm.py` → streams expanded draft → user approves/retries → promotes + reindexes
-- Clarify: does Janitor run shell subprocesses directly, or call Python functions via the agent tool loop?
-- Multi-user/permissioning design (Janitor has write access; Librarian is read-only)
+- Architecture + implementation: [vault_janitor_agent.plan.md](vault_janitor_agent.plan.md)
+- Operator guide: [docs/janitor.md](../../../docs/janitor.md)
+- Mode-switched `/janitor` in the same bot process; subprocess expand/promote/reindex in `janitor_workflow.py`
 
 ---
 
 ## LATER (Post-Janitor Foundation)
-
-**9. Janitor agent — implementation**
-
-- Interactive notes ingest + expand + promote workflow
-- Menu button trigger in Telegram
-- Non-order-dependent (user can go back to any old episode)
-
-**10. Nightly index freshness after promote**
-
-- After Janitor promotes, trigger index rebuild automatically (removes manual sync-and-index.sh step)
 
 **11. SP3.1 — /web provider**
 
@@ -225,11 +215,9 @@ Scenarios cover: inner scorecard excerpt quality, un-listened episode → 0 hits
 
 ---
 
-## Open Questions
+## Open Questions (historical)
 
-- **Janitor as mode vs separate process**: Same bot (mode-switched via /janitor) is simpler to deploy on Mac mini; separate process gives cleaner permissions for eventual multi-user. Needs a decision before implementation.
-- **Cron vs Janitor-triggered reindex**: Once Janitor can file + promote notes, should it automatically trigger `sync-and-index.sh`, or stay hands-off? Matters for whether the nightly cron becomes redundant.
-- **Fixes commit**: Confirmed by user — commit those 9 files before starting anything else. Should be done as a cleanup commit, not as part of the next feature PR.
+Resolved at ship time: Janitor runs mode-switched in one bot; reindex runs after promote in `janitor_workflow`. See [potential-ideas.md](../../../potential-ideas.md) for deferred follow-ups.
 
 ## Resolved Review Findings
 

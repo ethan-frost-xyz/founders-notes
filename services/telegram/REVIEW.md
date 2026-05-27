@@ -1,6 +1,8 @@
 # Review guide — Telegram vault bot (v0)
 
-Use this with the PR description. **Do not review commit-by-commit noise** — walk SP1→SP4 in order.
+**Shipped on `main`.** Operator docs: [README.md](README.md) + [docs/telegram-vault-agent.md](../../docs/telegram-vault-agent.md) — do not maintain a second runbook here.
+
+Use this with the PR description when reviewing historical SP1–SP4 commits. **Do not review commit-by-commit noise** — walk SP1→SP4 in order.
 
 ## TL;DR
 

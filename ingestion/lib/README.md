@@ -18,6 +18,9 @@ Run scripts from `ingestion/`; each script bootstraps `ingestion/` and `ingestio
 | `gaps_report.py` | `catalog/gaps.md` generation and Phase 2 coverage stats |
 | `cli_args.py` | Shared `--id ep-NNNN` argparse helpers |
 | `expand_llm.py` | OpenRouter calls, draft validation, promote to `.expanded.md` |
+| `expanded_timestamp_lint.py` | Timestamp meta validation on expanded drafts (used by promote) |
+| `search_retrieval.py` | Parent/transcript chunk filters, keyword + hybrid RRF (Telegram tools) |
+| `openrouter_pricing.py` | OpenRouter model pricing helpers for expand cost estimates |
 | `x_posts_csv.py` | X CSV cache I/O, tweet → row conversion |
 | `x_posts_match.py` | Episode attribution scoring |
 | `x_posts_threads.py` | Thread grouping, reply filters, article skip |

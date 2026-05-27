@@ -55,7 +55,7 @@ cd ingestion
 python maintain.py
 ```
 
-Bulk expanded-notes backfill: [`docs/expanded-backfill.md`](../docs/expanded-backfill.md). **Telegram vault agent:** [`services/telegram/README.md`](../services/telegram/README.md); retrieval in `lib/search_retrieval.py` (hybrid RRF); master index [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../.cursor/plans/telegram_rag_bot_v0.plan.md).
+Bulk expanded-notes backfill: [`docs/expanded-backfill.md`](../docs/expanded-backfill.md). **Operator paths:** primary Telegram — [`docs/manual-operations.md`](../docs/manual-operations.md); tactical `maintain.py` (this menu). **Telegram vault agent:** [`services/telegram/README.md`](../services/telegram/README.md); retrieval in `lib/search_retrieval.py` (hybrid RRF); master index [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../.cursor/plans/telegram_rag_bot_v0.plan.md).
 
 Individual scripts (`pipeline/verify.py`, `notes/expand_datapoints_llm.py`, etc.) remain available for automation and CI.
 

@@ -65,6 +65,7 @@ Repo-wide rule: do **not** add a general-purpose vector DB until grep + chunk se
 
 ## Related
 
+- [manual-operations.md](manual-operations.md) — primary Telegram vs tactical `maintain.py`
 - [janitor.md](janitor.md) — daily notes workflow
 - [retrieval.md](retrieval.md) — chunk index + hybrid parent search
 - [expanded-backfill.md](expanded-backfill.md) — corpus quality for parent tier
