@@ -20,9 +20,9 @@ Regenerate after bulk import, transcript fetch, or expanded promote:
 cd ingestion && python search/build_chunks.py
 ```
 
-## v2 — Telegram vault agent tools (planned)
+## v2 — Telegram vault agent tools (implemented)
 
-**Not** a repo-wide embedding migration. The [Telegram vault agent](telegram-vault-agent.md) uses **tool-calling** so the model chooses when to search what.
+**Not** a repo-wide embedding migration. The [Telegram vault agent](telegram-vault-agent.md) uses **tool-calling** so the model chooses when to search what. Overview: [telegram-vault-agent.md](telegram-vault-agent.md) · runbook: [services/telegram/README.md](../services/telegram/README.md).
 
 | Mechanism | Where | Scope |
 |-----------|--------|--------|
@@ -57,13 +57,15 @@ Re-embed from `chunks.jsonl` + on-disk markdown when embed models change. **Do n
 
 ## Graduate to repo-wide embeddings when
 
+This section is about a **general-purpose repo-wide** vector layer — **not** the Telegram parent-tier embed index inside `search_vault_parent` (that scope is already allowed; see Embeddings policy above).
+
 Consider a **general** vector layer (beyond the Telegram parent index) only when **all** are true:
 
 1. Post corpus is largely complete (today: **187 / 417** numbered posts imported; target ~400+)
 2. `search/search.py` + `_corpus/all-posts.md` + vault agent tools routinely miss paraphrased or thematic queries
 3. You want “find similar ideas” across episodes, not exact keyword match
 
-Until then, v1 chunks + planned agent tools are sufficient for Cursor and Telegram.
+Until then, v1 chunks + v2 agent tools are sufficient for Cursor and Telegram.
 
 ## Open questions (agent / retrieval)
 

@@ -104,7 +104,7 @@ Recovery only (overwrites `catalog/import-review.md` if run without `--dry-run`)
 
 ## Datapoint expansion
 
-When raw bullets are done, expand quotes + takeaways: [datapoint-workflow.md](datapoint-workflow.md).
+When raw bullets are done, expand quotes + takeaways: [datapoint-workflow.md](datapoint-workflow.md). For Telegram-first vs `maintain.py` backfill, see [manual-operations.md](manual-operations.md).
 
 ```bash
 python notes/expand_datapoints.py --id ep-0200                    # print prompt (manual / Cursor)

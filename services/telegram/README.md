@@ -6,7 +6,7 @@ Private on-the-go access to the Founders vault via a **tool-calling agent** — 
 
 **Reviewers:** [REVIEW.md](REVIEW.md) — commit map, risk areas, test commands.
 
-**Docs:** [`docs/telegram-vault-agent.md`](../../docs/telegram-vault-agent.md) (overview) · [`docs/janitor.md`](../../docs/janitor.md) (daily notes workflow) · [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../../.cursor/plans/telegram_rag_bot_v0.plan.md) (master index) · [`potential-ideas.md`](../../potential-ideas.md) (deferred backlog)
+**Docs:** [`docs/telegram-vault-agent.md`](../../docs/telegram-vault-agent.md) (overview) · [`docs/janitor.md`](../../docs/janitor.md) (daily notes workflow) · [`docs/manual-operations.md`](../../docs/manual-operations.md) (Telegram vs `maintain.py`) · [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../../.cursor/plans/telegram_rag_bot_v0.plan.md) (master index) · [`potential-ideas.md`](../../potential-ideas.md) (deferred backlog)
 
 ## Architecture
 

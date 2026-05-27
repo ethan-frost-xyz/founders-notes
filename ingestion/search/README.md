@@ -16,7 +16,10 @@ See [`docs/retrieval.md`](../../docs/retrieval.md).
 | Script | Purpose |
 |--------|---------|
 | `build_chunks.py` | Index transcripts, notes (datapoints), expanded notes, posts → `catalog/chunks.jsonl` |
+| `build_embeddings.py` | Parent-tier vectors → `catalog/embeddings.npy` (requires `OPENROUTER_API_KEY` + `OPENROUTER_EMBED_MODEL`) |
 | `search.py` | Query chunks; optional ripgrep fallback on corpus |
+
+Parent-tier embeddings power hybrid search inside Telegram `search_vault_parent` only — not a repo-wide vector DB. See [`docs/retrieval.md`](../../docs/retrieval.md).
 
 ## When to rebuild
 
