@@ -310,7 +310,6 @@ def search_transcript_keyword(
 
 def chunk_to_hit(ch: dict[str, Any], *, root: Path | None = None) -> dict[str, Any]:
     stored = (ch.get("excerpt") or "").strip()
-    # start_line in chunks.jsonl is section-relative; prefer the indexed excerpt.
     excerpt = stored or load_chunk_source_excerpt(ch, root=root)
     hit: dict[str, Any] = {
         "chunk_id": ch.get("chunk_id", ""),
