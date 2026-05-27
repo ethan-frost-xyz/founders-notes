@@ -248,7 +248,8 @@ def build_gaps_markdown(
         lines.append(
             "Optional LLM expansion: `python notes/expand_datapoints_llm.py --missing-expanded --dry-run` "
             "then `--apply` (draft) and `--promote --apply`. "
-            "See [docs/datapoint-workflow.md](../docs/datapoint-workflow.md)."
+            "See [docs/expanded-backfill.md](../docs/expanded-backfill.md) and "
+            "[docs/datapoint-workflow.md](../docs/datapoint-workflow.md)."
         )
         lines.append("")
         for n in sorted(missing_expanded_list)[:40]:
