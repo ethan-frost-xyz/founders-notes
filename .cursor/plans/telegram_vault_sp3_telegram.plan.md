@@ -4,19 +4,19 @@ overview: "python-telegram-bot transport, allowlist, session commands, /web gate
 todos:
   - id: bot-skeleton
     content: handlers.py, auth.py, sessions.py, config — thin layer over agent.run_turn()
-    status: pending
+    status: completed
   - id: commands
     content: /start /clear /newchat /resume /web — per command table
-    status: pending
+    status: completed
   - id: web-stub
     content: bot/tools/web.py returns not configured until WEB_SEARCH_API_KEY (SP3.1)
-    status: pending
+    status: completed
   - id: requirements
     content: services/telegram/requirements.txt with python-telegram-bot>=21 (separate from ingestion)
-    status: pending
+    status: completed
   - id: gitignore-sessions
     content: catalog/telegram-sessions/ gitignored
-    status: pending
+    status: completed
 isProject: false
 ---
 

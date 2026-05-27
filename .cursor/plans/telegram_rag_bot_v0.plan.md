@@ -1,22 +1,22 @@
 ---
 name: Telegram Vault Agent v0
-overview: "Master index for private Mac-mini Telegram vault agent (tool-calling, not naive RAG). Implement on feature/telegram-vault-bot — one commit per sub-plan; use sub-plan files for agent sessions."
+overview: Master index for private Mac-mini Telegram vault agent (tool-calling, not naive RAG). Implement on feature/telegram-vault-bot — one commit per sub-plan; use sub-plan files for agent sessions.
 todos:
   - id: branch
     content: Branch feature/telegram-vault-bot off main; focused commits per sub-plan; merge via PR
     status: completed
   - id: sp1-vault-tools
     content: SP1 — see telegram_vault_sp1_tools.plan.md
-    status: pending
+    status: completed
   - id: sp2-agent-loop
     content: SP2 — see telegram_vault_sp2_agent.plan.md
-    status: pending
+    status: completed
   - id: sp3-telegram-sessions
     content: SP3 — see telegram_vault_sp3_telegram.plan.md
-    status: pending
+    status: completed
   - id: sp4-mac-mini-ops
     content: SP4 — see telegram_vault_sp4_ops.plan.md
-    status: pending
+    status: completed
   - id: sp5-webhook-deferred
     content: SP5 (later) — GitHub push webhook → pull + reindex; Tailscale/tunnel TBD
     status: pending
@@ -37,7 +37,7 @@ isProject: false
 Filename kept as `telegram_rag_bot_v0` for history. **Product:** OpenRouter **tool-calling agent**, not embed→top-k→one-shot RAG.
 
 **Overview for humans:** [`docs/telegram-vault-agent.md`](../../docs/telegram-vault-agent.md) · **Stub:** [`services/telegram/README.md`](../../services/telegram/README.md)  
-**Background (superseded sketch):** [telegram_vault_bot.plan.md](telegram_vault_bot.plan.md)
+**Background (superseded sketch):** [telegram_vault_bot.plan.md](archive/telegram_vault_bot.plan.md)
 
 ---
 
