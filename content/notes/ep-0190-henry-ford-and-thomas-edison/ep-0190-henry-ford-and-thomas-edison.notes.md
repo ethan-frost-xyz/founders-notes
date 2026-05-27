@@ -11,3 +11,7 @@ imported_at: "2026-05-21T22:25:46Z"
 ---
 
 ## Raw datapoints
+
+- 39:00 — Edison’s mistakes not remaining focused
+- 48:00 — Descriptions of ford, resting on laurels, fixation to details etc.
+
