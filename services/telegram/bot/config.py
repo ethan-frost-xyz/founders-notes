@@ -8,10 +8,9 @@ from pathlib import Path
 
 
 def _vault_root_default() -> Path:
-    env = os.environ.get("VAULT_ROOT", "").strip()
-    if env:
-        return Path(env).resolve()
-    return Path(__file__).resolve().parents[3]
+    from _bootstrap import resolve_vault_root
+
+    return resolve_vault_root()
 
 
 @dataclass(frozen=True)

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import sys
 from pathlib import Path
 
 import pytest
@@ -12,11 +11,6 @@ pytest.importorskip("telegram")
 
 REPO = Path(__file__).resolve().parent.parent
 DEPLOY = REPO / "services" / "telegram" / "deploy"
-BOT = REPO / "services" / "telegram" / "bot"
-TOOLS = BOT / "tools"
-for entry in (str(BOT), str(TOOLS)):
-    if entry not in sys.path:
-        sys.path.insert(0, entry)
 
 from auth import is_allowed  # noqa: E402
 from config import AgentConfig, BotConfig, load_bot_config  # noqa: E402

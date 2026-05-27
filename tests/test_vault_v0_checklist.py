@@ -4,18 +4,12 @@ from __future__ import annotations
 
 import json
 import os
-import sys
 from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
 
 REPO = Path(__file__).resolve().parent.parent
-BOT = REPO / "services" / "telegram" / "bot"
-TOOLS = BOT / "tools"
-for entry in (str(BOT), str(TOOLS)):
-    if entry not in sys.path:
-        sys.path.insert(0, entry)
 
 from agent import VaultAgent, execute_tool  # noqa: E402
 from auth import is_allowed  # noqa: E402

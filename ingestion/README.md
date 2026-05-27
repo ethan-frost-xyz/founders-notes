@@ -59,6 +59,10 @@ Bulk expanded-notes backfill: [`docs/expanded-backfill.md`](../docs/expanded-bac
 
 Individual scripts (`pipeline/verify.py`, `notes/expand_datapoints_llm.py`, etc.) remain available for automation and CI.
 
+## Path bootstrap
+
+CLI scripts call [`_bootstrap.setup_paths(__file__)`](_bootstrap.py) (adds `ingestion/` + `lib/`). Telegram and `pytest` share [`resolve_vault_root`](_bootstrap.py) / [`setup_ingestion_paths`](_bootstrap.py) — see [`docs/manual-operations.md`](../docs/manual-operations.md#path-bootstrap-vault_root).
+
 ## Environment variables
 
 | Variable | Used by |

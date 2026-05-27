@@ -39,6 +39,16 @@ python search/build_embeddings.py   # needs OPENROUTER_API_KEY + OPENROUTER_EMBE
 
 `maintain.py` menu **8** currently rebuilds **chunks only**; run `build_embeddings.py` separately when the Telegram agent host needs updated vectors. PR3 of [vault cleanup](../.cursor/plans/vault_cleanup_refactors.plan.md) will unify this recipe.
 
+## Path bootstrap (`VAULT_ROOT`)
+
+| Context | How repo root resolves |
+|---------|-------------------------|
+| `cd ingestion && python …` | Parent of `ingestion/` from each script’s `_bootstrap.setup_paths(__file__)` |
+| Telegram bot / Janitor | `VAULT_ROOT` in `~/.config/founders-telegram/env` (required on Mac mini); else parent of `ingestion/` via [`ingestion/_bootstrap.py`](../ingestion/_bootstrap.py) |
+| `pytest` | [`tests/conftest.py`](../tests/conftest.py) calls `setup_ingestion_paths(REPO, include_subpackages=True)` |
+
+Shared helpers: `resolve_vault_root()`, `setup_ingestion_paths()` in [`ingestion/_bootstrap.py`](../ingestion/_bootstrap.py). Telegram code imports them after adding `{vault}/ingestion` to `sys.path` once.
+
 Embeddings apply to **parent-tier** search inside the Telegram agent (`search_vault_parent`), not a repo-wide vector DB. See [retrieval.md](retrieval.md).
 
 ## Related

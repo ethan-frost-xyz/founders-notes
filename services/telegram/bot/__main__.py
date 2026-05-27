@@ -15,22 +15,19 @@ for entry in (str(_BOT_DIR), str(_TOOLS_DIR)):
         sys.path.insert(0, entry)
 
 
-def _ensure_ingestion_on_path() -> None:
+def _bootstrap_vault_paths() -> None:
     """Janitor and vault tools import ingestion/lib (episode_ids, catalog, …)."""
     env = os.environ.get("VAULT_ROOT", "").strip()
-    if env:
-        root = Path(env).resolve()
-    else:
-        root = _BOT_DIR.resolve().parents[2]
-        os.environ.setdefault("VAULT_ROOT", str(root))
-    ingestion = root / "ingestion"
-    lib = ingestion / "lib"
-    for entry in (str(ingestion), str(lib)):
-        if entry not in sys.path:
-            sys.path.insert(0, entry)
+    vault = Path(env).resolve() if env else _BOT_DIR.resolve().parents[2]
+    ingestion = vault / "ingestion"
+    if str(ingestion) not in sys.path:
+        sys.path.insert(0, str(ingestion))
+    from _bootstrap import resolve_vault_root, setup_ingestion_paths
+
+    setup_ingestion_paths(resolve_vault_root())
 
 
-_ensure_ingestion_on_path()
+_bootstrap_vault_paths()
 
 from agent import VaultAgent  # noqa: E402
 from config import load_bot_config  # noqa: E402

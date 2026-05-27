@@ -2,14 +2,6 @@
 
 from __future__ import annotations
 
-import sys
-from pathlib import Path
-
-REPO = Path(__file__).resolve().parent.parent
-BOT = REPO / "services" / "telegram" / "bot"
-if str(BOT) not in sys.path:
-    sys.path.insert(0, str(BOT))
-
 from janitor_notes import finalize_notes_body, merge_notes_body, parse_episode_id  # noqa: E402
 
 
