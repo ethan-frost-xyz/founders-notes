@@ -186,10 +186,14 @@ def openrouter_tools(*, allow_web: bool, default_k: int = 8) -> list[dict[str, A
 
 
 def web_search_stub(query: str) -> dict[str, Any]:
-    return {"error": "not configured", "query": query}
+    """Backward-compatible alias for tests; delegates to tools.web."""
+    from web import web_search
+
+    return web_search(query)
 
 
 def _tool_handlers(config: AgentConfig) -> dict[str, ToolFn]:
+    from web import web_search
     from vault import (
         list_episode_ids,
         load_episode,
@@ -213,7 +217,7 @@ def _tool_handlers(config: AgentConfig) -> dict[str, ToolFn]:
             str(args["query"]),
             limit=int(args.get("limit") or 8),
         ),
-        "web_search": lambda args: web_search_stub(str(args.get("query", ""))),
+        "web_search": lambda args: web_search(str(args.get("query", ""))),
     }
 
 

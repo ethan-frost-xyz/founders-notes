@@ -2,7 +2,7 @@
 
 Private on-the-go access to the Founders vault via a **tool-calling agent** — not a fixed embed→top-k→answer pipeline.
 
-**Status:** SP1–SP2 on `feature/telegram-vault-bot` (vault tools + agent loop). SP3–SP4 pending. **Git:** One focused commit per sub-plan; merge via PR (see master plan).
+**Status:** SP1–SP3 on `feature/telegram-vault-bot` (vault tools, agent loop, Telegram polling). SP4 ops pending. **Git:** One focused commit per sub-plan; merge via PR (see master plan).
 
 ## Plans
 
@@ -41,8 +41,16 @@ Target layout (see master plan): `services/telegram/bot/agent.py`, `bot/tools/va
 
 1. **SP1** — `search_retrieval.py`, `build_embeddings.py` (parent-only), vault tool JSON backends + tests (no Telegram).
 2. **SP2** — OpenRouter tool-calling loop + `vault_agent.md`.
-3. **SP3** — `python-telegram-bot`, allowlist, session commands, `/web` gate.
+3. **SP3** — `python-telegram-bot`, allowlist, session commands, `/web` gate (implemented).
 4. **SP4** — Mac mini `launchd`, `~/.config/founders-telegram/env`, cron/manual `sync-and-index.sh`.
+
+## Run locally (SP3)
+
+```bash
+pip install -r services/telegram/requirements.txt
+# .env: TELEGRAM_BOT_TOKEN, TELEGRAM_ALLOWED_USER_IDS, OPENROUTER_*, TELEGRAM_CHAT_MODEL, VAULT_ROOT
+cd services/telegram && python -m bot
+```
 
 ## Prerequisites
 

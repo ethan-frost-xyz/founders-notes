@@ -25,6 +25,14 @@ class AgentConfig:
     default_search_k: int = 8
 
 
+@dataclass(frozen=True)
+class BotConfig:
+    agent: AgentConfig
+    telegram_token: str
+    allowed_user_ids: frozenset[int]
+    sessions_dir: Path
+
+
 def load_agent_config() -> AgentConfig:
     api_key = os.environ.get("OPENROUTER_API_KEY", "").strip()
     model = os.environ.get("TELEGRAM_CHAT_MODEL", "").strip()
@@ -46,4 +54,30 @@ def load_agent_config() -> AgentConfig:
         vault_root=_vault_root_default(),
         max_steps=max_steps,
         openrouter_base_url=base_url.rstrip("/"),
+    )
+
+
+def load_bot_config() -> BotConfig:
+    agent = load_agent_config()
+    token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+    if not token:
+        raise ValueError("TELEGRAM_BOT_TOKEN is required")
+
+    ids_raw = os.environ.get("TELEGRAM_ALLOWED_USER_IDS", "").strip()
+    if not ids_raw:
+        raise ValueError("TELEGRAM_ALLOWED_USER_IDS is required")
+    allowed: set[int] = set()
+    for part in ids_raw.split(","):
+        part = part.strip()
+        if part:
+            allowed.add(int(part))
+    if not allowed:
+        raise ValueError("TELEGRAM_ALLOWED_USER_IDS must list at least one user id")
+
+    sessions_dir = agent.vault_root / "catalog" / "telegram-sessions"
+    return BotConfig(
+        agent=agent,
+        telegram_token=token,
+        allowed_user_ids=frozenset(allowed),
+        sessions_dir=sessions_dir,
     )

@@ -13,7 +13,7 @@ todos:
     status: completed
   - id: sp3-telegram-sessions
     content: SP3 — see telegram_vault_sp3_telegram.plan.md
-    status: pending
+    status: completed
   - id: sp4-mac-mini-ops
     content: SP4 — see telegram_vault_sp4_ops.plan.md
     status: pending
