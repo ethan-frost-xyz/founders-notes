@@ -7,7 +7,7 @@ Personal knowledge vault for [@ethanfrost](https://x.com/ethanfrost)'s daily Fou
 | Layer | Coverage | Notes |
 |-------|----------|--------|
 | **Transcripts** | 417 / 417 numbered | Phase 1 complete — Colossus archives in `content/transcripts/` |
-| **Notes** | 417 files / 176 datapoints | **In progress (daily):** edit `.notes.md` in git (~1 episode/day); empty scaffolds = not listened yet |
+| **Notes** | 417 files / 177 datapoints | **In progress (daily):** edit `.notes.md` in git (~1 episode/day); empty scaffolds = not listened yet |
 | **X posts** | 187 / 417 | CSV cache + organizer; 2 documented gaps (ep-0159 skipped, ep-0189 not posted) |
 | **Search** | v1 | `catalog/chunks.jsonl` + `ingestion/search/search.py` |
 
@@ -45,7 +45,7 @@ python pipeline/verify.py
 python search/search.py "rockefeller"
 ```
 
-See [docs/episode-id-rules.md](docs/episode-id-rules.md), [docs/notes-pipeline.md](docs/notes-pipeline.md), [docs/datapoint-workflow.md](docs/datapoint-workflow.md), [docs/retrieval.md](docs/retrieval.md), [AGENTS.md](AGENTS.md).
+See [docs/episode-id-rules.md](docs/episode-id-rules.md), [docs/notes-pipeline.md](docs/notes-pipeline.md), [docs/datapoint-workflow.md](docs/datapoint-workflow.md), [docs/retrieval.md](docs/retrieval.md), [docs/telegram-vault-agent.md](docs/telegram-vault-agent.md), [AGENTS.md](AGENTS.md).
 
 ## Layout
 
@@ -112,7 +112,7 @@ Three high-leverage options, ordered by impact on the daily ritual:
 
 **Primary workflow:** vault-native notes in git — see [docs/notes-pipeline.md](docs/notes-pipeline.md) (Working Copy on phone, Cursor on Mac).
 
-176 episodes have datapoints (see `catalog/gaps.md`). Ep 0190–0417 have **empty scaffolds** (`python notes/scaffold_notes.py`); add timestamp bullets as you finish each episode (~1/day).
+177 episodes have datapoints (see `catalog/gaps.md`). Ep 0190–0417 have **empty scaffolds** (`python notes/scaffold_notes.py`); add timestamp bullets as you finish each episode (~1/day).
 
 ```bash
 python notes/scaffold_notes.py --next   # path to next file to edit
@@ -141,20 +141,25 @@ python x/attribute_posts_llm.py --apply
 
 ### 3. Datapoint expansion at scale
 
-**Why:** 176 episodes have raw timestamp bullets but almost no `{folder}.expanded.md`. This is the highest-value daily workflow after import — quotes + takeaways from transcript without hand-copying.
+**Why:** ~177 episodes have raw timestamp bullets but almost no `{folder}.expanded.md` (see `catalog/gaps.md`). This is the highest-value daily workflow after import — quotes + takeaways from transcript without hand-copying.
 
-**Shipped:** `expand_datapoints_llm.py` (OpenRouter → `.expanded.draft.md`, `--promote` → `.expanded.md`), tunable prompt in `ingestion/prompts/expand_datapoints.md`, coverage lines in `catalog/gaps.md`. Chunk index includes expanded sections when `.expanded.md` exists (`build_chunks.py`).
+**Shipped:** `expand_datapoints_llm.py` (OpenRouter → `.expanded.draft.md`, `--promote` → `.expanded.md`), `python maintain.py` console, tunable prompt in `ingestion/prompts/expand_datapoints.md`. Chunk index includes expanded sections when `.expanded.md` exists (`build_chunks.py`).
+
+**Operator guide:** [`docs/expanded-backfill.md`](docs/expanded-backfill.md) (bulk draft → review → promote → chunks).
 
 **Done when:** Expanded notes exist for episodes you actively study; search surfaces expanded sections.
 
 ---
 
-## Systems Roadmap: Telegram Vault Bot (RAG)
+## Systems Roadmap: Telegram vault agent
 
-The target interface for secure, on-the-go retrieval and future automations is a private **Telegram Vault Bot**.
+Private **Telegram vault agent** on an always-on Mac mini (polling): study-notes answers with quotes and `[ep-NNNN]` citations, not excerpt dumps.
 
-1. **Zero UI Maintenance:** Reuses existing Python ingestion modules, running as a private serverless service (e.g., Cloud Run) with a simple password/invite gate.
-2. **Parent-Child Retrieval:**
-   - **Parent level (Default):** Semantic search queries high-signal files (X posts, `.expanded.md`, and raw `.notes.md`).
-   - **Child level (Fallback / Explicit):** Dense transcript chunks are excluded by default to avoid noise, queried only as an automatic fallback (if parent scores are low) or via explicit slash commands (e.g. `/transcript`).
-3. **Local Vector Storage:** Powered by a flat-file NumPy array index (`embeddings.npy`), synced incrementally via the OpenRouter API.
+**Master plan:** [`.cursor/plans/telegram_rag_bot_v0.plan.md`](.cursor/plans/telegram_rag_bot_v0.plan.md) · **Overview:** [`docs/telegram-vault-agent.md`](docs/telegram-vault-agent.md) · **Stub:** [`services/telegram/README.md`](services/telegram/README.md) · Branch: `feature/telegram-vault-bot`
+
+1. **Agent + tools:** `TELEGRAM_CHAT_MODEL` with OpenRouter tool calling; retrieval inside `search_vault_parent` (hybrid keyword + parent-tier embeddings on `catalog/chunks.jsonl`), `search_transcript`, `load_episode` — not a single embed→top-k→answer pipeline.
+2. **Parent vs child sources:** Default tools hit **parent** tier (posts, `.expanded.md`, raw notes). **Transcript** chunks only when the agent calls `search_transcript` or the user needs dialogue depth.
+3. **`/web` only for the web:** External search is gated to `/web <query>`; vault answers must not silently mix web results.
+4. **Ops:** Solo allowlist; in-memory sessions with `/newchat` export to `catalog/telegram-sessions/`; index refresh via `sync-and-index.sh` (manual/cron; GitHub webhook later).
+
+Expanded corpus quality: promote `.expanded.md`, then reindex — see [`docs/expanded-backfill.md`](docs/expanded-backfill.md).

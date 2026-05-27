@@ -53,7 +53,7 @@ python notes/expand_datapoints_llm.py --id ep-0200 --apply   # OpenRouter → .e
 python notes/expand_datapoints_llm.py --promote --id ep-0200 --apply
 ```
 
-Backfill many episodes: `--missing-expanded --apply --limit N` or `--subprocess` (see `[docs/datapoint-workflow.md](docs/datapoint-workflow.md)`). Do **not** bulk-generate raw timestamp bullets in `.notes.md`.
+Backfill many episodes: `--missing-expanded --apply --limit N` or `--subprocess` (see `[docs/expanded-backfill.md](docs/expanded-backfill.md)`, `[docs/datapoint-workflow.md](docs/datapoint-workflow.md)`). Do **not** bulk-generate raw timestamp bullets in `.notes.md`.
 
 Prompt A/B tuning (23-episode sandbox): `python notes/expand_tune.py` — see `[docs/datapoint-workflow.md](docs/datapoint-workflow.md#prompt-tuning-ab-sandbox)`.
 
@@ -76,7 +76,7 @@ Full script index: `[ingestion/README.md](ingestion/README.md)`.
 | Verify         | `python pipeline/verify.py`                                                                                                                                 |
 
 
-Do not add embeddings unless grep + chunk index fail for the user's post corpus. See `[docs/retrieval.md](docs/retrieval.md)`.
+Do not add a repo-wide vector DB unless grep + chunk index + agent-style search fail for your real queries. See `[docs/retrieval.md](docs/retrieval.md)`. **Telegram vault agent (planned):** OpenRouter **tool-calling** over vault sources — hybrid chunk search + **parent-tier-only** embeddings inside tools, not single-shot RAG. Master plan: `[.cursor/plans/telegram_rag_bot_v0.plan.md](.cursor/plans/telegram_rag_bot_v0.plan.md)`; overview: `[docs/telegram-vault-agent.md](docs/telegram-vault-agent.md)`. Implement on branch `feature/telegram-vault-bot`.
 
 ## Cursor plans
 

@@ -55,6 +55,8 @@ cd ingestion
 python maintain.py
 ```
 
+Bulk expanded-notes backfill: [`docs/expanded-backfill.md`](../docs/expanded-backfill.md). **Telegram vault agent (planned):** [`services/telegram/README.md`](../services/telegram/README.md), master plan [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../.cursor/plans/telegram_rag_bot_v0.plan.md) — tool-calling agent; hybrid search lives in `ingestion/lib/search_retrieval.py` (SP1).
+
 Individual scripts (`pipeline/verify.py`, `notes/expand_datapoints_llm.py`, etc.) remain available for automation and CI.
 
 ## Environment variables

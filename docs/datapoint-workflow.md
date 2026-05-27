@@ -11,6 +11,8 @@ Turn half-sentence timestamp bullets in `{folder}.notes.md` into full transcript
 | `content/notes/{folder}/{folder}.expanded.draft.md` | LLM staging output (review before indexing) |
 | `content/notes/{folder}/{folder}.expanded.md` | Canonical expanded notes (optional; indexed for search) |
 
+Promoted `.expanded.md` files feed the **parent tier** of the planned [Telegram vault agent](telegram-vault-agent.md) (`search_vault_parent`); drafts are not indexed.
+
 ## Tunable prompt (source of truth)
 
 Instructions live in [`ingestion/prompts/expand_datapoints.md`](../ingestion/prompts/expand_datapoints.md):
@@ -41,6 +43,8 @@ python maintain.py
 ```
 
 Options include coverage/gaps refresh, next notes path, single-episode or backlog expand (dry-run cost first), pending draft list, promote, chunk rebuild, prompt A/B tune, and expand-run log summary.
+
+**Bulk backfill:** see [`docs/expanded-backfill.md`](expanded-backfill.md) (operator checklist, promote batches, safe behavior during large draft runs).
 
 ## Quick start (OpenRouter)
 
