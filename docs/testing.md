@@ -29,6 +29,10 @@ cd ingestion && python pipeline/verify.py
 | `test_maintain.py` | `maintain.py` |
 | `test_search_retrieval.py` | `search_retrieval` |
 | `test_vault_agent.py` | Telegram `agent` + vault tools |
+| `test_vault_v0_checklist.py` | v0 success criteria (mock agent + tools); see [vault-agent-v0-checklist.md](vault-agent-v0-checklist.md) |
+| `test_vault_retrieval_scenarios.py` | Scenario JSONL against `chunks.jsonl` |
+| `test_janitor_notes.py` | Janitor episode parse, finalize_notes_body, merge |
+| `test_janitor_workflow.py` | Janitor LLM clean (mocked), catalog, prompt |
 | `test_telegram_bot.py` | Telegram transport, sessions, deploy smoke |
 
 ## Focused runs
@@ -36,7 +40,13 @@ cd ingestion && python pipeline/verify.py
 Telegram vault (no live API):
 
 ```bash
-pytest tests/test_search_retrieval.py tests/test_vault_agent.py tests/test_telegram_bot.py -q
+pytest tests/test_search_retrieval.py tests/test_vault_agent.py tests/test_vault_v0_checklist.py tests/test_telegram_bot.py -q
+```
+
+Rebuilt index (after `build_chunks.py`):
+
+```bash
+RUN_REBUILT_INDEX_SCENARIOS=1 pytest tests/test_vault_retrieval_scenarios.py tests/test_vault_v0_checklist.py -q
 ```
 
 ## “Legacy” in test names
