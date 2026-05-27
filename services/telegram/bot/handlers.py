@@ -11,6 +11,7 @@ from telegram import Update
 from telegram.ext import ContextTypes
 
 from agent import VaultAgent
+from messaging import reply_text_chunked
 
 
 HELP_TEXT = """Founders vault agent
@@ -75,7 +76,7 @@ async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if await _reject_unauthorized(update, _config(context)):
         return
     stats = vault_stats_text(_config(context).agent.vault_root)
-    await update.message.reply_text(f"{HELP_TEXT}\n\n{stats}")
+    await reply_text_chunked(update.message, f"{HELP_TEXT}\n\n{stats}")
 
 
 async def cmd_clear(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -106,7 +107,7 @@ async def cmd_resume(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
         ok, msg = _sessions(context).resume_named(uid, " ".join(args))
     else:
         ok, msg = _sessions(context).resume_latest(uid)
-    await update.message.reply_text(msg)
+    await reply_text_chunked(update.message, msg)
 
 
 async def cmd_web(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -161,4 +162,4 @@ async def _run_agent_turn(
         assistant_text=result.content,
         tool_trace=result.tool_trace,
     )
-    await update.message.reply_text(result.content)
+    await reply_text_chunked(update.message, result.content)

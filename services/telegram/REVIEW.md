@@ -47,6 +47,8 @@ Plans (context only): `.cursor/plans/telegram_rag_bot_v0.plan.md`, `telegram_vau
 4. **Index staleness** — v0: manual/cron `sync-and-index.sh`; no lock during active turns (documented in README).
 5. **Scope vs AGENTS.md** — parent-tier embed index only inside `search_vault_parent`; not a repo-wide vector DB.
 
+Long agent replies are split in `messaging.split_telegram_text` (4096-char Bot API limit) via `reply_text_chunked` in handlers.
+
 ## Out of scope for this PR
 
 - Expanded draft files, `catalog/gaps.md`, unrelated plan archive edits on your working tree

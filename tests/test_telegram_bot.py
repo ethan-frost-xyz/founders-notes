@@ -20,6 +20,7 @@ for entry in (str(BOT), str(TOOLS)):
 from auth import is_allowed  # noqa: E402
 from config import AgentConfig, BotConfig  # noqa: E402
 from handlers import parse_web_query  # noqa: E402
+from messaging import TELEGRAM_MESSAGE_LIMIT, split_telegram_text  # noqa: E402
 from sessions import SessionStore, session_stale_warning  # noqa: E402
 from web import web_search  # noqa: E402
 
@@ -51,6 +52,41 @@ def test_parse_web_query():
     assert parse_web_query("/web foo bar") == "foo bar"
     assert parse_web_query("/web") is None
     assert parse_web_query("hello") is None
+
+
+def test_split_telegram_text_short_unchanged():
+    text = "hello"
+    assert split_telegram_text(text) == [text]
+
+
+def test_split_telegram_text_exact_limit():
+    text = "a" * TELEGRAM_MESSAGE_LIMIT
+    assert split_telegram_text(text) == [text]
+
+
+def test_split_telegram_text_over_limit():
+    text = "a" * (TELEGRAM_MESSAGE_LIMIT + 1)
+    parts = split_telegram_text(text)
+    assert len(parts) == 2
+    assert all(len(p) <= TELEGRAM_MESSAGE_LIMIT for p in parts)
+    assert "".join(parts) == text
+
+
+def test_split_telegram_text_prefers_paragraph_break():
+    para = "word " * 200
+    text = (para.strip() + "\n\n") * 30
+    parts = split_telegram_text(text)
+    assert len(parts) > 1
+    assert all(len(p) <= TELEGRAM_MESSAGE_LIMIT for p in parts)
+    assert "".join(parts) == text
+
+
+def test_split_telegram_text_hard_splits_long_token():
+    text = "x" * 9000
+    parts = split_telegram_text(text)
+    assert len(parts) >= 3
+    assert all(len(p) <= TELEGRAM_MESSAGE_LIMIT for p in parts)
+    assert "".join(parts) == text
 
 
 def test_web_search_not_configured_without_api_key(monkeypatch: pytest.MonkeyPatch):
