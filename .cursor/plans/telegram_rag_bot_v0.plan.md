@@ -16,7 +16,7 @@ todos:
     status: completed
   - id: sp4-mac-mini-ops
     content: SP4 — see telegram_vault_sp4_ops.plan.md
-    status: pending
+    status: completed
   - id: sp5-webhook-deferred
     content: SP5 (later) — GitHub push webhook → pull + reindex; Tailscale/tunnel TBD
     status: pending

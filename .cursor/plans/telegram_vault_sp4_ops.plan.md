@@ -4,16 +4,16 @@ overview: "launchd, sync-and-index.sh, env template, ops README. Depends on SP3 
 todos:
   - id: sync-script
     content: services/telegram/deploy/sync-and-index.sh — git pull + build_chunks + build_embeddings
-    status: pending
+    status: completed
   - id: launchd
     content: services/telegram/deploy/com.founders.telegram.bot.plist + load instructions
-    status: pending
+    status: completed
   - id: env-template
     content: services/telegram/deploy/env.example → template for ~/.config/founders-telegram/env
-    status: pending
+    status: completed
   - id: ops-readme
     content: services/telegram/README.md — install, cron, manual sync, troubleshooting
-    status: pending
+    status: completed
 isProject: false
 ---
 
