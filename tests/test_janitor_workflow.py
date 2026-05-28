@@ -98,4 +98,6 @@ def test_run_reindex_invokes_both_steps(mock_reindex):
     code, msg = run_reindex(REPO)
     assert code == 0
     assert "embeddings" in msg
-    mock_reindex.assert_called_once_with(REPO)
+    mock_reindex.assert_called_once()
+    assert mock_reindex.call_args[0][0] == REPO
+    assert "env" in mock_reindex.call_args[1]

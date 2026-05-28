@@ -34,8 +34,17 @@ from config import load_bot_config  # noqa: E402
 from handlers import (  # noqa: E402
     cmd_clear,
     cmd_newchat,
+    cmd_pull,
+    cmd_reindex,
+    cmd_resetmodel,
+    cmd_resetsteps,
+    cmd_restart,
     cmd_resume,
+    cmd_setmodel,
+    cmd_setsteps,
+    cmd_settings,
     cmd_start,
+    cmd_sync,
     cmd_web,
     on_text,
 )
@@ -69,6 +78,15 @@ async def _register_bot_commands(application) -> None:
             BotCommand("newchat", "Export session and reset"),
             BotCommand("resume", "Resume exported session"),
             BotCommand("web", "One turn with web search enabled"),
+            BotCommand("settings", "Models, max_steps, runtime path"),
+            BotCommand("setmodel", "Set model: librarian|janitor|expand|embed"),
+            BotCommand("resetmodel", "Clear runtime model override"),
+            BotCommand("setsteps", "Set max tool steps (1–20)"),
+            BotCommand("resetsteps", "Clear runtime max_steps only"),
+            BotCommand("pull", "Git pull vault repo"),
+            BotCommand("reindex", "Rebuild chunks + embeddings"),
+            BotCommand("sync", "Pull + reindex"),
+            BotCommand("restart", "Restart bot process (launchd)"),
         ]
     )
 
@@ -100,6 +118,15 @@ def build_application():
     app.add_handler(CommandHandler("newchat", cmd_newchat))
     app.add_handler(CommandHandler("resume", cmd_resume))
     app.add_handler(CommandHandler("web", cmd_web))
+    app.add_handler(CommandHandler("settings", cmd_settings))
+    app.add_handler(CommandHandler("setmodel", cmd_setmodel))
+    app.add_handler(CommandHandler("resetmodel", cmd_resetmodel))
+    app.add_handler(CommandHandler("setsteps", cmd_setsteps))
+    app.add_handler(CommandHandler("resetsteps", cmd_resetsteps))
+    app.add_handler(CommandHandler("pull", cmd_pull))
+    app.add_handler(CommandHandler("reindex", cmd_reindex))
+    app.add_handler(CommandHandler("sync", cmd_sync))
+    app.add_handler(CommandHandler("restart", cmd_restart))
     app.add_handler(CallbackQueryHandler(on_janitor_callback, pattern=r"^janitor:"))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, on_text))
 

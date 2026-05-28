@@ -28,7 +28,7 @@ if TYPE_CHECKING:
 JANITOR_HELP = """Janitor — daily notes ritual
 
 1. Paste episode + bullets (e.g. `191 naval` + `* hook (5:00)` lines), or episode number first then paste.
-2. Notes are **auto-cleaned** via LLM (`JANITOR_CLEAN_MODEL`).
+2. Notes are **auto-cleaned** via LLM (see `/settings` → janitor_clean_model).
 3. Review the cleaned preview — **reply with text** to revise, or use **Retry** / **Approve** / **Cancel**.
 
 /librarian — return to Q&A
@@ -108,8 +108,8 @@ async def _run_llm_clean(
     clean_model = _require_clean_model(bot_cfg)
     if not clean_model:
         await message.reply_text(
-            "Set JANITOR_CLEAN_MODEL in ~/.config/founders-telegram/env "
-            "(OpenRouter model id, e.g. groq/llama-3.1-8b-instant)."
+            "Janitor clean model not set. Use /setmodel janitor <openrouter-slug> "
+            "(see /settings)."
         )
         return
 

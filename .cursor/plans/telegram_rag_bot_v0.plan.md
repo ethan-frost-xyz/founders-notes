@@ -72,7 +72,7 @@ flowchart LR
 | Topic | Decision |
 |-------|----------|
 | UX | Study-notes synthesis + verbatim quotes + `[ep-NNNN]` |
-| Architecture | Tool-calling agent (`TELEGRAM_CHAT_MODEL`), not single-shot RAG |
+| Architecture | Tool-calling agent (Librarian model in `runtime.json`), not single-shot RAG |
 | Vault sources | Posts, raw notes, **canonical** `.expanded.md`, transcripts (explicit tool) |
 | Web | **`/web <query>` only** — `web_search` disabled for normal messages |
 | Host | Mac mini, polling |
@@ -81,7 +81,7 @@ flowchart LR
 | Sessions | In-memory; `/clear`; `/newchat` → jsonl export; `/resume` |
 | Sync v0 | Manual/cron `sync-and-index.sh`; webhook SP5 |
 | Git | `feature/telegram-vault-bot` → focused commits SP1–SP4 → PR |
-| Models | `TELEGRAM_CHAT_MODEL` (chat), `OPENROUTER_EMBED_MODEL` (parent embeds) |
+| Models | `runtime.json` on bot host (`/setmodel`); legacy env vars seed on first start |
 
 **Not indexed:** `.expanded.draft.md` — promote + `build_chunks` + `build_embeddings` first.
 
@@ -194,7 +194,7 @@ Commit the matching **sub-plan `.plan.md`** with each implementation commit (AGE
 
 Consolidated in [`potential-ideas.md`](../../potential-ideas.md) — **Shipped / Next / Decided** sections. SP6-lite shipped (May 2026). Open in **Next** clusters: SP5 webhook, SP3.1 `/web` provider, rerank, MRR@8, Janitor UX, ingestion `--jobs N`.
 
-**Decided (not open):** session naming locked as `{utc_iso}_{short_slug}.jsonl`; `TELEGRAM_MAX_STEPS` optional env override (default 5).
+**Decided (not open):** session naming locked as `{utc_iso}_{short_slug}.jsonl`; `TELEGRAM_MAX_STEPS` optional env override (default 5). Model slugs + ops: `~/.config/founders-telegram/runtime.json` + Telegram `/setmodel`, `/sync` (see [telegram_runtime_config plan](telegram_runtime_config_260f441f.plan.md)).
 
 ---
 

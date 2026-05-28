@@ -42,7 +42,7 @@ python dev/mock_telegram_cli.py --stub-llm --debug
 | Mode | How | API key | Assertions checked |
 |------|-----|---------|-------------------|
 | **Echo** | `--stub-llm` on CLI, or `llm: echo` in scenario YAML | Not required | `contains`, `not_contains`, `response_min_length`; Janitor `phase`, `sandbox_file_written` |
-| **Live** | Omit `--stub-llm` and use `llm: live` in YAML | `OPENROUTER_API_KEY`, `TELEGRAM_CHAT_MODEL` | Echo assertions plus `expect_live`: `tool_called`, `response_contains`, `load_episode_id`, etc. |
+| **Live** | Omit `--stub-llm` and use `llm: live` in YAML | `OPENROUTER_API_KEY`; `TELEGRAM_CHAT_MODEL` in env **or** `librarian_model` in `runtime.json` (harness reads both) | Echo assertions plus `expect_live`: `tool_called`, `response_contains`, `load_episode_id`, etc. |
 
 In **echo** mode, `expect_live` blocks in YAML are skipped (CI uses echo only). Librarian scenarios marked `llm: live` still run in echo when you pass `--stub-llm` or when `tests/test_harness_scenarios.py` sets `stub_llm=True` — they only check non-live keys unless you run without `--stub-llm`.
 

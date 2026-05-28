@@ -34,14 +34,17 @@ class BotConfig:
 
 
 def load_agent_config() -> AgentConfig:
+    from runtime_settings import apply_runtime_overrides, effective_librarian_model
+
     api_key = os.environ.get("OPENROUTER_API_KEY", "").strip()
-    model = os.environ.get("TELEGRAM_CHAT_MODEL", "").strip()
     if not api_key:
         raise ValueError("OPENROUTER_API_KEY is required")
+
+    model, _ = effective_librarian_model()
     if not model:
         raise ValueError(
-            "TELEGRAM_CHAT_MODEL is required. Source ~/.config/founders-telegram/env "
-            "(see services/telegram/deploy/env.example), not the repo root .env."
+            "Librarian model is required. Set librarian_model in runtime.json "
+            "(/setmodel librarian <slug>), TELEGRAM_CHAT_MODEL in env, or restart once to seed from env."
         )
 
     max_steps_raw = os.environ.get("TELEGRAM_MAX_STEPS", "").strip()
@@ -51,17 +54,26 @@ def load_agent_config() -> AgentConfig:
 
     base_url = os.environ.get("OPENROUTER_BASE_URL", "").strip() or "https://openrouter.ai/api/v1"
 
-    return AgentConfig(
+    base = AgentConfig(
         api_key=api_key,
         model=model,
         vault_root=_vault_root_default(),
         max_steps=max_steps,
         openrouter_base_url=base_url.rstrip("/"),
     )
+    return apply_runtime_overrides(base)
 
 
 def load_bot_config() -> BotConfig:
+    from runtime_settings import (
+        apply_runtime_to_bot_config,
+        seed_runtime_from_env_if_missing,
+        sync_embed_to_os_environ,
+    )
+
+    seed_runtime_from_env_if_missing()
     agent = load_agent_config()
+
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     if not token:
         raise ValueError("TELEGRAM_BOT_TOKEN is required")
@@ -77,12 +89,13 @@ def load_bot_config() -> BotConfig:
     if not allowed:
         raise ValueError("TELEGRAM_ALLOWED_USER_IDS must list at least one user id")
 
-    sessions_dir = agent.vault_root / "catalog" / "telegram-sessions"
-    janitor_clean = os.environ.get("JANITOR_CLEAN_MODEL", "").strip() or None
-    return BotConfig(
+    bot = BotConfig(
         agent=agent,
         telegram_token=token,
         allowed_user_ids=frozenset(allowed),
-        sessions_dir=sessions_dir,
-        janitor_clean_model=janitor_clean,
+        sessions_dir=agent.vault_root / "catalog" / "telegram-sessions",
+        janitor_clean_model=None,
     )
+    bot = apply_runtime_to_bot_config(bot)
+    sync_embed_to_os_environ()
+    return bot

@@ -66,7 +66,7 @@ python maintain.py
 
 Repeat steps 2–6 until backlog is acceptable.
 
-**Telegram vault agent host:** After promote waves, run `sync-and-index.sh` (or `python lib/reindex_vault.py` from `ingestion/`) on the Mac mini so parent-tier search includes **Quote** / **Key takeaway** from canonical `.expanded.md`. The agent does not read `.expanded.draft.md`.
+**Telegram vault agent host:** After promote waves, run Telegram `/sync` when idle, `sync-and-index.sh`, or `python lib/reindex_vault.py` from `ingestion/` on the Mac mini so parent-tier search includes **Quote** / **Key takeaway** from canonical `.expanded.md`. The agent does not read `.expanded.draft.md`.
 
 ---
 

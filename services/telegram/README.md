@@ -34,13 +34,14 @@ ingestion/.venv/bin/pip install -r services/telegram/requirements.txt
 
 Use `ingestion/.venv/bin/python` for the bot and index scripts (recommended). If the venv is missing, `deploy/*.sh` falls back to `python3` on `PATH`.
 
-### 2. Environment files (two locations)
+### 2. Environment files (secrets + runtime models)
 
-The Mac mini needs **both**:
+The Mac mini needs **three** persisted files:
 
 | File | Purpose |
 |------|---------|
-| `~/.config/founders-telegram/env` | Bot runtime (launchd, sync scripts) — copy from `deploy/env.example` |
+| `~/.config/founders-telegram/env` | **Secrets only** — `VAULT_ROOT`, bot token, allowlist, `OPENROUTER_API_KEY` (copy from `deploy/env.example`) |
+| `~/.config/founders-telegram/runtime.json` | **Models + tuning** — librarian, Janitor clean, expand, embed, `max_steps` (auto-seeded from env on first start; then Telegram `/setmodel`, `/setsteps`) |
 | `{VAULT_ROOT}/.env` | Ingestion (Colossus, X API); expand subprocess also `load_dotenv` on repo root |
 
 ```bash
@@ -48,7 +49,8 @@ mkdir -p ~/.config/founders-telegram ~/Library/Logs/founders-telegram
 cp services/telegram/deploy/env.example ~/.config/founders-telegram/env
 chmod 600 ~/.config/founders-telegram/env
 cp .env.example .env   # in repo root — edit Colossus/X/OpenRouter as needed
-# Edit Telegram env: VAULT_ROOT, TELEGRAM_BOT_TOKEN, TELEGRAM_ALLOWED_USER_IDS, OPENROUTER_*
+# Edit Telegram env: VAULT_ROOT, TELEGRAM_BOT_TOKEN, TELEGRAM_ALLOWED_USER_IDS, OPENROUTER_API_KEY
+# Optional: legacy model lines in env are copied into runtime.json once on first bot start
 ```
 
 Quick view:
@@ -67,7 +69,7 @@ export $(grep -v '^#' ~/.config/founders-telegram/env | xargs)  # or source manu
 services/telegram/deploy/sync-and-index.sh
 ```
 
-After `git pull`, the script runs [`ingestion/lib/reindex_vault.py`](../../ingestion/lib/reindex_vault.py) (chunks + embeddings). Requires `OPENROUTER_API_KEY` and `OPENROUTER_EMBED_MODEL` (any OpenRouter embedding slug) for the embedding step.
+After `git pull`, the script runs [`ingestion/lib/reindex_vault.py`](../../ingestion/lib/reindex_vault.py) (chunks + embeddings). Requires `OPENROUTER_API_KEY` and an embed model slug in `runtime.json` (`embed_model`) or legacy `OPENROUTER_EMBED_MODEL` in env.
 
 ### 4. launchd (always-on bot)
 
@@ -144,9 +146,9 @@ python dev/mock_telegram_cli.py --suite librarian --live-only -v
 
 Mode-switched workflow in the same bot: `/janitor` → paste bullets → LLM clean preview → approve → file `.notes.md` → expand → promote → reindex. Full guide: [`docs/janitor.md`](../../docs/janitor.md).
 
-Requires `JANITOR_CLEAN_MODEL` in `~/.config/founders-telegram/env`. Expand uses `OPENROUTER_MODEL` (Telegram env and/or `{VAULT_ROOT}/.env`).
+Models are in `runtime.json` (see `/settings`). Use `/setmodel janitor …`, `/setmodel expand …`, etc. Legacy env model vars are migration fallbacks only.
 
-**Model tuning:** clean, expand, and Librarian chat use separate env vars — when to change each, example stacks, restart steps: [`docs/janitor.md`](../../docs/janitor.md#model-tuning-playbook).
+**Model tuning:** [`docs/janitor.md`](../../docs/janitor.md#model-tuning-playbook) — primary path is Telegram `/settings` + `/setmodel`.
 
 ## Commands (Telegram)
 
@@ -162,23 +164,36 @@ Requires `JANITOR_CLEAN_MODEL` in `~/.config/founders-telegram/env`. Expand uses
 | `/cancel` | Cancel Janitor workflow |
 | Free text | Vault only (`allow_web=false`); in Janitor mode, follows notes workflow |
 
-## Environment variables
+## Configuration: secrets vs runtime
 
-Set bot vars in `~/.config/founders-telegram/env`. Ensure `{VAULT_ROOT}/.env` has `OPENROUTER_API_KEY` (and optionally `OPENROUTER_MODEL`) for Janitor expand if not duplicated in the Telegram env.
+| File | Purpose |
+|------|---------|
+| `~/.config/founders-telegram/env` | **Secrets only:** `VAULT_ROOT`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ALLOWED_USER_IDS`, `OPENROUTER_API_KEY` |
+| `~/.config/founders-telegram/runtime.json` | **Models + `max_steps`** (Telegram `/setmodel`, `/setsteps`) |
 
-| Variable | Purpose |
-|----------|---------|
-| `VAULT_ROOT` | Git clone path (repo root; resolved via [`ingestion/_bootstrap.py`](../../ingestion/_bootstrap.py) `resolve_vault_root`) |
-| `TELEGRAM_BOT_TOKEN` | BotFather token |
-| `TELEGRAM_ALLOWED_USER_IDS` | Comma-separated numeric user ids |
-| `OPENROUTER_API_KEY` | Chat + embed API |
-| `TELEGRAM_CHAT_MODEL` | Librarian agent model |
-| `JANITOR_CLEAN_MODEL` | Janitor **paste clean** (required for `/janitor`; LLM-first, e.g. `groq/llama-3.1-8b-instant`) |
-| `JANITOR_CLEAN_TEMPERATURE` | Optional (default `0.2`) |
-| `OPENROUTER_MODEL` | Janitor **expand** subprocess (`expand_datapoints_llm.py`) |
-| `OPENROUTER_EMBED_MODEL` | Parent-tier embeddings (any OpenRouter embedding slug) |
-| `TELEGRAM_MAX_STEPS` | Optional (default 5) |
-| `WEB_SEARCH_API_KEY` | SP3.1 — `/web` provider (stub until wired) |
+On first start, the bot copies model slugs from legacy env vars into `runtime.json` if keys are missing (one-time migration). After that you can remove model lines from `env`.
+
+Template: [`deploy/env.example`](deploy/env.example). Optional: `FOUNDERS_TELEGRAM_RUNTIME` to override the runtime file path.
+
+Ensure `{VAULT_ROOT}/.env` has `OPENROUTER_API_KEY` for laptop expand CLI if not duplicated in Telegram env.
+
+### Ops from Telegram (allowlisted user only)
+
+Day-to-day tuning and vault ops without SSH:
+
+| Command | Effect |
+|---------|--------|
+| `/settings` | All effective models, `max_steps`, sources, runtime file path |
+| `/setmodel <role> <slug>` | `librarian` \| `janitor` \| `expand` \| `embed` — saved + hot-reload |
+| `/resetmodel <role>` | Drop one model override (falls back to env if set) |
+| `/setsteps <n>` | `max_steps` 1–20 |
+| `/resetsteps` | Clear runtime `max_steps` only (models unchanged) |
+| `/pull` | `git pull --ff-only` on the vault |
+| `/reindex` | Rebuild `chunks.jsonl` + embeddings |
+| `/sync` | `/pull` then `/reindex` (traveling shortcut; cron still uses `sync-and-index.sh`) |
+| `/restart` | Exit process; launchd starts a fresh bot |
+
+After `/setmodel embed`, run `/reindex` or `/sync` before trusting search. Avoid `/pull`/`/sync` during active Librarian or Janitor turns.
 
 ## Troubleshooting
 
@@ -188,8 +203,9 @@ Set bot vars in `~/.config/founders-telegram/env`. Ensure `{VAULT_ROOT}/.env` ha
 | Bot exits immediately | `bot.stderr.log`; env file sourced; `VAULT_ROOT` correct |
 | `Unauthorized` in Telegram | Your numeric user id in `TELEGRAM_ALLOWED_USER_IDS` |
 | Weak / no search hits | Run `sync-and-index.sh`; confirm `catalog/chunks.jsonl` updated |
-| Embeddings errors | `OPENROUTER_EMBED_MODEL` + API key; run `build_embeddings.py` manually |
-| Stale answers after git pull | Run sync when idle; `/resume` warns if index newer than session |
+| Embeddings errors | `/settings` → `embed_model`; API key in env; `/reindex` when idle |
+| Stale answers after git pull | `/sync` when idle; `/resume` warns if index newer than session |
+| Janitor clean blocked | `/setmodel janitor <slug>` (see `/settings`) |
 
 ## Deferred (post-v0)
 

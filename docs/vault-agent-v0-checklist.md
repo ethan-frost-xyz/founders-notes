@@ -50,7 +50,7 @@ Guide: [telegram-mock-harness.md](telegram-mock-harness.md). **Retrieval JSONL**
 |------|---------|
 | Nightly index | `chmod +x services/telegram/deploy/install-cron.sh && services/telegram/deploy/install-cron.sh` |
 | Review cron line only | `services/telegram/deploy/install-cron.sh --print` |
-| Manual sync | `services/telegram/deploy/sync-and-index.sh` |
+| Manual sync | Telegram `/sync` when idle, or `services/telegram/deploy/sync-and-index.sh` |
 | Bot reload after pull | `launchctl kickstart -k gui/$(id -u)/com.founders.telegram.bot` |
 
 ## Manual smoke (Telegram)
