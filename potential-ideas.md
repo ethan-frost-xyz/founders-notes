@@ -7,10 +7,13 @@ Linked from: [`README.md`](README.md), [`docs/telegram-vault-agent.md`](docs/tel
 ## Shipped (reference)
 
 - **SP6-lite (May 2026)** — `services/telegram/bot/tool_status.py`, Telegram status labels in handlers/agent, prompt/tool copy, retrieval scenario additions, harness preflight + [`dev/scenarios/librarian/thematic_search.yaml`](dev/scenarios/librarian/thematic_search.yaml)
+- **Mock harness (May 2026)** — `dev/mock_telegram_cli.py`, YAML scenarios (echo in CI; opt-in live via `RUN_LIVE_HARNESS=1`); guide [`docs/telegram-mock-harness.md`](docs/telegram-mock-harness.md); archived [`telegram_mock_harness_2296d9fc.plan.md`](.cursor/plans/archive/telegram_mock_harness_2296d9fc.plan.md)
 - **Index / ops (vault backlog)** — nightly cron (`install-cron.sh`), studied-corpus chunk filter, scenario tests, Janitor mode-switched bot
-- **Episode resolution** — `resolve_episode_ref` ([`archive/fix_bare_episode_refs_4f718a49.plan.md`](.cursor/plans/archive/fix_bare_episode_refs_4f718a49.plan.md)); fuzzy threshold tuning (D7) **not** shipped — see Librarian quality below
+- **Episode resolution** — `resolve_episode_ref` + `load_episode` fallback ([`archive/fix_bare_episode_refs_4f718a49.plan.md`](.cursor/plans/archive/fix_bare_episode_refs_4f718a49.plan.md)); fuzzy threshold tuning (D7) and other post-ship follow-ups — see Librarian quality below
 
 ## Next (pick one cluster → new plan)
+
+Suggested plan filenames below — create the file under `.cursor/plans/` when you start work (do not grow the master index).
 
 ### Ops / sync — `telegram_ops_sync.plan.md`
 
@@ -20,10 +23,13 @@ Linked from: [`README.md`](README.md), [`docs/telegram-vault-agent.md`](docs/tel
 
 ### Librarian quality — `telegram_librarian_quality.plan.md`
 
+- **`load_episode` disambiguation (D1)** — when `resolve_episode_ref` is ambiguous, return `{ "error": "...", "candidates": [...] }` from `list_episode_ids(..., limit=5)` so the model can pick in one turn.
+- **Ambiguous guest harness (D10)** — e.g. `ambiguous_guest.yaml` (Henry Ford → disambiguation, no wrong episode); [`episode_resolve.yaml`](dev/scenarios/librarian/episode_resolve.yaml) covers numbered NL only today.
 - **LLM rerank** — optional rerank on hybrid hits; index is small after filter; revisit if quality gaps appear.
 - **Scenarios / MRR@8** — extend retrieval scenarios toward MRR@8 as query set grows.
 - **Post-promote chunk smoke** — automated check that promoted `.expanded.md` appears in parent-tier chunks (partially covered by `RUN_REBUILT_INDEX_SCENARIOS=1` tests).
 - **Fuzzy `resolve_episode_ref` tuning (D7)** — episode_number exact match, title boost for `#NNN`, re-evaluate thresholds with fixture queries.
+- **`tool_trace` resolved_from (D6)** — when `load_episode` uses fallback, record `resolved_from` in harness / exported session traces for debugging.
 
 ### Web — `telegram_web_provider.plan.md`
 

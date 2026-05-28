@@ -253,7 +253,7 @@ Same two NL prompts as the harness scenario — only needed if you want producti
 
 ## Deferred follow-ups
 
-Track in [potential-ideas.md](potential-ideas.md) under a **Librarian episode resolution** bullet when any of these ship.
+Open items consolidated in [potential-ideas.md](../../../potential-ideas.md) **Librarian quality** cluster (D1, D6, D7, D10, etc.). Shipped core: `resolve_episode_ref` + `load_episode` fallback (PR #10).
 
 ### UX / agent behavior
 

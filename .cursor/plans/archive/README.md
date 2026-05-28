@@ -4,7 +4,7 @@ Completed or superseded implementation plans moved out of [`.cursor/plans/`](../
 
 **Active plan (parent directory):**
 
-- [`telegram_rag_bot_v0.plan.md`](../telegram_rag_bot_v0.plan.md) — Telegram vault agent master index (SP1–SP4 shipped; SP5–SP6 tracked in [`potential-ideas.md`](../../../potential-ideas.md))
+- [`telegram_rag_bot_v0.plan.md`](../telegram_rag_bot_v0.plan.md) — Telegram vault agent master index (SP1–SP4 + Janitor shipped; SP6-lite in [`potential-ideas.md`](../../../potential-ideas.md) § Shipped; SP5+ in § Next)
 
 **Deferred backlog (not a plan):** [`potential-ideas.md`](../../../potential-ideas.md) — **Shipped / Next / Decided** sections.
 
@@ -16,6 +16,8 @@ May 2026 hygiene: `telegram_vault_bot` superseded todos cancelled; single backlo
 - [`vault_cleanup_refactors.plan.md`](vault_cleanup_refactors.plan.md) — docs/hygiene, bootstrap, unified reindex (PRs #5+; shipped)
 - [`expand_llm_split.plan.md`](expand_llm_split.plan.md) — `openrouter_client` + `expand_*` modules (shipped)
 - [`fix_bare_episode_refs_4f718a49.plan.md`](fix_bare_episode_refs_4f718a49.plan.md) — Librarian episode resolution without NL regex (PR #10; shipped)
+- [`telegram_mock_harness_2296d9fc.plan.md`](telegram_mock_harness_2296d9fc.plan.md) — headless Librarian/Janitor harness (shipped; guide: [`docs/telegram-mock-harness.md`](../../../docs/telegram-mock-harness.md))
+- [`harness_docs_validation_00c7577f.plan.md`](harness_docs_validation_00c7577f.plan.md) — harness docs + testing cross-links (shipped)
 
 **Telegram SP + Janitor + index backlog:**
 

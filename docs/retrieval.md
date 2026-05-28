@@ -69,9 +69,9 @@ Until then, v1 chunks + v2 agent tools are sufficient for Cursor and Telegram.
 
 ## Open questions (agent / retrieval)
 
-Locked in master plan for v0; revisit in SP3.1 / SP6:
+Locked in master plan for v0; open follow-ups in [`potential-ideas.md`](../potential-ideas.md):
 
-1. **Web provider** — v0 stub (`not configured`); Tavily or Brave when `WEB_SEARCH_API_KEY` is wired.
+1. **Web provider (SP3.1)** — v0 stub (`not configured`); Tavily or Brave when `WEB_SEARCH_API_KEY` is wired.
 2. **`load_episode`** — all on-disk sections, truncated; expanded sections ordered first when present.
-3. **`/resume` + stale index** — v0 warn-only; auto-sync deferred.
-4. **Hybrid quality** — SP6-lite shipped (status UX, scenarios); rerank / MRR@8 — [`potential-ideas.md`](../potential-ideas.md) Librarian quality cluster.
+3. **`/resume` + stale index** — v0 warn-only; auto-sync deferred (Ops / sync cluster).
+4. **Hybrid quality** — SP6-lite shipped (status UX, scenarios); rerank, MRR@8, episode disambiguation (D1/D7) — Librarian quality cluster.

@@ -49,8 +49,9 @@ Filename kept as `telegram_rag_bot_v0` for history. **Product:** OpenRouter **to
 | **2** | [telegram_vault_sp2_agent.plan.md](archive/telegram_vault_sp2_agent.plan.md) | `agent.py`, `vault_agent.md`, mock contract tests |
 | **3** | [telegram_vault_sp3_telegram.plan.md](archive/telegram_vault_sp3_telegram.plan.md) | Handlers, allowlist, sessions, `/web` stub |
 | **4** | [telegram_vault_sp4_ops.plan.md](archive/telegram_vault_sp4_ops.plan.md) | `launchd`, `sync-and-index.sh`, ops README → **PR** |
-| 5 | *(this file § Deferred)* | GitHub webhook → pull + reindex |
-| 6 | *(this file § Deferred)* | Rerank, tool copy, “Searching…” UX |
+| 5 | [potential-ideas.md](../../potential-ideas.md) § Next (Ops / sync) | GitHub webhook → pull + reindex |
+| 6-lite | [potential-ideas.md](../../potential-ideas.md) § Shipped | Status UX, prompt/tool copy, scenarios (May 2026) |
+| 6+ | [potential-ideas.md](../../potential-ideas.md) § Next (Librarian quality) | Rerank, MRR@8, D1/D7 episode resolution follow-ups |
 
 ```mermaid
 flowchart LR
