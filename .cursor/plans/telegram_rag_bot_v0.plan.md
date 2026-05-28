@@ -1,6 +1,6 @@
 ---
 name: Telegram Vault Agent v0
-overview: Master index for private Mac-mini Telegram vault agent (tool-calling, not naive RAG). SP1–SP4 shipped on main (PR #3); SP5–SP6 deferred. Janitor mode shipped separately — see archive/vault_janitor_agent.plan.md.
+overview: Master index for private Mac-mini Telegram vault agent (tool-calling, not naive RAG). SP1–SP4 shipped on main (PR #3); SP5–SP6 in potential-ideas.md. Janitor shipped — archive/vault_janitor_agent.plan.md.
 todos:
   - id: branch
     content: Branch feature/telegram-vault-bot off main; focused commits per sub-plan; merge via PR
@@ -18,11 +18,11 @@ todos:
     content: SP4 — see telegram_vault_sp4_ops.plan.md
     status: completed
   - id: sp5-webhook-deferred
-    content: SP5 (later) — GitHub push webhook → pull + reindex; Tailscale/tunnel TBD
-    status: pending
+    content: SP5 — tracked in potential-ideas.md (pull into focused plan when implementing)
+    status: cancelled
   - id: sp6-tool-tuning
-    content: SP6 (v0.1) — tool descriptions, episode router, optional LLM rerank in search_parent
-    status: pending
+    content: SP6 — tracked in potential-ideas.md (pull into focused plan when implementing)
+    status: cancelled
   - id: docs-handoff
     content: Appendix A docs sync (completed)
     status: completed

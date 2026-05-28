@@ -12,14 +12,14 @@ todos:
     content: "PR3: reindex_vault + callers + tests; affected-doc sweep; make-pr-easy-to-review"
     status: completed
   - id: appendix-expand-llm
-    content: Shipped — see .cursor/plans/expand_llm_split.plan.md (split into openrouter_client + expand_* modules)
+    content: Shipped — see archive/expand_llm_split.plan.md (split into openrouter_client + expand_* modules)
     status: completed
 isProject: false
 ---
 
 # Vault cleanup — three low-risk refactors + future `expand_llm` note
 
-**Progress:** PR1 shipped (#5). PR2 shipped — branch `refactor/vault-bootstrap-pr2`. PR3 — branch `refactor/vault-reindex-pr3`.
+**Status:** Shipped May 2026 (PR1 #5, PR2 bootstrap, PR3 unified reindex). Archived with hygiene pass.
 
 ## Success criteria (done when)
 
@@ -31,7 +31,6 @@ isProject: false
 
 **Repo rule:** Commit this plan under [`.cursor/plans/`](.cursor/plans/) in the **same PR** as each target’s code/docs (per [`AGENTS.md`](AGENTS.md)).
 
-**Progress:** PR1 shipped (#5). PR2 (Target 3 bootstrap) — branch `refactor/vault-bootstrap-pr2`. PR3 pending.
 
 **Every PR ends with two mandatory steps:** (1) **affected-doc sweep** (table below — all listed docs for that PR must match the diff), then (2) **`make-pr-easy-to-review`** (open/update PR description and reviewer guidance; no behavior changes in this step).
 
@@ -296,7 +295,7 @@ pytest tests -q
 
 ## Shipped — `expand_llm.py` split
 
-Implemented in [`.cursor/plans/expand_llm_split.plan.md`](expand_llm_split.plan.md): `openrouter_client.py`, `expand_validate.py`, `expand_promote.py`, `expand_run_log.py`, thin `expand_llm.py` shim. Optional follow-up: `vault_subprocess.py` (_python/_tail dedupe).
+Implemented in [`expand_llm_split.plan.md`](expand_llm_split.plan.md): `openrouter_client.py`, `expand_validate.py`, `expand_promote.py`, `expand_run_log.py`, thin `expand_llm.py` shim. Optional follow-up: `vault_subprocess.py` (_python/_tail dedupe).
 
 ---
 

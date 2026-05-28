@@ -1,6 +1,6 @@
 ---
 name: Fix bare episode refs
-overview: Librarian resolves episodes via LLM + catalog lookup (list_episode_ids), not NL regex. Wire load_episode fallback through resolve_episode_ref with ambiguity guards. Regex stays in Janitor only. Commit this plan with the code change per AGENTS.md.
+overview: "Shipped PR #10 (May 2026). Librarian: LLM + list_episode_ids + resolve_episode_ref fallback; Janitor regex unchanged."
 todos:
   - id: list-episode-no-nl-regex
     content: "list_episode_ids: remove _EPISODE_REF_RE; digit + parse_numbered_episode_id + fuzzy only; drop unused re import"

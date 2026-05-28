@@ -4,13 +4,13 @@ overview: One PR, one agent session — split expand_llm.py into openrouter_clie
 todos:
   - id: sync-and-verify
     content: "git pull --ff-only if needed; confirm reindex_vault + vault cleanup plans on main"
-    status: pending
+    status: completed
   - id: split-modules
     content: "Create 4 lib modules, thin expand_llm re-exports, migrate Janitor/X imports, rename count_datapoint_headings"
-    status: pending
+    status: completed
   - id: test-and-docs
     content: "pytest tests -q + verify.py; update lib/README + vault_cleanup appendix; commit plan with code"
-    status: pending
+    status: completed
 isProject: false
 ---
 
@@ -26,7 +26,7 @@ isProject: false
 - `attribute_posts_llm` + `janitor_workflow` import `openrouter_client` directly
 - `_count_datapoint_headings` → public `count_datapoint_headings` in `expand_validate`; callers updated
 - `pytest tests -q` + `cd ingestion && python pipeline/verify.py` green
-- This plan + [`ingestion/lib/README.md`](ingestion/lib/README.md) updated; [`vault_cleanup_refactors.plan.md`](.cursor/plans/vault_cleanup_refactors.plan.md) appendix points here
+- This plan + [`ingestion/lib/README.md`](../../../ingestion/lib/README.md) updated; [`vault_cleanup_refactors.plan.md`](vault_cleanup_refactors.plan.md) appendix points here
 
 **Not in scope:** `maintain.py` / `markdown_io` splits, `vault_subprocess.py`, shim removal pass.
 
@@ -74,7 +74,7 @@ Update `@patch("expand_llm.call_openrouter")` → `openrouter_client` where the 
 ### 4. Docs + commit
 
 - [`ingestion/lib/README.md`](ingestion/lib/README.md) — module map
-- [`vault_cleanup_refactors.plan.md`](.cursor/plans/vault_cleanup_refactors.plan.md) — appendix superseded
+- [`vault_cleanup_refactors.plan.md`](vault_cleanup_refactors.plan.md) — appendix superseded
 - Commit **this plan** with the code ([`AGENTS.md`](AGENTS.md))
 
 ---
