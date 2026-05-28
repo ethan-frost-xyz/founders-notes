@@ -37,7 +37,8 @@ cd ingestion && python pipeline/verify.py
 | `test_reindex_vault.py` | `reindex_vault` subprocess order, env, embeddings flag |
 | `test_telegram_bot.py` | Telegram transport, sessions, deploy smoke |
 | `test_telegram_deploy.py` | Deploy scripts exist and `install-cron.sh --print` |
-| `test_harness_scenarios.py` | Mock Telegram YAML scenarios (echo LLM; included in default CI) |
+| `test_harness_scenarios.py` | Mock Telegram YAML scenarios (echo in CI; opt-in live via `RUN_LIVE_HARNESS=1`) |
+| `test_mock_telegram_cli.py` | Harness CLI flags (`--suite` implies run, live scenario discovery) |
 
 ## Focused runs
 
@@ -52,6 +53,14 @@ Mock Telegram harness (echo, no Bot API token):
 ```bash
 pytest tests/test_harness_scenarios.py -q
 python dev/mock_telegram_cli.py --stub-llm --run-scenarios
+```
+
+Live Librarian harness (OpenRouter; loads `~/.config/founders-telegram/env` + repo `.env`):
+
+```bash
+python dev/mock_telegram_cli.py --suite librarian --live-only -v
+# or opt-in pytest:
+RUN_LIVE_HARNESS=1 pytest tests/test_harness_scenarios.py -k live -q
 ```
 
 Janitor unit tests:

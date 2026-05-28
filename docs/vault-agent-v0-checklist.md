@@ -55,7 +55,7 @@ Guide: [telegram-mock-harness.md](telegram-mock-harness.md). **Retrieval JSONL**
 
 ## Manual smoke (Telegram)
 
-NL episode resolution (mock harness live): `python dev/mock_telegram_cli.py --scenario dev/scenarios/librarian/episode_resolve.yaml` — see [telegram-mock-harness.md](telegram-mock-harness.md).
+NL episode resolution (mock harness live): `python dev/mock_telegram_cli.py --scenario dev/scenarios/librarian/episode_resolve.yaml -v` (env auto-loaded; see [telegram-mock-harness.md](telegram-mock-harness.md)).
 
 1. Thematic question (e.g. Rockefeller discipline) — synthesized answer with `[ep-NNNN]`, not transcript walls.
 2. Same question without `/web` — no external facts mixed in.

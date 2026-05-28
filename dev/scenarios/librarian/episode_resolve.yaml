@@ -8,12 +8,15 @@ turns:
       not_contains: "Try naming an episode id like ep-"
       expect_live:
         tool_called: load_episode
-        response_contains: ep-0191
+        load_episode_id: ep-0191
+        response_contains_any:
+          - ep-0191
+          - Naval
   - send: "Summarize what I captured on episode 22."
     expect:
       expect_live:
         tool_called: load_episode
-        response_contains: ep-0022
+        load_episode_id: ep-0022
   - send: "/clear"
     expect:
       contains: "Session cleared"

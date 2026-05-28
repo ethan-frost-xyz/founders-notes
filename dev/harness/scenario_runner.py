@@ -25,6 +25,7 @@ class TurnResult:
     message: str
     replies: list[Reply] = field(default_factory=list)
     elapsed_s: float = 0.0
+    tools_called: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -36,12 +37,15 @@ class ScenarioResult:
     elapsed_s: float = 0.0
     llm_mode: str = "live"
 
-    def summary(self) -> str:
+    def summary(self, *, verbose: bool = False) -> str:
         status = "PASS" if self.passed else "FAIL"
-        lines = [f"{status}  {self.name}  ({self.elapsed_s:.1f}s)"]
+        lines = [f"{status}  {self.name}  ({self.elapsed_s:.1f}s, {self.llm_mode})"]
         for turn in self.turns:
             mark = "ok" if turn.passed else "FAIL"
-            lines.append(f"  [{mark}] turn {turn.index}: {turn.action} — {turn.message}")
+            line = f"  [{mark}] turn {turn.index}: {turn.action} — {turn.message}"
+            if verbose and turn.tools_called:
+                line += f" (tools: {', '.join(turn.tools_called)})"
+            lines.append(line)
         return "\n".join(lines)
 
 
@@ -103,6 +107,39 @@ def _check_expectations(
         if str(response_contains) not in combined:
             return False, f"expected response to contain {response_contains!r}"
 
+    response_any = merged.get("response_contains_any")
+    if response_any and llm_mode == "live":
+        needles = [str(x) for x in response_any]
+        if not any(n in combined for n in needles):
+            return False, f"expected response to contain one of {needles!r}"
+
+    load_episode_id = merged.get("load_episode_id")
+    if load_episode_id and llm_mode == "live":
+        expected = str(load_episode_id)
+        seen: list[str] = []
+        matched = False
+        for t in tool_traces:
+            if t.get("tool") != "load_episode":
+                continue
+            arg = str((t.get("arguments") or {}).get("episode_id", ""))
+            seen.append(arg)
+            if arg == expected:
+                matched = True
+                break
+            try:
+                from vault import resolve_episode_ref
+
+                if resolve_episode_ref(arg) == expected:
+                    matched = True
+                    break
+            except Exception:
+                pass
+        if not matched:
+            return False, (
+                f"expected load_episode resolving to {expected!r}, "
+                f"episode_id args were {seen!r}"
+            )
+
     phase = merged.get("phase")
     if phase is not None:
         if janitor_phase != str(phase):
@@ -125,10 +162,12 @@ class ScenarioRunner:
         log_dir: Path | None = None,
         stub_llm: bool = False,
         keep_sandbox: bool = False,
+        verbose: bool = False,
     ) -> None:
         self.log_dir = log_dir
         self.stub_llm = stub_llm
         self.keep_sandbox = keep_sandbox
+        self.verbose = verbose
 
     async def run(self, scenario_path: Path, session: MockBotSession | None = None) -> ScenarioResult:
         scenario = load_scenario(scenario_path)
@@ -184,17 +223,29 @@ class ScenarioRunner:
 
                 sandbox_inspect = sandbox_ctx.inspect() if sandbox_ctx else None
                 expect = turn.get("expect") or {}
+                traces = list(session.tool_traces)
+                tools_called = [str(t["tool"]) for t in traces if t.get("tool")]
                 ok, msg = _check_expectations(
                     expect,
                     replies=replies,
-                    tool_traces=list(session.tool_traces),
+                    tool_traces=traces,
                     janitor_phase=session.janitor_phase(),
                     sandbox_inspect=sandbox_inspect,
                     llm_mode=llm_mode,
                 )
+                if not ok and self.verbose and tools_called:
+                    msg = f"{msg}; tools called: {tools_called}"
                 elapsed = time.perf_counter() - turn_t0
                 turn_results.append(
-                    TurnResult(idx, action, ok, msg, replies=replies, elapsed_s=elapsed)
+                    TurnResult(
+                        idx,
+                        action,
+                        ok,
+                        msg,
+                        replies=replies,
+                        elapsed_s=elapsed,
+                        tools_called=tools_called,
+                    )
                 )
                 if not ok:
                     all_passed = False
@@ -240,6 +291,7 @@ class ScenarioRunner:
                             "passed": t.passed,
                             "message": t.message,
                             "elapsed_s": t.elapsed_s,
+                            "tools_called": t.tools_called,
                         }
                         for t in r.turns
                     ],
@@ -257,3 +309,12 @@ def discover_scenarios(root: Path, suite: str | None = None) -> list[Path]:
     if suite:
         paths = [p for p in paths if suite in p.parts]
     return paths
+
+
+def discover_live_scenarios(root: Path, suite: str | None = None) -> list[Path]:
+    """YAML scenarios with ``llm: live`` (OpenRouter required when not stubbed)."""
+    return [
+        p
+        for p in discover_scenarios(root, suite=suite)
+        if str(load_scenario(p).get("llm") or "live").lower() == "live"
+    ]
