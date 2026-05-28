@@ -92,12 +92,14 @@ def _episode_listened(notes_path: Path) -> bool:
 def load_episode(episode_id: str, *, char_cap: int = 30_000) -> dict[str, Any]:
     """Load on-disk post / notes / expanded; expanded sections first when present."""
     vault_root = _ensure_ingestion_path()
-    from catalog import resolve_catalog_row
+    from catalog import lookup_catalog_row
 
     _, _, _, _, expanded_path_fn, notes_path_fn, post_path_fn = _paths()
 
     rows = _load_catalog_rows(vault_root)
-    row = resolve_catalog_row(rows, episode_id)
+    row = lookup_catalog_row(rows, episode_id)
+    if row is None:
+        return {"error": f"Episode not in catalog: {episode_id}"}
     ep_id = row["id"]
     slug = row["slug"]
     num = row.get("episode_number")

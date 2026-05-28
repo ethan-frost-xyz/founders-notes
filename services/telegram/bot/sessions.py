@@ -46,6 +46,23 @@ def index_newest_mtime(vault_root: Path) -> float:
     return max(mtimes) if mtimes else 0.0
 
 
+def _session_owner_id(path: Path) -> int | None:
+    """Read user_id from exported meta line; None if missing or unreadable."""
+    try:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            row = json.loads(line)
+            if row.get("record") == "meta":
+                uid = row.get("user_id")
+                return int(uid) if uid is not None else None
+            break
+    except (OSError, json.JSONDecodeError, TypeError, ValueError):
+        return None
+    return None
+
+
 def session_stale_warning(session_path: Path, vault_root: Path) -> str | None:
     if not session_path.is_file():
         return None
@@ -164,14 +181,18 @@ class SessionStore:
         self._by_user[user_id] = UserSession(messages=messages, slug=slug, last_export_path=path)
         return session_stale_warning(path, self.config.agent.vault_root)
 
+    def _sessions_for_user(self, user_id: int) -> list[Path]:
+        files = [
+            p
+            for p in self.config.sessions_dir.glob("*.jsonl")
+            if _session_owner_id(p) == user_id
+        ]
+        return sorted(files, key=lambda p: p.stat().st_mtime, reverse=True)
+
     def resume_latest(self, user_id: int) -> tuple[bool, str]:
-        files = sorted(
-            self.config.sessions_dir.glob("*.jsonl"),
-            key=lambda p: p.stat().st_mtime,
-            reverse=True,
-        )
+        files = self._sessions_for_user(user_id)
         if not files:
-            return False, "No saved sessions in catalog/telegram-sessions/."
+            return False, "No saved sessions for your account."
         warn = self.load_session_file(files[0], user_id)
         msg = f"Resumed {files[0].name} ({len(self.get(user_id).messages)} messages)."
         if warn:
@@ -180,7 +201,11 @@ class SessionStore:
 
     def resume_named(self, user_id: int, name: str) -> tuple[bool, str]:
         needle = name.lower().strip()
-        matches = [p for p in self.config.sessions_dir.glob("*.jsonl") if needle in p.name.lower()]
+        matches = [
+            p
+            for p in self.config.sessions_dir.glob("*.jsonl")
+            if needle in p.name.lower() and _session_owner_id(p) == user_id
+        ]
         if not matches:
             return False, f"No session matching {name!r}."
         path = max(matches, key=lambda p: p.stat().st_mtime)

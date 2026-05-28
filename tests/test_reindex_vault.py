@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 from unittest.mock import MagicMock
 
 import pytest
 
-from reindex_vault import reindex_vault
+from reindex_vault import main, reindex_vault
 
 REPO = Path(__file__).resolve().parent.parent
 
@@ -102,3 +103,17 @@ def test_reindex_vault_prefers_ingestion_venv_python(tmp_path: Path) -> None:
     from reindex_vault import _python
 
     assert _python(vault) == str(venv_py)
+
+
+def test_reindex_vault_main_bootstrap(monkeypatch: pytest.MonkeyPatch) -> None:
+    """main() must import _bootstrap when only ingestion/lib is on sys.path (CLI)."""
+    monkeypatch.setattr("reindex_vault.reindex_vault", lambda *a, **k: (0, "ok"))
+    ingestion = str(REPO / "ingestion")
+    lib = str(REPO / "ingestion" / "lib")
+    saved_path = sys.path.copy()
+    sys.modules.pop("_bootstrap", None)
+    try:
+        sys.path[:] = [lib] + [p for p in saved_path if p not in (ingestion, lib)]
+        assert main() == 0
+    finally:
+        sys.path[:] = saved_path

@@ -72,6 +72,17 @@ def test_execute_web_blocked_when_allow_web_false(agent_config: AgentConfig):
     assert result.get("error") == "web_search disabled for this turn"
 
 
+def test_execute_load_episode_missing_returns_error(agent_config: AgentConfig):
+    result = execute_tool(
+        "load_episode",
+        {"episode_id": "ep-9999"},
+        config=agent_config,
+        allow_web=False,
+    )
+    assert "error" in result
+    assert "ep-9999" in result["error"]
+
+
 def test_load_episode_unlistened_ep_0400(agent_config: AgentConfig):
     result = execute_tool(
         "load_episode",

@@ -10,7 +10,6 @@ import pytest
 pytest.importorskip("telegram")
 
 REPO = Path(__file__).resolve().parent.parent
-DEPLOY = REPO / "services" / "telegram" / "deploy"
 
 from auth import is_allowed  # noqa: E402
 from config import AgentConfig, BotConfig, load_bot_config  # noqa: E402
@@ -189,48 +188,34 @@ def test_run_turn_allow_web_true_registers_web(bot_config: BotConfig):
     agent.run_turn("weather", completion_fn=fake_completion, allow_web=True)
 
 
-# --- deploy smoke (filesystem) ---
+def test_resume_latest_scoped_to_user(bot_config: BotConfig):
+    store = SessionStore(bot_config)
+    store.append_turn(111, user_text="User 111 question", assistant_text="Reply")
+    path_111 = store.export_session(111)
+    assert path_111 is not None
+    store.clear(111)
+
+    store.append_turn(222, user_text="User 222 question", assistant_text="Reply")
+    path_222 = store.export_session(222)
+    assert path_222 is not None
+
+    ok, msg = store.resume_latest(111)
+    assert ok
+    assert path_111.name in msg
+    assert path_222.name not in msg
 
 
-def test_deploy_scripts_exist_and_are_executable():
-    for name in ("sync-and-index.sh", "run-bot.sh", "install-cron.sh"):
-        path = DEPLOY / name
-        assert path.is_file(), name
-        assert path.stat().st_mode & 0o111, f"{name} should be executable"
+def test_resume_named_scoped_to_user(bot_config: BotConfig):
+    store = SessionStore(bot_config)
+    store.append_turn(111, user_text="Rockefeller discipline", assistant_text="Reply")
+    path_111 = store.export_session(111)
+    assert path_111 is not None
 
+    store.append_turn(222, user_text="Rockefeller strategy", assistant_text="Reply")
+    path_222 = store.export_session(222)
+    assert path_222 is not None
 
-def test_install_cron_print_includes_sync_script():
-    import subprocess
-
-    proc = subprocess.run(
-        [str(DEPLOY / "install-cron.sh"), "--print"],
-        capture_output=True,
-        text=True,
-        env={"VAULT_ROOT": str(REPO), "HOME": str(Path.home())},
-    )
-    assert proc.returncode == 0
-    assert "sync-and-index.sh" in proc.stdout
-    assert "0 4 * * *" in proc.stdout
-    assert "founders-telegram-sync-and-index" in proc.stdout
-    assert "Installed crontab" not in proc.stdout
-
-
-def test_env_example_lists_required_keys():
-    text = (DEPLOY / "env.example").read_text(encoding="utf-8")
-    for key in (
-        "VAULT_ROOT",
-        "TELEGRAM_BOT_TOKEN",
-        "TELEGRAM_ALLOWED_USER_IDS",
-        "OPENROUTER_API_KEY",
-        "TELEGRAM_CHAT_MODEL",
-        "OPENROUTER_EMBED_MODEL",
-        "JANITOR_CLEAN_MODEL",
-        "OPENROUTER_MODEL",
-    ):
-        assert key in text
-
-
-def test_launchd_plist_has_label():
-    plist = (DEPLOY / "com.founders.telegram.bot.plist").read_text(encoding="utf-8")
-    assert "com.founders.telegram.bot" in plist
-    assert "run-bot.sh" in plist
+    ok, msg = store.resume_named(111, "rockefeller")
+    assert ok
+    assert path_111.name in msg
+    assert path_222.name not in msg

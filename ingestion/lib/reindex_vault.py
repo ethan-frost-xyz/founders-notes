@@ -65,6 +65,11 @@ def reindex_vault(
 
 
 def main() -> int:
+    ingestion = Path(__file__).resolve().parents[1]
+    ing = str(ingestion)
+    if ing not in sys.path:
+        sys.path.insert(0, ing)
+
     import _bootstrap
 
     _bootstrap.setup_paths(__file__)

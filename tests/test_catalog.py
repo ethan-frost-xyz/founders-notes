@@ -1,6 +1,6 @@
 import pytest
 
-from catalog import resolve_catalog_row
+from catalog import lookup_catalog_row, resolve_catalog_row
 
 
 def test_resolve_catalog_row_by_id():
@@ -15,6 +15,10 @@ def test_resolve_catalog_row_by_legacy_number():
         {"id": "ep-0200", "episode_number": 200, "slug": "200-test", "title": "Test"},
     ]
     assert resolve_catalog_row(rows, "ep-200")["id"] == "ep-0200"
+
+
+def test_lookup_catalog_row_missing():
+    assert lookup_catalog_row([], "ep-9999") is None
 
 
 def test_resolve_catalog_row_missing():

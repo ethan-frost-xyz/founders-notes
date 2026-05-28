@@ -40,8 +40,8 @@ def catalog_by_id(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     return {r["id"]: r for r in rows}
 
 
-def resolve_catalog_row(rows: list[dict[str, Any]], episode_id: str) -> dict[str, Any]:
-    """Find catalog row by canonical id or episode number."""
+def lookup_catalog_row(rows: list[dict[str, Any]], episode_id: str) -> dict[str, Any] | None:
+    """Find catalog row by canonical id or episode number; None if missing."""
     for r in rows:
         if r["id"] == episode_id:
             return r
@@ -52,7 +52,15 @@ def resolve_catalog_row(rows: list[dict[str, Any]], episode_id: str) -> dict[str
         for r in rows:
             if r.get("episode_number") == num:
                 return r
-    raise SystemExit(f"Episode not in catalog: {episode_id}")
+    return None
+
+
+def resolve_catalog_row(rows: list[dict[str, Any]], episode_id: str) -> dict[str, Any]:
+    """Find catalog row by canonical id or episode number."""
+    row = lookup_catalog_row(rows, episode_id)
+    if row is None:
+        raise SystemExit(f"Episode not in catalog: {episode_id}")
+    return row
 
 
 def new_row(
