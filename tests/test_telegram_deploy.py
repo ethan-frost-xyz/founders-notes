@@ -37,12 +37,10 @@ def test_env_example_lists_required_keys():
         "TELEGRAM_BOT_TOKEN",
         "TELEGRAM_ALLOWED_USER_IDS",
         "OPENROUTER_API_KEY",
-        "TELEGRAM_CHAT_MODEL",
-        "OPENROUTER_EMBED_MODEL",
-        "JANITOR_CLEAN_MODEL",
-        "OPENROUTER_MODEL",
     ):
         assert key in text
+    assert "runtime.json" in text
+    assert "# TELEGRAM_CHAT_MODEL=" in text or "TELEGRAM_CHAT_MODEL" in text
 
 
 def test_launchd_plist_has_label():

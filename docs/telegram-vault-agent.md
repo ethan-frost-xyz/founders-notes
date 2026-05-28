@@ -19,7 +19,7 @@ Product is a **tool-calling vault agent**, not naive single-shot RAG.
 
 ## Architecture
 
-- **OpenRouter agent** (`TELEGRAM_CHAT_MODEL`) with tool calling (`max_steps` ~5).
+- **OpenRouter agent** (Librarian model in `runtime.json`, `/setmodel librarian`) with tool calling (`max_steps` via `/setsteps`).
 - Retrieval lives **inside tools** (`search_vault_parent`, `search_transcript`, `load_episode`, `list_episode_ids`) backed by `catalog/chunks.jsonl` and **parent-tier** hybrid keyword + embeddings (`catalog/embeddings.npy`, gitignored).
 - **`/web <query>` only** for external search (`web_search` tool); normal messages must not silently mix web into vault answers.
 - Librarian corpus = **studied episodes only** (timestamp bullets in `.notes.md`); un-listened episodes return no parent-tier hits.

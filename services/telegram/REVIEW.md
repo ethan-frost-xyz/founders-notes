@@ -77,6 +77,6 @@ Optional: `python pipeline/verify.py` from `ingestion/` (repo verify; unchanged 
 
 ## Post-merge (operator)
 
-1. Copy `deploy/env.example` → `~/.config/founders-telegram/env`
-2. Run `deploy/sync-and-index.sh` once
+1. Copy `deploy/env.example` → `~/.config/founders-telegram/env` (secrets only; models go in `runtime.json` after first `/restart` seeds from legacy env)
+2. Run `deploy/sync-and-index.sh` once (or Telegram `/sync` when the bot is up)
 3. Install launchd plist per `services/telegram/README.md`

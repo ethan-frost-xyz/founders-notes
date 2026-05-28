@@ -29,14 +29,39 @@ def load_harness_env(repo_root: Path | None = None) -> list[Path]:
         loaded.append(repo_env)
 
     os.environ.setdefault("VAULT_ROOT", str(root.resolve()))
+    _apply_runtime_json_to_harness_env()
     return loaded
+
+
+def _apply_runtime_json_to_harness_env() -> None:
+    """Map runtime.json librarian_model to TELEGRAM_CHAT_MODEL for live harness."""
+    runtime_path = os.environ.get("FOUNDERS_TELEGRAM_RUNTIME", "").strip()
+    if not runtime_path:
+        runtime_path = str(Path.home() / ".config" / "founders-telegram" / "runtime.json")
+    path = Path(runtime_path)
+    if not path.is_file():
+        return
+    try:
+        import json
+
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return
+    if not isinstance(data, dict):
+        return
+    lib = data.get("librarian_model")
+    if isinstance(lib, str) and lib.strip() and not os.environ.get("TELEGRAM_CHAT_MODEL", "").strip():
+        os.environ["TELEGRAM_CHAT_MODEL"] = lib.strip()
+    emb = data.get("embed_model")
+    if isinstance(emb, str) and emb.strip() and not os.environ.get("OPENROUTER_EMBED_MODEL", "").strip():
+        os.environ["OPENROUTER_EMBED_MODEL"] = emb.strip()
 
 
 def live_harness_ready() -> tuple[bool, str]:
     if not os.environ.get("OPENROUTER_API_KEY", "").strip():
         return False, "OPENROUTER_API_KEY not set (source ~/.config/founders-telegram/env or repo .env)"
     if not os.environ.get("TELEGRAM_CHAT_MODEL", "").strip():
-        return False, "TELEGRAM_CHAT_MODEL not set"
+        return False, "TELEGRAM_CHAT_MODEL not set (env or runtime.json librarian_model)"
     return True, ""
 
 

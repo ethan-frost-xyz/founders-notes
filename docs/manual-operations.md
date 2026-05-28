@@ -32,11 +32,12 @@ Canonical recipe: [`ingestion/lib/reindex_vault.py`](../ingestion/lib/reindex_va
 
 | Entry | How |
 |-------|-----|
-| Mac mini | `services/telegram/deploy/sync-and-index.sh` (`git pull` + `lib/reindex_vault.py`) |
+| Mac mini (SSH) | `services/telegram/deploy/sync-and-index.sh` (`git pull` + `lib/reindex_vault.py`) |
+| Mac mini (Telegram) | `/sync` when the bot is idle (same outcome as the script above) |
 | Laptop | `maintain.py` menu **8** (same subprocess recipe) |
 | Janitor | **Promote & reindex** calls `janitor_workflow.run_reindex` → `reindex_vault` |
 
-Embeddings require `OPENROUTER_API_KEY` and `OPENROUTER_EMBED_MODEL` in repo `.env` and/or `~/.config/founders-telegram/env`. If keys are missing, step 2 fails with the same message as running `build_embeddings.py` manually.
+Embeddings require `OPENROUTER_API_KEY` in env and an embed model in `runtime.json` (`/setmodel embed`) or legacy `OPENROUTER_EMBED_MODEL` in env. If keys are missing, step 2 fails with the same message as running `build_embeddings.py` manually.
 
 ### When to refresh the index
 
@@ -45,7 +46,7 @@ v0 has **no file lock** between the bot and `sync-and-index.sh`. Run reindex whe
 | Situation | Action |
 |-----------|--------|
 | You **promoted on the Mac mini** (Janitor) | Usually automatic — **Promote & reindex** already runs `reindex_vault`. If that step failed, run `sync-and-index.sh` when idle. |
-| You **committed notes/expanded on the laptop** and pushed | On Mac mini: `git pull` (or full `sync-and-index.sh`) when idle so Librarian sees new chunks/embeddings. |
+| You **committed notes/expanded on the laptop** and pushed | On Mac mini: Telegram `/sync` when idle (or `sync-and-index.sh`) so Librarian sees new chunks/embeddings. |
 | **Stale Librarian answers** after pull | Run `sync-and-index.sh` when idle; `/resume` may warn that the index is newer than the saved session — re-ask the question. |
 | **During an active Telegram session** | Avoid `sync-and-index.sh` mid-turn; wait until the bot is idle or use `/clear` / finish Janitor first. |
 | **Laptop-only** work (no bot) | `maintain.py` menu **8** or `python lib/reindex_vault.py` from `ingestion/` — no sync script needed unless you also want `git pull`. |

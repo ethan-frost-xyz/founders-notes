@@ -41,7 +41,11 @@ def bot_config(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> BotConfig:
     )
 
 
-def test_load_bot_config_reads_janitor_clean_model(monkeypatch: pytest.MonkeyPatch):
+def test_load_bot_config_reads_janitor_clean_model(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+):
+    runtime = tmp_path / "runtime.json"
+    monkeypatch.setenv("FOUNDERS_TELEGRAM_RUNTIME", str(runtime))
     monkeypatch.setenv("VAULT_ROOT", str(REPO))
     monkeypatch.setenv("OPENROUTER_API_KEY", "k")
     monkeypatch.setenv("TELEGRAM_CHAT_MODEL", "librarian/model")
@@ -51,6 +55,26 @@ def test_load_bot_config_reads_janitor_clean_model(monkeypatch: pytest.MonkeyPat
     cfg = load_bot_config()
     assert cfg.agent.model == "librarian/model"
     assert cfg.janitor_clean_model == "janitor/clean-model"
+
+
+def test_load_bot_config_models_from_runtime_only(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+):
+    runtime = tmp_path / "runtime.json"
+    runtime.write_text(
+        '{"librarian_model": "rt/librarian", "janitor_clean_model": "rt/janitor"}\n',
+        encoding="utf-8",
+    )
+    monkeypatch.setenv("FOUNDERS_TELEGRAM_RUNTIME", str(runtime))
+    monkeypatch.setenv("VAULT_ROOT", str(REPO))
+    monkeypatch.setenv("OPENROUTER_API_KEY", "k")
+    monkeypatch.delenv("TELEGRAM_CHAT_MODEL", raising=False)
+    monkeypatch.delenv("JANITOR_CLEAN_MODEL", raising=False)
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "t")
+    monkeypatch.setenv("TELEGRAM_ALLOWED_USER_IDS", "111")
+    cfg = load_bot_config()
+    assert cfg.agent.model == "rt/librarian"
+    assert cfg.janitor_clean_model == "rt/janitor"
 
 
 def test_is_allowed_rejects_unknown_user(bot_config: BotConfig):

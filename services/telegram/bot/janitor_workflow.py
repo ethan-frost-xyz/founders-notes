@@ -38,10 +38,10 @@ def load_janitor_clean_prompt() -> str:
 
 
 def janitor_clean_temperature() -> float:
-    raw = os.environ.get("JANITOR_CLEAN_TEMPERATURE", "").strip()
-    if raw:
-        return float(raw)
-    return 0.2
+    from runtime_settings import effective_janitor_clean_temperature
+
+    temp, _ = effective_janitor_clean_temperature()
+    return temp
 
 
 def build_clean_user_message(
@@ -142,8 +142,9 @@ def run_expand(vault_root: Path, episode_id: str, *, force: bool) -> tuple[int, 
     ]
     if force:
         cmd.append("--force")
-    env = os.environ.copy()
-    env["VAULT_ROOT"] = str(vault_root)
+    from runtime_settings import build_subprocess_env
+
+    env = build_subprocess_env(vault_root=vault_root)
     proc = subprocess.run(
         cmd,
         cwd=str(vault_root / "ingestion"),
@@ -171,8 +172,10 @@ def run_promote(vault_root: Path, episode_id: str) -> tuple[int, str, list[str]]
 def run_reindex(vault_root: Path) -> tuple[int, str]:
     _ingestion_paths(vault_root)
     from reindex_vault import reindex_vault
+    from runtime_settings import build_subprocess_env
 
-    return reindex_vault(vault_root)
+    env = build_subprocess_env(vault_root=vault_root)
+    return reindex_vault(vault_root, env=env)
 
 
 def draft_excerpt(vault_root: Path, row: dict[str, Any]) -> str:

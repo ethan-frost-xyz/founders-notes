@@ -55,7 +55,7 @@ pytest tests/test_harness_scenarios.py -q
 python dev/mock_telegram_cli.py --stub-llm --run-scenarios
 ```
 
-Live Librarian harness (OpenRouter; loads `~/.config/founders-telegram/env` + repo `.env`):
+Live Librarian harness (OpenRouter; loads `~/.config/founders-telegram/env` + repo `.env`; optional `runtime.json` maps `librarian_model` → chat model for laptop runs after Mac mini slim-env cutover):
 
 ```bash
 python dev/mock_telegram_cli.py --suite librarian --live-only -v

@@ -31,12 +31,17 @@ def reindex_vault(
     *,
     embeddings: bool = True,
     python: str | None = None,
+    env: dict[str, str] | None = None,
 ) -> tuple[int, str]:
     """Run search/build_chunks.py; optionally search/build_embeddings.py under vault_root/ingestion."""
     vault_root = vault_root.resolve()
     py = _python(vault_root, python)
-    env = os.environ.copy()
-    env["VAULT_ROOT"] = str(vault_root)
+    if env is None:
+        env = os.environ.copy()
+        env["VAULT_ROOT"] = str(vault_root)
+    else:
+        env = dict(env)
+        env.setdefault("VAULT_ROOT", str(vault_root))
     cwd = str(vault_root / "ingestion")
 
     chunks = subprocess.run(

@@ -2,6 +2,8 @@
 
 YAML flows for the [mock Telegram harness](../../docs/telegram-mock-harness.md). Not the same as vault retrieval JSONL (`ingestion/fixtures/vault_retrieval_scenarios.jsonl`).
 
+On the Mac mini bot host, production models live in `~/.config/founders-telegram/runtime.json` (`/setmodel`). Live harness still accepts `TELEGRAM_CHAT_MODEL` in env or `librarian_model` in that file.
+
 ## Suites
 
 | Folder | `llm` | Purpose |

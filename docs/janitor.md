@@ -10,7 +10,7 @@ Janitor is a **mode** in the same Telegram bot as the Librarian vault agent. Use
 
 1. You enter Janitor mode with `/janitor`.
 2. You send an episode id (e.g. `191`, `ep-0191`) and paste notes in any common shape (`* hook (5:00)`, `- hook [1:23:45]`, etc.).
-3. The bot **auto-cleans** every paste via LLM (`JANITOR_CLEAN_MODEL`) — no regex pre-pass; if the model is unset, Janitor blocks.
+3. The bot **auto-cleans** every paste via LLM (`janitor_clean_model` in runtime.json) — no regex pre-pass; if unset, use `/setmodel janitor …`.
 4. You review the cleaned preview: **reply with text** to revise, or use **Retry** / **Approve** / **Cancel**.
 5. On approve: notes are written to `{folder}.notes.md`, then **expand** runs (`expand_datapoints_llm.py` → `.expanded.draft.md`).
 6. You review the draft excerpt; tap **Promote & reindex** to write `.expanded.md` and rebuild `chunks.jsonl` + embeddings on the bot host.
@@ -46,7 +46,8 @@ Janitor uses **two env files** on the bot host:
 
 | File | Purpose |
 |------|---------|
-| `~/.config/founders-telegram/env` | Bot runtime: `TELEGRAM_*`, `JANITOR_CLEAN_MODEL`, `OPENROUTER_MODEL` (expand), `OPENROUTER_EMBED_MODEL`, `VAULT_ROOT` |
+| `~/.config/founders-telegram/env` | Secrets: `TELEGRAM_*`, `OPENROUTER_API_KEY`, `VAULT_ROOT` |
+| `~/.config/founders-telegram/runtime.json` | Models: `/setmodel`, `/setsteps` (see `/settings`) |
 | `{VAULT_ROOT}/.env` | Ingestion: Colossus, X API; **also** loaded by `expand_datapoints_llm.py` (`load_dotenv` on repo root) for `OPENROUTER_API_KEY` / `OPENROUTER_MODEL` if not already in the process env |
 
 Quick reference (replace `VAULT_ROOT` with your clone path, e.g. `~/founders-notes`):
@@ -60,56 +61,42 @@ Copy templates: [`services/telegram/deploy/env.example`](../services/telegram/de
 
 | Variable | Purpose |
 |----------|---------|
-| `JANITOR_CLEAN_MODEL` | **Required** for paste clean (e.g. `groq/llama-3.1-8b-instant`) |
-| `JANITOR_CLEAN_TEMPERATURE` | Optional (default `0.2`) |
-| `OPENROUTER_MODEL` | Expand subprocess when you tap Approve |
-| `OPENROUTER_API_KEY` | Chat + embed + expand (set in Telegram env and/or root `.env`) |
-| `OPENROUTER_EMBED_MODEL` | Parent-tier index (`build_embeddings.py`); any OpenRouter embedding slug |
-| `VAULT_ROOT` | Git clone path |
+| `OPENROUTER_API_KEY` | Required in env (chat + embed + expand) |
+| `VAULT_ROOT` | Git clone path in env |
+| Models | `runtime.json` via `/setmodel` — not required in env after seed |
 
 ## Model tuning playbook
 
-Janitor and Librarian use **different models on purpose**. Tune one role without changing the others.
+Janitor and Librarian use **different models on purpose**. On the Mac mini bot host, set them from Telegram (primary) or `~/.config/founders-telegram/runtime.json`.
 
-| Role | Variable | Typical use | Notes |
-|------|----------|-------------|--------|
-| **Paste clean** | `JANITOR_CLEAN_MODEL` | Fast, cheap chat model on every paste | Required for `/janitor`. Low temperature (`JANITOR_CLEAN_TEMPERATURE`, default `0.2`). If clean fails or blocks, fix this first. |
-| **Expand** | `OPENROUTER_MODEL` | Higher-quality model for `expand_datapoints_llm.py` | Runs on **Approve** (subprocess). Same slug as CLI expand on laptop. |
-| **Librarian Q&A** | `TELEGRAM_CHAT_MODEL` | Tool-calling agent for vault search | Unrelated to Janitor clean/expand; only affects `/librarian` turns. |
+| Role | `/setmodel` role | Typical use |
+|------|------------------|-------------|
+| **Paste clean** | `janitor` | Fast, cheap model on every paste |
+| **Expand** | `expand` | `expand_datapoints_llm.py` on **Approve** |
+| **Librarian Q&A** | `librarian` | Tool-calling vault agent |
+| **Search embeddings** | `embed` | Parent-tier index; run `/reindex` after changing |
 
-**Where vars live**
-
-| File | Set these |
-|------|-----------|
-| `~/.config/founders-telegram/env` | `JANITOR_CLEAN_MODEL`, `TELEGRAM_CHAT_MODEL`, `OPENROUTER_MODEL` (optional duplicate), `OPENROUTER_EMBED_MODEL`, `OPENROUTER_API_KEY` |
-| `{VAULT_ROOT}/.env` | `OPENROUTER_API_KEY` (required for expand); `OPENROUTER_MODEL` if not set in Telegram env |
-
-Expand subprocess loads repo-root `.env` via `load_dotenv`. If both files define `OPENROUTER_MODEL`, the subprocess sees whatever the shell/env already exported when the bot started — keep **one canonical expand model** in Telegram env on the Mac mini to avoid surprises.
+Check effective slugs: `/settings`. Secrets (`OPENROUTER_API_KEY`) stay in `~/.config/founders-telegram/env`.
 
 **Symptom → what to change**
 
 | Symptom | Try |
 |---------|-----|
-| Clean preview garbled, too creative, or slow | Another **small/fast** `JANITOR_CLEAN_MODEL` (e.g. Groq/Cerebras 8B-class); lower `JANITOR_CLEAN_TEMPERATURE` |
-| Expand draft weak or hallucinated quotes | Stronger **`OPENROUTER_MODEL`** (same family you trust for `expand_datapoints_llm.py` on laptop); re-run **Retry expand** |
-| Librarian answers shallow or wrong tool use | **`TELEGRAM_CHAT_MODEL`** + prompt tweaks ([`vault_agent.md`](../services/telegram/prompts/vault_agent.md)); not Janitor vars |
-| Search misses new takeaways after promote | Index, not models — run [`sync-and-index.sh`](../services/telegram/deploy/sync-and-index.sh) when idle (see [manual-operations.md](manual-operations.md#when-to-refresh-the-index)) |
+| Clean preview garbled, too creative, or slow | `/setmodel janitor <faster/cheaper slug>` |
+| Expand draft weak or hallucinated quotes | `/setmodel expand <stronger slug>`; **Retry expand** |
+| Librarian answers shallow or wrong tool use | `/setmodel librarian <slug>` + prompt tweaks ([`vault_agent.md`](../services/telegram/prompts/vault_agent.md)) |
+| Search misses new takeaways after promote | `/sync` when idle (see [manual-operations.md](manual-operations.md#when-to-refresh-the-index)) |
 
-**Example stacks (OpenRouter slugs)**
+**Example (Telegram on Mac mini)**
 
-```bash
-# Mac mini — ~/.config/founders-telegram/env
-JANITOR_CLEAN_MODEL=groq/llama-3.1-8b-instant
-OPENROUTER_MODEL=anthropic/claude-sonnet-4
-TELEGRAM_CHAT_MODEL=anthropic/claude-sonnet-4
+```text
+/setmodel janitor groq/llama-3.1-8b-instant
+/setmodel expand anthropic/claude-sonnet-4
+/setmodel librarian deepseek/deepseek-v4-pro
+/setmodel embed qwen/qwen3-embedding-8b
 ```
 
-```bash
-# Laptop-only expand (no bot) — {VAULT_ROOT}/.env
-OPENROUTER_MODEL=anthropic/claude-sonnet-4
-```
-
-After changing Telegram env on the Mac mini: `services/telegram/deploy/restart-bot.sh`. Expand/promote from `maintain.py` on the laptop only reads `{VAULT_ROOT}/.env` unless you export overrides in the shell.
+Laptop-only expand still uses `{VAULT_ROOT}/.env` for `OPENROUTER_MODEL` when running CLI outside the bot.
 
 ## After promote
 
