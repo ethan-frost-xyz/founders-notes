@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -35,21 +36,13 @@ def test_export_runtime_env_cli(tmp_path: Path, monkeypatch: pytest.MonkeyPatch)
     runtime.write_text(json.dumps({"embed_model": "custom/embed-model"}), encoding="utf-8")
     env = {**os.environ, "FOUNDERS_TELEGRAM_RUNTIME": str(runtime)}
     proc = subprocess.run(
-        [str(REPO / "ingestion" / ".venv" / "bin" / "python"), str(EXPORT_SCRIPT)],
+        [sys.executable, str(EXPORT_SCRIPT)],
         capture_output=True,
         text=True,
         env=env,
         cwd=str(REPO / "ingestion"),
     )
-    if proc.returncode != 0 and "No such file" in (proc.stderr or ""):
-        proc = subprocess.run(
-            ["python3", str(EXPORT_SCRIPT)],
-            capture_output=True,
-            text=True,
-            env=env,
-            cwd=str(REPO / "ingestion"),
-        )
-    assert proc.returncode == 0
+    assert proc.returncode == 0, proc.stderr
     assert "OPENROUTER_EMBED_MODEL=custom/embed-model" in proc.stdout
 
 
