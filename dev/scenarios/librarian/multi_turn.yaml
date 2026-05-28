@@ -1,0 +1,20 @@
+name: Librarian multi-turn session
+llm: live
+turns:
+  - send: "/start"
+    expect:
+      contains: "Episodes in catalog"
+  - send: "Who founded Nike?"
+    expect:
+      response_min_length: 30
+      expect_live:
+        response_contains: Knight
+  - send: "What book did he rely on?"
+    expect:
+      response_min_length: 20
+  - send: "/newchat"
+    expect:
+      contains: "new chat"
+  - send: "/resume"
+    expect:
+      contains: ".jsonl"

@@ -1,0 +1,19 @@
+name: Librarian tool coverage
+llm: live
+turns:
+  - send: "Search the vault for Rockefeller discipline themes."
+    expect:
+      expect_live:
+        tool_called: search_vault_parent
+  - send: "Search transcripts for Standard Oil breakup."
+    expect:
+      expect_live:
+        tool_called: search_transcript
+  - send: "Load episode ep-0016."
+    expect:
+      expect_live:
+        tool_called: load_episode
+  - send: "List episodes matching rockefeller."
+    expect:
+      expect_live:
+        tool_called: list_episode_ids
