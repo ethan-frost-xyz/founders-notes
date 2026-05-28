@@ -18,7 +18,20 @@ if [[ ! -x "${PYTHON}" ]]; then
   PYTHON="$(command -v python3)"
 fi
 
+LOCK_DIR="${VAULT_ROOT}/catalog/.sync-in-progress"
+if ! mkdir "${LOCK_DIR}" 2>/dev/null; then
+  echo "sync-and-index: skipped (another sync in progress)"
+  exit 0
+fi
+# shellcheck disable=SC2064
+trap 'rmdir "${LOCK_DIR}" 2>/dev/null || true' EXIT
+
 echo "sync-and-index: VAULT_ROOT=${VAULT_ROOT}"
+
+# Embed/expand slugs may live only in runtime.json (not env after slim cutover).
+eval "$(
+  "${PYTHON}" "${VAULT_ROOT}/ingestion/lib/export_runtime_env.py"
+)"
 
 cd "${VAULT_ROOT}"
 git pull --ff-only

@@ -2,6 +2,8 @@
 
 How to run the Founders Notes vault when you are **not** using the Telegram bot on the Mac mini. For day-to-day study and filing, prefer **Janitor + Librarian** on the always-on host ([janitor.md](janitor.md), [services/telegram/README.md](../services/telegram/README.md), [telegram-vault-agent.md](telegram-vault-agent.md)).
 
+**Laptop → main:** After merging a PR, the Mac mini can auto-sync via **GitHub webhook** (push to `main` → `sync-and-index.sh`). Until Funnel/webhook is installed, use Telegram `/sync` or SSH + `sync-and-index.sh`. See [laptop-development.md](laptop-development.md). **Mac mini setup:** [mac-mini-operator-setup.md](mac-mini-operator-setup.md).
+
 ## Primary path (Telegram)
 
 | Role | What |
@@ -32,6 +34,7 @@ Canonical recipe: [`ingestion/lib/reindex_vault.py`](../ingestion/lib/reindex_va
 
 | Entry | How |
 |-------|-----|
+| Mac mini (webhook) | Push to `main` → `github_webhook_server.py` → background `sync-and-index.sh` |
 | Mac mini (SSH) | `services/telegram/deploy/sync-and-index.sh` (`git pull` + `lib/reindex_vault.py`) |
 | Mac mini (Telegram) | `/sync` when the bot is idle (same outcome as the script above) |
 | Laptop | `maintain.py` menu **8** (same subprocess recipe) |
@@ -41,7 +44,7 @@ Embeddings require `OPENROUTER_API_KEY` in env and an embed model in `runtime.js
 
 ### When to refresh the index
 
-v0 has **no file lock** between the bot and `sync-and-index.sh`. Run reindex when the Mac mini is **idle** (no active Librarian turn, no Janitor preview/draft in progress). Nightly cron (`install-cron.sh`, default 4:00) is the baseline; add manual sync when content changed on another machine.
+`sync-and-index.sh` uses a **catalog/.sync-in-progress** lock so overlapping webhook/cron/manual runs skip cleanly. The Telegram bot still has an in-process ops lock for `/sync` — avoid starting `/sync` during an active Librarian/Janitor turn. Nightly cron (`install-cron.sh`, default 4:00) is the baseline; webhook runs after each merge to `main`.
 
 | Situation | Action |
 |-----------|--------|
