@@ -17,10 +17,24 @@ if str(DEV) not in sys.path:
 from harness.env import live_harness_preflight  # noqa: E402
 
 
-def test_live_harness_preflight_passes_on_fixture_repo(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_live_harness_preflight_passes_on_fixture_repo(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """Minimal vault clone: embeddings.npy is gitignored on the real repo."""
+    import numpy as np
+
     monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
     monkeypatch.setenv("TELEGRAM_CHAT_MODEL", "test/model")
-    ok, reason, meta = live_harness_preflight(REPO)
+
+    catalog = tmp_path / "catalog"
+    catalog.mkdir()
+    (catalog / "chunks.jsonl").write_text(
+        "\n".join('{"chunk_id":"fixture-%03d"}' % i for i in range(101)) + "\n",
+        encoding="utf-8",
+    )
+    np.save(catalog / "embeddings.npy", np.zeros((1, 4), dtype=np.float32))
+
+    ok, reason, meta = live_harness_preflight(tmp_path)
     assert ok, reason
     assert int(meta["chunk_count"]) > 100  # type: ignore[arg-type]
     assert meta["embeddings_present"] is True
