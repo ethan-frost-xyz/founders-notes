@@ -125,15 +125,20 @@ cd services/telegram && ../../ingestion/.venv/bin/python -m bot
 
 ## Local harness (no Bot API)
 
-Exercise Librarian and Janitor handlers without Telegram or a bot token. Uses echo LLM by default for CI parity:
+Exercise Librarian and Janitor handlers without Telegram or a bot token.
 
 ```bash
-# From repo root
-python dev/mock_telegram_cli.py --stub-llm --run-scenarios
-python dev/mock_telegram_cli.py --stub-llm --debug   # REPL with tool traces
+# From repo root — CI parity (echo)
+pytest tests/test_harness_scenarios.py -q
+
+# Interactive REPL (echo)
+python dev/mock_telegram_cli.py --stub-llm --debug
+
+# Live Librarian smoke (~7 min; auto-loads ~/.config/founders-telegram/env)
+python dev/mock_telegram_cli.py --suite librarian --live-only -v
 ```
 
-Janitor scenarios write to `dev/logs/sandbox/` only — not `content/notes/`. Full guide: [`docs/telegram-mock-harness.md`](../../docs/telegram-mock-harness.md). CI: [`docs/testing.md`](../../docs/testing.md).
+`--suite` and `--scenario` run YAML flows directly (no `--run-scenarios` needed). Janitor scenarios write to `dev/logs/sandbox/` only — not `content/notes/`. Full guide: [`docs/telegram-mock-harness.md`](../../docs/telegram-mock-harness.md). Scenario index: [`dev/scenarios/README.md`](../../dev/scenarios/README.md).
 
 ## Janitor (daily notes)
 

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import re
 from difflib import SequenceMatcher
 from pathlib import Path
 from typing import Any
@@ -99,6 +98,10 @@ def load_episode(episode_id: str, *, char_cap: int = 30_000) -> dict[str, Any]:
     rows = _load_catalog_rows(vault_root)
     row = lookup_catalog_row(rows, episode_id)
     if row is None:
+        resolved = resolve_episode_ref(episode_id.strip())
+        if resolved:
+            row = lookup_catalog_row(rows, resolved)
+    if row is None:
         return {"error": f"Episode not in catalog: {episode_id}"}
     ep_id = row["id"]
     slug = row["slug"]
@@ -147,42 +150,42 @@ def load_episode(episode_id: str, *, char_cap: int = 30_000) -> dict[str, Any]:
     }
 
 
-_EPISODE_REF_RE = re.compile(
-    r"(?:episode\s*)?(\d{1,4})\b|^(ep-(\d+))$",
-    re.IGNORECASE,
-)
-
-
 def list_episode_ids(query: str, *, limit: int = 8) -> dict[str, Any]:
-    """Fuzzy match catalog titles and numeric episode references → ep-NNNN."""
+    """Match catalog by episode number, canonical id, or fuzzy title → ep-NNNN."""
     vault_root = _ensure_ingestion_path()
 
     rows = _load_catalog_rows(vault_root)
-    q = query.strip().lower()
+    token = query.strip()
     matches: list[tuple[float, dict[str, Any]]] = []
 
-    from episode_ids import format_episode_id
+    from episode_ids import format_episode_id, parse_numbered_episode_id
 
-    num_match = _EPISODE_REF_RE.search(q)
-    if num_match:
-        raw = num_match.group(1) or num_match.group(3)
-        if raw:
-            try:
-                target = format_episode_id(int(raw))
-                for row in rows:
-                    if row.get("id") == target:
-                        matches.append((1.0, row))
-            except ValueError:
-                pass
+    target_id: str | None = None
+    if token.isdigit():
+        try:
+            target_id = format_episode_id(int(token))
+        except ValueError:
+            pass
+    else:
+        num = parse_numbered_episode_id(token)
+        if num is not None:
+            target_id = format_episode_id(num)
 
-    for row in rows:
-        title = (row.get("title") or "").lower()
-        ep_id = row.get("id", "")
-        score = SequenceMatcher(None, q, title).ratio()
-        if q in title or q in ep_id.lower():
-            score = max(score, 0.85)
-        if score >= 0.45:
-            matches.append((score, row))
+    if target_id:
+        for row in rows:
+            if row.get("id") == target_id:
+                matches.append((1.0, row))
+                break
+    else:
+        q = token.lower()
+        for row in rows:
+            title = (row.get("title") or "").lower()
+            ep_id = row.get("id", "")
+            score = SequenceMatcher(None, q, title).ratio()
+            if q in title or q in ep_id.lower():
+                score = max(score, 0.85)
+            if score >= 0.45:
+                matches.append((score, row))
 
     seen: set[str] = set()
     unique: list[tuple[float, dict[str, Any]]] = []
@@ -217,8 +220,19 @@ def list_episode_ids(query: str, *, limit: int = 8) -> dict[str, Any]:
 
 
 def resolve_episode_ref(ref: str) -> str | None:
-    """Normalize user ref to canonical ep-NNNN if found in catalog."""
+    """Normalize a short ref to canonical ep-NNNN when unambiguous.
+
+    Returns None when there are no matches or top fuzzy hits tie (e.g. Henry Ford).
+    """
     _ensure_ingestion_path()
-    result = list_episode_ids(ref, limit=1)
+    result = list_episode_ids(ref, limit=3)
     eps = result.get("episodes") or []
-    return eps[0]["episode_id"] if eps else None
+    if not eps:
+        return None
+    top, *rest = eps
+    top_score = top.get("score", 0)
+    if top_score >= 1.0:
+        return top["episode_id"]
+    if top_score >= 0.85 and (not rest or rest[0].get("score", 0) < 0.85):
+        return top["episode_id"]
+    return None

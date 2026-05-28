@@ -98,12 +98,74 @@ def test_load_episode_unlistened_ep_0400(agent_config: AgentConfig):
 def test_list_episode_ids_includes_listened_flag(agent_config: AgentConfig):
     result = execute_tool(
         "list_episode_ids",
-        {"query": "episode 400", "limit": 5},
+        {"query": "400", "limit": 5},
         config=agent_config,
         allow_web=False,
     )
     ep400 = next(e for e in result["episodes"] if e["episode_id"] == "ep-0400")
     assert ep400["listened"] is False
+
+
+def test_load_episode_bare_number_resolves(agent_config: AgentConfig):
+    result = execute_tool(
+        "load_episode",
+        {"episode_id": "191"},
+        config=agent_config,
+        allow_web=False,
+    )
+    assert "error" not in result
+    assert result["episode_id"] == "ep-0191"
+
+
+def test_list_episode_ids_bare_number_top_score(agent_config: AgentConfig):
+    result = execute_tool(
+        "list_episode_ids",
+        {"query": "191", "limit": 3},
+        config=agent_config,
+        allow_web=False,
+    )
+    assert result["episodes"]
+    assert result["episodes"][0]["episode_id"] == "ep-0191"
+    assert result["episodes"][0]["score"] == 1.0
+
+
+def test_list_episode_ids_naval_includes_ep_0191(agent_config: AgentConfig):
+    result = execute_tool(
+        "list_episode_ids",
+        {"query": "Naval Ravikant", "limit": 3},
+        config=agent_config,
+        allow_web=False,
+    )
+    ids = [e["episode_id"] for e in result["episodes"]]
+    assert "ep-0191" in ids
+
+
+def test_list_episode_ids_no_regex_on_episode_phrase(agent_config: AgentConfig):
+    result = execute_tool(
+        "list_episode_ids",
+        {"query": "episode 191", "limit": 5},
+        config=agent_config,
+        allow_web=False,
+    )
+    top = result["episodes"][0] if result["episodes"] else None
+    assert top is None or top.get("score", 0) < 1.0
+
+
+def test_resolve_episode_ref_ambiguous_henry_ford(agent_config: AgentConfig):
+    del agent_config  # fixture sets VAULT_ROOT
+    from vault import resolve_episode_ref
+
+    assert resolve_episode_ref("Henry Ford") is None
+
+
+def test_load_episode_ambiguous_guest_errors(agent_config: AgentConfig):
+    result = execute_tool(
+        "load_episode",
+        {"episode_id": "Henry Ford"},
+        config=agent_config,
+        allow_web=False,
+    )
+    assert "error" in result
 
 
 def _fake_tool_call(name: str, arguments: dict, *, call_id: str = "call_1"):
