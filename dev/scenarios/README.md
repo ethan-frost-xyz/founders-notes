@@ -15,6 +15,9 @@ YAML flows for the [mock Telegram harness](../../docs/telegram-mock-harness.md).
 # CI parity (echo, all YAML)
 pytest tests/test_harness_scenarios.py -q
 
+# Preflight (keys + chunks + embeddings on this clone)
+python dev/mock_telegram_cli.py --preflight
+
 # Live Librarian only (~7 min; loads ~/.config/founders-telegram/env + repo .env)
 python dev/mock_telegram_cli.py --suite librarian --live-only -v
 
@@ -30,4 +33,5 @@ python dev/mock_telegram_cli.py --scenario dev/scenarios/librarian/episode_resol
 |------|--------|
 | `librarian/episode_resolve.yaml` | NL “episode 191/22” → `load_episode`, `ep-0191` / `ep-0022` |
 | `librarian/tool_coverage.yaml` | All four vault tools called |
+| `librarian/thematic_search.yaml` | Thematic Q → `search_vault_parent`, status line, `[ep-0016]` citation |
 | `janitor/episode_parse.yaml` | Paste line `191` resolves without NL regex in Librarian |

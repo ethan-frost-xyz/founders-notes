@@ -53,8 +53,14 @@ The CLI loads env automatically (existing shell vars win):
 1. `FOUNDERS_TELEGRAM_ENV` or `~/.config/founders-telegram/env`
 2. Repo `{VAULT_ROOT}/.env`
 
+**Preflight** checks API keys, `catalog/chunks.jsonl`, and `catalog/embeddings.npy` on the clone before live Librarian runs:
+
 ```bash
-# Librarian suite only (4 scenarios, ~7 min)
+python dev/mock_telegram_cli.py --preflight
+```
+
+```bash
+# Librarian suite only (5 scenarios, ~8 min)
 python dev/mock_telegram_cli.py --suite librarian --live-only -v
 
 # Episode resolution regression (NL “episode 191”)
@@ -78,7 +84,8 @@ RUN_LIVE_HARNESS=1 pytest tests/test_harness_scenarios.py -k live -q
 | `--run-scenarios` | Run all scenarios (optional if `--suite` or `--scenario` set) |
 | `--live-only` | Skip scenarios with `llm: echo` |
 | `--stub-llm` | Echo LLM; no OpenRouter |
-| `-v` / `--verbose` | Tool names per turn + richer failure messages |
+| `--preflight` | Print live env + index checks and exit |
+| `-v` / `--verbose` | Tool names per turn + richer failure messages; preflight summary on live runs |
 | `--debug` | REPL: show tool traces |
 | `--keep-sandbox` | Keep Janitor temp dirs under `dev/logs/sandbox/` |
 
@@ -118,7 +125,7 @@ Each turn:
 | `button` | Inline callback data (optional; can follow `send` in same turn) |
 | `expect` | Assertions (see below) |
 
-**Expect keys:** `contains`, `not_contains`, `response_min_length`, `expect_live` (`tool_called`, `response_contains`, `response_contains_any`, `load_episode_id`), `phase` (Janitor), `sandbox_file_written` (substring match on sandbox paths).
+**Expect keys:** `contains`, `not_contains`, `response_min_length`, `expect_live` (`tool_called`, `tools_called`, `response_contains`, `response_contains_any`, `load_episode_id`, `status_contains`), `phase` (Janitor), `sandbox_file_written` (substring match on sandbox paths). Harness bot keeps status messages (not deleted) so `status_contains: "Searching notes"` is testable.
 
 `load_episode_id` checks that a `load_episode` tool call used an `episode_id` that resolves to the canonical id (stable when the model omits `[ep-NNNN]` from prose).
 

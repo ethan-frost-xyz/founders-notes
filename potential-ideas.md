@@ -17,7 +17,7 @@ Linked from: [`README.md`](README.md), [`docs/telegram-vault-agent.md`](docs/tel
 
 - **SP5 — GitHub webhook** — push → `git pull` → `sync-and-index.sh`; exposure TBD (Tailscale preferred). Manual/cron sufficient until daily lag is painful. Related: **Janitor auto-reindex policy** (cron vs post-push webhook).
 - **SP3.1 — `/web` provider** — wire Tavily or Brave once `WEB_SEARCH_API_KEY` is set; v0 stub returns `{"error":"not configured"}`.
-- **SP6 — tool tuning** — tool descriptions + few-shot in system prompt; Telegram “Searching notes…” status messages; extend [`vault_retrieval_scenarios.jsonl`](ingestion/fixtures/vault_retrieval_scenarios.jsonl) toward MRR@8 when query set stabilizes. Optional later: LLM rerank on top-20 hybrid hits (index still small).
+- **SP6 — remaining** — optional LLM rerank on hybrid hits; extend retrieval scenarios toward MRR@8 as query set grows. Shipped lite (May 2026): tool copy, few-shot prompt, status messages, +2 retrieval scenarios, live harness preflight + `thematic_search.yaml`.
 - **`/resume` auto-sync** — warn-only today; optional auto `sync-and-index.sh` on resume.
 
 ## Janitor

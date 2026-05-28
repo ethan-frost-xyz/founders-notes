@@ -16,6 +16,7 @@ from agent import (  # noqa: E402
     openrouter_tools,
     web_search_stub,
 )
+from tool_status import tool_status_label  # noqa: E402
 from config import AgentConfig  # noqa: E402
 
 
@@ -181,6 +182,34 @@ def _fake_tool_call(name: str, arguments: dict, *, call_id: str = "call_1"):
 def _fake_response(*, content: str | None = None, tool_calls: list | None = None):
     message = SimpleNamespace(content=content, tool_calls=tool_calls)
     return SimpleNamespace(choices=[SimpleNamespace(message=message)])
+
+
+def test_tool_status_label_known_tools():
+    assert tool_status_label("search_vault_parent") == "Searching notes…"
+    assert tool_status_label("load_episode") == "Loading episode…"
+    assert tool_status_label("unknown_tool") == "Searching vault…"
+
+
+def test_run_turn_on_tool_start_callback(agent_config: AgentConfig):
+    seen: list[str] = []
+
+    def fake_completion(**kwargs):
+        if kwargs.get("tool_choice") == "none":
+            return _fake_response(content="Done [ep-0016].")
+        return _fake_response(
+            tool_calls=[
+                _fake_tool_call("search_vault_parent", {"query": "Rockefeller"}),
+            ],
+        )
+
+    agent = VaultAgent(config=agent_config)
+    agent.run_turn(
+        "Rockefeller",
+        completion_fn=fake_completion,
+        on_tool_start=lambda name, _args: seen.append(name),
+    )
+    assert seen
+    assert all(name == "search_vault_parent" for name in seen)
 
 
 def test_run_turn_traces_search_vault_parent(agent_config: AgentConfig):

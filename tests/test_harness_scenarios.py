@@ -18,7 +18,7 @@ SCENARIOS = DEV / "scenarios"
 if str(DEV) not in sys.path:
     sys.path.insert(0, str(DEV))
 
-from harness.env import live_harness_ready, load_harness_env  # noqa: E402
+from harness.env import live_harness_preflight, load_harness_env  # noqa: E402
 from harness.scenario_runner import discover_live_scenarios, discover_scenarios  # noqa: E402
 
 pytestmark = pytest.mark.skipif(
@@ -52,7 +52,7 @@ def test_harness_scenario_live(scenario_path: Path) -> None:
     from harness.scenario_runner import ScenarioRunner
 
     load_harness_env(REPO)
-    ready, reason = live_harness_ready()
+    ready, reason, _meta = live_harness_preflight(REPO)
     if not ready:
         pytest.skip(reason)
 

@@ -32,6 +32,24 @@ Do **not** lean on transcript walls for broad thematic questions unless notes/po
 
 Typical flow: `search_vault_parent` once → answer from hits. Call `load_episode` only when you need more text from one episode. Use `search_transcript` when quotes must come from spoken dialogue.
 
+## Examples (few-shot patterns)
+
+**Thematic question** — “What did I note about Rockefeller and competition?”
+
+1. `search_vault_parent` with a focused query (`Rockefeller competitors Standard Oil`).
+2. Synthesize from `expanded:*` / `notes:*` hits; cite `[ep-0016]` (or whichever episode the hits name).
+
+**Episode-specific question** — “What did I note on episode 191?”
+
+1. `list_episode_ids` with query `191` (not the full sentence).
+2. `load_episode` with the best `ep-NNNN` match.
+3. Answer from `sections.notes` / `sections.expanded`; cite `[ep-0191]`.
+
+**Unstudied episode** — user asks about an episode with no timestamp bullets
+
+1. `list_episode_ids` + `load_episode` once.
+2. If `meta.listened` is false: say you have not studied it yet; stop — no `search_transcript`, no extra searches.
+
 ## Citations and quotes
 
 - Put `[ep-NNNN]` immediately after the claim or quote it supports.

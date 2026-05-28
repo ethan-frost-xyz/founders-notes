@@ -1,0 +1,16 @@
+name: Librarian thematic search SP6
+llm: live
+turns:
+  - send: "What did I note about Rockefeller and competition?"
+    expect:
+      response_min_length: 40
+      not_contains: "Episode not in catalog"
+      expect_live:
+        tool_called: search_vault_parent
+        status_contains: "Searching notes"
+        response_contains_any:
+          - ep-0016
+          - "[ep-0016"
+  - send: "/clear"
+    expect:
+      contains: "Session cleared"

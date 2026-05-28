@@ -13,7 +13,13 @@ _REPO_ROOT = _DEV_DIR.parent
 if str(_DEV_DIR) not in sys.path:
     sys.path.insert(0, str(_DEV_DIR))
 
-from harness.env import REPO_ROOT, live_harness_ready, load_harness_env  # noqa: E402
+from harness.env import (  # noqa: E402
+    REPO_ROOT,
+    format_preflight_report,
+    live_harness_preflight,
+    live_harness_ready,
+    load_harness_env,
+)
 from harness.mock_session import DEFAULT_LOG_DIR  # noqa: E402
 from harness.scenario_runner import (  # noqa: E402
     ScenarioRunner,
@@ -68,6 +74,11 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Preserve Janitor sandbox temp dirs under dev/logs/sandbox/",
     )
+    parser.add_argument(
+        "--preflight",
+        action="store_true",
+        help="Print live env + index checks and exit (use before --suite librarian --live-only)",
+    )
     return parser
 
 
@@ -84,15 +95,17 @@ async def _run_scenarios(args: argparse.Namespace) -> int:
         return 1
 
     if paths_need_live_llm(paths, stub_llm=args.stub_llm):
-        ready, reason = live_harness_ready()
-        if not ready:
-            print(f"Live harness not configured: {reason}", file=sys.stderr)
+        ok, reason, meta = live_harness_preflight(REPO_ROOT)
+        if not ok:
+            print(f"Live harness preflight failed: {reason}", file=sys.stderr)
             print(
                 "Use --stub-llm for keyless echo runs, or source "
-                "~/.config/founders-telegram/env",
+                "~/.config/founders-telegram/env and rebuild the index",
                 file=sys.stderr,
             )
             return 1
+        if args.verbose:
+            print(format_preflight_report(meta), file=sys.stderr)
 
     runner = ScenarioRunner(
         log_dir=DEFAULT_LOG_DIR,
@@ -113,6 +126,14 @@ def main() -> None:
     loaded = load_harness_env(REPO_ROOT)
     parser = _build_parser()
     args = parser.parse_args()
+
+    if args.preflight:
+        ok, reason, meta = live_harness_preflight(REPO_ROOT)
+        if ok:
+            print(format_preflight_report(meta))
+            raise SystemExit(0)
+        print(f"Preflight failed: {reason}", file=sys.stderr)
+        raise SystemExit(1)
 
     if _should_run_scenarios(args):
         if args.live_only and args.stub_llm:

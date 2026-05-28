@@ -1,3 +1,5 @@
-{"id": "inner_scorecard_buffett", "tool": "search_vault_parent", "query": "inner scorecard Buffett", "k": 8, "expect_top_episode": "ep-0100", "expect_excerpt_contains": "inner scorecard", "expect_section_prefix": "expanded:", "needs_rebuild": true}
+{"id": "inner_scorecard_buffett", "tool": "search_vault_parent", "query": "inner scorecard Buffett", "k": 8, "expect_top_episode": "ep-0100", "expect_excerpt_contains": "inner scorecard", "expect_section_prefix": "expanded:"}
+{"id": "rockefeller_competition", "tool": "search_vault_parent", "query": "Rockefeller Standard Oil", "k": 8, "expect_top_episode": "ep-0016", "expect_section_prefix": "expanded:"}
+{"id": "compound_interest_health", "tool": "search_vault_parent", "query": "compound interest long term", "k": 8, "expect_top_episode": "ep-0093", "expect_section_prefix": "expanded:"}
 {"id": "unlistened_vault_parent", "tool": "search_vault_parent", "query": "Naval Ravikant wealth happiness", "k": 8, "expect_max_hits": 0, "episode_id": "ep-0400"}
 {"id": "unlistened_transcript", "tool": "search_transcript", "query": "Naval Ravikant wealth happiness", "k": 8, "expect_max_hits": 0, "episode_id": "ep-0400"}

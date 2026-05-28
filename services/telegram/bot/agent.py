@@ -10,6 +10,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable
 
+from tool_status import tool_status_label
+
 from config import AgentConfig, load_agent_config
 
 PROMPT_PATH = Path(__file__).resolve().parent.parent / "prompts" / "vault_agent.md"
@@ -97,8 +99,9 @@ def openrouter_tools(*, allow_web: bool, default_k: int = 8) -> list[dict[str, A
             "function": {
                 "name": "search_vault_parent",
                 "description": (
-                    "Hybrid search over posts, raw notes, and promoted expanded notes. "
-                    "Use for cross-episode themes and study material."
+                    "Default for thematic questions. Hybrid keyword + embedding search over "
+                    "promoted expanded notes, raw timestamp notes, and posts (not transcripts). "
+                    "One call with a focused query is usually enough."
                 ),
                 "parameters": {
                     "type": "object",
@@ -119,7 +122,8 @@ def openrouter_tools(*, allow_web: bool, default_k: int = 8) -> list[dict[str, A
             "function": {
                 "name": "search_transcript",
                 "description": (
-                    "Keyword search transcript chunks only. Use when dialogue wording matters."
+                    "Transcript keyword search only — use when the user needs exact spoken wording "
+                    "and parent-tier notes/posts lack it. Do not use for unstudied episodes."
                 ),
                 "parameters": {
                     "type": "object",
@@ -297,6 +301,7 @@ class VaultAgent:
         allow_web: bool = False,
         session_id: str | None = None,
         completion_fn: Callable[..., Any] | None = None,
+        on_tool_start: Callable[[str, dict[str, Any]], None] | None = None,
     ) -> TurnResult:
         """Run one user turn: tool loop until final assistant text or max_steps."""
         cfg = self.config
@@ -365,8 +370,14 @@ class VaultAgent:
                             "tool": name,
                             "arguments": args,
                             "session_id": session_id,
+                            "status_label": tool_status_label(name),
                         }
                     )
+                    if on_tool_start is not None:
+                        try:
+                            on_tool_start(name, args)
+                        except Exception:
+                            pass
                     per_tool_cap = max(500, remaining_budget // max(1, len(msg.tool_calls)))
                     result = execute_tool(
                         name,

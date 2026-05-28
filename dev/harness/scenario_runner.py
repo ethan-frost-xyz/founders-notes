@@ -113,6 +113,20 @@ def _check_expectations(
         if not any(n in combined for n in needles):
             return False, f"expected response to contain one of {needles!r}"
 
+    status_contains = merged.get("status_contains")
+    if status_contains and llm_mode == "live":
+        needle = str(status_contains)
+        if needle not in combined:
+            return False, f"expected a status reply containing {needle!r}"
+
+    tools_called_expect = merged.get("tools_called")
+    if tools_called_expect and llm_mode == "live":
+        expected_tools = [str(x) for x in tools_called_expect]
+        names = [t.get("tool") for t in tool_traces]
+        for tool in expected_tools:
+            if tool not in names:
+                return False, f"expected tools {expected_tools!r}, got {names!r}"
+
     load_episode_id = merged.get("load_episode_id")
     if load_episode_id and llm_mode == "live":
         expected = str(load_episode_id)

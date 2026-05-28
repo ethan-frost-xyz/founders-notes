@@ -2,8 +2,12 @@
 
 from __future__ import annotations
 
+import asyncio
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
+
+from tool_status import tool_status_label
 from auth import is_allowed
 from config import BotConfig
 from sessions import SessionStore
@@ -144,6 +148,11 @@ async def on_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await _run_agent_turn(update, context, text, allow_web=False)
 
 
+def _is_harness_bot(context: ContextTypes.DEFAULT_TYPE) -> bool:
+    bot = context.application.bot
+    return getattr(bot, "username", None) == "harness_bot"
+
+
 async def _run_agent_turn(
     update: Update,
     context: ContextTypes.DEFAULT_TYPE,
@@ -158,12 +167,41 @@ async def _run_agent_turn(
 
     await update.message.reply_chat_action("typing")
 
-    result = agent.run_turn(
-        user_text,
-        history=history,
-        allow_web=allow_web,
-        session_id=str(uid),
-    )
+    status_msg: Any | None = None
+    loop = asyncio.get_running_loop()
+    harness = _is_harness_bot(context)
+
+    async def _update_status(label: str) -> None:
+        nonlocal status_msg
+        if status_msg is None:
+            status_msg = await update.message.reply_text(label)
+        else:
+            try:
+                await status_msg.edit_text(label)
+            except Exception:
+                pass
+
+    def _schedule_status(label: str) -> None:
+        asyncio.create_task(_update_status(label))
+
+    def on_tool_start(tool_name: str, _args: dict[str, Any]) -> None:
+        loop.call_soon_threadsafe(_schedule_status, tool_status_label(tool_name))
+
+    try:
+        result = await asyncio.to_thread(
+            agent.run_turn,
+            user_text,
+            history=history,
+            allow_web=allow_web,
+            session_id=str(uid),
+            on_tool_start=on_tool_start,
+        )
+    finally:
+        if status_msg is not None and not harness:
+            try:
+                await status_msg.delete()
+            except Exception:
+                pass
 
     sessions.append_turn(
         uid,

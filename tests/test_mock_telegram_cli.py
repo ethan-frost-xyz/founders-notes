@@ -57,3 +57,8 @@ def test_paths_need_live_llm_librarian_without_stub():
     live_path = [SCENARIOS_ROOT / "librarian" / "episode_resolve.yaml"]
     assert paths_need_live_llm(live_path, stub_llm=False)
     assert not paths_need_live_llm(live_path, stub_llm=True)
+
+
+def test_build_parser_preflight_flag():
+    args = _parse(["--preflight"])
+    assert args.preflight is True
