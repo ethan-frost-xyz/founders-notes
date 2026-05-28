@@ -296,15 +296,10 @@ class MockBotSession:
         self._user: Any = None
         self._last_bot_message: Any = None
 
-    def _capture_reply(self, kwargs: dict[str, Any]) -> MagicMock:
+    def _capture_reply(self, kwargs: dict[str, Any]) -> Reply:
         reply = _reply_from_send_kwargs(kwargs)
         self.replies.append(reply)
-        mock_msg = MagicMock()
-        mock_msg.message_id = next(_message_id)
-        mock_msg.chat = self._chat
-        mock_msg.text = reply.text
-        self._last_bot_message = mock_msg
-        return mock_msg
+        return reply
 
     def _wire_mock_bot(self, app: Any) -> None:
         session = self
