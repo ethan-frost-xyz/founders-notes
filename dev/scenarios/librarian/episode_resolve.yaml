@@ -1,0 +1,19 @@
+name: Librarian episode resolve NL
+llm: live
+turns:
+  - send: "What did I note on episode 191?"
+    expect:
+      response_min_length: 40
+      not_contains: "Episode not in catalog"
+      not_contains: "Try naming an episode id like ep-"
+      expect_live:
+        tool_called: load_episode
+        response_contains: ep-0191
+  - send: "Summarize what I captured on episode 22."
+    expect:
+      expect_live:
+        tool_called: load_episode
+        response_contains: ep-0022
+  - send: "/clear"
+    expect:
+      contains: "Session cleared"

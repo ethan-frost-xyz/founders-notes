@@ -135,13 +135,20 @@ def openrouter_tools(*, allow_web: bool, default_k: int = 8) -> list[dict[str, A
             "type": "function",
             "function": {
                 "name": "load_episode",
-                "description": "Load post, notes, and expanded files for one episode (bounded size).",
+                "description": (
+                    "Load post, notes, and expanded for one episode (bounded size). "
+                    "Prefer canonical ep-NNNN from list_episode_ids; bare numbers like 191 "
+                    "are resolved server-side when unambiguous."
+                ),
                 "parameters": {
                     "type": "object",
                     "properties": {
                         "episode_id": {
                             "type": "string",
-                            "description": "Canonical id e.g. ep-0022",
+                            "description": (
+                                "Canonical ep-NNNN from list_episode_ids when possible; "
+                                "bare episode number tolerated as fallback."
+                            ),
                         },
                     },
                     "required": ["episode_id"],
@@ -152,11 +159,20 @@ def openrouter_tools(*, allow_web: bool, default_k: int = 8) -> list[dict[str, A
             "type": "function",
             "function": {
                 "name": "list_episode_ids",
-                "description": "Resolve episode number or fuzzy title to ep-NNNN ids.",
+                "description": (
+                    "Resolve a short token to ep-NNNN ids: episode number (191), guest name "
+                    "(Naval Ravikant), or canonical ep-0191 — not full sentences."
+                ),
                 "parameters": {
                     "type": "object",
                     "properties": {
-                        "query": {"type": "string"},
+                        "query": {
+                            "type": "string",
+                            "description": (
+                                "Short token only: 191, Naval Ravikant, or ep-0191 — "
+                                "not phrases like episode 191."
+                            ),
+                        },
                         "limit": {"type": "integer", "default": 8},
                     },
                     "required": ["query"],
@@ -323,7 +339,8 @@ class VaultAgent:
                     if not text:
                         text = (
                             "I could not finish an answer in one pass. "
-                            "Try naming an episode id like ep-0100 or a narrower theme."
+                            "Try a guest name or episode number, or ask me to search "
+                            "the vault for a theme."
                         )
                     return TurnResult(content=text, tool_trace=trace, steps=step + 1)
 

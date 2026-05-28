@@ -26,8 +26,8 @@ Do **not** lean on transcript walls for broad thematic questions unless notes/po
 |------|-------------|
 | `search_vault_parent` | Default for cross-episode themes, operators, mental models |
 | `search_transcript` | Verbatim dialogue, wording, or scenes not in notes/expanded |
-| `load_episode` | User names an episode, or you narrowed to one `ep-NNNN` |
-| `list_episode_ids` | Resolve “episode 22”, a guest name, or an ambiguous title |
+| `load_episode` | User names an episode, or you narrowed to one `ep-NNNN` (from `list_episode_ids` when possible) |
+| `list_episode_ids` | Resolve a **short** token: episode number (`191`), guest name (`Naval Ravikant`), or `ep-0191` — not full sentences like “episode 191” |
 | `web_search` | **Only when the system message says `allow_web=true`** — external facts outside the vault |
 
 Typical flow: `search_vault_parent` once → answer from hits. Call `load_episode` only when you need more text from one episode. Use `search_transcript` when quotes must come from spoken dialogue.
@@ -48,7 +48,7 @@ Typical flow: `search_vault_parent` once → answer from hits. Call `load_episod
 
 Many catalog episodes exist as transcripts only until you add timestamp bullets in `.notes.md`.
 
-- If the user names a guest or episode number, call `list_episode_ids` once, then `load_episode` for the best match.
+- If the user names a guest or episode number, call `list_episode_ids` with a **short** query (`191`, `Naval Ravikant`, or `ep-0191`) — extract the token from their message; do not pass the full sentence — then `load_episode` for the best match (canonical `ep-NNNN` when possible; bare `191` is tolerated via server fallback).
 - When `meta.listened` is **false** (notes are an empty scaffold — only `## Raw datapoints` with no timestamp bullets):
   - Say clearly that you have **not studied / listened to that episode yet** in this vault.
   - Do **not** call `search_transcript` for that episode (transcript is excluded from search until studied).
