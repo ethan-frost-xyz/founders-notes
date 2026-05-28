@@ -27,14 +27,17 @@ cd ingestion && python pipeline/verify.py
 | `test_openrouter_pricing.py` | `openrouter_pricing` |
 | `test_expand_baseline_fixtures.py` | Committed `fixtures/expand-runs/baseline/` + `expand_tune verify` |
 | `test_maintain.py` | `maintain.py` |
+| `test_build_chunks.py` | `build_chunks` — listened filter, line numbers, expanded datapoint splits |
 | `test_search_retrieval.py` | `search_retrieval` |
 | `test_vault_agent.py` | Telegram `agent` + vault tools |
 | `test_vault_v0_checklist.py` | v0 success criteria (mock agent + tools); see [vault-agent-v0-checklist.md](vault-agent-v0-checklist.md) |
-| `test_vault_retrieval_scenarios.py` | Scenario JSONL against `chunks.jsonl` |
+| `test_vault_retrieval_scenarios.py` | Retrieval scenario JSONL against `chunks.jsonl` |
 | `test_janitor_notes.py` | Janitor episode parse, finalize_notes_body, merge |
 | `test_janitor_workflow.py` | Janitor LLM clean (mocked), catalog, prompt, `run_reindex` |
 | `test_reindex_vault.py` | `reindex_vault` subprocess order, env, embeddings flag |
 | `test_telegram_bot.py` | Telegram transport, sessions, deploy smoke |
+| `test_telegram_deploy.py` | Deploy scripts exist and `install-cron.sh --print` |
+| `test_harness_scenarios.py` | Mock Telegram YAML scenarios (echo LLM; included in default CI) |
 
 ## Focused runs
 
@@ -44,37 +47,57 @@ Telegram vault (no live API):
 pytest tests/test_search_retrieval.py tests/test_vault_agent.py tests/test_vault_v0_checklist.py tests/test_telegram_bot.py -q
 ```
 
+Mock Telegram harness (echo, no Bot API token):
+
+```bash
+pytest tests/test_harness_scenarios.py -q
+python dev/mock_telegram_cli.py --stub-llm --run-scenarios
+```
+
+Janitor unit tests:
+
+```bash
+pytest tests/test_janitor_notes.py tests/test_janitor_workflow.py -q
+```
+
 Rebuilt index (after `build_chunks.py`):
 
 ```bash
 RUN_REBUILT_INDEX_SCENARIOS=1 pytest tests/test_vault_retrieval_scenarios.py tests/test_vault_v0_checklist.py -q
 ```
 
+Skip harness scenarios in a full run:
+
+```bash
+SKIP_HARNESS_SCENARIOS=1 pytest tests -q
+```
+
+## Two kinds of scenarios
+
+| | Mock Telegram harness | Vault retrieval scenarios |
+|--|------------------------|---------------------------|
+| **Purpose** | Bot handlers, commands, Janitor FSM, replies | Chunk index / hybrid search quality |
+| **Data** | `dev/scenarios/**/*.yaml` | `ingestion/fixtures/vault_retrieval_scenarios.jsonl` |
+| **Tests** | `test_harness_scenarios.py` | `test_vault_retrieval_scenarios.py` |
+| **Guide** | [telegram-mock-harness.md](telegram-mock-harness.md) | [vault-agent-v0-checklist.md](vault-agent-v0-checklist.md) |
+
 ## “Legacy” in test names
 
 Some tests mention legacy behavior (e.g. unpadded `ep-200`, old “Key takeaway” headings). Those **run in CI** — they guard supported backward compatibility, not deprecated code.
 
+Harness **echo** mode intentionally skips `expect_live` assertions in YAML scenarios; that is not legacy product behavior.
+
 ## Mock Telegram harness
 
-Headless and REPL testing for the vault bot without the real Bot API. Uses the production handler stack with a mocked transport; Janitor writes go to a temp sandbox, not `content/notes/`.
+Headless and REPL testing without the real Bot API. Uses the production handler stack with a mocked transport; Janitor writes go to a temp sandbox under `dev/logs/sandbox/`, not `content/notes/`.
+
+Full guide: **[telegram-mock-harness.md](telegram-mock-harness.md)**.
 
 ```bash
-pip install pyyaml   # or ingestion/requirements-dev.txt
 python dev/mock_telegram_cli.py --stub-llm --run-scenarios
-python dev/mock_telegram_cli.py --suite librarian --debug
-python dev/mock_telegram_cli.py --scenario dev/scenarios/librarian/basic_qa.yaml
 ```
 
-Live OpenRouter mode (no `--stub-llm`): set `OPENROUTER_API_KEY` and `TELEGRAM_CHAT_MODEL`. `TELEGRAM_BOT_TOKEN` is not required.
-
-Harness logs: `dev/logs/sessions/`, `dev/logs/runs/`, optional `dev/logs/sandbox/` with `--keep-sandbox`.
-
-Parametrized echo scenarios (optional; not in default CI until stable):
-
-```bash
-pytest tests/test_harness_scenarios.py -q
-SKIP_HARNESS_SCENARIOS=1 pytest tests -q   # skip harness module
-```
+Harness echo scenarios run in **default CI** (`pytest tests -q` via `test_harness_scenarios.py`). Opt out with `SKIP_HARNESS_SCENARIOS=1`.
 
 ## Gaps (no dedicated tests yet)
 

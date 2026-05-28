@@ -33,6 +33,17 @@ Deploy smoke (cron line shape, no live `crontab` write):
 pytest tests/test_telegram_bot.py -k cron -q
 ```
 
+## Local harness (commands + Janitor FSM)
+
+Handler and command smoke without Telegram, Bot API token, or OpenRouter keys (echo LLM):
+
+```bash
+python dev/mock_telegram_cli.py --stub-llm --run-scenarios
+pytest tests/test_harness_scenarios.py -q
+```
+
+Guide: [telegram-mock-harness.md](telegram-mock-harness.md). **Retrieval JSONL** scenarios (`test_vault_retrieval_scenarios.py` + `RUN_REBUILT_INDEX_SCENARIOS=1`) measure chunk index quality only — not bot UX.
+
 ## Mac mini (operator)
 
 | Step | Command |

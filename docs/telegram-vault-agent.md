@@ -65,6 +65,7 @@ Repo-wide rule: do **not** add a general-purpose vector DB until grep + chunk se
 
 ## Related
 
+- [telegram-mock-harness.md](telegram-mock-harness.md) — local headless/REPL testing (no Bot API)
 - [manual-operations.md](manual-operations.md) — primary Telegram vs tactical `maintain.py`
 - [janitor.md](janitor.md) — daily notes workflow
 - [retrieval.md](retrieval.md) — chunk index + hybrid parent search

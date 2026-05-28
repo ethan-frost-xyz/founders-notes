@@ -123,6 +123,18 @@ set -a && source ~/.config/founders-telegram/env && set +a
 cd services/telegram && ../../ingestion/.venv/bin/python -m bot
 ```
 
+## Local harness (no Bot API)
+
+Exercise Librarian and Janitor handlers without Telegram or a bot token. Uses echo LLM by default for CI parity:
+
+```bash
+# From repo root
+python dev/mock_telegram_cli.py --stub-llm --run-scenarios
+python dev/mock_telegram_cli.py --stub-llm --debug   # REPL with tool traces
+```
+
+Janitor scenarios write to `dev/logs/sandbox/` only — not `content/notes/`. Full guide: [`docs/telegram-mock-harness.md`](../../docs/telegram-mock-harness.md). CI: [`docs/testing.md`](../../docs/testing.md).
+
 ## Janitor (daily notes)
 
 Mode-switched workflow in the same bot: `/janitor` → paste bullets → LLM clean preview → approve → file `.notes.md` → expand → promote → reindex. Full guide: [`docs/janitor.md`](../../docs/janitor.md).

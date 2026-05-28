@@ -1,6 +1,6 @@
 ---
 name: Telegram mock harness
-overview: Build a mock Telegram harness under `dev/` that wraps the real bot code with a faked transport layer, enabling a coding agent to drive full conversation flows (Librarian and Janitor) headlessly — via a scenario runner with pass/fail reporting — and interactively via a terminal REPL. Librarian uses real OpenRouter + live vault index. Janitor uses real API calls but writes to a sandboxed temp vault, never touching real content.
+overview: "SHIPPED (May 2026, PR #10). Mock Telegram harness under dev/ for headless YAML scenarios and REPL. Operator guide: docs/telegram-mock-harness.md."
 todos:
   - id: mock-session
     content: Build dev/harness/mock_session.py — MockBotSession wrapping real build_application() with AsyncMock transport and isolated log dir
@@ -30,6 +30,10 @@ isProject: false
 ---
 
 # Mock Telegram Harness
+
+**Status:** Shipped on `main` (PR #10, May 2026). Operator and developer guide: [`docs/telegram-mock-harness.md`](../../../docs/telegram-mock-harness.md). Do not implement from this archive unless restoring history.
+
+---
 
 ## Architecture
 

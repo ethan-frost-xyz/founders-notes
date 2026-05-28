@@ -83,6 +83,16 @@ Nightly cron (`install-cron.sh`) also refreshes the index from git. Librarian wi
 - `.expanded.draft.md` is never indexed until promote.
 - Janitor state is in-memory; bot restart clears an in-progress session — use `/janitor` again.
 
+## Testing Janitor locally
+
+Use the mock Telegram harness — same handler code as production, but notes and expand/promote write to a temp sandbox under `dev/logs/sandbox/`, never `content/notes/`:
+
+```bash
+python dev/mock_telegram_cli.py --stub-llm --suite janitor --run-scenarios
+```
+
+Scenarios: [`dev/scenarios/janitor/`](../dev/scenarios/janitor/). Guide: [telegram-mock-harness.md](telegram-mock-harness.md).
+
 ## Deferred / ideas
 
 See [`potential-ideas.md`](../potential-ideas.md) (streaming clean preview, audit log, etc.).
