@@ -1,0 +1,28 @@
+name: Janitor episode parse formats
+janitor_episode: ep-0191
+llm: echo
+turns:
+  - send: "/janitor"
+    expect:
+      contains: "Janitor"
+  - send: "191"
+    expect:
+      contains: "ep-0191"
+  - send: "/cancel"
+    expect:
+      contains: "cancelled"
+  - send: "/janitor"
+    expect:
+      contains: "Janitor"
+  - send: "ep-0191"
+    expect:
+      contains: "Paste your notes"
+  - send: "/cancel"
+    expect:
+      contains: "cancelled"
+  - send: "/janitor"
+    expect:
+      contains: "Janitor"
+  - send: "Episode 191"
+    expect:
+      contains: "ep-0191"

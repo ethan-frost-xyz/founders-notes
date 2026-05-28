@@ -1,0 +1,20 @@
+name: Janitor full workflow (sandbox)
+janitor_episode: ep-0191
+llm: echo
+turns:
+  - send: "/janitor"
+    expect:
+      contains: "Janitor"
+  - send: |
+      191 naval
+      * wealth is assets (2:00)
+      * happiness is a skill (8:00)
+    expect:
+      contains: "cleaned preview"
+  - button: "janitor:approve"
+    expect:
+      contains: "Draft ready"
+  - button: "janitor:promote"
+    expect:
+      contains: "Done"
+      sandbox_file_written: ".notes.md"

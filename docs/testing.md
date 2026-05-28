@@ -54,6 +54,28 @@ RUN_REBUILT_INDEX_SCENARIOS=1 pytest tests/test_vault_retrieval_scenarios.py tes
 
 Some tests mention legacy behavior (e.g. unpadded `ep-200`, old “Key takeaway” headings). Those **run in CI** — they guard supported backward compatibility, not deprecated code.
 
+## Mock Telegram harness
+
+Headless and REPL testing for the vault bot without the real Bot API. Uses the production handler stack with a mocked transport; Janitor writes go to a temp sandbox, not `content/notes/`.
+
+```bash
+pip install pyyaml   # or ingestion/requirements-dev.txt
+python dev/mock_telegram_cli.py --stub-llm --run-scenarios
+python dev/mock_telegram_cli.py --suite librarian --debug
+python dev/mock_telegram_cli.py --scenario dev/scenarios/librarian/basic_qa.yaml
+```
+
+Live OpenRouter mode (no `--stub-llm`): set `OPENROUTER_API_KEY` and `TELEGRAM_CHAT_MODEL`. `TELEGRAM_BOT_TOKEN` is not required.
+
+Harness logs: `dev/logs/sessions/`, `dev/logs/runs/`, optional `dev/logs/sandbox/` with `--keep-sandbox`.
+
+Parametrized echo scenarios (optional; not in default CI until stable):
+
+```bash
+pytest tests/test_harness_scenarios.py -q
+SKIP_HARNESS_SCENARIOS=1 pytest tests -q   # skip harness module
+```
+
 ## Gaps (no dedicated tests yet)
 
 `cli_args`, `expanded_timestamp_lint`, `x_posts_csv`, and most network CLIs (`fetch_transcripts`, `sync_x_cache`) rely on `verify.py` and manual checks.

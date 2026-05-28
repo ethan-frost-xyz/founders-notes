@@ -1,0 +1,15 @@
+name: Librarian basic Q&A
+llm: live
+turns:
+  - send: "/start"
+    expect:
+      contains: "Founders vault agent"
+  - send: "What was Carnegie's key insight about steel?"
+    expect:
+      response_min_length: 20
+      expect_live:
+        tool_called: search_vault_parent
+        response_contains: Carnegie
+  - send: "/clear"
+    expect:
+      contains: "Session cleared"

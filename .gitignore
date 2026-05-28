@@ -13,4 +13,5 @@ catalog/expand-run.jsonl
 catalog/embeddings.npy
 catalog/embeddings-manifest.jsonl
 catalog/telegram-sessions/
+dev/logs/
 catalog/openrouter-models-cache.json
