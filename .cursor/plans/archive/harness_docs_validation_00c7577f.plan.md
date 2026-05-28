@@ -22,7 +22,7 @@ todos:
     status: completed
   - id: commit-docs
     content: "Single commit (when user asks): docs + plan archive; include this plan in .cursor/plans/ and archive when done"
-    status: in_progress
+    status: completed
 isProject: false
 ---
 
