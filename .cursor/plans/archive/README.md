@@ -6,10 +6,13 @@ Completed or superseded implementation plans moved out of [`.cursor/plans/`](../
 
 - [`telegram_rag_bot_v0.plan.md`](../telegram_rag_bot_v0.plan.md) — Telegram vault agent master index (SP1–SP4 shipped; SP5–SP6 tracked in [`potential-ideas.md`](../../../potential-ideas.md))
 
-**Deferred backlog (not a plan):** [`potential-ideas.md`](../../../potential-ideas.md)
+**Deferred backlog (not a plan):** [`potential-ideas.md`](../../../potential-ideas.md) — **Shipped / Next / Decided** sections.
+
+May 2026 hygiene: `telegram_vault_bot` superseded todos cancelled; single backlog uses `potential-ideas.md` structure above.
 
 **Recently archived (May 2026 hygiene):**
 
+- [`backlog_plan_hygiene.plan.md`](backlog_plan_hygiene.plan.md) — cancel superseded todos; `potential-ideas.md` Shipped/Next/Decided (shipped)
 - [`vault_cleanup_refactors.plan.md`](vault_cleanup_refactors.plan.md) — docs/hygiene, bootstrap, unified reindex (PRs #5+; shipped)
 - [`expand_llm_split.plan.md`](expand_llm_split.plan.md) — `openrouter_client` + `expand_*` modules (shipped)
 - [`fix_bare_episode_refs_4f718a49.plan.md`](fix_bare_episode_refs_4f718a49.plan.md) — Librarian episode resolution without NL regex (PR #10; shipped)

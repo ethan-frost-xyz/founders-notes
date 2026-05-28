@@ -55,7 +55,8 @@ After expanded promote on the Mac mini (or any host running the bot), run the sa
 |----|--------|------|
 | 1–4 | Shipped on `main` (PR #3) | [archive/sp1_tools … sp4_ops](../.cursor/plans/archive/) |
 | Janitor MVP | Shipped | [janitor.md](janitor.md) |
-| 5+ | Deferred | [potential-ideas.md](../potential-ideas.md) |
+| SP6-lite | Shipped (May 2026) | [potential-ideas.md](../potential-ideas.md) § Shipped |
+| 5+ | Open — Next clusters | [potential-ideas.md](../potential-ideas.md) § Next |
 
 Runbook and env: [`services/telegram/README.md`](../services/telegram/README.md).
 

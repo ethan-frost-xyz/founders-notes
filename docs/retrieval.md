@@ -74,4 +74,4 @@ Locked in master plan for v0; revisit in SP3.1 / SP6:
 1. **Web provider** — v0 stub (`not configured`); Tavily or Brave when `WEB_SEARCH_API_KEY` is wired.
 2. **`load_episode`** — all on-disk sections, truncated; expanded sections ordered first when present.
 3. **`/resume` + stale index** — v0 warn-only; auto-sync deferred.
-4. **Hybrid quality** — optional golden query set in SP6 (MRR@8 vs keyword-only).
+4. **Hybrid quality** — SP6-lite shipped (status UX, scenarios); rerank / MRR@8 — [`potential-ideas.md`](../potential-ideas.md) Librarian quality cluster.

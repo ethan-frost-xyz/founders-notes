@@ -193,4 +193,4 @@ Set bot vars in `~/.config/founders-telegram/env`. Ensure `{VAULT_ROOT}/.env` ha
 
 ## Deferred (post-v0)
 
-See [`potential-ideas.md`](../../potential-ideas.md) — SP5 webhook, `/web` provider, SP6 tuning, Janitor follow-ups, retrieval ideas.
+See [`potential-ideas.md`](../../potential-ideas.md) — SP6-lite shipped; SP5+, rerank, MRR@8, Janitor UX → **Next** clusters.

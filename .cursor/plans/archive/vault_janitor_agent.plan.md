@@ -91,11 +91,7 @@ stateDiagram-v2
 
 ## Deferred
 
-See [potential-ideas.md](../../potential-ideas.md) at repo root (streaming clean preview, frontmatter title edits, etc.).
-
-- BotFather persistent menu button (optional; `/janitor` is in `setMyCommands` on bot start)
-- Write access audit log / confirm destructive overwrites
-- Janitor on episodes without transcript (`transcript_status != complete`)
+See [`potential-ideas.md`](../../potential-ideas.md) — **Next → Janitor UX** cluster.
 
 ## Related
 

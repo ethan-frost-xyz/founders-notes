@@ -12,21 +12,23 @@ todos:
     content: "SUPERSEDED — use telegram_rag_bot_v0 SP3 (Telegram transport + sessions, not excerpt-only v0)"
     status: cancelled
   - id: post-promote-chunks
-    content: "After expanded backfill promote waves, rebuild chunks.jsonl and smoke-test parent-tier sections"
-    status: pending
+    content: "→ potential-ideas.md — post-promote chunk smoke / RUN_REBUILT_INDEX_SCENARIOS=1"
+    status: cancelled
   - id: v1-embeddings
-    content: "Incremental embeddings.npy + sqlite/jsonl sidecar; OpenRouter embed API; parent tier only"
-    status: pending
+    content: "Shipped SP1 — telegram_vault_sp1_tools.plan.md / build_embeddings.py"
+    status: cancelled
   - id: v2-transcript-fallback
-    content: "/transcript slash command + low parent-score fallback to transcript chunks"
-    status: pending
+    content: "Won't do slash commands; search_transcript + corpus filter"
+    status: cancelled
   - id: deploy
-    content: "Cloud Run (or similar) + secrets; webhook or polling; rate limits"
-    status: pending
+    content: "Won't do Cloud Run; Mac mini polling"
+    status: cancelled
 isProject: false
 ---
 
 > **Superseded for implementation.** Use **[telegram_rag_bot_v0.plan.md](../telegram_rag_bot_v0.plan.md)** (master index) and **archived sub-plans** `archive/telegram_vault_sp1_tools.plan.md` … `sp4_ops`. This file remains background on parent/child tiers and the original v0/v1 sketch.
+>
+> Open implementation work: [`potential-ideas.md`](../../potential-ideas.md). Body sections below are **historical sketch** (v0/v1/v2); unchecked verify lists are not actionable todos.
 
 # Telegram Vault Bot (background)
 

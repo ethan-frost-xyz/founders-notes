@@ -95,51 +95,15 @@ flowchart TD
 
 ---
 
-## NEXT (Librarian Quality + Ops)
+## Follow-ups
 
-**6. Nightly cron for sync-and-index.sh on Mac mini**
-
-- Add crontab entry (noted in [services/telegram/README.md](services/telegram/README.md) but not configured)
-- Run at 4am when bot is typically idle
-
-**7. Verify v0 success criteria**
-
-- Systematic test of the 5 checklist items from the master plan: thematic Q, web gate, expanded:* in hits, allowlist block, /newchat export
-- Confirm a question about an un-listened episode returns "no notes yet" (not transcript soup)
-
-**8–10. Janitor + post-promote reindex (shipped May 2026)**
-
-- Architecture + implementation: [vault_janitor_agent.plan.md](vault_janitor_agent.plan.md)
-- Operator guide: [docs/janitor.md](../../../docs/janitor.md)
-- Mode-switched `/janitor` in the same bot process; subprocess expand/promote/reindex in `janitor_workflow.py`
-
----
-
-## LATER (Post-Janitor Foundation)
-
-**11. SP3.1 — /web provider**
-
-- Wire Tavily or Brave into `[services/telegram/bot/tools/web.py](services/telegram/bot/tools/web.py)`
-- Currently returns `{"error":"not configured"}`
-
-**12. SP6 partial — tool tuning + status messages**
-
-- "Searching notes…" Telegram status messages
-- Tool description improvements in prompt
-- Episode intent classifier (reduce tool storms on specific-episode questions)
+All open work: [`potential-ideas.md`](../../../potential-ideas.md). Pull one **Next** cluster into a new focused `.cursor/plans/*.plan.md` when implementing (AGENTS.md).
 
 ---
 
 ## Explicit defer list (not doing)
 
-- SP5 GitHub webhook (Mac mini + Tailscale exposure) — manual cron is sufficient for now; revisit if daily ritual makes lag painful
-- LLM rerank on top-20 hybrid hits — index is small after filter, cost/complexity not justified
-- Golden query set / MRR@8 eval — not enough stable queries yet; v1 scenario tests (NOW #5) are the precursor
-- Cloud Run / multi-host — Mac mini is permanent
-- File lock on sync-and-index.sh — document "run when idle"; not worth the complexity at this scale
-- /transcript slash command, /post, /notes, /expanded section filters — architecture handles this through corpus filtering and load_episode tool
-
-**Deferred:** SP5 webhook, SP6 tuning, golden MRR@8 — [potential-ideas.md](../../../potential-ideas.md).
+Consolidated in [`potential-ideas.md`](../../../potential-ideas.md) — **Decided / won't do** and **Next** clusters. SP6-lite (tool copy, status UX, scenarios) shipped May 2026; rerank and MRR@8 remain open under Librarian quality.
 
 ---
 

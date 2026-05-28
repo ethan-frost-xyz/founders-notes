@@ -1,6 +1,6 @@
 ---
 name: Telegram Vault Agent v0
-overview: Master index for private Mac-mini Telegram vault agent (tool-calling, not naive RAG). SP1–SP4 shipped on main (PR #3); SP5–SP6 in potential-ideas.md. Janitor shipped — archive/vault_janitor_agent.plan.md.
+overview: Master index for private Mac-mini Telegram vault agent (tool-calling, not naive RAG). SP1–SP4 + Janitor shipped on main; SP6-lite shipped May 2026; SP5+ remainder in potential-ideas.md Next clusters.
 todos:
   - id: branch
     content: Branch feature/telegram-vault-bot off main; focused commits per sub-plan; merge via PR
@@ -21,7 +21,7 @@ todos:
     content: SP5 — tracked in potential-ideas.md (pull into focused plan when implementing)
     status: cancelled
   - id: sp6-tool-tuning
-    content: SP6 — tracked in potential-ideas.md (pull into focused plan when implementing)
+    content: SP6-lite shipped May 2026; rerank/MRR@8 in potential-ideas.md Next clusters
     status: cancelled
   - id: docs-handoff
     content: Appendix A docs sync (completed)
@@ -192,7 +192,7 @@ Commit the matching **sub-plan `.plan.md`** with each implementation commit (AGE
 
 ## Deferred
 
-Consolidated in [`potential-ideas.md`](../../potential-ideas.md) — SP5 webhook, SP3.1 `/web` provider, SP6 tuning (tool copy, rerank, status UX, golden MRR@8, sync file lock), and related follow-ups.
+Consolidated in [`potential-ideas.md`](../../potential-ideas.md) — **Shipped / Next / Decided** sections. SP6-lite shipped (May 2026). Open in **Next** clusters: SP5 webhook, SP3.1 `/web` provider, rerank, MRR@8, Janitor UX, ingestion `--jobs N`.
 
 **Decided (not open):** session naming locked as `{utc_iso}_{short_slug}.jsonl`; `TELEGRAM_MAX_STEPS` optional env override (default 5).
 
