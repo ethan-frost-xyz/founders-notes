@@ -19,6 +19,7 @@ from harness.scenario_runner import (  # noqa: E402
     ScenarioRunner,
     discover_live_scenarios,
     discover_scenarios,
+    paths_need_live_llm,
 )
 from harness.terminal import run_repl  # noqa: E402
 
@@ -82,7 +83,7 @@ async def _run_scenarios(args: argparse.Namespace) -> int:
         print("No scenarios found.", file=sys.stderr)
         return 1
 
-    if not args.stub_llm:
+    if paths_need_live_llm(paths, stub_llm=args.stub_llm):
         ready, reason = live_harness_ready()
         if not ready:
             print(f"Live harness not configured: {reason}", file=sys.stderr)

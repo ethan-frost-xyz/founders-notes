@@ -318,3 +318,14 @@ def discover_live_scenarios(root: Path, suite: str | None = None) -> list[Path]:
         for p in discover_scenarios(root, suite=suite)
         if str(load_scenario(p).get("llm") or "live").lower() == "live"
     ]
+
+
+def paths_need_live_llm(paths: list[Path], *, stub_llm: bool) -> bool:
+    """True if any selected scenario runs with OpenRouter (not echo/stub)."""
+    if stub_llm:
+        return False
+    for path in paths:
+        file_llm = str(load_scenario(path).get("llm") or "live").lower()
+        if file_llm != "echo":
+            return True
+    return False

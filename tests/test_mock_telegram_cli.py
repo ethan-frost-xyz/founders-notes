@@ -12,7 +12,11 @@ DEV = REPO / "dev"
 if str(DEV) not in sys.path:
     sys.path.insert(0, str(DEV))
 
-from harness.scenario_runner import discover_live_scenarios, discover_scenarios  # noqa: E402
+from harness.scenario_runner import (  # noqa: E402
+    discover_live_scenarios,
+    discover_scenarios,
+    paths_need_live_llm,
+)
 from mock_telegram_cli import SCENARIOS_ROOT, _build_parser, _should_run_scenarios  # noqa: E402
 
 
@@ -41,3 +45,15 @@ def test_discover_live_scenarios_librarian_suite():
     stems = {p.stem for p in live}
     assert "episode_resolve" in stems
     assert "tool_coverage" in stems
+
+
+def test_paths_need_live_llm_echo_janitor_without_keys():
+    echo_only = [SCENARIOS_ROOT / "janitor" / "episode_parse.yaml"]
+    assert not paths_need_live_llm(echo_only, stub_llm=False)
+    assert not paths_need_live_llm(echo_only, stub_llm=True)
+
+
+def test_paths_need_live_llm_librarian_without_stub():
+    live_path = [SCENARIOS_ROOT / "librarian" / "episode_resolve.yaml"]
+    assert paths_need_live_llm(live_path, stub_llm=False)
+    assert not paths_need_live_llm(live_path, stub_llm=True)
