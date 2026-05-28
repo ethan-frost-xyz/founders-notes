@@ -1,6 +1,6 @@
 ---
 name: Telegram Vault Agent v0
-overview: Master index for private Mac-mini Telegram vault agent (tool-calling, not naive RAG). SP1–SP4 + Janitor shipped on main; SP6-lite shipped May 2026; SP5+ remainder in potential-ideas.md Next clusters.
+overview: Master index for private Mac-mini Telegram vault agent (tool-calling, not naive RAG). SP1–SP5 + Janitor shipped on main; SP6-lite shipped May 2026; follow-ups in potential-ideas.md Next clusters.
 todos:
   - id: branch
     content: Branch feature/telegram-vault-bot off main; focused commits per sub-plan; merge via PR
@@ -18,8 +18,8 @@ todos:
     content: SP4 — see telegram_vault_sp4_ops.plan.md
     status: completed
   - id: sp5-webhook-deferred
-    content: SP5 — tracked in potential-ideas.md (pull into focused plan when implementing)
-    status: cancelled
+    content: SP5 — GitHub webhook; see telegram_ops_sync.plan.md + laptop_remote_hardening.plan.md
+    status: completed
   - id: sp6-tool-tuning
     content: SP6-lite shipped May 2026; rerank/MRR@8 in potential-ideas.md Next clusters
     status: cancelled
@@ -49,7 +49,7 @@ Filename kept as `telegram_rag_bot_v0` for history. **Product:** OpenRouter **to
 | **2** | [telegram_vault_sp2_agent.plan.md](archive/telegram_vault_sp2_agent.plan.md) | `agent.py`, `vault_agent.md`, mock contract tests |
 | **3** | [telegram_vault_sp3_telegram.plan.md](archive/telegram_vault_sp3_telegram.plan.md) | Handlers, allowlist, sessions, `/web` stub |
 | **4** | [telegram_vault_sp4_ops.plan.md](archive/telegram_vault_sp4_ops.plan.md) | `launchd`, `sync-and-index.sh`, ops README → **PR** |
-| 5 | [potential-ideas.md](../../potential-ideas.md) § Next (Ops / sync) | GitHub webhook → pull + reindex |
+| **5** | [telegram_ops_sync.plan.md](telegram_ops_sync.plan.md) | GitHub webhook → pull + reindex |
 | 6-lite | [potential-ideas.md](../../potential-ideas.md) § Shipped | Status UX, prompt/tool copy, scenarios (May 2026) |
 | 6+ | [potential-ideas.md](../../potential-ideas.md) § Next (Librarian quality) | Rerank, MRR@8, D1/D7 episode resolution follow-ups |
 
@@ -80,7 +80,7 @@ flowchart LR
 | Retrieval | Hybrid keyword (`chunks.jsonl`) + **parent-tier embeddings** inside `search_vault_parent` |
 | Auth | Solo `TELEGRAM_ALLOWED_USER_IDS` |
 | Sessions | In-memory; `/clear`; `/newchat` → jsonl export; `/resume` |
-| Sync v0 | Manual/cron `sync-and-index.sh`; webhook SP5 |
+| Sync | Webhook + cron `sync-and-index.sh`; Telegram `/sync` fallback |
 | Git | `feature/telegram-vault-bot` → focused commits SP1–SP4 → PR |
 | Models | `runtime.json` on bot host (`/setmodel`); legacy env vars seed on first start |
 

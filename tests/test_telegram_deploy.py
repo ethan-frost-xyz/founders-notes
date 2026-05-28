@@ -10,10 +10,32 @@ DEPLOY = REPO / "services" / "telegram" / "deploy"
 
 
 def test_deploy_scripts_exist_and_are_executable():
-    for name in ("sync-and-index.sh", "run-bot.sh", "install-cron.sh"):
+    for name in (
+        "sync-and-index.sh",
+        "run-bot.sh",
+        "install-cron.sh",
+        "run-webhook.sh",
+        "install-webhook.sh",
+    ):
         path = DEPLOY / name
         assert path.is_file(), name
         assert path.stat().st_mode & 0o111, f"{name} should be executable"
+
+
+def test_github_webhook_server_exists():
+    assert (DEPLOY / "github_webhook_server.py").is_file()
+
+
+def test_install_webhook_print_documents_plist_label():
+    proc = subprocess.run(
+        [str(DEPLOY / "install-webhook.sh"), "--print"],
+        capture_output=True,
+        text=True,
+        env={"VAULT_ROOT": str(REPO), "HOME": str(Path.home())},
+    )
+    assert proc.returncode == 0
+    assert "com.founders.telegram.webhook" in proc.stdout
+    assert "github_webhook_server.py" in (DEPLOY / "run-webhook.sh").read_text(encoding="utf-8")
 
 
 def test_install_cron_print_includes_sync_script():

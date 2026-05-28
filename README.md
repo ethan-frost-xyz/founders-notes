@@ -21,6 +21,7 @@ Private **Telegram bot** on an always-on Mac mini (polling): **Librarian** for s
 | Doc | Role |
 |-----|------|
 | [`docs/telegram-vault-agent.md`](docs/telegram-vault-agent.md) | Overview for agents |
+| [`docs/laptop-development.md`](docs/laptop-development.md) | Laptop clone, pytest, merge → webhook |
 | [`docs/janitor.md`](docs/janitor.md) | Janitor workflow (daily ritual) |
 | [`services/telegram/README.md`](services/telegram/README.md) | Mac mini runbook, env, deploy |
 | [`docs/vault-agent-v0-checklist.md`](docs/vault-agent-v0-checklist.md) | v0 verification checklist |
@@ -30,7 +31,7 @@ Private **Telegram bot** on an always-on Mac mini (polling): **Librarian** for s
 
 - **Librarian:** OpenRouter tool-calling over studied episodes only (`search_vault_parent`, transcripts on demand); `/web <query>` for external search.
 - **Janitor:** `/janitor` → paste bullets → LLM clean → approve → file → expand → promote → reindex. See [`docs/janitor.md`](docs/janitor.md).
-- **Ops:** `sync-and-index.sh` (manual or nightly cron); index refresh after promote on the bot host.
+- **Ops:** GitHub webhook or `sync-and-index.sh` (cron / Telegram `/sync`); index refresh after promote on the bot host.
 
 Expanded corpus quality: promote `.expanded.md`, then reindex — see [`docs/expanded-backfill.md`](docs/expanded-backfill.md).
 

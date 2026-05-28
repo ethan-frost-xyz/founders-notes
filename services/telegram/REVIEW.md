@@ -59,7 +59,7 @@ Long agent replies are split in `messaging.split_telegram_text` (4096-char Bot A
 ## Out of scope for this PR
 
 - Expanded draft files, `catalog/gaps.md`, unrelated plan archive edits on your working tree
-- SP6-lite shipped; SP5+, rerank, MRR@8 → [`potential-ideas.md`](../../potential-ideas.md) Next clusters
+- SP5 webhook + SP6-lite shipped; rerank, MRR@8 → [`potential-ideas.md`](../../potential-ideas.md) Next clusters
 - Live OpenRouter / Telegram smoke (requires secrets)
 
 ## Test plan

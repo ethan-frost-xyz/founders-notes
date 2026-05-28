@@ -42,10 +42,17 @@ Product is a **tool-calling vault agent**, not naive single-shot RAG.
 | `/janitor` | Enter Janitor — paste bullets → clean → expand → promote |
 | `/librarian` | Exit Janitor back to Q&A |
 | `/cancel` | Cancel Janitor workflow |
+| `/settings` | Models, max_steps, runtime file path |
+| `/setmodel` / `/resetmodel` | Per-role model overrides (`runtime.json`) |
+| `/setsteps` / `/resetsteps` | Librarian tool-step limit |
+| `/pull` | `git pull --ff-only` |
+| `/reindex` | Rebuild chunks + embeddings |
+| `/sync` | `/pull` then `/reindex` |
+| `/restart` | Exit; launchd restarts bot |
 
 **Janitor:** mode-switched workflow (LLM-first paste clean, file, expand subprocess, promote, reindex). Full guide: [janitor.md](janitor.md). Runbook: [services/telegram/README.md](../services/telegram/README.md).
 
-**Index sync (v0):** manual or cron `sync-and-index.sh` (`git pull` + `ingestion/lib/reindex_vault.py`). Install cron on Mac mini: `services/telegram/deploy/install-cron.sh`. GitHub webhook deferred — [`potential-ideas.md`](../potential-ideas.md).
+**Index sync:** push to `main` → Mac mini GitHub webhook → `sync-and-index.sh`; or manual/cron/Telegram `/sync`. Cron: `install-cron.sh`. Webhook: `install-webhook.sh` + Tailscale Funnel — [services/telegram/README.md](../services/telegram/README.md#github-webhook-push-to-main).
 
 After expanded promote on the Mac mini (or any host running the bot), run the same index rebuild so parent-tier chunks include **Quote** / **Key takeaway** sections. See [expanded-backfill.md](expanded-backfill.md).
 
@@ -56,7 +63,8 @@ After expanded promote on the Mac mini (or any host running the bot), run the sa
 | 1–4 | Shipped on `main` (PR #3) | [archive/sp1_tools … sp4_ops](../.cursor/plans/archive/) |
 | Janitor MVP | Shipped | [janitor.md](janitor.md) |
 | SP6-lite | Shipped (May 2026) | [potential-ideas.md](../potential-ideas.md) § Shipped |
-| 5+ | Open — Next clusters | [potential-ideas.md](../potential-ideas.md) § Next |
+| 5 (webhook) | Shipped | [telegram_ops_sync.plan.md](../.cursor/plans/telegram_ops_sync.plan.md) |
+| 6+ | Open — Next clusters | [potential-ideas.md](../potential-ideas.md) § Next |
 
 Runbook and env: [`services/telegram/README.md`](../services/telegram/README.md).
 
@@ -67,6 +75,7 @@ Repo-wide rule: do **not** add a general-purpose vector DB until grep + chunk se
 ## Related
 
 - [telegram-mock-harness.md](telegram-mock-harness.md) — local headless/REPL testing (no Bot API)
+- [laptop-development.md](laptop-development.md) — laptop clone, pytest, merge → webhook
 - [manual-operations.md](manual-operations.md) — Telegram vs `maintain.py`; [when to refresh the index](manual-operations.md#when-to-refresh-the-index)
 - [janitor.md](janitor.md) — daily notes workflow; [model tuning playbook](janitor.md#model-tuning-playbook)
 - [retrieval.md](retrieval.md) — chunk index + hybrid parent search

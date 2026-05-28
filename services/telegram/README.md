@@ -109,6 +109,47 @@ Or add manually:
 
 After promoting new `.expanded.md` files on another machine, run `sync-and-index.sh` on the Mac mini so parent-tier search includes them.
 
+## GitHub webhook (push to `main`)
+
+Auto-sync after merging to `main` without SSH or Telegram `/sync`.
+
+| Piece | Path / command |
+|-------|----------------|
+| Listener | `deploy/github_webhook_server.py` via `run-webhook.sh` |
+| launchd | `com.founders.telegram.webhook` — `install-webhook.sh` |
+| Sync script | `sync-and-index.sh` (runtime.json embed export + lock file) |
+| Secret | `GITHUB_WEBHOOK_SECRET` in `~/.config/founders-telegram/env` |
+
+### Tailscale Funnel (required for GitHub)
+
+GitHub cannot POST to a private Tailscale IP. Expose localhost only:
+
+```bash
+# On Mac mini — port must match GITHUB_WEBHOOK_PORT (default 9876)
+tailscale funnel --bg http://127.0.0.1:9876
+# Note the HTTPS URL; webhook path is /github
+```
+
+GitHub → **Settings → Webhooks → Add**: Payload URL `https://<funnel-host>/github`, secret = `GITHUB_WEBHOOK_SECRET`, content type `application/json`, **Just the push event**.
+
+Rotate the secret by updating env, restarting the webhook job, and editing the GitHub webhook.
+
+### Install
+
+```bash
+# env: GITHUB_WEBHOOK_SECRET=... (generate: openssl rand -hex 32)
+chmod +x services/telegram/deploy/install-webhook.sh
+services/telegram/deploy/install-webhook.sh
+```
+
+Logs: `~/Library/Logs/founders-telegram/webhook.log` (HTTP) and `sync.log` (pull + reindex).
+
+Smoke: merge or empty-commit to `main` → tail `webhook.log` and `sync.log`; `cd "$VAULT_ROOT" && git log -1`.
+
+**Fallback** until Funnel is configured: Telegram `/sync` when idle.
+
+Laptop workflow: [`docs/laptop-development.md`](../../docs/laptop-development.md). **Operator checklist:** [`docs/mac-mini-operator-setup.md`](../../docs/mac-mini-operator-setup.md).
+
 ## Run locally (dev)
 
 Telegram secrets live in **`~/.config/founders-telegram/env`**, not the repo root `.env` (that file is for ingestion/X/Colossus). Copy `deploy/env.example` there first.
@@ -209,4 +250,4 @@ After `/setmodel embed`, run `/reindex` or `/sync` before trusting search. Avoid
 
 ## Deferred (post-v0)
 
-See [`potential-ideas.md`](../../potential-ideas.md) — SP6-lite shipped; SP5+, rerank, MRR@8, Janitor UX → **Next** clusters.
+See [`potential-ideas.md`](../../potential-ideas.md) — SP5 webhook + SP6-lite shipped; rerank, MRR@8, Janitor UX → **Next** clusters.
