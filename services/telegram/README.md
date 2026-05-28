@@ -92,7 +92,7 @@ Unload: `launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.founders.tele
 
 ### 5. Cron index refresh (optional)
 
-Run when the bot is **idle** (v0 has no file lock; avoid pulling during active turns):
+Run when the bot is **idle** (v0 has no file lock; avoid reindex during active turns). Full matrix (laptop push, promote failure, `/resume`): [`docs/manual-operations.md`](../../docs/manual-operations.md#when-to-refresh-the-index).
 
 ```bash
 chmod +x services/telegram/deploy/install-cron.sh
@@ -145,6 +145,8 @@ python dev/mock_telegram_cli.py --suite librarian --live-only -v
 Mode-switched workflow in the same bot: `/janitor` → paste bullets → LLM clean preview → approve → file `.notes.md` → expand → promote → reindex. Full guide: [`docs/janitor.md`](../../docs/janitor.md).
 
 Requires `JANITOR_CLEAN_MODEL` in `~/.config/founders-telegram/env`. Expand uses `OPENROUTER_MODEL` (Telegram env and/or `{VAULT_ROOT}/.env`).
+
+**Model tuning:** clean, expand, and Librarian chat use separate env vars — when to change each, example stacks, restart steps: [`docs/janitor.md`](../../docs/janitor.md#model-tuning-playbook).
 
 ## Commands (Telegram)
 

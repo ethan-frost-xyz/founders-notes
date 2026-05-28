@@ -23,7 +23,6 @@ Linked from: [`README.md`](README.md), [`docs/telegram-vault-agent.md`](docs/tel
 ## Janitor
 
 - **Streaming clean preview** — stream partial LLM output to Telegram during clean for perceived speed on long pastes.
-- **Model tuning playbook (docs)** — `JANITOR_CLEAN_MODEL` vs `OPENROUTER_MODEL` already separate in env; document operator tuning in runbook.
 - **Edit catalog title in frontmatter** — optional LLM pass to fix episode title in notes frontmatter (today title comes from catalog only; clean pass scrubs hook text).
 - **Janitor separate process** — same bot (mode switch) vs second bot for multi-user (deferred).
 - **Write audit log** — confirm destructive overwrites when re-filing notes.

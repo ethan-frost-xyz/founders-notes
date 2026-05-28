@@ -9,7 +9,7 @@ How to run the Founders Notes vault when you are **not** using the Telegram bot 
 | **Janitor** | Paste bullets → clean → file `.notes.md` → expand → promote → reindex |
 | **Librarian** | Q&A over the studied corpus (hybrid parent-tier search) |
 
-Runbook: [services/telegram/README.md](../services/telegram/README.md). After promote on the Mac mini, refresh the index with `services/telegram/deploy/sync-and-index.sh` (`git pull` + `reindex_vault`). Requires `OPENROUTER_API_KEY` and `OPENROUTER_EMBED_MODEL` for the embedding step.
+Runbook: [services/telegram/README.md](../services/telegram/README.md). Janitor **Promote & reindex** usually refreshes the index on the Mac mini; if that fails or you pushed from the laptop, run `sync-and-index.sh` when the bot is idle — [When to refresh the index](#when-to-refresh-the-index). Model tuning (clean vs expand vs Librarian): [janitor.md § Model tuning playbook](janitor.md#model-tuning-playbook).
 
 ## Tactical backup (laptop / Cursor)
 
@@ -37,6 +37,20 @@ Canonical recipe: [`ingestion/lib/reindex_vault.py`](../ingestion/lib/reindex_va
 | Janitor | **Promote & reindex** calls `janitor_workflow.run_reindex` → `reindex_vault` |
 
 Embeddings require `OPENROUTER_API_KEY` and `OPENROUTER_EMBED_MODEL` in repo `.env` and/or `~/.config/founders-telegram/env`. If keys are missing, step 2 fails with the same message as running `build_embeddings.py` manually.
+
+### When to refresh the index
+
+v0 has **no file lock** between the bot and `sync-and-index.sh`. Run reindex when the Mac mini is **idle** (no active Librarian turn, no Janitor preview/draft in progress). Nightly cron (`install-cron.sh`, default 4:00) is the baseline; add manual sync when content changed on another machine.
+
+| Situation | Action |
+|-----------|--------|
+| You **promoted on the Mac mini** (Janitor) | Usually automatic — **Promote & reindex** already runs `reindex_vault`. If that step failed, run `sync-and-index.sh` when idle. |
+| You **committed notes/expanded on the laptop** and pushed | On Mac mini: `git pull` (or full `sync-and-index.sh`) when idle so Librarian sees new chunks/embeddings. |
+| **Stale Librarian answers** after pull | Run `sync-and-index.sh` when idle; `/resume` may warn that the index is newer than the saved session — re-ask the question. |
+| **During an active Telegram session** | Avoid `sync-and-index.sh` mid-turn; wait until the bot is idle or use `/clear` / finish Janitor first. |
+| **Laptop-only** work (no bot) | `maintain.py` menu **8** or `python lib/reindex_vault.py` from `ingestion/` — no sync script needed unless you also want `git pull`. |
+
+`/resume` does **not** auto-sync (warn-only). Deferred: optional auto-sync on resume — [`potential-ideas.md`](../potential-ideas.md).
 
 From `ingestion/` without the menu:
 
