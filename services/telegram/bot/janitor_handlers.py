@@ -25,18 +25,14 @@ from telegram.ext import ContextTypes
 if TYPE_CHECKING:
     from telegram import Message
 
-JANITOR_HELP = """Janitor — daily notes ritual
-
-1. Paste episode + bullets (e.g. `191 naval` + `* hook (5:00)` lines), or episode number first then paste.
-2. Notes are **auto-cleaned** via LLM (see `/settings` → janitor_clean_model).
-3. Review the cleaned preview — **reply with text** to revise, or use **Retry** / **Approve** / **Cancel**.
-
-/librarian — return to Q&A
-/cancel — exit Janitor"""
+JANITOR_HELP = """Janitor — paste episode + bullets to file notes.
+Send an episode number to begin, or tap Exit Janitor to return to Q&A."""
 
 _PREVIEW_FOOTER = (
-    "\n\n_Reply with edits to revise this clean, or use Retry / Approve / Cancel._"
+    "\n\n_Reply with edits to revise this clean, or use Retry / Approve / Exit Janitor._"
 )
+
+_STILL_WORKING_DELAY_S = 20.0
 
 
 def _config(context: ContextTypes.DEFAULT_TYPE) -> BotConfig:
@@ -63,6 +59,18 @@ def _episode_title(vault_root, episode_id: str | None) -> str | None:
         return None
 
 
+def _notes_path(vault_root, row: dict):
+    import paths as vault_paths
+
+    return vault_paths.notes_file_path(row["id"], row["slug"], row.get("episode_number"))
+
+
+def _folder_name(row: dict) -> str:
+    import paths as vault_paths
+
+    return vault_paths.folder_name(row["id"], row["slug"], row.get("episode_number"))
+
+
 async def _reject_unauthorized(update: Update, config: BotConfig) -> bool:
     user = update.effective_user
     if is_allowed(user.id if user else None, config):
@@ -72,6 +80,12 @@ async def _reject_unauthorized(update: Update, config: BotConfig) -> bool:
     return True
 
 
+def _exit_keyboard() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        [[InlineKeyboardButton("Exit Janitor", callback_data="janitor:exit")]]
+    )
+
+
 def _preview_keyboard() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         [
@@ -79,7 +93,20 @@ def _preview_keyboard() -> InlineKeyboardMarkup:
                 InlineKeyboardButton("Retry", callback_data="janitor:retry"),
                 InlineKeyboardButton("Approve", callback_data="janitor:approve"),
             ],
-            [InlineKeyboardButton("Cancel", callback_data="janitor:cancel")],
+            [InlineKeyboardButton("Exit Janitor", callback_data="janitor:exit")],
+        ]
+    )
+
+
+def _confirm_overwrite_keyboard() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    "Confirm overwrite", callback_data="janitor:confirm_overwrite"
+                ),
+            ],
+            [InlineKeyboardButton("Exit Janitor", callback_data="janitor:exit")],
         ]
     )
 
@@ -91,9 +118,43 @@ def _review_keyboard() -> InlineKeyboardMarkup:
                 InlineKeyboardButton("Promote & reindex", callback_data="janitor:promote"),
                 InlineKeyboardButton("Retry expand", callback_data="janitor:retry_expand"),
             ],
-            [InlineKeyboardButton("Cancel", callback_data="janitor:cancel")],
+            [InlineKeyboardButton("Exit Janitor", callback_data="janitor:exit")],
         ]
     )
+
+
+async def _janitor_exit(uid: int, store: JanitorStore, message: Message, *, edit: bool = False) -> None:
+    store.reset(uid)
+    text = "Back to Librarian."
+    if edit:
+        await message.edit_text(text)
+    else:
+        await message.reply_text(text)
+
+
+def _needs_overwrite_confirm(vault_root, row: dict) -> bool:
+    from markdown_io import has_timestamp_datapoints
+
+    npath = _notes_path(vault_root, row)
+    return npath.is_file() and has_timestamp_datapoints(npath)
+
+
+async def _prompt_overwrite_confirm(
+    message: Message,
+    session,
+    *,
+    vault_root,
+    row: dict,
+    edit: bool = False,
+) -> None:
+    rel = _notes_path(vault_root, row).relative_to(vault_root)
+    session.phase = JanitorPhase.CONFIRM_OVERWRITE
+    text = f"Overwriting {rel} — this replaces existing notes."
+    markup = _confirm_overwrite_keyboard()
+    if edit:
+        await message.edit_text(text, reply_markup=markup)
+    else:
+        await message.reply_text(text, reply_markup=markup)
 
 
 async def _run_llm_clean(
@@ -109,30 +170,57 @@ async def _run_llm_clean(
     if not clean_model:
         await message.reply_text(
             "Janitor clean model not set. Use /setmodel janitor <openrouter-slug> "
-            "(see /settings)."
+            "(see /settings).",
+            reply_markup=_exit_keyboard(),
         )
         return
 
     if not session.raw_paste:
-        await message.reply_text("Nothing to clean — /janitor to restart.")
+        await message.reply_text(
+            "Nothing to clean — /janitor to restart.",
+            reply_markup=_exit_keyboard(),
+        )
         return
 
     agent_cfg = bot_cfg.agent
     title = _episode_title(vault_root, session.episode_id)
-    await message.reply_text(f"{status_prefix} ({clean_model})…")
+    status_msg = await message.reply_text(f"{status_prefix}…")
+    still_task: asyncio.Task | None = None
 
-    body, warnings = await asyncio.to_thread(
-        llm_clean_pasted_notes,
-        session.raw_paste,
-        api_key=agent_cfg.api_key,
-        model=clean_model,
-        base_url=agent_cfg.openrouter_base_url,
-        vault_root=vault_root,
-        episode_id=session.episode_id,
-        episode_title=title,
-        current_draft=session.cleaned_body if feedback else None,
-        feedback=feedback,
-    )
+    async def _still_working() -> None:
+        await asyncio.sleep(_STILL_WORKING_DELAY_S)
+        try:
+            await status_msg.edit_text("Still working…")
+        except Exception:
+            pass
+
+    still_task = asyncio.create_task(_still_working())
+
+    try:
+        body, warnings = await asyncio.to_thread(
+            llm_clean_pasted_notes,
+            session.raw_paste,
+            api_key=agent_cfg.api_key,
+            model=clean_model,
+            base_url=agent_cfg.openrouter_base_url,
+            vault_root=vault_root,
+            episode_id=session.episode_id,
+            episode_title=title,
+            current_draft=session.cleaned_body if feedback else None,
+            feedback=feedback,
+        )
+    finally:
+        if still_task is not None:
+            still_task.cancel()
+            try:
+                await still_task
+            except asyncio.CancelledError:
+                pass
+        try:
+            await status_msg.delete()
+        except Exception:
+            pass
+
     session.cleaned_body = body
     session.phase = JanitorPhase.PREVIEW
     warn_text = "\n".join(f"• {w}" for w in warnings) if warnings else ""
@@ -145,22 +233,26 @@ async def _run_llm_clean(
     await reply_text_chunked(message, msg, reply_markup=_preview_keyboard())
 
 
-async def _approve_and_expand(
+async def _file_and_expand(
     message: Message,
     session,
     *,
     vault_root,
     uid: int,
     store: JanitorStore,
+    replace: bool = False,
 ) -> None:
     if not session.episode_id or not session.cleaned_body:
-        await message.reply_text("Nothing to file — /janitor to restart.")
+        await message.reply_text(
+            "Nothing to file — /janitor to restart.",
+            reply_markup=_exit_keyboard(),
+        )
         return
     await message.reply_text(f"Filing notes for {session.episode_id}…")
     try:
         row = resolve_catalog_row(vault_root, session.episode_id)
         path = await asyncio.to_thread(
-            file_notes, vault_root, row, session.cleaned_body,
+            file_notes, vault_root, row, session.cleaned_body, replace=replace,
         )
         rel = path.relative_to(vault_root)
         await message.reply_text(
@@ -187,7 +279,36 @@ async def _approve_and_expand(
         )
     except Exception as e:
         session.last_error = str(e)
-        await message.reply_text(f"Error: {e}")
+        await message.reply_text(f"Error: {e}", reply_markup=_exit_keyboard())
+
+
+async def _begin_approve(
+    message: Message,
+    session,
+    *,
+    vault_root,
+    uid: int,
+    store: JanitorStore,
+    edit: bool = False,
+) -> None:
+    if not session.episode_id or not session.cleaned_body:
+        text = "Nothing to approve — /janitor to restart."
+        if edit:
+            await message.edit_text(text, reply_markup=_exit_keyboard())
+        else:
+            await message.reply_text(text, reply_markup=_exit_keyboard())
+        return
+    row = resolve_catalog_row(vault_root, session.episode_id)
+    if _needs_overwrite_confirm(vault_root, row):
+        await _prompt_overwrite_confirm(
+            message, session, vault_root=vault_root, row=row, edit=edit,
+        )
+        return
+    if edit:
+        await message.edit_text(f"Approved — filing {session.episode_id}…")
+    await _file_and_expand(
+        message, session, vault_root=vault_root, uid=uid, store=store,
+    )
 
 
 async def cmd_janitor(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -198,7 +319,9 @@ async def cmd_janitor(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
     store.reset(uid)
     session = store.get(uid)
     session.phase = JanitorPhase.AWAIT_EPISODE
-    await reply_text_chunked(update.message, JANITOR_HELP)
+    await reply_text_chunked(
+        update.message, JANITOR_HELP, reply_markup=_exit_keyboard(),
+    )
 
 
 async def cmd_librarian(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -212,7 +335,7 @@ async def cmd_cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
     if await _reject_unauthorized(update, _config(context)):
         return
     _janitor_store(context).reset(update.effective_user.id)
-    await update.message.reply_text("Janitor cancelled.")
+    await update.message.reply_text("Back to Librarian.")
 
 
 async def _build_preview(message: Message, session, raw_notes: str, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -223,7 +346,7 @@ async def _build_preview(message: Message, session, raw_notes: str, context: Con
         await _run_llm_clean(message, session, bot_cfg=bot_cfg, vault_root=vault_root)
     except Exception as e:
         session.last_error = str(e)
-        await message.reply_text(f"Clean failed: {e}")
+        await message.reply_text(f"Clean failed: {e}", reply_markup=_exit_keyboard())
 
 
 async def on_janitor_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> bool:
@@ -242,10 +365,21 @@ async def on_janitor_text(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     bot_cfg = _config(context)
     vault_root = bot_cfg.agent.vault_root
 
+    if session.phase in (JanitorPhase.REVIEW_DRAFT, JanitorPhase.CONFIRM_OVERWRITE):
+        await update.message.reply_text(
+            "Use the buttons below, or tap Exit Janitor.",
+            reply_markup=_exit_keyboard()
+            if session.phase == JanitorPhase.CONFIRM_OVERWRITE
+            else _review_keyboard(),
+        )
+        return True
+
     if session.phase == JanitorPhase.PREVIEW:
         lowered = text.lower()
         if lowered in ("approve", "yes", "ok", "lgtm"):
-            await _approve_and_expand(update.message, session, vault_root=vault_root, uid=uid, store=store)
+            await _begin_approve(
+                update.message, session, vault_root=vault_root, uid=uid, store=store,
+            )
             return True
         if lowered in ("retry", "again"):
             try:
@@ -274,17 +408,12 @@ async def on_janitor_text(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             await update.message.reply_text(f"Revision failed: {e}")
         return True
 
-    if session.phase == JanitorPhase.REVIEW_DRAFT:
-        await update.message.reply_text(
-            "Expanded draft ready — use Promote & reindex, Retry expand, or /cancel."
-        )
-        return True
-
     if session.phase == JanitorPhase.AWAIT_EPISODE:
         ep_id = parse_episode_id(text)
         if not ep_id:
             await update.message.reply_text(
-                "Send an episode number (e.g. 191, 200, or ep-0200), then paste bullets."
+                "Send an episode number (e.g. 191, 200, or ep-0200), then paste bullets.",
+                reply_markup=_exit_keyboard(),
             )
             return True
         lines = text.strip().splitlines()
@@ -294,18 +423,27 @@ async def on_janitor_text(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             await _build_preview(update.message, session, text, context)
             return True
         session.phase = JanitorPhase.AWAIT_NOTES
-        await update.message.reply_text(f"Episode {ep_id}. Paste your notes (any common format).")
+        await update.message.reply_text(
+            f"Episode {ep_id}. Paste your notes (any common format).",
+            reply_markup=_exit_keyboard(),
+        )
         return True
 
     if session.phase == JanitorPhase.AWAIT_NOTES:
         if not session.episode_id:
             session.phase = JanitorPhase.AWAIT_EPISODE
-            await update.message.reply_text("Episode lost — send episode number again.")
+            await update.message.reply_text(
+                "Episode lost — send episode number again.",
+                reply_markup=_exit_keyboard(),
+            )
             return True
         await _build_preview(update.message, session, text, context)
         return True
 
-    await update.message.reply_text("Unexpected state — /cancel and /janitor to restart.")
+    await update.message.reply_text(
+        "Unexpected state — /cancel and /janitor to restart.",
+        reply_markup=_exit_keyboard(),
+    )
     return True
 
 
@@ -324,14 +462,34 @@ async def on_janitor_callback(update: Update, context: ContextTypes.DEFAULT_TYPE
     vault_root = bot_cfg.agent.vault_root
     data = query.data
 
-    if data == "janitor:cancel":
-        store.reset(uid)
-        await query.edit_message_text("Janitor cancelled.")
+    if data in ("janitor:exit", "janitor:cancel"):
+        await _janitor_exit(uid, store, query.message, edit=True)
+        return
+
+    if data == "janitor:confirm_overwrite":
+        if session.phase != JanitorPhase.CONFIRM_OVERWRITE:
+            await query.edit_message_text(
+                "Nothing to confirm — /janitor to restart.",
+                reply_markup=_exit_keyboard(),
+            )
+            return
+        await query.edit_message_text(f"Overwriting {session.episode_id}…")
+        await _file_and_expand(
+            query.message,
+            session,
+            vault_root=vault_root,
+            uid=uid,
+            store=store,
+            replace=True,
+        )
         return
 
     if data in ("janitor:retry", "janitor:reclean", "janitor:llm_clean"):
         if session.phase != JanitorPhase.PREVIEW:
-            await query.edit_message_text("Nothing to retry — /janitor to restart.")
+            await query.edit_message_text(
+                "Nothing to retry — /janitor to restart.",
+                reply_markup=_exit_keyboard(),
+            )
             return
         try:
             await _run_llm_clean(
@@ -348,17 +506,27 @@ async def on_janitor_callback(update: Update, context: ContextTypes.DEFAULT_TYPE
 
     if data in ("janitor:approve", "janitor:file_expand"):
         if session.phase != JanitorPhase.PREVIEW:
-            await query.edit_message_text("Nothing to approve — /janitor to restart.")
+            await query.edit_message_text(
+                "Nothing to approve — /janitor to restart.",
+                reply_markup=_exit_keyboard(),
+            )
             return
-        await query.edit_message_text(f"Approved — filing {session.episode_id}…")
-        await _approve_and_expand(
-            query.message, session, vault_root=vault_root, uid=uid, store=store,
+        await _begin_approve(
+            query.message,
+            session,
+            vault_root=vault_root,
+            uid=uid,
+            store=store,
+            edit=True,
         )
         return
 
     if data == "janitor:retry_expand":
         if not session.episode_id:
-            await query.edit_message_text("No episode — /janitor to restart.")
+            await query.edit_message_text(
+                "No episode — /janitor to restart.",
+                reply_markup=_exit_keyboard(),
+            )
             return
         await query.edit_message_text(f"Re-expanding {session.episode_id}…")
         code, log_tail = await asyncio.to_thread(
@@ -379,24 +547,36 @@ async def on_janitor_callback(update: Update, context: ContextTypes.DEFAULT_TYPE
 
     if data == "janitor:promote":
         if not session.episode_id:
-            await query.edit_message_text("No episode — /janitor to restart.")
+            await query.edit_message_text(
+                "No episode — /janitor to restart.",
+                reply_markup=_exit_keyboard(),
+            )
             return
         await query.edit_message_text(f"Promoting {session.episode_id}…")
         code, msg, _warnings = await asyncio.to_thread(
             run_promote, vault_root, session.episode_id,
         )
         if code != 0:
-            await reply_text_chunked(query.message, f"Promote failed:\n{msg}")
+            await reply_text_chunked(
+                query.message, f"Promote failed:\n{msg}", reply_markup=_exit_keyboard(),
+            )
             return
+        row = resolve_catalog_row(vault_root, session.episode_id)
+        folder = _folder_name(row)
+        notes_rel = f"content/notes/{folder}/{folder}.notes.md"
+        expanded_rel = f"content/notes/{folder}/{folder}.expanded.md"
+        audit = f"Wrote: {notes_rel} → promoted {expanded_rel}"
         idx_code, idx_msg = await asyncio.to_thread(run_reindex, vault_root)
         store.reset(uid)
         if idx_code != 0:
             await reply_text_chunked(
                 query.message,
-                f"{msg}\n\nReindex failed:\n{idx_msg}\n\nRun sync-and-index.sh on the Mac mini.",
+                f"{msg}\n{audit}\n\nReindex failed:\n{idx_msg}\n\n"
+                "Run sync-and-index.sh on the Mac mini.",
             )
             return
         await reply_text_chunked(
             query.message,
-            f"Done. {msg}\n{idx_msg}\n\nBack in Librarian mode — vault search includes this episode.",
+            f"Done. {msg}\n{audit}\n{idx_msg}\n\n"
+            "Back in Librarian mode — vault search includes this episode.",
         )

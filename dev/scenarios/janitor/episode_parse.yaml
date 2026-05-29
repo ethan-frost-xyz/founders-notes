@@ -10,7 +10,7 @@ turns:
       contains: "ep-0191"
   - send: "/cancel"
     expect:
-      contains: "cancelled"
+      contains: "Back to Librarian"
   - send: "/janitor"
     expect:
       contains: "Janitor"
@@ -19,7 +19,7 @@ turns:
       contains: "Paste your notes"
   - send: "/cancel"
     expect:
-      contains: "cancelled"
+      contains: "Back to Librarian"
   - send: "/janitor"
     expect:
       contains: "Janitor"

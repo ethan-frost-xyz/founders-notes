@@ -11,6 +11,7 @@ class JanitorPhase(str, Enum):
     AWAIT_EPISODE = "await_episode"
     AWAIT_NOTES = "await_notes"
     PREVIEW = "preview"
+    CONFIRM_OVERWRITE = "confirm_overwrite"
     REVIEW_DRAFT = "review_draft"
 
 
