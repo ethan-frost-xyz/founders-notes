@@ -2,7 +2,7 @@
 
 How to run the Founders Notes vault when you are **not** using the Telegram bot on the Mac mini. For day-to-day study and filing, prefer **Janitor + Librarian** on the always-on host ([janitor.md](janitor.md), [services/telegram/README.md](../services/telegram/README.md), [telegram-vault-agent.md](telegram-vault-agent.md)).
 
-**Laptop → main:** After merging a PR, the Mac mini can auto-sync via **GitHub webhook** (push to `main` → `sync-and-index.sh`). Until Funnel/webhook is installed, use Telegram `/sync` or SSH + `sync-and-index.sh`. See [laptop-development.md](laptop-development.md). **Mac mini setup:** [mac-mini-operator-setup.md](mac-mini-operator-setup.md).
+**Laptop → main:** Merging to **`main`** triggers the Mac mini **GitHub webhook** → `sync-and-index.sh` (~2–5 min). Fallback: Telegram **`/sync`** when idle. See [laptop-development.md](laptop-development.md) (laptop) and [mac-mini-operator-setup.md](mac-mini-operator-setup.md) (mini / GitHub / phone).
 
 ## Primary path (Telegram)
 
@@ -49,7 +49,7 @@ Embeddings require `OPENROUTER_API_KEY` in env and an embed model in `runtime.js
 | Situation | Action |
 |-----------|--------|
 | You **promoted on the Mac mini** (Janitor) | Usually automatic — **Promote & reindex** already runs `reindex_vault`. If that step failed, run `sync-and-index.sh` when idle. |
-| You **committed notes/expanded on the laptop** and pushed | On Mac mini: Telegram `/sync` when idle (or `sync-and-index.sh`) so Librarian sees new chunks/embeddings. |
+| You **committed notes/expanded on the laptop** and merged to `main` | Usually automatic via webhook; if stale, `/sync` on Telegram or check `sync.log` on the mini. |
 | **Stale Librarian answers** after pull | Run `sync-and-index.sh` when idle; `/resume` may warn that the index is newer than the saved session — re-ask the question. |
 | **During an active Telegram session** | Avoid `sync-and-index.sh` mid-turn; wait until the bot is idle or use `/clear` / finish Janitor first. |
 | **Laptop-only** work (no bot) | `maintain.py` menu **8** or `python lib/reindex_vault.py` from `ingestion/` — no sync script needed unless you also want `git pull`. |

@@ -76,6 +76,7 @@ Repo-wide rule: do **not** add a general-purpose vector DB until grep + chunk se
 
 - [telegram-mock-harness.md](telegram-mock-harness.md) — local headless/REPL testing (no Bot API)
 - [laptop-development.md](laptop-development.md) — laptop clone, pytest, merge → webhook
+- [mac-mini-operator-setup.md](mac-mini-operator-setup.md) — production Mac mini (daily ops, restart, troubleshooting)
 - [manual-operations.md](manual-operations.md) — Telegram vs `maintain.py`; [when to refresh the index](manual-operations.md#when-to-refresh-the-index)
 - [janitor.md](janitor.md) — daily notes workflow; [model tuning playbook](janitor.md#model-tuning-playbook)
 - [retrieval.md](retrieval.md) — chunk index + hybrid parent search

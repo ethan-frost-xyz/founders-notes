@@ -2,7 +2,7 @@
 
 Private on-the-go access to the Founders vault via a **tool-calling agent** — not a fixed embed→top-k→answer pipeline.
 
-**Status:** SP1–SP4 shipped on `main` (PR #3). Mac mini deploy is operator setup — see install below.
+**Status:** SP1–SP5 + Janitor shipped on `main`. Mac mini production: launchd bot + webhook, Tailscale Funnel, push-to-`main` sync. Runbook: [`docs/mac-mini-operator-setup.md`](../../docs/mac-mini-operator-setup.md).
 
 **Reviewers:** [REVIEW.md](REVIEW.md) — commit map, risk areas, test commands.
 
@@ -77,7 +77,7 @@ Edit `services/telegram/deploy/com.founders.telegram.bot.plist` — replace plac
 
 | Placeholder | Example |
 |-------------|---------|
-| `REPLACE_WITH_VAULT_ROOT` | `/Users/you/founders-notes` |
+| `REPLACE_WITH_VAULT_ROOT` | `/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes` (this host) |
 | `REPLACE_WITH_HOME` | `/Users/you` |
 
 ```bash
@@ -94,7 +94,7 @@ Unload: `launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.founders.tele
 
 ### 5. Cron index refresh (optional)
 
-Run when the bot is **idle** (v0 has no file lock; avoid reindex during active turns). Full matrix (laptop push, promote failure, `/resume`): [`docs/manual-operations.md`](../../docs/manual-operations.md#when-to-refresh-the-index).
+`sync-and-index.sh` uses `catalog/.sync-in-progress` so overlapping cron/webhook runs skip cleanly. Avoid manual sync during active Librarian/Janitor turns. Matrix: [`docs/manual-operations.md`](../../docs/manual-operations.md#when-to-refresh-the-index).
 
 ```bash
 chmod +x services/telegram/deploy/install-cron.sh
@@ -144,11 +144,13 @@ services/telegram/deploy/install-webhook.sh
 
 Logs: `~/Library/Logs/founders-telegram/webhook.log` (HTTP) and `sync.log` (pull + reindex).
 
-Smoke: merge or empty-commit to `main` → tail `webhook.log` and `sync.log`; `cd "$VAULT_ROOT" && git log -1`.
+Smoke: merge to `main` → GitHub webhook delivery **202** → `sync.log` shows pull + reindex; ping should be **200** (check repo → Settings → Webhooks → Recent Deliveries).
 
-**Fallback** until Funnel is configured: Telegram `/sync` when idle.
+**Git:** use `git@github.com:ethan-frost-xyz/founders-notes.git` on the Mac mini so webhook/cron pull without HTTPS credentials.
 
-Laptop workflow: [`docs/laptop-development.md`](../../docs/laptop-development.md). **Operator checklist:** [`docs/mac-mini-operator-setup.md`](../../docs/mac-mini-operator-setup.md).
+**Fallback:** Telegram `/sync` when idle if webhook or Funnel is down.
+
+Laptop: [`docs/laptop-development.md`](../../docs/laptop-development.md). Mac mini ops: [`docs/mac-mini-operator-setup.md`](../../docs/mac-mini-operator-setup.md).
 
 ## Run locally (dev)
 
@@ -246,6 +248,8 @@ After `/setmodel embed`, run `/reindex` or `/sync` before trusting search. Avoid
 | Weak / no search hits | Run `sync-and-index.sh`; confirm `catalog/chunks.jsonl` updated |
 | Embeddings errors | `/settings` → `embed_model`; API key in env; `/reindex` when idle |
 | Stale answers after git pull | `/sync` when idle; `/resume` warns if index newer than session |
+| Webhook ping **401** | `GITHUB_WEBHOOK_SECRET` must match GitHub webhook secret; restart webhook job |
+| `git pull` fails in `sync.log` | Use SSH remote; `ssh -T git@github.com` |
 | Janitor clean blocked | `/setmodel janitor <slug>` (see `/settings`) |
 
 ## Deferred (post-v0)

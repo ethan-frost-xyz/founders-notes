@@ -1,7 +1,5 @@
 # Potential ideas
 
-test
-
 Parking lot for follow-ups out of scope for the shipped stack. Organized as **Shipped (reference)**, **Next (pick one cluster → new plan)**, and **Decided / won't do**. When implementing, pull one cluster into a new focused `.cursor/plans/*.plan.md` (do not grow the Telegram master index).
 
 Linked from: [`README.md`](README.md), [`docs/telegram-vault-agent.md`](docs/telegram-vault-agent.md), [`services/telegram/README.md`](services/telegram/README.md).
@@ -12,7 +10,7 @@ Linked from: [`README.md`](README.md), [`docs/telegram-vault-agent.md`](docs/tel
 - **Mock harness (May 2026)** — `dev/mock_telegram_cli.py`, YAML scenarios (echo in CI; opt-in live via `RUN_LIVE_HARNESS=1`); guide [`docs/telegram-mock-harness.md`](docs/telegram-mock-harness.md); archived [`telegram_mock_harness_2296d9fc.plan.md`](.cursor/plans/archive/telegram_mock_harness_2296d9fc.plan.md)
 - **Index / ops (vault backlog)** — nightly cron (`install-cron.sh`), studied-corpus chunk filter, scenario tests, Janitor mode-switched bot
 - **Episode resolution** — `resolve_episode_ref` + `load_episode` fallback ([`archive/fix_bare_episode_refs_4f718a49.plan.md`](.cursor/plans/archive/fix_bare_episode_refs_4f718a49.plan.md)); fuzzy threshold tuning (D7) and other post-ship follow-ups — see Librarian quality below
-- **SP5 — GitHub webhook (May 2026)** — push to `main` → Tailscale Funnel → `github_webhook_server.py` → `sync-and-index.sh`; [`telegram_ops_sync.plan.md`](.cursor/plans/telegram_ops_sync.plan.md), [`laptop_remote_hardening.plan.md`](.cursor/plans/laptop_remote_hardening.plan.md)
+- **SP5 — GitHub webhook (May 2026)** — push to `main` → Tailscale Funnel → `github_webhook_server.py` → `sync-and-index.sh`; production ops [`docs/mac-mini-operator-setup.md`](docs/mac-mini-operator-setup.md); plans [`telegram_ops_sync.plan.md`](.cursor/plans/telegram_ops_sync.plan.md), [`laptop_remote_hardening.plan.md`](.cursor/plans/laptop_remote_hardening.plan.md)
 - **Sync script runtime env (May 2026)** — `ingestion/lib/export_runtime_env.py` so cron/webhook reindex sees `embed_model` from `runtime.json` after slim env
 
 ## Next (pick one cluster → new plan)

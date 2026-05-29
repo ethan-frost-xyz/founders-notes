@@ -16,7 +16,7 @@ todos:
     status: completed
   - id: mac-mini-install
     content: "Operator: Funnel URL, GITHUB_WEBHOOK_SECRET, install-webhook.sh, smoke push to main"
-    status: pending
+    status: completed
 isProject: false
 ---
 
@@ -46,7 +46,7 @@ isProject: false
 4. `services/telegram/deploy/install-webhook.sh`
 5. Merge to `main` → verify `webhook.log`, `sync.log`, `git log -1`
 
-**Fallback:** Telegram `/sync` when Funnel not configured.
+**Fallback:** Telegram `/sync` when webhook or Funnel is down. Production install completed May 2026 — see [`docs/mac-mini-operator-setup.md`](../../docs/mac-mini-operator-setup.md).
 
 ## Out of scope (v1)
 

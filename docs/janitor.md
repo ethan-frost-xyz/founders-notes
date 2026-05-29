@@ -2,7 +2,7 @@
 
 Janitor is a **mode** in the same Telegram bot as the Librarian vault agent. Use it on your phone after listening to an episode: paste rough bullets, get a cleaned preview, then file → expand → promote → reindex so Librarian can cite the episode.
 
-**Runbook (Mac mini install, env, restart):** [`services/telegram/README.md`](../services/telegram/README.md)  
+**Mac mini ops (restart, webhook):** [`mac-mini-operator-setup.md`](mac-mini-operator-setup.md) · **Deploy reference:** [`services/telegram/README.md`](../services/telegram/README.md)  
 **Expand/promote details (CLI):** [`datapoint-workflow.md`](datapoint-workflow.md)  
 **Overview:** [`telegram-vault-agent.md`](telegram-vault-agent.md)
 

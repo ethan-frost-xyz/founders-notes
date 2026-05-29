@@ -4,7 +4,7 @@ overview: Dev-only laptop workflow (pytest + mock harness) plus Mac mini auto-sy
 todos:
   - id: mac-mini-cutover
     content: "Mac mini operator: git pull main, restart bot, /settings shows runtime.json, slim env, smoke /sync"
-    status: pending
+    status: completed
   - id: sync-script-runtime-env
     content: "Fix sync-and-index.sh (+ test): export embed/expand from runtime.json before reindex_vault (cron/webhook path)"
     status: completed
@@ -19,7 +19,7 @@ todos:
     status: completed
   - id: sp5-mac-mini-install
     content: "Operator: Tailscale Funnel URL, GitHub webhook secret, install-webhook.sh, smoke push to main"
-    status: pending
+    status: completed
   - id: sp5-docs
     content: laptop-development.md + manual-operations, telegram README, telegram-vault-agent, potential-ideas Shipped
     status: completed

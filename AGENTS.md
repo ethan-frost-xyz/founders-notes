@@ -10,7 +10,7 @@ Personal knowledge vault: Founders podcast transcripts, study notes, and X posts
 - **Do** help with the current episode: `python notes/scaffold_notes.py --next`, edit `{folder}.notes.md`, then `search/build_chunks.py`.
 - Blocking gaps = transcript/layout only (`pipeline/verify.py` exit 1). Empty scaffolds are normal.
 
-Daily workflow: `[docs/notes-pipeline.md](docs/notes-pipeline.md)`. Operator paths (Telegram vs laptop): `[docs/manual-operations.md](docs/manual-operations.md)`. Laptop dev: `[docs/laptop-development.md](docs/laptop-development.md)`.
+Daily workflow: `[docs/notes-pipeline.md](docs/notes-pipeline.md)`. **Laptop:** `[docs/laptop-development.md](docs/laptop-development.md)`. **Mac mini / Telegram:** `[docs/mac-mini-operator-setup.md](docs/mac-mini-operator-setup.md)`. Matrix: `[docs/manual-operations.md](docs/manual-operations.md)`.
 
 ## Start here
 

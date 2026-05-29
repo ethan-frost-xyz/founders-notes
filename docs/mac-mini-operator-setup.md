@@ -1,222 +1,150 @@
-# Mac mini operator setup
+# Mac mini operator guide
 
-Step-by-step checklist after merging **laptop remote hardening** (SP5 webhook + sync-script runtime env). Run on the **Mac mini** unless noted.
+**Status (May 2026):** Production stack is live on **Ethans-Mac-mini** — launchd bot + webhook, Tailscale Funnel, GitHub push → `sync-and-index.sh`, `runtime.json` models, git over **SSH**.
 
-**Prerequisites:** `founders-notes` clone, `ingestion/.venv`, `~/.config/founders-telegram/env` with secrets, bot already working via launchd.
-
-## Quick reference (this machine)
-
-Repo on disk:
-
-```text
-/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes
-```
-
-`VAULT_ROOT` in `~/.config/founders-telegram/env` should match that path. Deploy scripts read it after:
-
-```bash
-set -a && source ~/.config/founders-telegram/env && set +a
-```
-
-Then `$VAULT_ROOT/...` is just shorthand for the repo root — not a separate “vault” install.
+This doc is the **day-to-day and recovery** guide. First-time install steps are in [Initial setup (reference)](#initial-setup-reference) below.
 
 ---
 
-## Part A — Runtime cutover (if not done after PR #12)
+## Where each thing happens
 
-Do this before relying on cron/webhook for embeddings.
+| Task | Where |
+|------|--------|
+| Edit code / notes, PR, merge to `main` | **Laptop** (Cursor) |
+| Auto `git pull` + reindex after merge | **Mac mini** (webhook) — wait ~2–5 min |
+| Janitor, Librarian, `/sync`, `/settings` | **Phone** (Telegram) |
+| Webhook URL, secret, delivery status | **GitHub** → repo → Settings → Webhooks |
+| Bot + webhook processes, Funnel, logs | **Mac mini** (Terminal) |
+| Model slugs (primary) | **Mac mini** file `~/.config/founders-telegram/runtime.json` (or `/setmodel` on phone) |
+| Secrets (token, API key, repo path) | **Mac mini** file `~/.config/founders-telegram/env` — **not in git** |
 
-### A1. Pull latest `main`
-
-```bash
-cd "$VAULT_ROOT"   # e.g. ~/founders-notes
-git fetch origin
-git checkout main
-git pull --ff-only origin main
-```
-
-Confirm the log mentions runtime-config / laptop-remote-hardening merge.
-
-### A2. Restart the Telegram bot
-
-```bash
-"$VAULT_ROOT/services/telegram/deploy/restart-bot.sh"
-# or:
-launchctl kickstart -k "gui/$(id -u)/com.founders.telegram.bot"
-```
-
-Check logs if it does not come back:
-
-```bash
-tail -30 ~/Library/Logs/founders-telegram/bot.stderr.log
-```
-
-### A3. Verify `/settings` on Telegram
-
-On your phone (allowlisted account), send **`/settings`**.
-
-You should see model lines with source **`runtime.json`** (not only `env …`). Example:
-
-```text
-embed_model: qwen/... (runtime.json)
-librarian_model: ... (runtime.json)
-```
-
-If models still show only `env TELEGRAM_CHAT_MODEL`, send one `/setmodel` or restart again after confirming `~/.config/founders-telegram/runtime.json` exists.
-
-### A4. Slim `~/.config/founders-telegram/env`
-
-Edit env so it keeps **secrets and paths only**:
-
-| Keep | Remove (after runtime.json has values) |
-|------|----------------------------------------|
-| `VAULT_ROOT` | `TELEGRAM_CHAT_MODEL` |
-| `TELEGRAM_BOT_TOKEN` | `JANITOR_CLEAN_MODEL` |
-| `TELEGRAM_ALLOWED_USER_IDS` | `OPENROUTER_MODEL` |
-| `OPENROUTER_API_KEY` | `OPENROUTER_EMBED_MODEL` |
-| | `TELEGRAM_MAX_STEPS` |
-
-Template: [`services/telegram/deploy/env.example`](../services/telegram/deploy/env.example).
-
-Restart bot after editing env.
-
-### A5. Smoke `/sync`
-
-When the bot is **idle** (no Janitor draft, no active Librarian turn):
-
-1. Send **`/sync`** on Telegram.
-2. Wait for success (pull + reindex).
-3. Send **`/sync`** again immediately — second message should say another op is already running **or** complete quickly if the first finished.
-
-### A6. Confirm nightly cron (optional)
-
-```bash
-"$VAULT_ROOT/services/telegram/deploy/install-cron.sh" --print
-crontab -l | grep founders-telegram
-```
-
-You should see `0 4 * * *` and `sync-and-index.sh`.
-
-### A7. Smoke `sync-and-index.sh` with slim env
-
-With model slugs **removed** from env (only in `runtime.json`):
-
-```bash
-set -a && source ~/.config/founders-telegram/env && set +a
-"$VAULT_ROOT/services/telegram/deploy/sync-and-index.sh"
-```
-
-Must complete without `OPENROUTER_EMBED_MODEL` missing errors.
-
-**Part A done when:** `/settings` shows runtime sources; manual script and `/sync` both finish reindex.
+**Do not** run `python -m bot` on the **laptop** with the production token while the Mac mini bot is running (Telegram **409 Conflict**).
 
 ---
 
-## Part B — GitHub webhook (SP5)
+## Paths on this Mac mini
 
-GitHub cannot reach a private Tailscale IP. Use **Tailscale Funnel** → localhost webhook listener.
+| What | Path |
+|------|------|
+| Repo (git checkout) | `/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes` |
+| Telegram secrets env | `~/.config/founders-telegram/env` |
+| Models + `max_steps` | `~/.config/founders-telegram/runtime.json` |
+| Bot logs | `~/Library/Logs/founders-telegram/bot.stdout.log`, `bot.stderr.log` |
+| Webhook + sync logs | `~/Library/Logs/founders-telegram/webhook.log`, `sync.log` |
+| Git remote | `git@github.com:ethan-frost-xyz/founders-notes.git` (SSH) |
 
-### B1. Generate webhook secret
-
-On the Mac mini:
-
-```bash
-openssl rand -hex 32
-```
-
-Add to `~/.config/founders-telegram/env`:
-
-```bash
-GITHUB_WEBHOOK_SECRET=<paste-hex-here>
-# optional (defaults shown):
-# GITHUB_WEBHOOK_PORT=9876
-# GITHUB_WEBHOOK_HOST=127.0.0.1
-```
-
-```bash
-chmod 600 ~/.config/founders-telegram/env
-```
-
-### B2. Enable Tailscale Funnel
-
-```bash
-# Default listener port must match GITHUB_WEBHOOK_PORT (9876)
-tailscale funnel --bg http://127.0.0.1:9876
-tailscale funnel status
-```
-
-Note the **HTTPS URL** (e.g. `https://something.ts.net`). Webhook path is **`/github`** → full URL:
-
-```text
-https://<your-funnel-host>/github
-```
-
-To disable later: `tailscale funnel off`.
-
-### B3. Install webhook launchd job
-
-```bash
-set -a && source ~/.config/founders-telegram/env && set +a
-chmod +x "$VAULT_ROOT/services/telegram/deploy/install-webhook.sh"
-"$VAULT_ROOT/services/telegram/deploy/install-webhook.sh"
-```
-
-Verify:
-
-```bash
-launchctl print "gui/$(id -u)/com.founders.telegram.webhook" | head -20
-tail -5 ~/Library/Logs/founders-telegram/webhook.log
-```
-
-### B4. Configure GitHub repository webhook
-
-In GitHub: **Repository → Settings → Webhooks → Add webhook**
-
-| Field | Value |
-|-------|--------|
-| Payload URL | `https://<funnel-host>/github` |
-| Content type | `application/json` |
-| Secret | Same as `GITHUB_WEBHOOK_SECRET` |
-| SSL verification | Enable |
-| Events | **Just the push event** |
-
-Save. GitHub sends a **ping** — check `webhook.log` for activity.
-
-### B5. End-to-end smoke test
-
-1. On laptop: merge a trivial change to **`main`** (or empty commit on `main`).
-2. On Mac mini within ~10 minutes:
-
-```bash
-tail -30 ~/Library/Logs/founders-telegram/webhook.log
-tail -30 ~/Library/Logs/founders-telegram/sync.log
-cd "$VAULT_ROOT" && git log -1 --oneline
-```
-
-3. `HEAD` on mini should match GitHub `main`.
-
-### B6. Concurrency check (optional)
-
-While `sync-and-index.sh` is running (watch `sync.log`), push again or run script manually — second run should log **skipped (another sync in progress)** and exit 0.
-
-**Part B done when:** push to `main` updates Mac mini without SSH or `/sync`.
+`VAULT_ROOT` in env is set to the repo path above. Deploy scripts use it after `source ~/.config/founders-telegram/env`.
 
 ---
 
-## Fallback
+## Normal workflow (nothing to “start” daily)
 
-Until Part B works: after every merge to `main`, send Telegram **`/sync`** when the bot is idle.
+1. **Laptop:** branch → `pytest tests -q` → PR → merge **`main`**.
+2. **Mac mini:** webhook pulls and reindexes automatically.
+3. **Phone:** `/janitor` for daily notes; Librarian when you want Q&A.
+
+**Fallback** if webhook fails: Telegram **`/sync`** when the bot is idle.
+
+Laptop dev details: [laptop-development.md](laptop-development.md).
 
 ---
 
-## Laptop side (reference)
+## Mac mini — status & restart (paste in Terminal)
 
-No Mac mini steps. See [laptop-development.md](laptop-development.md): branch → `pytest tests -q` → PR → merge.
+Use on **Ethans-Mac-mini** only. Restarts bot + webhook; does not start a second terminal poller.
+
+```bash
+REPO="/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes"
+ENV="$HOME/.config/founders-telegram/env"
+GUI="gui/$(id -u)"
+
+set -a && source "$ENV" && set +a
+
+echo "=== launchd ==="
+launchctl print "$GUI/com.founders.telegram.bot" 2>/dev/null | grep "state =" || echo "BOT: not loaded"
+launchctl print "$GUI/com.founders.telegram.webhook" 2>/dev/null | grep "state =" || echo "WEBHOOK: not loaded"
+tailscale funnel status 2>/dev/null | head -6 || echo "(install tailscale CLI if missing)"
+
+echo "=== restart ==="
+"$REPO/services/telegram/deploy/restart-bot.sh"
+launchctl kickstart -k "$GUI/com.founders.telegram.webhook"
+
+sleep 2
+echo "=== logs ==="
+tail -8 "$HOME/Library/Logs/founders-telegram/bot.stderr.log" 2>/dev/null
+tail -5 "$HOME/Library/Logs/founders-telegram/webhook.log" 2>/dev/null
+```
+
+Expect both jobs `state = running`. `launchctl kickstart` prints nothing on success.
+
+---
+
+## Verify GitHub webhook (browser)
+
+1. https://github.com/ethan-frost-xyz/founders-notes/settings/hooks  
+2. Open the webhook (`…ts.net/github`).  
+3. **Recent Deliveries** → latest **ping** should be **200**; **push** to `main` should be **202**.
+
+Ping **401** → secret in GitHub does not match `GITHUB_WEBHOOK_SECRET` in `~/.config/founders-telegram/env`; fix, then `launchctl kickstart -k gui/$(id -u)/com.founders.telegram.webhook`.
+
+---
+
+## Bad merge on `main`
+
+Restart alone does **not** fix broken code on disk.
+
+1. **Laptop:** revert PR or merge a fix to `main` on GitHub.  
+2. **Mac mini:** webhook pulls the fix (or send **`/sync`** on Telegram).  
+3. **Mac mini:** run the [restart block](#mac-mini--status--restart-paste-in-terminal) if the bot still crashes.
+
+You do **not** need a second bot on the laptop to recover.
+
+---
+
+## Troubleshooting
+
+| Symptom | Where | Fix |
+|---------|--------|-----|
+| Merge didn’t update mini | GitHub → Webhooks deliveries | Ping must be 200; push 202; then check `sync.log` on mini |
+| `could not read Username` in `sync.log` | Mac mini | `git remote` must be SSH; `ssh -T git@github.com` → `Hi ethan-frost-xyz!` |
+| `409 Conflict` in Telegram | Mac mini | Only one poller: `stop-bot.sh` before any terminal `python -m bot` |
+| Bot down after reboot | Mac mini | Run restart block above; launchd usually auto-starts at login |
+| Funnel / webhook dead | Mac mini | `tailscale funnel --bg http://127.0.0.1:9876` |
+| Wrong models | Phone | `/settings`; `/setmodel`; or edit `runtime.json` + restart bot |
+| Stale Librarian answers | Phone | `/sync` when idle after content merge |
+
+Deploy reference: [services/telegram/README.md](../services/telegram/README.md).
+
+---
+
+## Initial setup (reference)
+
+Use when rebuilding a new Mac mini or after a clean OS install.
+
+### A — Runtime + git (Mac mini)
+
+1. Clone repo; `python3 -m venv ingestion/.venv`; install requirements (see [telegram README](../services/telegram/README.md)).  
+2. Copy `services/telegram/deploy/env.example` → `~/.config/founders-telegram/env`; set `VAULT_ROOT`, token, allowlist, API key.  
+3. `git remote set-url origin git@github.com:ethan-frost-xyz/founders-notes.git`; add SSH key to GitHub; `git pull --ff-only`.  
+4. Install bot launchd (SP4); set models via `/setmodel` or `runtime.json`; **remove model lines from env**.  
+5. `install-cron.sh` (optional nightly 4:00).  
+6. Smoke: `sync-and-index.sh` and Telegram `/sync`.
+
+### B — Webhook (Mac mini + GitHub)
+
+1. `GITHUB_WEBHOOK_SECRET` in env (`openssl rand -hex 32`).  
+2. `tailscale funnel --bg http://127.0.0.1:9876` → note HTTPS host.  
+3. `install-webhook.sh`.  
+4. GitHub webhook: `https://<funnel-host>/github`, same secret, push events only.  
+5. Redeliver ping → 200; merge to `main` → check `sync.log`.
+
+Plans: [telegram_ops_sync.plan.md](../.cursor/plans/telegram_ops_sync.plan.md), [laptop_remote_hardening.plan.md](../.cursor/plans/laptop_remote_hardening.plan.md).
 
 ---
 
 ## Related
 
-- [services/telegram/README.md](../services/telegram/README.md) — deploy reference
-- [manual-operations.md](manual-operations.md) — when to refresh index
-- [`.cursor/plans/laptop_remote_hardening.plan.md`](../.cursor/plans/laptop_remote_hardening.plan.md) — architecture
+- [laptop-development.md](laptop-development.md) — laptop-only dev loop  
+- [manual-operations.md](manual-operations.md) — index refresh matrix  
+- [janitor.md](janitor.md) — daily notes on Telegram  
+- [telegram-vault-agent.md](telegram-vault-agent.md) — architecture overview  

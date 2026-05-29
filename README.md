@@ -2,7 +2,7 @@
 
 Personal knowledge vault for [@ethanfrost](https://x.com/ethanfrost)'s daily Founders podcast ritual — transcripts, study notes, and X posts in one queryable archive.
 
-## Status (2026-05-27)
+## Status (2026-05-29)
 
 | Layer | Coverage | Notes |
 |-------|----------|--------|
@@ -10,7 +10,7 @@ Personal knowledge vault for [@ethanfrost](https://x.com/ethanfrost)'s daily Fou
 | **Notes** | 417 files / 177 datapoints | **In progress (daily):** edit `.notes.md` in git (~1 episode/day); empty scaffolds = not listened yet |
 | **X posts** | 187 / 417 | CSV cache + organizer; 2 documented gaps (ep-0159 skipped, ep-0189 not posted) |
 | **Search** | v1 | `catalog/chunks.jsonl` + `ingestion/search/search.py` |
-| **Telegram** | Shipped | Librarian (vault Q&A) + Janitor (daily notes ingest) on Mac mini — see below |
+| **Telegram** | Shipped | Librarian + Janitor on Mac mini; push-to-`main` webhook sync — see below |
 
 Details: `catalog/gaps.md` (auto), `catalog/import-review.md` (manual attributions).
 
@@ -21,9 +21,10 @@ Private **Telegram bot** on an always-on Mac mini (polling): **Librarian** for s
 | Doc | Role |
 |-----|------|
 | [`docs/telegram-vault-agent.md`](docs/telegram-vault-agent.md) | Overview for agents |
-| [`docs/laptop-development.md`](docs/laptop-development.md) | Laptop clone, pytest, merge → webhook |
+| [`docs/laptop-development.md`](docs/laptop-development.md) | Laptop: pytest, PR, merge → auto-sync |
+| [`docs/mac-mini-operator-setup.md`](docs/mac-mini-operator-setup.md) | Mac mini: daily ops, restart, webhook |
 | [`docs/janitor.md`](docs/janitor.md) | Janitor workflow (daily ritual) |
-| [`services/telegram/README.md`](services/telegram/README.md) | Mac mini runbook, env, deploy |
+| [`services/telegram/README.md`](services/telegram/README.md) | Deploy reference (install, env, commands) |
 | [`docs/vault-agent-v0-checklist.md`](docs/vault-agent-v0-checklist.md) | v0 verification checklist |
 | [`potential-ideas.md`](potential-ideas.md) | Deferred features and follow-ups |
 

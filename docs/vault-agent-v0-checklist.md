@@ -46,12 +46,15 @@ Guide: [telegram-mock-harness.md](telegram-mock-harness.md). **Retrieval JSONL**
 
 ## Mac mini (operator)
 
+Production host runbook: [mac-mini-operator-setup.md](mac-mini-operator-setup.md) (status, restart, webhook verification).
+
 | Step | Command |
 |------|---------|
-| Nightly index | `chmod +x services/telegram/deploy/install-cron.sh && services/telegram/deploy/install-cron.sh` |
-| Review cron line only | `services/telegram/deploy/install-cron.sh --print` |
-| Manual sync | Telegram `/sync` when idle, or `services/telegram/deploy/sync-and-index.sh` |
-| Bot reload after pull | `launchctl kickstart -k gui/$(id -u)/com.founders.telegram.bot` |
+| Auto sync after merge to `main` | GitHub webhook → `sync-and-index.sh` (verify ping **200** in repo Settings → Webhooks) |
+| Nightly index | `install-cron.sh` (optional; production host has this) |
+| Manual sync fallback | Telegram `/sync` when idle, or `sync-and-index.sh` |
+| Restart bot + webhook | See [restart block](mac-mini-operator-setup.md#mac-mini--status--restart-paste-in-terminal) |
+| Git pull for scripts | Remote must be SSH: `git@github.com:ethan-frost-xyz/founders-notes.git` |
 
 ## Manual smoke (Telegram)
 

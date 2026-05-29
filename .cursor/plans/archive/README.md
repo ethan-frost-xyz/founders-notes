@@ -5,7 +5,7 @@ Completed or superseded implementation plans moved out of [`.cursor/plans/`](../
 **Active plan (parent directory):**
 
 - [`telegram_rag_bot_v0.plan.md`](../telegram_rag_bot_v0.plan.md) — Telegram vault agent master index (SP1–SP5 + Janitor shipped; SP6-lite in [`potential-ideas.md`](../../../potential-ideas.md) § Shipped)
-- [`laptop_remote_hardening.plan.md`](../laptop_remote_hardening.plan.md) — laptop dev + SP5 webhook (code shipped; Mac mini operator steps pending)
+- [`laptop_remote_hardening.plan.md`](../laptop_remote_hardening.plan.md) — laptop dev + SP5 webhook (shipped; ops: [`docs/mac-mini-operator-setup.md`](../../../docs/mac-mini-operator-setup.md))
 - [`telegram_ops_sync.plan.md`](../telegram_ops_sync.plan.md) — SP5 webhook contracts
 
 **Deferred backlog (not a plan):** [`potential-ideas.md`](../../../potential-ideas.md) — **Shipped / Next / Decided** sections.
