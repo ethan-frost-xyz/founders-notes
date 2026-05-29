@@ -61,6 +61,23 @@ def settings_keyboard() -> InlineKeyboardMarkup:
             [
                 InlineKeyboardButton("max_steps", callback_data="set:steps"),
             ],
+            [InlineKeyboardButton("Ops", callback_data="set:ops")],
+        ]
+    )
+
+
+def _ops_keyboard() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("Sync", callback_data="set:op:sync"),
+                InlineKeyboardButton("Pull", callback_data="set:op:pull"),
+            ],
+            [
+                InlineKeyboardButton("Reindex", callback_data="set:op:reindex"),
+                InlineKeyboardButton("Restart", callback_data="set:op:restart"),
+            ],
+            [InlineKeyboardButton("← Back", callback_data="set:menu")],
         ]
     )
 
@@ -145,6 +162,48 @@ async def on_settings_callback(update: Update, context: ContextTypes.DEFAULT_TYP
         text = format_settings_summary(bot_cfg.agent, bot_cfg)
         text += "\n\nTap a role below to change its model."
         await query.edit_message_text(text, reply_markup=settings_keyboard())
+        return
+
+    if data == "set:ops":
+        await query.edit_message_text("Vault ops:", reply_markup=_ops_keyboard())
+        return
+
+    if data.startswith("set:op:"):
+        from ops_runner import run_git_pull, run_reindex_op, run_sync
+        from ops_telegram import run_ops_job_edit, run_ops_restart
+
+        vault_root = bot_cfg.agent.vault_root
+        op = data.split(":", 2)[2]
+        msg = query.message
+        if msg is None:
+            return
+        if op == "restart":
+            await run_ops_restart(msg)
+            return
+        ops_map = {
+            "sync": (
+                "sync (pull + reindex)",
+                run_sync,
+                "Sync running… (may take a few minutes)",
+            ),
+            "pull": ("git pull", run_git_pull, "Pull running…"),
+            "reindex": (
+                "reindex",
+                run_reindex_op,
+                "Reindex running… (may take a few minutes)",
+            ),
+        }
+        if op not in ops_map:
+            return
+        label, fn, running = ops_map[op]
+        await run_ops_job_edit(
+            msg,
+            context.application.bot_data,
+            vault_root,
+            label=label,
+            fn=fn,
+            running_text=running,
+        )
         return
 
     if data == "set:steps":

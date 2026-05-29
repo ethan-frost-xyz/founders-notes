@@ -73,7 +73,13 @@ def resolve_catalog_row(vault_root: Path, episode_id: str) -> dict[str, Any]:
     return _resolve(load_catalog(), episode_id)
 
 
-def file_notes(vault_root: Path, row: dict[str, Any], cleaned_body: str) -> Path:
+def file_notes(
+    vault_root: Path,
+    row: dict[str, Any],
+    cleaned_body: str,
+    *,
+    replace: bool = False,
+) -> Path:
     _ingestion_paths(vault_root)
     from janitor_notes import merge_notes_body
     from markdown_io import read_markdown_body, write_notes_md
@@ -83,7 +89,9 @@ def file_notes(vault_root: Path, row: dict[str, Any], cleaned_body: str) -> Path
     slug = row["slug"]
     num = row.get("episode_number")
     npath = vault_paths.notes_file_path(ep_id, slug, num)
-    if npath.is_file():
+    if replace:
+        body = cleaned_body
+    elif npath.is_file():
         existing = read_markdown_body(npath)
         body = merge_notes_body(existing, cleaned_body)
     else:

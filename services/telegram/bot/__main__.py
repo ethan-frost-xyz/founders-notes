@@ -71,23 +71,13 @@ async def _register_bot_commands(application) -> None:
 
     await application.bot.set_my_commands(
         [
-            BotCommand("start", "Help and vault stats"),
-            BotCommand("janitor", "Notes ritual: file → expand → promote"),
-            BotCommand("librarian", "Exit Janitor to Q&A"),
-            BotCommand("cancel", "Cancel Janitor workflow"),
-            BotCommand("clear", "Clear in-memory chat thread"),
-            BotCommand("newchat", "Export session and reset"),
-            BotCommand("resume", "Resume exported session"),
-            BotCommand("web", "One turn with web search enabled"),
-            BotCommand("settings", "Models, max_steps, runtime path"),
-            BotCommand("setmodel", "Set model: librarian|janitor|expand|embed"),
-            BotCommand("resetmodel", "Clear runtime model override"),
-            BotCommand("setsteps", "Set max tool steps (1–20)"),
-            BotCommand("resetsteps", "Clear runtime max_steps only"),
-            BotCommand("pull", "Git pull vault repo"),
-            BotCommand("reindex", "Rebuild chunks + embeddings"),
+            BotCommand("start", "Vault stats"),
+            BotCommand("janitor", "Notes ritual"),
+            BotCommand("web", "Web search (add query)"),
+            BotCommand("settings", "Models, steps, ops"),
             BotCommand("sync", "Pull + reindex"),
-            BotCommand("restart", "Restart bot process (launchd)"),
+            BotCommand("newchat", "Export session, reset"),
+            BotCommand("restart", "Restart bot"),
         ]
     )
 

@@ -19,45 +19,26 @@ from agent import VaultAgent
 from messaging import reply_text_chunked
 
 
-HELP_TEXT = """Founders vault agent
-
-Ask a question in study-notes voice with [ep-NNNN] citations.
-
-Commands:
-/start — this help + vault stats
-/janitor — daily notes ritual (file → expand → promote)
-/librarian — exit Janitor back to Q&A
-/cancel — cancel Janitor workflow
-/clear — wipe the in-memory thread
-/newchat — export thread to catalog/telegram-sessions/ and start fresh
-/resume — load the most recent exported session
-/resume <name> — load a session by filename fragment
-/web <query> — one turn with web search enabled (vault still preferred)
-/settings — models + tap-to-change buttons (or /setmodel to type)
-/setmodel <role> <slug> — optional typed override
-/resetmodel <role> — drop one model override
-/setsteps <n> — max tool steps (1–20)
-/resetsteps — clear runtime max_steps only
-/pull — git pull --ff-only on the vault
-/reindex — rebuild chunks + embeddings (run when idle)
-/sync — pull then reindex
-/restart — restart bot (launchd)
-
-Normal messages use Librarian Q&A. In Janitor mode, messages follow the notes workflow."""
-
-
 def vault_stats_text(vault_root: Path) -> str:
-    catalog_path = vault_root / "catalog" / "episodes.jsonl"
+    from _bootstrap import setup_ingestion_paths
+
+    setup_ingestion_paths(vault_root)
+    from catalog import load_catalog
+    from gaps_report import count_phase2_coverage
+
     chunks_path = vault_root / "catalog" / "chunks.jsonl"
-    episodes = 0
-    if catalog_path.is_file():
-        with catalog_path.open(encoding="utf-8") as f:
-            episodes = sum(1 for line in f if line.strip())
+    rows = load_catalog()
+    episodes = len(rows)
+    _, studied, _, _, _, _, _ = count_phase2_coverage(rows)
     indexed = "unknown"
     if chunks_path.is_file():
         mtime = datetime.fromtimestamp(chunks_path.stat().st_mtime, tz=timezone.utc)
         indexed = mtime.strftime("%Y-%m-%d %H:%M UTC")
-    return f"Episodes in catalog: {episodes}\nChunks index updated: {indexed}"
+    return (
+        f"Episodes in catalog: {episodes}\n"
+        f"Studied (timestamp bullets): {studied}\n"
+        f"Chunks index updated: {indexed}"
+    )
 
 
 def parse_web_query(text: str) -> str | None:
@@ -102,8 +83,9 @@ def _reload_bot_config(context: ContextTypes.DEFAULT_TYPE) -> tuple[BotConfig, V
 async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if await _reject_unauthorized(update, _config(context)):
         return
-    stats = vault_stats_text(_config(context).agent.vault_root)
-    await reply_text_chunked(update.message, f"{HELP_TEXT}\n\n{stats}")
+    await reply_text_chunked(
+        update.message, vault_stats_text(_config(context).agent.vault_root)
+    )
 
 
 async def cmd_clear(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -246,62 +228,52 @@ async def cmd_resetmodel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     )
 
 
-_OPS_WARN = (
-    "Avoid during active Librarian/Janitor turns. Reindex can take several minutes."
-)
-
-
-async def _run_ops_command(
-    update: Update,
-    context: ContextTypes.DEFAULT_TYPE,
-    *,
-    label: str,
-    fn,
-) -> None:
-    from ops_runner import (
-        ops_lock_held,
-        release_ops_lock,
-        try_acquire_ops_lock,
-    )
-
-    if ops_lock_held(context.application.bot_data):
-        await update.message.reply_text("Another op is already running. Try again later.")
-        return
-    if not try_acquire_ops_lock(context.application.bot_data):
-        await update.message.reply_text("Another op is already running. Try again later.")
-        return
-    vault_root = _config(context).agent.vault_root
-    await update.message.reply_text(f"{label} started.\n{_OPS_WARN}")
-    try:
-        code, msg = await asyncio.to_thread(fn, vault_root)
-    finally:
-        release_ops_lock(context.application.bot_data)
-    prefix = "Done" if code == 0 else f"Failed (exit {code})"
-    await reply_text_chunked(update.message, f"{prefix}: {label}\n{msg}")
-
-
 async def cmd_pull(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if await _reject_unauthorized(update, _config(context)):
         return
     from ops_runner import run_git_pull
+    from ops_telegram import run_ops_job
 
-    await _run_ops_command(update, context, label="git pull", fn=run_git_pull)
+    await run_ops_job(
+        update.message,
+        context.application.bot_data,
+        _config(context).agent.vault_root,
+        label="git pull",
+        fn=run_git_pull,
+        started="Pull started.",
+    )
 
 
 async def cmd_reindex(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if await _reject_unauthorized(update, _config(context)):
         return
     from ops_runner import run_reindex_op
+    from ops_telegram import run_ops_job
 
-    await _run_ops_command(update, context, label="reindex", fn=run_reindex_op)
+    await run_ops_job(
+        update.message,
+        context.application.bot_data,
+        _config(context).agent.vault_root,
+        label="reindex",
+        fn=run_reindex_op,
+        started="Reindex started.",
+    )
 
 
 async def cmd_sync(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if await _reject_unauthorized(update, _config(context)):
         return
     from ops_runner import run_sync
+    from ops_telegram import run_ops_job
 
-    await _run_ops_command(update, context, label="sync (pull + reindex)", fn=run_sync)
+    await run_ops_job(
+        update.message,
+        context.application.bot_data,
+        _config(context).agent.vault_root,
+        label="sync (pull + reindex)",
+        fn=run_sync,
+        started="Sync started.",
+    )
 
 
 async def cmd_restart(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

@@ -33,16 +33,19 @@ Product is a **tool-calling vault agent**, not naive single-shot RAG.
 
 ## Sessions and index
 
+**BotFather menu (7 commands):** `/start`, `/janitor`, `/web`, `/settings`, `/sync`, `/newchat`, `/restart`. Power-user commands below still work when typed; they are omitted from the menu on purpose.
+
 | Command | Behavior |
 |---------|----------|
+| `/start` | Catalog episode count, studied count (timestamp bullets), chunks index mtime |
 | `/clear` | Wipe in-memory thread |
 | `/newchat` | Export → `catalog/telegram-sessions/*.jsonl` (gitignored); reset |
 | `/resume` | Reload exported session |
 | `/web <query>` | One turn with `allow_web=true` |
 | `/janitor` | Enter Janitor — paste bullets → clean → expand → promote |
 | `/librarian` | Exit Janitor back to Q&A |
-| `/cancel` | Cancel Janitor workflow |
-| `/settings` | Models, max_steps, runtime file path |
+| `/cancel` | Exit Janitor (alias; same as **Exit Janitor** button) |
+| `/settings` | Models, max_steps, **Ops** panel (sync / pull / reindex / restart) |
 | `/setmodel` / `/resetmodel` | Per-role model overrides (`runtime.json`) |
 | `/setsteps` / `/resetsteps` | Librarian tool-step limit |
 | `/pull` | `git pull --ff-only` |

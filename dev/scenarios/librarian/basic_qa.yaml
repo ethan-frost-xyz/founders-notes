@@ -3,7 +3,7 @@ llm: live
 turns:
   - send: "/start"
     expect:
-      contains: "Founders vault agent"
+      contains: "Episodes in catalog"
   - send: "What was Carnegie's key insight about steel?"
     expect:
       response_min_length: 20

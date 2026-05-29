@@ -12,6 +12,7 @@ Linked from: [`README.md`](README.md), [`docs/telegram-vault-agent.md`](docs/tel
 - **Episode resolution** — `resolve_episode_ref` + `load_episode` fallback ([`archive/fix_bare_episode_refs_4f718a49.plan.md`](.cursor/plans/archive/fix_bare_episode_refs_4f718a49.plan.md)); fuzzy threshold tuning (D7) and other post-ship follow-ups — see Librarian quality below
 - **SP5 — GitHub webhook (May 2026)** — push to `main` → Tailscale Funnel → `github_webhook_server.py` → `sync-and-index.sh`; production ops [`docs/mac-mini-operator-setup.md`](docs/mac-mini-operator-setup.md); plans [`telegram_ops_sync.plan.md`](.cursor/plans/telegram_ops_sync.plan.md), [`laptop_remote_hardening.plan.md`](.cursor/plans/laptop_remote_hardening.plan.md)
 - **Sync script runtime env (May 2026)** — `ingestion/lib/export_runtime_env.py` so cron/webhook reindex sees `embed_model` from `runtime.json` after slim env
+- **Telegram UI overhaul (May 2026)** — curated 7-command BotFather menu; stats-only `/start` with studied count; Janitor **Exit Janitor** + overwrite confirm (`replace=True`); Ops panel under `/settings`; quieter ops/clean status — [`.cursor/plans/telegram_ui_overhaul_f4fdffef.plan.md`](.cursor/plans/telegram_ui_overhaul_f4fdffef.plan.md)
 
 ## Next (pick one cluster → new plan)
 
@@ -40,10 +41,9 @@ Suggested plan filenames below — create the file under `.cursor/plans/` when y
 
 - **Streaming clean preview** — stream partial LLM output to Telegram during clean for perceived speed on long pastes.
 - **Edit catalog title in frontmatter** — optional LLM pass to fix episode title in notes frontmatter (today title comes from catalog only; clean pass scrubs hook text).
-- **Write audit log** — confirm destructive overwrites when re-filing notes.
 - **Janitor on episodes without transcript** — `transcript_status != complete` (expand may fail).
 - **Janitor separate process** — same bot (mode switch) vs second bot for multi-user (deferred).
-- **BotFather persistent menu button** — optional; `/janitor` is in `setMyCommands` on bot start.
+- **BotFather persistent menu button** — optional reply-keyboard shortcut; `/janitor` remains in the slim `setMyCommands` menu.
 
 ### Ingestion — `expand_parallel_workers.plan.md`
 
