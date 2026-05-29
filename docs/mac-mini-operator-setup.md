@@ -47,6 +47,8 @@ This doc is the **day-to-day and recovery** guide. First-time install steps are 
 
 Laptop dev details: [laptop-development.md](laptop-development.md).
 
+**Bot/code changes after a merge:** webhook updates files only — you must **`/restart`** (or the restart block below) before testing new Python. Full loop: [remote-product-workflow.md](remote-product-workflow.md).
+
 ---
 
 ## Mac mini — status & restart (paste in Terminal)
@@ -144,6 +146,7 @@ Plans: [telegram_ops_sync.plan.md](../.cursor/plans/telegram_ops_sync.plan.md), 
 
 ## Related
 
+- [remote-product-workflow.md](remote-product-workflow.md) — remote product work end-to-end  
 - [laptop-development.md](laptop-development.md) — laptop-only dev loop  
 - [manual-operations.md](manual-operations.md) — index refresh matrix  
 - [janitor.md](janitor.md) — daily notes on Telegram  
