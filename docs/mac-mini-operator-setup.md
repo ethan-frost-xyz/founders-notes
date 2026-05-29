@@ -4,6 +4,22 @@ Step-by-step checklist after merging **laptop remote hardening** (SP5 webhook + 
 
 **Prerequisites:** `founders-notes` clone, `ingestion/.venv`, `~/.config/founders-telegram/env` with secrets, bot already working via launchd.
 
+## Quick reference (this machine)
+
+Repo on disk:
+
+```text
+/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes
+```
+
+`VAULT_ROOT` in `~/.config/founders-telegram/env` should match that path. Deploy scripts read it after:
+
+```bash
+set -a && source ~/.config/founders-telegram/env && set +a
+```
+
+Then `$VAULT_ROOT/...` is just shorthand for the repo root — not a separate “vault” install.
+
 ---
 
 ## Part A — Runtime cutover (if not done after PR #12)

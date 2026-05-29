@@ -54,6 +54,7 @@ from janitor_handlers import (  # noqa: E402
     cmd_librarian,
     on_janitor_callback,
 )
+from settings_handlers import on_settings_callback  # noqa: E402
 from janitor_store import JanitorStore  # noqa: E402
 from poll_lock import acquire_polling_lock  # noqa: E402
 from sessions import SessionStore  # noqa: E402
@@ -127,6 +128,7 @@ def build_application():
     app.add_handler(CommandHandler("reindex", cmd_reindex))
     app.add_handler(CommandHandler("sync", cmd_sync))
     app.add_handler(CommandHandler("restart", cmd_restart))
+    app.add_handler(CallbackQueryHandler(on_settings_callback, pattern=r"^set:"))
     app.add_handler(CallbackQueryHandler(on_janitor_callback, pattern=r"^janitor:"))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, on_text))
 

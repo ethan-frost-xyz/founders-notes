@@ -33,8 +33,8 @@ Commands:
 /resume — load the most recent exported session
 /resume <name> — load a session by filename fragment
 /web <query> — one turn with web search enabled (vault still preferred)
-/settings — models, max_steps, runtime file path
-/setmodel <role> <slug> — librarian | janitor | expand | embed
+/settings — models + tap-to-change buttons (or /setmodel to type)
+/setmodel <role> <slug> — optional typed override
 /resetmodel <role> — drop one model override
 /setsteps <n> — max tool steps (1–20)
 /resetsteps — clear runtime max_steps only
@@ -150,10 +150,9 @@ async def cmd_web(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 async def cmd_settings(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if await _reject_unauthorized(update, _config(context)):
         return
-    from runtime_settings import format_settings_summary
+    from settings_handlers import send_settings_panel
 
-    bot_cfg = _config(context)
-    await reply_text_chunked(update.message, format_settings_summary(bot_cfg.agent, bot_cfg))
+    await send_settings_panel(update, context)
 
 
 async def cmd_setsteps(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -323,6 +322,10 @@ async def on_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if await _reject_unauthorized(update, _config(context)):
         return
     if not update.message or not update.message.text:
+        return
+    from settings_handlers import try_handle_awaiting_model_slug
+
+    if await try_handle_awaiting_model_slug(update, context):
         return
     janitor = context.application.bot_data.get("janitor")
     if janitor is not None and janitor.is_active(update.effective_user.id):
