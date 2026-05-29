@@ -128,7 +128,6 @@ def _current_slug(role: str) -> str | None:
 async def send_settings_panel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     bot_cfg = _config(context)
     text = format_settings_summary(bot_cfg.agent, bot_cfg)
-    text += "\n\nTap a role below to change its model (no typing required)."
     message = update.message or (update.callback_query.message if update.callback_query else None)
     if message is None:
         return
@@ -160,7 +159,6 @@ async def on_settings_callback(update: Update, context: ContextTypes.DEFAULT_TYP
 
     if data == "set:menu":
         text = format_settings_summary(bot_cfg.agent, bot_cfg)
-        text += "\n\nTap a role below to change its model."
         await query.edit_message_text(text, reply_markup=settings_keyboard())
         return
 

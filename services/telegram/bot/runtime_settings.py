@@ -289,21 +289,8 @@ def format_settings_summary(agent_cfg: AgentConfig, bot_cfg: BotConfig) -> str:
         f"embed_model: {emb or '(unset)'} ({emb_src})",
         f"max_steps: {steps} ({steps_src})",
         f"janitor_clean_temperature: {temp} ({temp_src})",
-        "",
-        "Telegram commands:",
-        "/settings — tap buttons to change models (no typing)",
-        "/setmodel <role> <slug> — optional typed override",
-        "/resetmodel <role> — drop runtime override for one role",
-        "/setsteps <n> — max tool steps (1–20)",
-        "/resetsteps — clear runtime max_steps only",
-        "/pull — git pull --ff-only",
-        "/reindex — rebuild chunks + embeddings",
-        "/sync — pull then reindex",
-        "/restart — exit; launchd restarts bot",
-        "",
-        "Secrets stay in ~/.config/founders-telegram/env (token, API key, VAULT_ROOT).",
     ]
     if emb_src == "runtime.json" or emb:
-        lines.append("After changing embed_model, run /reindex or /sync before trusting search.")
-    lines.append(f"\nRuntime file: {runtime_settings_path()}")
+        lines.append("")
+        lines.append("After changing embed, use Ops → Reindex or Sync before trusting search.")
     return "\n".join(lines)
