@@ -1,6 +1,6 @@
 # Vault agent v0 — verification checklist
 
-Maps [telegram_rag_bot_v0.plan.md](../.cursor/plans/telegram_rag_bot_v0.plan.md) success criteria to automated tests and Mac mini handoffs.
+Maps v0 success criteria (shipped Telegram vault agent) to automated tests and Mac mini handoffs. Overview: [`telegram-vault-agent.md`](telegram-vault-agent.md).
 
 ## Automated (CI)
 

@@ -22,7 +22,7 @@ isProject: false
 
 # SP1 — Vault tools + indexes
 
-**Master (contracts only):** [telegram_rag_bot_v0.plan.md](telegram_rag_bot_v0.plan.md)  
+**Contracts (live docs):** [docs/telegram-vault-agent.md](../../../docs/telegram-vault-agent.md)  
 **Next after this:** [telegram_vault_sp2_agent.plan.md](telegram_vault_sp2_agent.plan.md)  
 **Branch:** `feature/telegram-vault-bot` · **Commit:** SP1 only (one focused commit)
 

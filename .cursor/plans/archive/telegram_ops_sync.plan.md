@@ -22,6 +22,8 @@ isProject: false
 
 # SP5 — GitHub webhook → vault sync
 
+**Status:** Shipped on `main` (May 2026). Operator guide: [`docs/mac-mini-operator-setup.md`](../../../docs/mac-mini-operator-setup.md). Do not implement from this archive unless restoring history.
+
 **Parent:** [laptop_remote_hardening.plan.md](laptop_remote_hardening.plan.md)
 
 ## Contracts
@@ -46,7 +48,7 @@ isProject: false
 4. `services/telegram/deploy/install-webhook.sh`
 5. Merge to `main` → verify `webhook.log`, `sync.log`, `git log -1`
 
-**Fallback:** Telegram `/sync` when webhook or Funnel is down. Production install completed May 2026 — see [`docs/mac-mini-operator-setup.md`](../../docs/mac-mini-operator-setup.md).
+**Fallback:** Telegram `/sync` when webhook or Funnel is down. Production install completed May 2026 — see [`docs/mac-mini-operator-setup.md`](../../../docs/mac-mini-operator-setup.md).
 
 ## Out of scope (v1)
 

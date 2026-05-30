@@ -22,7 +22,7 @@ isProject: false
 
 # SP3 — Telegram + sessions + `/web`
 
-**Master (contracts only):** [telegram_rag_bot_v0.plan.md](telegram_rag_bot_v0.plan.md)  
+**Contracts (live docs):** [docs/telegram-vault-agent.md](../../../docs/telegram-vault-agent.md)  
 **Requires:** [telegram_vault_sp2_agent.plan.md](telegram_vault_sp2_agent.plan.md)  
 **Next:** [telegram_vault_sp4_ops.plan.md](telegram_vault_sp4_ops.plan.md)  
 **Branch:** `feature/telegram-vault-bot` · **Commit:** SP3 only

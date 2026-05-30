@@ -31,6 +31,8 @@ isProject: false
 
 # Laptop remote hardening
 
+**Status:** Shipped on `main` (May 2026). Ops: [`docs/mac-mini-operator-setup.md`](../../../docs/mac-mini-operator-setup.md), [`docs/laptop-development.md`](../../../docs/laptop-development.md). Do not implement from this archive unless restoring history.
+
 **Goal:** Develop on laptop (Cursor, `pytest`, mock harness) and merge to `main`; Mac mini vault updates automatically without SSH or remembering `/sync`.
 
 **Out of scope:** Daily notes on laptop (stay on Telegram/Janitor), Librarian quality tuning, SP3.1 `/web`, parallel expand workers.
@@ -73,7 +75,7 @@ Do on the Mac mini before relying on cron/webhook for embeddings.
 1. `cd "$VAULT_ROOT" && git pull --ff-only origin main` (confirm log includes runtime-config / PR #12).
 2. `services/telegram/deploy/restart-bot.sh` (or `launchctl kickstart -k gui/$(id -u)/com.founders.telegram.bot`).
 3. Telegram `/settings` — models sourced from `runtime.json` (one-time seed from legacy env on first start if keys missing).
-4. Remove model slugs from `~/.config/founders-telegram/env` (secrets only per [`services/telegram/deploy/env.example`](../../services/telegram/deploy/env.example)).
+4. Remove model slugs from `~/.config/founders-telegram/env` (secrets only per [`services/telegram/deploy/env.example`](../../../services/telegram/deploy/env.example)).
 5. Smoke when idle: `/sync` succeeds; overlapping `/sync` → “Another op is already running”.
 6. `services/telegram/deploy/install-cron.sh --print` — cron line still present.
 
@@ -92,7 +94,7 @@ python dev/mock_telegram_cli.py --stub-llm --run-scenarios
 ```
 
 - **No local index required** for default dev (echo harness + unit tests).
-- **Live harness** (`--suite librarian --live-only`): needs `OPENROUTER_API_KEY`, local `catalog/chunks.jsonl` + `catalog/embeddings.npy`, and optionally Mac mini `runtime.json` copied to `~/.config/founders-telegram/` ([`dev/harness/env.py`](../../dev/harness/env.py)).
+- **Live harness** (`--suite librarian --live-only`): needs `OPENROUTER_API_KEY`, local `catalog/chunks.jsonl` + `catalog/embeddings.npy`, and optionally Mac mini `runtime.json` copied to `~/.config/founders-telegram/` ([`dev/harness/env.py`](../../../dev/harness/env.py)).
 
 **Daily loop (after Tier 1):**
 
@@ -104,7 +106,7 @@ python dev/mock_telegram_cli.py --stub-llm --run-scenarios
 
 ## Tier 0.5 — Sync script + runtime.json (ship before or with SP5)
 
-**Problem (blocker for cutover + webhook):** [`sync-and-index.sh`](../../services/telegram/deploy/sync-and-index.sh) sources env only and calls `reindex_vault.py` with plain `os.environ`. After slimming env, `OPENROUTER_EMBED_MODEL` may be **only** in `runtime.json`. Telegram `/sync` works because [`ops_runner.run_reindex_op`](../../services/telegram/bot/ops_runner.py) uses [`build_subprocess_env()`](../../services/telegram/bot/runtime_settings.py).
+**Problem (blocker for cutover + webhook):** [`sync-and-index.sh`](../../../services/telegram/deploy/sync-and-index.sh) sources env only and calls `reindex_vault.py` with plain `os.environ`. After slimming env, `OPENROUTER_EMBED_MODEL` may be **only** in `runtime.json`. Telegram `/sync` works because [`ops_runner.run_reindex_op`](../../../services/telegram/bot/ops_runner.py) uses [`build_subprocess_env()`](../../../services/telegram/bot/runtime_settings.py).
 
 **Fix (minimal):** Before `reindex_vault.py`, export embed (and expand if needed) from `runtime.json` into the shell environment — e.g. small helper invoked from the script:
 
@@ -115,7 +117,7 @@ eval "$( "${PYTHON}" -c '... read runtime.json, print export OPENROUTER_EMBED_MO
 
 Or call a tiny `ingestion/lib/export_runtime_env.py` used by both cron and webhook.
 
-**Tests:** Extend [`tests/test_telegram_deploy.py`](../../tests/test_telegram_deploy.py) or add `tests/test_sync_script_runtime.py` — with `FOUNDERS_TELEGRAM_RUNTIME` pointing at a fixture `runtime.json`, assert reindex subprocess env includes embed slug (mock `subprocess`).
+**Tests:** Extend [`tests/test_telegram_deploy.py`](../../../tests/test_telegram_deploy.py) or add `tests/test_sync_script_runtime.py` — with `FOUNDERS_TELEGRAM_RUNTIME` pointing at a fixture `runtime.json`, assert reindex subprocess env includes embed slug (mock `subprocess`).
 
 **Done when:** After removing `OPENROUTER_EMBED_MODEL` from Mac mini env, manual `sync-and-index.sh` still completes embeddings step.
 
@@ -123,7 +125,7 @@ Or call a tiny `ingestion/lib/export_runtime_env.py` used by both cron and webho
 
 ## Tier 1 — SP5 GitHub webhook
 
-Create focused plan [`telegram_ops_sync.plan.md`](telegram_ops_sync.plan.md) in the **same PR** (do not extend [`telegram_rag_bot_v0.plan.md`](telegram_rag_bot_v0.plan.md)).
+Create focused plan [`telegram_ops_sync.plan.md`](telegram_ops_sync.plan.md) in the **same PR** (separate plan file, not a mega-plan).
 
 ### GitHub reachability (required)
 
@@ -142,7 +144,7 @@ Document in README: Funnel enable command, webhook URL shape, rotation of secret
 | Events | `push` only; respond 200 to `ping` during GitHub setup |
 | Branch | `refs/heads/main` only (ignore tags, feature branches) |
 | Response | Return **202/200 immediately**; run sync in **background** (`subprocess` / `nohup`) — GitHub times out ~10s |
-| Action | Execute [`sync-and-index.sh`](../../services/telegram/deploy/sync-and-index.sh) (after Tier 0.5 fix) |
+| Action | Execute [`sync-and-index.sh`](../../../services/telegram/deploy/sync-and-index.sh) (after Tier 0.5 fix) |
 | Concurrency | At start of `sync-and-index.sh`, acquire `catalog/.sync-in-progress` (mkdir or flock); if held, log “skipped” and exit 0. Remove on exit. **Not** the deferred “full sync lock product” — minimal guard for webhook + cron + overlapping runs |
 | Process | Separate `launchd` job (`com.founders.telegram.webhook`) — not embedded in polling bot |
 | Logging | Append to `~/Library/Logs/founders-telegram/webhook.log` and existing `sync.log` |
@@ -156,7 +158,7 @@ services/telegram/deploy/install-webhook.sh      # mirror install-cron.sh --prin
 tests/test_github_webhook.py                   # HMAC, ping, non-main push ignored
 ```
 
-Update [`tests/test_telegram_deploy.py`](../../tests/test_telegram_deploy.py): `github_webhook_server.py` exists; `install-webhook.sh --print` documents plist label.
+Update [`tests/test_telegram_deploy.py`](../../../tests/test_telegram_deploy.py): `github_webhook_server.py` exists; `install-webhook.sh --print` documents plist label.
 
 ### Mac mini install (operator, after merge)
 
@@ -168,12 +170,12 @@ Update [`tests/test_telegram_deploy.py`](../../tests/test_telegram_deploy.py): `
 
 ### Docs (same PR)
 
-- [`docs/laptop-development.md`](../../docs/laptop-development.md) — clone, test, branch workflow, what not to do on laptop
-- [`docs/manual-operations.md`](../../docs/manual-operations.md) — push → webhook; fallback `/sync`
-- [`services/telegram/README.md`](../../services/telegram/README.md) — webhook + Funnel section
-- [`docs/telegram-vault-agent.md`](../../docs/telegram-vault-agent.md) — add `/sync`, `/pull`, `/reindex`, `/settings` to ops table; replace “webhook deferred” when shipped
-- [`potential-ideas.md`](../../potential-ideas.md) — SP5 → Shipped; note runtime ops + sync-script fix
-- Link from [`README.md`](../../README.md) and [`AGENTS.md`](../../AGENTS.md)
+- [`docs/laptop-development.md`](../../../docs/laptop-development.md) — clone, test, branch workflow, what not to do on laptop
+- [`docs/manual-operations.md`](../../../docs/manual-operations.md) — push → webhook; fallback `/sync`
+- [`services/telegram/README.md`](../../../services/telegram/README.md) — webhook + Funnel section
+- [`docs/telegram-vault-agent.md`](../../../docs/telegram-vault-agent.md) — add `/sync`, `/pull`, `/reindex`, `/settings` to ops table; replace “webhook deferred” when shipped
+- [`potential-ideas.md`](../../../potential-ideas.md) — SP5 → Shipped; note runtime ops + sync-script fix
+- Link from [`README.md`](../../../README.md) and [`AGENTS.md`](../../../AGENTS.md)
 
 ### Out of scope (SP5 v1)
 

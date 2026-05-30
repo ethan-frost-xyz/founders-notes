@@ -199,7 +199,7 @@ Add handlers + `BotCommand` entries for: `setmodel`, `resetmodel`, `pull`, `rein
 |------|--------|
 | [`docs/expanded-backfill.md`](docs/expanded-backfill.md) | Mac mini reindex: optional “or `/sync` from Telegram” |
 | [`docs/vault-agent-v0-checklist.md`](docs/vault-agent-v0-checklist.md) | Manual sync row: add `/sync` |
-| [`.cursor/plans/telegram_rag_bot_v0.plan.md`](.cursor/plans/telegram_rag_bot_v0.plan.md) | One-line **Decisions log** row: models → `runtime.json` (link this plan) — keeps master index accurate |
+| `docs/telegram-vault-agent.md` | One-line **Decisions log** row: models → `runtime.json` (link this plan) — shipped |
 
 ### Harness code (minimal; only if docs claim otherwise)
 

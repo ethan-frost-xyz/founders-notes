@@ -59,7 +59,7 @@ Before opening or updating the PR, read each doc in that PR’s column. Fix stal
 | [`services/telegram/README.md`](services/telegram/README.md) | ✓ (index sync links) | ✓ (import / `VAULT_ROOT`) | ✓ (`sync-and-index.sh`) |
 | [`services/telegram/REVIEW.md`](services/telegram/REVIEW.md) | ✓ (shipped banner) | ✓ (update “Path / import wiring” to `_bootstrap`) | |
 | [`.cursor/plans/archive/README.md`](.cursor/plans/archive/README.md) | ✓ | | |
-| [`.cursor/plans/telegram_rag_bot_v0.plan.md`](.cursor/plans/telegram_rag_bot_v0.plan.md) | ✓ (archive links) | | |
+| `telegram_rag_bot_v0.plan.md` (removed; use `docs/telegram-vault-agent.md`) | ✓ (archive links) | | |
 | [`.cursor/plans/vault_cleanup_refactors.plan.md`](.cursor/plans/vault_cleanup_refactors.plan.md) | ✓ (mark PR1 done in body/todos) | ✓ (PR2) | ✓ (PR3) |
 
 **Done when:** no doc in that PR’s column contradicts the merged behavior; `rg` for removed identifiers is clean.
@@ -146,7 +146,7 @@ flowchart TB
    - [`archive/vault_janitor_agent.plan.md`](.cursor/plans/archive/vault_janitor_agent.plan.md)
    - [`archive/vault_agent_backlog_8fad41c3.plan.md`](.cursor/plans/archive/vault_agent_backlog_8fad41c3.plan.md) — trim stale “future Janitor” body; keep historical context in header
    - Update [`archive/README.md`](.cursor/plans/archive/README.md) (move entries out of “Active plans”)
-   - Fix links in [`telegram_rag_bot_v0.plan.md`](.cursor/plans/telegram_rag_bot_v0.plan.md) → `archive/vault_janitor_agent.plan.md`
+   - Fix links in live docs → `archive/vault_janitor_agent.plan.md`
 8. **[`services/telegram/REVIEW.md`](services/telegram/REVIEW.md)** — One-line banner: shipped; operator docs = README + `docs/telegram-vault-agent.md` (do not maintain two runbooks).
 9. **Delete** orphan `notes/strip_expanded_timestamp_meta.py`, `notes/fix_expanded_section_spacing.py`. Keep [`ingestion/lib/expanded_timestamp_lint.py`](ingestion/lib/expanded_timestamp_lint.py) (used by promote validation).
 

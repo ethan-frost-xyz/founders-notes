@@ -31,6 +31,8 @@ isProject: false
 
 # Telegram UI Overhaul
 
+**Status:** Shipped on `main` (May 2026). Operator/docs: [`docs/telegram-vault-agent.md`](../../../docs/telegram-vault-agent.md), [`docs/janitor.md`](../../../docs/janitor.md). Do not implement from this archive unless restoring history.
+
 ## Success criteria
 
 - `/start` shows **three lines only**: catalog episode count, **studied** count (timestamp bullets in `.notes.md`, same definition as `maintain.py` / Librarian corpus), chunks index mtime.
@@ -44,13 +46,13 @@ isProject: false
 
 UI + Janitor write semantics for the confirm path only. No retrieval, agent prompts, or catalog schema changes.
 
-**From [potential-ideas.md](potential-ideas.md) — in scope:** curated command menu (BotFather `setMyCommands`), Janitor audit/overwrite confirm, snappier clean feedback (not token streaming).
+**From [potential-ideas.md](../../../potential-ideas.md) — in scope:** curated command menu (BotFather `setMyCommands`), Janitor audit/overwrite confirm, snappier clean feedback (not token streaming).
 
 **Deferred (separate plans):** SP3.1 `/web` provider, Librarian quality cluster, true SSE streaming, `/resume` auto-sync, path-filtered reindex.
 
 ---
 
-## 1. Trim BotFather command menu — [`__main__.py`](services/telegram/bot/__main__.py)
+## 1. Trim BotFather command menu — [`__main__.py`](../../../services/telegram/bot/__main__.py)
 
 Slim `_register_bot_commands` from 17 → **7**:
 
@@ -70,20 +72,20 @@ Slim `_register_bot_commands` from 17 → **7**:
 
 ---
 
-## 2. Gut `/start` — [`handlers.py`](services/telegram/bot/handlers.py)
+## 2. Gut `/start` — [`handlers.py`](../../../services/telegram/bot/handlers.py)
 
 - Delete `HELP_TEXT`.
 - `cmd_start` → `reply_text_chunked(update.message, vault_stats_text(vault_root))` only.
 
 **Studied count (fix — do not use `chunks.jsonl`):**
 
-Distinct episodes in the chunk index ≠ studied. Studied = `has_timestamp_datapoints(notes_path)` per [`build_chunks.py`](ingestion/search/build_chunks.py) `episode_is_listened`.
+Distinct episodes in the chunk index ≠ studied. Studied = `has_timestamp_datapoints(notes_path)` per [`build_chunks.py`](../../../ingestion/search/build_chunks.py) `episode_is_listened`.
 
 In `vault_stats_text(vault_root)`:
 
 1. `setup_ingestion_paths(vault_root)` (same pattern as Janitor).
 2. `load_catalog()` from `catalog/episodes.jsonl`.
-3. `count_phase2_coverage(rows)` from [`ingestion/lib/gaps_report.py`](ingestion/lib/gaps_report.py) → use `notes_with_datapoints` (complete-transcript episodes with timestamp bullets).
+3. `count_phase2_coverage(rows)` from [`ingestion/lib/gaps_report.py`](../../../ingestion/lib/gaps_report.py) → use `notes_with_datapoints` (complete-transcript episodes with timestamp bullets).
 4. Keep existing catalog row count + `chunks.jsonl` mtime.
 
 Example output:
@@ -98,7 +100,7 @@ Chunks index updated: 2026-05-29 14:32 UTC
 
 ---
 
-## 3. Janitor help + Exit button — [`janitor_handlers.py`](services/telegram/bot/janitor_handlers.py)
+## 3. Janitor help + Exit button — [`janitor_handlers.py`](../../../services/telegram/bot/janitor_handlers.py)
 
 Replace `JANITOR_HELP` with:
 
@@ -118,7 +120,7 @@ Send an episode number to begin, or tap Exit Janitor to return to Q&A.
 
 ---
 
-## 4. Overwrite confirmation — [`janitor_store.py`](services/telegram/bot/janitor_store.py), [`janitor_handlers.py`](services/telegram/bot/janitor_handlers.py), [`janitor_workflow.py`](services/telegram/bot/janitor_workflow.py)
+## 4. Overwrite confirmation — [`janitor_store.py`](../../../services/telegram/bot/janitor_store.py), [`janitor_handlers.py`](../../../services/telegram/bot/janitor_handlers.py), [`janitor_workflow.py`](../../../services/telegram/bot/janitor_workflow.py)
 
 ### Phase
 
@@ -133,7 +135,7 @@ CONFIRM_OVERWRITE = "confirm_overwrite"
 Before `file_notes`, after resolving row:
 
 - `npath = notes_file_path(...)`
-- If `has_timestamp_datapoints(npath)` ([`markdown_io.has_timestamp_datapoints`](ingestion/lib/markdown_io.py)) → `session.phase = CONFIRM_OVERWRITE`, message:
+- If `has_timestamp_datapoints(npath)` ([`markdown_io.has_timestamp_datapoints`](../../../ingestion/lib/markdown_io.py)) → `session.phase = CONFIRM_OVERWRITE`, message:
 
   `Overwriting {rel} — this replaces existing notes.`
 
@@ -143,7 +145,7 @@ Before `file_notes`, after resolving row:
 
 ### Replace semantics (blocker fix)
 
-Today [`file_notes`](services/telegram/bot/janitor_workflow.py) **merges** bullets via `merge_notes_body`. That contradicts "overwrite" copy.
+Today [`file_notes`](../../../services/telegram/bot/janitor_workflow.py) **merges** bullets via `merge_notes_body`. That contradicts "overwrite" copy.
 
 - Add `file_notes(..., *, replace: bool = False)`.
 - `replace=False` (default): current merge behavior (unchanged for non-confirm paths if any).
@@ -164,7 +166,7 @@ Optional harness: `dev/scenarios/janitor/overwrite_confirm.yaml` (sandbox episod
 
 ---
 
-## 5. Status noise — [`janitor_handlers.py`](services/telegram/bot/janitor_handlers.py), [`handlers.py`](services/telegram/bot/handlers.py)
+## 5. Status noise — [`janitor_handlers.py`](../../../services/telegram/bot/janitor_handlers.py), [`handlers.py`](../../../services/telegram/bot/handlers.py)
 
 - Clean status: `f"{status_prefix}…"` — **no model slug**.
 - `_run_llm_clean`: after posting status, `asyncio.create_task` sleeps 20s then edits to `"Still working…"` if message still exists; cancel task in `finally` after clean completes (avoid editing deleted messages).
@@ -174,7 +176,7 @@ Optional harness: `dev/scenarios/janitor/overwrite_confirm.yaml` (sandbox episod
 
 ---
 
-## 6. Ops panel — [`settings_handlers.py`](services/telegram/bot/settings_handlers.py) + shared helper
+## 6. Ops panel — [`settings_handlers.py`](../../../services/telegram/bot/settings_handlers.py) + shared helper
 
 Add **[Ops]** to `settings_keyboard()`.
 
@@ -191,10 +193,10 @@ Callbacks: `set:op:sync`, `set:op:pull`, `set:op:reindex`, `set:op:restart`.
 **In-place status (sync/pull/reindex):**
 
 1. Edit message → `"Sync running… (may take a few minutes)"`
-2. `asyncio.to_thread(fn, vault_root)` with **same lock** as [`ops_runner.try_acquire_ops_lock`](services/telegram/bot/ops_runner.py)
+2. `asyncio.to_thread(fn, vault_root)` with **same lock** as [`ops_runner.try_acquire_ops_lock`](../../../services/telegram/bot/ops_runner.py)
 3. Edit message → truncated result + `[← Back to Settings]` (`set:menu`)
 
-**Avoid circular imports:** move async wrapper out of `handlers.py` into new **[`services/telegram/bot/ops_telegram.py`](services/telegram/bot/ops_telegram.py)** (thin module):
+**Avoid circular imports:** move async wrapper out of `handlers.py` into new **[`services/telegram/bot/ops_telegram.py`](../../../services/telegram/bot/ops_telegram.py)** (thin module):
 
 ```python
 async def run_ops_job(message, bot_data, vault_root, *, label, fn) -> None
@@ -214,9 +216,9 @@ Both `handlers._run_ops_command` and `settings_handlers` import from `ops_telegr
 |-------|---------|
 | Harness (CI) | `pytest tests/test_harness_scenarios.py -q` |
 | Janitor suite | `python dev/mock_telegram_cli.py --stub-llm --suite janitor` |
-| Update scenario | [`dev/scenarios/librarian/basic_qa.yaml`](dev/scenarios/librarian/basic_qa.yaml) — expect `Studied` or `Episodes in catalog`, not `Founders vault agent` |
-| Docs | [`docs/telegram-vault-agent.md`](docs/telegram-vault-agent.md) command table + menu note; [`docs/janitor.md`](docs/janitor.md) Exit + overwrite confirm |
-| Backlog | Move shipped Janitor UX bullets in [`potential-ideas.md`](potential-ideas.md) to § Shipped when done |
+| Update scenario | [`dev/scenarios/librarian/basic_qa.yaml`](../../../dev/scenarios/librarian/basic_qa.yaml) — expect `Studied` or `Episodes in catalog`, not `Founders vault agent` |
+| Docs | [`docs/telegram-vault-agent.md`](../../../docs/telegram-vault-agent.md) command table + menu note; [`docs/janitor.md`](../../../docs/janitor.md) Exit + overwrite confirm |
+| Backlog | Move shipped Janitor UX bullets in [`potential-ideas.md`](../../../potential-ideas.md) to § Shipped when done |
 
 ---
 
@@ -258,4 +260,4 @@ Both `handlers._run_ops_command` and `settings_handlers` import from `ops_telegr
 
 ## Plan file hygiene
 
-When implementing in Agent mode: create **`.cursor/plans/telegram_ui_overhaul.plan.md`** in the repo (or commit this plan) per [AGENTS.md](AGENTS.md) — commit plan with code in the same PR.
+**Archived May 2026** — shipped; see status header above. Historical plan path: `.cursor/plans/archive/telegram_ui_overhaul.plan.md`.

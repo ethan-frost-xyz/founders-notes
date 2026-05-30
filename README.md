@@ -28,7 +28,7 @@ Private **Telegram bot** on an always-on Mac mini (polling): **Librarian** for s
 | [`docs/vault-agent-v0-checklist.md`](docs/vault-agent-v0-checklist.md) | v0 verification checklist |
 | [`potential-ideas.md`](potential-ideas.md) | Deferred features and follow-ups |
 
-**Master index:** [`.cursor/plans/telegram_rag_bot_v0.plan.md`](.cursor/plans/telegram_rag_bot_v0.plan.md) · **Archived SP plans:** [`sp1`](.cursor/plans/archive/telegram_vault_sp1_tools.plan.md) → [`sp4`](.cursor/plans/archive/telegram_vault_sp4_ops.plan.md)
+**Implementation history (archived plans):** [`sp1`](.cursor/plans/archive/telegram_vault_sp1_tools.plan.md) → [`sp4`](.cursor/plans/archive/telegram_vault_sp4_ops.plan.md) · index in [`.cursor/plans/archive/README.md`](.cursor/plans/archive/README.md)
 
 - **Librarian:** OpenRouter tool-calling over studied episodes only (`search_vault_parent`, transcripts on demand); `/web <query>` for external search.
 - **Janitor:** `/janitor` → paste bullets → LLM clean → approve → file → expand → promote → reindex. See [`docs/janitor.md`](docs/janitor.md).

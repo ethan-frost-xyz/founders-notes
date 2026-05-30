@@ -292,7 +292,7 @@ Open items consolidated in [potential-ideas.md](../../../potential-ideas.md) **L
 | ID      | Follow-up                                                                                                                                                                                          | Why defer                                             |
 | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
 | **D11** | **Review exported sessions** — prefer harness `dev/logs/sessions/` during dev; after Mac mini deploy, inspect `catalog/telegram-sessions/*.jsonl` for `load_episode` errors.                       | Production traffic optional if harness live is green. |
-| **D12** | **Master plan link** — add one line under NEXT in `[.cursor/plans/telegram_rag_bot_v0.plan.md](.cursor/plans/telegram_rag_bot_v0.plan.md)` pointing here + deferred D1/D7 as SP6-adjacent quality. | Plan hygiene when shipping.                           |
+| **D12** | **Backlog link** — add one line in `potential-ideas.md` § Next pointing here + deferred D1/D7 as SP6-adjacent quality. | Shipped via potential-ideas.md.                           |
 
 
 ### Explicit non-goals (do not defer into this track)

@@ -19,7 +19,7 @@ isProject: false
 
 # SP2 — Agent loop + prompt
 
-**Master (contracts only):** [telegram_rag_bot_v0.plan.md](telegram_rag_bot_v0.plan.md)  
+**Contracts (live docs):** [docs/telegram-vault-agent.md](../../../docs/telegram-vault-agent.md)  
 **Requires:** [telegram_vault_sp1_tools.plan.md](telegram_vault_sp1_tools.plan.md) merged or on same branch  
 **Next:** [telegram_vault_sp3_telegram.plan.md](telegram_vault_sp3_telegram.plan.md)  
 **Branch:** `feature/telegram-vault-bot` · **Commit:** SP2 only

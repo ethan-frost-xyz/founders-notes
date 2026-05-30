@@ -19,9 +19,9 @@ isProject: false
 
 # SP4 — Mac mini ops
 
-**Master (contracts only):** [telegram_rag_bot_v0.plan.md](telegram_rag_bot_v0.plan.md)  
+**Contracts (live docs):** [docs/telegram-vault-agent.md](../../../docs/telegram-vault-agent.md)  
 **Requires:** [telegram_vault_sp3_telegram.plan.md](telegram_vault_sp3_telegram.plan.md)  
-**Deferred:** [telegram_rag_bot_v0.plan.md](telegram_rag_bot_v0.plan.md) § SP5 webhook  
+**Deferred (shipped):** [telegram_ops_sync.plan.md](telegram_ops_sync.plan.md) — SP5 webhook  
 **Branch:** `feature/telegram-vault-bot` · **Commit:** SP4 only · then **PR → `main`**
 
 ## Agent handoff
@@ -62,7 +62,7 @@ Example: daily `sync-and-index.sh` at 04:00 local — user enables manually.
 - [ ] SP1–SP4 commits on `feature/telegram-vault-bot` (one commit per SP)
 - [ ] Each SP commit includes its own sub-plan `.plan.md` (SP1 with SP1 commit, etc.); this SP4 commit includes `telegram_vault_sp4_ops.plan.md`
 - [ ] `pytest` + `verify.py` green
-- [ ] PR description links master index + verify-this table (master § Success criteria)
+- [ ] PR description links [vault-agent-v0-checklist.md](../../../docs/vault-agent-v0-checklist.md) + verify-this table
 
 ## Commit message
 

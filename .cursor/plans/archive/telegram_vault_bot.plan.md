@@ -1,15 +1,15 @@
 ---
 name: Telegram Vault Bot
-overview: "Superseded for implementation by telegram_rag_bot_v0.plan.md (vault agent + tools + Mac mini). This file kept as background on parent/child tiers and early v0/v1 ideas."
+overview: "Superseded background sketch. Shipped stack: docs/telegram-vault-agent.md + archived SP1–SP4 plans. This file kept for parent/child tiers and early v0/v1 ideas."
 todos:
   - id: plan-doc
     content: "This plan + services/telegram/README stub (done in initial PR)"
     status: completed
   - id: master-plan
-    content: "See telegram_rag_bot_v0.plan.md — master plan with sub-plans and decision log"
+    content: "SUPERSEDED — see docs/telegram-vault-agent.md and archived SP sub-plans"
     status: completed
   - id: v0-chunk-bot
-    content: "SUPERSEDED — use telegram_rag_bot_v0 SP3 (Telegram transport + sessions, not excerpt-only v0)"
+    content: "SUPERSEDED — use archived telegram_vault_sp3_telegram (Telegram transport + sessions)"
     status: cancelled
   - id: post-promote-chunks
     content: "→ potential-ideas.md — post-promote chunk smoke / RUN_REBUILT_INDEX_SCENARIOS=1"
@@ -26,7 +26,7 @@ todos:
 isProject: false
 ---
 
-> **Superseded for implementation.** Use **[telegram_rag_bot_v0.plan.md](../telegram_rag_bot_v0.plan.md)** (master index) and **archived sub-plans** `archive/telegram_vault_sp1_tools.plan.md` … `sp4_ops`. This file remains background on parent/child tiers and the original v0/v1 sketch.
+> **Superseded for implementation.** Use **[docs/telegram-vault-agent.md](../../../docs/telegram-vault-agent.md)** and **archived sub-plans** `telegram_vault_sp1_tools.plan.md` … `sp4_ops`. This file remains background on parent/child tiers and the original v0/v1 sketch.
 >
 > Open implementation work: [`potential-ideas.md`](../../potential-ideas.md). Body sections below are **historical sketch** (v0/v1/v2); unchecked verify lists are not actionable todos.
 
@@ -36,7 +36,7 @@ isProject: false
 
 A **private** Telegram interface to query the Founders vault from a phone: high-signal hits first (posts, expanded notes, raw datapoints), transcript only when needed.
 
-Historical sketch — see [telegram_rag_bot_v0.plan.md](telegram_rag_bot_v0.plan.md) for the locked agent architecture. Aligns with [README.md](../../README.md) “Systems Roadmap: Telegram vault agent” and [docs/retrieval.md](../../docs/retrieval.md).
+Historical sketch — see [docs/telegram-vault-agent.md](../../../docs/telegram-vault-agent.md) for the shipped agent architecture. Aligns with [README.md](../../../README.md) “Telegram vault agent” and [docs/retrieval.md](../../../docs/retrieval.md).
 
 **Dependency:** Production [expanded backfill](../../docs/expanded-backfill.md) — promote `.expanded.md` before embeddings/index tuning matter for expanded content.
 

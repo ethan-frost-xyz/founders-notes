@@ -33,7 +33,7 @@ isProject: false
 
 **Status: Shipped (May 2026).**
 
-Doc-only hygiene: single mutable backlog in [`potential-ideas.md`](../../../potential-ideas.md); master index [`telegram_rag_bot_v0.plan.md`](../telegram_rag_bot_v0.plan.md) remains read-only contracts + decisions.
+Doc-only hygiene: single mutable backlog in [`potential-ideas.md`](../../../potential-ideas.md); live overview [`docs/telegram-vault-agent.md`](../../../docs/telegram-vault-agent.md).
 
 ## Outcome
 

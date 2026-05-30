@@ -1,4 +1,4 @@
-"""v0 success criteria from telegram_rag_bot_v0.plan.md (automated subset)."""
+"""v0 success criteria for the Telegram vault agent (automated subset). See docs/vault-agent-v0-checklist.md."""
 
 from __future__ import annotations
 

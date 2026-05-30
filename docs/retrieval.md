@@ -32,7 +32,7 @@ cd ingestion && python search/build_chunks.py
 | Transcript search | `search_transcript` | Child-tier transcript sections only when needed |
 | Web | `web_search` | **`/web` command only** — never mixed into default vault turns |
 
-Master index: [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../.cursor/plans/telegram_rag_bot_v0.plan.md). SP1 (archived): [`.cursor/plans/archive/telegram_vault_sp1_tools.plan.md`](../.cursor/plans/archive/telegram_vault_sp1_tools.plan.md). Runbook: [`services/telegram/README.md`](../services/telegram/README.md).
+Telegram agent overview: [`docs/telegram-vault-agent.md`](telegram-vault-agent.md). SP1 (archived): [`.cursor/plans/archive/telegram_vault_sp1_tools.plan.md`](../.cursor/plans/archive/telegram_vault_sp1_tools.plan.md). Runbook: [`services/telegram/README.md`](../services/telegram/README.md).
 
 Index refresh on the Mac mini host: Telegram `/sync` or `sync-and-index.sh` → [`ingestion/lib/reindex_vault.py`](../ingestion/lib/reindex_vault.py) (`build_chunks.py` + `build_embeddings.py`; parent chunks only; `catalog/embeddings.npy` gitignored). Embed slug: `runtime.json` (`/setmodel embed`) or legacy env; re-run index after changing embed model.
 

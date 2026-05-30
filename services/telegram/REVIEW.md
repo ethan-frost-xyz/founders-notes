@@ -17,7 +17,7 @@ Private Telegram bot: OpenRouter **tool-calling** agent over the Founders vault 
 | SP3 | Telegram transport + sessions | `services/telegram/bot/handlers.py`, `sessions.py`, `auth.py` |
 | SP4 | Mac mini ops | `services/telegram/deploy/*`, README install section |
 
-Plans (context only): `.cursor/plans/telegram_rag_bot_v0.plan.md`, `telegram_vault_sp*.plan.md`, [archive/telegram_mock_harness_2296d9fc.plan.md](../../.cursor/plans/archive/telegram_mock_harness_2296d9fc.plan.md).
+Plans (context only, archived): `telegram_vault_sp*.plan.md` under [`.cursor/plans/archive/`](../../.cursor/plans/archive/), [telegram_mock_harness_2296d9fc.plan.md](../../.cursor/plans/archive/telegram_mock_harness_2296d9fc.plan.md).
 
 ## Core vs mechanical
 

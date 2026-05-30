@@ -1,6 +1,6 @@
 # Telegram vault agent
 
-Short overview for coding agents. **Master index:** [`.cursor/plans/telegram_rag_bot_v0.plan.md`](../.cursor/plans/telegram_rag_bot_v0.plan.md) (decisions + shared contracts). **v0 (SP1–SP4)** shipped on `main` (PR #3); archived sub-plans below. Follow-ups: see [`potential-ideas.md`](../potential-ideas.md).
+Short overview for coding agents. **v0 (SP1–SP4)** shipped on `main` (PR #3); archived sub-plans below. Follow-ups: [`potential-ideas.md`](../potential-ideas.md). Implementation history: [`.cursor/plans/archive/`](../.cursor/plans/archive/).
 
 | SP | Plan (archived) |
 |----|------|
@@ -66,7 +66,7 @@ After expanded promote on the Mac mini (or any host running the bot), run the sa
 | 1–4 | Shipped on `main` (PR #3) | [archive/sp1_tools … sp4_ops](../.cursor/plans/archive/) |
 | Janitor MVP | Shipped | [janitor.md](janitor.md) |
 | SP6-lite | Shipped (May 2026) | [potential-ideas.md](../potential-ideas.md) § Shipped |
-| 5 (webhook) | Shipped | [telegram_ops_sync.plan.md](../.cursor/plans/telegram_ops_sync.plan.md) |
+| 5 (webhook) | Shipped | [telegram_ops_sync.plan.md](../.cursor/plans/archive/telegram_ops_sync.plan.md) |
 | 6+ | Open — Next clusters | [potential-ideas.md](../potential-ideas.md) § Next |
 
 Runbook and env: [`services/telegram/README.md`](../services/telegram/README.md).
