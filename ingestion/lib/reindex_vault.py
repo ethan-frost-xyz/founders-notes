@@ -54,8 +54,28 @@ def reindex_vault(
     if chunks.returncode != 0:
         return chunks.returncode, _tail((chunks.stdout or "") + (chunks.stderr or ""))
 
+    summaries = subprocess.run(
+        [py, "search/build_summaries.py"],
+        cwd=cwd,
+        env=env,
+        capture_output=True,
+        text=True,
+    )
+    if summaries.returncode != 0:
+        return summaries.returncode, _tail((summaries.stdout or "") + (summaries.stderr or ""))
+
+    chunks2 = subprocess.run(
+        [py, "search/build_chunks.py"],
+        cwd=cwd,
+        env=env,
+        capture_output=True,
+        text=True,
+    )
+    if chunks2.returncode != 0:
+        return chunks2.returncode, _tail((chunks2.stdout or "") + (chunks2.stderr or ""))
+
     if not embeddings:
-        return 0, "Reindexed chunks."
+        return 0, "Reindexed chunks and episode summaries."
 
     emb = subprocess.run(
         [py, "search/build_embeddings.py"],

@@ -9,7 +9,7 @@ Short overview for coding agents. **v0 (SP1–SP4)** shipped on `main` (PR #3); 
 | 3 | [telegram_vault_sp3_telegram.plan.md](../.cursor/plans/archive/telegram_vault_sp3_telegram.plan.md) |
 | 4 | [telegram_vault_sp4_ops.plan.md](../.cursor/plans/archive/telegram_vault_sp4_ops.plan.md) |
 
-Product is a **tool-calling vault agent**, not naive single-shot RAG.
+Product is a **retrieval orchestrator + synthesis** agent (v3), not naive single-shot RAG or an LLM-driven search loop.
 
 ## Product
 
@@ -19,17 +19,34 @@ Product is a **tool-calling vault agent**, not naive single-shot RAG.
 
 ## Architecture
 
-- **OpenRouter agent** (Librarian model in `runtime.json`, `/setmodel librarian`) with tool calling (`max_steps` via `/setsteps`).
-- Retrieval lives **inside tools** (`search_vault_parent`, `search_transcript`, `load_episode`, `list_episode_ids`) backed by `catalog/chunks.jsonl` and **parent-tier** hybrid keyword + embeddings (`catalog/embeddings.npy`, gitignored).
-- **`/web <query>` only** for external search (`web_search` tool); normal messages must not silently mix web into vault answers.
-- Librarian corpus = **studied episodes only** (timestamp bullets in `.notes.md`); un-listened episodes return no parent-tier hits.
+- **OpenRouter agent** (Librarian model in `runtime.json`, `/setmodel librarian`).
+- **Retrieval orchestrator** (`ingestion/lib/retrieval_orchestrator.py`) runs before synthesis: expand → batched hybrid search → LLM rerank → optional transcript fallback.
+- **Synthesis turn:** one completion with a pre-built evidence block; optional tools: `load_episode`, `list_episode_ids`, `web_search` (when allowed).
+- Index: `catalog/chunks.jsonl` — **expanded** + **summary** parent tiers; `catalog/episode-summaries.jsonl`; embeddings in `catalog/embeddings.npy` (gitignored).
+- **`/web <query>` only** for external search; normal messages must not silently mix web into vault answers.
+- Librarian corpus = **studied episodes only** (timestamp bullets in `.notes.md`).
 
-## Source priority (agent policy)
+### Turn flow (thematic)
 
-1. `{folder}.expanded.md` (canonical; not `.expanded.draft.md`)
-2. Raw `{folder}.notes.md` datapoints
-3. `{folder}.post.md`
-4. Transcripts — via `search_transcript` when dialogue grounding is needed
+```mermaid
+flowchart LR
+  User --> Orchestrator
+  Orchestrator --> Expand[LLM expand]
+  Expand --> Search[Batched hybrid search]
+  Search --> Rerank[LLM rerank]
+  Rerank --> Synth[DeepSeek synthesize]
+  Synth --> Reply
+```
+
+~3 LLM calls + 1 batched embed API call per thematic question.
+
+## Source priority (synthesis policy)
+
+1. `{folder}.expanded.md` excerpts in the evidence block
+2. Transcript excerpts when fallback fired
+3. `load_episode` when the user names one episode explicitly
+
+Summaries and raw notes/posts are not cited in thematic answers.
 
 ## Sessions and index
 
@@ -49,7 +66,7 @@ Product is a **tool-calling vault agent**, not naive single-shot RAG.
 | `/setmodel` / `/resetmodel` | Per-role model overrides (`runtime.json`) |
 | `/setsteps` / `/resetsteps` | Librarian tool-step limit |
 | `/pull` | `git pull --ff-only` |
-| `/reindex` | Rebuild chunks + embeddings |
+| `/reindex` | Rebuild chunks, episode summaries, chunks (summary tier), embeddings |
 | `/sync` | `/pull` then `/reindex` |
 | `/restart` | Exit; launchd restarts bot |
 
@@ -73,7 +90,7 @@ Runbook and env: [`services/telegram/README.md`](../services/telegram/README.md)
 
 ## Embeddings vs AGENTS.md
 
-Repo-wide rule: do **not** add a general-purpose vector DB until grep + chunk search + agent tools fail your queries. The Telegram embed index is **scoped to parent chunks only** (posts, notes, expanded) inside `search_vault_parent`.
+Repo-wide rule: do **not** add a general-purpose vector DB until grep + chunk search + agent tools fail your queries. The Telegram embed index is **scoped to parent chunks only** (`expanded` + `summary`) inside the orchestrator hybrid search.
 
 ## Related
 

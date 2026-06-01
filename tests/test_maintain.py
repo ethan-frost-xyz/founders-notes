@@ -194,6 +194,12 @@ def test_build_all_chunks_helper(monkeypatch, tmp_path: Path):
         "---\ntitle: T\ncontent_type: notes\n---\n\n## Raw datapoints\n\n- 1:00 — hook\n",
         encoding="utf-8",
     )
+    tx_dir = tmp_path / "content" / "transcripts" / "ep-0001-test"
+    tx_dir.mkdir(parents=True)
+    (tx_dir / "ep-0001-test.transcript.md").write_text(
+        "---\ntitle: T\ncontent_type: transcript\n---\n\n## Body\n\nspoken line\n",
+        encoding="utf-8",
+    )
 
     n = build_all_chunks([row])
     assert n >= 1

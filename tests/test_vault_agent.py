@@ -12,10 +12,12 @@ REPO = Path(__file__).resolve().parent.parent
 
 from agent import (  # noqa: E402
     VaultAgent,
+    TurnResult,
     execute_tool,
     openrouter_tools,
     web_search_stub,
 )
+from retrieval_orchestrator import EvidenceBundle, EvidenceChunk  # noqa: E402
 from tool_status import tool_status_label  # noqa: E402
 from config import AgentConfig  # noqa: E402
 
@@ -33,7 +35,8 @@ def agent_config(monkeypatch: pytest.MonkeyPatch) -> AgentConfig:
 
 def test_openrouter_tools_excludes_web_by_default():
     names = [t["function"]["name"] for t in openrouter_tools(allow_web=False)]
-    assert "search_vault_parent" in names
+    assert "load_episode" in names
+    assert "search_vault_parent" not in names
     assert "web_search" not in names
 
 
@@ -190,87 +193,98 @@ def test_tool_status_label_known_tools():
     assert tool_status_label("unknown_tool") == "Searching vault…"
 
 
+def _mock_bundle() -> EvidenceBundle:
+    return EvidenceBundle(
+        chunks=[
+            EvidenceChunk(
+                chunk_id="ep-0016#expanded:x#1",
+                episode_id="ep-0016",
+                title="Rockefeller",
+                section="expanded:expanded_datapoints",
+                excerpt="Quote: discipline matters.",
+                rerank_score=8.0,
+                source_path="content/notes/x.expanded.md",
+            )
+        ],
+        retrieval_meta={"intent": "thematic"},
+    )
+
+
 def test_run_turn_on_tool_start_callback(agent_config: AgentConfig):
     seen: list[str] = []
 
     def fake_completion(**kwargs):
-        if kwargs.get("tool_choice") == "none":
-            return _fake_response(content="Done [ep-0016].")
-        return _fake_response(
-            tool_calls=[
-                _fake_tool_call("search_vault_parent", {"query": "Rockefeller"}),
-            ],
-        )
+        return _fake_response(content="Done [ep-0016].")
+
+    def fake_retrieve(*_a, on_status=None, **_k):
+        if on_status:
+            on_status("Searching vault…")
+        return _mock_bundle()
 
     agent = VaultAgent(config=agent_config)
     agent.run_turn(
         "Rockefeller",
         completion_fn=fake_completion,
+        retrieve_fn=fake_retrieve,
         on_tool_start=lambda name, _args: seen.append(name),
     )
-    assert seen
-    assert all(name == "search_vault_parent" for name in seen)
+    assert "retrieval" in seen
 
 
-def test_run_turn_traces_search_vault_parent(agent_config: AgentConfig):
+def test_run_turn_traces_retrieval_orchestrator(agent_config: AgentConfig):
     calls: list[dict] = []
 
     def fake_completion(**kwargs):
         calls.append(kwargs)
-        if len(calls) == 1:
-            return _fake_response(
-                tool_calls=[
-                    _fake_tool_call("search_vault_parent", {"query": "Rockefeller discipline"}),
-                ],
-            )
         return _fake_response(content="Rockefeller valued discipline [ep-0016].")
 
     agent = VaultAgent(config=agent_config)
     result = agent.run_turn(
         "What did Rockefeller believe about discipline?",
         completion_fn=fake_completion,
+        retrieve_fn=lambda *_a, **_k: _mock_bundle(),
     )
 
     assert "Rockefeller" in result.content
     assert not result.error
-    assert any(t["tool"] == "search_vault_parent" for t in result.tool_trace)
-    tool_names = [t["function"]["name"] for t in calls[0]["tools"]]
-    assert "web_search" not in tool_names
+    assert any(t["tool"] == "retrieval_orchestrator" for t in result.tool_trace)
+    if calls and "tools" in calls[0]:
+        tool_names = [t["function"]["name"] for t in calls[0]["tools"]]
+        assert "web_search" not in tool_names
 
 
 def test_run_turn_never_registers_web_search_when_disabled(agent_config: AgentConfig):
     def fake_completion(**kwargs):
-        tool_names = [t["function"]["name"] for t in kwargs["tools"]]
-        assert "web_search" not in tool_names
+        if "tools" in kwargs:
+            tool_names = [t["function"]["name"] for t in kwargs["tools"]]
+            assert "web_search" not in tool_names
         return _fake_response(content="Done.")
 
     agent = VaultAgent(config=agent_config)
-    result = agent.run_turn("Hello", completion_fn=fake_completion, allow_web=False)
+    result = agent.run_turn(
+        "Hello",
+        completion_fn=fake_completion,
+        allow_web=False,
+        retrieve_fn=lambda *_a, **_k: EvidenceBundle(
+            chunks=[], retrieval_meta={"intent": "meta"}, skip_retrieval=True
+        ),
+    )
     assert result.content == "Done."
     assert not any(t["tool"] == "web_search" for t in result.tool_trace)
 
 
-def test_run_turn_forces_final_answer_on_last_step(agent_config: AgentConfig):
+def test_run_turn_synthesis_uses_tool_choice_none(agent_config: AgentConfig):
     calls: list[dict] = []
 
     def fake_completion(**kwargs):
         calls.append(kwargs)
-        if kwargs.get("tool_choice") == "none":
-            return _fake_response(content="Buffett inner scorecard [ep-0100].")
-        return _fake_response(
-            tool_calls=[
-                _fake_tool_call(
-                    "search_vault_parent",
-                    {"query": "inner scorecard"},
-                    call_id=f"call_{len(calls)}",
-                ),
-            ],
-        )
+        return _fake_response(content="Buffett inner scorecard [ep-0100].")
 
     agent = VaultAgent(config=agent_config)
     result = agent.run_turn(
         "What did Buffett mean by inner scorecard?",
         completion_fn=fake_completion,
+        retrieve_fn=lambda *_a, **_k: _mock_bundle(),
     )
 
     assert not result.error
@@ -282,7 +296,7 @@ def test_run_turn_final_step_ignores_tool_calls(agent_config: AgentConfig):
     def fake_completion(**kwargs):
         if kwargs.get("tool_choice") == "none":
             return _fake_response(
-                tool_calls=[_fake_tool_call("search_vault_parent", {"query": "naval"})],
+                tool_calls=[_fake_tool_call("load_episode", {"episode_id": "ep-0191"})],
                 content="You have not studied ep-0191 yet.",
             )
         return _fake_response(
@@ -292,7 +306,13 @@ def test_run_turn_final_step_ignores_tool_calls(agent_config: AgentConfig):
         )
 
     agent = VaultAgent(config=agent_config)
-    result = agent.run_turn("What about Naval ep 191?", completion_fn=fake_completion)
+    result = agent.run_turn(
+        "What about Naval ep 191?",
+        completion_fn=fake_completion,
+        retrieve_fn=lambda *_a, **_k: EvidenceBundle(
+            chunks=[], retrieval_meta={"intent": "thematic"}
+        ),
+    )
 
     assert not result.error
     assert "ep-0191" in result.content or "studied" in result.content.lower()
@@ -304,17 +324,42 @@ def test_run_turn_allows_web_tool_registration(agent_config: AgentConfig):
 
     def fake_completion(**kwargs):
         nonlocal seen_web
-        tool_names = [t["function"]["name"] for t in kwargs["tools"]]
-        seen_web = "web_search" in tool_names
-        if len(kwargs["messages"]) <= 2:
+        if "tools" in kwargs:
+            tool_names = [t["function"]["name"] for t in kwargs["tools"]]
+            seen_web = "web_search" in tool_names
+        if kwargs.get("tool_choice") != "none":
             return _fake_response(
                 tool_calls=[_fake_tool_call("web_search", {"query": "weather"})],
             )
         return _fake_response(content="External info unavailable.")
 
     agent = VaultAgent(config=agent_config)
-    result = agent.run_turn("What's the weather?", completion_fn=fake_completion, allow_web=True)
+    result = agent.run_turn(
+        "What's the weather?",
+        completion_fn=fake_completion,
+        allow_web=True,
+        retrieve_fn=lambda *_a, **_k: EvidenceBundle(
+            chunks=[], retrieval_meta={"intent": "thematic"}
+        ),
+    )
 
     assert seen_web
     assert any(t["tool"] == "web_search" for t in result.tool_trace)
     assert "unavailable" in result.content.lower() or "not configured" in str(result.tool_trace)
+
+
+def test_run_turn_meta_skips_retrieval(agent_config: AgentConfig):
+    def fake_completion(**kwargs):
+        return _fake_response(content="I use the librarian model from runtime settings.")
+
+    agent = VaultAgent(config=agent_config)
+    result = agent.run_turn(
+        "hello",
+        completion_fn=fake_completion,
+        retrieve_fn=lambda *_a, **_k: EvidenceBundle(
+            chunks=[], retrieval_meta={"intent": "meta"}, skip_retrieval=True
+        ),
+    )
+    assert isinstance(result, TurnResult)
+    assert not result.error
+    assert any(t.get("retrieval_meta", {}).get("intent") == "meta" for t in result.tool_trace)

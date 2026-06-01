@@ -95,7 +95,6 @@ def test_build_all_chunks_skips_transcript_when_unlistened(
     )
 
     n = build_all_chunks([row])
-    lines = (tmp_path / "catalog" / "chunks.jsonl").read_text(encoding="utf-8").strip().splitlines()
-    assert n == len(lines)
-    sections = {json.loads(line)["section"] for line in lines}
-    assert not any(s.startswith("transcript:") for s in sections)
+    assert n == 0
+    chunks_file = tmp_path / "catalog" / "chunks.jsonl"
+    assert chunks_file.read_text(encoding="utf-8") == ""

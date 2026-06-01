@@ -18,6 +18,7 @@ from search_retrieval import (
     is_transcript_chunk,
     parent_chunks_for_embedding,
     search_chunks_keyword,
+    structured_embed_text,
 )
 
 FIXTURE = paths.INGESTION_DIR / "fixtures" / "chunks_parent_slice.jsonl"
@@ -37,9 +38,11 @@ def test_parent_transcript_filters():
     chunks = load_fixture()
     parents = [c for c in chunks if is_parent_chunk(c)]
     transcripts = [c for c in chunks if is_transcript_chunk(c)]
-    assert len(parents) == 4
+    assert len(parents) == 3
     assert len(transcripts) == 1
     assert any(c["section"].startswith("expanded:") for c in parents)
+    assert any(c["section"].startswith("summary:") for c in parents)
+    assert not any(c["section"].startswith(("notes:", "post:")) for c in parents)
 
 
 def test_keyword_parent_search():
@@ -51,7 +54,7 @@ def test_keyword_parent_search():
         predicate=is_parent_chunk,
     )
     assert hits
-    assert hits[0][1]["section"].startswith(("expanded:", "notes:", "post:"))
+    assert hits[0][1]["section"].startswith(("expanded:", "summary:"))
 
 
 def test_keyword_multi_term_overlap():
@@ -95,6 +98,24 @@ def test_hybrid_prefers_expanded_section_boost():
     assert len(result["hits"]) >= 1
     sections = [h["section"] for h in result["hits"]]
     assert any(s.startswith("expanded:") for s in sections)
+
+
+def test_structured_embed_text_expanded_fields():
+    ch = {
+        "section": "expanded:expanded_datapoints",
+        "title": "Test",
+        "id": "ep-0001",
+        "episode_number": 1,
+        "published_at": "2016-01-01",
+        "excerpt": (
+            "### 10:00 — Hook\n\nContext: setup.\n\n"
+            "Quote: exact words.\n\nKey takeaway: lesson."
+        ),
+    }
+    text = structured_embed_text(ch)
+    assert "Timestamp: 10:00" in text
+    assert "Quote: exact words" in text
+    assert "Takeaway: lesson" in text
 
 
 def test_excerpt_hash_stable_for_incremental_skip():

@@ -28,12 +28,13 @@ from markdown_io import (
 )
 import paths
 from paths import (
+    EPISODE_SUMMARIES_PATH,
     expanded_file_path,
     notes_file_path,
-    post_file_path,
     transcript_dir,
     transcript_filename,
 )
+from catalog import load_jsonl
 
 SECTION_RE = re.compile(r"^##\s+(.+)$", re.MULTILINE)
 DATAPOINT_HEADING_RE = re.compile(r"^###\s+", re.MULTILINE)
@@ -246,11 +247,63 @@ def index_markdown_file(
     return all_chunks
 
 
-def episode_is_listened(notes_path: Path) -> bool:
+def episode_is_studied(notes_path: Path) -> bool:
     """True when notes contain at least one timestamp bullet (studied episode)."""
     if not notes_path.is_file():
         return False
     return has_timestamp_datapoints(notes_path)
+
+
+episode_is_listened = episode_is_studied  # backward-compatible alias
+
+
+def summary_chunks_from_catalog(
+    rows: list[dict[str, Any]],
+    summaries_path: Path | None = None,
+) -> list[dict[str, Any]]:
+    """Emit summary:episode chunks for studied episodes with a generated summary."""
+    spath = summaries_path or EPISODE_SUMMARIES_PATH
+    if not spath.is_file():
+        return []
+    by_ep = {
+        row["episode_id"]: row
+        for row in load_jsonl(spath)
+        if row.get("episode_id") and row.get("summary_text")
+    }
+    chunks: list[dict[str, Any]] = []
+    for row in rows:
+        ep_id = row["id"]
+        npath = notes_file_path(ep_id, row["slug"], row.get("episode_number"))
+        if not episode_is_studied(npath):
+            continue
+        summary_row = by_ep.get(ep_id)
+        if not summary_row:
+            continue
+        text = str(summary_row["summary_text"]).strip()
+        if not text:
+            continue
+        meta: dict[str, Any] = {
+            "title": summary_row.get("title") or row.get("title"),
+            "content_type": "summary",
+            "episode_number": row.get("episode_number"),
+            "published_at": row.get("published_at"),
+        }
+        if row.get("founders_url"):
+            meta["founders_url"] = row["founders_url"]
+        chunks.append(
+            {
+                "chunk_id": f"{ep_id}#summary:episode#1",
+                "id": ep_id,
+                "section": "summary:episode",
+                "start_line": 1,
+                "end_line": 1,
+                "source_path": str(spath.relative_to(paths.ROOT)),
+                "excerpt": text[:2000],
+                "char_count": len(text),
+                **meta,
+            }
+        )
+    return chunks
 
 
 def build_all_chunks(rows: list[dict[str, Any]] | None = None) -> int:
@@ -265,22 +318,18 @@ def build_all_chunks(rows: list[dict[str, Any]] | None = None) -> int:
         num = row.get("episode_number")
 
         npath = notes_file_path(ep_id, slug, num)
-        listened = episode_is_listened(npath)
+        if not episode_is_studied(npath):
+            continue
 
         tx_path = transcript_dir(ep_id, slug, num) / transcript_filename(ep_id, slug, num)
-        if tx_path.exists() and listened:
+        if tx_path.exists():
             all_chunks.extend(index_markdown_file(tx_path, ep_id, "transcript", row))
-
-        if npath.exists():
-            all_chunks.extend(index_markdown_file(npath, ep_id, "notes", row))
 
         expanded = expanded_file_path(ep_id, slug, num)
         if expanded.exists():
             all_chunks.extend(index_markdown_file(expanded, ep_id, "expanded", row))
 
-        ppath = post_file_path(ep_id, slug, num)
-        if ppath.exists():
-            all_chunks.extend(index_markdown_file(ppath, ep_id, "post", row))
+    all_chunks.extend(summary_chunks_from_catalog(rows))
 
     out = paths.CHUNKS_PATH
     out.parent.mkdir(parents=True, exist_ok=True)

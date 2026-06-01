@@ -72,7 +72,7 @@ Full script index: `[ingestion/README.md](ingestion/README.md)`.
 | X LLM match    | `python x/attribute_posts_llm.py --dry-run` / `--apply` (ambiguous rows in `post-mapping-review.jsonl`)                                                     |
 | Manual post    | `python x/assign_post_manual.py --episode N --x-post-id ID --published-at YYYY-MM-DD --body-file path`                                                      |
 | Dedupe CSV     | `python x/dedupe_x_csv.py` (after overlapping `--full` syncs)                                                                                               |
-| Chunk index    | `python search/build_chunks.py`                                                                                                                             |
+| Chunk index    | `python search/build_chunks.py` — after summaries: `python search/build_summaries.py` then `build_chunks.py` again (or `python lib/reindex_vault.py`) |
 | Verify         | `python pipeline/verify.py`                                                                                                                                 |
 | Tests (CI)     | From repo root: `pytest tests -q` then `cd ingestion && python pipeline/verify.py` — see [`docs/testing.md`](docs/testing.md); Telegram harness: [`docs/telegram-mock-harness.md`](docs/telegram-mock-harness.md) |
 

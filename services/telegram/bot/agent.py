@@ -1,9 +1,8 @@
-"""OpenRouter tool-calling loop for the Founders vault agent (SP2)."""
+"""OpenRouter vault agent: orchestrated retrieval + synthesis (Telegram Librarian)."""
 
 from __future__ import annotations
 
 import json
-import os
 import subprocess
 import sys
 from dataclasses import dataclass, field
@@ -93,66 +92,23 @@ def _build_system_message(config: AgentConfig, *, allow_web: bool) -> str:
 
 
 def openrouter_tools(*, allow_web: bool, default_k: int = 8) -> list[dict[str, Any]]:
+    """Optional tools for synthesis turn (load_episode escape hatch; web when allowed)."""
+    _ = default_k
     tools: list[dict[str, Any]] = [
-        {
-            "type": "function",
-            "function": {
-                "name": "search_vault_parent",
-                "description": (
-                    "Default for thematic questions. Hybrid keyword + embedding search over "
-                    "promoted expanded notes, raw timestamp notes, and posts (not transcripts). "
-                    "One call with a focused query is usually enough."
-                ),
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "query": {"type": "string", "description": "Search query"},
-                        "k": {
-                            "type": "integer",
-                            "description": "Max hits (default 8)",
-                            "default": default_k,
-                        },
-                    },
-                    "required": ["query"],
-                },
-            },
-        },
-        {
-            "type": "function",
-            "function": {
-                "name": "search_transcript",
-                "description": (
-                    "Transcript keyword search only — use when the user needs exact spoken wording "
-                    "and parent-tier notes/posts lack it. Do not use for unstudied episodes."
-                ),
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "query": {"type": "string"},
-                        "k": {"type": "integer", "default": default_k},
-                    },
-                    "required": ["query"],
-                },
-            },
-        },
         {
             "type": "function",
             "function": {
                 "name": "load_episode",
                 "description": (
                     "Load post, notes, and expanded for one episode (bounded size). "
-                    "Prefer canonical ep-NNNN from list_episode_ids; bare numbers like 191 "
-                    "are resolved server-side when unambiguous."
+                    "Use when the user explicitly wants everything from one episode."
                 ),
                 "parameters": {
                     "type": "object",
                     "properties": {
                         "episode_id": {
                             "type": "string",
-                            "description": (
-                                "Canonical ep-NNNN from list_episode_ids when possible; "
-                                "bare episode number tolerated as fallback."
-                            ),
+                            "description": "Canonical ep-NNNN or bare episode number.",
                         },
                     },
                     "required": ["episode_id"],
@@ -164,19 +120,12 @@ def openrouter_tools(*, allow_web: bool, default_k: int = 8) -> list[dict[str, A
             "function": {
                 "name": "list_episode_ids",
                 "description": (
-                    "Resolve a short token to ep-NNNN ids: episode number (191), guest name "
-                    "(Naval Ravikant), or canonical ep-0191 — not full sentences."
+                    "Resolve a short token to ep-NNNN ids: episode number, guest name, or ep-0191."
                 ),
                 "parameters": {
                     "type": "object",
                     "properties": {
-                        "query": {
-                            "type": "string",
-                            "description": (
-                                "Short token only: 191, Naval Ravikant, or ep-0191 — "
-                                "not phrases like episode 191."
-                            ),
-                        },
+                        "query": {"type": "string"},
                         "limit": {"type": "integer", "default": 8},
                     },
                     "required": ["query"],
@@ -211,12 +160,7 @@ def web_search_stub(query: str) -> dict[str, Any]:
 
 def _tool_handlers(config: AgentConfig) -> dict[str, ToolFn]:
     from web import web_search
-    from vault import (
-        list_episode_ids,
-        load_episode,
-        search_transcript,
-        search_vault_parent,
-    )
+    from vault import list_episode_ids, load_episode, search_transcript, search_vault_parent
 
     k_default = config.default_search_k
 
@@ -256,21 +200,6 @@ def execute_tool(
         return {"error": str(exc)}
 
 
-def _truncate_tool_json(payload: dict[str, Any], max_chars: int) -> str:
-    text = json.dumps(payload, ensure_ascii=False)
-    if len(text) <= max_chars:
-        return text
-    slim = dict(payload)
-    slim["_truncated"] = True
-    hits = slim.get("hits")
-    if isinstance(hits, list) and len(hits) > 2:
-        slim["hits"] = hits[:2]
-    text = json.dumps(slim, ensure_ascii=False)
-    if len(text) <= max_chars:
-        return text
-    return json.dumps({"error": "tool result too large", "_truncated": True})
-
-
 def _assistant_message_dict(msg: Any) -> dict[str, Any]:
     out: dict[str, Any] = {"role": "assistant", "content": msg.content}
     if msg.tool_calls:
@@ -288,6 +217,21 @@ def _assistant_message_dict(msg: Any) -> dict[str, Any]:
     return out
 
 
+def _truncate_tool_json(payload: dict[str, Any], max_chars: int) -> str:
+    text = json.dumps(payload, ensure_ascii=False)
+    if len(text) <= max_chars:
+        return text
+    slim = dict(payload)
+    slim["_truncated"] = True
+    hits = slim.get("hits")
+    if isinstance(hits, list) and len(hits) > 2:
+        slim["hits"] = hits[:2]
+    text = json.dumps(slim, ensure_ascii=False)
+    if len(text) <= max_chars:
+        return text
+    return json.dumps({"error": "tool result too large", "_truncated": True})
+
+
 class VaultAgent:
     def __init__(self, config: AgentConfig | None = None) -> None:
         self.config = config or load_agent_config()
@@ -302,19 +246,70 @@ class VaultAgent:
         session_id: str | None = None,
         completion_fn: Callable[..., Any] | None = None,
         on_tool_start: Callable[[str, dict[str, Any]], None] | None = None,
+        retrieve_fn: Callable[..., Any] | None = None,
     ) -> TurnResult:
-        """Run one user turn: tool loop until final assistant text or max_steps."""
+        """Retrieve evidence via orchestrator, then one synthesis completion (optional tools)."""
         cfg = self.config
+        trace: list[dict[str, Any]] = []
+
+        if retrieve_fn is None:
+            from retrieval import retrieve_for_turn
+
+            def retrieve_fn_inner(user_message: str, **kwargs: Any) -> Any:
+                return retrieve_for_turn(user_message, **kwargs, config=cfg)
+
+            retrieve_fn = retrieve_fn_inner
+
+        status_seen: list[str] = []
+
+        def on_status(label: str) -> None:
+            status_seen.append(label)
+            if on_tool_start is not None:
+                try:
+                    on_tool_start("retrieval", {"status": label})
+                except Exception:
+                    pass
+
+        try:
+            bundle = retrieve_fn(
+                user_message,
+                history=history,
+                on_status=on_status,
+            )
+        except Exception as exc:
+            return TurnResult(
+                content=f"Retrieval failed: {exc}",
+                tool_trace=trace,
+                steps=0,
+                error=True,
+            )
+
+        trace.append(
+            {
+                "step": 0,
+                "tool": "retrieval_orchestrator",
+                "arguments": {"query": user_message},
+                "session_id": session_id,
+                "retrieval_meta": bundle.retrieval_meta,
+                "status_labels": status_seen,
+            }
+        )
+
         messages: list[dict[str, Any]] = [
             {"role": "system", "content": _build_system_message(cfg, allow_web=allow_web)},
         ]
         if history:
             messages.extend(history)
-        messages.append({"role": "user", "content": user_message})
 
-        tools = openrouter_tools(allow_web=allow_web, default_k=cfg.default_search_k)
-        trace: list[dict[str, Any]] = []
-        tool_chars = 0
+        user_content = user_message
+        if not bundle.skip_retrieval:
+            from retrieval_orchestrator import format_evidence_for_synthesis
+
+            evidence_block = format_evidence_for_synthesis(bundle)
+            if evidence_block:
+                user_content = f"{user_message}\n\n{evidence_block}"
+
+        messages.append({"role": "user", "content": user_content})
 
         if completion_fn is None:
             from openai import OpenAI
@@ -324,36 +319,47 @@ class VaultAgent:
             def completion_fn(**kwargs: Any) -> Any:
                 return client.chat.completions.create(**kwargs)
 
+        tools = openrouter_tools(allow_web=allow_web, default_k=cfg.default_search_k)
+        tool_chars = 0
+        has_evidence = not bundle.skip_retrieval and bool(bundle.chunks)
+        max_steps = 1 if (bundle.skip_retrieval or has_evidence) else 2
+
         try:
-            for step in range(cfg.max_steps):
-                is_final_step = step == cfg.max_steps - 1
+            for step in range(max_steps):
+                is_final = step == max_steps - 1
                 request: dict[str, Any] = {
                     "model": cfg.model,
                     "messages": messages,
                 }
-                if is_final_step:
+                if is_final or has_evidence or bundle.skip_retrieval:
                     request["tool_choice"] = "none"
                 else:
                     request["tools"] = tools
                     request["tool_choice"] = "auto"
 
+                if on_tool_start is not None and is_final:
+                    try:
+                        on_tool_start("synthesis", {})
+                    except Exception:
+                        pass
+
                 response = completion_fn(**request)
                 msg = response.choices[0].message
-                if is_final_step:
+
+                if is_final:
                     text = (msg.content or "").strip()
                     if not text:
                         text = (
-                            "I could not finish an answer in one pass. "
-                            "Try a guest name or episode number, or ask me to search "
-                            "the vault for a theme."
+                            "I could not compose an answer from the retrieved evidence. "
+                            "Try a guest name, episode number, or a narrower theme."
                         )
                     return TurnResult(content=text, tool_trace=trace, steps=step + 1)
 
                 if not msg.tool_calls:
                     text = (msg.content or "").strip()
-                    if not text:
-                        text = "I could not produce an answer. Try rephrasing or narrowing the episode."
-                    return TurnResult(content=text, tool_trace=trace, steps=step + 1)
+                    if text:
+                        return TurnResult(content=text, tool_trace=trace, steps=step + 1)
+                    break
 
                 messages.append(_assistant_message_dict(msg))
                 remaining_budget = max(0, cfg.max_tool_result_chars - tool_chars)
@@ -396,13 +402,12 @@ class VaultAgent:
                     )
 
             return TurnResult(
-                content="I hit the step limit while searching. Try a narrower question.",
+                content="I could not finish an answer in one pass. Try rephrasing.",
                 tool_trace=trace,
-                steps=cfg.max_steps,
+                steps=max_steps,
                 error=True,
             )
         except Exception as exc:
-            _ = session_id
             return TurnResult(
                 content=f"OpenRouter request failed: {exc}",
                 tool_trace=trace,
