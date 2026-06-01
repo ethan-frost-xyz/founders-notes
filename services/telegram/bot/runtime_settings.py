@@ -20,6 +20,16 @@ RUNTIME_KEY_EMBED = "embed_model"
 RUNTIME_KEY_MAX_STEPS = "max_steps"
 RUNTIME_KEY_JANITOR_TEMP = "janitor_clean_temperature"
 
+# Shown after embed slug changes (/setmodel, Settings) — matches build_embeddings self-heal.
+EMBED_REINDEX_REMINDER = (
+    "Run /reindex or /sync when idle before trusting search — "
+    "stale vectors rebuild automatically."
+)
+EMBED_SETTINGS_REMINDER = (
+    "After changing embed: Ops → Reindex or Sync when idle "
+    "(stale vectors rebuild automatically)."
+)
+
 MODEL_ROLE_TO_KEY: dict[str, str] = {
     "librarian": RUNTIME_KEY_LIBRARIAN,
     "janitor": RUNTIME_KEY_JANITOR,
@@ -292,5 +302,5 @@ def format_settings_summary(agent_cfg: AgentConfig, bot_cfg: BotConfig) -> str:
     ]
     if emb_src == "runtime.json" or emb:
         lines.append("")
-        lines.append("After changing embed, use Ops → Reindex or Sync before trusting search.")
+        lines.append(EMBED_SETTINGS_REMINDER)
     return "\n".join(lines)

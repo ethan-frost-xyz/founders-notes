@@ -13,6 +13,7 @@ from runtime_settings import (
     load_runtime_settings,
     reset_model_role,
     set_model,
+    EMBED_REINDEX_REMINDER,
     sync_embed_to_os_environ,
 )
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
@@ -140,7 +141,7 @@ def _apply_model(role: str, slug: str) -> tuple[str, str]:
         sync_embed_to_os_environ()
     extra = ""
     if role == "embed":
-        extra = " Run /reindex or /sync before trusting search."
+        extra = f" {EMBED_REINDEX_REMINDER}"
     return slug, extra
 
 
@@ -260,7 +261,7 @@ async def on_settings_callback(update: Update, context: ContextTypes.DEFAULT_TYP
         title = ROLE_LABELS.get(role, role)
         msg = f"{title} → {slug!r} (saved)."
         if role == "embed":
-            msg += " Run /reindex or /sync before trusting search."
+            msg += f" {EMBED_REINDEX_REMINDER}"
         elif role == "librarian":
             msg += f"\nActive librarian: {agent.config.model}"
         text = format_settings_summary(bot_cfg.agent, bot_cfg)
@@ -321,7 +322,7 @@ async def try_handle_awaiting_model_slug(
     bot_cfg, agent = _reload_bot_config(context)
     extra = ""
     if role == "embed":
-        extra = " Run /reindex or /sync before trusting search."
+        extra = f" {EMBED_REINDEX_REMINDER}"
     await update.message.reply_text(
         f"Set {role} to {slug!r} (saved).{extra}\n"
         f"Librarian active: {agent.config.model}",

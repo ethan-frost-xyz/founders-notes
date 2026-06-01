@@ -236,7 +236,7 @@ Day-to-day tuning and vault ops without SSH:
 | `/sync` | `/pull` then `/reindex` (traveling shortcut; cron still uses `sync-and-index.sh`) |
 | `/restart` | Exit process; launchd starts a fresh bot |
 
-After `/setmodel embed`, run `/reindex` or `/sync` before trusting search. Avoid `/pull`/`/sync` during active Librarian or Janitor turns.
+After `/setmodel embed`, run `/reindex` or `/sync` when idle before trusting search (stale vectors rebuild automatically). Avoid `/pull`/`/sync` during active Librarian or Janitor turns.
 
 ## Troubleshooting
 

@@ -182,7 +182,12 @@ async def cmd_setmodel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
         return
     role = args[0]
     slug = " ".join(args[1:]).strip()
-    from runtime_settings import MODEL_ROLE_TO_KEY, set_model, sync_embed_to_os_environ
+    from runtime_settings import (
+        EMBED_REINDEX_REMINDER,
+        MODEL_ROLE_TO_KEY,
+        set_model,
+        sync_embed_to_os_environ,
+    )
 
     try:
         set_model(role, slug)
@@ -195,7 +200,7 @@ async def cmd_setmodel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     key = MODEL_ROLE_TO_KEY[role.strip().lower()]
     extra = ""
     if key == "embed_model":
-        extra = "\nRun /reindex or /sync before trusting search with the new embed model."
+        extra = f"\n{EMBED_REINDEX_REMINDER}"
     await update.message.reply_text(
         f"Set {role} model to {slug!r} (saved). Active on this process.{extra}\n"
         f"Librarian: {agent.config.model}\n"
