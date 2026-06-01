@@ -183,33 +183,75 @@ def test_session_stale_warning_when_index_newer(bot_config: BotConfig, tmp_path:
 
 def test_run_turn_allow_web_false_uses_agent(bot_config: BotConfig):
     from agent import VaultAgent
+    from retrieval_orchestrator import EvidenceBundle, EvidenceChunk
     from types import SimpleNamespace
 
     agent = VaultAgent(config=bot_config.agent)
     calls: list[bool] = []
 
     def fake_completion(**kwargs):
-        calls.append("web_search" in [t["function"]["name"] for t in kwargs.get("tools", [])])
+        tools = kwargs.get("tools") or []
+        calls.append("web_search" in [t["function"]["name"] for t in tools])
         msg = SimpleNamespace(content="Vault answer.", tool_calls=None)
         return SimpleNamespace(choices=[SimpleNamespace(message=msg)])
 
-    agent.run_turn("theme question", completion_fn=fake_completion, allow_web=False)
+    bundle = EvidenceBundle(
+        chunks=[
+            EvidenceChunk(
+                chunk_id="ep-0001#expanded:x#1",
+                episode_id="ep-0001",
+                title="T",
+                section="expanded:expanded_datapoints",
+                excerpt="Quote: theme",
+                rerank_score=8.0,
+                source_path="x.md",
+            )
+        ],
+        retrieval_meta={"intent": "thematic"},
+    )
+    agent.run_turn(
+        "theme question",
+        completion_fn=fake_completion,
+        allow_web=False,
+        retrieve_fn=lambda *_a, **_k: bundle,
+    )
     assert calls == [False]
 
 
 def test_run_turn_allow_web_true_registers_web(bot_config: BotConfig):
     from agent import VaultAgent
+    from retrieval_orchestrator import EvidenceBundle
     from types import SimpleNamespace
 
     agent = VaultAgent(config=bot_config.agent)
 
     def fake_completion(**kwargs):
-        names = [t["function"]["name"] for t in kwargs.get("tools", [])]
-        assert "web_search" in names
+        if "tools" in kwargs:
+            names = [t["function"]["name"] for t in kwargs["tools"]]
+            assert "web_search" in names
+            return _fake_tool_response("web_search")
         msg = SimpleNamespace(content="Done.", tool_calls=None)
         return SimpleNamespace(choices=[SimpleNamespace(message=msg)])
 
-    agent.run_turn("weather", completion_fn=fake_completion, allow_web=True)
+    def _fake_tool_response(name: str):
+        from types import SimpleNamespace
+        import json
+
+        tc = SimpleNamespace(
+            id="c1",
+            function=SimpleNamespace(name=name, arguments=json.dumps({"query": "x"})),
+        )
+        msg = SimpleNamespace(content=None, tool_calls=[tc])
+        return SimpleNamespace(choices=[SimpleNamespace(message=msg)])
+
+    agent.run_turn(
+        "weather",
+        completion_fn=fake_completion,
+        allow_web=True,
+        retrieve_fn=lambda *_a, **_k: EvidenceBundle(
+            chunks=[], retrieval_meta={"intent": "thematic"}
+        ),
+    )
 
 
 def test_resume_latest_scoped_to_user(bot_config: BotConfig):

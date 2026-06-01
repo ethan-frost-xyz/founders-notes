@@ -6,6 +6,9 @@ import argparse
 import sys
 from pathlib import Path
 
+pytest = __import__("pytest")
+yaml = pytest.importorskip("yaml")
+
 REPO = Path(__file__).resolve().parent.parent
 DEV = REPO / "dev"
 

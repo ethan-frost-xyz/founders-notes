@@ -1,0 +1,24 @@
+name: Librarian thematic cross-episode
+llm: live
+turns:
+  - send: "What did I note about Rockefeller and competition across episodes?"
+    expect:
+      response_min_length: 40
+      expect_live:
+        tool_called: retrieval_orchestrator
+        response_contains_any:
+          - ep-
+          - Rockefeller
+  - send: "How do founders think about compounding and long-term reputation?"
+    expect:
+      response_min_length: 60
+      expect_live:
+        tool_called: retrieval_orchestrator
+  - send: "What mental models show up around inversion and avoiding stupidity?"
+    expect:
+      response_min_length: 60
+      expect_live:
+        tool_called: retrieval_orchestrator
+        response_contains_any:
+          - Munger
+          - invert

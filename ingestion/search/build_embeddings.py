@@ -34,6 +34,7 @@ from search_retrieval import (
     load_chunks,
     load_embeddings_manifest,
     parent_chunks_for_embedding,
+    structured_embed_text,
 )
 
 load_dotenv(ROOT / ".env")
@@ -190,7 +191,7 @@ def build_parent_embeddings(
             raise SystemExit("Set OPENROUTER_API_KEY and OPENROUTER_EMBED_MODEL for --apply")
         for i in range(0, len(to_embed), batch_size):
             batch = to_embed[i : i + batch_size]
-            texts = [(ch.get("excerpt") or ch.get("chunk_id", ""))[:8000] for ch in batch]
+            texts = [structured_embed_text(ch)[:8000] for ch in batch]
             embs = embed_texts(texts, model=model, api_key=api_key, base_url=base_url)
             for ch, vec in zip(batch, embs):
                 vectors[ch["chunk_id"]] = np.array(vec, dtype=np.float32)

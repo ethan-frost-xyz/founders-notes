@@ -33,10 +33,11 @@ def test_reindex_vault_runs_chunks_then_embeddings(monkeypatch: pytest.MonkeyPat
 
     assert code == 0
     assert "embeddings" in msg
-    assert len(calls) == 2
+    assert len(calls) == 4
     assert calls[0] == ["/usr/bin/python3", "search/build_chunks.py"]
-    assert calls[1] == ["/usr/bin/python3", "search/build_embeddings.py"]
-    assert calls[0] is not calls[1]
+    assert calls[1] == ["/usr/bin/python3", "search/build_summaries.py"]
+    assert calls[2] == ["/usr/bin/python3", "search/build_chunks.py"]
+    assert calls[3] == ["/usr/bin/python3", "search/build_embeddings.py"]
 
 
 def test_reindex_vault_embeddings_false_skips_second_call(
@@ -55,8 +56,12 @@ def test_reindex_vault_embeddings_false_skips_second_call(
 
     assert code == 0
     assert "chunks" in msg.lower()
-    assert len(calls) == 1
-    assert calls[0][1] == "search/build_chunks.py"
+    assert len(calls) == 3
+    assert [c[1] for c in calls] == [
+        "search/build_chunks.py",
+        "search/build_summaries.py",
+        "search/build_chunks.py",
+    ]
 
 
 def test_reindex_vault_chunks_failure_returns_tail(

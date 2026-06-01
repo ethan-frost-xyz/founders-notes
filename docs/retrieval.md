@@ -8,70 +8,59 @@
 ## v1 — Chunk index (implemented)
 
 - **Index:** `catalog/chunks.jsonl` via `ingestion/search/build_chunks.py`
-- **Search:** `ingestion/search/search.py "query"`
-- **Chunk id:** `{episode_id}#{section}#{start_line}` — stable for reindexing (`episode_id` is padded, e.g. `ep-0200`)
-- **Sections:** `transcript:description`, `transcript:transcript`, `notes:raw_datapoints`, `post:body`, `expanded:*` (e.g. `expanded:expanded_datapoints` when canonical `.expanded.md` exists — from `build_chunks.py` content type `expanded`), etc.
-- **source_path:** points at `{folder}.{type}.md` files (see [`docs/episode-id-rules.md`](episode-id-rules.md))
-- **Per-chunk metadata** (from file frontmatter + catalog): `title`, `episode_number`, `content_type`, `published_at`, `founders_url`, `source`
+- **Search:** `ingestion/search/search.py "query"` (keyword CLI; unchanged)
+- **Studied-only:** Episodes without timestamp bullets in `.notes.md` are excluded from the index entirely.
+- **Parent search tiers:** `expanded:*` datapoints + `summary:episode` (routing layer). **`notes:*` and `post:*` are not indexed** — posts remain available via `load_episode`.
+- **Transcripts:** `transcript:*` chunks for studied episodes only; used by orchestrator fallback, not default thematic search.
 
-Regenerate after bulk import, transcript fetch, or expanded promote:
+Regenerate after bulk import, expanded promote, or summary rebuild:
 
 ```bash
-cd ingestion && python search/build_chunks.py
+cd ingestion
+python search/build_chunks.py
+python search/build_summaries.py   # LLM summaries; incremental by content hash
+python search/build_chunks.py      # pick up summary:* chunks
+python search/build_embeddings.py
 ```
 
-## v2 — Telegram vault agent tools (implemented)
+Or: `python lib/reindex_vault.py` / Telegram `/reindex` (runs all steps above).
 
-**Not** a repo-wide embedding migration. The [Telegram vault agent](telegram-vault-agent.md) uses **tool-calling** so the model chooses when to search what. Overview: [telegram-vault-agent.md](telegram-vault-agent.md) · runbook: [services/telegram/README.md](../services/telegram/README.md).
+## v3 — Telegram Librarian orchestrator (implemented)
 
-| Mechanism | Where | Scope |
-|-----------|--------|--------|
-| Keyword search | `search_vault_parent`, `search_transcript` | `catalog/chunks.jsonl` |
-| Parent-tier vectors | Inside `search_vault_parent` (hybrid with keyword) | Posts, raw notes, **canonical** `.expanded.md` only — not drafts |
-| Full episode load | `load_episode` | Bounded post + notes + expanded for one `ep-NNNN` |
-| Transcript search | `search_transcript` | Child-tier transcript sections only when needed |
-| Web | `web_search` | **`/web` command only** — never mixed into default vault turns |
+**Scope:** Telegram Librarian only. Python orchestrator in `ingestion/lib/retrieval_orchestrator.py`; thin adapter `services/telegram/bot/retrieval.py`.
 
-Telegram agent overview: [`docs/telegram-vault-agent.md`](telegram-vault-agent.md). SP1 (archived): [`.cursor/plans/archive/telegram_vault_sp1_tools.plan.md`](../.cursor/plans/archive/telegram_vault_sp1_tools.plan.md). Runbook: [`services/telegram/README.md`](../services/telegram/README.md).
+| Step | What |
+|------|------|
+| Intent | Rules-based (`meta` / `follow_up` / `thematic`) — no extra LLM |
+| Expand | 1 LLM call → standalone query + 5 variants (`prompts/query_expand.md`) |
+| Search | 1 batched embed API call + hybrid keyword/cosine per variant (`expanded` + `summary` tiers) |
+| Merge | Dedupe by `chunk_id`, RRF across variants, cap ~40 |
+| Rerank | 1 LLM call → top 10–12 with scores (`ingestion/lib/rerank_llm.py`) |
+| Fallback | Transcript keyword search when max rerank score &lt; 6 or quote-intent detected |
+| Synthesize | 1 DeepSeek completion with evidence block — **no** `search_vault_parent` tool loop |
 
-Index refresh on the Mac mini host: Telegram `/sync` or `sync-and-index.sh` → [`ingestion/lib/reindex_vault.py`](../ingestion/lib/reindex_vault.py) (`build_chunks.py` + `build_embeddings.py`; parent chunks only; `catalog/embeddings.npy` gitignored). Embed slug: `runtime.json` (`/setmodel embed`) or legacy env; re-run index after changing embed model.
+**LLM calls per thematic turn:** 3 (expand, rerank, synthesize) + 1 batched embed request.
 
-### Embeddings policy (two scopes)
+**Citable sources in synthesis:** `expanded:*` and `transcript:*` only. Summaries inform routing but are stripped from the evidence block.
 
-| Scope | Rule |
-|-------|------|
-| **Repo / Cursor / maintain.py** | Do **not** add a general-purpose vector DB until grep + `search/search.py` fail your real queries ([AGENTS.md](../AGENTS.md)). |
-| **Telegram agent only** | Parent-tier `embeddings.npy` is allowed **inside** `search_vault_parent` — hybrid retrieval as one tool, not the whole product. |
+**Defense in depth:** `episode_is_studied()` in `search_retrieval.py` filters at search time even if the index is stale.
 
-Re-embed from `chunks.jsonl` + on-disk markdown when embed models change. The Mac mini index records the embed slug in gitignored `catalog/embeddings-meta.json`; `build_embeddings.py` invalidates reuse and rebuilds automatically when the slug or vector dimension changes. **Do not** store-only vectors without plain-text sources in git.
+### Embeddings
 
-### What v1 preserves for agent tools
+- Structured embed text per chunk type (`structured_embed_text()` in `search_retrieval.py`)
+- Model slug: `runtime.json` `/setmodel embed`
+- In-process matrix cache (invalidate on `embeddings.npy` mtime)
+- Query embed LRU cache
 
-| Field | Use |
-|-------|-----|
-| `chunk_id` | Dedup across keyword ∪ semantic hits |
-| `source_path` + `start_line` | Citations back to git files |
-| `excerpt` | Tool result text + embed input |
-| `section` | Source priority (expanded > notes > post > transcript) |
-| `title`, `episode_number`, `content_type`, `published_at` | Display + `list_episode_ids` |
+## v2 — Legacy tool-calling path (superseded for Librarian)
+
+`search_vault_parent` / `search_transcript` remain in `services/telegram/bot/tools/vault.py` for tests and CLI harnesses. The live Librarian agent uses the orchestrator instead.
 
 ## Graduate to repo-wide embeddings when
 
-This section is about a **general-purpose repo-wide** vector layer — **not** the Telegram parent-tier embed index inside `search_vault_parent` (that scope is already allowed; see Embeddings policy above).
+Same as before — see [AGENTS.md](../AGENTS.md). Telegram parent-tier embed index (~1.2k vectors) stays in scope for the bot only.
 
-Consider a **general** vector layer (beyond the Telegram parent index) only when **all** are true:
+## Related
 
-1. Post corpus is largely complete (today: **187 / 417** numbered posts imported; target ~400+)
-2. `search/search.py` + `_corpus/all-posts.md` + vault agent tools routinely miss paraphrased or thematic queries
-3. You want “find similar ideas” across episodes, not exact keyword match
-
-Until then, v1 chunks + v2 agent tools are sufficient for Cursor and Telegram.
-
-## Open questions (agent / retrieval)
-
-Locked in master plan for v0; open follow-ups in [`potential-ideas.md`](../potential-ideas.md):
-
-1. **Web provider (SP3.1)** — v0 stub (`not configured`); Tavily or Brave when `WEB_SEARCH_API_KEY` is wired.
-2. **`load_episode`** — all on-disk sections, truncated; expanded sections ordered first when present.
-3. **`/resume` + stale index** — v0 warn-only; auto-sync deferred (Ops / sync cluster).
-4. **Hybrid quality** — SP6-lite shipped (status UX, scenarios); rerank, MRR@8, episode disambiguation (D1/D7) — Librarian quality cluster.
+- [telegram-vault-agent.md](telegram-vault-agent.md)
+- [services/telegram/README.md](../services/telegram/README.md)

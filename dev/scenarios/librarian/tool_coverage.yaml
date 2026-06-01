@@ -1,14 +1,14 @@
 name: Librarian tool coverage
 llm: live
 turns:
-  - send: "Search the vault for Rockefeller discipline themes."
+  - send: "What did I note about Rockefeller discipline across episodes?"
     expect:
       expect_live:
-        tool_called: search_vault_parent
-  - send: "Search transcripts for Standard Oil breakup."
+        tool_called: retrieval_orchestrator
+  - send: "What did he say verbatim about Standard Oil breakup?"
     expect:
       expect_live:
-        tool_called: search_transcript
+        tool_called: retrieval_orchestrator
   - send: "Load episode ep-0016."
     expect:
       expect_live:

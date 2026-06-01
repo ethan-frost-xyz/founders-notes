@@ -55,44 +55,57 @@ def _fake_response(*, content: str | None = None, tool_calls: list | None = None
     ))])
 
 
-def test_v0_criterion_search_parent_in_trace(agent_config: AgentConfig):
+def test_v0_criterion_retrieval_in_trace(agent_config: AgentConfig):
+    from retrieval_orchestrator import EvidenceBundle
+
     calls: list[dict] = []
 
     def fake_completion(**kwargs):
         calls.append(kwargs)
-        if len(calls) == 1:
-            return _fake_response(
-                tool_calls=[_fake_tool_call("search_vault_parent", {"query": "Rockefeller"})],
-            )
         return _fake_response(content="Discipline [ep-0016].")
 
     agent = VaultAgent(config=agent_config)
-    result = agent.run_turn("Rockefeller discipline", completion_fn=fake_completion)
-    assert any(t["tool"] == "search_vault_parent" for t in result.tool_trace)
-    assert "web_search" not in [t["function"]["name"] for t in calls[0]["tools"]]
+    result = agent.run_turn(
+        "Rockefeller discipline",
+        completion_fn=fake_completion,
+        retrieve_fn=lambda *_a, **_k: EvidenceBundle(
+            chunks=[], retrieval_meta={"intent": "thematic"}
+        ),
+    )
+    assert any(t["tool"] == "retrieval_orchestrator" for t in result.tool_trace)
+    if calls and "tools" in calls[0]:
+        assert "web_search" not in [t["function"]["name"] for t in calls[0]["tools"]]
 
 
 def test_v0_criterion_web_gated(agent_config: AgentConfig):
+    from retrieval_orchestrator import EvidenceBundle
+
+    skip = lambda *_a, **_k: EvidenceBundle(chunks=[], retrieval_meta={"intent": "thematic"})
+
     def fake_completion(**kwargs):
-        names = [t["function"]["name"] for t in kwargs["tools"]]
-        assert "web_search" not in names
+        if "tools" in kwargs:
+            names = [t["function"]["name"] for t in kwargs["tools"]]
+            assert "web_search" not in names
         return _fake_response(content="Vault only.")
 
     VaultAgent(config=agent_config).run_turn(
-        "hello", completion_fn=fake_completion, allow_web=False,
+        "hello", completion_fn=fake_completion, allow_web=False, retrieve_fn=skip,
     )
 
     web_seen = False
 
     def fake_web(**kwargs):
         nonlocal web_seen
-        web_seen = "web_search" in [t["function"]["name"] for t in kwargs["tools"]]
-        return _fake_response(
-            tool_calls=[_fake_tool_call("web_search", {"query": "x"})],
-        )
+        if "tools" in kwargs:
+            web_seen = "web_search" in [t["function"]["name"] for t in kwargs["tools"]]
+        if kwargs.get("tool_choice") != "none":
+            return _fake_response(
+                tool_calls=[_fake_tool_call("web_search", {"query": "x"})],
+            )
+        return _fake_response(content="ok")
 
     VaultAgent(config=agent_config).run_turn(
-        "weather", completion_fn=fake_web, allow_web=True,
+        "weather", completion_fn=fake_web, allow_web=True, retrieve_fn=skip,
     )
     assert web_seen
 
@@ -155,22 +168,23 @@ def test_v0_criterion_unlistened_agent_response(agent_config: AgentConfig):
 
     def fake_completion(**kwargs):
         calls.append(kwargs)
-        if len(calls) == 1:
+        if kwargs.get("tool_choice") == "none":
             return _fake_response(
-                tool_calls=[_fake_tool_call("list_episode_ids", {"query": "Naval Ravikant"})],
-            )
-        if len(calls) == 2:
-            return _fake_response(
-                tool_calls=[_fake_tool_call("load_episode", {"episode_id": "ep-0191"})],
+                content="You have not studied ep-0191 yet — only the transcript exists until you add timestamp bullets.",
             )
         return _fake_response(
-            content="You have not studied ep-0191 yet — only the transcript exists until you add timestamp bullets.",
+            tool_calls=[_fake_tool_call("list_episode_ids", {"query": "Naval Ravikant"})],
         )
+
+    from retrieval_orchestrator import EvidenceBundle
 
     result = VaultAgent(config=agent_config).run_turn(
         "What did I note about Naval Ravikant?",
         completion_fn=fake_completion,
         allow_web=False,
+        retrieve_fn=lambda *_a, **_k: EvidenceBundle(
+            chunks=[], retrieval_meta={"intent": "thematic"}
+        ),
     )
     assert "search_transcript" not in [t["tool"] for t in result.tool_trace]
     lowered = result.content.lower()

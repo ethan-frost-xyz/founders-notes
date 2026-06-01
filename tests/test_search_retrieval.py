@@ -14,10 +14,13 @@ from search_retrieval import (
     chunks_needing_embedding,
     excerpt_hash,
     hybrid_search_parent,
+    invalidate_studied_episode_cache,
     is_parent_chunk,
     is_transcript_chunk,
     parent_chunks_for_embedding,
     search_chunks_keyword,
+    structured_embed_text,
+    studied_episode_ids,
 )
 
 FIXTURE = paths.INGESTION_DIR / "fixtures" / "chunks_parent_slice.jsonl"
@@ -37,9 +40,11 @@ def test_parent_transcript_filters():
     chunks = load_fixture()
     parents = [c for c in chunks if is_parent_chunk(c)]
     transcripts = [c for c in chunks if is_transcript_chunk(c)]
-    assert len(parents) == 4
+    assert len(parents) == 3
     assert len(transcripts) == 1
     assert any(c["section"].startswith("expanded:") for c in parents)
+    assert any(c["section"].startswith("summary:") for c in parents)
+    assert not any(c["section"].startswith(("notes:", "post:")) for c in parents)
 
 
 def test_keyword_parent_search():
@@ -51,7 +56,7 @@ def test_keyword_parent_search():
         predicate=is_parent_chunk,
     )
     assert hits
-    assert hits[0][1]["section"].startswith(("expanded:", "notes:", "post:"))
+    assert hits[0][1]["section"].startswith(("expanded:", "summary:"))
 
 
 def test_keyword_multi_term_overlap():
@@ -95,6 +100,66 @@ def test_hybrid_prefers_expanded_section_boost():
     assert len(result["hits"]) >= 1
     sections = [h["section"] for h in result["hits"]]
     assert any(s.startswith("expanded:") for s in sections)
+
+
+def test_studied_episode_ids_cache_invalidates_on_notes_touch(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+):
+    import paths
+
+    monkeypatch.setattr(paths, "ROOT", tmp_path)
+    monkeypatch.setattr(paths, "NOTES_DIR", tmp_path / "content" / "notes")
+    catalog = tmp_path / "catalog" / "episodes.jsonl"
+    monkeypatch.setattr(paths, "CATALOG_PATH", catalog)
+    monkeypatch.setattr(paths, "CHUNKS_PATH", tmp_path / "catalog" / "chunks.jsonl")
+    catalog.parent.mkdir(parents=True)
+    catalog.write_text(
+        '{"id":"ep-0001","slug":"1-test","episode_number":1}\n',
+        encoding="utf-8",
+    )
+    notes_dir = tmp_path / "content" / "notes" / "ep-0001-test"
+    notes_dir.mkdir(parents=True)
+    npath = notes_dir / "ep-0001-test.notes.md"
+    npath.write_text(
+        "---\ntitle: T\n---\n\n## Raw datapoints\n\n- 1:00 — hook\n",
+        encoding="utf-8",
+    )
+    invalidate_studied_episode_cache()
+    assert "ep-0001" in studied_episode_ids(root=tmp_path)
+
+    import time
+
+    time.sleep(0.02)
+    npath.write_text(
+        "---\ntitle: T\n---\n\n## Raw datapoints\n\n",
+        encoding="utf-8",
+    )
+    assert "ep-0001" not in studied_episode_ids(root=tmp_path)
+
+    time.sleep(0.02)
+    npath.write_text(
+        "---\ntitle: T\n---\n\n## Raw datapoints\n\n- 2:00 — new hook\n",
+        encoding="utf-8",
+    )
+    assert "ep-0001" in studied_episode_ids(root=tmp_path)
+
+
+def test_structured_embed_text_expanded_fields():
+    ch = {
+        "section": "expanded:expanded_datapoints",
+        "title": "Test",
+        "id": "ep-0001",
+        "episode_number": 1,
+        "published_at": "2016-01-01",
+        "excerpt": (
+            "### 10:00 — Hook\n\nContext: setup.\n\n"
+            "Quote: exact words.\n\nKey takeaway: lesson."
+        ),
+    }
+    text = structured_embed_text(ch)
+    assert "Timestamp: 10:00" in text
+    assert "Quote: exact words" in text
+    assert "Takeaway: lesson" in text
 
 
 def test_excerpt_hash_stable_for_incremental_skip():
