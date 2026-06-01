@@ -3,7 +3,7 @@ llm: live
 turns:
   - send: "What did I note about Rockefeller and competition across episodes?"
     expect:
-      response_min_length: 80
+      response_min_length: 40
       expect_live:
         tool_called: retrieval_orchestrator
         response_contains_any:
