@@ -114,6 +114,7 @@ You do **not** need a second bot on the laptop to recover.
 | Funnel / webhook dead | Mac mini | `tailscale funnel --bg http://127.0.0.1:9876` |
 | Wrong models | Phone | `/settings`; `/setmodel`; or edit `runtime.json` + restart bot |
 | Stale Librarian answers | Phone | `/sync` when idle after content merge |
+| Reindex failed: `same shape` / `np.stack` | Mac mini `sync.log` | Usually **embed model changed** with a stale index. Merge current `main` (self-heal in `build_embeddings.py`), then webhook or Telegram **`/sync`** when idle — no manual `rm` needed. SSH fallback: delete `catalog/embeddings.npy`, `embeddings-manifest.jsonl`, `embeddings-meta.json`, then `python lib/reindex_vault.py` from `ingestion/` |
 
 Deploy reference: [services/telegram/README.md](../services/telegram/README.md).
 

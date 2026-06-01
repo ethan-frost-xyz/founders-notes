@@ -17,6 +17,7 @@ POSTS_CORPUS_PATH = POSTS_DIR / "_corpus" / "all-posts.md"
 CHUNKS_PATH = ROOT / "catalog" / "chunks.jsonl"
 EMBEDDINGS_PATH = ROOT / "catalog" / "embeddings.npy"
 EMBEDDINGS_MANIFEST_PATH = ROOT / "catalog" / "embeddings-manifest.jsonl"
+EMBEDDINGS_META_PATH = ROOT / "catalog" / "embeddings-meta.json"
 TELEGRAM_SESSIONS_DIR = ROOT / "catalog" / "telegram-sessions"
 
 CONTENT_TYPES = frozenset({"transcript", "notes", "expanded", "post"})

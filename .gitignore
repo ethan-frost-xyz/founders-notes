@@ -12,6 +12,7 @@ ingestion/.venv/
 catalog/expand-run.jsonl
 catalog/embeddings.npy
 catalog/embeddings-manifest.jsonl
+catalog/embeddings-meta.json
 catalog/telegram-sessions/
 dev/logs/
 catalog/openrouter-models-cache.json

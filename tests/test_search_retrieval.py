@@ -112,15 +112,27 @@ def test_chunks_needing_embedding_skips_unchanged_manifest():
     assert chunks_needing_embedding(chunks, manifest) == []
 
 
-def test_build_embeddings_reuses_manifest_without_api(tmp_path, monkeypatch):
-    chunks_path = tmp_path / "chunks.jsonl"
-    chunks_path.write_text(FIXTURE.read_text(encoding="utf-8"), encoding="utf-8")
+def _import_build_embeddings():
+    import sys
+
+    search_dir = paths.INGESTION_DIR / "search"
+    if str(search_dir) not in sys.path:
+        sys.path.insert(0, str(search_dir))
+    import build_embeddings
+
+    return build_embeddings
+
+
+def _write_embedding_cache(
+    tmp_path: Path,
+    parent: list[dict],
+    *,
+    dim: int = 4,
+    embed_model: str | None = None,
+) -> tuple[Path, Path, Path, Path]:
     manifest_path = tmp_path / "manifest.jsonl"
     emb_path = tmp_path / "embeddings.npy"
-
-    parent = parent_chunks_for_embedding(load_fixture())
-    import json
-
+    meta_path = tmp_path / "embeddings-meta.json"
     manifest = [
         {"chunk_id": ch["chunk_id"], "index": i, "content_hash": chunk_content_hash(ch)}
         for i, ch in enumerate(sorted(parent, key=lambda c: c["chunk_id"]))
@@ -129,15 +141,25 @@ def test_build_embeddings_reuses_manifest_without_api(tmp_path, monkeypatch):
         "\n".join(json.dumps(r) for r in manifest) + "\n",
         encoding="utf-8",
     )
-    np.save(emb_path, np.zeros((len(manifest), 4), dtype=np.float32))
+    np.save(emb_path, np.zeros((len(manifest), dim), dtype=np.float32))
+    if embed_model is not None:
+        meta_path.write_text(
+            json.dumps({"embed_model": embed_model, "dim": dim}) + "\n",
+            encoding="utf-8",
+        )
+    return manifest_path, emb_path, meta_path, tmp_path / "chunks.jsonl"
 
-    import sys
 
-    search_dir = paths.INGESTION_DIR / "search"
-    if str(search_dir) not in sys.path:
-        sys.path.insert(0, str(search_dir))
-    import build_embeddings
+def test_build_embeddings_reuses_manifest_without_api(tmp_path, monkeypatch):
+    chunks_path = tmp_path / "chunks.jsonl"
+    chunks_path.write_text(FIXTURE.read_text(encoding="utf-8"), encoding="utf-8")
+    parent = parent_chunks_for_embedding(load_fixture())
+    manifest_path, emb_path, meta_path, _ = _write_embedding_cache(
+        tmp_path, parent, embed_model="fixture/reuse-model"
+    )
+    monkeypatch.setenv("OPENROUTER_EMBED_MODEL", "fixture/reuse-model")
 
+    build_embeddings = _import_build_embeddings()
     monkeypatch.setattr(
         build_embeddings,
         "embed_texts",
@@ -150,6 +172,130 @@ def test_build_embeddings_reuses_manifest_without_api(tmp_path, monkeypatch):
         chunks_path=chunks_path,
         embeddings_path=emb_path,
         manifest_path=manifest_path,
+        meta_path=meta_path,
     )
     assert summary["to_embed"] == 0
     assert summary["reused"] == len(parent)
+    assert not summary.get("invalidated_cache")
+
+
+def test_build_embeddings_invalidates_on_embed_model_mismatch(tmp_path, monkeypatch):
+    chunks_path = tmp_path / "chunks.jsonl"
+    chunks_path.write_text(FIXTURE.read_text(encoding="utf-8"), encoding="utf-8")
+    parent = parent_chunks_for_embedding(load_fixture())
+    manifest_path, emb_path, meta_path, _ = _write_embedding_cache(
+        tmp_path, parent, embed_model="old/embed-model"
+    )
+    monkeypatch.setenv("OPENROUTER_EMBED_MODEL", "new/embed-model")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+
+    build_embeddings = _import_build_embeddings()
+    calls: list[int] = []
+
+    def fake_embed(texts, **kwargs):
+        calls.append(len(texts))
+        return [[0.0] * 8 for _ in texts]
+
+    monkeypatch.setattr(build_embeddings, "embed_texts", fake_embed)
+    from build_embeddings import build_parent_embeddings
+
+    summary = build_parent_embeddings(
+        apply=True,
+        chunks_path=chunks_path,
+        embeddings_path=emb_path,
+        manifest_path=manifest_path,
+        meta_path=meta_path,
+    )
+    assert summary["invalidated_cache"]
+    assert summary.get("invalidated_reason") == "embed_model_changed"
+    assert summary["to_embed"] == len(parent)
+    assert calls
+    saved = np.load(emb_path)
+    assert saved.shape == (len(parent), 8)
+    meta = json.loads(meta_path.read_text(encoding="utf-8"))
+    assert meta["embed_model"] == "new/embed-model"
+    assert meta["dim"] == 8
+
+
+def test_build_embeddings_invalidates_on_dim_mismatch_without_meta(tmp_path, monkeypatch):
+    chunks_path = tmp_path / "chunks.jsonl"
+    chunks_path.write_text(FIXTURE.read_text(encoding="utf-8"), encoding="utf-8")
+    parent = parent_chunks_for_embedding(load_fixture())
+    manifest_path, emb_path, meta_path, _ = _write_embedding_cache(tmp_path, parent)
+    assert not meta_path.exists()
+    monkeypatch.setenv("OPENROUTER_EMBED_MODEL", "probe/model")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+
+    build_embeddings = _import_build_embeddings()
+    monkeypatch.setattr(build_embeddings, "_probe_embedding_dim", lambda **k: 8)
+
+    def fake_embed(texts, **kwargs):
+        return [[0.0] * 8 for _ in texts]
+
+    monkeypatch.setattr(build_embeddings, "embed_texts", fake_embed)
+    from build_embeddings import build_parent_embeddings
+
+    summary = build_parent_embeddings(
+        apply=True,
+        chunks_path=chunks_path,
+        embeddings_path=emb_path,
+        manifest_path=manifest_path,
+        meta_path=meta_path,
+    )
+    assert summary["invalidated_cache"]
+    assert summary.get("invalidated_reason") == "legacy_dim_probe_mismatch"
+    assert summary["to_embed"] == len(parent)
+
+
+def test_rows_have_uniform_dim():
+    build_embeddings = _import_build_embeddings()
+    assert build_embeddings._rows_have_uniform_dim([])
+    assert build_embeddings._rows_have_uniform_dim(
+        [np.zeros(4, dtype=np.float32), np.ones(4, dtype=np.float32)]
+    )
+    assert not build_embeddings._rows_have_uniform_dim(
+        [np.zeros(4, dtype=np.float32), np.zeros(8, dtype=np.float32)]
+    )
+
+
+def test_build_embeddings_reactive_mixed_dims_retries(tmp_path, monkeypatch):
+    chunks_path = tmp_path / "chunks.jsonl"
+    fixture_rows = load_fixture()
+    parent = parent_chunks_for_embedding(fixture_rows)
+    manifest_path, emb_path, meta_path, _ = _write_embedding_cache(
+        tmp_path, parent, embed_model="fixture/reactive"
+    )
+    fixture_rows[0] = {**fixture_rows[0], "excerpt": "changed excerpt forces re-embed"}
+    chunks_path.write_text(
+        "\n".join(json.dumps(r) for r in fixture_rows) + "\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setenv("OPENROUTER_EMBED_MODEL", "fixture/reactive")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+
+    build_embeddings = _import_build_embeddings()
+    batch_sizes: list[int] = []
+
+    call_n = {"n": 0}
+
+    def fake_embed(texts, **kwargs):
+        batch_sizes.append(len(texts))
+        call_n["n"] += 1
+        dim = 8 if call_n["n"] == 1 else 4
+        return [[0.0] * dim for _ in texts]
+
+    monkeypatch.setattr(build_embeddings, "embed_texts", fake_embed)
+    from build_embeddings import build_parent_embeddings
+
+    summary = build_parent_embeddings(
+        apply=True,
+        chunks_path=chunks_path,
+        embeddings_path=emb_path,
+        manifest_path=manifest_path,
+        meta_path=meta_path,
+    )
+    assert summary.get("invalidated_reason") == "force_full_rebuild"
+    assert summary["to_embed"] == len(parent_chunks_for_embedding(fixture_rows))
+    assert len(batch_sizes) >= 2
+    saved = np.load(emb_path)
+    assert saved.shape[1] == 4

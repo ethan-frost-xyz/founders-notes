@@ -43,7 +43,7 @@ Index refresh on the Mac mini host: Telegram `/sync` or `sync-and-index.sh` → 
 | **Repo / Cursor / maintain.py** | Do **not** add a general-purpose vector DB until grep + `search/search.py` fail your real queries ([AGENTS.md](../AGENTS.md)). |
 | **Telegram agent only** | Parent-tier `embeddings.npy` is allowed **inside** `search_vault_parent` — hybrid retrieval as one tool, not the whole product. |
 
-Re-embed from `chunks.jsonl` + on-disk markdown when embed models change. **Do not** store-only vectors without plain-text sources in git.
+Re-embed from `chunks.jsonl` + on-disk markdown when embed models change. The Mac mini index records the embed slug in gitignored `catalog/embeddings-meta.json`; `build_embeddings.py` invalidates reuse and rebuilds automatically when the slug or vector dimension changes. **Do not** store-only vectors without plain-text sources in git.
 
 ### What v1 preserves for agent tools
 
