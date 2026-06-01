@@ -12,14 +12,15 @@ from typing import Any, Callable
 
 import numpy as np
 
-from catalog import load_catalog, load_jsonl
+from catalog import load_jsonl
 from markdown_io import has_timestamp_datapoints
 from paths import (
     CHUNKS_PATH,
     EMBEDDINGS_MANIFEST_PATH,
     EMBEDDINGS_PATH,
     ROOT,
-    notes_file_path,
+    content_filename,
+    folder_name,
 )
 
 PARENT_SECTION_RE = re.compile(r"^(expanded|summary):")
@@ -33,6 +34,7 @@ _EXPANDED_FIELD_RE = re.compile(
 )
 
 _studied_episode_ids: set[str] | None = None
+_studied_cache_key: tuple[Any, ...] | None = None
 
 
 def is_parent_chunk(ch: dict[str, Any]) -> bool:
@@ -51,19 +53,65 @@ def tier_boost(section: str) -> float:
     return 0.0
 
 
+def invalidate_studied_episode_cache() -> None:
+    """Clear studied-id cache (tests, post-reindex hooks)."""
+    global _studied_episode_ids, _studied_cache_key
+    _studied_episode_ids = None
+    _studied_cache_key = None
+
+
+def _tree_max_mtime(directory: Path, glob_pattern: str) -> float:
+    if not directory.is_dir():
+        return 0.0
+    latest = 0.0
+    for path in directory.glob(glob_pattern):
+        if not path.is_file():
+            continue
+        try:
+            latest = max(latest, path.stat().st_mtime)
+        except OSError:
+            continue
+    return latest
+
+
+def _studied_ids_cache_key(vault_root: Path) -> tuple[Any, ...]:
+    catalog = vault_root / "catalog" / "episodes.jsonl"
+    chunks = vault_root / "catalog" / "chunks.jsonl"
+    notes_dir = vault_root / "content" / "notes"
+    parts: list[Any] = [str(vault_root.resolve())]
+    for path in (catalog, chunks):
+        parts.append(path.stat().st_mtime if path.is_file() else 0.0)
+    parts.append(_tree_max_mtime(notes_dir, "**/*.notes.md"))
+    return tuple(parts)
+
+
+def _notes_path_for_root(
+    vault_root: Path,
+    episode_id: str,
+    slug: str,
+    episode_number: int | None,
+) -> Path:
+    folder = folder_name(episode_id, slug, episode_number)
+    return vault_root / "content" / "notes" / folder / content_filename(folder, "notes")
+
+
 def studied_episode_ids(*, root: Path | None = None) -> set[str]:
     """Episode ids with timestamp bullets in notes (studied corpus)."""
-    global _studied_episode_ids
-    if _studied_episode_ids is not None:
+    global _studied_episode_ids, _studied_cache_key
+    vault_root = (root or ROOT).resolve()
+    cache_key = _studied_ids_cache_key(vault_root)
+    if _studied_episode_ids is not None and _studied_cache_key == cache_key:
         return _studied_episode_ids
-    vault_root = root or ROOT
+    catalog_path = vault_root / "catalog" / "episodes.jsonl"
+    rows = load_jsonl(catalog_path) if catalog_path.is_file() else []
     ids: set[str] = set()
-    for row in load_catalog():
+    for row in rows:
         ep_id = row["id"]
-        npath = notes_file_path(ep_id, row["slug"], row.get("episode_number"))
+        npath = _notes_path_for_root(vault_root, ep_id, row["slug"], row.get("episode_number"))
         if npath.is_file() and has_timestamp_datapoints(npath):
             ids.add(ep_id)
     _studied_episode_ids = ids
+    _studied_cache_key = cache_key
     return ids
 
 

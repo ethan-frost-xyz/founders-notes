@@ -15,6 +15,7 @@ from agent import (  # noqa: E402
     TurnResult,
     execute_tool,
     openrouter_tools,
+    user_wants_synthesis_tools,
     web_search_stub,
 )
 from retrieval_orchestrator import EvidenceBundle, EvidenceChunk  # noqa: E402
@@ -363,3 +364,33 @@ def test_run_turn_meta_skips_retrieval(agent_config: AgentConfig):
     assert isinstance(result, TurnResult)
     assert not result.error
     assert any(t.get("retrieval_meta", {}).get("intent") == "meta" for t in result.tool_trace)
+
+
+def test_user_wants_synthesis_tools_load_episode():
+    assert user_wants_synthesis_tools("Load episode ep-0016.")
+    assert user_wants_synthesis_tools("List episodes matching rockefeller.")
+
+
+def test_run_turn_load_episode_allows_tools_when_evidence_present(agent_config: AgentConfig):
+    calls: list[dict] = []
+
+    def fake_completion(**kwargs):
+        calls.append(kwargs)
+        if kwargs.get("tool_choice") == "auto":
+            return _fake_response(
+                tool_calls=[
+                    _fake_tool_call("load_episode", {"episode_id": "ep-0016"}),
+                ],
+            )
+        return _fake_response(content="Full episode payload [ep-0016].")
+
+    agent = VaultAgent(config=agent_config)
+    result = agent.run_turn(
+        "Load episode ep-0016.",
+        completion_fn=fake_completion,
+        retrieve_fn=lambda *_a, **_k: _mock_bundle(),
+    )
+
+    assert not result.error
+    assert calls[0].get("tool_choice") == "auto"
+    assert any(t["tool"] == "load_episode" for t in result.tool_trace)

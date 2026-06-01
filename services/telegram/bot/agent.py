@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 from dataclasses import dataclass, field
@@ -16,6 +17,18 @@ from config import AgentConfig, load_agent_config
 PROMPT_PATH = Path(__file__).resolve().parent.parent / "prompts" / "vault_agent.md"
 
 ToolFn = Callable[[dict[str, Any]], dict[str, Any]]
+
+# Explicit load/list turns must keep a tool round even when retrieval returned evidence.
+_EXPLICIT_TOOL_TURN_RE = re.compile(
+    r"(?i)"
+    r"(\bload\s+episode\b"
+    r"|\b(list|lookup)\s+episodes?\b"
+    r"|\b(load|show|open)\b.{0,40}\bepisode\b)"
+)
+
+
+def user_wants_synthesis_tools(user_message: str) -> bool:
+    return bool(_EXPLICIT_TOOL_TURN_RE.search(user_message.strip()))
 
 
 @dataclass
@@ -322,7 +335,9 @@ class VaultAgent:
         tools = openrouter_tools(allow_web=allow_web, default_k=cfg.default_search_k)
         tool_chars = 0
         has_evidence = not bundle.skip_retrieval and bool(bundle.chunks)
-        max_steps = 1 if (bundle.skip_retrieval or has_evidence) else 2
+        wants_tools = user_wants_synthesis_tools(user_message)
+        synthesis_only = bundle.skip_retrieval or (has_evidence and not wants_tools)
+        max_steps = 1 if synthesis_only else 2
 
         try:
             for step in range(max_steps):
@@ -331,7 +346,7 @@ class VaultAgent:
                     "model": cfg.model,
                     "messages": messages,
                 }
-                if is_final or has_evidence or bundle.skip_retrieval:
+                if is_final or synthesis_only:
                     request["tool_choice"] = "none"
                 else:
                     request["tools"] = tools
