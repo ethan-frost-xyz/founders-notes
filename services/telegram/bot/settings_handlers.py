@@ -18,6 +18,11 @@ from runtime_settings import (
 )
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ContextTypes
+from ui_keyboards import (
+    CALLBACK_SETTINGS_MENU,
+    back_to_settings_markup,
+    back_to_settings_row,
+)
 
 AWAITING_MODEL_SLUG_KEY = "awaiting_model_slug"
 
@@ -78,7 +83,7 @@ def _ops_keyboard() -> InlineKeyboardMarkup:
                 InlineKeyboardButton("Reindex", callback_data="set:op:reindex"),
                 InlineKeyboardButton("Restart", callback_data="set:op:restart"),
             ],
-            [InlineKeyboardButton("← Back", callback_data="set:menu")],
+            back_to_settings_row(),
         ]
     )
 
@@ -96,7 +101,7 @@ def _role_preset_keyboard(role: str) -> InlineKeyboardMarkup:
             InlineKeyboardButton("Type custom slug…", callback_data=f"set:c:{role}"),
         ]
     )
-    rows.append([InlineKeyboardButton("← Back", callback_data="set:menu")])
+    rows.append(back_to_settings_row())
     return InlineKeyboardMarkup(rows)
 
 
@@ -113,7 +118,7 @@ def _steps_keyboard() -> InlineKeyboardMarkup:
                 InlineKeyboardButton("15", callback_data="set:s:15"),
                 InlineKeyboardButton("20", callback_data="set:s:20"),
             ],
-            [InlineKeyboardButton("← Back", callback_data="set:menu")],
+            back_to_settings_row(),
         ]
     )
 
@@ -158,7 +163,8 @@ async def on_settings_callback(update: Update, context: ContextTypes.DEFAULT_TYP
 
     bot_cfg = _config(context)
 
-    if data == "set:menu":
+    if data == CALLBACK_SETTINGS_MENU:
+        context.user_data.pop(AWAITING_MODEL_SLUG_KEY, None)
         text = format_settings_summary(bot_cfg.agent, bot_cfg)
         await query.edit_message_text(text, reply_markup=settings_keyboard())
         return
@@ -219,7 +225,7 @@ async def on_settings_callback(update: Update, context: ContextTypes.DEFAULT_TYP
             value = int(data.split(":", 2)[2])
             set_max_steps(value)
         except (ValueError, IndexError) as exc:
-            await query.edit_message_text(str(exc))
+            await query.edit_message_text(str(exc), reply_markup=_steps_keyboard())
             return
         _, agent = _reload_bot_config(context)
         text = format_settings_summary(bot_cfg.agent, bot_cfg)
@@ -250,12 +256,18 @@ async def on_settings_callback(update: Update, context: ContextTypes.DEFAULT_TYP
             idx = int(idx_s)
             _label, slug = presets[idx]
         except (ValueError, IndexError):
-            await query.edit_message_text("Invalid preset.")
+            await query.edit_message_text(
+                "Invalid preset.",
+                reply_markup=_role_preset_keyboard(role) if role in MODEL_ROLE_TO_KEY else settings_keyboard(),
+            )
             return
         try:
             _apply_model(role, slug)
         except ValueError as exc:
-            await query.edit_message_text(str(exc))
+            await query.edit_message_text(
+                str(exc),
+                reply_markup=_role_preset_keyboard(role),
+            )
             return
         bot_cfg, agent = _reload_bot_config(context)
         title = ROLE_LABELS.get(role, role)
@@ -273,7 +285,12 @@ async def on_settings_callback(update: Update, context: ContextTypes.DEFAULT_TYP
         try:
             reset_model_role(role)
         except ValueError as exc:
-            await query.edit_message_text(str(exc))
+            markup = (
+                _role_preset_keyboard(role)
+                if role in MODEL_ROLE_TO_KEY
+                else settings_keyboard()
+            )
+            await query.edit_message_text(str(exc), reply_markup=markup)
             return
         if role == "embed":
             sync_embed_to_os_environ()
@@ -293,8 +310,8 @@ async def on_settings_callback(update: Update, context: ContextTypes.DEFAULT_TYP
         title = ROLE_LABELS.get(role, role)
         await query.edit_message_text(
             f"{title}\n\nSend the **full OpenRouter slug** in your next message "
-            f"(e.g. `anthropic/claude-sonnet-4`).\n\n/cancel does not clear this — "
-            f"send /settings to go back."
+            f"(e.g. `anthropic/claude-sonnet-4.6`).\n\nTap ← Back or send /settings to cancel.",
+            reply_markup=back_to_settings_markup(),
         )
         return
 

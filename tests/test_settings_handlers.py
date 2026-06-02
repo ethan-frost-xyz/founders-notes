@@ -3,7 +3,13 @@
 from __future__ import annotations
 
 from model_presets import MODEL_PRESETS, ROLE_LABELS
-from settings_handlers import _role_preset_keyboard, settings_keyboard
+from settings_handlers import (
+    _ops_keyboard,
+    _role_preset_keyboard,
+    _steps_keyboard,
+    settings_keyboard,
+)
+from ui_keyboards import BACK_LABEL, CALLBACK_SETTINGS_MENU, back_to_settings_markup
 
 
 def test_callback_data_under_telegram_limit():
@@ -20,6 +26,19 @@ def test_callback_data_under_telegram_limit():
 def test_role_keyboard_has_presets_and_back():
     kb = _role_preset_keyboard("librarian")
     labels = [btn.text for row in kb.inline_keyboard for btn in row]
-    assert "deepseek-v4-pro" in labels
-    assert "← Back" in labels
+    assert "mimo-v2.5-pro" in labels
+    assert BACK_LABEL in labels
     assert "Type custom slug…" in labels
+
+
+def test_ops_back_uses_shared_label():
+    kb = back_to_settings_markup()
+    btn = kb.inline_keyboard[0][0]
+    assert btn.text == BACK_LABEL
+    assert btn.callback_data == CALLBACK_SETTINGS_MENU
+
+
+def test_all_settings_submenus_have_back():
+    for kb in (_ops_keyboard(), _role_preset_keyboard("librarian"), _steps_keyboard()):
+        labels = [btn.text for row in kb.inline_keyboard for btn in row]
+        assert BACK_LABEL in labels

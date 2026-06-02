@@ -7,7 +7,8 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from telegram import InlineKeyboardMarkup, Message
+from ui_keyboards import back_to_settings_markup
 
 _MAX_RESULT_CHARS = 3500
 
@@ -70,11 +71,11 @@ async def run_ops_job_edit(
     label: str,
     fn: Callable[[Path], tuple[int, str]],
     running_text: str,
-    back_markup: InlineKeyboardMarkup | None = None,
+    back_markup=None,
 ) -> None:
     """Run an op from settings inline panel (edit same message for status)."""
     if not await _acquire_lock(bot_data):
-        await message.edit_text(_lock_busy_reply())
+        await message.edit_text(_lock_busy_reply(), reply_markup=back_to_settings_markup())
         return
     await message.edit_text(running_text)
     try:
@@ -83,11 +84,7 @@ async def run_ops_job_edit(
         _release_lock(bot_data)
     prefix = "Done" if code == 0 else f"Failed (exit {code})"
     body = f"{prefix}: {label}\n\n{_truncate(msg)}"
-    markup = back_markup
-    if markup is None:
-        markup = InlineKeyboardMarkup(
-            [[InlineKeyboardButton("← Back to Settings", callback_data="set:menu")]]
-        )
+    markup = back_markup if back_markup is not None else back_to_settings_markup()
     await message.edit_text(body, reply_markup=markup)
 
 

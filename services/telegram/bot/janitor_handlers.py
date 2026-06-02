@@ -20,16 +20,17 @@ from janitor_workflow import (
 )
 from messaging import reply_text_chunked
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from ui_keyboards import janitor_back_markup, janitor_back_row
 from telegram.ext import ContextTypes
 
 if TYPE_CHECKING:
     from telegram import Message
 
 JANITOR_HELP = """Janitor — paste episode + bullets to file notes.
-Send an episode number to begin, or tap Exit Janitor to return to Q&A."""
+Send an episode number to begin, or tap ← Back to return to Q&A."""
 
 _PREVIEW_FOOTER = (
-    "\n\n_Reply with edits to revise this clean, or use Retry / Approve / Exit Janitor._"
+    "\n\n_Reply with edits to revise this clean, or use Retry / Approve / ← Back._"
 )
 
 _STILL_WORKING_DELAY_S = 20.0
@@ -81,9 +82,7 @@ async def _reject_unauthorized(update: Update, config: BotConfig) -> bool:
 
 
 def _exit_keyboard() -> InlineKeyboardMarkup:
-    return InlineKeyboardMarkup(
-        [[InlineKeyboardButton("Exit Janitor", callback_data="janitor:exit")]]
-    )
+    return janitor_back_markup()
 
 
 def _preview_keyboard() -> InlineKeyboardMarkup:
@@ -93,7 +92,7 @@ def _preview_keyboard() -> InlineKeyboardMarkup:
                 InlineKeyboardButton("Retry", callback_data="janitor:retry"),
                 InlineKeyboardButton("Approve", callback_data="janitor:approve"),
             ],
-            [InlineKeyboardButton("Exit Janitor", callback_data="janitor:exit")],
+            janitor_back_row(),
         ]
     )
 
@@ -106,7 +105,7 @@ def _confirm_overwrite_keyboard() -> InlineKeyboardMarkup:
                     "Confirm overwrite", callback_data="janitor:confirm_overwrite"
                 ),
             ],
-            [InlineKeyboardButton("Exit Janitor", callback_data="janitor:exit")],
+            janitor_back_row(),
         ]
     )
 
@@ -118,7 +117,7 @@ def _review_keyboard() -> InlineKeyboardMarkup:
                 InlineKeyboardButton("Promote & reindex", callback_data="janitor:promote"),
                 InlineKeyboardButton("Retry expand", callback_data="janitor:retry_expand"),
             ],
-            [InlineKeyboardButton("Exit Janitor", callback_data="janitor:exit")],
+            janitor_back_row(),
         ]
     )
 
@@ -367,7 +366,7 @@ async def on_janitor_text(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 
     if session.phase in (JanitorPhase.REVIEW_DRAFT, JanitorPhase.CONFIRM_OVERWRITE):
         await update.message.reply_text(
-            "Use the buttons below, or tap Exit Janitor.",
+            "Use the buttons below, or tap ← Back.",
             reply_markup=_exit_keyboard()
             if session.phase == JanitorPhase.CONFIRM_OVERWRITE
             else _review_keyboard(),
@@ -484,7 +483,7 @@ async def on_janitor_callback(update: Update, context: ContextTypes.DEFAULT_TYPE
         )
         return
 
-    if data in ("janitor:retry", "janitor:reclean", "janitor:llm_clean"):
+    if data == "janitor:retry":
         if session.phase != JanitorPhase.PREVIEW:
             await query.edit_message_text(
                 "Nothing to retry — /janitor to restart.",
@@ -501,10 +500,13 @@ async def on_janitor_callback(update: Update, context: ContextTypes.DEFAULT_TYPE
             )
         except Exception as e:
             session.last_error = str(e)
-            await query.edit_message_text(f"Retry failed: {e}")
+            await query.edit_message_text(
+                f"Retry failed: {e}",
+                reply_markup=_exit_keyboard(),
+            )
         return
 
-    if data in ("janitor:approve", "janitor:file_expand"):
+    if data == "janitor:approve":
         if session.phase != JanitorPhase.PREVIEW:
             await query.edit_message_text(
                 "Nothing to approve — /janitor to restart.",
@@ -533,7 +535,11 @@ async def on_janitor_callback(update: Update, context: ContextTypes.DEFAULT_TYPE
             run_expand, vault_root, session.episode_id, force=True,
         )
         if code != 0:
-            await reply_text_chunked(query.message, f"Expand failed:\n{log_tail}")
+            await reply_text_chunked(
+                query.message,
+                f"Expand failed:\n{log_tail}",
+                reply_markup=_exit_keyboard(),
+            )
             return
         row = resolve_catalog_row(vault_root, session.episode_id)
         excerpt = await asyncio.to_thread(draft_excerpt, vault_root, row)

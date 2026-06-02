@@ -61,7 +61,7 @@ Summaries and raw notes/posts are not cited in thematic answers.
 | `/web <query>` | One turn with `allow_web=true` |
 | `/janitor` | Enter Janitor — paste bullets → clean → expand → promote |
 | `/librarian` | Exit Janitor back to Q&A |
-| `/cancel` | Exit Janitor (alias; same as **Exit Janitor** button) |
+| `/cancel` | Exit Janitor (alias; same as **← Back** button in Janitor) |
 | `/settings` | Models, max_steps, **Ops** panel (sync / pull / reindex / restart) |
 | `/setmodel` / `/resetmodel` | Per-role model overrides (`runtime.json`) |
 | `/setsteps` / `/resetsteps` | Librarian tool-step limit |

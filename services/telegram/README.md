@@ -203,7 +203,7 @@ Models are in `runtime.json` (see `/settings`). Use `/setmodel janitor …`, `/s
 | `/resume` | Load latest (or `/resume <fragment>`) |
 | `/web <query>` | One turn with `allow_web=true` |
 | `/janitor` | Notes ingest → expand → promote workflow |
-| `/librarian` | Exit Janitor back to Q&A |
+| `/librarian` | Exit Janitor (← Back) to Q&A |
 | `/cancel` | Cancel Janitor workflow |
 | Free text | Vault only (`allow_web=false`); in Janitor mode, follows notes workflow |
 

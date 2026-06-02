@@ -11,7 +11,7 @@ Janitor is a **mode** in the same Telegram bot as the Librarian vault agent. Use
 1. You enter Janitor mode with `/janitor`.
 2. You send an episode id (e.g. `191`, `ep-0191`) and paste notes in any common shape (`* hook (5:00)`, `- hook [1:23:45]`, etc.).
 3. The bot **auto-cleans** every paste via LLM (`janitor_clean_model` in runtime.json) — no regex pre-pass; if unset, use `/setmodel janitor …`.
-4. You review the cleaned preview: **reply with text** to revise, or use **Retry** / **Approve** / **Exit Janitor**.
+4. You review the cleaned preview: **reply with text** to revise, or use **Retry** / **Approve** / **← Back**.
 5. On approve: if `{folder}.notes.md` already has timestamp bullets, the bot asks you to **confirm overwrite** (replace, not merge). Otherwise notes are written to `{folder}.notes.md`, then **expand** runs (`expand_datapoints_llm.py` → `.expanded.draft.md`).
 6. You review the draft excerpt; tap **Promote & reindex** to write `.expanded.md` and rebuild `chunks.jsonl` + embeddings on the bot host.
 7. `/librarian` (or automatic reset after promote) returns to vault Q&A; the episode is in the studied corpus once timestamp bullets exist and expanded chunks are indexed.
@@ -27,8 +27,8 @@ stateDiagram-v2
   REVIEW_DRAFT --> [*]: Promote and reindex
   PREVIEW --> CONFIRM_OVERWRITE: Approve (existing bullets)
   CONFIRM_OVERWRITE --> REVIEW_DRAFT: Confirm overwrite
-  PREVIEW --> [*]: Exit Janitor
-  REVIEW_DRAFT --> [*]: Exit Janitor
+  PREVIEW --> [*]: ← Back
+  REVIEW_DRAFT --> [*]: ← Back
 ```
 
 ## Commands
@@ -37,10 +37,10 @@ stateDiagram-v2
 |---------|----------|
 | `/janitor` | Enter Janitor mode; show help |
 | `/librarian` | Exit Janitor; back to vault Q&A |
-| `/cancel` | Exit Janitor (same as **Exit Janitor** button) |
+| `/cancel` | Exit Janitor (same as **← Back** button) |
 | Free text (Janitor active) | Episode id, paste, preview revisions (`approve` / `yes` / `ok` also work) |
 
-Inline buttons: **Retry**, **Approve**, **Exit Janitor** on preview; **Confirm overwrite** when re-filing studied notes; **Promote & reindex**, **Retry expand** on draft review. Every step includes **Exit Janitor**; typing is never blocked (inline keyboards only, not a reply keyboard).
+Inline buttons: **Retry**, **Approve**, **← Back** on preview; **Confirm overwrite** when re-filing studied notes; **Promote & reindex**, **Retry expand** on draft review. Every step includes **← Back**; typing is never blocked (inline keyboards only, not a reply keyboard).
 
 ## Environment (Mac mini)
 
@@ -93,7 +93,7 @@ Check effective slugs: `/settings`. Secrets (`OPENROUTER_API_KEY`) stay in `~/.c
 
 ```text
 /setmodel janitor groq/llama-3.1-8b-instant
-/setmodel expand anthropic/claude-sonnet-4
+/setmodel expand anthropic/claude-sonnet-4.6
 /setmodel librarian deepseek/deepseek-v4-pro
 /setmodel embed qwen/qwen3-embedding-8b
 ```

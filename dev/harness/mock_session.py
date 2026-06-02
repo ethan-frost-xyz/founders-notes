@@ -210,7 +210,7 @@ async def _register_bot_commands(application: Any) -> None:
         [
             BotCommand("start", "Help and vault stats"),
             BotCommand("janitor", "Notes ritual: file → expand → promote"),
-            BotCommand("librarian", "Exit Janitor to Q&A"),
+            BotCommand("librarian", "← Back from Janitor to Q&A"),
             BotCommand("cancel", "Cancel Janitor workflow"),
             BotCommand("clear", "Clear in-memory chat thread"),
             BotCommand("newchat", "Export session and reset"),
