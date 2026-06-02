@@ -34,8 +34,8 @@ The **product** is Telegram **Librarian** (v3 orchestrated retrieval) + **Janito
 
 | ID | Description | Status | Commit |
 |----|-------------|--------|--------|
-| WS0 | Branch + this doc + plan + green baseline | in progress | |
-| WS1 | Delete migrations + historical archives | pending | |
+| WS0 | Branch + this doc + plan + green baseline | done | 5cebdaf |
+| WS1 | Delete migrations + historical archives | in progress | |
 | WS2 | Lean X pipeline (cut LLM attribution + dedupe) | pending | |
 | WS3 | Slim expand-tune sandbox | pending | |
 | WS4 | Trim retrieval v2 from live agent executor | pending | |

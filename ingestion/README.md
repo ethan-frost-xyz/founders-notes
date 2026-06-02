@@ -22,7 +22,6 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`docs/inges
 | [`search/`](search/README.md) | Chunk index and search |
 | [`maintain.py`](maintain.py) | Interactive console for notes, expansion, promote, index rebuild, tune |
 | [`lib/`](lib/README.md) | Shared Python modules (no CLI) |
-| [`migrations/`](migrations/README.md) | Historical one-shots (do not re-run) |
 | [`prompts/`](prompts/) | LLM prompt templates for expansion |
 | [`fixtures/`](fixtures/) | Test fixtures and committed expand-tune A/B outputs |
 
