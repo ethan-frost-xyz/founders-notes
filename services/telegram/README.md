@@ -18,6 +18,8 @@ Telegram (polling) → handlers → VaultAgent.run_turn()
               ingestion/lib/search_retrieval.py + catalog/chunks.jsonl [+ embeddings.npy]
 ```
 
+**Librarian system prompt:** [`AGENTS.md`](../../AGENTS.md) at repo root (loaded by `bot/agent.py`; legacy fallback: `prompts/vault_agent.md`).
+
 ## Mac mini install (SP4)
 
 ### 1. Clone and Python env

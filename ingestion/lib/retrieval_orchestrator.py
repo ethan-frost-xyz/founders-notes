@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable
@@ -13,6 +14,7 @@ from rerank_llm import rerank_candidates
 from search_retrieval import (
     _hybrid_search_parent_chunks,
     embed_queries,
+    get_embedding_store,
     is_studied_chunk,
     merge_rrf_chunk_lists,
     search_transcript_keyword,
@@ -149,6 +151,21 @@ def quote_intent(query: str) -> bool:
     return bool(QUOTE_INTENT_RE.search(query))
 
 
+def _search_one_variant(
+    args: tuple[str, Any, int, Path, Path, Path, Path],
+) -> list[dict[str, Any]]:
+    variant, qvec, pool_k, chunks_path, emb_path, man_path, vault_root = args
+    return _hybrid_search_parent_chunks(
+        variant,
+        pool_k,
+        chunks_path=chunks_path,
+        embeddings_path=emb_path,
+        manifest_path=man_path,
+        query_vector=qvec,
+        root=vault_root,
+    )
+
+
 def chunk_for_rerank(ch: dict[str, Any], *, root: Path) -> dict[str, Any]:
     from search_retrieval import load_chunk_source_excerpt
 
@@ -240,19 +257,14 @@ class RetrievalOrchestrator:
         if on_status:
             on_status("Searching vault…")
         vectors = embed_queries(variants)
-        per_variant: list[list[dict[str, Any]]] = []
         pool_k = max(cfg.search_k * 4, 32)
-        for variant, qvec in zip(variants, vectors):
-            hits = _hybrid_search_parent_chunks(
-                variant,
-                pool_k,
-                chunks_path=chunks_path,
-                embeddings_path=emb_path,
-                manifest_path=man_path,
-                query_vector=qvec,
-                root=vault_root,
-            )
-            per_variant.append(hits)
+        get_embedding_store(embeddings_path=emb_path, manifest_path=man_path)
+        search_args = [
+            (variant, qvec, pool_k, chunks_path, emb_path, man_path, vault_root)
+            for variant, qvec in zip(variants, vectors)
+        ]
+        with ThreadPoolExecutor(max_workers=len(variants)) as ex:
+            per_variant = list(ex.map(_search_one_variant, search_args))
 
         merged = merge_rrf_chunk_lists(
             per_variant,

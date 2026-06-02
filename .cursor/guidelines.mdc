@@ -7,6 +7,15 @@ Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-s
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
+## Project context
+
+This repo has **two agent contexts**:
+
+- [`AGENTS.md`](../AGENTS.md) — Founders vault **study-partner persona** (Telegram Librarian synthesis + Cursor vault Q&A).
+- [`docs/repo-agent-guide.md`](../docs/repo-agent-guide.md) — ingestion, gaps policy, pipeline commands (always applied via [`.cursor/rules/repo-agent-guide.mdc`](rules/repo-agent-guide.mdc)).
+
+When editing `services/telegram/` or retrieval prompts, read [`docs/telegram-vault-agent.md`](../docs/telegram-vault-agent.md). Do not conflate Librarian product docs with the repo maintenance guide.
+
 ## 1. Think Before Coding
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**

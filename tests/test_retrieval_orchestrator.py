@@ -90,6 +90,41 @@ def test_retrieve_thematic_with_mocks(orch_config: OrchestratorConfig, monkeypat
     assert bundle.chunks[0].section.startswith("expanded:")
 
 
+def test_retrieve_calls_hybrid_search_per_variant(
+    orch_config: OrchestratorConfig, monkeypatch: pytest.MonkeyPatch
+):
+    import retrieval_orchestrator as ro
+
+    call_count = 0
+
+    def counting_hybrid(*args, **kwargs):
+        nonlocal call_count
+        call_count += 1
+        return []
+
+    monkeypatch.setattr(ro, "_hybrid_search_parent_chunks", counting_hybrid)
+    monkeypatch.setattr(ro, "embed_queries", lambda qs: [None] * len(qs))
+    monkeypatch.setattr(ro, "get_embedding_store", lambda **k: None)
+    monkeypatch.setattr(ro, "search_transcript_keyword", lambda *a, **k: [])
+
+    variants = ["v1", "v2", "v3", "v4", "v5"]
+
+    def fake_expand(user_message, **kwargs):
+        return "standalone query", variants
+
+    def fake_rerank(query, candidates, **kwargs):
+        return []
+
+    orch = RetrievalOrchestrator(
+        orch_config,
+        expand_fn=fake_expand,
+        rerank_fn=fake_rerank,
+    )
+    bundle = orch.retrieve("test query")
+    assert call_count == 5
+    assert bundle.retrieval_meta["variants"] == variants
+
+
 def test_retrieve_excludes_summary_from_citable(orch_config: OrchestratorConfig, monkeypatch: pytest.MonkeyPatch):
     _patch_orchestrator_search(monkeypatch, hybrid_hits=[])
 

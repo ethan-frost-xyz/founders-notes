@@ -12,7 +12,9 @@ from tool_status import tool_status_label
 
 from config import AgentConfig, load_agent_config
 
-PROMPT_PATH = Path(__file__).resolve().parent.parent / "prompts" / "vault_agent.md"
+_LEGACY_PROMPT_PATH = (
+    Path(__file__).resolve().parent.parent / "prompts" / "vault_agent.md"
+)
 
 ToolFn = Callable[[dict[str, Any]], dict[str, Any]]
 
@@ -37,14 +39,17 @@ class TurnResult:
     error: bool = False
 
 
-def _load_system_prompt() -> str:
-    return PROMPT_PATH.read_text(encoding="utf-8").strip()
+def _load_system_prompt(vault_root: Path) -> str:
+    path = vault_root / "AGENTS.md"
+    if not path.is_file():
+        path = _LEGACY_PROMPT_PATH
+    return path.read_text(encoding="utf-8").strip()
 
 
 def _build_system_message(config: AgentConfig) -> str:
     from index_status import index_metadata
 
-    base = _load_system_prompt()
+    base = _load_system_prompt(config.vault_root)
     meta = index_metadata(config.vault_root)
     meta_line = json.dumps(meta, separators=(",", ":"))
     return f"{base}\n\n---\nRuntime: index_metadata={meta_line}"
