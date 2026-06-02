@@ -141,7 +141,7 @@ Use when rebuilding a new Mac mini or after a clean OS install.
 4. GitHub webhook: `https://<funnel-host>/github`, same secret, push events only.  
 5. Redeliver ping → 200; merge to `main` → check `sync.log`.
 
-Plans: [telegram_ops_sync.plan.md](../.cursor/plans/archive/telegram_ops_sync.plan.md), [laptop_remote_hardening.plan.md](../.cursor/plans/archive/laptop_remote_hardening.plan.md).
+Historical webhook plan: `.cursor/plans/archive/legacy/telegram_ops_sync.plan.md` (contracts also in this doc and [`services/telegram/README.md`](../services/telegram/README.md)).
 
 ---
 

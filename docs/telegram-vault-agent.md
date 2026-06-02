@@ -1,13 +1,6 @@
 # Telegram vault agent
 
-Short overview for coding agents. **v0 (SP1–SP4)** shipped on `main` (PR #3); archived sub-plans below. Deferred work: [`potential-ideas.md`](../potential-ideas.md). Implementation history: [`.cursor/plans/archive/`](../.cursor/plans/archive/).
-
-| SP | Plan (archived) |
-|----|------|
-| 1 | [telegram_vault_sp1_tools.plan.md](../.cursor/plans/archive/telegram_vault_sp1_tools.plan.md) |
-| 2 | [telegram_vault_sp2_agent.plan.md](../.cursor/plans/archive/telegram_vault_sp2_agent.plan.md) |
-| 3 | [telegram_vault_sp3_telegram.plan.md](../.cursor/plans/archive/telegram_vault_sp3_telegram.plan.md) |
-| 4 | [telegram_vault_sp4_ops.plan.md](../.cursor/plans/archive/telegram_vault_sp4_ops.plan.md) |
+Short overview for coding agents. **v0 (SP1–SP4)** shipped on `main` (PR #3). Deferred work: [`potential-ideas.md`](../potential-ideas.md). Historical plans: [`.cursor/plans/archive/legacy/`](../.cursor/plans/archive/legacy/) (deep archive; see [archive README](../.cursor/plans/archive/README.md)).
 
 Product is a **retrieval orchestrator + synthesis** agent (v3), not naive single-shot RAG or an LLM-driven search loop.
 
@@ -90,14 +83,14 @@ After expanded promote on the Mac mini (or any host running the bot), run the sa
 
 ## Implementation status
 
-| SP | Status | Plan |
-|----|--------|------|
-| 1–4 | Shipped on `main` (PR #3) | [archive/sp1_tools … sp4_ops](../.cursor/plans/archive/) |
-| Janitor MVP | Shipped | [janitor.md](janitor.md) |
-| SP6-lite | Shipped (May 2026) | [telegram_mock_harness](telegram-mock-harness.md), tool status / prompt copy in tree |
-| Librarian quality (Jun 2026) | Shipped | [telegram_librarian_quality.plan.md](../.cursor/plans/archive/telegram_librarian_quality.plan.md) — `load_episode` **candidates** on ambiguity; synthesis **streaming** (default on) |
-| 5 (webhook) | Shipped | [telegram_ops_sync.plan.md](../.cursor/plans/archive/telegram_ops_sync.plan.md) |
-| 6+ | Open | [potential-ideas.md](../potential-ideas.md) |
+| Area | Status | Reference |
+|------|--------|-----------|
+| v0 SP1–SP4 | Shipped (PR #3) | This doc + codebase |
+| Janitor | Shipped | [janitor.md](janitor.md) |
+| Harness / tool UX | Shipped | [telegram-mock-harness.md](telegram-mock-harness.md) |
+| Librarian quality | Shipped | `load_episode` **candidates**; synthesis **streaming** (default on) |
+| Webhook / sync | Shipped | [mac-mini-operator-setup.md](mac-mini-operator-setup.md), [services/telegram/README.md](../services/telegram/README.md) |
+| Follow-ups | Open | [potential-ideas.md](../potential-ideas.md) |
 
 Runbook and env: [`services/telegram/README.md`](../services/telegram/README.md).
 
@@ -123,4 +116,3 @@ Repo-wide rule: do **not** add a general-purpose vector DB until grep + chunk se
 - [expanded-backfill.md](expanded-backfill.md) — corpus quality for parent tier
 - [vault-agent-v0-checklist.md](vault-agent-v0-checklist.md) — verification
 - [potential-ideas.md](../potential-ideas.md) — backlog
-- Superseded background: [`.cursor/plans/archive/telegram_vault_bot.plan.md`](../.cursor/plans/archive/telegram_vault_bot.plan.md)

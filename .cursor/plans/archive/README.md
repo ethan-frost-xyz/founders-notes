@@ -1,33 +1,21 @@
 # Archived Cursor plans
 
-Completed or superseded implementation plans. **Live docs** for the shipped Telegram stack: [`docs/telegram-vault-agent.md`](../../../docs/telegram-vault-agent.md), [`services/telegram/README.md`](../../../services/telegram/README.md), [`potential-ideas.md`](../../../potential-ideas.md). Archived files describe behavior at ship time; command lists and `runtime.json` keys may be outdated — trust live docs above.
+**Live docs (source of truth):** [`docs/telegram-vault-agent.md`](../../../docs/telegram-vault-agent.md), [`services/telegram/README.md`](../../../services/telegram/README.md), [`docs/janitor.md`](../../../docs/janitor.md), [`potential-ideas.md`](../../../potential-ideas.md).
 
-**Deferred backlog (not a plan):** [`potential-ideas.md`](../../../potential-ideas.md) — open work only (shipped behavior = live docs + code).
+**Deferred backlog:** [`potential-ideas.md`](../../../potential-ideas.md) — open work only.
 
-May 2026 hygiene: `telegram_vault_bot` superseded todos cancelled; backlog hygiene Jun 2026 removed Shipped/Decided sections from `potential-ideas.md`.
+**Historical plans:** all completed `.plan.md` files live in [`legacy/`](legacy/) (pre-Telegram ingestion/expand + shipped Telegram/Janitor plans). That folder is `.cursorignore`d so agents are not flooded with stale command lists and todos.
 
-**Recently archived:**
+When you finish a new plan in [`.cursor/plans/`](../), move it to `legacy/` and update live docs — do not grow this README into a changelog.
 
-- [`telegram_agent_models.plan.md`](telegram_agent_models.plan.md) — removed misleading `max_steps` / `/setsteps`; reasoning effort deferred (Jun 2026)
-- [`telegram_ui_overhaul.plan.md`](telegram_ui_overhaul.plan.md) — curated menu, stats `/start`, Janitor exit/overwrite, Ops panel (shipped; May 2026)
-- [`laptop_remote_hardening.plan.md`](laptop_remote_hardening.plan.md) — laptop dev + SP5 webhook (shipped; ops: [`docs/mac-mini-operator-setup.md`](../../../docs/mac-mini-operator-setup.md))
-- [`telegram_ops_sync.plan.md`](telegram_ops_sync.plan.md) — SP5 webhook contracts (shipped)
-- [`backlog_plan_hygiene.plan.md`](backlog_plan_hygiene.plan.md) — cancel superseded todos; `potential-ideas.md` Shipped/Next/Decided (shipped)
-- [`vault_cleanup_refactors.plan.md`](vault_cleanup_refactors.plan.md) — docs/hygiene, bootstrap, unified reindex (PRs #5+; shipped)
-- [`expand_llm_split.plan.md`](expand_llm_split.plan.md) — `openrouter_client` + `expand_*` modules (shipped)
-- [`fix_bare_episode_refs_4f718a49.plan.md`](fix_bare_episode_refs_4f718a49.plan.md) — Librarian episode resolution without NL regex (PR #10; shipped)
-- [`telegram_mock_harness_2296d9fc.plan.md`](telegram_mock_harness_2296d9fc.plan.md) — headless Librarian/Janitor harness (shipped; guide: [`docs/telegram-mock-harness.md`](../../../docs/telegram-mock-harness.md))
-- [`telegram_runtime_config_260f441f.plan.md`](telegram_runtime_config_260f441f.plan.md) — runtime.json model ops + Telegram `/sync` (shipped)
-- [`harness_docs_validation_00c7577f.plan.md`](harness_docs_validation_00c7577f.plan.md) — harness docs + testing cross-links (shipped)
+### Key legacy plans (grep `legacy/` if you need the file)
 
-**Telegram SP + Janitor + index backlog:**
+| Topic | File |
+|-------|------|
+| Retrieval orchestrator (v3) | `legacy/librarian_retrieval_overhaul_7969c6d8.plan.md` |
+| GitHub webhook / sync | `legacy/telegram_ops_sync.plan.md` |
+| Mock harness | `legacy/telegram_mock_harness_2296d9fc.plan.md` |
+| Janitor architecture | `legacy/vault_janitor_agent.plan.md` |
+| v0 SP1–SP4 (PR #3) | `legacy/telegram_vault_sp1_tools.plan.md` … `sp4_ops.plan.md` |
 
-- `telegram_vault_sp1_tools` … `sp4` — shipped in PR #3
-- [`vault_janitor_agent.plan.md`](vault_janitor_agent.plan.md) — Janitor architecture (shipped; operator guide: [`docs/janitor.md`](../../../docs/janitor.md))
-- [`vault_agent_backlog_8fad41c3.plan.md`](vault_agent_backlog_8fad41c3.plan.md) — retrieval/index backlog (completed May 2026; Janitor shipped)
-- [`janitor_llm-first_clean.plan.md`](janitor_llm-first_clean.plan.md) — LLM-first paste clean (shipped May 2026)
-- [`telegram_vault_bot.plan.md`](telegram_vault_bot.plan.md) — superseded background sketch
-
-**Deep archive:** [`legacy/`](legacy/) — pre-Telegram ingestion/expand plans (`.cursorignore`d)
-
-New plans belong in `.cursor/plans/` until shipped; archive here when all todos are done or the plan is superseded. Pull deferred items into `potential-ideas.md` before archiving when possible.
+New implementation work starts in `.cursor/plans/*.plan.md` until shipped.

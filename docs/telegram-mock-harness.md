@@ -213,4 +213,4 @@ dev/
 
 ## History
 
-Shipped in [PR #10](https://github.com/ethan-frost-xyz/founders-notes/pull/10). Design notes: [`.cursor/plans/archive/telegram_mock_harness_2296d9fc.plan.md`](../.cursor/plans/archive/telegram_mock_harness_2296d9fc.plan.md).
+Shipped in [PR #10](https://github.com/ethan-frost-xyz/founders-notes/pull/10). Historical design notes: `.cursor/plans/archive/legacy/telegram_mock_harness_2296d9fc.plan.md`.

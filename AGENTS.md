@@ -81,7 +81,7 @@ Do not add a repo-wide vector DB unless grep + chunk index + agent-style search 
 
 ## Cursor plans
 
-When you implement work from a plan in `[.cursor/plans/](.cursor/plans/)`, **commit that `.plan.md` in the same commit** as the code/docs changes (or the final commit of that task). Do not ship implementation on `main` while leaving the matching plan untracked. Completed or superseded plans live in `[.cursor/plans/archive/](.cursor/plans/archive/)`.
+When you implement work from a plan in `[.cursor/plans/](.cursor/plans/)`, **commit that `.plan.md` in the same commit** as the code/docs changes (or the final commit of that task). Do not ship implementation on `main` while leaving the matching plan untracked. Completed or superseded plans move to `[.cursor/plans/archive/legacy/](.cursor/plans/archive/legacy/)` (see `[.cursor/plans/archive/README.md](.cursor/plans/archive/README.md)`).
 
 ## Schema
 

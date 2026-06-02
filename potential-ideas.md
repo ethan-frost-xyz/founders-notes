@@ -1,6 +1,6 @@
 # Potential ideas
 
-Deferred work only. Shipped behavior lives in the codebase and [`docs/telegram-vault-agent.md`](docs/telegram-vault-agent.md) (runbooks: [`services/telegram/README.md`](services/telegram/README.md)). Implementation history: [`.cursor/plans/archive/`](.cursor/plans/archive/).
+Deferred work only. Shipped behavior lives in the codebase and [`docs/telegram-vault-agent.md`](docs/telegram-vault-agent.md) (runbooks: [`services/telegram/README.md`](services/telegram/README.md)). Historical plans: [`.cursor/plans/archive/legacy/`](.cursor/plans/archive/legacy/) (deep archive).
 
 Pick one cluster → new `.cursor/plans/*.plan.md` → archive the plan when done → remove the cluster from this file (do not add a changelog section here).
 

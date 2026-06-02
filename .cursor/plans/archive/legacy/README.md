@@ -1,5 +1,7 @@
 # Legacy plans (deep archive)
 
-Pre-Telegram ingestion, expand, and refactor plans. Excluded from Cursor agent context via repo `.cursorignore`.
+Completed implementation plans (pre-Telegram ingestion/expand + shipped Telegram stack). Excluded from Cursor agent context via repo `.cursorignore`.
 
-For active Telegram work: `docs/telegram-vault-agent.md`, `docs/janitor.md`, `potential-ideas.md`.
+**Use live docs, not these files:** `docs/telegram-vault-agent.md`, `docs/janitor.md`, `docs/telegram-mock-harness.md`, `potential-ideas.md`.
+
+Index of key topics: `.cursor/plans/archive/README.md`.
