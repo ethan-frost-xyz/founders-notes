@@ -1,4 +1,4 @@
-"""v0 success criteria for the Telegram vault agent (automated subset). See docs/vault-agent-v0-checklist.md."""
+"""v0 success criteria for the Telegram vault agent (automated subset). See docs/testing.md."""
 
 from __future__ import annotations
 
@@ -66,48 +66,13 @@ def test_v0_criterion_retrieval_in_trace(agent_config: AgentConfig):
         assert "web_search" not in [t["function"]["name"] for t in calls[0]["tools"]]
 
 
-def test_v0_criterion_web_gated(agent_config: AgentConfig):
-    from retrieval_orchestrator import EvidenceBundle
-
-    skip = lambda *_a, **_k: EvidenceBundle(chunks=[], retrieval_meta={"intent": "thematic"})
-
-    def fake_completion(**kwargs):
-        if "tools" in kwargs:
-            names = [t["function"]["name"] for t in kwargs["tools"]]
-            assert "web_search" not in names
-        return _fake_response(content="Vault only.")
-
-    VaultAgent(config=agent_config).run_turn(
-        "hello", completion_fn=fake_completion, allow_web=False, retrieve_fn=skip,
-    )
-
-    web_seen = False
-
-    def fake_web(**kwargs):
-        nonlocal web_seen
-        if "tools" in kwargs:
-            web_seen = "web_search" in [t["function"]["name"] for t in kwargs["tools"]]
-        if kwargs.get("tool_choice") != "none":
-            return _fake_response(
-                tool_calls=[_fake_tool_call("web_search", {"query": "x"})],
-            )
-        return _fake_response(content="ok")
-
-    VaultAgent(config=agent_config).run_turn(
-        "weather", completion_fn=fake_web, allow_web=True, retrieve_fn=skip,
-    )
-    assert web_seen
-
-
 def test_v0_criterion_expanded_in_index(agent_config: AgentConfig):
+    _ = agent_config
     if os.getenv("RUN_REBUILT_INDEX_SCENARIOS") != "1":
         pytest.skip("expanded index check requires RUN_REBUILT_INDEX_SCENARIOS=1")
-    result = execute_tool(
-        "search_vault_parent",
-        {"query": "inner scorecard Buffett", "k": 5},
-        config=agent_config,
-        allow_web=False,
-    )
+    from vault import search_vault_parent
+
+    result = search_vault_parent("inner scorecard Buffett", k=5)
     hits = result.get("hits") or []
     assert hits
     assert any((h.get("section") or "").startswith("expanded:") for h in hits)
@@ -130,15 +95,16 @@ def test_v0_criterion_newchat_export(bot_config: BotConfig):
 
 
 def test_v0_criterion_unlistened_no_hits(agent_config: AgentConfig):
-    for tool in ("search_vault_parent", "search_transcript"):
-        result = execute_tool(
-            tool,
-            {"query": "Naval Ravikant wealth happiness", "k": 8},
-            config=agent_config,
-            allow_web=False,
-        )
+    _ = agent_config
+    from vault import search_transcript, search_vault_parent
+
+    for name, fn in (
+        ("search_vault_parent", search_vault_parent),
+        ("search_transcript", search_transcript),
+    ):
+        result = fn("Naval Ravikant wealth happiness", k=8)
         unlistened = [h for h in (result.get("hits") or []) if h.get("episode_id") == "ep-0400"]
-        assert len(unlistened) == 0, f"{tool} returned ep-0400 hits: {unlistened[:2]}"
+        assert len(unlistened) == 0, f"{name} returned ep-0400 hits: {unlistened[:2]}"
 
 
 def test_v0_criterion_unlistened_load_episode(agent_config: AgentConfig):
@@ -146,7 +112,6 @@ def test_v0_criterion_unlistened_load_episode(agent_config: AgentConfig):
         "load_episode",
         {"episode_id": "ep-0400"},
         config=agent_config,
-        allow_web=False,
     )
     assert result["meta"]["listened"] is False
     assert not (result.get("sections") or {}).get("expanded")
@@ -170,7 +135,6 @@ def test_v0_criterion_unlistened_agent_response(agent_config: AgentConfig):
     result = VaultAgent(config=agent_config).run_turn(
         "What did I note about James Dyson?",
         completion_fn=fake_completion,
-        allow_web=False,
         retrieve_fn=lambda *_a, **_k: EvidenceBundle(
             chunks=[], retrieval_meta={"intent": "thematic"}
         ),

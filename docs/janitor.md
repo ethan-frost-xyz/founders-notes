@@ -2,7 +2,7 @@
 
 Janitor is a **mode** in the same Telegram bot as the Librarian vault agent. Use it on your phone after listening to an episode: paste rough bullets, get a cleaned preview, then file → expand → promote → reindex so Librarian can cite the episode.
 
-**Mac mini ops (restart, webhook):** [`mac-mini-operator-setup.md`](mac-mini-operator-setup.md) · **Deploy reference:** [`services/telegram/README.md`](../services/telegram/README.md)  
+**Mac mini ops (restart, webhook):** [`operations.md`](operations.md) · **Deploy reference:** [`services/telegram/README.md`](../services/telegram/README.md)  
 **Expand/promote details (CLI):** [`datapoint-workflow.md`](datapoint-workflow.md)  
 **Overview:** [`telegram-vault-agent.md`](telegram-vault-agent.md)
 
@@ -89,7 +89,7 @@ Check effective slugs: `/settings`. Secrets (`OPENROUTER_API_KEY`) stay in `~/.c
 | Expand draft weak or hallucinated quotes | `/setmodel expand <stronger slug>`; **Retry expand** |
 | Librarian answers shallow or wrong tool use | `/setmodel librarian <slug>` + prompt tweaks ([`vault_agent.md`](../services/telegram/prompts/vault_agent.md)) |
 | Librarian slow before the answer text | `/setmodel retrieval <fast slug>` (Groq via OpenRouter); keep `librarian` on DeepSeek or similar for synthesis |
-| Search misses new takeaways after promote | `/sync` when idle (see [manual-operations.md](manual-operations.md#when-to-refresh-the-index)) |
+| Search misses new takeaways after promote | `/sync` when idle (see [operations.md](operations.md#when-to-refresh)) |
 
 **Example (Telegram on Mac mini)**
 

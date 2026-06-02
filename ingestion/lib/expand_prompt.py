@@ -1,4 +1,4 @@
-"""Datapoint expansion: prompts, cost estimates, progress UI; re-exports split modules."""
+"""Datapoint expansion: prompt templates, cost estimates, and progress UI."""
 
 from __future__ import annotations
 

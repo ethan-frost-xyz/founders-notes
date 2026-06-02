@@ -21,16 +21,15 @@ Private **Telegram bot** on an always-on Mac mini (polling): **Librarian** for s
 | Doc | Role |
 |-----|------|
 | [`docs/telegram-vault-agent.md`](docs/telegram-vault-agent.md) | Overview for agents |
-| [`docs/laptop-development.md`](docs/laptop-development.md) | Laptop: pytest, PR, merge → auto-sync |
-| [`docs/mac-mini-operator-setup.md`](docs/mac-mini-operator-setup.md) | Mac mini: daily ops, restart, webhook |
+| [`docs/operations.md`](docs/operations.md) | Laptop, Mac mini, Telegram ops (merged runbooks) |
 | [`docs/janitor.md`](docs/janitor.md) | Janitor workflow (daily ritual) |
 | [`services/telegram/README.md`](services/telegram/README.md) | Deploy reference (install, env, commands) |
-| [`docs/vault-agent-v0-checklist.md`](docs/vault-agent-v0-checklist.md) | v0 verification checklist |
+| [`docs/testing.md`](docs/testing.md) | CI, harness, v0 checklist tests |
 | [`potential-ideas.md`](potential-ideas.md) | Deferred features and follow-ups |
 
 **Implementation history:** [`.cursor/plans/archive/README.md`](.cursor/plans/archive/README.md) (completed plans in `archive/legacy/`, gitignored from agent context)
 
-- **Librarian:** retrieval orchestrator + synthesis over studied episodes; optional `load_episode` / `list_episode_ids` (ambiguous refs return **candidates**); synthesis reply **streaming** default on (`/settings` → Stream replies); `/web <query>` for external search.
+- **Librarian:** retrieval orchestrator + synthesis over studied episodes; optional `load_episode` / `list_episode_ids` (ambiguous refs return **candidates**); synthesis reply **streaming** default on (`/settings` → Stream replies).
 - **Janitor:** `/janitor` → paste bullets → LLM clean → approve → file → expand → promote → reindex. See [`docs/janitor.md`](docs/janitor.md).
 - **Ops:** GitHub webhook or `sync-and-index.sh` (cron / Telegram `/sync`); index refresh after promote on the bot host.
 
@@ -163,10 +162,9 @@ python search/build_chunks.py            # after adding bullets
 ```bash
 python x/sync_x_cache.py
 python x/organize_posts_from_csv.py
-python x/attribute_posts_llm.py --dry-run   # optional: ambiguous review queue
-python x/attribute_posts_llm.py --apply
+# ambiguous rows → catalog/post-mapping-review.jsonl; fix manually or assign_post_manual.py
 ```
 
-**Done when:** Each new episode you publish gets a `.post.md` via organize (explicit `#`) or LLM/manual—not when all 417 rows are filled.
+**Done when:** Each new episode you publish gets a `.post.md` via organize (`#N` in tweet) or manual assign—not when all 417 rows are filled.
 
 **Expansion (bulk backfill):** For episodes with bullets but no `.expanded.md`, use [`docs/expanded-backfill.md`](docs/expanded-backfill.md) or Janitor expand/promote. Shipped: `expand_datapoints_llm.py`, `maintain.py`, chunk index includes expanded sections after promote.

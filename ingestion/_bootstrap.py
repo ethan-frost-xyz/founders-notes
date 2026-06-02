@@ -1,7 +1,7 @@
 """Vault path bootstrap: resolve repo root and add ingestion packages to sys.path.
 
 CLI scripts call ``setup_paths(__file__)``. Telegram and tests use
-``resolve_vault_root`` + ``setup_ingestion_paths`` (see docs/manual-operations.md).
+``resolve_vault_root`` + ``setup_ingestion_paths`` (see docs/operations.md).
 """
 
 from __future__ import annotations

@@ -22,9 +22,8 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`docs/inges
 | [`search/`](search/README.md) | Chunk index and search |
 | [`maintain.py`](maintain.py) | Interactive console for notes, expansion, promote, index rebuild, tune |
 | [`lib/`](lib/README.md) | Shared Python modules (no CLI) |
-| [`migrations/`](migrations/README.md) | Historical one-shots (do not re-run) |
 | [`prompts/`](prompts/) | LLM prompt templates for expansion |
-| [`fixtures/`](fixtures/) | Test fixtures and committed expand-tune A/B outputs |
+| [`fixtures/`](fixtures/) | Test fixtures (`chunks_parent_slice.jsonl`) |
 
 ## Pipeline order
 
@@ -38,30 +37,29 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`docs/inges
 | Notes | `notes/scaffold_notes.py` | Empty `{folder}.notes.md` scaffolds |
 | Expand (prompt) | `notes/expand_datapoints.py` | Print/copy prompt from notes + transcript |
 | Expand (OpenRouter) | `notes/expand_datapoints_llm.py` | `.expanded.draft.md` → `--promote` → `.expanded.md` |
-| Expand (prompt A/B tune) | `notes/expand_tune.py` | 23-ep A/B under `fixtures/expand-runs/` (tracked; default `baseline/`) |
-| **Maintenance console** | `python maintain.py` | Menu wrapper for coverage, expand, promote, index rebuild, tune (see below) |
+| Expand (prompt A/B tune) | `notes/expand_tune.py` | Ad-hoc sandbox under `fixtures/expand-runs/` (not committed) |
+| **Recovery console** | `python maintain.py` | Laptop fallback: coverage, expand, promote, reindex (Telegram is primary) |
 | X sync | `x/sync_x_cache.py` | API → `import/x-posts-raw.csv` |
-| X organize | `x/organize_posts_from_csv.py` | CSV → `content/posts/` (skips articles) |
-| X LLM match | `x/attribute_posts_llm.py` | Review queue via OpenRouter |
+| X organize | `x/organize_posts_from_csv.py` | CSV → `content/posts/` (`#N` attribution; review queue) |
 | Search | `search/build_chunks.py` | → `catalog/chunks.jsonl` |
 | Search | `search/search.py` | Query chunks (+ optional `rg`) |
 
-## Maintenance console
+## Recovery / tactical console
 
-Primary interactive entry for ongoing vault work (coverage, next notes path, expand backlog, draft review, promote, index rebuild via menu 8, prompt A/B tune, expand-run log):
+Laptop fallback when Telegram is unavailable (coverage, next notes, expand backlog, draft review, promote, reindex via menu 8, expand-run log):
 
 ```bash
 cd ingestion
 python maintain.py
 ```
 
-Bulk expanded-notes backfill: [`docs/expanded-backfill.md`](../docs/expanded-backfill.md). **Operator paths:** primary Telegram — [`docs/manual-operations.md`](../docs/manual-operations.md); tactical `maintain.py` (this menu). **Telegram vault agent:** [`services/telegram/README.md`](../services/telegram/README.md); overview [`docs/telegram-vault-agent.md`](../docs/telegram-vault-agent.md); retrieval in `lib/search_retrieval.py` (hybrid RRF).
+Bulk expanded-notes backfill: [`docs/expanded-backfill.md`](../docs/expanded-backfill.md). **Operator paths:** primary Telegram — [`docs/operations.md`](../docs/operations.md); tactical `maintain.py` (this menu). **Telegram vault agent:** [`services/telegram/README.md`](../services/telegram/README.md); overview [`docs/telegram-vault-agent.md`](../docs/telegram-vault-agent.md); retrieval in `lib/search_retrieval.py` (hybrid RRF).
 
 Individual scripts (`pipeline/verify.py`, `notes/expand_datapoints_llm.py`, etc.) remain available for automation and CI.
 
 ## Path bootstrap
 
-CLI scripts call [`_bootstrap.setup_paths(__file__)`](_bootstrap.py) (adds `ingestion/` + `lib/`). Telegram and `pytest` share [`resolve_vault_root`](_bootstrap.py) / [`setup_ingestion_paths`](_bootstrap.py) — see [`docs/manual-operations.md`](../docs/manual-operations.md#path-bootstrap-vault_root).
+CLI scripts call [`_bootstrap.setup_paths(__file__)`](_bootstrap.py) (adds `ingestion/` + `lib/`). Telegram and `pytest` share [`resolve_vault_root`](_bootstrap.py) / [`setup_ingestion_paths`](_bootstrap.py) — see [`docs/operations.md`](../docs/operations.md#path-bootstrap-vault_root).
 
 ## Environment variables
 
@@ -69,9 +67,8 @@ CLI scripts call [`_bootstrap.setup_paths(__file__)`](_bootstrap.py) (adds `inge
 |----------|---------|
 | `COLOSSUS_EMAIL`, `COLOSSUS_PASSWORD` | `transcripts/fetch_transcripts.py` |
 | `COLOSSUS_COOKIES_FILE` | `transcripts/fetch_transcripts.py` (alternative to login) |
-| `X_BEARER_TOKEN`, `X_USERNAME` | `x/sync_x_cache.py`, `x/assign_post_manual.py`, `x/attribute_posts_llm.py` |
-| `OPENROUTER_API_KEY` | `x/attribute_posts_llm.py`, `notes/expand_datapoints_llm.py` |
-| `OPENROUTER_ATTRIBUTION_MODEL` | `x/attribute_posts_llm.py` — optional; `--model` overrides |
+| `X_BEARER_TOKEN`, `X_USERNAME` | `x/sync_x_cache.py`, `x/assign_post_manual.py` |
+| `OPENROUTER_API_KEY` | `notes/expand_datapoints_llm.py`, `notes/expand_tune.py`, `search/build_embeddings.py` |
 | `OPENROUTER_MODEL` | `notes/expand_datapoints_llm.py`, `notes/expand_tune.py` — any [OpenRouter](https://openrouter.ai/models) slug; `--model` overrides; `OPENROUTER_BASE_URL` optional |
 
 Copy `.env.example` to repo root `.env`. Model choice lives only in `.env` / CLI flags (not in repo docs).
@@ -82,11 +79,9 @@ Copy `.env.example` to repo root `.env`. Model choice lives only in `.env` / CLI
 |--------------|---------|---------|
 | `--id ep-NNNN` | `transcripts/fetch_transcripts.py`, `notes/scaffold_notes.py`, `notes/expand_datapoints*.py` | Canonical padded episode id |
 | `--episode N` | `x/assign_post_manual.py` | Integer `episode_number` (not `ep-NNNN`) |
-| `--dry-run` | Most writers; `x/attribute_posts_llm.py`, `notes/expand_datapoints_llm.py` | Report only |
-| `--apply` | `pipeline/sync_new.py`, `x/attribute_posts_llm.py`, `notes/expand_datapoints_llm.py` | Write side effects |
+| `--dry-run` | Most writers; `notes/expand_datapoints_llm.py` | Report only |
+| `--apply` | `pipeline/sync_new.py`, `notes/expand_datapoints_llm.py` | Write side effects |
 | `--force` | `transcripts/fetch_transcripts.py`, `notes/scaffold_notes.py`, `notes/expand_datapoints_llm.py` | Re-fetch / overwrite empty scaffold / regenerate draft |
-
-Legacy unpadded ids (`ep-200`) are accepted where `--id` is supported.
 
 ## Tests
 

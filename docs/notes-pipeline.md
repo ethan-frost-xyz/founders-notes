@@ -96,15 +96,13 @@ python notes/scaffold_notes.py --missing
 python pipeline/verify.py
 ```
 
-## Apple Notes import (archived)
+## Apple Notes import (historical)
 
-Episodes 1–189 were bulk-imported once from Apple Notes (`source: apple_notes_import` in frontmatter). **Going forward, edit notes only in this repo** — Working Copy on phone, Cursor on Mac.
-
-Recovery only (overwrites `catalog/import-review.md` if run without `--dry-run`): [`ingestion/migrations/import_notes_apple.py`](../ingestion/migrations/import_notes_apple.py). See [`ingestion/migrations/README.md`](../ingestion/migrations/README.md).
+Episodes 1–189 were bulk-imported once from Apple Notes (`source: apple_notes_import` in frontmatter). **Going forward, edit notes only in this repo** — Working Copy on phone, Cursor on Mac. The one-shot importer was removed; see git history before commit `2fb9d22` if needed.
 
 ## Datapoint expansion
 
-When raw bullets are done, expand quotes + takeaways: [datapoint-workflow.md](datapoint-workflow.md). For Telegram-first vs `maintain.py` backfill, see [manual-operations.md](manual-operations.md).
+When raw bullets are done, expand quotes + takeaways: [datapoint-workflow.md](datapoint-workflow.md). For Telegram-first vs `maintain.py` backfill, see [operations.md](operations.md).
 
 ```bash
 python notes/expand_datapoints.py --id ep-0200                    # print prompt (manual / Cursor)

@@ -20,7 +20,7 @@ See [`docs/notes-pipeline.md`](../../docs/notes-pipeline.md) and [`docs/datapoin
 | `scaffold_notes.py` | Create empty `{folder}.notes.md` (`--next`, `--missing`, `--id`) |
 | `expand_datapoints.py` | Build expansion prompt from notes + transcript (manual / Cursor) |
 | `expand_datapoints_llm.py` | OpenRouter → `.expanded.draft.md`; `--promote` → `.expanded.md` |
-| `expand_tune.py` | 23-episode A/B under `fixtures/expand-runs/` (`report`, `verify`; default run `baseline/`) |
+| `expand_tune.py` | Ad-hoc A/B under `fixtures/expand-runs/` (`init`, `expand`, `report`, `verify`, `promote`; local batch JSON) |
 
 ## Environment
 
@@ -46,6 +46,6 @@ Prompts: [`../prompts/`](../prompts/).
 After promote to `.expanded.md`, refresh the index:
 
 - **Chunks:** `search/build_chunks.py` → `catalog/chunks.jsonl`
-- **Embeddings (Telegram / parent-tier):** `search/build_embeddings.py` when the bot host or local env has embed keys — see [`docs/manual-operations.md`](../../docs/manual-operations.md)
+- **Embeddings (Telegram / parent-tier):** `search/build_embeddings.py` when the bot host or local env has embed keys — see [`docs/operations.md`](../../docs/operations.md)
 
 On the Mac mini, `services/telegram/deploy/sync-and-index.sh` runs both after `git pull`.

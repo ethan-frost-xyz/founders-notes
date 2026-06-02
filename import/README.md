@@ -9,7 +9,7 @@ Place one-time exports here (gitignored). Pass paths explicitly to ingestion scr
 
 Personal exports and X cache are not committed (see `.gitignore`).
 
-**Notes:** Study notes live in `content/notes/` and are edited directly in git ([docs/notes-pipeline.md](../docs/notes-pipeline.md)). Apple Notes backfill was a one-shot migration ([`ingestion/migrations/import_notes_apple.py`](../ingestion/migrations/import_notes_apple.py)).
+**Notes:** Study notes live in `content/notes/` and are edited directly in git ([docs/notes-pipeline.md](../docs/notes-pipeline.md)).
 
 ## Coverage gaps are not import failures
 
@@ -28,14 +28,12 @@ source .venv/bin/activate
 
 python x/sync_x_cache.py
 python x/organize_posts_from_csv.py
-python x/attribute_posts_llm.py --dry-run   # optional: ambiguous review queue
-python x/attribute_posts_llm.py --apply     # when dry-run looks right
 python pipeline/verify.py
 ```
 
 - **Organize** auto-maps tweets with explicit Founders `#N` / `ep. N` (high confidence).
-- **Native X articles** (`post_kind: article`) are **skipped** by organize — not written to `content/posts/`. You will not post articles going forward; legacy bodies use manual assign below.
-- **LLM** (`attribute_posts_llm.py`) handles medium-confidence rows in `catalog/post-mapping-review.jsonl` (requires `OPENROUTER_API_KEY`; optional `OPENROUTER_ATTRIBUTION_MODEL` or `--model` — independent of expand `OPENROUTER_MODEL`).
+- **Native X articles** (`post_kind: article`) are **skipped** by organize — not written to `content/posts/`. Legacy bodies use manual assign below.
+- **Low-confidence** rows land in `catalog/post-mapping-review.jsonl` or `content/posts/_other/` — fix with `assign_post_manual.py` or edit attribution in the review file.
 
 `organize_posts_from_csv.py` **rewrites** `post-mapping-review.jsonl` each run. Record manual resolutions in [`catalog/import-review.md`](../catalog/import-review.md).
 

@@ -153,7 +153,7 @@ def run_expand(vault_root: Path, episode_id: str, *, force: bool) -> tuple[int, 
 def run_promote(vault_root: Path, episode_id: str) -> tuple[int, str, list[str]]:
     _setup_ingestion(vault_root)
     from catalog import load_catalog, resolve_catalog_row as _resolve
-    from expand_llm import promote_draft
+    from expand_promote import promote_draft
 
     row = _resolve(load_catalog(), episode_id)
     path, errors, warnings = promote_draft(row, dry_run=False)

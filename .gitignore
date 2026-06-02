@@ -10,6 +10,7 @@ __pycache__/
 .DS_Store
 ingestion/.venv/
 catalog/expand-run.jsonl
+catalog/expand-tune-batch.json
 catalog/embeddings.npy
 catalog/embeddings-manifest.jsonl
 catalog/embeddings-meta.json

@@ -21,7 +21,6 @@ for _sub in ("notes", "search", "pipeline"):
 
 import os
 import subprocess
-from argparse import Namespace
 from dataclasses import dataclass
 from typing import Any, Callable
 
@@ -29,7 +28,7 @@ from dotenv import load_dotenv
 
 from catalog import load_catalog
 from cli_args import resolve_episode_id_arg
-from expand_llm import (
+from expand_prompt import (
     ExpandEstimate,
     default_prompt_path,
     estimate_expand_for_row,
@@ -54,13 +53,11 @@ from paths import GAPS_PATH, ROOT, expanded_draft_file_path, notes_file_path
 
 load_dotenv(paths.ROOT / ".env")
 
-DEFAULT_TUNE_RUN_ID = "baseline"
-DEFAULT_TUNE_BATCH = paths.ROOT / "catalog" / "expand-tune-batch.json"
 DEFAULT_NOTES_FROM = 190
 
 MENU = """
-Founders Notes — maintenance console
-------------------------------------
+Founders Notes — recovery / tactical console (Telegram is primary)
+------------------------------------------------------------------
  1. Status / coverage (regenerate gaps.md)
  2. Next episode needing notes
  3. Expand one episode
@@ -69,8 +66,7 @@ Founders Notes — maintenance console
  6. List pending expanded drafts
  7. Promote drafts
  8. Rebuild search index (chunks + embeddings)
- 9. Prompt tuning (A/B sandbox)
-10. Recent expand run log
+ 9. Recent expand run log
  0. Quit
 """
 
@@ -613,86 +609,6 @@ def action_rebuild_index() -> None:
     print(msg)
 
 
-def _tune_namespace(**kwargs: Any) -> Namespace:
-    defaults: dict[str, Any] = {
-        "run_id": DEFAULT_TUNE_RUN_ID,
-        "batch_file": DEFAULT_TUNE_BATCH,
-        "variant": "A",
-        "prompt": None,
-        "model": None,
-        "force": False,
-        "no_stream": False,
-        "verbose": False,
-        "dry_run": False,
-        "apply": False,
-        "episode_id": None,
-    }
-    defaults.update(kwargs)
-    return Namespace(**defaults)
-
-
-def action_tune_menu() -> None:
-    from expand_tune import cmd_expand, cmd_init, cmd_report, cmd_verify
-
-    while True:
-        print()
-        print("Prompt tuning (fixtures/expand-runs/)")
-        print(" 1. Init run directory")
-        print(" 2. Dry-run expand variant A")
-        print(" 3. Dry-run expand variant B")
-        print(" 4. Apply expand variant A")
-        print(" 5. Apply expand variant B")
-        print(" 6. Report A vs B")
-        print(" 7. Verify run")
-        print(" 0. Back")
-        choice = prompt_line("Choice")
-        run_id = prompt_line("Run id", DEFAULT_TUNE_RUN_ID) or DEFAULT_TUNE_RUN_ID
-        batch_file = DEFAULT_TUNE_BATCH
-
-        try:
-            if choice == "1":
-                force = confirm_yes("Re-init if run dir exists? (--force)")
-                cmd_init(_tune_namespace(run_id=run_id, force=force, batch_file=batch_file))
-            elif choice in ("2", "3"):
-                variant = "A" if choice == "2" else "B"
-                cmd_expand(
-                    _tune_namespace(
-                        run_id=run_id,
-                        variant=variant,
-                        dry_run=True,
-                        apply=False,
-                        batch_file=batch_file,
-                    )
-                )
-            elif choice in ("4", "5"):
-                variant = "A" if choice == "4" else "B"
-                if not confirm_yes(f"Apply OpenRouter expand for variant {variant}?"):
-                    print("Cancelled.")
-                    continue
-                force = confirm_yes("Overwrite existing staging drafts?")
-                cmd_expand(
-                    _tune_namespace(
-                        run_id=run_id,
-                        variant=variant,
-                        dry_run=False,
-                        apply=True,
-                        force=force,
-                        batch_file=batch_file,
-                    )
-                )
-            elif choice == "6":
-                cmd_report(_tune_namespace(run_id=run_id, batch_file=batch_file))
-            elif choice == "7":
-                cmd_verify(_tune_namespace(run_id=run_id, batch_file=batch_file))
-            elif choice == "0":
-                return
-            else:
-                print("Unknown choice.")
-        except SystemExit as e:
-            if e.code:
-                print(f"Tune command exited with status {e.code}")
-
-
 def action_expand_log() -> None:
     records = load_expand_run_log()
     if not records:
@@ -739,13 +655,12 @@ ACTIONS: dict[str, Callable[[], None]] = {
     "6": action_list_drafts,
     "7": action_promote_drafts,
     "8": action_rebuild_index,
-    "9": action_tune_menu,
-    "10": action_expand_log,
+    "9": action_expand_log,
 }
 
 
 def run_menu_loop() -> None:
-    print("Founders Notes maintenance console")
+    print("Founders Notes recovery/tactical console (use Telegram Janitor when available)")
     print(f"Repo: {ROOT}")
     while True:
         print(MENU)

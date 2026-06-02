@@ -29,7 +29,6 @@ from runtime_settings import (  # noqa: E402
     load_runtime_settings,
     reset_runtime_key,
     runtime_settings_path,
-    seed_runtime_from_env_if_missing,
     set_janitor_clean_temperature,
     set_model,
 )
@@ -50,19 +49,6 @@ def test_apply_runtime_overrides_model(runtime_file: Path):
     base = AgentConfig(api_key="k", model="env-model", vault_root=REPO)
     merged = apply_runtime_overrides(base)
     assert merged.model == "runtime/lib-model"
-
-
-def test_seed_runtime_from_env_if_missing(runtime_file: Path, monkeypatch: pytest.MonkeyPatch):
-    _ = runtime_file
-    monkeypatch.setenv("TELEGRAM_CHAT_MODEL", "seeded/librarian")
-    monkeypatch.setenv("OPENROUTER_EMBED_MODEL", "seeded/embed")
-    assert seed_runtime_from_env_if_missing() is True
-    data = load_runtime_settings()
-    assert data["librarian_model"] == "seeded/librarian"
-    assert data["embed_model"] == "seeded/embed"
-    monkeypatch.setenv("TELEGRAM_CHAT_MODEL", "other/model")
-    assert seed_runtime_from_env_if_missing() is False
-    assert load_runtime_settings()["librarian_model"] == "seeded/librarian"
 
 
 def test_effective_retrieval_model_explicit(runtime_file: Path):

@@ -7,7 +7,6 @@ from settings_handlers import (
     _janitor_temp_keyboard,
     _ops_keyboard,
     _role_preset_keyboard,
-    _steps_keyboard,
     settings_keyboard,
 )
 from ui_keyboards import BACK_LABEL, CALLBACK_SETTINGS_MENU, back_to_settings_markup
@@ -50,7 +49,6 @@ def test_all_settings_submenus_have_back():
     for kb in (
         _ops_keyboard(),
         _role_preset_keyboard("librarian"),
-        _steps_keyboard(),
         _janitor_temp_keyboard(),
     ):
         labels = [btn.text for row in kb.inline_keyboard for btn in row]

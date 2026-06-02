@@ -20,14 +20,6 @@ from messaging import TELEGRAM_MESSAGE_LIMIT, reply_text_chunked
 from runtime_settings import effective_stream_replies
 
 
-def parse_web_query(text: str) -> str | None:
-    stripped = text.strip()
-    if not stripped.lower().startswith("/web"):
-        return None
-    rest = stripped[4:].strip()
-    return rest if rest else None
-
-
 async def _reject_unauthorized(update: Update, config: BotConfig) -> bool:
     user = update.effective_user
     if is_allowed(user.id if user else None, config):
@@ -96,16 +88,6 @@ async def cmd_resume(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
     else:
         ok, msg = _sessions(context).resume_latest(uid)
     await reply_text_chunked(update.message, msg)
-
-
-async def cmd_web(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    if await _reject_unauthorized(update, _config(context)):
-        return
-    query = " ".join(context.args).strip() if context.args else ""
-    if not query:
-        await update.message.reply_text("Usage: /web <query>")
-        return
-    await _run_agent_turn(update, context, query, allow_web=True)
 
 
 async def cmd_settings(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -300,13 +282,9 @@ async def on_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         if await on_janitor_text(update, context):
             return
     text = update.message.text.strip()
-    web_query = parse_web_query(text)
-    if web_query is not None:
-        await _run_agent_turn(update, context, web_query, allow_web=True)
-        return
     if text.startswith("/"):
         return
-    await _run_agent_turn(update, context, text, allow_web=False)
+    await _run_agent_turn(update, context, text)
 
 
 def _is_harness_bot(context: ContextTypes.DEFAULT_TYPE) -> bool:
@@ -318,8 +296,6 @@ async def _run_agent_turn(
     update: Update,
     context: ContextTypes.DEFAULT_TYPE,
     user_text: str,
-    *,
-    allow_web: bool,
 ) -> None:
     uid = update.effective_user.id
     sessions = _sessions(context)
@@ -381,7 +357,6 @@ async def _run_agent_turn(
             agent.run_turn,
             user_text,
             history=history,
-            allow_web=allow_web,
             session_id=str(uid),
             on_tool_start=on_tool_start,
             on_chunk=on_chunk if stream_enabled else None,

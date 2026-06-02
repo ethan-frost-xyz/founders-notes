@@ -11,7 +11,6 @@ import pytest
 
 REPO = Path(__file__).resolve().parent.parent
 
-from agent import execute_tool  # noqa: E402
 from config import AgentConfig  # noqa: E402
 
 SCENARIOS_PATH = Path(__file__).parent / "fixtures" / "vault_retrieval_scenarios.jsonl"
@@ -37,12 +36,17 @@ def _run_scenario(
     *,
     agent_config: AgentConfig,
 ) -> dict[str, Any]:
-    return execute_tool(
-        str(row["tool"]),
-        {"query": row["query"], "k": int(row.get("k") or 8)},
-        config=agent_config,
-        allow_web=False,
-    )
+    _ = agent_config
+    from vault import search_transcript, search_vault_parent
+
+    tool = str(row["tool"])
+    query = str(row["query"])
+    k = int(row.get("k") or 8)
+    if tool == "search_vault_parent":
+        return search_vault_parent(query, k=k)
+    if tool == "search_transcript":
+        return search_transcript(query, k=k)
+    raise ValueError(f"unsupported scenario tool: {tool}")
 
 
 @pytest.mark.parametrize("row", _load_scenarios(), ids=_scenario_id)

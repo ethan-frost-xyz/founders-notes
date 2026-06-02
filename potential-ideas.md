@@ -12,10 +12,6 @@ Pick one cluster → new `.cursor/plans/*.plan.md` → archive the plan when don
 
 **Defer:** Pull-only / path-filtered reindex on webhook when *all* changed paths match a strict allowlist (`docs/`, `tests/`, `services/telegram/`, `.cursor/`, root markdown); anything under `content/`, `catalog/`, or `ingestion/search/` → full reindex. False negative → stale search until `/sync`. Nightly cron stays full sync. Bundle in one plan only if code-only `main` pushes hurt.
 
-### Web
-
-- **`/web` provider** — Wire Tavily or Brave when `WEB_SEARCH_API_KEY` is set; [`web.py`](services/telegram/bot/tools/web.py) returns `not configured` (no key) or `provider not implemented` (key present).
-
 ### Harness / CI
 
 - **Live librarian deploy smoke** — Before Mac mini deploy: `python dev/mock_telegram_cli.py --suite librarian --live-only` (or `RUN_LIVE_HARNESS=1 pytest … -k live`) when keys + index preflight pass. See [`docs/telegram-mock-harness.md`](docs/telegram-mock-harness.md).
@@ -45,4 +41,3 @@ Operational tuning (no code): fast `retrieval_model` on the Mac mini — [`docs/
 ## Ingestion
 
 - **`expand_datapoints_llm.py --jobs N`** — Parallel expand workers. [`docs/expanded-backfill.md`](docs/expanded-backfill.md).
-- **Remove `expand_llm.py` shim** — After callers import `openrouter_client` / `expand_*` directly (maintain, expand scripts, Janitor).

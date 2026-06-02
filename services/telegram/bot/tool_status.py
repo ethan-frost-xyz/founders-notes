@@ -7,7 +7,6 @@ TOOL_STATUS_LABELS: dict[str, str] = {
     "search_transcript": "Searching transcripts…",
     "load_episode": "Loading episode…",
     "list_episode_ids": "Looking up episode…",
-    "web_search": "Searching the web…",
     "retrieval": "Searching vault…",
     "synthesis": "Composing answer…",
 }

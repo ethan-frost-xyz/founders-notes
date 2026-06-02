@@ -14,9 +14,8 @@ Product is a **retrieval orchestrator + synthesis** agent (v3), not naive single
 
 - **OpenRouter agent** (Librarian model in `runtime.json`, `/setmodel librarian`).
 - **Retrieval orchestrator** (`ingestion/lib/retrieval_orchestrator.py`) runs before synthesis: expand → batched hybrid search → LLM rerank → optional transcript fallback.
-- **Synthesis turn:** one completion with a pre-built evidence block; optional tools: `load_episode`, `list_episode_ids`, `web_search` (when allowed). **Reply streaming** (default on): the final synthesis completion can stream token deltas to a live Telegram message; toggle in `/settings` → **Stream replies** (`stream_replies` in `runtime.json`; optional env `TELEGRAM_STREAM_REPLIES`). The canonical reply is still sent via the normal chunked message after the preview is deleted.
+- **Synthesis turn:** one completion with a pre-built evidence block; optional tools: `load_episode`, `list_episode_ids`. **Reply streaming** (default on): the final synthesis completion can stream token deltas to a live Telegram message; toggle in `/settings` → **Stream replies** (`stream_replies` in `runtime.json`; optional env `TELEGRAM_STREAM_REPLIES`). The canonical reply is still sent via the normal chunked message after the preview is deleted.
 - Index: `catalog/chunks.jsonl` — **expanded** + **summary** parent tiers; `catalog/episode-summaries.jsonl`; embeddings in `catalog/embeddings.npy` (gitignored).
-- **`/web <query>` only** for external search; normal messages must not silently mix web into vault answers.
 - Librarian corpus = **studied episodes only** (timestamp bullets in `.notes.md`).
 
 ### Turn flow (thematic)
@@ -55,7 +54,7 @@ Janitor paste line-1 parsing stays regex-based — see [janitor.md](janitor.md).
 
 ## Sessions and index
 
-**BotFather menu (7 commands):** `/start`, `/janitor`, `/web`, `/settings`, `/sync`, `/newchat`, `/restart`. Power-user commands below still work when typed; they are omitted from the menu on purpose.
+**BotFather menu (6 commands):** `/start`, `/janitor`, `/settings`, `/sync`, `/newchat`, `/restart`. Power-user commands below still work when typed; they are omitted from the menu on purpose.
 
 | Command | Behavior |
 |---------|----------|
@@ -63,7 +62,6 @@ Janitor paste line-1 parsing stays regex-based — see [janitor.md](janitor.md).
 | `/clear` | Wipe in-memory thread |
 | `/newchat` | Export → `catalog/telegram-sessions/*.jsonl` (gitignored); reset |
 | `/resume` | Reload exported session |
-| `/web <query>` | One turn with `allow_web=true` |
 | `/janitor` | Enter Janitor — paste bullets → clean → expand → promote |
 | `/librarian` | Exit Janitor back to Q&A |
 | `/cancel` | Exit Janitor (alias; same as **← Back** button in Janitor) |
@@ -89,7 +87,7 @@ After expanded promote on the Mac mini (or any host running the bot), run the sa
 | Janitor | Shipped | [janitor.md](janitor.md) |
 | Harness / tool UX | Shipped | [telegram-mock-harness.md](telegram-mock-harness.md) |
 | Librarian quality | Shipped | `load_episode` **candidates**; synthesis **streaming** (default on) |
-| Webhook / sync | Shipped | [mac-mini-operator-setup.md](mac-mini-operator-setup.md), [services/telegram/README.md](../services/telegram/README.md) |
+| Webhook / sync | Shipped | [operations.md](operations.md), [services/telegram/README.md](../services/telegram/README.md) |
 | Follow-ups | Open | [potential-ideas.md](../potential-ideas.md) |
 
 Runbook and env: [`services/telegram/README.md`](../services/telegram/README.md).
@@ -107,12 +105,10 @@ Repo-wide rule: do **not** add a general-purpose vector DB until grep + chunk se
 
 ## Related
 
+- [operations.md](operations.md) — laptop, Mac mini, Telegram ops
 - [telegram-mock-harness.md](telegram-mock-harness.md) — local headless/REPL testing (no Bot API)
-- [laptop-development.md](laptop-development.md) — laptop clone, pytest, merge → webhook
-- [mac-mini-operator-setup.md](mac-mini-operator-setup.md) — production Mac mini (daily ops, restart, troubleshooting)
-- [manual-operations.md](manual-operations.md) — Telegram vs `maintain.py`; [when to refresh the index](manual-operations.md#when-to-refresh-the-index)
 - [janitor.md](janitor.md) — daily notes workflow; [model tuning playbook](janitor.md#model-tuning-playbook)
 - [retrieval.md](retrieval.md) — chunk index + hybrid parent search
 - [expanded-backfill.md](expanded-backfill.md) — corpus quality for parent tier
-- [vault-agent-v0-checklist.md](vault-agent-v0-checklist.md) — verification
+- [testing.md](testing.md) — CI + v0 checklist tests
 - [potential-ideas.md](../potential-ideas.md) — backlog

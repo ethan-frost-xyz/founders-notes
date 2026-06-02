@@ -39,17 +39,6 @@ MODEL_ROLE_TO_KEY: dict[str, str] = {
     "embed": RUNTIME_KEY_EMBED,
 }
 
-_SEED_ENV_MAP: dict[str, str] = {
-    RUNTIME_KEY_LIBRARIAN: "TELEGRAM_CHAT_MODEL",
-    RUNTIME_KEY_RETRIEVAL: "TELEGRAM_RETRIEVAL_MODEL",
-    RUNTIME_KEY_JANITOR: "JANITOR_CLEAN_MODEL",
-    RUNTIME_KEY_EXPAND: "OPENROUTER_MODEL",
-    RUNTIME_KEY_EMBED: "OPENROUTER_EMBED_MODEL",
-    RUNTIME_KEY_JANITOR_TEMP: "JANITOR_CLEAN_TEMPERATURE",
-    RUNTIME_KEY_STREAM_REPLIES: "TELEGRAM_STREAM_REPLIES",
-}
-
-
 def runtime_settings_path() -> Path:
     raw = os.environ.get("FOUNDERS_TELEGRAM_RUNTIME", "").strip()
     if raw:
@@ -183,34 +172,6 @@ def effective_janitor_clean_temperature() -> tuple[float, str]:
 
 def effective_stream_replies() -> tuple[bool, str]:
     return _resolve_bool(RUNTIME_KEY_STREAM_REPLIES, "TELEGRAM_STREAM_REPLIES", True)
-
-
-def seed_runtime_from_env_if_missing() -> bool:
-    """Copy legacy env model keys into runtime.json when absent. Returns True if file written."""
-    data = load_runtime_settings()
-    changed = False
-    for runtime_key, env_key in _SEED_ENV_MAP.items():
-        if runtime_key in data:
-            continue
-        env_val = os.environ.get(env_key, "").strip()
-        if not env_val:
-            continue
-        if runtime_key == RUNTIME_KEY_JANITOR_TEMP:
-            try:
-                data[runtime_key] = float(env_val)
-            except ValueError:
-                continue
-        elif runtime_key == RUNTIME_KEY_STREAM_REPLIES:
-            parsed = _parse_bool_value(env_val)
-            if parsed is None:
-                continue
-            data[runtime_key] = parsed
-        else:
-            data[runtime_key] = env_val
-        changed = True
-    if changed:
-        save_runtime_settings(data)
-    return changed
 
 
 def set_model(role: str, slug: str) -> str:

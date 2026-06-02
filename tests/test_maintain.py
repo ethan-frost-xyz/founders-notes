@@ -172,12 +172,6 @@ def test_run_expand_batch_dry_run(mock_expand, monkeypatch, tmp_path: Path):
     mock_expand.assert_not_called()
 
 
-def test_tune_namespace_defaults():
-    ns = maintain._tune_namespace()
-    assert ns.run_id == maintain.DEFAULT_TUNE_RUN_ID
-    assert ns.batch_file == maintain.DEFAULT_TUNE_BATCH
-
-
 def test_build_all_chunks_helper(monkeypatch, tmp_path: Path):
     monkeypatch.setattr(paths, "ROOT", tmp_path)
     monkeypatch.setattr(paths, "CHUNKS_PATH", tmp_path / "catalog" / "chunks.jsonl")

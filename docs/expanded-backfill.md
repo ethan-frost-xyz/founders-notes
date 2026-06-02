@@ -4,7 +4,7 @@ Bulk workflow for turning timestamp bullets in `{folder}.notes.md` into reviewab
 
 **Authoritative counts:** [`catalog/gaps.md`](../catalog/gaps.md) (regenerate via `python pipeline/verify.py` or `python maintain.py` → menu 1).
 
-**Related:** [datapoint-workflow.md](datapoint-workflow.md) (prompt shape, tune sandbox), [retrieval.md](retrieval.md) (when chunks matter), [manual-operations.md](manual-operations.md) (index: chunks + parent-tier embeddings), [Telegram vault agent](telegram-vault-agent.md) (reads **`.expanded.md` only**, not drafts).
+**Related:** [datapoint-workflow.md](datapoint-workflow.md) (prompt shape, tune sandbox), [retrieval.md](retrieval.md) (when chunks matter), [operations.md](operations.md) (index: chunks + parent-tier embeddings), [Telegram vault agent](telegram-vault-agent.md) (reads **`.expanded.md` only**, not drafts).
 
 ---
 
@@ -166,7 +166,8 @@ On success, draft file is deleted and `.expanded.md` is written with canonical f
 | Workflow | Tool | Output |
 |----------|------|--------|
 | **Production backfill** | `expand_datapoints_llm.py --missing-expanded` | `content/notes/.../*.expanded.draft.md` |
-| **Prompt tune sandbox** | `expand_tune.py` / menu **9** | `ingestion/fixtures/expand-runs/{run_id}/A|B/` |
+| **Prompt tune sandbox** | `expand_tune.py` (CLI; ad-hoc batch file) | `ingestion/fixtures/expand-runs/{run_id}/A|B/` |
+| **Expand run log** | `maintain.py` menu **9** | Reads `catalog/expand-run.jsonl` |
 
 Do not confuse tune fixtures with production drafts. Promote tune winners via `expand_tune.py promote`, not production `--promote`.
 

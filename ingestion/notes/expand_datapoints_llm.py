@@ -23,7 +23,7 @@ from dotenv import load_dotenv
 
 from cli_args import add_episode_id_arg, ensure_catalog, resolve_episode_id_arg
 from expand_validate import count_datapoint_headings
-from expand_llm import (
+from expand_prompt import (
     ExpandEstimate,
     TerminalExpandProgressReporter,
     build_user_message,

@@ -10,7 +10,7 @@ Personal knowledge vault: Founders podcast transcripts, study notes, and X posts
 - **Do** help with the current episode: `python notes/scaffold_notes.py --next`, edit `{folder}.notes.md`, then `search/build_chunks.py`.
 - Blocking gaps = transcript/layout only (`pipeline/verify.py` exit 1). Empty scaffolds are normal.
 
-Daily workflow: `[docs/notes-pipeline.md](docs/notes-pipeline.md)`. **Laptop:** `[docs/laptop-development.md](docs/laptop-development.md)`. **Remote product work (merge → pull → restart):** `[docs/remote-product-workflow.md](docs/remote-product-workflow.md)`. **Mac mini / Telegram:** `[docs/mac-mini-operator-setup.md](docs/mac-mini-operator-setup.md)`. Matrix: `[docs/manual-operations.md](docs/manual-operations.md)`.
+Daily workflow: `[docs/notes-pipeline.md](docs/notes-pipeline.md)`. **Operations (laptop, Mac mini, Telegram):** `[docs/operations.md](docs/operations.md)`.
 
 ## Start here
 
@@ -45,7 +45,7 @@ Or ripgrep: `content/transcripts/`, `content/notes/`, `content/posts/`, `content
 
 User workflow: timestamp bullets in `{folder}.notes.md` → full quotes + takeaways. See `[docs/datapoint-workflow.md](docs/datapoint-workflow.md)`.
 
-**Primary on Mac mini:** Telegram Librarian + Janitor — see `[docs/manual-operations.md](docs/manual-operations.md)`. **Tactical console:** `python maintain.py` (from `ingestion/`) — interactive menu for coverage, expand, promote, index rebuild (chunks + embeddings), and prompt tuning.
+**Primary on Mac mini:** Telegram Librarian + Janitor — see `[docs/operations.md](docs/operations.md)`. **Laptop recovery/tactical:** `python maintain.py` (from `ingestion/`) — slim menu for coverage, expand, promote, and reindex when the bot is unavailable.
 
 ```bash
 python notes/expand_datapoints.py --id ep-0200              # prompt only
@@ -55,7 +55,7 @@ python notes/expand_datapoints_llm.py --promote --id ep-0200 --apply
 
 Backfill many episodes: `--missing-expanded --apply --limit N` or `--subprocess` (see `[docs/expanded-backfill.md](docs/expanded-backfill.md)`, `[docs/datapoint-workflow.md](docs/datapoint-workflow.md)`). Do **not** bulk-generate raw timestamp bullets in `.notes.md`.
 
-Prompt A/B tuning (23-episode sandbox): `python notes/expand_tune.py` — see `[docs/datapoint-workflow.md](docs/datapoint-workflow.md#prompt-tuning-ab-sandbox)`.
+Ad-hoc prompt A/B tuning: `python notes/expand_tune.py` (local sandbox under `ingestion/fixtures/expand-runs/`; outputs not committed).
 
 ## Ingestion (minimal)
 
@@ -68,10 +68,8 @@ Full script index: `[ingestion/README.md](ingestion/README.md)`.
 | Notes scaffold | `python notes/scaffold_notes.py --missing` or `--next` (see `[docs/notes-pipeline.md](docs/notes-pipeline.md)`)                                             |
 | Edit notes     | Directly in `content/notes/{folder}/{folder}.notes.md` (Working Copy / Cursor) — no Apple Notes import                                                      |
 | X cache sync   | `python x/sync_x_cache.py` (incremental) or `--full` (backfill)                                                                                             |
-| X organize     | `python x/organize_posts_from_csv.py` (reads CSV only; skips native X articles)                                                                             |
-| X LLM match    | `python x/attribute_posts_llm.py --dry-run` / `--apply` (ambiguous rows in `post-mapping-review.jsonl`)                                                     |
+| X organize     | `python x/organize_posts_from_csv.py` (reads CSV only; skips native X articles; `#N` attribution; review queue in `catalog/post-mapping-review.jsonl`)   |
 | Manual post    | `python x/assign_post_manual.py --episode N --x-post-id ID --published-at YYYY-MM-DD --body-file path`                                                      |
-| Dedupe CSV     | `python x/dedupe_x_csv.py` (after overlapping `--full` syncs)                                                                                               |
 | Chunk index    | `python search/build_chunks.py` — after summaries: `python search/build_summaries.py` then `build_chunks.py` again (or `python lib/reindex_vault.py`) |
 | Verify         | `python pipeline/verify.py`                                                                                                                                 |
 | Tests (CI)     | From repo root: `pytest tests -q` then `cd ingestion && python pipeline/verify.py` — see [`docs/testing.md`](docs/testing.md); Telegram harness: [`docs/telegram-mock-harness.md`](docs/telegram-mock-harness.md) |

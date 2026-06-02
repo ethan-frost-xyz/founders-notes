@@ -1,4 +1,4 @@
-"""Tests for expand_llm and expand_datapoints_llm apply/logging (no network)."""
+"""Tests for expand_prompt and expand_datapoints_llm apply/logging (no network)."""
 
 from pathlib import Path
 from unittest.mock import patch
@@ -6,7 +6,7 @@ from unittest.mock import patch
 import pytest
 
 import paths
-from expand_llm import (
+from expand_prompt import (
     CHARS_PER_TOKEN,
     OPENROUTER_MAX_ATTEMPTS,
     OpenRouterCompletion,
