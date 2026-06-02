@@ -329,11 +329,17 @@ class RetrievalOrchestrator:
         return EvidenceBundle(chunks=citable, retrieval_meta=meta, skip_retrieval=False)
 
 
-def orchestrator_from_agent_config(agent_config: Any) -> RetrievalOrchestrator:
+def orchestrator_from_agent_config(
+    agent_config: Any,
+    *,
+    retrieval_model: str | None = None,
+) -> RetrievalOrchestrator:
+    """Build orchestrator; expand/rerank use retrieval_model when set, else agent model."""
+    model = (retrieval_model or agent_config.model or "").strip() or agent_config.model
     return RetrievalOrchestrator(
         OrchestratorConfig(
             vault_root=agent_config.vault_root,
-            model=agent_config.model,
+            model=model,
             api_key=agent_config.api_key,
             base_url=getattr(agent_config, "openrouter_base_url", "https://openrouter.ai/api/v1"),
             search_k=getattr(agent_config, "default_search_k", 8),

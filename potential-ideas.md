@@ -20,6 +20,7 @@ Linked from: [`README.md`](README.md), [`docs/telegram-vault-agent.md`](docs/tel
 - **Janitor clean temperature (Jun 2026)** — Settings **Janitor temp** presets + `/setcleantemp` / `/resetcleantemp`; persisted in `runtime.json` (env fallback unchanged)
 - **Librarian retrieval orchestrator** — studied-only parent index (`expanded` + `summary:episode`; no `notes:*` / `post:*`), `build_summaries.py`, `retrieval_orchestrator.py` + `rerank_llm.py`, agent = orchestrator + synthesis (optional `load_episode` / `list_episode_ids` / `web_search`); overview [`docs/telegram-vault-agent.md`](docs/telegram-vault-agent.md); plan [`.cursor/plans/archive/librarian_retrieval_overhaul_7969c6d8.plan.md`](.cursor/plans/archive/librarian_retrieval_overhaul_7969c6d8.plan.md)
 - **`vault_subprocess.py`** — shared `python_executable` / `tail_output` for `reindex_vault` and Janitor expand ([`ingestion/lib/vault_subprocess.py`](ingestion/lib/vault_subprocess.py))
+- **max_steps removal (Jun 2026)** — dropped misleading `/setsteps`, `TELEGRAM_MAX_STEPS`, and runtime `max_steps`; Librarian `run_turn` uses fixed 1–2 synthesis passes; plan [`.cursor/plans/archive/telegram_agent_models.plan.md`](.cursor/plans/archive/telegram_agent_models.plan.md)
 
 ## Next (pick one cluster → new plan)
 
@@ -40,10 +41,9 @@ Suggested plan filenames below — create the file under `.cursor/plans/` when y
 
 - **Live librarian deploy smoke** — document/run before Mac mini deploy: `python dev/mock_telegram_cli.py --suite librarian --live-only` (or `RUN_LIVE_HARNESS=1 pytest … -k live`) when keys + index preflight pass; record flakes here only if recurring.
 
-### Agent / models — `telegram_agent_models.plan.md`
+### Agent / models — `telegram_agent_models_reasoning.plan.md`
 
-- **OpenRouter reasoning params** — wire optional `reasoning` / effort fields in [`agent.py`](services/telegram/bot/agent.py) when model supports them.
-- **`max_steps` / `/setsteps` cleanup** — orchestrator path hardcodes 1–2 synthesis steps; runtime `max_steps` / `TELEGRAM_MAX_STEPS` are shown in `/settings` but not applied in [`agent.py`](services/telegram/bot/agent.py) `run_turn`. Rewire or remove misleading UX.
+- **OpenRouter reasoning params** — wire optional `reasoning.effort` in [`agent.py`](services/telegram/bot/agent.py) for Librarian synthesis only. **Not universal:** thinking-capable models only; `librarian_reasoning_effort` would be independent of `librarian_model` (changing model via `/setmodel` does not auto-clear effort). Pick product behavior first: opt-in docs, retry without reasoning on 4xx, env-only, or model allowlist. See [OpenRouter reasoning tokens](https://openrouter.ai/docs/guides/best-practices/reasoning-tokens).
 
 ### Janitor UX — `janitor_ux.plan.md`
 
@@ -61,7 +61,6 @@ Suggested plan filenames below — create the file under `.cursor/plans/` when y
 ## Decided / won't do (v0)
 
 - **Session export naming** — `catalog/telegram-sessions/{utc_iso}_{short_slug}.jsonl` (gitignored); implemented in [`sessions.py`](services/telegram/bot/sessions.py).
-- **`TELEGRAM_MAX_STEPS` / runtime `max_steps`** — persisted for `/settings` and `/setsteps`; **orchestrator Librarian turns ignore it** (1–2 synthesis steps in `agent.py`). Cleanup → Agent/models cluster above.
 - **`.expanded.draft.md` not indexed** — promote → `build_chunks` + `build_embeddings` before parent-tier search sees quotes.
 - **Section-filter slash commands** (`/transcript`, `/post`, `/notes`, `/expanded`) — use `load_episode` + corpus tiers instead.
 - **Cloud Run / multi-host** — Mac mini is the host.

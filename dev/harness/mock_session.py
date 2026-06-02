@@ -96,15 +96,12 @@ def _build_agent_config(
         api_key = "harness-echo-key"
         model = "harness/echo"
 
-    max_steps_raw = os.environ.get("TELEGRAM_MAX_STEPS", "").strip()
-    max_steps = int(max_steps_raw) if max_steps_raw else 5
     base_url = os.environ.get("OPENROUTER_BASE_URL", "").strip() or "https://openrouter.ai/api/v1"
 
     return AgentConfig(
         api_key=api_key,
         model=model,
         vault_root=vault_root,
-        max_steps=max(1, max_steps),
         openrouter_base_url=base_url.rstrip("/"),
     )
 
@@ -532,7 +529,6 @@ class MockBotSession:
             api_key=old_cfg.agent.api_key,
             model=old_cfg.agent.model,
             vault_root=vault_root,
-            max_steps=old_cfg.agent.max_steps,
             max_tool_result_chars=old_cfg.agent.max_tool_result_chars,
             openrouter_base_url=old_cfg.agent.openrouter_base_url,
             default_search_k=old_cfg.agent.default_search_k,

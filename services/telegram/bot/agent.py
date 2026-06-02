@@ -284,11 +284,11 @@ class VaultAgent:
         has_evidence = not bundle.skip_retrieval and bool(bundle.chunks)
         wants_tools = user_wants_synthesis_tools(user_message)
         synthesis_only = bundle.skip_retrieval or (has_evidence and not wants_tools)
-        max_steps = 1 if synthesis_only else 2
+        synthesis_passes = 1 if synthesis_only else 2
 
         try:
-            for step in range(max_steps):
-                is_final = step == max_steps - 1
+            for step in range(synthesis_passes):
+                is_final = step == synthesis_passes - 1
                 request: dict[str, Any] = {
                     "model": cfg.model,
                     "messages": messages,
@@ -379,7 +379,7 @@ class VaultAgent:
             return TurnResult(
                 content="I could not finish an answer in one pass. Try rephrasing.",
                 tool_trace=trace,
-                steps=max_steps,
+                steps=synthesis_passes,
                 error=True,
             )
         except Exception as exc:

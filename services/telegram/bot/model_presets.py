@@ -10,6 +10,11 @@ MODEL_PRESETS: dict[str, list[tuple[str, str]]] = {
         ("gemini-3.5-flash", "google/gemini-3.5-flash"),
         ("deepseek-v4-pro", "deepseek/deepseek-v4-pro"),
     ],
+    "retrieval": [
+        ("gpt-oss-20b Groq", "openai/gpt-oss-20b::Groq"),
+        ("llama-3.1-8b", "meta-llama/llama-3.1-8b-instruct"),
+        ("gemini-3.5-flash", "google/gemini-3.5-flash"),
+    ],
     "janitor": [
         ("gpt-oss-20b Groq", "openai/gpt-oss-20b::Groq"),
         ("llama-3.1-8b", "meta-llama/llama-3.1-8b-instruct"),
@@ -28,6 +33,7 @@ MODEL_PRESETS: dict[str, list[tuple[str, str]]] = {
 
 ROLE_LABELS: dict[str, str] = {
     "librarian": "Librarian Q&A",
+    "retrieval": "Librarian expand + rerank",
     "janitor": "Janitor clean",
     "expand": "Expand datapoints",
     "embed": "Search embeddings",

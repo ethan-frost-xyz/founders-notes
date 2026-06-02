@@ -68,13 +68,11 @@ def settings_keyboard() -> InlineKeyboardMarkup:
                 InlineKeyboardButton("Janitor", callback_data="set:r:janitor"),
             ],
             [
+                InlineKeyboardButton("Retrieval", callback_data="set:r:retrieval"),
                 InlineKeyboardButton("Expand", callback_data="set:r:expand"),
-                InlineKeyboardButton("Embed", callback_data="set:r:embed"),
             ],
-            [
-                InlineKeyboardButton("max_steps", callback_data="set:steps"),
-                InlineKeyboardButton("Janitor temp", callback_data="set:temp"),
-            ],
+            [InlineKeyboardButton("Embed", callback_data="set:r:embed")],
+            [InlineKeyboardButton("Janitor temp", callback_data="set:temp")],
             [InlineKeyboardButton(_stream_replies_button_label(), callback_data="set:stream")],
             [InlineKeyboardButton("Ops", callback_data="set:ops")],
         ]
@@ -112,24 +110,6 @@ def _role_preset_keyboard(role: str) -> InlineKeyboardMarkup:
     )
     rows.append(back_to_settings_row())
     return InlineKeyboardMarkup(rows)
-
-
-def _steps_keyboard() -> InlineKeyboardMarkup:
-    return InlineKeyboardMarkup(
-        [
-            [
-                InlineKeyboardButton("3", callback_data="set:s:3"),
-                InlineKeyboardButton("5", callback_data="set:s:5"),
-                InlineKeyboardButton("8", callback_data="set:s:8"),
-            ],
-            [
-                InlineKeyboardButton("10", callback_data="set:s:10"),
-                InlineKeyboardButton("15", callback_data="set:s:15"),
-                InlineKeyboardButton("20", callback_data="set:s:20"),
-            ],
-            back_to_settings_row(),
-        ]
-    )
 
 
 def _janitor_temp_keyboard() -> InlineKeyboardMarkup:
@@ -247,13 +227,6 @@ async def on_settings_callback(update: Update, context: ContextTypes.DEFAULT_TYP
         )
         return
 
-    if data == "set:steps":
-        await query.edit_message_text(
-            "Choose max tool steps for Librarian:",
-            reply_markup=_steps_keyboard(),
-        )
-        return
-
     if data == "set:temp":
         await query.edit_message_text(
             "Choose Janitor clean temperature (LLM paste normalization):",
@@ -272,21 +245,6 @@ async def on_settings_callback(update: Update, context: ContextTypes.DEFAULT_TYP
             return
         text = format_settings_summary(bot_cfg.agent, bot_cfg)
         text += f"\n\njanitor_clean_temperature set to {temp}."
-        await query.edit_message_text(text, reply_markup=settings_keyboard())
-        return
-
-    if data.startswith("set:s:"):
-        from runtime_settings import set_max_steps
-
-        try:
-            value = int(data.split(":", 2)[2])
-            set_max_steps(value)
-        except (ValueError, IndexError) as exc:
-            await query.edit_message_text(str(exc), reply_markup=_steps_keyboard())
-            return
-        _, agent = _reload_bot_config(context)
-        text = format_settings_summary(bot_cfg.agent, bot_cfg)
-        text += f"\n\nmax_steps set to {agent.config.max_steps}."
         await query.edit_message_text(text, reply_markup=settings_keyboard())
         return
 

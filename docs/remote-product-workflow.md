@@ -109,6 +109,7 @@ Skip the restart line only if you did **not** change anything under `services/te
 | Python bot handlers only | — | Test in Telegram |
 | New pip dependency on mini | SSH: `ingestion/.venv/bin/pip install -r ingestion/requirements.txt` | `/restart` |
 | `runtime.json` model slugs | — | `/setmodel` hot-reloads some roles; restart if unsure |
+| `retrieval_model` (expand + rerank) | — | `/setmodel retrieval …`; falls back to librarian if unset |
 | `stream_replies` (Librarian streaming) | — | `/settings` → **Stream replies**; default on if key absent |
 | Embed model slug | `/reindex` or `/sync` when idle | — |
 | Secrets in `~/.config/founders-telegram/env` | Edit on **mini** | `/restart` or `restart-bot.sh` |

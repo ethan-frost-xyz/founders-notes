@@ -38,12 +38,10 @@ from handlers import (  # noqa: E402
     cmd_reindex,
     cmd_resetmodel,
     cmd_resetcleantemp,
-    cmd_resetsteps,
     cmd_restart,
     cmd_resume,
     cmd_setcleantemp,
     cmd_setmodel,
-    cmd_setsteps,
     cmd_settings,
     cmd_start,
     cmd_sync,
@@ -76,7 +74,7 @@ async def _register_bot_commands(application) -> None:
             BotCommand("start", "Vault stats"),
             BotCommand("janitor", "Notes ritual"),
             BotCommand("web", "Web search (add query)"),
-            BotCommand("settings", "Models, steps, temp, ops"),
+            BotCommand("settings", "Models, temp, stream, ops"),
             BotCommand("sync", "Pull + reindex"),
             BotCommand("newchat", "Export session, reset"),
             BotCommand("restart", "Restart bot"),
@@ -114,8 +112,6 @@ def build_application():
     app.add_handler(CommandHandler("settings", cmd_settings))
     app.add_handler(CommandHandler("setmodel", cmd_setmodel))
     app.add_handler(CommandHandler("resetmodel", cmd_resetmodel))
-    app.add_handler(CommandHandler("setsteps", cmd_setsteps))
-    app.add_handler(CommandHandler("resetsteps", cmd_resetsteps))
     app.add_handler(CommandHandler("setcleantemp", cmd_setcleantemp))
     app.add_handler(CommandHandler("resetcleantemp", cmd_resetcleantemp))
     app.add_handler(CommandHandler("pull", cmd_pull))

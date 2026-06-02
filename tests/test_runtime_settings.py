@@ -1,4 +1,4 @@
-"""Runtime settings persisted for Telegram /setmodel and /setsteps."""
+"""Runtime settings persisted for Telegram /setmodel and tuning."""
 
 from __future__ import annotations
 
@@ -18,12 +18,12 @@ from config import AgentConfig, BotConfig  # noqa: E402
 from runtime_settings import (  # noqa: E402
     RUNTIME_KEY_JANITOR_TEMP,
     RUNTIME_KEY_LIBRARIAN,
-    RUNTIME_KEY_MAX_STEPS,
     apply_runtime_overrides,
     build_subprocess_env,
     clear_runtime_settings,
     effective_janitor_clean_temperature,
     effective_librarian_model,
+    effective_retrieval_model,
     effective_stream_replies,
     set_stream_replies,
     load_runtime_settings,
@@ -31,7 +31,6 @@ from runtime_settings import (  # noqa: E402
     runtime_settings_path,
     seed_runtime_from_env_if_missing,
     set_janitor_clean_temperature,
-    set_max_steps,
     set_model,
 )
 
@@ -45,38 +44,12 @@ def runtime_file(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     clear_runtime_settings()
 
 
-def test_set_max_steps_persists(runtime_file: Path):
-    set_max_steps(10)
-    assert load_runtime_settings()["max_steps"] == 10
-    assert runtime_settings_path() == runtime_file
-
-
-def test_apply_runtime_overrides_model_and_steps(runtime_file: Path):
+def test_apply_runtime_overrides_model(runtime_file: Path):
     _ = runtime_file
     set_model("librarian", "runtime/lib-model")
-    set_max_steps(12)
-    base = AgentConfig(api_key="k", model="env-model", vault_root=REPO, max_steps=5)
+    base = AgentConfig(api_key="k", model="env-model", vault_root=REPO)
     merged = apply_runtime_overrides(base)
     assert merged.model == "runtime/lib-model"
-    assert merged.max_steps == 12
-
-
-def test_set_max_steps_rejects_out_of_range(runtime_file: Path):
-    _ = runtime_file
-    with pytest.raises(ValueError, match="max_steps must be"):
-        set_max_steps(0)
-    with pytest.raises(ValueError, match="max_steps must be"):
-        set_max_steps(21)
-
-
-def test_reset_runtime_key_preserves_other_keys(runtime_file: Path):
-    _ = runtime_file
-    set_model("librarian", "a/b")
-    set_max_steps(7)
-    reset_runtime_key(RUNTIME_KEY_MAX_STEPS)
-    data = load_runtime_settings()
-    assert RUNTIME_KEY_MAX_STEPS not in data
-    assert data[RUNTIME_KEY_LIBRARIAN] == "a/b"
 
 
 def test_seed_runtime_from_env_if_missing(runtime_file: Path, monkeypatch: pytest.MonkeyPatch):
@@ -90,6 +63,22 @@ def test_seed_runtime_from_env_if_missing(runtime_file: Path, monkeypatch: pytes
     monkeypatch.setenv("TELEGRAM_CHAT_MODEL", "other/model")
     assert seed_runtime_from_env_if_missing() is False
     assert load_runtime_settings()["librarian_model"] == "seeded/librarian"
+
+
+def test_effective_retrieval_model_explicit(runtime_file: Path):
+    _ = runtime_file
+    set_model("retrieval", "fast/retrieval")
+    slug, src = effective_retrieval_model()
+    assert slug == "fast/retrieval"
+    assert src == "runtime.json"
+
+
+def test_effective_retrieval_model_falls_back_to_librarian(runtime_file: Path):
+    _ = runtime_file
+    set_model("librarian", "big/librarian")
+    slug, src = effective_retrieval_model()
+    assert slug == "big/librarian"
+    assert "fallback" in src
 
 
 def test_build_subprocess_env_injects_models(runtime_file: Path, monkeypatch: pytest.MonkeyPatch):

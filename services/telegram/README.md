@@ -41,7 +41,7 @@ The Mac mini needs **three** persisted files:
 | File | Purpose |
 |------|---------|
 | `~/.config/founders-telegram/env` | **Secrets only** — `VAULT_ROOT`, bot token, allowlist, `OPENROUTER_API_KEY` (copy from `deploy/env.example`) |
-| `~/.config/founders-telegram/runtime.json` | **Models + tuning** — librarian, Janitor clean, expand, embed, `max_steps`, `janitor_clean_temperature`, `stream_replies` (Librarian synthesis streaming; default on; `/settings` → **Stream replies**) |
+| `~/.config/founders-telegram/runtime.json` | **Models + tuning** — librarian, retrieval (expand/rerank; falls back to librarian), Janitor clean, expand, embed, `janitor_clean_temperature`, `stream_replies` (default on; `/settings`) |
 | `{VAULT_ROOT}/.env` | Ingestion (Colossus, X API); expand subprocess also `load_dotenv` on repo root |
 
 ```bash
@@ -189,7 +189,7 @@ python dev/mock_telegram_cli.py --suite librarian --live-only -v
 
 Mode-switched workflow in the same bot: `/janitor` → paste bullets → LLM clean preview → approve → file `.notes.md` → expand → promote → reindex. Full guide: [`docs/janitor.md`](../../docs/janitor.md).
 
-Models are in `runtime.json` (see `/settings`). Use `/setmodel janitor …`, `/setmodel expand …`, etc. Legacy env model vars are migration fallbacks only.
+Models are in `runtime.json` (see `/settings`). Use `/setmodel` per role (`librarian`, `retrieval`, `janitor`, `expand`, `embed`). Legacy env model vars are migration fallbacks only.
 
 **Model tuning:** [`docs/janitor.md`](../../docs/janitor.md#model-tuning-playbook) — primary path is Telegram `/settings` + `/setmodel`.
 
@@ -212,7 +212,7 @@ Models are in `runtime.json` (see `/settings`). Use `/setmodel janitor …`, `/s
 | File | Purpose |
 |------|---------|
 | `~/.config/founders-telegram/env` | **Secrets only:** `VAULT_ROOT`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ALLOWED_USER_IDS`, `OPENROUTER_API_KEY` |
-| `~/.config/founders-telegram/runtime.json` | **Models + tuning** (Telegram `/setmodel`, `/setsteps`, `/setcleantemp`, `/settings` → **Stream replies**) |
+| `~/.config/founders-telegram/runtime.json` | **Models + tuning** (Telegram `/setmodel`, `/setcleantemp`, `/settings` → **Stream replies**) |
 
 On first start, the bot copies model slugs from legacy env vars into `runtime.json` if keys are missing (one-time migration). After that you can remove model lines from `env`.
 
@@ -226,11 +226,9 @@ Day-to-day tuning and vault ops without SSH:
 
 | Command | Effect |
 |---------|--------|
-| `/settings` | All effective models, `max_steps`, `stream_replies`, Janitor clean temp, **Stream replies** toggle, sources, runtime file path |
-| `/setmodel <role> <slug>` | `librarian` \| `janitor` \| `expand` \| `embed` — saved + hot-reload |
+| `/settings` | All effective models, `stream_replies`, Janitor clean temp, **Stream replies** toggle, sources, runtime file path |
+| `/setmodel <role> <slug>` | `librarian` \| `retrieval` \| `janitor` \| `expand` \| `embed` — saved + hot-reload |
 | `/resetmodel <role>` | Drop one model override (falls back to env if set) |
-| `/setsteps <n>` | `max_steps` 1–20 |
-| `/resetsteps` | Clear runtime `max_steps` only (models unchanged) |
 | `/setcleantemp <n>` | Janitor clean `temperature` 0.0–2.0 |
 | `/resetcleantemp` | Clear runtime `janitor_clean_temperature` only |
 | `/pull` | `git pull --ff-only` on the vault |

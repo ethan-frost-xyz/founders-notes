@@ -1,4 +1,4 @@
-"""Telegram-adjustable settings (models, max_steps) persisted outside launchd env."""
+"""Telegram-adjustable settings (models, tuning) persisted outside launchd env."""
 
 from __future__ import annotations
 
@@ -10,17 +10,14 @@ from typing import Any
 
 from config import AgentConfig, BotConfig
 
-MAX_STEPS_CEILING = 20
-MAX_STEPS_FLOOR = 1
-
 JANITOR_TEMP_FLOOR = 0.0
 JANITOR_TEMP_CEILING = 2.0
 
 RUNTIME_KEY_LIBRARIAN = "librarian_model"
+RUNTIME_KEY_RETRIEVAL = "retrieval_model"
 RUNTIME_KEY_JANITOR = "janitor_clean_model"
 RUNTIME_KEY_EXPAND = "expand_model"
 RUNTIME_KEY_EMBED = "embed_model"
-RUNTIME_KEY_MAX_STEPS = "max_steps"
 RUNTIME_KEY_JANITOR_TEMP = "janitor_clean_temperature"
 RUNTIME_KEY_STREAM_REPLIES = "stream_replies"
 
@@ -36,6 +33,7 @@ EMBED_SETTINGS_REMINDER = (
 
 MODEL_ROLE_TO_KEY: dict[str, str] = {
     "librarian": RUNTIME_KEY_LIBRARIAN,
+    "retrieval": RUNTIME_KEY_RETRIEVAL,
     "janitor": RUNTIME_KEY_JANITOR,
     "expand": RUNTIME_KEY_EXPAND,
     "embed": RUNTIME_KEY_EMBED,
@@ -43,10 +41,10 @@ MODEL_ROLE_TO_KEY: dict[str, str] = {
 
 _SEED_ENV_MAP: dict[str, str] = {
     RUNTIME_KEY_LIBRARIAN: "TELEGRAM_CHAT_MODEL",
+    RUNTIME_KEY_RETRIEVAL: "TELEGRAM_RETRIEVAL_MODEL",
     RUNTIME_KEY_JANITOR: "JANITOR_CLEAN_MODEL",
     RUNTIME_KEY_EXPAND: "OPENROUTER_MODEL",
     RUNTIME_KEY_EMBED: "OPENROUTER_EMBED_MODEL",
-    RUNTIME_KEY_MAX_STEPS: "TELEGRAM_MAX_STEPS",
     RUNTIME_KEY_JANITOR_TEMP: "JANITOR_CLEAN_TEMPERATURE",
     RUNTIME_KEY_STREAM_REPLIES: "TELEGRAM_STREAM_REPLIES",
 }
@@ -156,6 +154,17 @@ def effective_librarian_model() -> tuple[str | None, str]:
     return _resolve_str(RUNTIME_KEY_LIBRARIAN, "TELEGRAM_CHAT_MODEL")
 
 
+def effective_retrieval_model() -> tuple[str | None, str]:
+    """Query expand + rerank in the Librarian orchestrator (not synthesis)."""
+    slug, src = _resolve_str(RUNTIME_KEY_RETRIEVAL, "TELEGRAM_RETRIEVAL_MODEL")
+    if slug:
+        return slug, src
+    lib, lib_src = effective_librarian_model()
+    if lib:
+        return lib, f"fallback ({lib_src})"
+    return None, "unset"
+
+
 def effective_janitor_clean_model() -> tuple[str | None, str]:
     return _resolve_str(RUNTIME_KEY_JANITOR, "JANITOR_CLEAN_MODEL")
 
@@ -176,20 +185,6 @@ def effective_stream_replies() -> tuple[bool, str]:
     return _resolve_bool(RUNTIME_KEY_STREAM_REPLIES, "TELEGRAM_STREAM_REPLIES", True)
 
 
-def effective_max_steps(_base: AgentConfig) -> tuple[int, str]:
-    overrides = load_runtime_settings()
-    raw = overrides.get(RUNTIME_KEY_MAX_STEPS)
-    if raw is not None:
-        try:
-            return int(raw), "runtime.json"
-        except (TypeError, ValueError):
-            pass
-    env_raw = os.environ.get("TELEGRAM_MAX_STEPS", "").strip()
-    if env_raw:
-        return int(env_raw), "env TELEGRAM_MAX_STEPS"
-    return 5, "default (5)"
-
-
 def seed_runtime_from_env_if_missing() -> bool:
     """Copy legacy env model keys into runtime.json when absent. Returns True if file written."""
     data = load_runtime_settings()
@@ -200,12 +195,7 @@ def seed_runtime_from_env_if_missing() -> bool:
         env_val = os.environ.get(env_key, "").strip()
         if not env_val:
             continue
-        if runtime_key == RUNTIME_KEY_MAX_STEPS:
-            try:
-                data[runtime_key] = int(env_val)
-            except ValueError:
-                continue
-        elif runtime_key == RUNTIME_KEY_JANITOR_TEMP:
+        if runtime_key == RUNTIME_KEY_JANITOR_TEMP:
             try:
                 data[runtime_key] = float(env_val)
             except ValueError:
@@ -239,17 +229,6 @@ def set_model(role: str, slug: str) -> str:
     return slug
 
 
-def set_max_steps(value: int) -> int:
-    if value < MAX_STEPS_FLOOR or value > MAX_STEPS_CEILING:
-        raise ValueError(
-            f"max_steps must be between {MAX_STEPS_FLOOR} and {MAX_STEPS_CEILING}, got {value}"
-        )
-    data = load_runtime_settings()
-    data[RUNTIME_KEY_MAX_STEPS] = value
-    save_runtime_settings(data)
-    return value
-
-
 def set_stream_replies(enabled: bool) -> bool:
     data = load_runtime_settings()
     data[RUNTIME_KEY_STREAM_REPLIES] = bool(enabled)
@@ -280,29 +259,10 @@ def reset_model_role(role: str) -> None:
 
 
 def apply_runtime_overrides(cfg: AgentConfig) -> AgentConfig:
-    out = cfg
     model, _ = effective_librarian_model()
     if model:
-        out = replace(out, model=model)
-
-    overrides = load_runtime_settings()
-    raw_steps = overrides.get(RUNTIME_KEY_MAX_STEPS)
-    if raw_steps is not None:
-        try:
-            value = int(raw_steps)
-        except (TypeError, ValueError) as exc:
-            raise ValueError(f"invalid max_steps in runtime settings: {raw_steps!r}") from exc
-        if value < MAX_STEPS_FLOOR or value > MAX_STEPS_CEILING:
-            raise ValueError(
-                f"max_steps in runtime settings must be {MAX_STEPS_FLOOR}–{MAX_STEPS_CEILING}, "
-                f"got {value}"
-            )
-        out = replace(out, max_steps=value)
-    else:
-        steps, _ = effective_max_steps(cfg)
-        out = replace(out, max_steps=steps)
-
-    return out
+        return replace(cfg, model=model)
+    return cfg
 
 
 def apply_runtime_to_bot_config(cfg: BotConfig) -> BotConfig:
@@ -344,10 +304,10 @@ def sync_embed_to_os_environ() -> str | None:
 
 def format_settings_summary(agent_cfg: AgentConfig, bot_cfg: BotConfig) -> str:
     lib, lib_src = effective_librarian_model()
+    ret, ret_src = effective_retrieval_model()
     jan, jan_src = effective_janitor_clean_model()
     exp, exp_src = effective_expand_model()
     emb, emb_src = effective_embed_model()
-    steps, steps_src = effective_max_steps(agent_cfg)
     temp, temp_src = effective_janitor_clean_temperature()
     stream, stream_src = effective_stream_replies()
 
@@ -355,10 +315,10 @@ def format_settings_summary(agent_cfg: AgentConfig, bot_cfg: BotConfig) -> str:
         "Vault bot settings",
         "",
         f"librarian_model: {lib or '(unset)'} ({lib_src})",
+        f"retrieval_model: {ret or '(unset)'} ({ret_src})",
         f"janitor_clean_model: {jan or '(unset)'} ({jan_src})",
         f"expand_model: {exp or '(unset)'} ({exp_src})",
         f"embed_model: {emb or '(unset)'} ({emb_src})",
-        f"max_steps: {steps} ({steps_src})",
         f"janitor_clean_temperature: {temp} ({temp_src})",
         f"stream_replies: {str(stream).lower()} ({stream_src})",
     ]

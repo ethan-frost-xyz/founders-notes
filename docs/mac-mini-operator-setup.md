@@ -28,7 +28,7 @@ This doc is the **day-to-day and recovery** guide. First-time install steps are 
 |------|------|
 | Repo (git checkout) | `/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes` |
 | Telegram secrets env | `~/.config/founders-telegram/env` |
-| Models + tuning (`max_steps`, `stream_replies`, Janitor temp) | `~/.config/founders-telegram/runtime.json` |
+| Models + tuning (librarian, retrieval, janitor, expand, embed, `stream_replies`, Janitor temp) | `~/.config/founders-telegram/runtime.json` |
 | Bot logs | `~/Library/Logs/founders-telegram/bot.stdout.log`, `bot.stderr.log` |
 | Webhook + sync logs | `~/Library/Logs/founders-telegram/webhook.log`, `sync.log` |
 | Git remote | `git@github.com:ethan-frost-xyz/founders-notes.git` (SSH) |

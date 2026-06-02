@@ -116,40 +116,6 @@ async def cmd_settings(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     await send_settings_panel(update, context)
 
 
-async def cmd_setsteps(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    if await _reject_unauthorized(update, _config(context)):
-        return
-    args = context.args or []
-    if len(args) != 1 or not args[0].strip().isdigit():
-        await update.message.reply_text("Usage: /setsteps <n>  (1–20)")
-        return
-    from runtime_settings import MAX_STEPS_CEILING, MAX_STEPS_FLOOR, set_max_steps
-
-    try:
-        value = set_max_steps(int(args[0]))
-    except ValueError as exc:
-        await update.message.reply_text(str(exc))
-        return
-    _, agent = _reload_bot_config(context)
-    await update.message.reply_text(
-        f"max_steps set to {value} (saved; range {MAX_STEPS_FLOOR}–{MAX_STEPS_CEILING}). "
-        f"Active now (agent max_steps={agent.config.max_steps})."
-    )
-
-
-async def cmd_resetsteps(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    if await _reject_unauthorized(update, _config(context)):
-        return
-    from runtime_settings import RUNTIME_KEY_MAX_STEPS, effective_max_steps, reset_runtime_key
-
-    reset_runtime_key(RUNTIME_KEY_MAX_STEPS)
-    _, agent = _reload_bot_config(context)
-    steps, src = effective_max_steps(agent.config)
-    await update.message.reply_text(
-        f"Runtime max_steps cleared. Now using {steps} ({src}). Model keys unchanged."
-    )
-
-
 async def cmd_setcleantemp(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if await _reject_unauthorized(update, _config(context)):
         return
@@ -200,7 +166,7 @@ async def cmd_setmodel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     args = context.args or []
     if len(args) < 2:
         await update.message.reply_text(
-            "Usage: /setmodel <role> <slug>\nRoles: librarian, janitor, expand, embed"
+            "Usage: /setmodel <role> <slug>\nRoles: librarian, retrieval, janitor, expand, embed"
         )
         return
     role = args[0]
@@ -237,7 +203,7 @@ async def cmd_resetmodel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     args = context.args or []
     if len(args) != 1:
         await update.message.reply_text(
-            "Usage: /resetmodel <role>\nRoles: librarian, janitor, expand, embed"
+            "Usage: /resetmodel <role>\nRoles: librarian, retrieval, janitor, expand, embed"
         )
         return
     from runtime_settings import reset_model_role, sync_embed_to_os_environ

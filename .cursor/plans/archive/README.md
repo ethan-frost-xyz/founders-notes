@@ -1,14 +1,15 @@
 # Archived Cursor plans
 
-Completed or superseded implementation plans. **Live docs** for the shipped Telegram stack: [`docs/telegram-vault-agent.md`](../../../docs/telegram-vault-agent.md), [`services/telegram/README.md`](../../../services/telegram/README.md), [`potential-ideas.md`](../../../potential-ideas.md).
+Completed or superseded implementation plans. **Live docs** for the shipped Telegram stack: [`docs/telegram-vault-agent.md`](../../../docs/telegram-vault-agent.md), [`services/telegram/README.md`](../../../services/telegram/README.md), [`potential-ideas.md`](../../../potential-ideas.md). Archived files describe behavior at ship time; command lists and `runtime.json` keys may be outdated — trust live docs above.
 
 **Deferred backlog (not a plan):** [`potential-ideas.md`](../../../potential-ideas.md) — **Shipped / Next / Decided** sections.
 
 May 2026 hygiene: `telegram_vault_bot` superseded todos cancelled; single backlog uses `potential-ideas.md` structure above.
 
-**Recently archived (May 2026):**
+**Recently archived:**
 
-- [`telegram_ui_overhaul.plan.md`](telegram_ui_overhaul.plan.md) — curated menu, stats `/start`, Janitor exit/overwrite, Ops panel (shipped)
+- [`telegram_agent_models.plan.md`](telegram_agent_models.plan.md) — removed misleading `max_steps` / `/setsteps`; reasoning effort deferred (Jun 2026)
+- [`telegram_ui_overhaul.plan.md`](telegram_ui_overhaul.plan.md) — curated menu, stats `/start`, Janitor exit/overwrite, Ops panel (shipped; May 2026)
 - [`laptop_remote_hardening.plan.md`](laptop_remote_hardening.plan.md) — laptop dev + SP5 webhook (shipped; ops: [`docs/mac-mini-operator-setup.md`](../../../docs/mac-mini-operator-setup.md))
 - [`telegram_ops_sync.plan.md`](telegram_ops_sync.plan.md) — SP5 webhook contracts (shipped)
 - [`backlog_plan_hygiene.plan.md`](backlog_plan_hygiene.plan.md) — cancel superseded todos; `potential-ideas.md` Shipped/Next/Decided (shipped)

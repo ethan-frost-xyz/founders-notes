@@ -18,5 +18,8 @@ def retrieve_for_turn(
     from _bootstrap import setup_ingestion_paths
 
     setup_ingestion_paths(config.vault_root)
-    orchestrator = orchestrator_from_agent_config(config)
+    from runtime_settings import effective_retrieval_model
+
+    retrieval_model, _ = effective_retrieval_model()
+    orchestrator = orchestrator_from_agent_config(config, retrieval_model=retrieval_model)
     return orchestrator.retrieve(user_message, history=history, on_status=on_status)

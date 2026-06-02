@@ -34,11 +34,11 @@ flowchart LR
   Orchestrator --> Expand[LLM expand]
   Expand --> Search[Batched hybrid search]
   Search --> Rerank[LLM rerank]
-  Rerank --> Synth[DeepSeek synthesize]
+  Rerank --> Synth[Librarian model synthesize]
   Synth --> Reply
 ```
 
-~3 LLM calls + 1 batched embed API call per thematic question.
+~3 LLM calls + 1 batched embed API call per thematic question. Expand + rerank use `retrieval_model` when set (`/setmodel retrieval …`); synthesis uses `librarian_model`.
 
 ## Source priority (synthesis policy)
 
@@ -74,9 +74,8 @@ Janitor paste line-1 parsing stays regex-based — see [janitor.md](janitor.md).
 | `/janitor` | Enter Janitor — paste bullets → clean → expand → promote |
 | `/librarian` | Exit Janitor back to Q&A |
 | `/cancel` | Exit Janitor (alias; same as **← Back** button in Janitor) |
-| `/settings` | Models, max_steps, **Stream replies** (Librarian synthesis streaming), Janitor temp, **Ops** panel (sync / pull / reindex / restart) |
+| `/settings` | Models, **Stream replies** (Librarian synthesis streaming), Janitor temp, **Ops** panel (sync / pull / reindex / restart) |
 | `/setmodel` / `/resetmodel` | Per-role model overrides (`runtime.json`) |
-| `/setsteps` / `/resetsteps` | Librarian tool-step limit |
 | `/setcleantemp` / `/resetcleantemp` | Janitor clean LLM temperature (also **Settings** → Janitor temp) |
 | `/pull` | `git pull --ff-only` |
 | `/reindex` | Rebuild chunks, episode summaries, chunks (summary tier), embeddings |

@@ -41,7 +41,6 @@ def agent_config(monkeypatch: pytest.MonkeyPatch):
         api_key="test-key",
         model="test/model",
         vault_root=REPO,
-        max_steps=5,
     )
 
 

@@ -32,14 +32,14 @@ Or: `python lib/reindex_vault.py` / Telegram `/reindex` (runs all steps above).
 | Step | What |
 |------|------|
 | Intent | Rules-based (`meta` / `follow_up` / `thematic`) — no extra LLM |
-| Expand | 1 LLM call → standalone query + 5 variants (`prompts/query_expand.md`) |
+| Expand | 1 LLM call → standalone query + 5 variants (`prompts/query_expand.md`); model: `retrieval_model` (falls back to `librarian_model`) |
 | Search | 1 batched embed API call + hybrid keyword/cosine per variant (`expanded` + `summary` tiers) |
 | Merge | Dedupe by `chunk_id`, RRF across variants, cap ~40 |
-| Rerank | 1 LLM call → top 10–12 with scores (`ingestion/lib/rerank_llm.py`) |
+| Rerank | 1 LLM call → top 10–12 with scores (`ingestion/lib/rerank_llm.py`); same `retrieval_model` as expand |
 | Fallback | Transcript keyword search when max rerank score &lt; 6 or quote-intent detected |
 | Synthesize | 1 DeepSeek completion with evidence block — **no** `search_vault_parent` tool loop |
 
-**LLM calls per thematic turn:** 3 (expand, rerank, synthesize) + 1 batched embed request.
+**LLM calls per thematic turn:** 3 (expand, rerank, synthesize) + 1 batched embed request. Use a fast/cheap slug for expand + rerank (`/setmodel retrieval …`); keep `librarian_model` for synthesis only.
 
 **Citable sources in synthesis:** `expanded:*` and `transcript:*` only. Summaries inform routing but are stripped from the evidence block.
 

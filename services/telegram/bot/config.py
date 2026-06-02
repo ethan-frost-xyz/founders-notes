@@ -34,7 +34,6 @@ class AgentConfig:
     api_key: str
     model: str
     vault_root: Path
-    max_steps: int = 5
     max_tool_result_chars: int = 20_000
     openrouter_base_url: str = "https://openrouter.ai/api/v1"
     default_search_k: int = 8
@@ -63,18 +62,12 @@ def load_agent_config() -> AgentConfig:
             "(/setmodel librarian <slug>), TELEGRAM_CHAT_MODEL in env, or restart once to seed from env."
         )
 
-    max_steps_raw = os.environ.get("TELEGRAM_MAX_STEPS", "").strip()
-    max_steps = int(max_steps_raw) if max_steps_raw else 5
-    if max_steps < 1:
-        raise ValueError("TELEGRAM_MAX_STEPS must be >= 1")
-
     base_url = os.environ.get("OPENROUTER_BASE_URL", "").strip() or "https://openrouter.ai/api/v1"
 
     base = AgentConfig(
         api_key=api_key,
         model=model,
         vault_root=_vault_root_default(),
-        max_steps=max_steps,
         openrouter_base_url=base_url.rstrip("/"),
     )
     return apply_runtime_overrides(base)

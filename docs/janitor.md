@@ -49,7 +49,7 @@ Janitor uses **two env files** on the bot host:
 | File | Purpose |
 |------|---------|
 | `~/.config/founders-telegram/env` | Secrets: `TELEGRAM_*`, `OPENROUTER_API_KEY`, `VAULT_ROOT` |
-| `~/.config/founders-telegram/runtime.json` | Models + tuning: `/setmodel`, `/setcleantemp`, `/setsteps`; Librarian **Stream replies** (`stream_replies`, default on) — see `/settings` |
+| `~/.config/founders-telegram/runtime.json` | Models + tuning: `/setmodel` (incl. `retrieval` for Librarian expand/rerank), `/setcleantemp`; **Stream replies** (`stream_replies`, default on) — see `/settings` |
 | `{VAULT_ROOT}/.env` | Ingestion: Colossus, X API; **also** loaded by `expand_datapoints_llm.py` (`load_dotenv` on repo root) for `OPENROUTER_API_KEY` / `OPENROUTER_MODEL` if not already in the process env |
 
 Quick reference (replace `VAULT_ROOT` with your clone path, e.g. `~/founders-notes`):
@@ -74,8 +74,9 @@ Janitor and Librarian use **different models on purpose**. On the Mac mini bot h
 | Role | `/setmodel` role | Typical use |
 |------|------------------|-------------|
 | **Paste clean** | `janitor` | Fast, cheap model on every paste |
+| **Librarian retrieval** | `retrieval` | Query expand + evidence rerank (orchestrator); falls back to `librarian` if unset |
 | **Expand** | `expand` | `expand_datapoints_llm.py` on **Approve** |
-| **Librarian Q&A** | `librarian` | Tool-calling vault agent |
+| **Librarian Q&A** | `librarian` | Synthesis + optional tools (not expand/rerank when `retrieval` is set) |
 | **Search embeddings** | `embed` | Parent-tier index; run `/reindex` after changing |
 
 Check effective slugs: `/settings`. Secrets (`OPENROUTER_API_KEY`) stay in `~/.config/founders-telegram/env`.
@@ -87,12 +88,14 @@ Check effective slugs: `/settings`. Secrets (`OPENROUTER_API_KEY`) stay in `~/.c
 | Clean preview garbled, too creative, or slow | `/setmodel janitor <faster/cheaper slug>` |
 | Expand draft weak or hallucinated quotes | `/setmodel expand <stronger slug>`; **Retry expand** |
 | Librarian answers shallow or wrong tool use | `/setmodel librarian <slug>` + prompt tweaks ([`vault_agent.md`](../services/telegram/prompts/vault_agent.md)) |
+| Librarian slow before the answer text | `/setmodel retrieval <fast slug>` (Groq via OpenRouter); keep `librarian` on DeepSeek or similar for synthesis |
 | Search misses new takeaways after promote | `/sync` when idle (see [manual-operations.md](manual-operations.md#when-to-refresh-the-index)) |
 
 **Example (Telegram on Mac mini)**
 
 ```text
-/setmodel janitor groq/llama-3.1-8b-instant
+/setmodel janitor openai/gpt-oss-20b::Groq
+/setmodel retrieval openai/gpt-oss-20b::Groq
 /setmodel expand anthropic/claude-sonnet-4.6
 /setmodel librarian deepseek/deepseek-v4-pro
 /setmodel embed qwen/qwen3-embedding-8b
