@@ -16,7 +16,7 @@ from telegram import Update
 from telegram.ext import ContextTypes
 
 from agent import VaultAgent
-from messaging import reply_text_chunked
+from messaging import TELEGRAM_MESSAGE_LIMIT, reply_text_chunked
 from runtime_settings import effective_stream_replies
 
 
@@ -335,19 +335,21 @@ async def _run_agent_turn(
     loop = asyncio.get_running_loop()
     harness = _is_harness_bot(context)
     stream_enabled, _ = effective_stream_replies()
+    stream_lock = asyncio.Lock()
 
     async def _flush_stream(text: str) -> None:
         nonlocal stream_msg, last_stream_edit_at
-        now = loop.time()
-        if stream_msg is None:
-            stream_msg = await update.message.reply_text(text or "…")
-            last_stream_edit_at = now
-        elif now - last_stream_edit_at >= 0.5:
-            try:
-                await stream_msg.edit_text(text or "…")
-            except Exception:
-                pass
-            last_stream_edit_at = now
+        async with stream_lock:
+            now = loop.time()
+            if stream_msg is None:
+                stream_msg = await update.message.reply_text(text or "…")
+                last_stream_edit_at = now
+            elif now - last_stream_edit_at >= 0.5:
+                try:
+                    await stream_msg.edit_text(text or "…")
+                except Exception:
+                    pass
+                last_stream_edit_at = now
 
     async def _update_status(label: str) -> None:
         nonlocal status_msg
@@ -362,6 +364,9 @@ async def _run_agent_turn(
     def _schedule_status(label: str) -> None:
         asyncio.create_task(_update_status(label))
 
+    def _schedule_stream_flush(t: str) -> None:
+        asyncio.create_task(_flush_stream(t))
+
     def on_tool_start(tool_name: str, _args: dict[str, Any]) -> None:
         loop.call_soon_threadsafe(_schedule_status, tool_status_label(tool_name))
 
@@ -369,7 +374,7 @@ async def _run_agent_turn(
         nonlocal accumulated_text
         accumulated_text += delta
         text = accumulated_text
-        loop.call_soon_threadsafe(lambda: asyncio.create_task(_flush_stream(text)))
+        loop.call_soon_threadsafe(_schedule_stream_flush, text)
 
     try:
         result = await asyncio.to_thread(
@@ -389,6 +394,14 @@ async def _run_agent_turn(
                 pass
 
     if stream_msg is not None and not harness:
+        preview = result.content or "…"
+        if len(preview) > TELEGRAM_MESSAGE_LIMIT:
+            preview = preview[:TELEGRAM_MESSAGE_LIMIT]
+        async with stream_lock:
+            try:
+                await stream_msg.edit_text(preview)
+            except Exception:
+                pass
         try:
             await stream_msg.delete()
         except Exception:
