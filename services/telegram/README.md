@@ -6,7 +6,7 @@ Private on-the-go access to the Founders vault via a **tool-calling agent** — 
 
 **Reviewers:** [REVIEW.md](REVIEW.md) — commit map, risk areas, test commands.
 
-**Docs:** [`docs/telegram-vault-agent.md`](../../docs/telegram-vault-agent.md) (overview) · [`docs/janitor.md`](../../docs/janitor.md) (daily notes workflow) · [`docs/manual-operations.md`](../../docs/manual-operations.md) (Telegram vs `maintain.py`) · [`potential-ideas.md`](../../potential-ideas.md) (deferred backlog)
+**Docs:** [`docs/telegram-vault-agent.md`](../../docs/telegram-vault-agent.md) (overview) · [`docs/janitor.md`](../../docs/janitor.md) (daily notes workflow) · [`docs/manual-operations.md`](../../docs/manual-operations.md) (Telegram vs `maintain.py`) · [`potential-ideas.md`](../../potential-ideas.md) (open backlog)
 
 ## Architecture
 
@@ -94,7 +94,7 @@ Unload: `launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.founders.tele
 
 ### 5. Cron index refresh (optional)
 
-`sync-and-index.sh` uses `catalog/.sync-in-progress` so overlapping cron/webhook runs skip cleanly. Avoid manual sync during active Librarian/Janitor turns. Matrix: [`docs/manual-operations.md`](../../docs/manual-operations.md#when-to-refresh-the-index).
+`sync-and-index.sh` uses `catalog/.sync-in-progress` so overlapping cron/webhook runs skip cleanly (no richer lock UX planned). Avoid manual sync during active Librarian/Janitor turns. Matrix: [`docs/manual-operations.md`](../../docs/manual-operations.md#when-to-refresh-the-index).
 
 ```bash
 chmod +x services/telegram/deploy/install-cron.sh
@@ -254,4 +254,4 @@ After `/setmodel embed`, run `/reindex` or `/sync` when idle before trusting sea
 
 ## Deferred (post-v0)
 
-See [`potential-ideas.md`](../../potential-ideas.md) — SP5 webhook + SP6-lite shipped; rerank, MRR@8, Janitor UX → **Next** clusters.
+Open backlog: [`potential-ideas.md`](../../potential-ideas.md) (ops tests, web provider, Librarian latency, Janitor UX, ingestion parallel expand, etc.).

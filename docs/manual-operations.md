@@ -54,7 +54,7 @@ Embeddings require `OPENROUTER_API_KEY` in env and an embed model in `runtime.js
 | **During an active Telegram session** | Avoid `sync-and-index.sh` mid-turn; wait until the bot is idle or use `/clear` / finish Janitor first. |
 | **Laptop-only** work (no bot) | `maintain.py` menu **8** or `python lib/reindex_vault.py` from `ingestion/` — no sync script needed unless you also want `git pull`. |
 
-`/resume` does **not** auto-sync (warn-only). Deferred: optional auto-sync on resume — [`potential-ideas.md`](../potential-ideas.md).
+`/resume` does **not** auto-sync. If the index is newer than the saved session, you get a warn-only notice — re-ask the question (sync does not fix that). If git or the index may be behind (travel, failed webhook), run `/sync` when the bot is idle. No planned default auto `sync-and-index.sh` on resume.
 
 From `ingestion/` without the menu:
 

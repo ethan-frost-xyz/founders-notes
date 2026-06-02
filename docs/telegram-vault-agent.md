@@ -1,6 +1,6 @@
 # Telegram vault agent
 
-Short overview for coding agents. **v0 (SP1–SP4)** shipped on `main` (PR #3); archived sub-plans below. Follow-ups: [`potential-ideas.md`](../potential-ideas.md). Implementation history: [`.cursor/plans/archive/`](../.cursor/plans/archive/).
+Short overview for coding agents. **v0 (SP1–SP4)** shipped on `main` (PR #3); archived sub-plans below. Deferred work: [`potential-ideas.md`](../potential-ideas.md). Implementation history: [`.cursor/plans/archive/`](../.cursor/plans/archive/).
 
 | SP | Plan (archived) |
 |----|------|
@@ -94,12 +94,19 @@ After expanded promote on the Mac mini (or any host running the bot), run the sa
 |----|--------|------|
 | 1–4 | Shipped on `main` (PR #3) | [archive/sp1_tools … sp4_ops](../.cursor/plans/archive/) |
 | Janitor MVP | Shipped | [janitor.md](janitor.md) |
-| SP6-lite | Shipped (May 2026) | [potential-ideas.md](../potential-ideas.md) § Shipped |
-| Librarian quality (Jun 2026) | Shipped | [telegram_librarian_quality.plan.md](../.cursor/plans/archive/telegram_librarian_quality.plan.md) — `load_episode` **candidates** on ambiguity; optional synthesis **streaming** (default on) |
+| SP6-lite | Shipped (May 2026) | [telegram_mock_harness](telegram-mock-harness.md), tool status / prompt copy in tree |
+| Librarian quality (Jun 2026) | Shipped | [telegram_librarian_quality.plan.md](../.cursor/plans/archive/telegram_librarian_quality.plan.md) — `load_episode` **candidates** on ambiguity; synthesis **streaming** (default on) |
 | 5 (webhook) | Shipped | [telegram_ops_sync.plan.md](../.cursor/plans/archive/telegram_ops_sync.plan.md) |
-| 6+ | Open — Next clusters | [potential-ideas.md](../potential-ideas.md) § Next |
+| 6+ | Open | [potential-ideas.md](../potential-ideas.md) |
 
 Runbook and env: [`services/telegram/README.md`](../services/telegram/README.md).
+
+## Non-goals
+
+- Multi-host / Cloud Run — Mac mini only.
+- Section-filter commands (`/transcript`, `/post`, `/notes`, `/expanded`) — use `load_episode` + corpus tiers.
+- Repo-wide vector DB — see [retrieval.md](retrieval.md) and [AGENTS.md](../AGENTS.md) gates.
+- `/resume` auto-sync — warn-only on index newer than session; use `/sync` when idle after travel or a failed webhook (no default background `sync-and-index.sh` on resume).
 
 ## Embeddings vs AGENTS.md
 

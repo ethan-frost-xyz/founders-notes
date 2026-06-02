@@ -2,9 +2,9 @@
 
 Completed or superseded implementation plans. **Live docs** for the shipped Telegram stack: [`docs/telegram-vault-agent.md`](../../../docs/telegram-vault-agent.md), [`services/telegram/README.md`](../../../services/telegram/README.md), [`potential-ideas.md`](../../../potential-ideas.md). Archived files describe behavior at ship time; command lists and `runtime.json` keys may be outdated — trust live docs above.
 
-**Deferred backlog (not a plan):** [`potential-ideas.md`](../../../potential-ideas.md) — **Shipped / Next / Decided** sections.
+**Deferred backlog (not a plan):** [`potential-ideas.md`](../../../potential-ideas.md) — open work only (shipped behavior = live docs + code).
 
-May 2026 hygiene: `telegram_vault_bot` superseded todos cancelled; single backlog uses `potential-ideas.md` structure above.
+May 2026 hygiene: `telegram_vault_bot` superseded todos cancelled; backlog hygiene Jun 2026 removed Shipped/Decided sections from `potential-ideas.md`.
 
 **Recently archived:**
 

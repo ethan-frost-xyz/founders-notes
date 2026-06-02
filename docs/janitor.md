@@ -131,4 +131,4 @@ Scenarios: [`dev/scenarios/janitor/`](../dev/scenarios/janitor/). Guide: [telegr
 
 ## Deferred / ideas
 
-See [`potential-ideas.md`](../potential-ideas.md) (streaming clean preview, audit log, etc.).
+See [`potential-ideas.md`](../potential-ideas.md) (Janitor UX cluster).
