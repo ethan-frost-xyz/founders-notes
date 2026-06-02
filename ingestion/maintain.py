@@ -56,8 +56,8 @@ load_dotenv(paths.ROOT / ".env")
 DEFAULT_NOTES_FROM = 190
 
 MENU = """
-Founders Notes — maintenance console
-------------------------------------
+Founders Notes — recovery / tactical console (Telegram is primary)
+------------------------------------------------------------------
  1. Status / coverage (regenerate gaps.md)
  2. Next episode needing notes
  3. Expand one episode
@@ -660,7 +660,7 @@ ACTIONS: dict[str, Callable[[], None]] = {
 
 
 def run_menu_loop() -> None:
-    print("Founders Notes maintenance console")
+    print("Founders Notes recovery/tactical console (use Telegram Janitor when available)")
     print(f"Repo: {ROOT}")
     while True:
         print(MENU)

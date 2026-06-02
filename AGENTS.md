@@ -45,7 +45,7 @@ Or ripgrep: `content/transcripts/`, `content/notes/`, `content/posts/`, `content
 
 User workflow: timestamp bullets in `{folder}.notes.md` → full quotes + takeaways. See `[docs/datapoint-workflow.md](docs/datapoint-workflow.md)`.
 
-**Primary on Mac mini:** Telegram Librarian + Janitor — see `[docs/manual-operations.md](docs/manual-operations.md)`. **Tactical console:** `python maintain.py` (from `ingestion/`) — interactive menu for coverage, expand, promote, index rebuild (chunks + embeddings), and prompt tuning.
+**Primary on Mac mini:** Telegram Librarian + Janitor — see `[docs/manual-operations.md](docs/manual-operations.md)`. **Laptop recovery/tactical:** `python maintain.py` (from `ingestion/`) — slim menu for coverage, expand, promote, and reindex when the bot is unavailable.
 
 ```bash
 python notes/expand_datapoints.py --id ep-0200              # prompt only
