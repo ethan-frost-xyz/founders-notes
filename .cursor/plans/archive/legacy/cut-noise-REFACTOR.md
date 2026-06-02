@@ -1,7 +1,7 @@
-# Cut-Noise Refactor — tracking
+# Cut-Noise Refactor — tracking (archived)
 
-Branch: `refactor/cut-noise`  
-Plan: [.cursor/plans/cut-noise_refactor_cb852e3b.plan.md](.cursor/plans/cut-noise_refactor_cb852e3b.plan.md)
+Branch: `refactor/cut-noise` (merged to `main`)  
+Plan: [.cursor/archive/legacy/cut-noise_refactor_cb852e3b.plan.md](.cursor/plans/cut-noise_refactor_cb852e3b.plan.md)
 
 ## North star
 
@@ -56,4 +56,4 @@ The **product** is Telegram **Librarian** (v3 orchestrated retrieval) + **Janito
 - [x] All workstreams committed on `refactor/cut-noise`
 - [x] `pytest tests -q` green; `pipeline/verify.py` exits 0
 - [x] `AGENTS.md` + `README.md` describe only systems that still exist
-- [ ] Single merge to `main` (operator)
+- [x] Single merge to `main` (operator)

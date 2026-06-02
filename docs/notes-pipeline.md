@@ -96,11 +96,9 @@ python notes/scaffold_notes.py --missing
 python pipeline/verify.py
 ```
 
-## Apple Notes import (archived)
+## Apple Notes import (historical)
 
-Episodes 1–189 were bulk-imported once from Apple Notes (`source: apple_notes_import` in frontmatter). **Going forward, edit notes only in this repo** — Working Copy on phone, Cursor on Mac.
-
-Recovery only (overwrites `catalog/import-review.md` if run without `--dry-run`): [`ingestion/migrations/import_notes_apple.py`](../ingestion/migrations/import_notes_apple.py). See [`ingestion/migrations/README.md`](../ingestion/migrations/README.md).
+Episodes 1–189 were bulk-imported once from Apple Notes (`source: apple_notes_import` in frontmatter). **Going forward, edit notes only in this repo** — Working Copy on phone, Cursor on Mac. The one-shot importer was removed; see git history before commit `2fb9d22` if needed.
 
 ## Datapoint expansion
 

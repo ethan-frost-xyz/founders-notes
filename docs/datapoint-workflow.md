@@ -11,7 +11,7 @@ Turn half-sentence timestamp bullets in `{folder}.notes.md` into full transcript
 | `content/notes/{folder}/{folder}.expanded.draft.md` | LLM staging output (review before indexing) |
 | `content/notes/{folder}/{folder}.expanded.md` | Canonical expanded notes (optional; indexed for search) |
 
-Promoted `.expanded.md` files feed the **parent tier** of the shipped [Telegram vault agent](telegram-vault-agent.md) (`search_vault_parent`); drafts are not indexed.
+Promoted `.expanded.md` files feed the **parent tier** of Librarian hybrid search (orchestrator + `catalog/chunks.jsonl` / embeddings); drafts are not indexed. See [retrieval.md](retrieval.md).
 
 ## Tunable prompt (source of truth)
 
@@ -24,7 +24,7 @@ Per bullet: `### {timestamp} — {bullet}`, then **Context** (1–2 sentences), 
 
 The LLM reply must start with `## Expanded datapoints` on line 1 (required by the parser). **Do not** ask the model for YAML frontmatter — `expand_datapoints_llm.py` wraps the body with canonical episode headers (`content_type`, `created_at`, model metadata, etc.) via `ingestion/lib/markdown_io.py`.
 
-Edit that file to change behavior for both the manual CLI and OpenRouter runs. Candidate prompt B: `expand_datapoints.candidate.md`.
+Edit that file to change behavior for both the manual CLI and OpenRouter runs. For A/B tuning, pass a second prompt file to `expand_tune.py` (see below).
 
 ## Quick start (Cursor / manual)
 
@@ -42,7 +42,7 @@ cd ingestion
 python maintain.py
 ```
 
-Options include coverage/gaps refresh, next notes path, single-episode or backlog expand (dry-run cost first), pending draft list, promote, chunk rebuild, prompt A/B tune, and expand-run log summary.
+Options include coverage/gaps refresh, next notes path, single-episode or backlog expand (dry-run cost first), pending draft list, promote, chunk rebuild, and expand-run log summary.
 
 **Bulk backfill:** see [`docs/expanded-backfill.md`](expanded-backfill.md) (operator checklist, promote batches, safe behavior during large draft runs).
 
@@ -98,35 +98,31 @@ python notes/expand_datapoints_llm.py --summarize-log --run-id tune-001 --log-va
 jq -s 'group_by(.status) | map({status: .[0].status, n: length})' catalog/expand-run.jsonl
 ```
 
-## Prompt tuning (A/B sandbox)
+## Prompt tuning (A/B sandbox, ad-hoc)
 
-Compare **prompt A** vs **prompt B** on a fixed batch without touching `content/notes/` until you promote a winner. Each episode runs in a **fresh subprocess** (no cross-episode or A/B contamination).
+Compare **prompt A** vs **prompt B** on a batch you choose without touching `content/notes/` until you promote a winner. Each episode runs in a **fresh subprocess** (no cross-episode or A/B contamination). Outputs live under `ingestion/fixtures/expand-runs/{run_id}/A/` and `.../B/` — **not committed**.
 
-Batch: [`catalog/expand-tune-batch.json`](../catalog/expand-tune-batch.json) (**23 episodes**: ep 10–180 every 10 where notes exist, plus curated ep-0001, ep-0022, ep-0066, ep-0105, ep-0189). Outputs: `ingestion/fixtures/expand-runs/{run_id}/A/` and `.../B/` — **committed** (default run `baseline/`).
+| Prompt | Typical file |
+|--------|----------------|
+| A | `ingestion/prompts/expand_datapoints.md` |
+| B | Your copy or fork (e.g. `ingestion/prompts/expand_datapoints.variant-b.md`) |
 
-| Prompt | File |
-|--------|------|
-| A (faithful format) | `ingestion/prompts/expand_datapoints.md` — Context, Quote (bold core + flank), Key takeaway |
-| B (retrieval-tight) | `ingestion/prompts/expand_datapoints.candidate.md` — same fields, shorter rules; **bold** key phrase in a shorter quote |
-
-Expanded output per bullet: `### {timestamp} — {bullet}`, then Context / Quote / Key takeaway (blank line between fields). TRANSCRIPT is API input only — never echoed in the output.
+Start from [`ingestion/fixtures/expand-tune-batch.example.json`](../ingestion/fixtures/expand-tune-batch.example.json): copy to a local batch file (e.g. `catalog/expand-tune-batch.json`, gitignored) with your `episode_ids` list.
 
 ```bash
 cd ingestion
-python notes/expand_tune.py init
-# Edit prompts/expand_datapoints.candidate.md (prompt B)
+cp fixtures/expand-tune-batch.example.json ../catalog/expand-tune-batch.json   # edit episode_ids
+python notes/expand_tune.py init --batch-file ../catalog/expand-tune-batch.json
 
-python notes/expand_tune.py expand --variant A --dry-run  # cost table + $ from OpenRouter catalog
-python notes/expand_tune.py expand --variant A --apply   # 23 subprocesses
-python notes/expand_tune.py expand --variant B --apply   # 23 subprocesses
+python notes/expand_tune.py expand --variant A --dry-run
+python notes/expand_tune.py expand --variant A --apply
+python notes/expand_tune.py expand --variant B --apply --prompt prompts/expand_datapoints.variant-b.md
 
 python notes/expand_tune.py report
 python notes/expand_tune.py verify
-python notes/expand_tune.py promote --variant B --apply  # winner → .expanded.md
+python notes/expand_tune.py promote --variant B --apply
 python search/build_chunks.py
 ```
-
-Full A/B apply = **46 API calls** (23 × A + 23 × B). See [`ingestion/fixtures/expand-runs/README.md`](../ingestion/fixtures/expand-runs/README.md).
 
 ## CLI (prompt only, no API)
 

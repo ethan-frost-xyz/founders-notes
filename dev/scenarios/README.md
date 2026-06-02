@@ -35,5 +35,5 @@ python dev/mock_telegram_cli.py --scenario dev/scenarios/librarian/episode_resol
 |------|--------|
 | `librarian/episode_resolve.yaml` | NL “episode 191/22” → `load_episode`, `ep-0191` / `ep-0022` |
 | `librarian/tool_coverage.yaml` | All four vault tools called |
-| `librarian/thematic_search.yaml` | Thematic Q → `search_vault_parent`, status line, `[ep-0016]` citation |
+| `librarian/thematic_search.yaml` | Thematic Q → `retrieval_orchestrator`, citation e.g. `[ep-0016]` |
 | `janitor/episode_parse.yaml` | Paste line `191` resolves without NL regex in Librarian |

@@ -12,8 +12,6 @@ Pick one cluster → new `.cursor/plans/*.plan.md` → archive the plan when don
 
 **Defer:** Pull-only / path-filtered reindex on webhook when *all* changed paths match a strict allowlist (`docs/`, `tests/`, `services/telegram/`, `.cursor/`, root markdown); anything under `content/`, `catalog/`, or `ingestion/search/` → full reindex. False negative → stale search until `/sync`. Nightly cron stays full sync. Bundle in one plan only if code-only `main` pushes hurt.
 
-### Web
-
 ### Harness / CI
 
 - **Live librarian deploy smoke** — Before Mac mini deploy: `python dev/mock_telegram_cli.py --suite librarian --live-only` (or `RUN_LIVE_HARNESS=1 pytest … -k live`) when keys + index preflight pass. See [`docs/telegram-mock-harness.md`](docs/telegram-mock-harness.md).

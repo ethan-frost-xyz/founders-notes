@@ -71,8 +71,6 @@ expanded_model: "provider/model"
 ---
 ```
 
-Backfill existing files: `python migrations/migrate_episode_frontmatter.py --apply` (body preserved; frontmatter only).
-
 ## Transcript file frontmatter
 
 Core fields plus:
@@ -212,4 +210,4 @@ Body: `## Expanded datapoints`; per bullet `### {timestamp} — {bullet}`, then 
 
 Path helpers: `ingestion/lib/paths.py`.
 
-Historical Apple Notes import: `ingestion/migrations/import_notes_apple.py` (archived; do not re-run).
+Historical Apple Notes import: one-shot bulk import (episodes 1–189); importer removed — see git history before `2fb9d22`.

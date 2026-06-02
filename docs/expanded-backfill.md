@@ -166,7 +166,8 @@ On success, draft file is deleted and `.expanded.md` is written with canonical f
 | Workflow | Tool | Output |
 |----------|------|--------|
 | **Production backfill** | `expand_datapoints_llm.py --missing-expanded` | `content/notes/.../*.expanded.draft.md` |
-| **Prompt tune sandbox** | `expand_tune.py` / menu **9** | `ingestion/fixtures/expand-runs/{run_id}/A|B/` |
+| **Prompt tune sandbox** | `expand_tune.py` (CLI; ad-hoc batch file) | `ingestion/fixtures/expand-runs/{run_id}/A|B/` |
+| **Expand run log** | `maintain.py` menu **9** | Reads `catalog/expand-run.jsonl` |
 
 Do not confuse tune fixtures with production drafts. Promote tune winners via `expand_tune.py promote`, not production `--promote`.
 

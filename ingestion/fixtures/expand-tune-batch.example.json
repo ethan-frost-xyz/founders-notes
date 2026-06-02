@@ -1,0 +1,8 @@
+{
+  "description": "Example batch for expand_tune.py. Copy to catalog/expand-tune-batch.json (or pass --batch-file) and edit episode_ids.",
+  "episode_ids": [
+    "ep-0001",
+    "ep-0010",
+    "ep-0020"
+  ]
+}

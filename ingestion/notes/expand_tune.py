@@ -50,9 +50,10 @@ from paths import (
 
 EXPAND_RUNS_DIR = INGESTION_DIR / "fixtures" / "expand-runs"
 DEFAULT_RUN_ID = "baseline"
-DEFAULT_BATCH_FILE = paths.ROOT / "catalog" / "expand-tune-batch.json"
+EXAMPLE_BATCH_FILE = INGESTION_DIR / "fixtures" / "expand-tune-batch.example.json"
+DEFAULT_BATCH_FILE = EXAMPLE_BATCH_FILE
 PROMPT_A = INGESTION_DIR / "prompts" / "expand_datapoints.md"
-PROMPT_B = INGESTION_DIR / "prompts" / "expand_datapoints.candidate.md"
+PROMPT_B = INGESTION_DIR / "prompts" / "expand_datapoints.variant-b.md"
 LLM_SCRIPT = INGESTION_DIR / "notes" / "expand_datapoints_llm.py"
 
 load_dotenv(paths.ROOT / ".env")
@@ -182,7 +183,9 @@ def update_manifest_variant(
 def cmd_expand(args: argparse.Namespace) -> None:
     if not manifest_path(args.run_id).exists():
         raise SystemExit(f"Run not initialized: {args.run_id}")
-    episode_ids = load_batch_file(args.batch_file)
+    manifest = load_manifest(args.run_id)
+    batch_path = _batch_path_from_args(args, manifest)
+    episode_ids = load_batch_file(batch_path)
     rows = load_catalog()
     by_id = catalog_rows_by_id(rows)
     prompt_path = resolve_prompt(args.variant, args.prompt)
@@ -472,7 +475,9 @@ def cmd_verify(args: argparse.Namespace) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Sandboxed A/B prompt tuning (batch from expand-tune-batch.json, subprocess per episode)"
+        description=(
+            "Sandboxed A/B prompt tuning (local batch JSON + fixtures/expand-runs/, subprocess per episode)"
+        )
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -483,7 +488,7 @@ def main() -> None:
         "--batch-file",
         type=Path,
         default=DEFAULT_BATCH_FILE,
-        help="Episode list JSON",
+        help=f"Episode list JSON (default: {EXAMPLE_BATCH_FILE.relative_to(paths.ROOT)})",
     )
 
     p_expand = sub.add_parser("expand", help="Expand batch via one subprocess per episode")

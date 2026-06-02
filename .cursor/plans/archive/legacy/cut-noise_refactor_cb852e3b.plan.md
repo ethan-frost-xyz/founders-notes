@@ -4,34 +4,34 @@ overview: A Telegram-centric "cut the noise" refactor on a dedicated branch, tra
 todos:
   - id: ws0
     content: Create branch refactor/cut-noise + root REFACTOR.md (north star, guardrails, workstream table, decisions); commit plan + doc; confirm green baseline (pytest + verify.py)
-    status: in_progress
+    status: completed
   - id: ws1
     content: Delete one-shot migrations (ingestion/migrations/, import_notes_apple.py) + archives (raw_notes_2026.txt, migration snapshot json) + related tests
-    status: pending
+    status: completed
   - id: ws2
     content: "Lean X pipeline: delete attribute_posts_llm.py, dedupe_x_csv.py + test; keep sync/organize/manual + x_posts_csv/match/threads; update AGENTS.md"
-    status: pending
+    status: completed
   - id: ws3
     content: "Slim expand-tune: delete expand-runs fixtures, candidate prompt, batch json, baseline-fixture test; drop tune from AGENTS.md + maintain.py; keep expand_tune.py + unit test"
-    status: pending
+    status: completed
   - id: ws4
     content: "Trim retrieval v2: remove search_vault_parent/search_transcript from live agent executor map; keep funcs in tools/vault.py; point tests/harness at them directly"
-    status: pending
+    status: completed
   - id: ws5
     content: "Remove /web stub: tools/web.py, command handler, settings toggle, agent.py web branch, and all README/doc/test references"
-    status: pending
+    status: completed
   - id: ws6
     content: "Verify-then-cut compat shims one-by-one: expand_llm.py shim, legacy transcript.md + frontmatter map, unpadded-id acceptance, env->runtime seeding"
-    status: pending
+    status: completed
   - id: ws7
     content: "Slim maintain.py to recovery/tactical fallback (after WS3): drop tune menu, demote in AGENTS.md, keep expand/promote/reindex"
-    status: pending
+    status: completed
   - id: ws8
     content: "Misc dead-code: delete orphan ingestion/tests/ dir; document single-venv (ingestion/.venv) convention in REFACTOR.md/docs"
-    status: pending
+    status: completed
   - id: ws9
     content: "Docs consolidation (LAST): merge 4 operator docs into docs/operations.md, delete REVIEW.md, fold v0-checklist into testing.md, rewrite AGENTS.md/README links"
-    status: pending
+    status: completed
 isProject: false
 ---
 

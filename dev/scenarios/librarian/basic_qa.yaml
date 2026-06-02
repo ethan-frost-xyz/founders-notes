@@ -8,7 +8,7 @@ turns:
     expect:
       response_min_length: 20
       expect_live:
-        tool_called: search_vault_parent
+        tool_called: retrieval_orchestrator
         response_contains: Carnegie
   - send: "/clear"
     expect:

@@ -38,7 +38,7 @@ def test_build_child_cmd_one_episode():
         episode_id="ep-0042",
         run_id="tune-001",
         variant="B",
-        prompt_path=Path("/repo/ingestion/prompts/expand_datapoints.candidate.md"),
+        prompt_path=Path("/repo/ingestion/prompts/expand_datapoints.variant-b.md"),
         apply=True,
         force=True,
         model="test/model",
