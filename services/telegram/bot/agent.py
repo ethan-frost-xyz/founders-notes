@@ -83,7 +83,8 @@ def openrouter_tools(*, allow_web: bool, default_k: int = 8) -> list[dict[str, A
             "function": {
                 "name": "list_episode_ids",
                 "description": (
-                    "Resolve a short token to ep-NNNN ids: episode number, guest name, or ep-0191."
+                    "Resolve a short token to ep-NNNN ids: episode number, guest name, or canonical id. "
+                    "Use before load_episode when the user gives a bare number or guest name."
                 ),
                 "parameters": {
                     "type": "object",

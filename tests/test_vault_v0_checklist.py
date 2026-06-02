@@ -159,16 +159,16 @@ def test_v0_criterion_unlistened_agent_response(agent_config: AgentConfig):
         calls.append(kwargs)
         if kwargs.get("tool_choice") == "none":
             return _fake_response(
-                content="You have not studied ep-0191 yet — only the transcript exists until you add timestamp bullets.",
+                content="You have not studied ep-0400 yet — only the transcript exists until you add timestamp bullets.",
             )
         return _fake_response(
-            tool_calls=[_fake_tool_call("list_episode_ids", {"query": "Naval Ravikant"})],
+            tool_calls=[_fake_tool_call("list_episode_ids", {"query": "James Dyson"})],
         )
 
     from retrieval_orchestrator import EvidenceBundle
 
     result = VaultAgent(config=agent_config).run_turn(
-        "What did I note about Naval Ravikant?",
+        "What did I note about James Dyson?",
         completion_fn=fake_completion,
         allow_web=False,
         retrieve_fn=lambda *_a, **_k: EvidenceBundle(
@@ -177,4 +177,4 @@ def test_v0_criterion_unlistened_agent_response(agent_config: AgentConfig):
     )
     assert "search_transcript" not in [t["tool"] for t in result.tool_trace]
     lowered = result.content.lower()
-    assert "studied" in lowered or "not listened" in lowered or "ep-0191" in lowered
+    assert "studied" in lowered or "not listened" in lowered or "ep-0400" in lowered

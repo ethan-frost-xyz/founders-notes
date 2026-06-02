@@ -257,18 +257,18 @@ def test_run_turn_final_step_ignores_tool_calls(agent_config: AgentConfig):
     def fake_completion(**kwargs):
         if kwargs.get("tool_choice") == "none":
             return _fake_response(
-                tool_calls=[_fake_tool_call("load_episode", {"episode_id": "ep-0191"})],
-                content="You have not studied ep-0191 yet.",
+                tool_calls=[_fake_tool_call("load_episode", {"episode_id": "ep-0400"})],
+                content="You have not studied ep-0400 yet.",
             )
         return _fake_response(
             tool_calls=[
-                _fake_tool_call("list_episode_ids", {"query": "Naval"}, call_id="c1"),
+                _fake_tool_call("list_episode_ids", {"query": "James Dyson"}, call_id="c1"),
             ],
         )
 
     agent = VaultAgent(config=agent_config)
     result = agent.run_turn(
-        "What about Naval ep 191?",
+        "What about James Dyson ep 400?",
         completion_fn=fake_completion,
         retrieve_fn=lambda *_a, **_k: EvidenceBundle(
             chunks=[], retrieval_meta={"intent": "thematic"}
@@ -276,7 +276,7 @@ def test_run_turn_final_step_ignores_tool_calls(agent_config: AgentConfig):
     )
 
     assert not result.error
-    assert "ep-0191" in result.content or "studied" in result.content.lower()
+    assert "ep-0400" in result.content or "studied" in result.content.lower()
     assert "step limit" not in result.content.lower()
 
 

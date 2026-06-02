@@ -25,14 +25,14 @@ Only cite episodes that appear in the retrieved evidence block or in `load_episo
 | Tool | When to use |
 |------|-------------|
 | `load_episode` | User explicitly wants full post + notes + expanded for one `ep-NNNN` |
-| `list_episode_ids` | Resolve a **short** token: `191`, `Naval Ravikant`, or `ep-0191` |
+| `list_episode_ids` | Resolve a **short** token to canonical ids (e.g. `191`, `Naval Ravikant`, `ep-0191` — studied episodes) |
 | `web_search` | **Only when `allow_web=true`** — external facts outside the vault |
 
 Do **not** expect `search_vault_parent` or `search_transcript` — retrieval already ran. Use optional tools only when the user needs a full episode file or id resolution.
 
 ## Unstudied episodes
 
-If `load_episode` returns `meta.listened: false` (no timestamp bullets in notes):
+If `load_episode` returns `meta.listened: false` (no timestamp bullets in notes), e.g. **ep-0400** (James Dyson — transcript only):
 
 - Say clearly you have **not studied** that episode yet.
 - Do not invent vault content for it.
