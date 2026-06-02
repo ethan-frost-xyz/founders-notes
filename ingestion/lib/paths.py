@@ -24,6 +24,14 @@ TELEGRAM_SESSIONS_DIR = ROOT / "catalog" / "telegram-sessions"
 CONTENT_TYPES = frozenset({"transcript", "notes", "expanded", "post"})
 
 
+def path_relative_to_root(path: Path) -> str:
+    """Return vault-root-relative path string, or absolute if outside ROOT."""
+    try:
+        return str(path.relative_to(ROOT))
+    except ValueError:
+        return str(path)
+
+
 def folder_name(
     episode_id: str,
     slug: str,

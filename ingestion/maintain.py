@@ -41,7 +41,12 @@ from expand_llm import (
     promote_draft,
     validate_expanded_draft,
 )
-from gaps_report import count_expanded_coverage, count_phase2_coverage, write_gaps_report
+from gaps_report import (
+    compute_catalog_health,
+    count_expanded_coverage,
+    count_phase2_coverage,
+    write_gaps_report,
+)
 from layout import scan_layout_violations
 from markdown_io import has_timestamp_datapoints, read_markdown_body
 import paths
@@ -119,23 +124,7 @@ def load_rows() -> list[dict]:
 
 def refresh_coverage_report(rows: list[dict]) -> tuple[CoverageStats, list[str]]:
     """Regenerate gaps.md and return stats plus blocking verification messages."""
-    numbered = [r for r in rows if r.get("episode_number") is not None]
-    complete = [r for r in rows if r.get("transcript_status") == "complete"]
-    blocking = [
-        r
-        for r in numbered
-        if r.get("transcript_status") in {"pending", "failed"}
-        or (
-            r.get("colossus_url")
-            and r.get("transcript_status") not in ("complete", "coming_soon", "no_transcript")
-        )
-    ]
-    unmapped = [r for r in numbered if not r.get("colossus_url")]
-    missing_files: list[str] = []
-    for r in complete:
-        rel = r.get("transcript_path")
-        if not rel or not (ROOT / rel).exists():
-            missing_files.append(r["id"])
+    health = compute_catalog_health(rows)
 
     (
         notes_files,
@@ -153,8 +142,8 @@ def refresh_coverage_report(rows: list[dict]) -> tuple[CoverageStats, list[str]]
 
     stats = CoverageStats(
         catalog_rows=len(rows),
-        numbered=len(numbered),
-        transcripts_complete=len(complete),
+        numbered=len(health.numbered),
+        transcripts_complete=len(health.complete),
         notes_files=notes_files,
         notes_with_datapoints=notes_with_datapoints,
         bullets_missing_timestamp=bullets_missing_timestamp,
@@ -163,22 +152,12 @@ def refresh_coverage_report(rows: list[dict]) -> tuple[CoverageStats, list[str]]
         expanded=expanded_n,
         expanded_drafts=expanded_drafts_n,
         missing_expanded_count=len(missing_expanded),
-        unmapped_colossus=len(unmapped),
-        blocking_transcript_gaps=len(blocking),
+        unmapped_colossus=len(health.unmapped),
+        blocking_transcript_gaps=len(health.blocking),
         layout_errors=len(layout_errors),
     )
 
-    blocking_msgs: list[str] = []
-    if len(rows) < 400:
-        blocking_msgs.append(f"expected >= 400 catalog rows, got {len(rows)}")
-    if unmapped:
-        blocking_msgs.append(f"{len(unmapped)} numbered episodes lack colossus_url")
-    if blocking:
-        blocking_msgs.append(f"{len(blocking)} blocking transcript gaps")
-    if missing_files:
-        blocking_msgs.append(f"{len(missing_files)} complete rows missing transcript files")
-    if layout_errors:
-        blocking_msgs.append(f"{len(layout_errors)} layout/id violations")
+    blocking_msgs = health.blocking_messages(len(rows), layout_errors)
 
     return stats, blocking_msgs
 

@@ -54,6 +54,7 @@ from openrouter_pricing import (
     resolve_model_rates,
 )
 import paths
+from paths import path_relative_to_root
 from paths import (
     INGESTION_DIR,
     notes_file_path,
@@ -108,13 +109,6 @@ class ExpandEstimate:
         return (self.input_chars + CHARS_PER_TOKEN - 1) // CHARS_PER_TOKEN
 
 
-def _prompt_display_path(prompt_path: Path) -> str:
-    try:
-        return str(prompt_path.relative_to(paths.ROOT))
-    except ValueError:
-        return str(prompt_path)
-
-
 def estimate_expand_for_row(row: dict[str, Any], *, prompt_path: Path) -> ExpandEstimate:
     """Approximate OpenRouter input size for one expand call (no API)."""
     system, user_template = load_prompt_template(prompt_path)
@@ -156,7 +150,7 @@ def print_expand_dry_run_summary(
         return
 
     print(title)
-    print(f"  prompt: {_prompt_display_path(prompt_path)}")
+    print(f"  prompt: {path_relative_to_root(prompt_path)}")
     print(f"  model:  {model}")
     print()
     print(f"  {'episode':<10} {'bl':>3} {'notes':>6} {'tx':>6} {'input':>8} {'~tokens':>8}")

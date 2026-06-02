@@ -19,6 +19,7 @@ from paths import (
     expanded_draft_file_path,
     expanded_file_path,
     notes_file_path,
+    path_relative_to_root,
     staging_draft_file_path,
 )
 
@@ -64,10 +65,7 @@ def write_expanded_draft(
         row, staging_root=staging_root, variant=variant, out_path=out_path
     )
     out.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        rel_prompt = str(prompt_path.relative_to(paths.ROOT))
-    except ValueError:
-        rel_prompt = str(prompt_path)
+    rel_prompt = path_relative_to_root(prompt_path)
     fm = write_expanded_draft_md(
         row,
         model=model,

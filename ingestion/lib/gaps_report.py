@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
+
 from episode_ids import format_episode_id
 from markdown_io import count_notes_datapoints_file, has_timestamp_datapoints
 from paths import (
     GAPS_PATH,
+    ROOT,
     expanded_draft_file_path,
     expanded_file_path,
     notes_file_path,
@@ -19,6 +22,66 @@ POST_EXCEPTIONS: dict[int, str] = {
 }
 
 BLOCKING_STATUSES = {"pending", "failed"}
+
+
+@dataclass(frozen=True)
+class CatalogHealth:
+    numbered: list[dict]
+    specials: list[dict]
+    complete: list[dict]
+    blocking: list[dict]
+    unmapped: list[dict]
+    missing_files: list[str]
+    weak_urls: list[dict]
+
+    def blocking_messages(
+        self, row_count: int, layout_errors: list[str], *, min_rows: int = 400
+    ) -> list[str]:
+        msgs: list[str] = []
+        if row_count < min_rows:
+            msgs.append(f"expected >= {min_rows} catalog rows, got {row_count}")
+        if self.unmapped:
+            msgs.append(f"{len(self.unmapped)} numbered episodes lack colossus_url")
+        if self.blocking:
+            msgs.append(f"{len(self.blocking)} blocking transcript gaps")
+        if self.missing_files:
+            msgs.append(f"{len(self.missing_files)} complete rows missing transcript files")
+        if layout_errors:
+            msgs.append(f"{len(layout_errors)} layout/id violations")
+        return msgs
+
+
+def compute_catalog_health(rows: list[dict]) -> CatalogHealth:
+    numbered = [r for r in rows if r.get("episode_number") is not None]
+    complete = [r for r in rows if r.get("transcript_status") == "complete"]
+    blocking = [
+        r
+        for r in numbered
+        if r.get("transcript_status") in BLOCKING_STATUSES
+        or (
+            r.get("colossus_url")
+            and r.get("transcript_status") not in ("complete", "coming_soon", "no_transcript")
+        )
+    ]
+    missing_files: list[str] = []
+    for r in complete:
+        rel = r.get("transcript_path")
+        if not rel or not (ROOT / rel).exists():
+            missing_files.append(r["id"])
+
+    return CatalogHealth(
+        numbered=numbered,
+        specials=[r for r in rows if r.get("episode_number") is None],
+        complete=complete,
+        blocking=blocking,
+        unmapped=[r for r in numbered if not r.get("colossus_url")],
+        missing_files=missing_files,
+        weak_urls=[
+            r
+            for r in rows
+            if (r.get("founders_url") or "").rstrip("/") == "https://www.founderspodcast.com"
+        ],
+    )
 
 
 def count_phase2_coverage(
@@ -116,36 +179,7 @@ def build_gaps_markdown(
     *,
     layout_errors: list[str],
 ) -> str:
-    numbered = [r for r in rows if r.get("episode_number") is not None]
-    specials = [r for r in rows if r.get("episode_number") is None]
-    complete = [r for r in rows if r.get("transcript_status") == "complete"]
-    blocking = [
-        r
-        for r in numbered
-        if r.get("transcript_status") in BLOCKING_STATUSES
-        or (
-            r.get("colossus_url")
-            and r.get("transcript_status") not in ("complete", "coming_soon", "no_transcript")
-        )
-    ]
-    unmapped = [r for r in numbered if not r.get("colossus_url")]
-    missing_files = []
-    for r in complete:
-        from paths import ROOT
-
-        rel = r.get("transcript_path")
-        if not rel or not (ROOT / rel).exists():
-            missing_files.append(r["id"])
-
-    weak_urls = [
-        r
-        for r in rows
-        if (r.get("founders_url") or "").rstrip("/")
-        in (
-            "https://www.founderspodcast.com",
-            "https://www.founderspodcast.com/",
-        )
-    ]
+    health = compute_catalog_health(rows)
 
     (
         notes_files,
@@ -159,7 +193,7 @@ def build_gaps_markdown(
     lost_ts_ep_nums = {n for n, _ in missing_timestamp_episodes}
     total_lost_ts_bullets = sum(c for _, c in missing_timestamp_episodes)
     transcript_complete_numbered = sum(
-        1 for r in numbered if r.get("transcript_status") == "complete"
+        1 for r in health.numbered if r.get("transcript_status") == "complete"
     )
     expanded_n, expanded_drafts_n, missing_expanded_list = count_expanded_coverage(rows)
 
@@ -171,8 +205,8 @@ def build_gaps_markdown(
         "> See [docs/notes-pipeline.md](../docs/notes-pipeline.md). Only **blocking** transcript gaps matter for Phase 1.",
         "",
         f"**Total episodes:** {len(rows)}",
-        f"**Numbered:** {len(numbered)} | **Specials:** {len(specials)}",
-        f"**Transcripts complete:** {len(complete)}",
+        f"**Numbered:** {len(health.numbered)} | **Specials:** {len(health.specials)}",
+        f"**Transcripts complete:** {len(health.complete)}",
         "",
         "## Phase 2 coverage",
         "",
@@ -190,8 +224,8 @@ def build_gaps_markdown(
         "",
     ]
 
-    if weak_urls:
-        lines.append(f"## Weak founders_url ({len(weak_urls)})")
+    if health.weak_urls:
+        lines.append(f"## Weak founders_url ({len(health.weak_urls)})")
         lines.append("")
         lines.append(
             "Homepage URL instead of `/episodes/…`. Run `python pipeline/sync_new.py --repair-urls --apply`."
@@ -276,30 +310,30 @@ def build_gaps_markdown(
                 lines.append(f"- `{format_episode_id(n)}` — {POST_EXCEPTIONS[n]}")
             lines.append("")
 
-    if unmapped:
-        lines.append(f"## Unmapped Colossus URLs ({len(unmapped)})")
+    if health.unmapped:
+        lines.append(f"## Unmapped Colossus URLs ({len(health.unmapped)})")
         lines.append("")
-        for r in unmapped[:50]:
+        for r in health.unmapped[:50]:
             lines.append(f"- `{r['id']}` — {r['title']} — {r['founders_url']}")
-        if len(unmapped) > 50:
-            lines.append(f"- … and {len(unmapped) - 50} more")
+        if len(health.unmapped) > 50:
+            lines.append(f"- … and {len(health.unmapped) - 50} more")
         lines.append("")
 
-    if blocking:
-        lines.append(f"## Blocking transcript gaps ({len(blocking)})")
+    if health.blocking:
+        lines.append(f"## Blocking transcript gaps ({len(health.blocking)})")
         lines.append("")
-        for r in blocking[:50]:
+        for r in health.blocking[:50]:
             err = r.get("last_error") or r.get("transcript_status")
             lines.append(f"- `{r['id']}` — {err}")
-        if len(blocking) > 50:
-            lines.append(f"- … and {len(blocking) - 50} more")
+        if len(health.blocking) > 50:
+            lines.append(f"- … and {len(health.blocking) - 50} more")
         lines.append("")
 
     documented = [
         r
         for r in rows
         if r.get("transcript_status") in ("coming_soon", "no_transcript")
-        and r not in blocking
+        and r not in health.blocking
     ]
     if documented:
         lines.append(f"## Documented exceptions ({len(documented)})")
@@ -308,13 +342,13 @@ def build_gaps_markdown(
             lines.append(f"- `{r['id']}` — {r['transcript_status']}")
         lines.append("")
 
-    if missing_files:
-        lines.append(f"## Missing transcript files ({len(missing_files)})")
-        for mid in missing_files[:20]:
+    if health.missing_files:
+        lines.append(f"## Missing transcript files ({len(health.missing_files)})")
+        for mid in health.missing_files[:20]:
             lines.append(f"- `{mid}`")
         lines.append("")
 
-    if not unmapped and not blocking and not missing_files:
+    if not health.unmapped and not health.blocking and not health.missing_files:
         lines.append("No blocking gaps. Phase 1 transcript archive is complete.")
         lines.append("")
 

@@ -56,6 +56,7 @@ from paths import (
     expanded_draft_file_path,
     expanded_file_path,
     notes_file_path,
+    path_relative_to_root,
     transcript_dir,
     transcript_filename,
 )
@@ -132,13 +133,6 @@ def select_promote_rows(
     return out
 
 
-def _prompt_rel(prompt_path: Path) -> str:
-    try:
-        return str(prompt_path.relative_to(paths.ROOT))
-    except ValueError:
-        return str(prompt_path)
-
-
 def _expand_run_log_base(
     *,
     ep_id: str,
@@ -153,7 +147,7 @@ def _expand_run_log_base(
         "episode_id": ep_id,
         "model": model,
         "prompt_hash": prompt_file_hash(prompt_path),
-        "prompt_path": _prompt_rel(prompt_path),
+        "prompt_path": path_relative_to_root(prompt_path),
         "at": utc_now_iso(),
     }
     if staging_dir is not None:

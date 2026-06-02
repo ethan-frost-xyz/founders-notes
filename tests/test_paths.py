@@ -1,4 +1,17 @@
-from paths import content_filename, folder_name, notes_file_path, transcript_path
+from pathlib import Path
+
+from paths import content_filename, folder_name, notes_file_path, path_relative_to_root, transcript_path
+
+
+def test_path_relative_to_root(monkeypatch, tmp_path):
+    import paths
+
+    monkeypatch.setattr(paths, "ROOT", tmp_path)
+    inside = tmp_path / "content" / "notes" / "ep.notes.md"
+    inside.parent.mkdir(parents=True)
+    assert path_relative_to_root(inside) == "content/notes/ep.notes.md"
+    outside = Path("/tmp/outside.md")
+    assert path_relative_to_root(outside) == str(outside)
 
 
 def test_folder_name_strips_episode_prefix():
