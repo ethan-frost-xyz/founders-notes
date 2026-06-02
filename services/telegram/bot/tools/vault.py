@@ -104,7 +104,11 @@ def load_episode(episode_id: str, *, char_cap: int = 30_000) -> dict[str, Any]:
         if resolved:
             row = lookup_catalog_row(rows, resolved)
     if row is None:
-        return {"error": f"Episode not in catalog: {episode_id}"}
+        candidates_result = list_episode_ids(episode_id.strip(), limit=5)
+        return {
+            "error": f"Episode not in catalog: {episode_id}",
+            "candidates": candidates_result.get("episodes", []),
+        }
     ep_id = row["id"]
     slug = row["slug"]
     num = row.get("episode_number")

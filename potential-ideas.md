@@ -9,7 +9,9 @@ Linked from: [`README.md`](README.md), [`docs/telegram-vault-agent.md`](docs/tel
 - **SP6-lite (May 2026)** — `services/telegram/bot/tool_status.py`, Telegram status labels in handlers/agent, prompt/tool copy, retrieval scenario additions, harness preflight + [`dev/scenarios/librarian/thematic_search.yaml`](dev/scenarios/librarian/thematic_search.yaml)
 - **Mock harness (May 2026)** — `dev/mock_telegram_cli.py`, YAML scenarios (echo in CI; opt-in live via `RUN_LIVE_HARNESS=1`); guide [`docs/telegram-mock-harness.md`](docs/telegram-mock-harness.md); archived [`telegram_mock_harness_2296d9fc.plan.md`](.cursor/plans/archive/telegram_mock_harness_2296d9fc.plan.md)
 - **Index / ops (vault backlog)** — nightly cron (`install-cron.sh`), studied-corpus chunk filter, scenario tests, Janitor mode-switched bot
-- **Episode resolution** — `resolve_episode_ref` + `load_episode` fallback ([`archive/fix_bare_episode_refs_4f718a49.plan.md`](.cursor/plans/archive/fix_bare_episode_refs_4f718a49.plan.md)); fuzzy threshold tuning (D7) remains in Next
+- **Episode resolution** — `resolve_episode_ref` + `load_episode` fallback ([`archive/fix_bare_episode_refs_4f718a49.plan.md`](.cursor/plans/archive/fix_bare_episode_refs_4f718a49.plan.md))
+- **`load_episode` disambiguation (Jun 2026)** — ambiguous refs return `candidates` from `list_episode_ids`; plan [`.cursor/plans/archive/telegram_librarian_quality.plan.md`](.cursor/plans/archive/telegram_librarian_quality.plan.md)
+- **Librarian reply streaming (Jun 2026)** — optional synthesis token streaming via `/settings` → `stream_replies` in `runtime.json`; default off; same plan link
 - **v0 checklist + Librarian copy (Jun 2026)** — un-listened examples use ep-0400 (James Dyson); aligned [`docs/vault-agent-v0-checklist.md`](docs/vault-agent-v0-checklist.md), [`vault_agent.md`](services/telegram/prompts/vault_agent.md), and test mocks
 - **Post-promote chunk smoke (Jun 2026)** — promoted `.expanded.md` in parent-tier search via `test_v0_criterion_expanded_in_index` and retrieval JSONL scenarios when `RUN_REBUILT_INDEX_SCENARIOS=1`; see [`docs/vault-agent-v0-checklist.md`](docs/vault-agent-v0-checklist.md)
 - **SP5 — GitHub webhook (May 2026)** — push to `main` → Tailscale Funnel → `github_webhook_server.py` → `sync-and-index.sh`; production ops [`docs/mac-mini-operator-setup.md`](docs/mac-mini-operator-setup.md); plans [`telegram_ops_sync.plan.md`](.cursor/plans/archive/telegram_ops_sync.plan.md), [`laptop_remote_hardening.plan.md`](.cursor/plans/archive/laptop_remote_hardening.plan.md)
@@ -29,21 +31,6 @@ Suggested plan filenames below — create the file under `.cursor/plans/` when y
 - **Path-filtered reindex** — code-only pushes still full reindex today (skip `build_chunks` / `build_embeddings` when diff touches no `content/`, `catalog/chunks.jsonl`, or index inputs).
 - **Pull-only sync** — optional `git pull --ff-only` without reindex when webhook/cron sees a push with no vault-content paths (lighter than full `sync-and-index.sh`).
 - **`/sync` handler integration tests** — deploy smoke covers webhook; no handler-level tests for Telegram `/sync`, `/pull`, `/reindex` yet.
-
-### Librarian quality — `telegram_librarian_quality.plan.md`
-
-_From archived [`fix_bare_episode_refs`](.cursor/plans/archive/fix_bare_episode_refs_4f718a49.plan.md) deferred table + removed master plan SP6+._
-
-- **`load_episode` disambiguation (D1)** — when `resolve_episode_ref` is ambiguous, return `{ "error": "...", "candidates": [...] }` from `list_episode_ids(..., limit=5)` so the model can pick in one turn.
-- **Stricter tool schema (D2)** — document `load_episode.episode_id` as canonical `ep-NNNN` from `list_episode_ids`; prompt nudge to list before load; optional future `tool_choice` enforcement if model still skips list.
-- **Stricter episode resolution (D3)** — limit fuzzy auto-pick; guest names through `list_episode_ids` + disambiguation (reduces wrong-episode risk, e.g. Henry Ford).
-- **Shared episode ref helper (D5)** — digit / `ep-N` resolution in `ingestion/lib` for Librarian; Janitor keeps line-1 paste regex.
-- **`tool_trace` resolved_from (D6)** — when `load_episode` uses fallback, record `resolved_from` in harness / exported session traces for debugging.
-- **Fuzzy `resolve_episode_ref` tuning (D7)** — episode_number exact match, title boost for `#NNN`, re-evaluate thresholds with fixture queries.
-- **`RUN_LIVE_HARNESS=1` in CI (D9)** — local opt-in shipped: `test_harness_scenario_live` in [`tests/test_harness_scenarios.py`](tests/test_harness_scenarios.py); optional CI job still open.
-- **Ambiguous guest harness (D10)** — e.g. `ambiguous_guest.yaml` (Henry Ford → disambiguation, no wrong episode); [`episode_resolve.yaml`](dev/scenarios/librarian/episode_resolve.yaml) covers numbered NL only today.
-- **Scenarios / MRR@8** — extend retrieval JSONL / live YAML toward MRR@8 as query set grows ([`thematic_cross_episode.yaml`](dev/scenarios/librarian/thematic_cross_episode.yaml) is a start).
-- **Librarian reply streaming (SSE)** — true token streaming to Telegram for Q&A turns (distinct from Janitor clean preview streaming).
 
 ### Web — `telegram_web_provider.plan.md`
 

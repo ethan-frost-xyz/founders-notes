@@ -205,6 +205,7 @@ class VaultAgent:
         session_id: str | None = None,
         completion_fn: Callable[..., Any] | None = None,
         on_tool_start: Callable[[str, dict[str, Any]], None] | None = None,
+        on_chunk: Callable[[str], None] | None = None,
         retrieve_fn: Callable[..., Any] | None = None,
     ) -> TurnResult:
         """Retrieve evidence via orchestrator, then one synthesis completion (optional tools)."""
@@ -304,17 +305,30 @@ class VaultAgent:
                     except Exception:
                         pass
 
-                response = completion_fn(**request)
-                msg = response.choices[0].message
+                empty_synthesis = (
+                    "I could not compose an answer from the retrieved evidence. "
+                    "Try a guest name, episode number, or a narrower theme."
+                )
 
                 if is_final:
-                    text = (msg.content or "").strip()
-                    if not text:
-                        text = (
-                            "I could not compose an answer from the retrieved evidence. "
-                            "Try a guest name, episode number, or a narrower theme."
-                        )
+                    if on_chunk is not None:
+                        full_text = ""
+                        for chunk in completion_fn(**request, stream=True):
+                            if not chunk.choices:
+                                continue
+                            delta = chunk.choices[0].delta.content or ""
+                            if delta:
+                                full_text += delta
+                                on_chunk(delta)
+                        text = full_text.strip() or empty_synthesis
+                    else:
+                        response = completion_fn(**request)
+                        msg = response.choices[0].message
+                        text = (msg.content or "").strip() or empty_synthesis
                     return TurnResult(content=text, tool_trace=trace, steps=step + 1)
+
+                response = completion_fn(**request)
+                msg = response.choices[0].message
 
                 if not msg.tool_calls:
                     text = (msg.content or "").strip()

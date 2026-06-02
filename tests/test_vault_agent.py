@@ -131,6 +131,8 @@ def test_load_episode_ambiguous_guest_errors(agent_config: AgentConfig):
         allow_web=False,
     )
     assert "error" in result
+    assert isinstance(result.get("candidates"), list)
+    assert len(result["candidates"]) > 0
 
 
 def _fake_tool_call(name: str, arguments: dict, *, call_id: str = "call_1"):

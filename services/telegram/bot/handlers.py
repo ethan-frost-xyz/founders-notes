@@ -17,6 +17,7 @@ from telegram.ext import ContextTypes
 
 from agent import VaultAgent
 from messaging import reply_text_chunked
+from runtime_settings import effective_stream_replies
 
 
 def parse_web_query(text: str) -> str | None:
@@ -362,8 +363,25 @@ async def _run_agent_turn(
     await update.message.reply_chat_action("typing")
 
     status_msg: Any | None = None
+    stream_msg: Any | None = None
+    accumulated_text = ""
+    last_stream_edit_at = 0.0
     loop = asyncio.get_running_loop()
     harness = _is_harness_bot(context)
+    stream_enabled, _ = effective_stream_replies()
+
+    async def _flush_stream(text: str) -> None:
+        nonlocal stream_msg, last_stream_edit_at
+        now = loop.time()
+        if stream_msg is None:
+            stream_msg = await update.message.reply_text(text or "…")
+            last_stream_edit_at = now
+        elif now - last_stream_edit_at >= 0.5:
+            try:
+                await stream_msg.edit_text(text or "…")
+            except Exception:
+                pass
+            last_stream_edit_at = now
 
     async def _update_status(label: str) -> None:
         nonlocal status_msg
@@ -381,6 +399,12 @@ async def _run_agent_turn(
     def on_tool_start(tool_name: str, _args: dict[str, Any]) -> None:
         loop.call_soon_threadsafe(_schedule_status, tool_status_label(tool_name))
 
+    def on_chunk(delta: str) -> None:
+        nonlocal accumulated_text
+        accumulated_text += delta
+        text = accumulated_text
+        loop.call_soon_threadsafe(lambda: asyncio.create_task(_flush_stream(text)))
+
     try:
         result = await asyncio.to_thread(
             agent.run_turn,
@@ -389,6 +413,7 @@ async def _run_agent_turn(
             allow_web=allow_web,
             session_id=str(uid),
             on_tool_start=on_tool_start,
+            on_chunk=on_chunk if stream_enabled else None,
         )
     finally:
         if status_msg is not None and not harness:
@@ -396,6 +421,12 @@ async def _run_agent_turn(
                 await status_msg.delete()
             except Exception:
                 pass
+
+    if stream_msg is not None and not harness:
+        try:
+            await stream_msg.delete()
+        except Exception:
+            pass
 
     sessions.append_turn(
         uid,

@@ -9,11 +9,13 @@ from config import BotConfig
 from model_presets import MODEL_PRESETS, ROLE_LABELS
 from runtime_settings import (
     MODEL_ROLE_TO_KEY,
+    EMBED_REINDEX_REMINDER,
+    effective_stream_replies,
     format_settings_summary,
     load_runtime_settings,
     reset_model_role,
     set_model,
-    EMBED_REINDEX_REMINDER,
+    set_stream_replies,
     sync_embed_to_os_environ,
 )
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
@@ -53,6 +55,11 @@ async def _reject_unauthorized(update: Update, config: BotConfig) -> bool:
     return True
 
 
+def _stream_replies_button_label() -> str:
+    enabled, _ = effective_stream_replies()
+    return f"Stream replies: {'ON' if enabled else 'OFF'}"
+
+
 def settings_keyboard() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         [
@@ -68,6 +75,7 @@ def settings_keyboard() -> InlineKeyboardMarkup:
                 InlineKeyboardButton("max_steps", callback_data="set:steps"),
                 InlineKeyboardButton("Janitor temp", callback_data="set:temp"),
             ],
+            [InlineKeyboardButton(_stream_replies_button_label(), callback_data="set:stream")],
             [InlineKeyboardButton("Ops", callback_data="set:ops")],
         ]
     )
@@ -185,6 +193,15 @@ async def on_settings_callback(update: Update, context: ContextTypes.DEFAULT_TYP
     if data == CALLBACK_SETTINGS_MENU:
         context.user_data.pop(AWAITING_MODEL_SLUG_KEY, None)
         text = format_settings_summary(bot_cfg.agent, bot_cfg)
+        await query.edit_message_text(text, reply_markup=settings_keyboard())
+        return
+
+    if data == "set:stream":
+        enabled, _ = effective_stream_replies()
+        set_stream_replies(not enabled)
+        text = format_settings_summary(bot_cfg.agent, bot_cfg)
+        state = "on" if not enabled else "off"
+        text += f"\n\nStream replies turned {state}."
         await query.edit_message_text(text, reply_markup=settings_keyboard())
         return
 

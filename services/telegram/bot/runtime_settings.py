@@ -22,6 +22,7 @@ RUNTIME_KEY_EXPAND = "expand_model"
 RUNTIME_KEY_EMBED = "embed_model"
 RUNTIME_KEY_MAX_STEPS = "max_steps"
 RUNTIME_KEY_JANITOR_TEMP = "janitor_clean_temperature"
+RUNTIME_KEY_STREAM_REPLIES = "stream_replies"
 
 # Shown after embed slug changes (/setmodel, Settings) — matches build_embeddings self-heal.
 EMBED_REINDEX_REMINDER = (
@@ -47,6 +48,7 @@ _SEED_ENV_MAP: dict[str, str] = {
     RUNTIME_KEY_EMBED: "OPENROUTER_EMBED_MODEL",
     RUNTIME_KEY_MAX_STEPS: "TELEGRAM_MAX_STEPS",
     RUNTIME_KEY_JANITOR_TEMP: "JANITOR_CLEAN_TEMPERATURE",
+    RUNTIME_KEY_STREAM_REPLIES: "TELEGRAM_STREAM_REPLIES",
 }
 
 
@@ -123,6 +125,33 @@ def _resolve_float(runtime_key: str, env_key: str, default: float) -> tuple[floa
     return default, f"default ({default})"
 
 
+def _parse_bool_value(raw: Any) -> bool | None:
+    if isinstance(raw, bool):
+        return raw
+    if isinstance(raw, int) and raw in (0, 1):
+        return bool(raw)
+    if isinstance(raw, str):
+        s = raw.strip().lower()
+        if s in ("1", "true", "yes", "on"):
+            return True
+        if s in ("0", "false", "no", "off"):
+            return False
+    return None
+
+
+def _resolve_bool(runtime_key: str, env_key: str, default: bool) -> tuple[bool, str]:
+    overrides = load_runtime_settings()
+    parsed = _parse_bool_value(overrides.get(runtime_key))
+    if parsed is not None:
+        return parsed, "runtime.json"
+    env_raw = os.environ.get(env_key, "").strip()
+    if env_raw:
+        parsed = _parse_bool_value(env_raw)
+        if parsed is not None:
+            return parsed, f"env {env_key}"
+    return default, f"default ({str(default).lower()})"
+
+
 def effective_librarian_model() -> tuple[str | None, str]:
     return _resolve_str(RUNTIME_KEY_LIBRARIAN, "TELEGRAM_CHAT_MODEL")
 
@@ -141,6 +170,10 @@ def effective_embed_model() -> tuple[str | None, str]:
 
 def effective_janitor_clean_temperature() -> tuple[float, str]:
     return _resolve_float(RUNTIME_KEY_JANITOR_TEMP, "JANITOR_CLEAN_TEMPERATURE", 0.2)
+
+
+def effective_stream_replies() -> tuple[bool, str]:
+    return _resolve_bool(RUNTIME_KEY_STREAM_REPLIES, "TELEGRAM_STREAM_REPLIES", False)
 
 
 def effective_max_steps(_base: AgentConfig) -> tuple[int, str]:
@@ -177,6 +210,11 @@ def seed_runtime_from_env_if_missing() -> bool:
                 data[runtime_key] = float(env_val)
             except ValueError:
                 continue
+        elif runtime_key == RUNTIME_KEY_STREAM_REPLIES:
+            parsed = _parse_bool_value(env_val)
+            if parsed is None:
+                continue
+            data[runtime_key] = parsed
         else:
             data[runtime_key] = env_val
         changed = True
@@ -210,6 +248,13 @@ def set_max_steps(value: int) -> int:
     data[RUNTIME_KEY_MAX_STEPS] = value
     save_runtime_settings(data)
     return value
+
+
+def set_stream_replies(enabled: bool) -> bool:
+    data = load_runtime_settings()
+    data[RUNTIME_KEY_STREAM_REPLIES] = bool(enabled)
+    save_runtime_settings(data)
+    return bool(data[RUNTIME_KEY_STREAM_REPLIES])
 
 
 def set_janitor_clean_temperature(value: float) -> float:
@@ -304,6 +349,7 @@ def format_settings_summary(agent_cfg: AgentConfig, bot_cfg: BotConfig) -> str:
     emb, emb_src = effective_embed_model()
     steps, steps_src = effective_max_steps(agent_cfg)
     temp, temp_src = effective_janitor_clean_temperature()
+    stream, stream_src = effective_stream_replies()
 
     lines = [
         "Vault bot settings",
@@ -314,6 +360,7 @@ def format_settings_summary(agent_cfg: AgentConfig, bot_cfg: BotConfig) -> str:
         f"embed_model: {emb or '(unset)'} ({emb_src})",
         f"max_steps: {steps} ({steps_src})",
         f"janitor_clean_temperature: {temp} ({temp_src})",
+        f"stream_replies: {str(stream).lower()} ({stream_src})",
     ]
     if emb_src == "runtime.json" or emb:
         lines.append("")
