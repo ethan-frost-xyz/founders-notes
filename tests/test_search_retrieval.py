@@ -53,7 +53,7 @@ def test_keyword_parent_search():
         "customer",
         8,
         chunks=chunks,
-        predicate=is_parent_chunk,
+        chunk_predicate=is_parent_chunk,
     )
     assert hits
     assert hits[0][1]["section"].startswith(("expanded:", "summary:"))
@@ -65,7 +65,7 @@ def test_keyword_multi_term_overlap():
         "customer focus quality",
         8,
         chunks=chunks,
-        predicate=is_parent_chunk,
+        chunk_predicate=is_parent_chunk,
     )
     assert hits
     assert hits[0][0] >= 2.0

@@ -31,6 +31,7 @@ from paths import (
 )
 from search_retrieval import (
     chunk_content_hash,
+    chunks_needing_embedding,
     load_chunks,
     load_embeddings_manifest,
     parent_chunks_for_embedding,
@@ -183,7 +184,7 @@ def build_parent_embeddings(
         if ch and old_by_id.get(cid, {}).get("content_hash") == chunk_content_hash(ch):
             vectors[cid] = old_matrix[int(idx)]
 
-    to_embed = [ch for ch in parent if ch.get("chunk_id") not in vectors]
+    to_embed = chunks_needing_embedding(parent, old_manifest)
     embedded_new = 0
 
     if to_embed and apply:

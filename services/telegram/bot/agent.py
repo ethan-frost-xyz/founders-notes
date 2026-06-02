@@ -4,8 +4,6 @@ from __future__ import annotations
 
 import json
 import re
-import subprocess
-import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable
@@ -39,63 +37,15 @@ class TurnResult:
     error: bool = False
 
 
-def _ensure_tool_paths(vault_root: Path) -> None:
-    from _bootstrap import setup_ingestion_paths
-
-    setup_ingestion_paths(vault_root)
-    tools_dir = Path(__file__).resolve().parent / "tools"
-    bot_dir = Path(__file__).resolve().parent
-    for entry in (str(tools_dir), str(bot_dir)):
-        if entry not in sys.path:
-            sys.path.insert(0, entry)
-
-
 def _load_system_prompt() -> str:
     return PROMPT_PATH.read_text(encoding="utf-8").strip()
 
 
-def _git_short_sha(vault_root: Path) -> str | None:
-    try:
-        out = subprocess.run(
-            ["git", "-C", str(vault_root), "rev-parse", "--short", "HEAD"],
-            capture_output=True,
-            text=True,
-            timeout=2,
-            check=False,
-        )
-        if out.returncode == 0:
-            return out.stdout.strip() or None
-    except (OSError, subprocess.TimeoutExpired):
-        pass
-    return None
-
-
-def _index_metadata(vault_root: Path) -> dict[str, Any]:
-    meta: dict[str, Any] = {}
-    chunks_path = vault_root / "catalog" / "chunks.jsonl"
-    if chunks_path.is_file():
-        try:
-            with chunks_path.open(encoding="utf-8") as f:
-                meta["chunk_count"] = sum(1 for line in f if line.strip())
-        except OSError:
-            pass
-    manifest = vault_root / "catalog" / "embeddings-manifest.jsonl"
-    emb = vault_root / "catalog" / "embeddings.npy"
-    if manifest.is_file():
-        try:
-            meta["embeddings_manifest_mtime"] = manifest.stat().st_mtime
-        except OSError:
-            pass
-    meta["embeddings_present"] = emb.is_file()
-    sha = _git_short_sha(vault_root)
-    if sha:
-        meta["git_sha"] = sha
-    return meta
-
-
 def _build_system_message(config: AgentConfig, *, allow_web: bool) -> str:
+    from index_status import index_metadata
+
     base = _load_system_prompt()
-    meta = _index_metadata(config.vault_root)
+    meta = index_metadata(config.vault_root)
     meta_line = json.dumps(meta, separators=(",", ":"))
     web_flag = "true" if allow_web else "false"
     return (
@@ -162,13 +112,6 @@ def openrouter_tools(*, allow_web: bool, default_k: int = 8) -> list[dict[str, A
             }
         )
     return tools
-
-
-def web_search_stub(query: str) -> dict[str, Any]:
-    """Backward-compatible alias for tests; delegates to tools.web."""
-    from web import web_search
-
-    return web_search(query)
 
 
 def _tool_handlers(config: AgentConfig) -> dict[str, ToolFn]:
@@ -248,7 +191,9 @@ def _truncate_tool_json(payload: dict[str, Any], max_chars: int) -> str:
 class VaultAgent:
     def __init__(self, config: AgentConfig | None = None) -> None:
         self.config = config or load_agent_config()
-        _ensure_tool_paths(self.config.vault_root)
+        from config import setup_bot_paths
+
+        setup_bot_paths(self.config.vault_root)
 
     def run_turn(
         self,

@@ -13,6 +13,22 @@ def _vault_root_default() -> Path:
     return resolve_vault_root()
 
 
+def setup_bot_paths(vault_root: Path | None = None) -> Path:
+    """Bootstrap ingestion packages and telegram bot/tools on sys.path."""
+    import sys
+
+    from _bootstrap import resolve_vault_root, setup_ingestion_paths
+
+    root = resolve_vault_root(vault_root)
+    setup_ingestion_paths(root)
+    bot_dir = Path(__file__).resolve().parent
+    tools_dir = bot_dir / "tools"
+    for entry in (str(bot_dir), str(tools_dir)):
+        if entry not in sys.path:
+            sys.path.insert(0, entry)
+    return root
+
+
 @dataclass(frozen=True)
 class AgentConfig:
     api_key: str

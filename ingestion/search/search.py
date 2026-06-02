@@ -17,7 +17,7 @@ import argparse
 import subprocess
 
 from paths import CHUNKS_PATH, ROOT
-from search_retrieval import load_chunks, search_chunks_keyword
+from search_retrieval import search_chunks_keyword
 
 CONTENT_DIRS = [
     ROOT / "content" / "transcripts",

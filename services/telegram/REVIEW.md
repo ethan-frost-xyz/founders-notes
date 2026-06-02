@@ -48,7 +48,7 @@ Plans (context only, archived): `telegram_vault_sp*.plan.md` under [`.cursor/pla
 
 ## Risk areas
 
-1. **Path / import wiring** — [`ingestion/_bootstrap.py`](../../ingestion/_bootstrap.py) (`resolve_vault_root`, `setup_ingestion_paths`); bot entry in `bot/__main__.py`, agent tools via `agent._ensure_tool_paths`. Confirm `VAULT_ROOT` points at repo root on Mac mini.
+1. **Path / import wiring** — [`ingestion/_bootstrap.py`](../../ingestion/_bootstrap.py) (`resolve_vault_root`, `setup_ingestion_paths`); bot entry in `bot/__main__.py`, Librarian via [`config.setup_bot_paths`](bot/config.py). Confirm `VAULT_ROOT` points at repo root on Mac mini.
 2. **Embeddings optional** — hybrid falls back to keyword-only if `catalog/embeddings.npy` missing; vector path needs `OPENROUTER_API_KEY` + `build_embeddings.py`.
 3. **`/web` tool** — `web_search` in [`bot/tools/web.py`](bot/tools/web.py) returns `provider not implemented` until `WEB_SEARCH_API_KEY` is set and a provider is wired; normal messages use `allow_web=false` (verify in `handlers.py` + `agent.py`).
 4. **Index staleness** — v0: manual/cron `sync-and-index.sh`; no lock during active turns (documented in README).
