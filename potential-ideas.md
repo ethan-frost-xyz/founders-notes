@@ -4,6 +4,36 @@ Deferred work only. Shipped behavior lives in the codebase and [`docs/telegram-v
 
 Pick one cluster → new `.cursor/plans/*.plan.md` → archive the plan when done → remove the cluster from this file (do not add a changelog section here).
 
+## Ops / Tailscale (laptop ↔ Mac mini)
+
+Cross-host admin so the laptop (and Cursor agent) can reach the always-on bot host without sitting at the mini. Telegram remains the primary day-to-day control; SSH is optional recovery and verification.
+
+**Done (2026-06):**
+
+- Tailscale on Mac mini (`ethans-mac-mini`, tailnet `ethan-frost-xyz@`)
+- Tailscale on laptop (`ethans-macbook-air`), same tailnet — `tailscale ping ethans-mac-mini` succeeds
+
+**Pending:**
+
+- **Remote Login on mini** — System Settings → General → Sharing → Remote Login (today: SSH port 22 refused from laptop)
+- **Optional Screen Sharing on mini** — same Sharing pane; enables `vnc://ethans-mac-mini` from laptop when needed
+- **SSH from laptop** — `ssh <mini-mac-username>@ethans-mac-mini` (username likely `ethanfrost` per [operations.md](docs/operations.md) paths)
+- **SSH key auth** — `ssh-keygen` on laptop if needed, then `ssh-copy-id <user>@ethans-mac-mini`
+- **`~/.ssh/config` on laptop** — `Host ethans-mac-mini` → `HostName ethans-mac-mini`, `User <username>`
+- **Prod model split (Telegram, no SSH required)** — `/setmodel retrieval deepseek/deepseek-v4-flash`; keep `librarian_model` on `deepseek/deepseek-v4-pro`; confirm with `/settings` + one thematic Librarian question
+- **Verify mini `runtime.json`** — after SSH works: `cat ~/.config/founders-telegram/runtime.json` on mini matches `/settings`
+- **Docs touch-up** — [operations.md](docs/operations.md) “Tailscale (laptop ↔ Mac mini)” (done 2026-06)
+
+**Verify tailnet (laptop terminal):**
+
+```bash
+tailscale status          # both machines listed, same account
+tailscale ping ethans-mac-mini
+nc -zv ethans-mac-mini 22   # open after Remote Login; refused until then
+```
+
+**Not required for Tailscale laptop setup:** Tailscale Funnel on laptop (Funnel runs on mini for GitHub → `sync-and-index.sh` only).
+
 ## Telegram
 
 ### Ops / sync (recommended next)
@@ -37,7 +67,7 @@ Operational tuning (no code): fast `retrieval_model` on the Mac mini — [`docs/
 - **Cheaper rerank path** — Smaller pool, skip LLM rerank on high RRF confidence, or RRF-only on `follow_up`.
 - **Local retrieval hygiene** — Cache `load_chunks()` across variant searches (parallel search shipped in orchestrator).
 - **Batch vector matmul** — Single `(variants, d) @ (n, d).T` instead of per-variant cosine loops.
-- **Default prod retrieval slug** — Document or seed Groq retrieval on mini install.
+- **Default prod retrieval slug** — Seed `deepseek/deepseek-v4-flash` for `retrieval_model` on mini install (or Groq via [janitor.md](docs/janitor.md#model-tuning-playbook)); see Ops / Tailscale pending item for Telegram `/setmodel`.
 
 ### Janitor UX
 
