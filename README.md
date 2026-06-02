@@ -16,7 +16,7 @@ Details: `catalog/gaps.md` (auto), `catalog/import-review.md` (manual attributio
 
 ## Telegram vault agent (Mac mini)
 
-Private **Telegram bot** on an always-on Mac mini (polling): **Librarian** for study-notes Q&A with quotes and `[ep-NNNN]` citations; **Janitor** for the daily notes ritual (paste → clean → expand → promote → reindex).
+Private **Telegram bot** on an always-on Mac mini (polling): **Librarian** as a study partner over your studied episodes (cross-episode synthesis, not ranked excerpt dumps — voice in [`AGENTS.md`](AGENTS.md)); **Janitor** for the daily notes ritual (paste → clean → expand → promote → reindex).
 
 | Doc | Role |
 |-----|------|
@@ -29,7 +29,7 @@ Private **Telegram bot** on an always-on Mac mini (polling): **Librarian** for s
 
 **Implementation history:** [`.cursor/plans/archive/README.md`](.cursor/plans/archive/README.md) (completed plans in `archive/legacy/`, gitignored from agent context)
 
-- **Librarian:** retrieval orchestrator + synthesis over studied episodes; optional `load_episode` / `list_episode_ids` (ambiguous refs return **candidates**); synthesis reply **streaming** default on (`/settings` → Stream replies).
+- **Librarian:** single-pass retrieval orchestrator + synthesis today (v3); optional `load_episode` / `list_episode_ids` (ambiguous refs return **candidates**); synthesis reply **streaming** default on (`/settings` → Stream replies). Persona: [`AGENTS.md`](AGENTS.md).
 - **Janitor:** `/janitor` → paste bullets → LLM clean → approve → file → expand → promote → reindex. See [`docs/janitor.md`](docs/janitor.md).
 - **Ops:** GitHub webhook or `sync-and-index.sh` (cron / Telegram `/sync`); index refresh after promote on the bot host.
 

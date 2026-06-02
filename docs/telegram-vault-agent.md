@@ -2,18 +2,22 @@
 
 Short overview for coding agents. **v0 (SP1–SP4)** shipped on `main` (PR #3). Deferred work: [`potential-ideas.md`](../potential-ideas.md). Historical plans: [`.cursor/plans/archive/legacy/`](../.cursor/plans/archive/legacy/) (deep archive; see [archive README](../.cursor/plans/archive/README.md)).
 
-Product is a **retrieval orchestrator + synthesis** agent (v3), not naive single-shot RAG or an LLM-driven search loop.
+Product is **v3: orchestrated single-pass retrieval + synthesis**. **v4 (planned):** optional synthesis-time search callbacks for multi-hop reasoning — see [Planned: agentic retrieval](#planned-agentic-retrieval) and [`potential-ideas.md`](../potential-ideas.md).
+
+## Product vision
+
+The **Librarian** should feel like a sharp intellectual thought partner who has deeply studied the same Founders episodes you have — not a search tool that returns ranked excerpts. Target experience: Perplexity-like depth tuned to your personal vault — fast for simple questions, genuinely deep on complex ones, with a voice that connects ideas across founders rather than summarizing episodes in isolation.
 
 ## Product
 
 - Private Telegram bot on an always-on **Mac mini** (polling), solo user via `TELEGRAM_ALLOWED_USER_IDS`.
-- **Librarian:** study-notes voice — synthesized insights + verbatim quotes + `[ep-NNNN]` citations — not ranked excerpt dumps.
+- **Librarian:** study-partner voice — cross-episode synthesis, verbatim quotes, `[ep-NNNN]` citations — not ranked excerpt dumps. Persona: [`AGENTS.md`](../AGENTS.md).
 - **Janitor:** daily notes ritual in the same bot — see [janitor.md](janitor.md).
 
-## Architecture
+## Architecture (v3)
 
 - **OpenRouter agent** (Librarian model in `runtime.json`, `/setmodel librarian`).
-- **Retrieval orchestrator** (`ingestion/lib/retrieval_orchestrator.py`) runs before synthesis: expand → batched hybrid search → LLM rerank → optional transcript fallback.
+- **Retrieval orchestrator** (`ingestion/lib/retrieval_orchestrator.py`) runs **before** synthesis: expand → batched embed → concurrent hybrid search → LLM rerank → optional transcript fallback.
 - **Synthesis turn:** one completion with a pre-built evidence block; optional tools: `load_episode`, `list_episode_ids`. **Reply streaming** (default on): the final synthesis completion can stream token deltas to a live Telegram message; toggle in `/settings` → **Stream replies** (`stream_replies` in `runtime.json`; optional env `TELEGRAM_STREAM_REPLIES`). The canonical reply is still sent via the normal chunked message after the preview is deleted.
 - Index: `catalog/chunks.jsonl` — **expanded** + **summary** parent tiers; `catalog/episode-summaries.jsonl`; embeddings in `catalog/embeddings.npy` (gitignored).
 - Librarian corpus = **studied episodes only** (timestamp bullets in `.notes.md`).
@@ -24,13 +28,30 @@ Product is a **retrieval orchestrator + synthesis** agent (v3), not naive single
 flowchart LR
   User --> Orchestrator
   Orchestrator --> Expand[LLM expand]
-  Expand --> Search[Batched hybrid search]
-  Search --> Rerank[LLM rerank]
+  Expand --> Embed[Batched embed]
+  Embed --> SearchParallel["5x hybrid search concurrent"]
+  SearchParallel --> Rerank[LLM rerank]
   Rerank --> Synth[Librarian model synthesize]
   Synth --> Reply
 ```
 
 ~3 LLM calls + 1 batched embed API call per thematic question. Expand + rerank use `retrieval_model` when set (`/setmodel retrieval …`); synthesis uses `librarian_model`.
+
+### Prompt stack
+
+| Prompt | Role |
+|--------|------|
+| [`AGENTS.md`](../AGENTS.md) | Synthesis persona + evidence honesty (loaded at runtime by `bot/agent.py`) |
+| [`ingestion/prompts/query_expand.md`](../ingestion/prompts/query_expand.md) | Founders-specific variant frames: synonym/reframe, operator mental model, biographical angle, contrasting case, cross-episode pattern |
+| [`ingestion/prompts/rerank_evidence.md`](../ingestion/prompts/rerank_evidence.md) | Synthesis-usefulness scoring (0–10 bands); conceptual relevance over keyword overlap |
+
+### Planned: agentic retrieval
+
+**Not shipped yet.** Backlog: [`potential-ideas.md`](../potential-ideas.md).
+
+- **`search_vault` synthesis tool** — Let Librarian re-invoke the orchestrator (or a slim search-only path) when initial evidence is thin or a near-miss; requires updating [`AGENTS.md`](../AGENTS.md) (“Retrieval already ran”) when implemented.
+- **Multi-hop turns** — Cap at N search rounds per thematic question; trace in `tool_trace`.
+- **Fast path unchanged** — Simple questions stay single orchestrator pass (current v3 latency).
 
 ## Source priority (synthesis policy)
 

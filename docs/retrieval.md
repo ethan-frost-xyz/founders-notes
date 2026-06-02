@@ -32,12 +32,14 @@ Or: `python lib/reindex_vault.py` / Telegram `/reindex` (runs all steps above).
 | Step | What |
 |------|------|
 | Intent | Rules-based (`meta` / `follow_up` / `thematic`) — no extra LLM |
-| Expand | 1 LLM call → standalone query + 5 variants (`prompts/query_expand.md`); model: `retrieval_model` (falls back to `librarian_model`) |
-| Search | 1 batched embed API call + hybrid keyword/cosine per variant (`expanded` + `summary` tiers) |
+| Expand | 1 LLM call → standalone query + 5 Founders-tuned variants ([`prompts/query_expand.md`](../ingestion/prompts/query_expand.md)): synonym/reframe, operator mental model, biographical angle, contrasting case, cross-episode pattern; model: `retrieval_model` (falls back to `librarian_model`) |
+| Search | 1 batched embed API call + **5 variants searched concurrently** (`ThreadPoolExecutor`); hybrid keyword/cosine per variant (`expanded` + `summary` tiers) |
 | Merge | Dedupe by `chunk_id`, RRF across variants, cap ~40 |
-| Rerank | 1 LLM call → top 10–12 with scores (`ingestion/lib/rerank_llm.py`); same `retrieval_model` as expand |
+| Rerank | 1 LLM call → top 10–12 with synthesis-usefulness scores ([`prompts/rerank_evidence.md`](../ingestion/prompts/rerank_evidence.md): 0–10 bands, conceptual over keyword match); same `retrieval_model` as expand |
 | Fallback | Transcript keyword search when max rerank score &lt; 6 or quote-intent detected |
-| Synthesize | 1 DeepSeek completion with evidence block — **no** `search_vault_parent` tool loop |
+| Synthesize | 1 completion with evidence block — **no** synthesis-time `search_vault` tool loop (v3) |
+
+**Prompt sources:** [`ingestion/prompts/query_expand.md`](../ingestion/prompts/query_expand.md), [`ingestion/prompts/rerank_evidence.md`](../ingestion/prompts/rerank_evidence.md). Synthesis persona: [`AGENTS.md`](../AGENTS.md).
 
 **LLM calls per thematic turn:** 3 (expand, rerank, synthesize) + 1 batched embed request. Use a fast/cheap slug for expand + rerank (`/setmodel retrieval …`); keep `librarian_model` for synthesis only.
 

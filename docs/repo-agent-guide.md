@@ -77,7 +77,7 @@ Full script index: `[ingestion/README.md](../ingestion/README.md)`.
 | Tests (CI)     | From repo root: `pytest tests -q` then `cd ingestion && python pipeline/verify.py` — see [`docs/testing.md`](testing.md); Telegram harness: [`docs/telegram-mock-harness.md`](telegram-mock-harness.md) |
 
 
-Do not add a repo-wide vector DB unless grep + chunk index + agent-style search fail for your real queries. See `[docs/retrieval.md](retrieval.md)`. **Telegram vault agent:** shipped on `main` (PR #3) — **Librarian** (OpenRouter tool-calling, hybrid parent-tier search) + **Janitor** (daily notes ingest via `/janitor`). Deferred backlog: `[potential-ideas.md](../potential-ideas.md)`; runbook: `[services/telegram/README.md](../services/telegram/README.md)`; overview: `[docs/telegram-vault-agent.md](telegram-vault-agent.md)`; Janitor workflow: `[docs/janitor.md](janitor.md)`.
+Do not add a repo-wide vector DB unless grep + chunk index + agent-style search fail for your real queries. See `[docs/retrieval.md](retrieval.md)`. **Telegram vault agent:** shipped on `main` (PR #3) — **Librarian** (orchestrator + synthesis; persona [`AGENTS.md`](../AGENTS.md)) + **Janitor** (daily notes ingest via `/janitor`). Deferred backlog: `[potential-ideas.md](../potential-ideas.md)`; runbook: `[services/telegram/README.md](../services/telegram/README.md)`; overview: `[docs/telegram-vault-agent.md](telegram-vault-agent.md)`; Janitor workflow: `[docs/janitor.md](janitor.md)`.
 
 ## Cursor plans
 

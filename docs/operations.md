@@ -40,7 +40,7 @@ How to run Founders Notes across **laptop**, **Mac mini**, and **Telegram**. The
 | Role | What |
 |------|------|
 | **Janitor** | Paste bullets → clean → file `.notes.md` → expand → promote → reindex |
-| **Librarian** | Q&A over studied corpus (orchestrator + synthesis; optional streaming — `/settings` → Stream replies) |
+| **Librarian** | Q&A over studied corpus (orchestrator + synthesis; [`AGENTS.md`](../AGENTS.md) voice; optional streaming — `/settings` → Stream replies) |
 
 Runbook: [services/telegram/README.md](../services/telegram/README.md). Architecture: [telegram-vault-agent.md](telegram-vault-agent.md). Janitor guide: [janitor.md](janitor.md).
 
