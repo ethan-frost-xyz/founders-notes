@@ -16,6 +16,8 @@ Linked from: [`README.md`](README.md), [`docs/telegram-vault-agent.md`](docs/tel
 - **Sync script runtime env (May 2026)** — `ingestion/lib/export_runtime_env.py` so cron/webhook reindex sees `embed_model` from `runtime.json` after slim env
 - **Telegram UI overhaul (May 2026)** — curated 7-command BotFather menu; stats-only `/start` with studied count; Janitor **Exit Janitor** + overwrite confirm (`replace=True`); Ops panel under `/settings`; quieter ops/clean status — [`.cursor/plans/archive/telegram_ui_overhaul.plan.md`](.cursor/plans/archive/telegram_ui_overhaul.plan.md)
 - **Janitor clean temperature (Jun 2026)** — Settings **Janitor temp** presets + `/setcleantemp` / `/resetcleantemp`; persisted in `runtime.json` (env fallback unchanged)
+- **Librarian retrieval orchestrator** — studied-only parent index (`expanded` + `summary:episode`; no `notes:*` / `post:*`), `build_summaries.py`, `retrieval_orchestrator.py` + `rerank_llm.py`, agent = orchestrator + synthesis (optional `load_episode` / `list_episode_ids` / `web_search`); overview [`docs/telegram-vault-agent.md`](docs/telegram-vault-agent.md); plan [`.cursor/plans/archive/librarian_retrieval_overhaul_7969c6d8.plan.md`](.cursor/plans/archive/librarian_retrieval_overhaul_7969c6d8.plan.md)
+- **`vault_subprocess.py`** — shared `python_executable` / `tail_output` for `reindex_vault` and Janitor expand ([`ingestion/lib/vault_subprocess.py`](ingestion/lib/vault_subprocess.py))
 
 ## Next (pick one cluster → new plan)
 
@@ -38,23 +40,23 @@ _From archived [`fix_bare_episode_refs`](.cursor/plans/archive/fix_bare_episode_
 - **Shared episode ref helper (D5)** — digit / `ep-N` resolution in `ingestion/lib` for Librarian; Janitor keeps line-1 paste regex.
 - **`tool_trace` resolved_from (D6)** — when `load_episode` uses fallback, record `resolved_from` in harness / exported session traces for debugging.
 - **Fuzzy `resolve_episode_ref` tuning (D7)** — episode_number exact match, title boost for `#NNN`, re-evaluate thresholds with fixture queries.
-- **`RUN_LIVE_HARNESS=1` pytest (D9)** — opt-in CI or local target for librarian YAML without `--stub-llm` when OpenRouter secrets present.
+- **`RUN_LIVE_HARNESS=1` in CI (D9)** — local opt-in shipped: `test_harness_scenario_live` in [`tests/test_harness_scenarios.py`](tests/test_harness_scenarios.py); optional CI job still open.
 - **Ambiguous guest harness (D10)** — e.g. `ambiguous_guest.yaml` (Henry Ford → disambiguation, no wrong episode); [`episode_resolve.yaml`](dev/scenarios/librarian/episode_resolve.yaml) covers numbered NL only today.
-- **LLM rerank** — optional rerank on hybrid hits; index is small after filter; revisit if quality gaps appear.
-- **Scenarios / MRR@8** — extend retrieval scenarios toward MRR@8 as query set grows.
+- **Scenarios / MRR@8** — extend retrieval JSONL / live YAML toward MRR@8 as query set grows ([`thematic_cross_episode.yaml`](dev/scenarios/librarian/thematic_cross_episode.yaml) is a start).
 - **Librarian reply streaming (SSE)** — true token streaming to Telegram for Q&A turns (distinct from Janitor clean preview streaming).
 
 ### Web — `telegram_web_provider.plan.md`
 
-- **SP3.1 — `/web` provider** — wire Tavily or Brave once `WEB_SEARCH_API_KEY` is set; v0 stub returns `{"error":"not configured"}`.
+- **SP3.1 — `/web` provider** — wire Tavily or Brave once `WEB_SEARCH_API_KEY` is set; [`web.py`](services/telegram/bot/tools/web.py) returns `not configured` (no key) or `provider not implemented` (key present).
 
 ### Harness / CI — `telegram_harness_ci.plan.md`
 
-- **Live librarian suite smoke** — before Mac mini deploy, run `python dev/mock_telegram_cli.py --suite librarian` without `--stub-llm` when keys present; record flakes in this file only if recurring.
+- **Live librarian deploy smoke** — document/run before Mac mini deploy: `python dev/mock_telegram_cli.py --suite librarian --live-only` (or `RUN_LIVE_HARNESS=1 pytest … -k live`) when keys + index preflight pass; record flakes here only if recurring.
 
 ### Agent / models — `telegram_agent_models.plan.md`
 
 - **OpenRouter reasoning params** — wire optional `reasoning` / effort fields in [`agent.py`](services/telegram/bot/agent.py) when model supports them.
+- **`max_steps` / `/setsteps` cleanup** — orchestrator path hardcodes 1–2 synthesis steps; runtime `max_steps` / `TELEGRAM_MAX_STEPS` are shown in `/settings` but not applied in [`agent.py`](services/telegram/bot/agent.py) `run_turn`. Rewire or remove misleading UX.
 
 ### Janitor UX — `janitor_ux.plan.md`
 
@@ -67,13 +69,12 @@ _From archived [`fix_bare_episode_refs`](.cursor/plans/archive/fix_bare_episode_
 ### Ingestion — `expand_parallel_workers.plan.md`
 
 - **`expand_datapoints_llm.py --jobs N`** — parallel expand workers (today: manual parallel terminals only). See [`docs/expanded-backfill.md`](docs/expanded-backfill.md).
-- **`vault_subprocess.py`** — dedupe `_python` / `_tail` helpers shared by reindex and Janitor expand subprocesses ([`expand_llm_split`](.cursor/plans/archive/expand_llm_split.plan.md) deferred).
-- **Remove `expand_llm.py` shim** — after all callers import `openrouter_client` / `expand_*` directly.
+- **Remove `expand_llm.py` shim** — after all callers import `openrouter_client` / `expand_*` directly ([`expand_llm_split`](.cursor/plans/archive/expand_llm_split.plan.md) split shipped; shim still used by maintain, expand scripts, Janitor).
 
 ## Decided / won't do (v0)
 
-- **Session export naming** — `catalog/telegram-sessions/{utc_iso}_{short_slug}.jsonl` (gitignored).
-- **`TELEGRAM_MAX_STEPS`** — optional env override; default 5 tool steps per Librarian turn.
+- **Session export naming** — `catalog/telegram-sessions/{utc_iso}_{short_slug}.jsonl` (gitignored); implemented in [`sessions.py`](services/telegram/bot/sessions.py).
+- **`TELEGRAM_MAX_STEPS` / runtime `max_steps`** — persisted for `/settings` and `/setsteps`; **orchestrator Librarian turns ignore it** (1–2 synthesis steps in `agent.py`). Cleanup → Agent/models cluster above.
 - **`.expanded.draft.md` not indexed** — promote → `build_chunks` + `build_embeddings` before parent-tier search sees quotes.
 - **Section-filter slash commands** (`/transcript`, `/post`, `/notes`, `/expanded`) — use `load_episode` + corpus tiers instead.
 - **Cloud Run / multi-host** — Mac mini is the host.
