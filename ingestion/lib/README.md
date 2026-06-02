@@ -21,7 +21,7 @@ Run scripts from `ingestion/`; each script calls `_bootstrap.setup_paths(__file_
 | `expand_validate.py` | Parse and validate `.expanded.draft.md` bodies |
 | `expand_promote.py` | Write drafts, promote to `.expanded.md` |
 | `expand_run_log.py` | `catalog/expand-run.jsonl` logging and CLI progress output |
-| `expand_llm.py` | Prompts, cost estimates, progress reporters; re-exports split modules |
+| `expand_prompt.py` | Prompt templates, cost estimates, progress reporters |
 | `expanded_timestamp_lint.py` | Timestamp meta validation on expanded drafts (used by promote) |
 | `search_retrieval.py` | Parent/transcript chunk filters, keyword + hybrid RRF (Telegram tools) |
 | `openrouter_pricing.py` | OpenRouter model pricing helpers for expand cost estimates |

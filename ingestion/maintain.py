@@ -28,7 +28,7 @@ from dotenv import load_dotenv
 
 from catalog import load_catalog
 from cli_args import resolve_episode_id_arg
-from expand_llm import (
+from expand_prompt import (
     ExpandEstimate,
     default_prompt_path,
     estimate_expand_for_row,

@@ -13,14 +13,9 @@ def format_episode_id(episode_number: int) -> str:
 
 
 def parse_numbered_episode_id(episode_id: str) -> int | None:
-    """Parse ep-1 (legacy) or ep-0001 (canonical) to episode number."""
+    """Parse ep-NNNN to episode number."""
     m = NUMBERED_EPISODE_ID_RE.match(episode_id)
     return int(m.group(1)) if m else None
-
-
-def legacy_make_id(episode_number: int) -> str:
-    """Unpadded id used before layout migration (ep-1, ep-418)."""
-    return f"ep-{episode_number}"
 
 
 def make_id(episode_number: int | None, slug: str) -> str:

@@ -83,8 +83,6 @@ Copy `.env.example` to repo root `.env`. Model choice lives only in `.env` / CLI
 | `--apply` | `pipeline/sync_new.py`, `notes/expand_datapoints_llm.py` | Write side effects |
 | `--force` | `transcripts/fetch_transcripts.py`, `notes/scaffold_notes.py`, `notes/expand_datapoints_llm.py` | Re-fetch / overwrite empty scaffold / regenerate draft |
 
-Legacy unpadded ids (`ep-200`) are accepted where `--id` is supported.
-
 ## Tests
 
 See [`docs/testing.md`](../docs/testing.md). From repo root (same as CI):

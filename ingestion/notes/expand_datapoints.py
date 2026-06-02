@@ -19,7 +19,7 @@ import sys
 from pathlib import Path
 
 from cli_args import add_episode_id_arg, ensure_catalog, resolve_episode_id_arg
-from expand_llm import (
+from expand_prompt import (
     build_combined_prompt_for_clipboard,
     build_user_message,
     default_prompt_path,

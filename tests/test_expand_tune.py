@@ -7,7 +7,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import paths
-from expand_llm import write_expanded_draft
+from expand_promote import write_expanded_draft
 from expand_tune import build_child_cmd, load_batch_file, run_dir
 from paths import staging_draft_file_path
 

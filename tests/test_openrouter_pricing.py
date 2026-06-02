@@ -7,7 +7,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import paths
-from expand_llm import ExpandEstimate, print_expand_dry_run_summary
+from expand_prompt import ExpandEstimate, print_expand_dry_run_summary
 from openrouter_pricing import (
     COMPLETION_TOKENS_PER_BULLET,
     ModelRates,
@@ -138,7 +138,7 @@ def test_resolve_model_rates(mock_catalog):
     assert rates.prompt_usd_per_token == 0.000001
 
 
-@patch("expand_llm.resolve_model_rates")
+@patch("expand_prompt.resolve_model_rates")
 def test_print_expand_dry_run_summary_shows_cost(mock_resolve, tmp_path: Path, capsys):
     mock_resolve.return_value = ModelRates(
         model_id="test/simple",
@@ -171,7 +171,7 @@ def test_print_expand_dry_run_summary_shows_cost(mock_resolve, tmp_path: Path, c
     assert format_usd_per_million(0.000001) in out
 
 
-@patch("expand_llm.resolve_model_rates")
+@patch("expand_prompt.resolve_model_rates")
 def test_print_expand_dry_run_summary_unset_model(mock_resolve, tmp_path: Path, capsys):
     prompt = tmp_path / "p.md"
     prompt.write_text("<<<SYSTEM>>>\nx\n<<<USER>>>\n{n}\n{t}\n", encoding="utf-8")

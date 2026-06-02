@@ -74,13 +74,8 @@ def load_agent_config() -> AgentConfig:
 
 
 def load_bot_config() -> BotConfig:
-    from runtime_settings import (
-        apply_runtime_to_bot_config,
-        seed_runtime_from_env_if_missing,
-        sync_embed_to_os_environ,
-    )
+    from runtime_settings import apply_runtime_to_bot_config, sync_embed_to_os_environ
 
-    seed_runtime_from_env_if_missing()
     agent = load_agent_config()
 
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()

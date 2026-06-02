@@ -6,7 +6,7 @@ from unittest.mock import patch
 import pytest
 
 import paths
-from expand_llm import (
+from expand_prompt import (
     CHARS_PER_TOKEN,
     OPENROUTER_MAX_ATTEMPTS,
     OpenRouterCompletion,

@@ -278,26 +278,25 @@ def normalize_frontmatter_from_existing(
         published_at = existing.get("published_at")
 
     extra: dict[str, Any] = {}
-    legacy_map = {
-        "fetched_at": "fetched_at",
-        "imported_at": "imported_at",
-        "colossus_url": "colossus_url",
-        "x_url": "x_url",
-        "x_post_id": "x_post_id",
-        "post_kind": "post_kind",
-        "attribution_note": "attribution_note",
-        "alt_source": "alt_source",
-        "model": "model",
-        "generated_at": "generated_at",
-        "prompt_path": "prompt_path",
-        "prompt_hash": "prompt_hash",
-        "tune_variant": "tune_variant",
-        "expanded_at": "expanded_at",
-        "expanded_model": "expanded_model",
-    }
-    for old_key, new_key in legacy_map.items():
-        if old_key in existing and existing[old_key]:
-            extra[new_key] = existing[old_key]
+    for key in (
+        "fetched_at",
+        "imported_at",
+        "colossus_url",
+        "x_url",
+        "x_post_id",
+        "post_kind",
+        "attribution_note",
+        "alt_source",
+        "model",
+        "generated_at",
+        "prompt_path",
+        "prompt_hash",
+        "tune_variant",
+        "expanded_at",
+        "expanded_model",
+    ):
+        if key in existing and existing[key]:
+            extra[key] = existing[key]
 
     if content_type == CONTENT_TYPE_TRANSCRIPT:
         if "fetched_at" in existing:
@@ -476,10 +475,6 @@ def write_transcript_md(row: dict[str, Any], body: str, fetched_at: str) -> Path
     out_dir = transcript_dir(episode_id, slug, num)
     out_dir.mkdir(parents=True, exist_ok=True)
     path = out_dir / transcript_filename(episode_id, slug, num)
-    for legacy_name in ("transcript.md", f"{_episode_folder(episode_id, slug, num)}.md"):
-        legacy = out_dir / legacy_name
-        if legacy.exists() and legacy != path:
-            legacy.unlink()
     extra = {
         "colossus_url": row.get("colossus_url") or "",
         "fetched_at": fetched_at,

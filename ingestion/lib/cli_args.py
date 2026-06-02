@@ -11,7 +11,7 @@ def add_episode_id_arg(
     parser: argparse.ArgumentParser,
     *,
     required: bool = False,
-    help_text: str = "Episode id, e.g. ep-0200 (legacy ep-200 accepted)",
+    help_text: str = "Episode id, e.g. ep-0200",
 ) -> None:
     parser.add_argument(
         "--id",
