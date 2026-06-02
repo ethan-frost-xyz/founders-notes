@@ -40,8 +40,7 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`docs/inges
 | Expand (prompt A/B tune) | `notes/expand_tune.py` | 23-ep A/B under `fixtures/expand-runs/` (tracked; default `baseline/`) |
 | **Maintenance console** | `python maintain.py` | Menu wrapper for coverage, expand, promote, index rebuild, tune (see below) |
 | X sync | `x/sync_x_cache.py` | API → `import/x-posts-raw.csv` |
-| X organize | `x/organize_posts_from_csv.py` | CSV → `content/posts/` (skips articles) |
-| X LLM match | `x/attribute_posts_llm.py` | Review queue via OpenRouter |
+| X organize | `x/organize_posts_from_csv.py` | CSV → `content/posts/` (`#N` attribution; review queue) |
 | Search | `search/build_chunks.py` | → `catalog/chunks.jsonl` |
 | Search | `search/search.py` | Query chunks (+ optional `rg`) |
 
@@ -68,9 +67,8 @@ CLI scripts call [`_bootstrap.setup_paths(__file__)`](_bootstrap.py) (adds `inge
 |----------|---------|
 | `COLOSSUS_EMAIL`, `COLOSSUS_PASSWORD` | `transcripts/fetch_transcripts.py` |
 | `COLOSSUS_COOKIES_FILE` | `transcripts/fetch_transcripts.py` (alternative to login) |
-| `X_BEARER_TOKEN`, `X_USERNAME` | `x/sync_x_cache.py`, `x/assign_post_manual.py`, `x/attribute_posts_llm.py` |
-| `OPENROUTER_API_KEY` | `x/attribute_posts_llm.py`, `notes/expand_datapoints_llm.py` |
-| `OPENROUTER_ATTRIBUTION_MODEL` | `x/attribute_posts_llm.py` — optional; `--model` overrides |
+| `X_BEARER_TOKEN`, `X_USERNAME` | `x/sync_x_cache.py`, `x/assign_post_manual.py` |
+| `OPENROUTER_API_KEY` | `notes/expand_datapoints_llm.py`, `notes/expand_tune.py`, `search/build_embeddings.py` |
 | `OPENROUTER_MODEL` | `notes/expand_datapoints_llm.py`, `notes/expand_tune.py` — any [OpenRouter](https://openrouter.ai/models) slug; `--model` overrides; `OPENROUTER_BASE_URL` optional |
 
 Copy `.env.example` to repo root `.env`. Model choice lives only in `.env` / CLI flags (not in repo docs).
@@ -81,8 +79,8 @@ Copy `.env.example` to repo root `.env`. Model choice lives only in `.env` / CLI
 |--------------|---------|---------|
 | `--id ep-NNNN` | `transcripts/fetch_transcripts.py`, `notes/scaffold_notes.py`, `notes/expand_datapoints*.py` | Canonical padded episode id |
 | `--episode N` | `x/assign_post_manual.py` | Integer `episode_number` (not `ep-NNNN`) |
-| `--dry-run` | Most writers; `x/attribute_posts_llm.py`, `notes/expand_datapoints_llm.py` | Report only |
-| `--apply` | `pipeline/sync_new.py`, `x/attribute_posts_llm.py`, `notes/expand_datapoints_llm.py` | Write side effects |
+| `--dry-run` | Most writers; `notes/expand_datapoints_llm.py` | Report only |
+| `--apply` | `pipeline/sync_new.py`, `notes/expand_datapoints_llm.py` | Write side effects |
 | `--force` | `transcripts/fetch_transcripts.py`, `notes/scaffold_notes.py`, `notes/expand_datapoints_llm.py` | Re-fetch / overwrite empty scaffold / regenerate draft |
 
 Legacy unpadded ids (`ep-200`) are accepted where `--id` is supported.
