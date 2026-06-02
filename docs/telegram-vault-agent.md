@@ -87,7 +87,7 @@ After expanded promote on the Mac mini (or any host running the bot), run the sa
 | Janitor | Shipped | [janitor.md](janitor.md) |
 | Harness / tool UX | Shipped | [telegram-mock-harness.md](telegram-mock-harness.md) |
 | Librarian quality | Shipped | `load_episode` **candidates**; synthesis **streaming** (default on) |
-| Webhook / sync | Shipped | [mac-mini-operator-setup.md](mac-mini-operator-setup.md), [services/telegram/README.md](../services/telegram/README.md) |
+| Webhook / sync | Shipped | [operations.md](operations.md), [services/telegram/README.md](../services/telegram/README.md) |
 | Follow-ups | Open | [potential-ideas.md](../potential-ideas.md) |
 
 Runbook and env: [`services/telegram/README.md`](../services/telegram/README.md).
@@ -105,12 +105,10 @@ Repo-wide rule: do **not** add a general-purpose vector DB until grep + chunk se
 
 ## Related
 
+- [operations.md](operations.md) — laptop, Mac mini, Telegram ops
 - [telegram-mock-harness.md](telegram-mock-harness.md) — local headless/REPL testing (no Bot API)
-- [laptop-development.md](laptop-development.md) — laptop clone, pytest, merge → webhook
-- [mac-mini-operator-setup.md](mac-mini-operator-setup.md) — production Mac mini (daily ops, restart, troubleshooting)
-- [manual-operations.md](manual-operations.md) — Telegram vs `maintain.py`; [when to refresh the index](manual-operations.md#when-to-refresh-the-index)
 - [janitor.md](janitor.md) — daily notes workflow; [model tuning playbook](janitor.md#model-tuning-playbook)
 - [retrieval.md](retrieval.md) — chunk index + hybrid parent search
 - [expanded-backfill.md](expanded-backfill.md) — corpus quality for parent tier
-- [vault-agent-v0-checklist.md](vault-agent-v0-checklist.md) — verification
+- [testing.md](testing.md) — CI + v0 checklist tests
 - [potential-ideas.md](../potential-ideas.md) — backlog

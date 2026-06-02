@@ -10,7 +10,7 @@ Personal knowledge vault: Founders podcast transcripts, study notes, and X posts
 - **Do** help with the current episode: `python notes/scaffold_notes.py --next`, edit `{folder}.notes.md`, then `search/build_chunks.py`.
 - Blocking gaps = transcript/layout only (`pipeline/verify.py` exit 1). Empty scaffolds are normal.
 
-Daily workflow: `[docs/notes-pipeline.md](docs/notes-pipeline.md)`. **Laptop:** `[docs/laptop-development.md](docs/laptop-development.md)`. **Remote product work (merge → pull → restart):** `[docs/remote-product-workflow.md](docs/remote-product-workflow.md)`. **Mac mini / Telegram:** `[docs/mac-mini-operator-setup.md](docs/mac-mini-operator-setup.md)`. Matrix: `[docs/manual-operations.md](docs/manual-operations.md)`.
+Daily workflow: `[docs/notes-pipeline.md](docs/notes-pipeline.md)`. **Operations (laptop, Mac mini, Telegram):** `[docs/operations.md](docs/operations.md)`.
 
 ## Start here
 
@@ -45,7 +45,7 @@ Or ripgrep: `content/transcripts/`, `content/notes/`, `content/posts/`, `content
 
 User workflow: timestamp bullets in `{folder}.notes.md` → full quotes + takeaways. See `[docs/datapoint-workflow.md](docs/datapoint-workflow.md)`.
 
-**Primary on Mac mini:** Telegram Librarian + Janitor — see `[docs/manual-operations.md](docs/manual-operations.md)`. **Laptop recovery/tactical:** `python maintain.py` (from `ingestion/`) — slim menu for coverage, expand, promote, and reindex when the bot is unavailable.
+**Primary on Mac mini:** Telegram Librarian + Janitor — see `[docs/operations.md](docs/operations.md)`. **Laptop recovery/tactical:** `python maintain.py` (from `ingestion/`) — slim menu for coverage, expand, promote, and reindex when the bot is unavailable.
 
 ```bash
 python notes/expand_datapoints.py --id ep-0200              # prompt only

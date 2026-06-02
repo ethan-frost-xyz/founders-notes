@@ -43,4 +43,3 @@ Operational tuning (no code): fast `retrieval_model` on the Mac mini — [`docs/
 ## Ingestion
 
 - **`expand_datapoints_llm.py --jobs N`** — Parallel expand workers. [`docs/expanded-backfill.md`](docs/expanded-backfill.md).
-- **Remove `expand_llm.py` shim** — After callers import `openrouter_client` / `expand_*` directly (maintain, expand scripts, Janitor).

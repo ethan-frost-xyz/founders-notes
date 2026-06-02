@@ -29,17 +29,15 @@ cd ingestion && python pipeline/verify.py
 | `test_catalog.py` | `catalog.resolve_catalog_row` |
 | `test_x_posts_match.py` | `x_posts_match` |
 | `test_x_posts_threads.py` | `x_posts_threads` |
-| `test_attribute_posts_llm.py` | `x/attribute_posts_llm.py` |
-| `test_expand_llm.py` | `expand_llm` / `openrouter_client` / `expand_*` + `expand_datapoints_llm` apply/logging |
+| `test_expand_llm.py` | `expand_prompt` / `openrouter_client` / `expand_*` + `expand_datapoints_llm` apply/logging |
 | `test_expand_tune.py` | `notes/expand_tune.py` |
 | `test_openrouter_pricing.py` | `openrouter_pricing` |
-| `test_expand_baseline_fixtures.py` | `expand_tune verify` + baseline manifest |
 | `test_maintain.py` | `maintain.py` |
 | `test_build_chunks.py` | `build_chunks` — listened filter, line numbers, expanded datapoint splits |
 | `test_search_retrieval.py` | `search_retrieval` |
 | `test_vault_agent.py` | Telegram `agent` + vault tools (`load_episode` candidates, orchestrator trace) |
 | `test_runtime_settings.py` | `runtime.json` overrides (`stream_replies`, librarian/retrieval/janitor/expand/embed models, Janitor temp) |
-| `test_vault_v0_checklist.py` | v0 success criteria (mock agent + tools); see [vault-agent-v0-checklist.md](vault-agent-v0-checklist.md) |
+| `test_vault_v0_checklist.py` | v0 success criteria (mock agent + tools); see [Vault agent v0 checklist](#vault-agent-v0-checklist) below |
 | `test_vault_retrieval_scenarios.py` | Retrieval scenario JSONL (fixture index in CI) |
 | `test_janitor_notes.py` | Janitor episode parse, finalize_notes_body, merge |
 | `test_janitor_workflow.py` | Janitor LLM clean (mocked), catalog, prompt, `run_reindex` |
@@ -110,11 +108,37 @@ RUN_REBUILT_INDEX_SCENARIOS=1 pytest tests/test_vault_retrieval_scenarios.py tes
 | **Data** | `dev/scenarios/**/*.yaml` | `tests/fixtures/vault_retrieval_scenarios.jsonl` |
 | **Index in CI** | Real vault paths (Janitor sandbox is tiny) | `tests/fixtures/vault_search_chunks.jsonl` |
 | **Tests** | `test_harness_scenarios.py` | `test_vault_retrieval_scenarios.py` |
-| **Guide** | [telegram-mock-harness.md](telegram-mock-harness.md) | [vault-agent-v0-checklist.md](vault-agent-v0-checklist.md) |
+| **Guide** | [telegram-mock-harness.md](telegram-mock-harness.md) | This doc, [Vault agent v0 checklist](#vault-agent-v0-checklist) |
+
+## Vault agent v0 checklist
+
+Maps shipped Telegram agent criteria to automated tests. Overview: [telegram-vault-agent.md](telegram-vault-agent.md). Ops: [operations.md](operations.md).
+
+```bash
+pytest tests/test_vault_v0_checklist.py -q
+```
+
+| # | Criterion | Test |
+|---|-----------|------|
+| 1 | Thematic Q → `retrieval_orchestrator` in trace | `test_v0_criterion_retrieval_in_trace` |
+| 2 | After promote + reindex → `expanded:*` in hybrid hits | `test_v0_criterion_expanded_in_index` (skip unless `RUN_REBUILT_INDEX_SCENARIOS=1`) |
+| 3 | Allowlist blocks non-user | `test_v0_criterion_allowlist` |
+| 4 | `/newchat` exports valid session jsonl | `test_v0_criterion_newchat_export` |
+| — | Un-listened episode absent from search index | `test_v0_criterion_unlistened_no_hits` (calls `tools/vault.py` directly) |
+
+Related: `test_vault_retrieval_scenarios.py`, `test_vault_agent.py`, `test_runtime_settings.py` (`stream_replies`).
+
+Rebuilt-index validation:
+
+```bash
+RUN_REBUILT_INDEX_SCENARIOS=1 pytest tests/test_vault_retrieval_scenarios.py tests/test_vault_v0_checklist.py -q
+```
+
+Manual Telegram smoke: thematic Q with `[ep-NNNN]`; un-listened guest (ep-0400); `/newchat` export; `/settings` stream toggle.
 
 ## “Legacy” in test names
 
-Some tests mention legacy behavior (e.g. unpadded `ep-200`, old “Key takeaway” headings). Those **run in CI** — they guard supported backward compatibility, not deprecated code.
+Some tests mention legacy behavior (e.g. old “Key takeaway” headings). Those **run in CI** where still applicable.
 
 Harness **echo** mode intentionally skips `expect_live` assertions in YAML scenarios; that is not legacy product behavior.
 

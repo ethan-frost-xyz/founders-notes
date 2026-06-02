@@ -2,11 +2,9 @@
 
 Private on-the-go access to the Founders vault via a **tool-calling agent** — not a fixed embed→top-k→answer pipeline.
 
-**Status:** SP1–SP5 + Janitor shipped on `main`. Mac mini production: launchd bot + webhook, Tailscale Funnel, push-to-`main` sync. Runbook: [`docs/mac-mini-operator-setup.md`](../../docs/mac-mini-operator-setup.md).
+**Status:** SP1–SP5 + Janitor shipped on `main`. Mac mini production: launchd bot + webhook, Tailscale Funnel, push-to-`main` sync. Runbook: [`docs/operations.md`](../../docs/operations.md).
 
-**Reviewers:** [REVIEW.md](REVIEW.md) — commit map, risk areas, test commands.
-
-**Docs:** [`docs/telegram-vault-agent.md`](../../docs/telegram-vault-agent.md) (overview) · [`docs/janitor.md`](../../docs/janitor.md) (daily notes workflow) · [`docs/manual-operations.md`](../../docs/manual-operations.md) (Telegram vs `maintain.py`) · [`potential-ideas.md`](../../potential-ideas.md) (open backlog)
+**Docs:** [`docs/telegram-vault-agent.md`](../../docs/telegram-vault-agent.md) (overview) · [`docs/janitor.md`](../../docs/janitor.md) (daily notes workflow) · [`docs/operations.md`](../../docs/operations.md) (ops matrix) · [`potential-ideas.md`](../../potential-ideas.md) (open backlog)
 
 ## Architecture
 
@@ -15,7 +13,7 @@ Telegram (polling) → handlers → VaultAgent.run_turn()
                                     ↓
                               OpenRouter + tools (≤5 steps)
                                     ↓
-                    search_vault_parent | search_transcript | load_episode | list_episode_ids
+                    retrieval_orchestrator → synthesis; optional load_episode | list_episode_ids
                                     ↓
               ingestion/lib/search_retrieval.py + catalog/chunks.jsonl [+ embeddings.npy]
 ```
@@ -94,7 +92,7 @@ Unload: `launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.founders.tele
 
 ### 5. Cron index refresh (optional)
 
-`sync-and-index.sh` uses `catalog/.sync-in-progress` so overlapping cron/webhook runs skip cleanly (no richer lock UX planned). Avoid manual sync during active Librarian/Janitor turns. Matrix: [`docs/manual-operations.md`](../../docs/manual-operations.md#when-to-refresh-the-index).
+`sync-and-index.sh` uses `catalog/.sync-in-progress` so overlapping cron/webhook runs skip cleanly (no richer lock UX planned). Avoid manual sync during active Librarian/Janitor turns. Matrix: [`docs/operations.md`](../../docs/operations.md#when-to-refresh).
 
 ```bash
 chmod +x services/telegram/deploy/install-cron.sh
@@ -150,7 +148,7 @@ Smoke: merge to `main` → GitHub webhook delivery **202** → `sync.log` shows 
 
 **Fallback:** Telegram `/sync` when idle if webhook or Funnel is down.
 
-Laptop: [`docs/laptop-development.md`](../../docs/laptop-development.md). Mac mini ops: [`docs/mac-mini-operator-setup.md`](../../docs/mac-mini-operator-setup.md).
+Laptop: [`docs/operations.md`](../../docs/operations.md). Mac mini ops: [`docs/operations.md`](../../docs/operations.md).
 
 ## Run locally (dev)
 
@@ -201,11 +199,10 @@ Models are in `runtime.json` (see `/settings`). Use `/setmodel` per role (`libra
 | `/clear` | Wipe in-memory thread |
 | `/newchat` | Export → `catalog/telegram-sessions/*.jsonl`; reset |
 | `/resume` | Load latest (or `/resume <fragment>`) |
-| `/web <query>` | One turn with `allow_web=true` |
 | `/janitor` | Notes ingest → expand → promote workflow |
 | `/librarian` | Exit Janitor (← Back) to Q&A |
 | `/cancel` | Cancel Janitor workflow |
-| Free text | Vault only (`allow_web=false`); in Janitor mode, follows notes workflow |
+| Free text | Librarian Q&A; in Janitor mode, follows notes workflow |
 
 ## Configuration: secrets vs runtime
 

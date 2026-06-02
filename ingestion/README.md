@@ -53,13 +53,13 @@ cd ingestion
 python maintain.py
 ```
 
-Bulk expanded-notes backfill: [`docs/expanded-backfill.md`](../docs/expanded-backfill.md). **Operator paths:** primary Telegram — [`docs/manual-operations.md`](../docs/manual-operations.md); tactical `maintain.py` (this menu). **Telegram vault agent:** [`services/telegram/README.md`](../services/telegram/README.md); overview [`docs/telegram-vault-agent.md`](../docs/telegram-vault-agent.md); retrieval in `lib/search_retrieval.py` (hybrid RRF).
+Bulk expanded-notes backfill: [`docs/expanded-backfill.md`](../docs/expanded-backfill.md). **Operator paths:** primary Telegram — [`docs/operations.md`](../docs/operations.md); tactical `maintain.py` (this menu). **Telegram vault agent:** [`services/telegram/README.md`](../services/telegram/README.md); overview [`docs/telegram-vault-agent.md`](../docs/telegram-vault-agent.md); retrieval in `lib/search_retrieval.py` (hybrid RRF).
 
 Individual scripts (`pipeline/verify.py`, `notes/expand_datapoints_llm.py`, etc.) remain available for automation and CI.
 
 ## Path bootstrap
 
-CLI scripts call [`_bootstrap.setup_paths(__file__)`](_bootstrap.py) (adds `ingestion/` + `lib/`). Telegram and `pytest` share [`resolve_vault_root`](_bootstrap.py) / [`setup_ingestion_paths`](_bootstrap.py) — see [`docs/manual-operations.md`](../docs/manual-operations.md#path-bootstrap-vault_root).
+CLI scripts call [`_bootstrap.setup_paths(__file__)`](_bootstrap.py) (adds `ingestion/` + `lib/`). Telegram and `pytest` share [`resolve_vault_root`](_bootstrap.py) / [`setup_ingestion_paths`](_bootstrap.py) — see [`docs/operations.md`](../docs/operations.md#path-bootstrap-vault_root).
 
 ## Environment variables
 

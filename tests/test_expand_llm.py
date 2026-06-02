@@ -1,4 +1,4 @@
-"""Tests for expand_llm and expand_datapoints_llm apply/logging (no network)."""
+"""Tests for expand_prompt and expand_datapoints_llm apply/logging (no network)."""
 
 from pathlib import Path
 from unittest.mock import patch
