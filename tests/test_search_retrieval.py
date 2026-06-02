@@ -244,6 +244,39 @@ def test_build_embeddings_reuses_manifest_without_api(tmp_path, monkeypatch):
     assert not summary.get("invalidated_cache")
 
 
+def test_build_embeddings_reembeds_when_matrix_missing(tmp_path, monkeypatch):
+    chunks_path = tmp_path / "chunks.jsonl"
+    chunks_path.write_text(FIXTURE.read_text(encoding="utf-8"), encoding="utf-8")
+    parent = parent_chunks_for_embedding(load_fixture())
+    manifest_path, emb_path, meta_path, _ = _write_embedding_cache(
+        tmp_path, parent, embed_model="fixture/missing-matrix"
+    )
+    emb_path.unlink()
+    assert not emb_path.exists()
+    monkeypatch.setenv("OPENROUTER_EMBED_MODEL", "fixture/missing-matrix")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+
+    build_embeddings = _import_build_embeddings()
+
+    def fake_embed(texts, **kwargs):
+        return [[0.0] * 4 for _ in texts]
+
+    monkeypatch.setattr(build_embeddings, "embed_texts", fake_embed)
+    from build_embeddings import build_parent_embeddings
+
+    summary = build_parent_embeddings(
+        apply=True,
+        chunks_path=chunks_path,
+        embeddings_path=emb_path,
+        manifest_path=manifest_path,
+        meta_path=meta_path,
+    )
+    assert summary["to_embed"] == len(parent)
+    assert emb_path.is_file()
+    saved = np.load(emb_path)
+    assert saved.shape[0] == len(parent)
+
+
 def test_build_embeddings_invalidates_on_embed_model_mismatch(tmp_path, monkeypatch):
     chunks_path = tmp_path / "chunks.jsonl"
     chunks_path.write_text(FIXTURE.read_text(encoding="utf-8"), encoding="utf-8")

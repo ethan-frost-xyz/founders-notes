@@ -184,7 +184,9 @@ def build_parent_embeddings(
         if ch and old_by_id.get(cid, {}).get("content_hash") == chunk_content_hash(ch):
             vectors[cid] = old_matrix[int(idx)]
 
-    to_embed = chunks_needing_embedding(parent, old_manifest)
+    # Without a loadable matrix, manifest hashes cannot be reused as vectors.
+    manifest_for_embed = old_manifest if old_matrix is not None else []
+    to_embed = chunks_needing_embedding(parent, manifest_for_embed)
     embedded_new = 0
 
     if to_embed and apply:
