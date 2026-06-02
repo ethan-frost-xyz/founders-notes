@@ -117,19 +117,11 @@ def openrouter_tools(*, allow_web: bool, default_k: int = 8) -> list[dict[str, A
 
 def _tool_handlers(config: AgentConfig) -> dict[str, ToolFn]:
     from web import web_search
-    from vault import list_episode_ids, load_episode, search_transcript, search_vault_parent
+    from vault import list_episode_ids, load_episode
 
-    k_default = config.default_search_k
+    _ = config.default_search_k
 
     return {
-        "search_vault_parent": lambda args: search_vault_parent(
-            str(args["query"]),
-            int(args.get("k") or k_default),
-        ),
-        "search_transcript": lambda args: search_transcript(
-            str(args["query"]),
-            int(args.get("k") or k_default),
-        ),
         "load_episode": lambda args: load_episode(str(args["episode_id"])),
         "list_episode_ids": lambda args: list_episode_ids(
             str(args["query"]),
