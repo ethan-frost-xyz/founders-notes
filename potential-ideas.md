@@ -8,12 +8,15 @@ Linked from: [`README.md`](README.md), [`docs/telegram-vault-agent.md`](docs/tel
 
 Suggested plan filenames below — create the file under `.cursor/plans/` when you start work; archive under `.cursor/plans/archive/` when shipped.
 
-### Ops / sync — `telegram_ops_followups.plan.md`
+### Ops / sync — `telegram_ops_handler_tests.plan.md` (recommended next)
 
-- **`/resume` auto-sync** — warn-only today; optional auto `sync-and-index.sh` on resume.
-- **Path-filtered reindex** — code-only pushes still full reindex today (skip `build_chunks` / `build_embeddings` when diff touches no `content/`, `catalog/chunks.jsonl`, or index inputs).
-- **Pull-only sync** — optional `git pull --ff-only` without reindex when webhook/cron sees a push with no vault-content paths (lighter than full `sync-and-index.sh`).
-- **`/sync` handler integration tests** — deploy smoke covers webhook; no handler-level tests for Telegram `/sync`, `/pull`, `/reindex` yet.
+Vetted Jun 2026 against shipped SP5 ([`telegram_ops_sync.plan.md`](.cursor/plans/archive/telegram_ops_sync.plan.md)).
+
+- **`/sync` handler integration tests** — **build next.** Webhook tests cover deploy smoke ([`test_github_webhook.py`](tests/test_github_webhook.py)); [`test_ops_runner.py`](tests/test_ops_runner.py) covers lock + `git pull` only. Add mocked tests for [`ops_telegram.run_ops_job`](services/telegram/bot/ops_telegram.py) (lock busy, success/fail messages) and settings-panel ops callbacks; no live git/embeddings in CI. Manual `/sync` stays full pull + reindex.
+
+**Deferred (one plan only if code-only `main` pushes hurt):** `telegram_ops_smart_sync.plan.md`
+
+- **Path-filtered reindex + pull-only webhook** — bundle together. Today every push runs full `sync-and-index.sh` (~2–5 min embeddings). Skip reindex only when **every** changed path matches a conservative allowlist (e.g. `docs/**`, `tests/**`, `services/telegram/**`, `.cursor/**`, root markdown); anything under `content/`, `catalog/`, or `ingestion/search/` → full reindex. False negative = stale search until `/sync`. Nightly cron should stay full sync. Success criteria: file-list fixture table in tests before shipping.
 
 ### Web — `telegram_web_provider.plan.md`
 
@@ -64,6 +67,7 @@ See [`docs/retrieval.md`](docs/retrieval.md), [`docs/janitor.md`](docs/janitor.m
 - **Cloud Run / multi-host** — Mac mini is the host.
 - **Sync file lock (product)** — minimal `catalog/.sync-in-progress` in `sync-and-index.sh` is enough; no richer lock UX.
 - **Replacing nightly cron** — keep cron + webhook + Telegram `/sync` fallback.
+- **`/resume` auto-sync** — warn-only is correct ([`session_stale_warning`](services/telegram/bot/sessions.py): index newer than session → re-ask; sync does not fix that). Git/index can still be behind with no warning — use `/sync` when idle after travel or a failed webhook. No default auto `sync-and-index.sh` on resume (surprise latency, embedding cost, ops-lock clashes). Opt-in runtime flag only if explicitly requested later.
 - **Episode intent classifier** — superseded by shipped `resolve_episode_ref` + `load_episode` fallback ([`archive/fix_bare_episode_refs_4f718a49.plan.md`](.cursor/plans/archive/fix_bare_episode_refs_4f718a49.plan.md)). Optional prompt/tool copy tuning if tool storms return — shipped SP6-lite May 2026.
 - **Repo-wide embeddings** — only after grep/chunk/agent tools fail real queries (gates in [`docs/retrieval.md`](docs/retrieval.md)).
 - **Bulk backfill ep-0190+ posts** — intentional daily-ritual gap until posted on X; not import debt.
