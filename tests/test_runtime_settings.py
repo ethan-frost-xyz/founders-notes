@@ -24,6 +24,8 @@ from runtime_settings import (  # noqa: E402
     clear_runtime_settings,
     effective_janitor_clean_temperature,
     effective_librarian_model,
+    effective_stream_replies,
+    set_stream_replies,
     load_runtime_settings,
     reset_runtime_key,
     runtime_settings_path,
@@ -125,6 +127,22 @@ def test_reset_janitor_temp_preserves_other_keys(runtime_file: Path, monkeypatch
     temp, src = effective_janitor_clean_temperature()
     assert temp == 0.9
     assert "env" in src
+
+
+def test_effective_stream_replies_default_on(runtime_file: Path, monkeypatch: pytest.MonkeyPatch):
+    _ = runtime_file
+    monkeypatch.delenv("TELEGRAM_STREAM_REPLIES", raising=False)
+    enabled, src = effective_stream_replies()
+    assert enabled is True
+    assert "default" in src
+
+
+def test_set_stream_replies_persists(runtime_file: Path):
+    _ = runtime_file
+    set_stream_replies(False)
+    enabled, src = effective_stream_replies()
+    assert enabled is False
+    assert src == "runtime.json"
 
 
 def test_effective_librarian_model_prefers_runtime(runtime_file: Path, monkeypatch: pytest.MonkeyPatch):

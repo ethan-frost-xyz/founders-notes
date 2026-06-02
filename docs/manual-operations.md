@@ -9,7 +9,7 @@ How to run the Founders Notes vault when you are **not** using the Telegram bot 
 | Role | What |
 |------|------|
 | **Janitor** | Paste bullets → clean → file `.notes.md` → expand → promote → reindex |
-| **Librarian** | Q&A over the studied corpus (hybrid parent-tier search) |
+| **Librarian** | Q&A over the studied corpus (orchestrator + synthesis; optional reply streaming — `/settings` → Stream replies, default on) |
 
 Runbook: [services/telegram/README.md](../services/telegram/README.md). Janitor **Promote & reindex** usually refreshes the index on the Mac mini; if that fails or you pushed from the laptop, run `sync-and-index.sh` when the bot is idle — [When to refresh the index](#when-to-refresh-the-index). Model tuning (clean vs expand vs Librarian): [janitor.md § Model tuning playbook](janitor.md#model-tuning-playbook).
 

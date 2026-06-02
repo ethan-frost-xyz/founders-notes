@@ -19,7 +19,7 @@ pytest tests/test_vault_v0_checklist.py -q
 | 5 | `/newchat` exports valid session jsonl | `test_v0_criterion_newchat_export` |
 | — | Un-listened episode absent from search index | `test_v0_criterion_unlistened_no_hits` |
 
-Related retrieval/index guards: `tests/test_vault_retrieval_scenarios.py`, `tests/test_vault_agent.py` (`load_episode` / mock un-listened turn). Un-listened examples use **ep-0400** (scaffold notes only); ep-0191 is studied and used for resolution/Janitor harness examples elsewhere.
+Related retrieval/index guards: `tests/test_vault_retrieval_scenarios.py`, `tests/test_vault_agent.py` (`load_episode` / mock un-listened turn; **Henry Ford** → `error` + `candidates`). `tests/test_runtime_settings.py` covers `stream_replies` default on and override. Un-listened examples use **ep-0400** (scaffold notes only); ep-0191 is studied and used for resolution/Janitor harness examples elsewhere.
 
 Rebuilt-index validation (after `build_chunks.py` changes):
 
@@ -65,3 +65,4 @@ NL episode resolution (mock harness live): `python dev/mock_telegram_cli.py --sc
 3. Guest on an un-listened episode (e.g. James Dyson / ep-0400) — bot says you have **not studied** it yet; no transcript dump.
 4. `/newchat` — file appears under `catalog/telegram-sessions/` on the bot host.
 5. Second Telegram user (if configured) — blocked.
+6. (Optional) `/settings` → **Stream replies** ON — thematic Q&A shows a live-updating preview message before the final chunked reply.

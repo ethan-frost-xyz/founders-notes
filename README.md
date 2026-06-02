@@ -30,7 +30,7 @@ Private **Telegram bot** on an always-on Mac mini (polling): **Librarian** for s
 
 **Implementation history (archived plans):** [`sp1`](.cursor/plans/archive/telegram_vault_sp1_tools.plan.md) → [`sp4`](.cursor/plans/archive/telegram_vault_sp4_ops.plan.md) · index in [`.cursor/plans/archive/README.md`](.cursor/plans/archive/README.md)
 
-- **Librarian:** OpenRouter tool-calling over studied episodes only (`search_vault_parent`, transcripts on demand); `/web <query>` for external search.
+- **Librarian:** retrieval orchestrator + synthesis over studied episodes; optional `load_episode` / `list_episode_ids` (ambiguous refs return **candidates**); synthesis reply **streaming** default on (`/settings` → Stream replies); `/web <query>` for external search.
 - **Janitor:** `/janitor` → paste bullets → LLM clean → approve → file → expand → promote → reindex. See [`docs/janitor.md`](docs/janitor.md).
 - **Ops:** GitHub webhook or `sync-and-index.sh` (cron / Telegram `/sync`); index refresh after promote on the bot host.
 

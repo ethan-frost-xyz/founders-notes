@@ -37,7 +37,8 @@ cd ingestion && python pipeline/verify.py
 | `test_maintain.py` | `maintain.py` |
 | `test_build_chunks.py` | `build_chunks` — listened filter, line numbers, expanded datapoint splits |
 | `test_search_retrieval.py` | `search_retrieval` |
-| `test_vault_agent.py` | Telegram `agent` + vault tools |
+| `test_vault_agent.py` | Telegram `agent` + vault tools (`load_episode` candidates, orchestrator trace) |
+| `test_runtime_settings.py` | `runtime.json` overrides (`stream_replies`, models, `max_steps`, Janitor temp) |
 | `test_vault_v0_checklist.py` | v0 success criteria (mock agent + tools); see [vault-agent-v0-checklist.md](vault-agent-v0-checklist.md) |
 | `test_vault_retrieval_scenarios.py` | Retrieval scenario JSONL (fixture index in CI) |
 | `test_janitor_notes.py` | Janitor episode parse, finalize_notes_body, merge |

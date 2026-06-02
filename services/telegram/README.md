@@ -41,7 +41,7 @@ The Mac mini needs **three** persisted files:
 | File | Purpose |
 |------|---------|
 | `~/.config/founders-telegram/env` | **Secrets only** — `VAULT_ROOT`, bot token, allowlist, `OPENROUTER_API_KEY` (copy from `deploy/env.example`) |
-| `~/.config/founders-telegram/runtime.json` | **Models + tuning** — librarian, Janitor clean, expand, embed, `max_steps`, `janitor_clean_temperature` (auto-seeded from env on first start; then `/settings`, `/setmodel`, `/setsteps`, `/setcleantemp`) |
+| `~/.config/founders-telegram/runtime.json` | **Models + tuning** — librarian, Janitor clean, expand, embed, `max_steps`, `janitor_clean_temperature`, `stream_replies` (Librarian synthesis streaming; default on; `/settings` → **Stream replies**) |
 | `{VAULT_ROOT}/.env` | Ingestion (Colossus, X API); expand subprocess also `load_dotenv` on repo root |
 
 ```bash
@@ -212,7 +212,7 @@ Models are in `runtime.json` (see `/settings`). Use `/setmodel janitor …`, `/s
 | File | Purpose |
 |------|---------|
 | `~/.config/founders-telegram/env` | **Secrets only:** `VAULT_ROOT`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ALLOWED_USER_IDS`, `OPENROUTER_API_KEY` |
-| `~/.config/founders-telegram/runtime.json` | **Models + tuning** (Telegram `/setmodel`, `/setsteps`, `/setcleantemp`) |
+| `~/.config/founders-telegram/runtime.json` | **Models + tuning** (Telegram `/setmodel`, `/setsteps`, `/setcleantemp`, `/settings` → **Stream replies**) |
 
 On first start, the bot copies model slugs from legacy env vars into `runtime.json` if keys are missing (one-time migration). After that you can remove model lines from `env`.
 
@@ -226,7 +226,7 @@ Day-to-day tuning and vault ops without SSH:
 
 | Command | Effect |
 |---------|--------|
-| `/settings` | All effective models, `max_steps`, Janitor clean temp, sources, runtime file path |
+| `/settings` | All effective models, `max_steps`, `stream_replies`, Janitor clean temp, **Stream replies** toggle, sources, runtime file path |
 | `/setmodel <role> <slug>` | `librarian` \| `janitor` \| `expand` \| `embed` — saved + hot-reload |
 | `/resetmodel <role>` | Drop one model override (falls back to env if set) |
 | `/setsteps <n>` | `max_steps` 1–20 |

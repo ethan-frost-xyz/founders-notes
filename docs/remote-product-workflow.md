@@ -81,7 +81,7 @@ Minimal checks after a bot change:
 |-------|----------------|
 | `/start` | Process up, catalog readable |
 | One Librarian question | Handler + search path |
-| `/settings` | Ops panel, `runtime.json` path |
+| `/settings` | Ops panel, models, **Stream replies**, `runtime.json` path |
 | If you changed Janitor | `/janitor` → `/cancel` (don’t need to finish a full episode) |
 
 Deeper checks: [vault-agent-v0-checklist.md](vault-agent-v0-checklist.md). Local depth before merge: [telegram-mock-harness.md](telegram-mock-harness.md).
@@ -109,6 +109,7 @@ Skip the restart line only if you did **not** change anything under `services/te
 | Python bot handlers only | — | Test in Telegram |
 | New pip dependency on mini | SSH: `ingestion/.venv/bin/pip install -r ingestion/requirements.txt` | `/restart` |
 | `runtime.json` model slugs | — | `/setmodel` hot-reloads some roles; restart if unsure |
+| `stream_replies` (Librarian streaming) | — | `/settings` → **Stream replies**; default on if key absent |
 | Embed model slug | `/reindex` or `/sync` when idle | — |
 | Secrets in `~/.config/founders-telegram/env` | Edit on **mini** | `/restart` or `restart-bot.sh` |
 | Broken code on `main` | Fix on laptop → merge fix | `/sync` then `/restart` |
