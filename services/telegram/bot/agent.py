@@ -41,23 +41,19 @@ def _load_system_prompt() -> str:
     return PROMPT_PATH.read_text(encoding="utf-8").strip()
 
 
-def _build_system_message(config: AgentConfig, *, allow_web: bool) -> str:
+def _build_system_message(config: AgentConfig) -> str:
     from index_status import index_metadata
 
     base = _load_system_prompt()
     meta = index_metadata(config.vault_root)
     meta_line = json.dumps(meta, separators=(",", ":"))
-    web_flag = "true" if allow_web else "false"
-    return (
-        f"{base}\n\n---\n"
-        f"Runtime: allow_web={web_flag}; index_metadata={meta_line}"
-    )
+    return f"{base}\n\n---\nRuntime: index_metadata={meta_line}"
 
 
-def openrouter_tools(*, allow_web: bool, default_k: int = 8) -> list[dict[str, Any]]:
-    """Optional tools for synthesis turn (load_episode escape hatch; web when allowed)."""
+def openrouter_tools(*, default_k: int = 8) -> list[dict[str, Any]]:
+    """Optional tools for synthesis turn (load_episode escape hatch)."""
     _ = default_k
-    tools: list[dict[str, Any]] = [
+    return [
         {
             "type": "function",
             "function": {
@@ -97,26 +93,9 @@ def openrouter_tools(*, allow_web: bool, default_k: int = 8) -> list[dict[str, A
             },
         },
     ]
-    if allow_web:
-        tools.append(
-            {
-                "type": "function",
-                "function": {
-                    "name": "web_search",
-                    "description": "External web search (only when allow_web=true).",
-                    "parameters": {
-                        "type": "object",
-                        "properties": {"query": {"type": "string"}},
-                        "required": ["query"],
-                    },
-                },
-            }
-        )
-    return tools
 
 
 def _tool_handlers(config: AgentConfig) -> dict[str, ToolFn]:
-    from web import web_search
     from vault import list_episode_ids, load_episode
 
     _ = config.default_search_k
@@ -127,7 +106,6 @@ def _tool_handlers(config: AgentConfig) -> dict[str, ToolFn]:
             str(args["query"]),
             limit=int(args.get("limit") or 8),
         ),
-        "web_search": lambda args: web_search(str(args.get("query", ""))),
     }
 
 
@@ -136,10 +114,7 @@ def execute_tool(
     arguments: dict[str, Any],
     *,
     config: AgentConfig,
-    allow_web: bool,
 ) -> dict[str, Any]:
-    if name == "web_search" and not allow_web:
-        return {"error": "web_search disabled for this turn"}
     handlers = _tool_handlers(config)
     if name not in handlers:
         return {"error": f"unknown tool: {name}"}
@@ -193,7 +168,6 @@ class VaultAgent:
         user_message: str,
         *,
         history: list[dict[str, Any]] | None = None,
-        allow_web: bool = False,
         session_id: str | None = None,
         completion_fn: Callable[..., Any] | None = None,
         on_tool_start: Callable[[str, dict[str, Any]], None] | None = None,
@@ -248,7 +222,7 @@ class VaultAgent:
         )
 
         messages: list[dict[str, Any]] = [
-            {"role": "system", "content": _build_system_message(cfg, allow_web=allow_web)},
+            {"role": "system", "content": _build_system_message(cfg)},
         ]
         if history:
             messages.extend(history)
@@ -271,7 +245,7 @@ class VaultAgent:
             def completion_fn(**kwargs: Any) -> Any:
                 return client.chat.completions.create(**kwargs)
 
-        tools = openrouter_tools(allow_web=allow_web, default_k=cfg.default_search_k)
+        tools = openrouter_tools(default_k=cfg.default_search_k)
         tool_chars = 0
         has_evidence = not bundle.skip_retrieval and bool(bundle.chunks)
         wants_tools = user_wants_synthesis_tools(user_message)
@@ -352,12 +326,7 @@ class VaultAgent:
                         except Exception:
                             pass
                     per_tool_cap = max(500, remaining_budget // max(1, len(msg.tool_calls)))
-                    result = execute_tool(
-                        name,
-                        args,
-                        config=cfg,
-                        allow_web=allow_web,
-                    )
+                    result = execute_tool(name, args, config=cfg)
                     content = _truncate_tool_json(result, per_tool_cap)
                     tool_chars += len(content)
                     messages.append(

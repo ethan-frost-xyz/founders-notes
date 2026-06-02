@@ -66,39 +66,6 @@ def test_v0_criterion_retrieval_in_trace(agent_config: AgentConfig):
         assert "web_search" not in [t["function"]["name"] for t in calls[0]["tools"]]
 
 
-def test_v0_criterion_web_gated(agent_config: AgentConfig):
-    from retrieval_orchestrator import EvidenceBundle
-
-    skip = lambda *_a, **_k: EvidenceBundle(chunks=[], retrieval_meta={"intent": "thematic"})
-
-    def fake_completion(**kwargs):
-        if "tools" in kwargs:
-            names = [t["function"]["name"] for t in kwargs["tools"]]
-            assert "web_search" not in names
-        return _fake_response(content="Vault only.")
-
-    VaultAgent(config=agent_config).run_turn(
-        "hello", completion_fn=fake_completion, allow_web=False, retrieve_fn=skip,
-    )
-
-    web_seen = False
-
-    def fake_web(**kwargs):
-        nonlocal web_seen
-        if "tools" in kwargs:
-            web_seen = "web_search" in [t["function"]["name"] for t in kwargs["tools"]]
-        if kwargs.get("tool_choice") != "none":
-            return _fake_response(
-                tool_calls=[_fake_tool_call("web_search", {"query": "x"})],
-            )
-        return _fake_response(content="ok")
-
-    VaultAgent(config=agent_config).run_turn(
-        "weather", completion_fn=fake_web, allow_web=True, retrieve_fn=skip,
-    )
-    assert web_seen
-
-
 def test_v0_criterion_expanded_in_index(agent_config: AgentConfig):
     _ = agent_config
     if os.getenv("RUN_REBUILT_INDEX_SCENARIOS") != "1":
@@ -145,7 +112,6 @@ def test_v0_criterion_unlistened_load_episode(agent_config: AgentConfig):
         "load_episode",
         {"episode_id": "ep-0400"},
         config=agent_config,
-        allow_web=False,
     )
     assert result["meta"]["listened"] is False
     assert not (result.get("sections") or {}).get("expanded")
@@ -169,7 +135,6 @@ def test_v0_criterion_unlistened_agent_response(agent_config: AgentConfig):
     result = VaultAgent(config=agent_config).run_turn(
         "What did I note about James Dyson?",
         completion_fn=fake_completion,
-        allow_web=False,
         retrieve_fn=lambda *_a, **_k: EvidenceBundle(
             chunks=[], retrieval_meta={"intent": "thematic"}
         ),

@@ -212,7 +212,6 @@ async def _register_bot_commands(application: Any) -> None:
             BotCommand("clear", "Clear in-memory chat thread"),
             BotCommand("newchat", "Export session and reset"),
             BotCommand("resume", "Resume exported session"),
-            BotCommand("web", "One turn with web search enabled"),
         ]
     )
 
@@ -225,7 +224,6 @@ def _build_application(bot_cfg: Any, agent: Any, sessions: Any, janitor: Any) ->
         cmd_newchat,
         cmd_resume,
         cmd_start,
-        cmd_web,
         on_text,
     )
     from janitor_handlers import (
@@ -253,7 +251,6 @@ def _build_application(bot_cfg: Any, agent: Any, sessions: Any, janitor: Any) ->
     app.add_handler(CommandHandler("clear", cmd_clear))
     app.add_handler(CommandHandler("newchat", cmd_newchat))
     app.add_handler(CommandHandler("resume", cmd_resume))
-    app.add_handler(CommandHandler("web", cmd_web))
     app.add_handler(CallbackQueryHandler(on_janitor_callback, pattern=r"^janitor:"))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, on_text))
 

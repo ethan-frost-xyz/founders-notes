@@ -45,7 +45,6 @@ from handlers import (  # noqa: E402
     cmd_settings,
     cmd_start,
     cmd_sync,
-    cmd_web,
     on_text,
 )
 from janitor_handlers import (  # noqa: E402
@@ -73,7 +72,6 @@ async def _register_bot_commands(application) -> None:
         [
             BotCommand("start", "Vault stats"),
             BotCommand("janitor", "Notes ritual"),
-            BotCommand("web", "Web search (add query)"),
             BotCommand("settings", "Models, temp, stream, ops"),
             BotCommand("sync", "Pull + reindex"),
             BotCommand("newchat", "Export session, reset"),
@@ -108,7 +106,6 @@ def build_application():
     app.add_handler(CommandHandler("clear", cmd_clear))
     app.add_handler(CommandHandler("newchat", cmd_newchat))
     app.add_handler(CommandHandler("resume", cmd_resume))
-    app.add_handler(CommandHandler("web", cmd_web))
     app.add_handler(CommandHandler("settings", cmd_settings))
     app.add_handler(CommandHandler("setmodel", cmd_setmodel))
     app.add_handler(CommandHandler("resetmodel", cmd_resetmodel))

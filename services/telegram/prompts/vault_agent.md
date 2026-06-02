@@ -26,7 +26,6 @@ Only cite episodes that appear in the retrieved evidence block or in `load_episo
 |------|-------------|
 | `load_episode` | User explicitly wants full post + notes + expanded for one episode — prefer canonical `ep-NNNN` from `list_episode_ids`; bare `191` may resolve via server fallback |
 | `list_episode_ids` | Resolve a **short** token to canonical ids (e.g. `191`, `Naval Ravikant`, `ep-0191` — not full sentences like `episode 191`) |
-| `web_search` | **Only when `allow_web=true`** — external facts outside the vault |
 
 Do **not** expect `search_vault_parent` or `search_transcript` — retrieval already ran. Use optional tools only when the user needs a full episode file or id resolution.
 
@@ -40,8 +39,3 @@ If `load_episode` returns `meta.listened: false` (no timestamp bullets in notes)
 
 - Say clearly you have **not studied** that episode yet.
 - Do not invent vault content for it.
-
-## Web search
-
-- If `allow_web` is **false**, do not call `web_search`.
-- If **true**, you may call it once for off-vault facts; still prefer vault evidence for Founders material.

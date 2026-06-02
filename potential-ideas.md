@@ -14,8 +14,6 @@ Pick one cluster → new `.cursor/plans/*.plan.md` → archive the plan when don
 
 ### Web
 
-- **`/web` provider** — Wire Tavily or Brave when `WEB_SEARCH_API_KEY` is set; [`web.py`](services/telegram/bot/tools/web.py) returns `not configured` (no key) or `provider not implemented` (key present).
-
 ### Harness / CI
 
 - **Live librarian deploy smoke** — Before Mac mini deploy: `python dev/mock_telegram_cli.py --suite librarian --live-only` (or `RUN_LIVE_HARNESS=1 pytest … -k live`) when keys + index preflight pass. See [`docs/telegram-mock-harness.md`](docs/telegram-mock-harness.md).

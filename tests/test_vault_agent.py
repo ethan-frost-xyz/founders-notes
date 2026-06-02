@@ -18,35 +18,16 @@ from agent import (  # noqa: E402
     user_wants_synthesis_tools,
 )
 from retrieval_orchestrator import EvidenceBundle, EvidenceChunk  # noqa: E402
-from web import web_search  # noqa: E402
 from tool_status import tool_status_label  # noqa: E402
 from config import AgentConfig  # noqa: E402
 
 
-def test_openrouter_tools_excludes_web_by_default():
-    names = [t["function"]["name"] for t in openrouter_tools(allow_web=False)]
+def test_openrouter_tools_synthesis_only():
+    names = [t["function"]["name"] for t in openrouter_tools()]
     assert "load_episode" in names
+    assert "list_episode_ids" in names
     assert "search_vault_parent" not in names
     assert "web_search" not in names
-
-
-def test_openrouter_tools_includes_web_when_allowed():
-    names = [t["function"]["name"] for t in openrouter_tools(allow_web=True)]
-    assert "web_search" in names
-
-
-def test_web_search_not_configured():
-    assert web_search("test query") == {"error": "not configured", "query": "test query"}
-
-
-def test_execute_web_blocked_when_allow_web_false(agent_config: AgentConfig):
-    result = execute_tool(
-        "web_search",
-        {"query": "news"},
-        config=agent_config,
-        allow_web=False,
-    )
-    assert result.get("error") == "web_search disabled for this turn"
 
 
 def test_execute_load_episode_missing_returns_error(agent_config: AgentConfig):
@@ -54,7 +35,6 @@ def test_execute_load_episode_missing_returns_error(agent_config: AgentConfig):
         "load_episode",
         {"episode_id": "ep-9999"},
         config=agent_config,
-        allow_web=False,
     )
     assert "error" in result
     assert "ep-9999" in result["error"]
@@ -65,7 +45,6 @@ def test_list_episode_ids_includes_listened_flag(agent_config: AgentConfig):
         "list_episode_ids",
         {"query": "400", "limit": 5},
         config=agent_config,
-        allow_web=False,
     )
     ep400 = next(e for e in result["episodes"] if e["episode_id"] == "ep-0400")
     assert ep400["listened"] is False
@@ -76,7 +55,6 @@ def test_load_episode_bare_number_resolves(agent_config: AgentConfig):
         "load_episode",
         {"episode_id": "191"},
         config=agent_config,
-        allow_web=False,
     )
     assert "error" not in result
     assert result["episode_id"] == "ep-0191"
@@ -87,7 +65,6 @@ def test_list_episode_ids_bare_number_top_score(agent_config: AgentConfig):
         "list_episode_ids",
         {"query": "191", "limit": 3},
         config=agent_config,
-        allow_web=False,
     )
     assert result["episodes"]
     assert result["episodes"][0]["episode_id"] == "ep-0191"
@@ -99,7 +76,6 @@ def test_list_episode_ids_naval_includes_ep_0191(agent_config: AgentConfig):
         "list_episode_ids",
         {"query": "Naval Ravikant", "limit": 3},
         config=agent_config,
-        allow_web=False,
     )
     ids = [e["episode_id"] for e in result["episodes"]]
     assert "ep-0191" in ids
@@ -110,7 +86,6 @@ def test_list_episode_ids_no_regex_on_episode_phrase(agent_config: AgentConfig):
         "list_episode_ids",
         {"query": "episode 191", "limit": 5},
         config=agent_config,
-        allow_web=False,
     )
     top = result["episodes"][0] if result["episodes"] else None
     assert top is None or top.get("score", 0) < 1.0
@@ -128,7 +103,6 @@ def test_load_episode_ambiguous_guest_errors(agent_config: AgentConfig):
         "load_episode",
         {"episode_id": "Henry Ford"},
         config=agent_config,
-        allow_web=False,
     )
     assert "error" in result
     assert isinstance(result.get("candidates"), list)
@@ -216,26 +190,6 @@ def test_run_turn_traces_retrieval_orchestrator(agent_config: AgentConfig):
         assert "web_search" not in tool_names
 
 
-def test_run_turn_never_registers_web_search_when_disabled(agent_config: AgentConfig):
-    def fake_completion(**kwargs):
-        if "tools" in kwargs:
-            tool_names = [t["function"]["name"] for t in kwargs["tools"]]
-            assert "web_search" not in tool_names
-        return _fake_response(content="Done.")
-
-    agent = VaultAgent(config=agent_config)
-    result = agent.run_turn(
-        "Hello",
-        completion_fn=fake_completion,
-        allow_web=False,
-        retrieve_fn=lambda *_a, **_k: EvidenceBundle(
-            chunks=[], retrieval_meta={"intent": "meta"}, skip_retrieval=True
-        ),
-    )
-    assert result.content == "Done."
-    assert not any(t["tool"] == "web_search" for t in result.tool_trace)
-
-
 def test_run_turn_synthesis_uses_tool_choice_none(agent_config: AgentConfig):
     calls: list[dict] = []
 
@@ -280,35 +234,6 @@ def test_run_turn_final_step_ignores_tool_calls(agent_config: AgentConfig):
     assert not result.error
     assert "ep-0400" in result.content or "studied" in result.content.lower()
     assert "step limit" not in result.content.lower()
-
-
-def test_run_turn_allows_web_tool_registration(agent_config: AgentConfig):
-    seen_web = False
-
-    def fake_completion(**kwargs):
-        nonlocal seen_web
-        if "tools" in kwargs:
-            tool_names = [t["function"]["name"] for t in kwargs["tools"]]
-            seen_web = "web_search" in tool_names
-        if kwargs.get("tool_choice") != "none":
-            return _fake_response(
-                tool_calls=[_fake_tool_call("web_search", {"query": "weather"})],
-            )
-        return _fake_response(content="External info unavailable.")
-
-    agent = VaultAgent(config=agent_config)
-    result = agent.run_turn(
-        "What's the weather?",
-        completion_fn=fake_completion,
-        allow_web=True,
-        retrieve_fn=lambda *_a, **_k: EvidenceBundle(
-            chunks=[], retrieval_meta={"intent": "thematic"}
-        ),
-    )
-
-    assert seen_web
-    assert any(t["tool"] == "web_search" for t in result.tool_trace)
-    assert "unavailable" in result.content.lower() or "not configured" in str(result.tool_trace)
 
 
 def test_run_turn_meta_skips_retrieval(agent_config: AgentConfig):

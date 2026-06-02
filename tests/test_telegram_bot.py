@@ -1,4 +1,4 @@
-"""SP3 Telegram transport: auth, sessions, /web parsing (no live Bot API)."""
+"""SP3 Telegram transport: auth, sessions (no live Bot API)."""
 
 from __future__ import annotations
 
@@ -13,15 +13,12 @@ REPO = Path(__file__).resolve().parent.parent
 
 from auth import is_allowed  # noqa: E402
 from config import AgentConfig, BotConfig, load_bot_config  # noqa: E402
-from handlers import parse_web_query  # noqa: E402
 from messaging import (  # noqa: E402
     TELEGRAM_MESSAGE_LIMIT,
     markdown_to_telegram_html,
     split_telegram_text,
 )
 from sessions import SessionStore, session_stale_warning  # noqa: E402
-from web import web_search  # noqa: E402
-
 
 @pytest.fixture
 def bot_config(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> BotConfig:
@@ -82,12 +79,6 @@ def test_is_allowed_rejects_unknown_user(bot_config: BotConfig):
     assert is_allowed(111, bot_config)
 
 
-def test_parse_web_query():
-    assert parse_web_query("/web foo bar") == "foo bar"
-    assert parse_web_query("/web") is None
-    assert parse_web_query("hello") is None
-
-
 def test_split_telegram_text_short_unchanged():
     text = "hello"
     assert split_telegram_text(text) == [text]
@@ -128,11 +119,6 @@ def test_split_telegram_text_hard_splits_long_token():
     assert len(parts) >= 3
     assert all(len(p) <= TELEGRAM_MESSAGE_LIMIT for p in parts)
     assert "".join(parts) == text
-
-
-def test_web_search_not_configured_without_api_key(monkeypatch: pytest.MonkeyPatch):
-    monkeypatch.delenv("WEB_SEARCH_API_KEY", raising=False)
-    assert web_search("test")["error"] == "not configured"
 
 
 def test_newchat_exports_valid_jsonl(bot_config: BotConfig):
@@ -179,79 +165,6 @@ def test_session_stale_warning_when_index_newer(bot_config: BotConfig, tmp_path:
     warn = session_stale_warning(session_file, bot_config.agent.vault_root)
     assert warn is not None
     assert "index" in warn.lower()
-
-
-def test_run_turn_allow_web_false_uses_agent(bot_config: BotConfig):
-    from agent import VaultAgent
-    from retrieval_orchestrator import EvidenceBundle, EvidenceChunk
-    from types import SimpleNamespace
-
-    agent = VaultAgent(config=bot_config.agent)
-    calls: list[bool] = []
-
-    def fake_completion(**kwargs):
-        tools = kwargs.get("tools") or []
-        calls.append("web_search" in [t["function"]["name"] for t in tools])
-        msg = SimpleNamespace(content="Vault answer.", tool_calls=None)
-        return SimpleNamespace(choices=[SimpleNamespace(message=msg)])
-
-    bundle = EvidenceBundle(
-        chunks=[
-            EvidenceChunk(
-                chunk_id="ep-0001#expanded:x#1",
-                episode_id="ep-0001",
-                title="T",
-                section="expanded:expanded_datapoints",
-                excerpt="Quote: theme",
-                rerank_score=8.0,
-                source_path="x.md",
-            )
-        ],
-        retrieval_meta={"intent": "thematic"},
-    )
-    agent.run_turn(
-        "theme question",
-        completion_fn=fake_completion,
-        allow_web=False,
-        retrieve_fn=lambda *_a, **_k: bundle,
-    )
-    assert calls == [False]
-
-
-def test_run_turn_allow_web_true_registers_web(bot_config: BotConfig):
-    from agent import VaultAgent
-    from retrieval_orchestrator import EvidenceBundle
-    from types import SimpleNamespace
-
-    agent = VaultAgent(config=bot_config.agent)
-
-    def fake_completion(**kwargs):
-        if "tools" in kwargs:
-            names = [t["function"]["name"] for t in kwargs["tools"]]
-            assert "web_search" in names
-            return _fake_tool_response("web_search")
-        msg = SimpleNamespace(content="Done.", tool_calls=None)
-        return SimpleNamespace(choices=[SimpleNamespace(message=msg)])
-
-    def _fake_tool_response(name: str):
-        from types import SimpleNamespace
-        import json
-
-        tc = SimpleNamespace(
-            id="c1",
-            function=SimpleNamespace(name=name, arguments=json.dumps({"query": "x"})),
-        )
-        msg = SimpleNamespace(content=None, tool_calls=[tc])
-        return SimpleNamespace(choices=[SimpleNamespace(message=msg)])
-
-    agent.run_turn(
-        "weather",
-        completion_fn=fake_completion,
-        allow_web=True,
-        retrieve_fn=lambda *_a, **_k: EvidenceBundle(
-            chunks=[], retrieval_meta={"intent": "thematic"}
-        ),
-    )
 
 
 def test_resume_latest_scoped_to_user(bot_config: BotConfig):
