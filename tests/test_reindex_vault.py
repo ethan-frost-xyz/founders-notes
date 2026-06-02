@@ -105,9 +105,9 @@ def test_reindex_vault_prefers_ingestion_venv_python(tmp_path: Path) -> None:
     venv_py.parent.mkdir(parents=True)
     venv_py.write_text("#!/bin/sh\n", encoding="utf-8")
 
-    from reindex_vault import _python
+    from vault_subprocess import python_executable
 
-    assert _python(vault) == str(venv_py)
+    assert python_executable(vault) == str(venv_py)
 
 
 def test_reindex_vault_main_bootstrap(monkeypatch: pytest.MonkeyPatch) -> None:

@@ -26,6 +26,7 @@ Run scripts from `ingestion/`; each script calls `_bootstrap.setup_paths(__file_
 | `search_retrieval.py` | Parent/transcript chunk filters, keyword + hybrid RRF (Telegram tools) |
 | `openrouter_pricing.py` | OpenRouter model pricing helpers for expand cost estimates |
 | `reindex_vault.py` | Subprocess orchestrator: `build_chunks.py` + `build_embeddings.py` (Janitor, maintain menu 8, `sync-and-index.sh`) |
+| `vault_subprocess.py` | Shared `python_executable` / `tail_output` for reindex and Janitor expand subprocesses |
 | `x_posts_csv.py` | X CSV cache I/O, tweet → row conversion |
 | `x_posts_match.py` | Episode attribution scoring |
 | `x_posts_threads.py` | Thread grouping, reply filters, article skip |

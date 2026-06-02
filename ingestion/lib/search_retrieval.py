@@ -258,10 +258,9 @@ def search_chunks_keyword(
     *,
     chunks: list[dict[str, Any]] | None = None,
     chunk_predicate: Callable[[dict[str, Any]], bool] | None = None,
-    predicate: Callable[[dict[str, Any]], bool] | None = None,
 ) -> list[tuple[float, dict[str, Any]]]:
     """Keyword match on chunk excerpts; multi-word queries score by term overlap."""
-    filt = chunk_predicate or predicate
+    filt = chunk_predicate
     terms = _keyword_query_terms(query)
     if not terms:
         return []

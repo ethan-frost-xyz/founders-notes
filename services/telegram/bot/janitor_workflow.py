@@ -2,35 +2,18 @@
 
 from __future__ import annotations
 
-import os
 import subprocess
-import sys
 from pathlib import Path
 from typing import Any
 
-_TAIL_LINES = 40
 _DRAFT_EXCERPT_CHARS = 2800
 _PROMPT_PATH = Path(__file__).resolve().parent.parent / "prompts" / "janitor_clean.md"
 
 
-def _ingestion_paths(vault_root: Path) -> None:
+def _setup_ingestion(vault_root: Path) -> None:
     from _bootstrap import setup_ingestion_paths
 
     setup_ingestion_paths(vault_root)
-
-
-def _python(vault_root: Path) -> str:
-    venv = vault_root / "ingestion" / ".venv" / "bin" / "python"
-    if venv.is_file():
-        return str(venv)
-    return sys.executable
-
-
-def _tail(text: str, max_lines: int = _TAIL_LINES) -> str:
-    lines = text.strip().splitlines()
-    if len(lines) <= max_lines:
-        return text.strip()
-    return "\n".join(lines[-max_lines:])
 
 
 def load_janitor_clean_prompt() -> str:
@@ -67,7 +50,7 @@ def build_clean_user_message(
 
 
 def resolve_catalog_row(vault_root: Path, episode_id: str) -> dict[str, Any]:
-    _ingestion_paths(vault_root)
+    _setup_ingestion(vault_root)
     from catalog import load_catalog, resolve_catalog_row as _resolve
 
     return _resolve(load_catalog(), episode_id)
@@ -80,7 +63,7 @@ def file_notes(
     *,
     replace: bool = False,
 ) -> Path:
-    _ingestion_paths(vault_root)
+    _setup_ingestion(vault_root)
     from janitor_notes import merge_notes_body
     from markdown_io import read_markdown_body, write_notes_md
     import paths as vault_paths
@@ -113,7 +96,7 @@ def llm_clean_pasted_notes(
     feedback: str | None = None,
 ) -> tuple[str, list[str]]:
     """LLM-only paste normalization (no regex re-parse)."""
-    _ingestion_paths(vault_root)
+    _setup_ingestion(vault_root)
     from openrouter_client import call_openrouter
     from janitor_notes import finalize_notes_body
 
@@ -139,9 +122,12 @@ def llm_clean_pasted_notes(
 
 
 def run_expand(vault_root: Path, episode_id: str, *, force: bool) -> tuple[int, str]:
+    _setup_ingestion(vault_root)
+    from vault_subprocess import python_executable, tail_output
+
     script = vault_root / "ingestion" / "notes" / "expand_datapoints_llm.py"
     cmd = [
-        _python(vault_root),
+        python_executable(vault_root),
         str(script),
         "--id",
         episode_id,
@@ -161,11 +147,11 @@ def run_expand(vault_root: Path, episode_id: str, *, force: bool) -> tuple[int, 
         text=True,
     )
     log = (proc.stdout or "") + (proc.stderr or "")
-    return proc.returncode, _tail(log)
+    return proc.returncode, tail_output(log)
 
 
 def run_promote(vault_root: Path, episode_id: str) -> tuple[int, str, list[str]]:
-    _ingestion_paths(vault_root)
+    _setup_ingestion(vault_root)
     from catalog import load_catalog, resolve_catalog_row as _resolve
     from expand_llm import promote_draft
 
@@ -178,7 +164,7 @@ def run_promote(vault_root: Path, episode_id: str) -> tuple[int, str, list[str]]
 
 
 def run_reindex(vault_root: Path) -> tuple[int, str]:
-    _ingestion_paths(vault_root)
+    _setup_ingestion(vault_root)
     from reindex_vault import reindex_vault
     from runtime_settings import build_subprocess_env
 
@@ -187,7 +173,7 @@ def run_reindex(vault_root: Path) -> tuple[int, str]:
 
 
 def draft_excerpt(vault_root: Path, row: dict[str, Any]) -> str:
-    _ingestion_paths(vault_root)
+    _setup_ingestion(vault_root)
     from markdown_io import read_markdown_body
     import paths as vault_paths
 

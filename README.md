@@ -9,7 +9,7 @@ Personal knowledge vault for [@ethanfrost](https://x.com/ethanfrost)'s daily Fou
 | **Transcripts** | 417 / 417 numbered | Phase 1 complete — Colossus archives in `content/transcripts/` |
 | **Notes** | 417 files / 177 datapoints | **In progress (daily):** edit `.notes.md` in git (~1 episode/day); empty scaffolds = not listened yet |
 | **X posts** | 187 / 417 | CSV cache + organizer; 2 documented gaps (ep-0159 skipped, ep-0189 not posted) |
-| **Search** | v1 | `catalog/chunks.jsonl` + `ingestion/search/search.py` |
+| **Search** | v1 CLI + v2 Telegram | [`catalog/chunks.jsonl`](catalog/chunks.jsonl); keyword CLI + parent-tier hybrid in Librarian — [`docs/retrieval.md`](docs/retrieval.md) |
 | **Telegram** | Shipped | Librarian + Janitor on Mac mini; push-to-`main` webhook sync — see below |
 
 Details: `catalog/gaps.md` (auto), `catalog/import-review.md` (manual attributions).

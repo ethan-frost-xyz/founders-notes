@@ -16,9 +16,9 @@ from agent import (  # noqa: E402
     execute_tool,
     openrouter_tools,
     user_wants_synthesis_tools,
-    web_search_stub,
 )
 from retrieval_orchestrator import EvidenceBundle, EvidenceChunk  # noqa: E402
+from web import web_search  # noqa: E402
 from tool_status import tool_status_label  # noqa: E402
 from config import AgentConfig  # noqa: E402
 
@@ -46,8 +46,8 @@ def test_openrouter_tools_includes_web_when_allowed():
     assert "web_search" in names
 
 
-def test_web_search_stub_not_configured():
-    assert web_search_stub("test query") == {"error": "not configured", "query": "test query"}
+def test_web_search_not_configured():
+    assert web_search("test query") == {"error": "not configured", "query": "test query"}
 
 
 def test_execute_search_vault_parent_evidence_shape(agent_config: AgentConfig):

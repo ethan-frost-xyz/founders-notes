@@ -4,41 +4,19 @@ from __future__ import annotations
 
 import asyncio
 import os
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 from tool_status import tool_status_label
 from auth import is_allowed
 from config import BotConfig
+from index_status import vault_stats_text
 from sessions import SessionStore
 from telegram import Update
 from telegram.ext import ContextTypes
 
 from agent import VaultAgent
 from messaging import reply_text_chunked
-
-
-def vault_stats_text(vault_root: Path) -> str:
-    from _bootstrap import setup_ingestion_paths
-
-    setup_ingestion_paths(vault_root)
-    from catalog import load_catalog
-    from gaps_report import count_phase2_coverage
-
-    chunks_path = vault_root / "catalog" / "chunks.jsonl"
-    rows = load_catalog()
-    episodes = len(rows)
-    _, studied, _, _, _, _, _ = count_phase2_coverage(rows)
-    indexed = "unknown"
-    if chunks_path.is_file():
-        mtime = datetime.fromtimestamp(chunks_path.stat().st_mtime, tz=timezone.utc)
-        indexed = mtime.strftime("%Y-%m-%d %H:%M UTC")
-    return (
-        f"Episodes in catalog: {episodes}\n"
-        f"Studied (timestamp bullets): {studied}\n"
-        f"Chunks index updated: {indexed}"
-    )
 
 
 def parse_web_query(text: str) -> str | None:

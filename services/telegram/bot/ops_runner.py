@@ -30,12 +30,6 @@ def ops_lock_held(bot_data: dict[str, Any]) -> bool:
     return bool(bot_data.get("ops_lock_held")) or _LOCK.locked()
 
 
-def _ingestion_paths(vault_root: Path) -> None:
-    from _bootstrap import setup_ingestion_paths
-
-    setup_ingestion_paths(vault_root)
-
-
 def run_git_pull(vault_root: Path) -> tuple[int, str]:
     proc = subprocess.run(
         ["git", "pull", "--ff-only"],
@@ -48,8 +42,10 @@ def run_git_pull(vault_root: Path) -> tuple[int, str]:
 
 
 def run_reindex_op(vault_root: Path) -> tuple[int, str]:
+    from _bootstrap import setup_ingestion_paths
+
     env = build_subprocess_env(vault_root=vault_root)
-    _ingestion_paths(vault_root)
+    setup_ingestion_paths(vault_root)
     from reindex_vault import reindex_vault
 
     return reindex_vault(vault_root, env=env)

@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 
-def _ensure_ingestion_path() -> Path:
+def _setup_vault_paths() -> Path:
     from _bootstrap import resolve_vault_root, setup_ingestion_paths
 
     root = resolve_vault_root()
@@ -16,9 +16,10 @@ def _ensure_ingestion_path() -> Path:
 
 
 def _paths():
+    """Catalog paths; rebind under VAULT_ROOT when harness sandbox != paths.ROOT."""
     from _bootstrap import resolve_vault_root
 
-    _ensure_ingestion_path()
+    _setup_vault_paths()
     from paths import (
         CHUNKS_PATH,
         EMBEDDINGS_MANIFEST_PATH,
@@ -52,7 +53,7 @@ def _paths():
 
 
 def search_vault_parent(query: str, k: int = 8) -> dict[str, Any]:
-    _ensure_ingestion_path()
+    _setup_vault_paths()
     from search_retrieval import search_parent_evidence
 
     chunks_path, embeddings_path, manifest_path, root, _, _, _ = _paths()
@@ -67,7 +68,7 @@ def search_vault_parent(query: str, k: int = 8) -> dict[str, Any]:
 
 
 def search_transcript(query: str, k: int = 8) -> dict[str, Any]:
-    _ensure_ingestion_path()
+    _setup_vault_paths()
     from search_retrieval import search_transcript_evidence
 
     chunks_path, _, _, root, _, _, _ = _paths()
@@ -90,7 +91,7 @@ def _episode_listened(notes_path: Path) -> bool:
 
 def load_episode(episode_id: str, *, char_cap: int = 30_000) -> dict[str, Any]:
     """Load on-disk post / notes / expanded; expanded sections first when present."""
-    vault_root = _ensure_ingestion_path()
+    vault_root = _setup_vault_paths()
     from catalog import lookup_catalog_row
 
     _, _, _, _, expanded_path_fn, notes_path_fn, post_path_fn = _paths()
@@ -152,7 +153,7 @@ def load_episode(episode_id: str, *, char_cap: int = 30_000) -> dict[str, Any]:
 
 def list_episode_ids(query: str, *, limit: int = 8) -> dict[str, Any]:
     """Match catalog by episode number, canonical id, or fuzzy title → ep-NNNN."""
-    vault_root = _ensure_ingestion_path()
+    vault_root = _setup_vault_paths()
 
     rows = _load_catalog_rows(vault_root)
     token = query.strip()
@@ -224,7 +225,7 @@ def resolve_episode_ref(ref: str) -> str | None:
 
     Returns None when there are no matches or top fuzzy hits tie (e.g. Henry Ford).
     """
-    _ensure_ingestion_path()
+    _setup_vault_paths()
     result = list_episode_ids(ref, limit=3)
     eps = result.get("episodes") or []
     if not eps:
