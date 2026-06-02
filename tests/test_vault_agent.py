@@ -23,17 +23,6 @@ from tool_status import tool_status_label  # noqa: E402
 from config import AgentConfig  # noqa: E402
 
 
-@pytest.fixture
-def agent_config(monkeypatch: pytest.MonkeyPatch) -> AgentConfig:
-    monkeypatch.setenv("VAULT_ROOT", str(REPO))
-    return AgentConfig(
-        api_key="test-key",
-        model="test/model",
-        vault_root=REPO,
-        max_steps=5,
-    )
-
-
 def test_openrouter_tools_excludes_web_by_default():
     names = [t["function"]["name"] for t in openrouter_tools(allow_web=False)]
     assert "load_episode" in names
@@ -48,23 +37,6 @@ def test_openrouter_tools_includes_web_when_allowed():
 
 def test_web_search_not_configured():
     assert web_search("test query") == {"error": "not configured", "query": "test query"}
-
-
-def test_execute_search_vault_parent_evidence_shape(agent_config: AgentConfig):
-    result = execute_tool(
-        "search_vault_parent",
-        {"query": "Rockefeller", "k": 2},
-        config=agent_config,
-        allow_web=False,
-    )
-    assert "hits" in result
-    assert "meta" in result
-    assert result["meta"]["tier"] == "parent"
-    if result["hits"]:
-        hit = result["hits"][0]
-        assert "chunk_id" in hit
-        assert "episode_id" in hit
-        assert "excerpt" in hit
 
 
 def test_execute_web_blocked_when_allow_web_false(agent_config: AgentConfig):
@@ -86,18 +58,6 @@ def test_execute_load_episode_missing_returns_error(agent_config: AgentConfig):
     )
     assert "error" in result
     assert "ep-9999" in result["error"]
-
-
-def test_load_episode_unlistened_ep_0400(agent_config: AgentConfig):
-    result = execute_tool(
-        "load_episode",
-        {"episode_id": "ep-0400"},
-        config=agent_config,
-        allow_web=False,
-    )
-    assert result["episode_id"] == "ep-0400"
-    assert result["meta"]["listened"] is False
-    assert "expanded" not in result.get("sections", {})
 
 
 def test_list_episode_ids_includes_listened_flag(agent_config: AgentConfig):

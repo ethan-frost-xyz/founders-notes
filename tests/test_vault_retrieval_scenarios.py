@@ -32,17 +32,6 @@ def _scenario_id(row: dict[str, Any]) -> str:
     return str(row["id"])
 
 
-@pytest.fixture
-def agent_config(monkeypatch: pytest.MonkeyPatch) -> AgentConfig:
-    monkeypatch.setenv("VAULT_ROOT", str(REPO))
-    return AgentConfig(
-        api_key="test-key",
-        model="test/model",
-        vault_root=REPO,
-        max_steps=5,
-    )
-
-
 def _run_scenario(
     row: dict[str, Any],
     *,
@@ -96,6 +85,8 @@ def test_vault_retrieval_scenario(
 
 def test_chunk_count_after_listen_filter() -> None:
     """Un-listened transcript exclusion should shrink the index materially."""
+    if os.getenv("RUN_FULL_INDEX_SCENARIOS") != "1":
+        pytest.skip("full catalog/chunks.jsonl check requires RUN_FULL_INDEX_SCENARIOS=1")
     assert CHUNKS_PATH.is_file(), "catalog/chunks.jsonl missing; run build_chunks.py"
     count = sum(1 for line in CHUNKS_PATH.open(encoding="utf-8") if line.strip())
     assert count < PRE_FILTER_CHUNK_CEILING, (

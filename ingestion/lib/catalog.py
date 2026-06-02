@@ -3,22 +3,44 @@
 from __future__ import annotations
 
 import json
+from functools import lru_cache
+from pathlib import Path
 from typing import Any
 
 from episode_ids import make_id
 from paths import CATALOG_PATH
 
 
-def load_jsonl(path) -> list[dict[str, Any]]:
-    if not path.exists():
-        return []
-    rows = []
+def _jsonl_cache_key(path: Path | str | None) -> str:
+    p = Path(path) if path is not None else CATALOG_PATH
+    try:
+        return str(p.resolve())
+    except OSError:
+        return str(p)
+
+
+@lru_cache(maxsize=16)
+def _load_jsonl_cached(cache_key: str) -> tuple[dict[str, Any], ...]:
+    path = Path(cache_key)
+    if not path.is_file():
+        return ()
+    rows: list[dict[str, Any]] = []
     with path.open(encoding="utf-8") as f:
         for line in f:
             line = line.strip()
             if line:
                 rows.append(json.loads(line))
-    return rows
+    return tuple(rows)
+
+
+def load_jsonl(path: Path | str | None = None) -> list[dict[str, Any]]:
+    key = _jsonl_cache_key(path)
+    return list(_load_jsonl_cached(key))
+
+
+def clear_jsonl_cache() -> None:
+    """Drop cached JSONL reads after catalog/chunks/manifest writes in-process."""
+    _load_jsonl_cached.cache_clear()
 
 
 def load_catalog() -> list[dict[str, Any]]:
@@ -30,6 +52,7 @@ def save_catalog(rows: list[dict[str, Any]]) -> None:
     with CATALOG_PATH.open("w", encoding="utf-8") as f:
         for row in rows:
             f.write(json.dumps(row, ensure_ascii=False) + "\n")
+    clear_jsonl_cache()
 
 
 def catalog_by_number(rows: list[dict[str, Any]]) -> dict[int, dict[str, Any]]:

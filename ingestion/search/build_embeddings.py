@@ -258,6 +258,9 @@ def build_parent_embeddings(
         for row in new_manifest:
             f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
+    from catalog import clear_jsonl_cache
+
+    clear_jsonl_cache()
     return summary
 
 
