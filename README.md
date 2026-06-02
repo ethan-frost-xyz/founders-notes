@@ -67,7 +67,7 @@ python pipeline/verify.py
 python search/search.py "rockefeller"
 ```
 
-See [docs/episode-id-rules.md](docs/episode-id-rules.md), [docs/notes-pipeline.md](docs/notes-pipeline.md), [docs/datapoint-workflow.md](docs/datapoint-workflow.md), [docs/retrieval.md](docs/retrieval.md), [AGENTS.md](AGENTS.md).
+See [docs/episode-id-rules.md](docs/episode-id-rules.md), [docs/notes-pipeline.md](docs/notes-pipeline.md), [docs/datapoint-workflow.md](docs/datapoint-workflow.md), [docs/retrieval.md](docs/retrieval.md), [docs/repo-agent-guide.md](docs/repo-agent-guide.md).
 
 ## Layout
 
@@ -90,7 +90,8 @@ services/telegram/              # Telegram vault agent (Librarian + Janitor)
 - Catalog / missing: `catalog/episodes.jsonl` or `catalog/gaps.md`
 - Cross-episode search: `python search/search.py "rockefeller"` or ripgrep `content/`
 - Full post corpus: `content/posts/_corpus/all-posts.md`
-- Agent entrypoint: `AGENTS.md`
+- Vault study partner (Librarian prompt): `AGENTS.md`
+- Repo maintenance / ingestion (Cursor): [docs/repo-agent-guide.md](docs/repo-agent-guide.md)
 
 ## Ingestion (full pipeline)
 

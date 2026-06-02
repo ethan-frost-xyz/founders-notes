@@ -96,12 +96,14 @@ Runbook and env: [`services/telegram/README.md`](../services/telegram/README.md)
 
 - Multi-host / Cloud Run — Mac mini only.
 - Section-filter commands (`/transcript`, `/post`, `/notes`, `/expanded`) — use `load_episode` + corpus tiers.
-- Repo-wide vector DB — see [retrieval.md](retrieval.md) and [AGENTS.md](../AGENTS.md) gates.
+- Repo-wide vector DB — see [retrieval.md](retrieval.md) and [repo-agent-guide.md](repo-agent-guide.md) gates.
 - `/resume` auto-sync — warn-only on index newer than session; use `/sync` when idle after travel or a failed webhook (no default background `sync-and-index.sh` on resume).
 
-## Embeddings vs AGENTS.md
+## Embeddings vs repo-agent-guide
 
 Repo-wide rule: do **not** add a general-purpose vector DB until grep + chunk search + agent tools fail your queries. The Telegram embed index is **scoped to parent chunks only** (`expanded` + `summary`) inside the orchestrator hybrid search.
+
+**Librarian system prompt:** [AGENTS.md](../AGENTS.md) (loaded at runtime by `services/telegram/bot/agent.py`).
 
 ## Related
 

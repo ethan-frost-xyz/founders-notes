@@ -1,0 +1,6 @@
+---
+description: Repo maintenance, ingestion, and vault pipeline for Cursor coding agents
+alwaysApply: true
+---
+
+When editing ingestion scripts, catalog, content/, services/, tests/, or pipeline docs — read and follow [docs/repo-agent-guide.md](../../docs/repo-agent-guide.md) in full before acting.

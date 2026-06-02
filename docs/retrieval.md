@@ -58,7 +58,7 @@ Or: `python lib/reindex_vault.py` / Telegram `/reindex` (runs all steps above).
 
 ## Graduate to repo-wide embeddings when
 
-Same as before — see [AGENTS.md](../AGENTS.md). Telegram parent-tier embed index (~1.2k vectors) stays in scope for the bot only.
+Same as before — see [repo-agent-guide.md](repo-agent-guide.md). Telegram parent-tier embed index (~1.2k vectors) stays in scope for the bot only.
 
 ## Related
 

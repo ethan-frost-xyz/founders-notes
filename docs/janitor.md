@@ -87,7 +87,7 @@ Check effective slugs: `/settings`. Secrets (`OPENROUTER_API_KEY`) stay in `~/.c
 |---------|-----|
 | Clean preview garbled, too creative, or slow | `/setmodel janitor <faster/cheaper slug>` |
 | Expand draft weak or hallucinated quotes | `/setmodel expand <stronger slug>`; **Retry expand** |
-| Librarian answers shallow or wrong tool use | `/setmodel librarian <slug>` + prompt tweaks ([`vault_agent.md`](../services/telegram/prompts/vault_agent.md)) |
+| Librarian answers shallow or wrong tool use | `/setmodel librarian <slug>` + prompt tweaks ([`AGENTS.md`](../AGENTS.md)) |
 | Librarian slow before the answer text | `/setmodel retrieval <fast slug>` (Groq via OpenRouter); keep `librarian` on DeepSeek or similar for synthesis |
 | Search misses new takeaways after promote | `/sync` when idle (see [operations.md](operations.md#when-to-refresh)) |
 
