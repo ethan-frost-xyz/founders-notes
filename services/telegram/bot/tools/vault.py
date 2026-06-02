@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from difflib import SequenceMatcher
 from pathlib import Path
 from typing import Any
@@ -179,9 +180,13 @@ def list_episode_ids(query: str, *, limit: int = 8) -> dict[str, Any]:
                 break
     else:
         q = token.lower()
+        q_tokens = [t for t in re.split(r"\W+", q) if len(t) >= 2]
         for row in rows:
             title = (row.get("title") or "").lower()
             ep_id = row.get("id", "")
+            if q not in title and q not in ep_id.lower():
+                if q_tokens and not any(t in title or t in ep_id.lower() for t in q_tokens):
+                    continue
             score = SequenceMatcher(None, q, title).ratio()
             if q in title or q in ep_id.lower():
                 score = max(score, 0.85)

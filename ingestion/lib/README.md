@@ -9,7 +9,7 @@ Run scripts from `ingestion/`; each script calls `_bootstrap.setup_paths(__file_
 | Module | Role |
 |--------|------|
 | `paths.py` | Repo root, ingestion dir, content paths, `folder_name`, file path helpers |
-| `catalog.py` | `load_catalog`, `save_catalog`, `resolve_catalog_row`, `load_jsonl` |
+| `catalog.py` | `load_catalog`, `save_catalog`, `resolve_catalog_row`, `load_jsonl`, `clear_jsonl_cache` |
 | `markdown_io.py` | Frontmatter read/write, timestamp datapoint detection, notes/post/transcript writers |
 | `episode_ids.py` | `format_episode_id`, `make_id`, padded id parsing |
 | `colossus.py` | Colossus login, session, HTML extractors |

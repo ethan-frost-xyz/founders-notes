@@ -337,6 +337,9 @@ def build_all_chunks(rows: list[dict[str, Any]] | None = None) -> int:
         for ch in all_chunks:
             f.write(json.dumps(ch, ensure_ascii=False) + "\n")
 
+    from catalog import clear_jsonl_cache
+
+    clear_jsonl_cache()
     return len(all_chunks)
 
 

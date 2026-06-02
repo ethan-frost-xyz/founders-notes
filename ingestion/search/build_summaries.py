@@ -26,12 +26,7 @@ from build_chunks import episode_is_studied
 from catalog import load_catalog, load_jsonl
 from markdown_io import read_markdown_body, utc_now_iso
 import paths
-from paths import (
-    EPISODE_SUMMARIES_PATH,
-    expanded_file_path,
-    notes_file_path,
-    post_file_path,
-)
+from paths import expanded_file_path, notes_file_path, post_file_path
 
 load_dotenv(paths.ROOT / ".env")
 
@@ -94,7 +89,7 @@ def build_episode_summaries(
     model: str | None = None,
 ) -> dict[str, Any]:
     rows = load_catalog()
-    existing = load_existing_summaries(EPISODE_SUMMARIES_PATH)
+    existing = load_existing_summaries(paths.EPISODE_SUMMARIES_PATH)
     api_key = os.environ.get("OPENROUTER_API_KEY", "").strip()
     model = (model or os.environ.get("TELEGRAM_CHAT_MODEL") or os.environ.get("OPENROUTER_MODEL") or "").strip()
     base_url = os.environ.get("OPENROUTER_BASE_URL", "").strip() or None
@@ -161,10 +156,13 @@ def build_episode_summaries(
     final_rows = sorted(out_by_id.values(), key=lambda r: r.get("episode_id", ""))
 
     if apply:
-        EPISODE_SUMMARIES_PATH.parent.mkdir(parents=True, exist_ok=True)
-        with EPISODE_SUMMARIES_PATH.open("w", encoding="utf-8") as f:
+        paths.EPISODE_SUMMARIES_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with paths.EPISODE_SUMMARIES_PATH.open("w", encoding="utf-8") as f:
             for row in final_rows:
                 f.write(json.dumps(row, ensure_ascii=False) + "\n")
+        from catalog import clear_jsonl_cache
+
+        clear_jsonl_cache()
 
     return {
         "studied_with_expanded": len(studied),

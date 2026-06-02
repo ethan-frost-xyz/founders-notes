@@ -18,17 +18,6 @@ from sessions import SessionStore  # noqa: E402
 
 
 @pytest.fixture
-def agent_config(monkeypatch: pytest.MonkeyPatch) -> AgentConfig:
-    monkeypatch.setenv("VAULT_ROOT", str(REPO))
-    return AgentConfig(
-        api_key="test-key",
-        model="test/model",
-        vault_root=REPO,
-        max_steps=5,
-    )
-
-
-@pytest.fixture
 def bot_config(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> BotConfig:
     monkeypatch.setenv("VAULT_ROOT", str(REPO))
     agent = AgentConfig(api_key="k", model="m", vault_root=REPO)

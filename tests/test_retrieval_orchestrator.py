@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 REPO = Path(__file__).resolve().parent.parent
+VAULT_SEARCH_CHUNKS = REPO / "tests" / "fixtures" / "vault_search_chunks.jsonl"
 
 from retrieval_orchestrator import (  # noqa: E402
     EvidenceBundle,
@@ -24,7 +25,17 @@ def orch_config() -> OrchestratorConfig:
         model="test/model",
         api_key="test-key",
         search_k=4,
+        chunks_path=VAULT_SEARCH_CHUNKS,
     )
+
+
+def _patch_orchestrator_search(monkeypatch: pytest.MonkeyPatch, *, hybrid_hits: list[dict]) -> None:
+    """Patch names bound in retrieval_orchestrator (not only search_retrieval)."""
+    import retrieval_orchestrator as ro
+
+    monkeypatch.setattr(ro, "_hybrid_search_parent_chunks", lambda *a, **k: list(hybrid_hits))
+    monkeypatch.setattr(ro, "embed_queries", lambda qs: [None] * len(qs))
+    monkeypatch.setattr(ro, "search_transcript_keyword", lambda *a, **k: [])
 
 
 def test_classify_meta_greeting():
@@ -66,11 +77,7 @@ def test_retrieve_thematic_with_mocks(orch_config: OrchestratorConfig, monkeypat
             {**candidates[0], "rerank_score": 8.0, "rerank_rationale": "on topic"},
         ]
 
-    import search_retrieval as sr
-
-    monkeypatch.setattr(sr, "_hybrid_search_parent_chunks", lambda *a, **k: [fake_chunk])
-    monkeypatch.setattr(sr, "embed_queries", lambda qs: [None] * len(qs))
-    monkeypatch.setattr(sr, "search_transcript_keyword", lambda *a, **k: [])
+    _patch_orchestrator_search(monkeypatch, hybrid_hits=[fake_chunk])
 
     orch = RetrievalOrchestrator(
         orch_config,
@@ -84,11 +91,7 @@ def test_retrieve_thematic_with_mocks(orch_config: OrchestratorConfig, monkeypat
 
 
 def test_retrieve_excludes_summary_from_citable(orch_config: OrchestratorConfig, monkeypatch: pytest.MonkeyPatch):
-    import search_retrieval as sr
-
-    monkeypatch.setattr(sr, "_hybrid_search_parent_chunks", lambda *a, **k: [])
-    monkeypatch.setattr(sr, "embed_queries", lambda qs: [None] * len(qs))
-    monkeypatch.setattr(sr, "search_transcript_keyword", lambda *a, **k: [])
+    _patch_orchestrator_search(monkeypatch, hybrid_hits=[])
 
     def fake_expand(user_message, **kwargs):
         return user_message, [user_message] * 5

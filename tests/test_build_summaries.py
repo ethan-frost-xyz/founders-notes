@@ -35,16 +35,20 @@ def test_build_summaries_skips_unchanged_hash(tmp_path: Path, monkeypatch: pytes
         + "\n",
         encoding="utf-8",
     )
+    from catalog import clear_jsonl_cache
+
+    clear_jsonl_cache()
     row = {"id": ep_id, "slug": "998-test", "episode_number": 998, "title": "T"}
 
     monkeypatch.setattr(mod, "load_catalog", lambda: [row])
     exp_path = tmp_path / "x.expanded.md"
     exp_path.write_text("expanded", encoding="utf-8")
     monkeypatch.setattr(mod, "episode_is_studied", lambda _p: True)
+    monkeypatch.setattr("build_chunks.episode_is_studied", lambda _p: True)
     monkeypatch.setattr(mod, "expanded_file_path", lambda *_a, **_k: exp_path)
     monkeypatch.setattr(mod, "post_file_path", lambda *_a, **_k: tmp_path / "x.post.md")
     monkeypatch.setattr(mod, "_read_optional", lambda p: "expanded" if p == exp_path else "")
-    monkeypatch.setattr(mod, "EPISODE_SUMMARIES_PATH", summaries_path)
+    monkeypatch.setattr(paths, "EPISODE_SUMMARIES_PATH", summaries_path)
     monkeypatch.setattr(
         mod,
         "generate_summary",
@@ -74,16 +78,20 @@ def test_build_summaries_calls_llm_when_hash_changes(tmp_path: Path, monkeypatch
         + "\n",
         encoding="utf-8",
     )
+    from catalog import clear_jsonl_cache
+
+    clear_jsonl_cache()
     row = {"id": ep_id, "slug": "997-test", "episode_number": 997, "title": "T"}
 
     exp_path = tmp_path / "x.expanded.md"
     exp_path.write_text("expanded", encoding="utf-8")
     monkeypatch.setattr(mod, "load_catalog", lambda: [row])
     monkeypatch.setattr(mod, "episode_is_studied", lambda _p: True)
+    monkeypatch.setattr("build_chunks.episode_is_studied", lambda _p: True)
     monkeypatch.setattr(mod, "expanded_file_path", lambda *_a, **_k: exp_path)
     monkeypatch.setattr(mod, "post_file_path", lambda *_a, **_k: tmp_path / "x.post.md")
     monkeypatch.setattr(mod, "_read_optional", lambda p: "new body" if p == exp_path else "")
-    monkeypatch.setattr(mod, "EPISODE_SUMMARIES_PATH", summaries_path)
+    monkeypatch.setattr(paths, "EPISODE_SUMMARIES_PATH", summaries_path)
     monkeypatch.setenv("OPENROUTER_API_KEY", "k")
     monkeypatch.setenv("TELEGRAM_CHAT_MODEL", "test/model")
 

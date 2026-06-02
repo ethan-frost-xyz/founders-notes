@@ -5,25 +5,47 @@ from __future__ import annotations
 import subprocess
 from pathlib import Path
 
+import pytest
+
 REPO = Path(__file__).resolve().parent.parent
 DEPLOY = REPO / "services" / "telegram" / "deploy"
 
+_DEPLOY_ARTIFACTS: list[tuple[str, bool, str | None]] = [
+    ("sync-and-index.sh", True, None),
+    ("run-bot.sh", True, None),
+    ("install-cron.sh", True, None),
+    ("run-webhook.sh", True, None),
+    ("install-webhook.sh", True, None),
+    ("github_webhook_server.py", False, None),
+    ("com.founders.telegram.bot.plist", False, "com.founders.telegram.bot"),
+    ("env.example", False, "VAULT_ROOT"),
+]
 
-def test_deploy_scripts_exist_and_are_executable():
-    for name in (
-        "sync-and-index.sh",
-        "run-bot.sh",
-        "install-cron.sh",
-        "run-webhook.sh",
-        "install-webhook.sh",
-    ):
-        path = DEPLOY / name
-        assert path.is_file(), name
+
+@pytest.mark.parametrize(
+    ("name", "executable", "content_contains"),
+    _DEPLOY_ARTIFACTS,
+    ids=[a[0] for a in _DEPLOY_ARTIFACTS],
+)
+def test_deploy_artifact(name: str, executable: bool, content_contains: str | None) -> None:
+    path = DEPLOY / name
+    assert path.is_file(), name
+    if executable:
         assert path.stat().st_mode & 0o111, f"{name} should be executable"
-
-
-def test_github_webhook_server_exists():
-    assert (DEPLOY / "github_webhook_server.py").is_file()
+    if content_contains:
+        text = path.read_text(encoding="utf-8")
+        assert content_contains in text
+        if name == "env.example":
+            for key in (
+                "TELEGRAM_BOT_TOKEN",
+                "TELEGRAM_ALLOWED_USER_IDS",
+                "OPENROUTER_API_KEY",
+            ):
+                assert key in text
+            assert "runtime.json" in text
+            assert "# TELEGRAM_CHAT_MODEL=" in text or "TELEGRAM_CHAT_MODEL" in text
+        if name == "com.founders.telegram.bot.plist":
+            assert "run-bot.sh" in text
 
 
 def test_install_webhook_print_documents_plist_label():
@@ -50,22 +72,3 @@ def test_install_cron_print_includes_sync_script():
     assert "0 4 * * *" in proc.stdout
     assert "founders-telegram-sync-and-index" in proc.stdout
     assert "Installed crontab" not in proc.stdout
-
-
-def test_env_example_lists_required_keys():
-    text = (DEPLOY / "env.example").read_text(encoding="utf-8")
-    for key in (
-        "VAULT_ROOT",
-        "TELEGRAM_BOT_TOKEN",
-        "TELEGRAM_ALLOWED_USER_IDS",
-        "OPENROUTER_API_KEY",
-    ):
-        assert key in text
-    assert "runtime.json" in text
-    assert "# TELEGRAM_CHAT_MODEL=" in text or "TELEGRAM_CHAT_MODEL" in text
-
-
-def test_launchd_plist_has_label():
-    plist = (DEPLOY / "com.founders.telegram.bot.plist").read_text(encoding="utf-8")
-    assert "com.founders.telegram.bot" in plist
-    assert "run-bot.sh" in plist
