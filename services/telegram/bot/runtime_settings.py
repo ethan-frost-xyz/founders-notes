@@ -13,6 +13,9 @@ from config import AgentConfig, BotConfig
 MAX_STEPS_CEILING = 20
 MAX_STEPS_FLOOR = 1
 
+JANITOR_TEMP_FLOOR = 0.0
+JANITOR_TEMP_CEILING = 2.0
+
 RUNTIME_KEY_LIBRARIAN = "librarian_model"
 RUNTIME_KEY_JANITOR = "janitor_clean_model"
 RUNTIME_KEY_EXPAND = "expand_model"
@@ -207,6 +210,18 @@ def set_max_steps(value: int) -> int:
     data[RUNTIME_KEY_MAX_STEPS] = value
     save_runtime_settings(data)
     return value
+
+
+def set_janitor_clean_temperature(value: float) -> float:
+    if value < JANITOR_TEMP_FLOOR or value > JANITOR_TEMP_CEILING:
+        raise ValueError(
+            f"janitor_clean_temperature must be between {JANITOR_TEMP_FLOOR} and "
+            f"{JANITOR_TEMP_CEILING}, got {value}"
+        )
+    data = load_runtime_settings()
+    data[RUNTIME_KEY_JANITOR_TEMP] = round(value, 2)
+    save_runtime_settings(data)
+    return float(data[RUNTIME_KEY_JANITOR_TEMP])
 
 
 def reset_model_role(role: str) -> None:

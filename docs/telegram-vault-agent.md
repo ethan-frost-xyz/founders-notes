@@ -65,6 +65,7 @@ Summaries and raw notes/posts are not cited in thematic answers.
 | `/settings` | Models, max_steps, **Ops** panel (sync / pull / reindex / restart) |
 | `/setmodel` / `/resetmodel` | Per-role model overrides (`runtime.json`) |
 | `/setsteps` / `/resetsteps` | Librarian tool-step limit |
+| `/setcleantemp` / `/resetcleantemp` | Janitor clean LLM temperature (also **Settings** → Janitor temp) |
 | `/pull` | `git pull --ff-only` |
 | `/reindex` | Rebuild chunks, episode summaries, chunks (summary tier), embeddings |
 | `/sync` | `/pull` then `/reindex` |

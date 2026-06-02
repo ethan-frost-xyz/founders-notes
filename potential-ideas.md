@@ -15,6 +15,7 @@ Linked from: [`README.md`](README.md), [`docs/telegram-vault-agent.md`](docs/tel
 - **SP5 — GitHub webhook (May 2026)** — push to `main` → Tailscale Funnel → `github_webhook_server.py` → `sync-and-index.sh`; production ops [`docs/mac-mini-operator-setup.md`](docs/mac-mini-operator-setup.md); plans [`telegram_ops_sync.plan.md`](.cursor/plans/archive/telegram_ops_sync.plan.md), [`laptop_remote_hardening.plan.md`](.cursor/plans/archive/laptop_remote_hardening.plan.md)
 - **Sync script runtime env (May 2026)** — `ingestion/lib/export_runtime_env.py` so cron/webhook reindex sees `embed_model` from `runtime.json` after slim env
 - **Telegram UI overhaul (May 2026)** — curated 7-command BotFather menu; stats-only `/start` with studied count; Janitor **Exit Janitor** + overwrite confirm (`replace=True`); Ops panel under `/settings`; quieter ops/clean status — [`.cursor/plans/archive/telegram_ui_overhaul.plan.md`](.cursor/plans/archive/telegram_ui_overhaul.plan.md)
+- **Janitor clean temperature (Jun 2026)** — Settings **Janitor temp** presets + `/setcleantemp` / `/resetcleantemp`; persisted in `runtime.json` (env fallback unchanged)
 
 ## Next (pick one cluster → new plan)
 
@@ -54,7 +55,6 @@ _From archived [`fix_bare_episode_refs`](.cursor/plans/archive/fix_bare_episode_
 ### Agent / models — `telegram_agent_models.plan.md`
 
 - **OpenRouter reasoning params** — wire optional `reasoning` / effort fields in [`agent.py`](services/telegram/bot/agent.py) when model supports them.
-- **Janitor clean temperature command** — Telegram `/set…` for `janitor_clean_temperature` (today: `runtime.json` + env fallback only).
 
 ### Janitor UX — `janitor_ux.plan.md`
 

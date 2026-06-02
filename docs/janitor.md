@@ -49,7 +49,7 @@ Janitor uses **two env files** on the bot host:
 | File | Purpose |
 |------|---------|
 | `~/.config/founders-telegram/env` | Secrets: `TELEGRAM_*`, `OPENROUTER_API_KEY`, `VAULT_ROOT` |
-| `~/.config/founders-telegram/runtime.json` | Models: `/setmodel`, `/setsteps` (see `/settings`) |
+| `~/.config/founders-telegram/runtime.json` | Models + Janitor clean temp: `/setmodel`, `/setcleantemp`, `/setsteps` (see `/settings` → **Janitor temp**) |
 | `{VAULT_ROOT}/.env` | Ingestion: Colossus, X API; **also** loaded by `expand_datapoints_llm.py` (`load_dotenv` on repo root) for `OPENROUTER_API_KEY` / `OPENROUTER_MODEL` if not already in the process env |
 
 Quick reference (replace `VAULT_ROOT` with your clone path, e.g. `~/founders-notes`):

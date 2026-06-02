@@ -16,16 +16,19 @@ if str(BOT) not in sys.path:
 
 from config import AgentConfig, BotConfig  # noqa: E402
 from runtime_settings import (  # noqa: E402
+    RUNTIME_KEY_JANITOR_TEMP,
     RUNTIME_KEY_LIBRARIAN,
     RUNTIME_KEY_MAX_STEPS,
     apply_runtime_overrides,
     build_subprocess_env,
     clear_runtime_settings,
+    effective_janitor_clean_temperature,
     effective_librarian_model,
     load_runtime_settings,
     reset_runtime_key,
     runtime_settings_path,
     seed_runtime_from_env_if_missing,
+    set_janitor_clean_temperature,
     set_max_steps,
     set_model,
 )
@@ -97,6 +100,31 @@ def test_build_subprocess_env_injects_models(runtime_file: Path, monkeypatch: py
     assert env["OPENROUTER_EMBED_MODEL"] == "embed/model"
     assert env["VAULT_ROOT"] == str(REPO)
     assert env["OPENROUTER_API_KEY"] == "test-key"
+
+
+def test_set_janitor_clean_temperature_persists(runtime_file: Path):
+    temp = set_janitor_clean_temperature(0.3)
+    assert temp == 0.3
+    assert load_runtime_settings()[RUNTIME_KEY_JANITOR_TEMP] == 0.3
+    value, src = effective_janitor_clean_temperature()
+    assert value == 0.3
+    assert src == "runtime.json"
+
+
+def test_set_janitor_clean_temperature_rejects_out_of_range(runtime_file: Path):
+    _ = runtime_file
+    with pytest.raises(ValueError, match="janitor_clean_temperature must be"):
+        set_janitor_clean_temperature(2.5)
+
+
+def test_reset_janitor_temp_preserves_other_keys(runtime_file: Path, monkeypatch: pytest.MonkeyPatch):
+    _ = runtime_file
+    monkeypatch.setenv("JANITOR_CLEAN_TEMPERATURE", "0.9")
+    set_janitor_clean_temperature(0.4)
+    reset_runtime_key(RUNTIME_KEY_JANITOR_TEMP)
+    temp, src = effective_janitor_clean_temperature()
+    assert temp == 0.9
+    assert "env" in src
 
 
 def test_effective_librarian_model_prefers_runtime(runtime_file: Path, monkeypatch: pytest.MonkeyPatch):

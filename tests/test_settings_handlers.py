@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from model_presets import MODEL_PRESETS, ROLE_LABELS
 from settings_handlers import (
+    _janitor_temp_keyboard,
     _ops_keyboard,
     _role_preset_keyboard,
     _steps_keyboard,
@@ -38,7 +39,19 @@ def test_ops_back_uses_shared_label():
     assert btn.callback_data == CALLBACK_SETTINGS_MENU
 
 
+def test_janitor_temp_keyboard_presets():
+    kb = _janitor_temp_keyboard()
+    labels = [btn.text for row in kb.inline_keyboard for btn in row]
+    assert "0.2" in labels
+    assert BACK_LABEL in labels
+
+
 def test_all_settings_submenus_have_back():
-    for kb in (_ops_keyboard(), _role_preset_keyboard("librarian"), _steps_keyboard()):
+    for kb in (
+        _ops_keyboard(),
+        _role_preset_keyboard("librarian"),
+        _steps_keyboard(),
+        _janitor_temp_keyboard(),
+    ):
         labels = [btn.text for row in kb.inline_keyboard for btn in row]
         assert BACK_LABEL in labels

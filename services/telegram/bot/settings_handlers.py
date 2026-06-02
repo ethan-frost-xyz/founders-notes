@@ -66,6 +66,7 @@ def settings_keyboard() -> InlineKeyboardMarkup:
             ],
             [
                 InlineKeyboardButton("max_steps", callback_data="set:steps"),
+                InlineKeyboardButton("Janitor temp", callback_data="set:temp"),
             ],
             [InlineKeyboardButton("Ops", callback_data="set:ops")],
         ]
@@ -117,6 +118,24 @@ def _steps_keyboard() -> InlineKeyboardMarkup:
                 InlineKeyboardButton("10", callback_data="set:s:10"),
                 InlineKeyboardButton("15", callback_data="set:s:15"),
                 InlineKeyboardButton("20", callback_data="set:s:20"),
+            ],
+            back_to_settings_row(),
+        ]
+    )
+
+
+def _janitor_temp_keyboard() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("0", callback_data="set:t:0"),
+                InlineKeyboardButton("0.1", callback_data="set:t:0.1"),
+                InlineKeyboardButton("0.2", callback_data="set:t:0.2"),
+            ],
+            [
+                InlineKeyboardButton("0.3", callback_data="set:t:0.3"),
+                InlineKeyboardButton("0.5", callback_data="set:t:0.5"),
+                InlineKeyboardButton("1.0", callback_data="set:t:1"),
             ],
             back_to_settings_row(),
         ]
@@ -216,6 +235,27 @@ async def on_settings_callback(update: Update, context: ContextTypes.DEFAULT_TYP
             "Choose max tool steps for Librarian:",
             reply_markup=_steps_keyboard(),
         )
+        return
+
+    if data == "set:temp":
+        await query.edit_message_text(
+            "Choose Janitor clean temperature (LLM paste normalization):",
+            reply_markup=_janitor_temp_keyboard(),
+        )
+        return
+
+    if data.startswith("set:t:"):
+        from runtime_settings import set_janitor_clean_temperature
+
+        try:
+            value = float(data.split(":", 2)[2])
+            temp = set_janitor_clean_temperature(value)
+        except (ValueError, IndexError) as exc:
+            await query.edit_message_text(str(exc), reply_markup=_janitor_temp_keyboard())
+            return
+        text = format_settings_summary(bot_cfg.agent, bot_cfg)
+        text += f"\n\njanitor_clean_temperature set to {temp}."
+        await query.edit_message_text(text, reply_markup=settings_keyboard())
         return
 
     if data.startswith("set:s:"):

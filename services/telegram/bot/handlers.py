@@ -149,6 +149,50 @@ async def cmd_resetsteps(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     )
 
 
+async def cmd_setcleantemp(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    if await _reject_unauthorized(update, _config(context)):
+        return
+    args = context.args or []
+    if len(args) != 1:
+        await update.message.reply_text("Usage: /setcleantemp <n>  (0.0–2.0)")
+        return
+    from runtime_settings import (
+        JANITOR_TEMP_CEILING,
+        JANITOR_TEMP_FLOOR,
+        effective_janitor_clean_temperature,
+        set_janitor_clean_temperature,
+    )
+
+    try:
+        value = float(args[0].strip())
+        temp = set_janitor_clean_temperature(value)
+    except ValueError as exc:
+        await update.message.reply_text(str(exc))
+        return
+    _, src = effective_janitor_clean_temperature()
+    await update.message.reply_text(
+        f"janitor_clean_temperature set to {temp} (saved; range "
+        f"{JANITOR_TEMP_FLOOR}–{JANITOR_TEMP_CEILING}). Active now ({src})."
+    )
+
+
+async def cmd_resetcleantemp(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    if await _reject_unauthorized(update, _config(context)):
+        return
+    from runtime_settings import (
+        RUNTIME_KEY_JANITOR_TEMP,
+        effective_janitor_clean_temperature,
+        reset_runtime_key,
+    )
+
+    reset_runtime_key(RUNTIME_KEY_JANITOR_TEMP)
+    temp, src = effective_janitor_clean_temperature()
+    await update.message.reply_text(
+        f"Runtime janitor_clean_temperature cleared. Now using {temp} ({src}). "
+        "Model keys unchanged."
+    )
+
+
 async def cmd_setmodel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if await _reject_unauthorized(update, _config(context)):
         return

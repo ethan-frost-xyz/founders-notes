@@ -41,7 +41,7 @@ The Mac mini needs **three** persisted files:
 | File | Purpose |
 |------|---------|
 | `~/.config/founders-telegram/env` | **Secrets only** — `VAULT_ROOT`, bot token, allowlist, `OPENROUTER_API_KEY` (copy from `deploy/env.example`) |
-| `~/.config/founders-telegram/runtime.json` | **Models + tuning** — librarian, Janitor clean, expand, embed, `max_steps` (auto-seeded from env on first start; then Telegram `/setmodel`, `/setsteps`) |
+| `~/.config/founders-telegram/runtime.json` | **Models + tuning** — librarian, Janitor clean, expand, embed, `max_steps`, `janitor_clean_temperature` (auto-seeded from env on first start; then `/settings`, `/setmodel`, `/setsteps`, `/setcleantemp`) |
 | `{VAULT_ROOT}/.env` | Ingestion (Colossus, X API); expand subprocess also `load_dotenv` on repo root |
 
 ```bash
@@ -212,7 +212,7 @@ Models are in `runtime.json` (see `/settings`). Use `/setmodel janitor …`, `/s
 | File | Purpose |
 |------|---------|
 | `~/.config/founders-telegram/env` | **Secrets only:** `VAULT_ROOT`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ALLOWED_USER_IDS`, `OPENROUTER_API_KEY` |
-| `~/.config/founders-telegram/runtime.json` | **Models + `max_steps`** (Telegram `/setmodel`, `/setsteps`) |
+| `~/.config/founders-telegram/runtime.json` | **Models + tuning** (Telegram `/setmodel`, `/setsteps`, `/setcleantemp`) |
 
 On first start, the bot copies model slugs from legacy env vars into `runtime.json` if keys are missing (one-time migration). After that you can remove model lines from `env`.
 
@@ -226,11 +226,13 @@ Day-to-day tuning and vault ops without SSH:
 
 | Command | Effect |
 |---------|--------|
-| `/settings` | All effective models, `max_steps`, sources, runtime file path |
+| `/settings` | All effective models, `max_steps`, Janitor clean temp, sources, runtime file path |
 | `/setmodel <role> <slug>` | `librarian` \| `janitor` \| `expand` \| `embed` — saved + hot-reload |
 | `/resetmodel <role>` | Drop one model override (falls back to env if set) |
 | `/setsteps <n>` | `max_steps` 1–20 |
 | `/resetsteps` | Clear runtime `max_steps` only (models unchanged) |
+| `/setcleantemp <n>` | Janitor clean `temperature` 0.0–2.0 |
+| `/resetcleantemp` | Clear runtime `janitor_clean_temperature` only |
 | `/pull` | `git pull --ff-only` on the vault |
 | `/reindex` | Rebuild `chunks.jsonl` + embeddings |
 | `/sync` | `/pull` then `/reindex` (traveling shortcut; cron still uses `sync-and-index.sh`) |
