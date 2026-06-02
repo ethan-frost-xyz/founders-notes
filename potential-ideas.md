@@ -45,6 +45,22 @@ Suggested plan filenames below — create the file under `.cursor/plans/` when y
 
 - **OpenRouter reasoning params** — wire optional `reasoning.effort` in [`agent.py`](services/telegram/bot/agent.py) for Librarian synthesis only. **Not universal:** thinking-capable models only; `librarian_reasoning_effort` would be independent of `librarian_model` (changing model via `/setmodel` does not auto-clear effort). Pick product behavior first: opt-in docs, retry without reasoning on 4xx, env-only, or model allowlist. See [OpenRouter reasoning tokens](https://openrouter.ai/docs/guides/best-practices/reasoning-tokens).
 
+### Librarian latency — `librarian_retrieval_latency.plan.md`
+
+High-level proposition from architecture review (Jun 2026): thematic Librarian turns feel slow **before any answer text** because retrieval is a **fully serial, blocking pipeline** (expand → embed + hybrid search ×5 → rerank, optional second rerank on transcript fallback) that must finish before synthesis can stream. That is separate from “one API call” — the vault still requires select-then-generate; the cost is **stacked remote steps + no overlap with synthesis**.
+
+**Operational win (no code):** On the Mac mini bot host, set `retrieval_model` to a fast Groq-routed slug (e.g. `openai/gpt-oss-20b::Groq`, same family as Janitor clean) via `/setmodel retrieval …` or `~/.config/founders-telegram/runtime.json`; keep `librarian_model` on a stronger model for synthesis only. Laptop `runtime.json` does not affect production; models are not in git ([`docs/mac-mini-operator-setup.md`](docs/mac-mini-operator-setup.md), [`docs/remote-product-workflow.md`](docs/remote-product-workflow.md)). Shipped role: `retrieval_model` drives **both** expand and rerank; if unset, both fall back to `librarian_model` (common misconfig).
+
+**Code follow-ups (pick by impact):**
+
+- **Split expand vs rerank models** — two runtime keys so a weak/fast model can own one step without the other (expand vs rerank trade different quality risks).
+- **Overlap embed with expand** — start batched `embed_queries` as soon as variants exist (or parallelize where safe).
+- **Cheaper rerank path** — cap pool below 40, skip LLM rerank when hybrid/RRF confidence is high, or trust RRF-only on `follow_up` intent (today follow-ups still run full retrieval).
+- **Local retrieval hygiene** — cache `load_chunks()` across the five variant searches (re-read JSONL each pass today).
+- **Default prod retrieval slug** — seed or document Groq retrieval on mini install so new hosts do not run expand+rerank on the synthesis model by default.
+
+See [`docs/retrieval.md`](docs/retrieval.md), [`docs/janitor.md`](docs/janitor.md) (example model matrix).
+
 ### Janitor UX — `janitor_ux.plan.md`
 
 - **Streaming clean preview** — stream partial LLM output to Telegram during clean for perceived speed on long pastes.
