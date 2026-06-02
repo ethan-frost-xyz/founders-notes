@@ -42,8 +42,8 @@ The **product** is Telegram **Librarian** (v3 orchestrated retrieval) + **Janito
 | WS5 | Remove `/web` stub | done | 6d935a1 |
 | WS6 | Verify-then-cut compat shims | done | f6d4ce7 |
 | WS7 | Slim `maintain.py` (after WS3) | done | 82660e2 |
-| WS8 | Misc dead-code (`ingestion/tests/`, venv note) | done | (ws9) |
-| WS9 | Docs consolidation | done | (ws9) |
+| WS8 | Misc dead-code (`ingestion/tests/`, venv note) | done | 8886929 |
+| WS9 | Docs consolidation | done | 8886929 |
 
 ## Notes
 
