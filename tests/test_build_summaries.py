@@ -106,6 +106,5 @@ def test_build_summaries_calls_llm_when_hash_changes(tmp_path: Path, monkeypatch
     summary = build_episode_summaries(apply=True)
     assert summary["to_generate"] == 1
     assert called
-    clear_jsonl_cache()
     stored = load_existing_summaries(summaries_path)[ep_id]
     assert stored["summary_text"] == "Fresh summary text"

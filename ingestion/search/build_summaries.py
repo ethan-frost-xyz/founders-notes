@@ -160,6 +160,9 @@ def build_episode_summaries(
         with paths.EPISODE_SUMMARIES_PATH.open("w", encoding="utf-8") as f:
             for row in final_rows:
                 f.write(json.dumps(row, ensure_ascii=False) + "\n")
+        from catalog import clear_jsonl_cache
+
+        clear_jsonl_cache()
 
     return {
         "studied_with_expanded": len(studied),
