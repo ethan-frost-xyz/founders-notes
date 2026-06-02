@@ -23,7 +23,7 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`docs/inges
 | [`maintain.py`](maintain.py) | Interactive console for notes, expansion, promote, index rebuild, tune |
 | [`lib/`](lib/README.md) | Shared Python modules (no CLI) |
 | [`prompts/`](prompts/) | LLM prompt templates for expansion |
-| [`fixtures/`](fixtures/) | Test fixtures and committed expand-tune A/B outputs |
+| [`fixtures/`](fixtures/) | Test fixtures (`chunks_parent_slice.jsonl`) |
 
 ## Pipeline order
 
@@ -37,8 +37,8 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`docs/inges
 | Notes | `notes/scaffold_notes.py` | Empty `{folder}.notes.md` scaffolds |
 | Expand (prompt) | `notes/expand_datapoints.py` | Print/copy prompt from notes + transcript |
 | Expand (OpenRouter) | `notes/expand_datapoints_llm.py` | `.expanded.draft.md` → `--promote` → `.expanded.md` |
-| Expand (prompt A/B tune) | `notes/expand_tune.py` | 23-ep A/B under `fixtures/expand-runs/` (tracked; default `baseline/`) |
-| **Maintenance console** | `python maintain.py` | Menu wrapper for coverage, expand, promote, index rebuild, tune (see below) |
+| Expand (prompt A/B tune) | `notes/expand_tune.py` | Ad-hoc sandbox under `fixtures/expand-runs/` (not committed) |
+| **Maintenance console** | `python maintain.py` | Menu wrapper for coverage, expand, promote, index rebuild (see below) |
 | X sync | `x/sync_x_cache.py` | API → `import/x-posts-raw.csv` |
 | X organize | `x/organize_posts_from_csv.py` | CSV → `content/posts/` (`#N` attribution; review queue) |
 | Search | `search/build_chunks.py` | → `catalog/chunks.jsonl` |
