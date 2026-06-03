@@ -39,3 +39,22 @@ Retrieval already ran before you see this message — do not expect `search_vaul
 ## Unstudied episodes
 
 If `load_episode` returns `meta.listened: false`, say clearly you haven't studied that episode yet. Do not invent content.
+
+## Cursor Cloud specific instructions
+
+Python **3.12** monorepo-style layout: shared venv at `ingestion/.venv`, no Docker or web UI. CI parity is documented in [`docs/testing.md`](docs/testing.md) and [`.github/workflows/verify.yml`](.github/workflows/verify.yml).
+
+**VM prerequisite:** Ubuntu images need `python3.12-venv` (`sudo apt install python3.12-venv`) before the first `python3 -m venv ingestion/.venv`. The startup update script only refreshes pip inside an existing venv.
+
+**Verify / lint:** No separate linter in CI — use pytest + `verify.py`:
+
+```bash
+ingestion/.venv/bin/pytest tests -q --durations=10
+cd ingestion && ../ingestion/.venv/bin/python pipeline/verify.py
+```
+
+**Telegram bot (optional):** Requires `~/.config/founders-telegram/env` (`TELEGRAM_BOT_TOKEN`, `OPENROUTER_API_KEY`). Dev without Telegram API: `ingestion/.venv/bin/python dev/mock_telegram_cli.py --stub-llm --run-scenarios`. Live bot: `cd services/telegram && ../../ingestion/.venv/bin/python -m bot`.
+
+**Vault search smoke test:** `cd ingestion && ../ingestion/.venv/bin/python search/search.py "rockefeller"`.
+
+**Secrets:** Colossus/X fetch and live Librarian harness need repo `.env` (see `.env.example`) and/or `~/.config/founders-telegram/env`; not required for pytest or mock harness.
