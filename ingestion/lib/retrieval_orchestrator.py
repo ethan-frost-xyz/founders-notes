@@ -13,10 +13,8 @@ from typing import Any, Callable
 from paths import CHUNKS_PATH, EMBEDDINGS_MANIFEST_PATH, EMBEDDINGS_PATH, ROOT
 from rerank_llm import rerank_candidates
 from search_retrieval import (
-    ChunkIndex,
     _hybrid_search_parent_chunks,
     embed_queries,
-    get_chunk_index,
     get_embedding_store,
     is_studied_chunk,
     merge_rrf_chunk_lists,
@@ -140,9 +138,9 @@ def quote_intent(query: str) -> bool:
 
 
 def _search_one_variant(
-    args: tuple[str, Any, int, Path, Path, Path, Path, ChunkIndex],
+    args: tuple[str, Any, int, Path, Path, Path, Path],
 ) -> list[dict[str, Any]]:
-    variant, qvec, pool_k, chunks_path, emb_path, man_path, vault_root, index = args
+    variant, qvec, pool_k, chunks_path, emb_path, man_path, vault_root = args
     return _hybrid_search_parent_chunks(
         variant,
         pool_k,
@@ -151,7 +149,6 @@ def _search_one_variant(
         manifest_path=man_path,
         query_vector=qvec,
         root=vault_root,
-        index=index,
     )
 
 
@@ -279,9 +276,8 @@ class RetrievalOrchestrator:
         vectors = embed_queries(variants)
         pool_k = max(cfg.search_k * 4, 32)
         get_embedding_store(embeddings_path=emb_path, manifest_path=man_path)
-        chunk_index = get_chunk_index(chunks_path=chunks_path, root=vault_root)
         search_args = [
-            (variant, qvec, pool_k, chunks_path, emb_path, man_path, vault_root, chunk_index)
+            (variant, qvec, pool_k, chunks_path, emb_path, man_path, vault_root)
             for variant, qvec in zip(variants, vectors)
         ]
         with ThreadPoolExecutor(max_workers=max(1, len(variants))) as ex:
@@ -325,7 +321,6 @@ class RetrievalOrchestrator:
                 3,
                 chunks_path=chunks_path,
                 root=vault_root,
-                index=chunk_index,
             )
             if variants:
                 tx_hits.extend(
@@ -334,7 +329,6 @@ class RetrievalOrchestrator:
                         3,
                         chunks_path=chunks_path,
                         root=vault_root,
-                        index=chunk_index,
                     )
                 )
             if on_timing:
