@@ -57,6 +57,8 @@ The model composes these as the question requires. Each is a thin surface over r
 - **`list_episode_ids(query)`** — resolve a guest name or episode number to a canonical `ep-NNNN`.
 - **`load_episode(episode_id)`** — pull one full episode (post + notes + expanded) when the question is about a single founder in depth.
 
+These five are the curated starting set, not a frozen boundary. If a new primitive would measurably help the model — for example a discovery/browse tool over episode summaries to scope which founders are even relevant before deep-searching, or a lower-level raw search that skips expand/rerank for a cheap targeted lookup — it should be added. The bar is "does it help the model answer better," not "stay at five."
+
 ### A dynamic, non-rigid loop
 
 The model keeps searching until it judges the evidence sufficient, then answers. There is **no fixed iteration count and no forced minimum** — stopping is the model's own judgment, not a mandatory checklist or procedure. Most questions will resolve quickly; genuinely hard ones can dig as deep as they need.
@@ -79,6 +81,12 @@ The agentic layer changes the retrieval architecture, not the synthesis persona.
 
 Answer quality is the only thing that matters right now. Cost is not a concern. Latency and speed are explicitly **deferred future optimization**, not a design constraint on this layer. A deeper, slower answer to a hard question is the right trade-off today; making it fast comes later.
 
+### A legible loop, built for tuning
+
+Because the near-term goal is tuning answer quality, the loop must be **inspectable**. Every turn should record the trail of what the model did — the queries and sub-queries it issued, the evidence each search returned, why it chose to search again, and why it decided to stop. This trail (today's `tool_trace`) is the primary instrument for reading real answers, diagnosing weak ones, and iterating on the tools and the composition guidance.
+
+The *end-user presentation* of that activity — live status messages in Telegram, how much of the reasoning trail to surface to the reader — is deliberately **deferred**. Near-term effort goes to making the loop legible for testing and fine-tuning, not to UX polish.
+
 ***
 
 ## Influence: Perplexity "Search as Code" and 2026 agentic-RAG patterns
@@ -99,6 +107,7 @@ The change is at the orchestration and tool-surface layer, not the retrieval int
 - Implement `search_vault_many` as a concurrent fan-out of that same pipeline across the model's sub-queries, returning results labeled per sub-query.
 - Expose `search_transcript` over the existing `search_transcript_evidence()`.
 - Run the agent loop until the model stops calling tools and answers, or the **6-round** safety cap (rounds, not sub-queries) is hit.
+- Preserve and extend the per-round trace (`tool_trace`) so every tool call, sub-query, and stop/continue decision is captured — the loop must stay inspectable for tuning.
 - Add the composition guidance to [`AGENTS.md`](AGENTS.md), and update its now-inaccurate "Retrieval already ran before you see this message" line — under cold start, retrieval has *not* run.
 
 Everything underneath stays exactly as it is: the chunks pipeline, embeddings, RRF merge, and reranker are unchanged. The change is *who decides when retrieval runs* — and that is now the model.
