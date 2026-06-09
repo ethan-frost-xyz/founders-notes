@@ -5,7 +5,9 @@ turns:
     expect:
       response_min_length: 40
       expect_live:
-        tool_called: search_vault
+        tool_called_any:
+          - search_vault
+          - search_vault_many
         response_contains_any:
           - ep-
           - Rockefeller
@@ -13,12 +15,16 @@ turns:
     expect:
       response_min_length: 60
       expect_live:
-        tool_called: search_vault
+        tool_called_any:
+          - search_vault
+          - search_vault_many
   - send: "What mental models show up around inversion and avoiding stupidity?"
     expect:
       response_min_length: 60
       expect_live:
-        tool_called: search_vault
+        tool_called_any:
+          - search_vault
+          - search_vault_many
         response_contains_any:
           - Munger
           - invert

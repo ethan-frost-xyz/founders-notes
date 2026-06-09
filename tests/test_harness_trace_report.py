@@ -14,7 +14,12 @@ DEV = REPO / "dev"
 if str(DEV) not in sys.path:
     sys.path.insert(0, str(DEV))
 
-from harness.scenario_runner import ScenarioResult, ScenarioRunner, TurnResult  # noqa: E402
+from harness.scenario_runner import (  # noqa: E402
+    ScenarioResult,
+    ScenarioRunner,
+    TurnResult,
+    _check_expectations,
+)
 from harness.trace_report import (  # noqa: E402
     enrich_turn_from_traces,
     response_text_from_replies,
@@ -156,6 +161,51 @@ def test_enrich_turn_from_traces_includes_accountability():
     assert enriched["stop_reason"] == "cap"
     assert enriched["tool_call_counts"]["search_transcript"] == 11
     assert enriched["timing_accountability"]["wall_ms"] == 371800
+
+
+def test_check_expectations_tool_called_any_passes_when_one_matches():
+    traces = [{"step": 1, "tool": "search_vault_many", "arguments": {"queries": ["a"]}}]
+    ok, msg = _check_expectations(
+        {
+            "tool_called_any": ["search_vault", "search_vault_many"],
+        },
+        replies=[_Reply("answer")],
+        tool_traces=traces,
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert ok, msg
+
+
+def test_check_expectations_tool_called_any_fails_when_none_match():
+    traces = [{"step": 1, "tool": "search_transcript", "arguments": {"query": "q"}}]
+    ok, msg = _check_expectations(
+        {
+            "tool_called_any": ["search_vault", "search_vault_many"],
+        },
+        replies=[_Reply("answer")],
+        tool_traces=traces,
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert not ok
+    assert "expected one of" in msg
+
+
+def test_check_expectations_tool_called_any_ignored_in_echo_mode():
+    ok, msg = _check_expectations(
+        {
+            "tool_called_any": ["search_vault"],
+        },
+        replies=[_Reply("answer")],
+        tool_traces=[],
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="echo",
+    )
+    assert ok, msg
 
 
 def test_scenario_runner_write_report_includes_tier1_fields(tmp_path: Path):

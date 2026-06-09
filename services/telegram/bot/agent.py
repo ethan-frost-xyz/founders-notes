@@ -87,7 +87,8 @@ def openrouter_tools(*, default_k: int = 8) -> list[dict[str, Any]]:
             "function": {
                 "name": "search_vault_many",
                 "description": (
-                    "Parallel decomposition: pass multiple sub-queries (e.g. one per founder). "
+                    "Parallel decomposition: pass multiple sub-queries (e.g. one per founder "
+                    "or thematic angle for multi-hop / cross-episode synthesis). "
                     "Each runs the full pipeline concurrently; results are labeled per sub-query. "
                     "Soft limit ~6 sub-queries."
                 ),

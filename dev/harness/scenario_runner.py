@@ -187,6 +187,13 @@ def _check_expectations(
         if tool_called not in names:
             return False, f"expected tool {tool_called!r}, got {names!r}"
 
+    tool_called_any = merged.get("tool_called_any")
+    if tool_called_any and llm_mode == "live":
+        expected_any = [str(x) for x in tool_called_any]
+        names = [str(t["tool"]) for t in tool_traces if t.get("tool")]
+        if not any(tool in names for tool in expected_any):
+            return False, f"expected one of {expected_any!r}, got {names!r}"
+
     response_contains = merged.get("response_contains")
     if response_contains and llm_mode == "live":
         if str(response_contains) not in combined:

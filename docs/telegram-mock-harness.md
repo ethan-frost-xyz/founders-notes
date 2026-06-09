@@ -150,7 +150,9 @@ Each turn:
 | `button` | Inline callback data (optional; can follow `send` in same turn) |
 | `expect` | Assertions (see below) |
 
-**Expect keys:** `contains`, `not_contains`, `response_min_length`, `expect_live` (`tool_called`, `tools_called`, `response_contains`, `response_contains_any`, `load_episode_id`, `status_contains`), `phase` (Janitor), `sandbox_file_written` (substring match on sandbox paths). Harness bot keeps status messages (not deleted) so `status_contains: "Searching vault"` is testable.
+**Expect keys:** `contains`, `not_contains`, `response_min_length`, `expect_live` (`tool_called`, `tool_called_any`, `tools_called`, `response_contains`, `response_contains_any`, `load_episode_id`, `status_contains`), `phase` (Janitor), `sandbox_file_written` (substring match on sandbox paths). Harness bot keeps status messages (not deleted) so `status_contains: "Searching vault"` is testable.
+
+`tool_called_any` passes when **any** listed tool name appears in the turn trace (live only). Use for cross-episode thematic turns where `search_vault` or `search_vault_many` are both valid per [`AGENTS.md`](../AGENTS.md).
 
 **Agentic Librarian tools (live assertions):** `search_vault`, `search_vault_many`, `search_transcript`, `load_episode`, `list_episode_ids`. Hard-question scenarios live under `dev/scenarios/librarian/` (`multi_founder_comparison`, `thin_evidence_probe`, `verbatim_transcript`, `multi_hop`, `single_founder_depth`).
 

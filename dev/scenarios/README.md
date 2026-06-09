@@ -39,8 +39,9 @@ Live runs write enriched JSON to `dev/logs/runs/*-report.json` — read `respons
 | `librarian/tool_coverage.yaml` | Core vault tools called (`search_vault`, `search_transcript`, `load_episode`, `list_episode_ids`) |
 | `librarian/thematic_search.yaml` | Thematic Q → `search_vault`, citation e.g. `[ep-0016]` |
 | `librarian/multi_founder_comparison.yaml` | Cross-founder → `search_vault_many` (live) |
+| `librarian/multi_hop.yaml` | Multi-hop thematic → `search_vault_many` (live) |
+| `librarian/thematic_cross_episode.yaml` | Cross-episode themes → `tool_called_any`: `search_vault` or `search_vault_many` (live) |
 | `librarian/thin_evidence_probe.yaml` | Thin-evidence honesty probe (live) |
 | `librarian/verbatim_transcript.yaml` | Verbatim → `search_transcript` (live) |
-| `librarian/multi_hop.yaml` | Multi-hop thematic (live) |
 | `librarian/single_founder_depth.yaml` | Single-founder depth (live) |
 | `janitor/episode_parse.yaml` | Paste line `191` resolves without NL regex in Librarian |
