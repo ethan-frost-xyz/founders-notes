@@ -10,6 +10,7 @@ from typing import Any, Literal
 
 from harness.janitor_sandbox import JanitorSandbox
 from harness.mock_session import MockBotSession, Reply
+from harness.trace_report import enrich_turn_from_traces
 
 try:
     import yaml
@@ -28,6 +29,13 @@ class TurnResult:
     tools_called: list[str] = field(default_factory=list)
     timing: dict[str, Any] | None = None
     timing_summary: str | None = None
+    response_text: str = ""
+    stop_reason: str = "natural"
+    tool_calls: list[dict[str, Any]] = field(default_factory=list)
+    tool_rounds: list[dict[str, Any]] = field(default_factory=list)
+    tool_call_counts: dict[str, int] = field(default_factory=dict)
+    trace_summary: str = ""
+    timing_accountability: dict[str, Any] | None = None
 
 
 @dataclass
@@ -49,6 +57,12 @@ class ScenarioResult:
                 line += f" (tools: {', '.join(turn.tools_called)})"
             if verbose and turn.timing_summary:
                 line += f" [{turn.timing_summary}]"
+            if verbose and turn.stop_reason == "cap":
+                line += " [cap]"
+            if verbose and turn.timing_accountability:
+                unaccounted = int(turn.timing_accountability.get("unaccounted_ms") or 0)
+                if unaccounted > 30_000:
+                    line += f" [unaccounted={unaccounted}ms]"
             lines.append(line)
         return "\n".join(lines)
 
@@ -169,7 +183,7 @@ def _check_expectations(
 
     tool_called = merged.get("tool_called")
     if tool_called and llm_mode == "live":
-        names = [t.get("tool") for t in tool_traces]
+        names = [str(t["tool"]) for t in tool_traces if t.get("tool")]
         if tool_called not in names:
             return False, f"expected tool {tool_called!r}, got {names!r}"
 
@@ -193,7 +207,7 @@ def _check_expectations(
     tools_called_expect = merged.get("tools_called")
     if tools_called_expect and llm_mode == "live":
         expected_tools = [str(x) for x in tools_called_expect]
-        names = [t.get("tool") for t in tool_traces]
+        names = [str(t["tool"]) for t in tool_traces if t.get("tool")]
         for tool in expected_tools:
             if tool not in names:
                 return False, f"expected tools {expected_tools!r}, got {names!r}"
@@ -310,7 +324,6 @@ class ScenarioRunner:
                 expect = turn.get("expect") or {}
                 traces = list(session.tool_traces)
                 tools_called = [str(t["tool"]) for t in traces if t.get("tool")]
-                timing, timing_summary = _timing_from_traces(traces)
                 ok, msg = _check_expectations(
                     expect,
                     replies=replies,
@@ -322,6 +335,12 @@ class ScenarioRunner:
                 if not ok and self.verbose and tools_called:
                     msg = f"{msg}; tools called: {tools_called}"
                 elapsed = time.perf_counter() - turn_t0
+                enriched = enrich_turn_from_traces(
+                    traces,
+                    replies,
+                    elapsed_s=elapsed,
+                    llm_mode=llm_mode,
+                )
                 turn_results.append(
                     TurnResult(
                         idx,
@@ -331,8 +350,15 @@ class ScenarioRunner:
                         replies=replies,
                         elapsed_s=elapsed,
                         tools_called=tools_called,
-                        timing=timing,
-                        timing_summary=timing_summary,
+                        timing=enriched.get("timing"),
+                        timing_summary=enriched.get("timing_summary"),
+                        response_text=str(enriched.get("response_text") or ""),
+                        stop_reason=str(enriched.get("stop_reason") or "natural"),
+                        tool_calls=list(enriched.get("tool_calls") or []),
+                        tool_rounds=list(enriched.get("tool_rounds") or []),
+                        tool_call_counts=dict(enriched.get("tool_call_counts") or {}),
+                        trace_summary=str(enriched.get("trace_summary") or ""),
+                        timing_accountability=enriched.get("timing_accountability"),
                     )
                 )
                 if not ok:
@@ -359,12 +385,37 @@ class ScenarioRunner:
             results.append(await self.run(path))
         return results
 
+    def _turn_report_dict(self, turn: TurnResult) -> dict[str, Any]:
+        row: dict[str, Any] = {
+            "index": turn.index,
+            "action": turn.action,
+            "passed": turn.passed,
+            "message": turn.message,
+            "elapsed_s": turn.elapsed_s,
+            "tools_called": turn.tools_called,
+            "response_text": turn.response_text,
+            "stop_reason": turn.stop_reason,
+            "tool_calls": turn.tool_calls,
+            "tool_rounds": turn.tool_rounds,
+            "tool_call_counts": turn.tool_call_counts,
+            "trace_summary": turn.trace_summary,
+        }
+        if turn.timing is not None:
+            row["timing"] = turn.timing
+        if turn.timing_summary:
+            row["timing_summary"] = turn.timing_summary
+        if turn.timing_accountability is not None:
+            row["timing_accountability"] = turn.timing_accountability
+        return row
+
     def write_report(self, results: list[ScenarioResult], report_dir: Path) -> Path:
         report_dir.mkdir(parents=True, exist_ok=True)
         stamp = time.strftime("%Y-%m-%dT%H-%M-%S")
         out = report_dir / f"{stamp}-report.json"
         payload = {
             "passed": all(r.passed for r in results),
+            "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            "scenario_count": len(results),
             "scenarios": [
                 {
                     "name": r.name,
@@ -372,25 +423,7 @@ class ScenarioRunner:
                     "passed": r.passed,
                     "elapsed_s": r.elapsed_s,
                     "llm_mode": r.llm_mode,
-                    "turns": [
-                        {
-                            "index": t.index,
-                            "action": t.action,
-                            "passed": t.passed,
-                            "message": t.message,
-                            "elapsed_s": t.elapsed_s,
-                            "tools_called": t.tools_called,
-                            **(
-                                {
-                                    "timing": t.timing,
-                                    "timing_summary": t.timing_summary,
-                                }
-                                if self.verbose and t.timing
-                                else {}
-                            ),
-                        }
-                        for t in r.turns
-                    ],
+                    "turns": [self._turn_report_dict(t) for t in r.turns],
                 }
                 for r in results
             ],

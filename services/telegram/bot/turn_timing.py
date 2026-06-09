@@ -51,15 +51,20 @@ class TurnTimer:
         *,
         vault_search_local_ms: int = 0,
         retrieval_llm_ms: int = 0,
+        tool: str | None = None,
+        error: bool = False,
     ) -> None:
         with self._lock:
-            self._data.searches.append(
-                {
-                    "query": query,
-                    "vault_search_local_ms": vault_search_local_ms,
-                    "retrieval_llm_ms": retrieval_llm_ms,
-                }
-            )
+            row: dict[str, Any] = {
+                "query": query,
+                "vault_search_local_ms": vault_search_local_ms,
+                "retrieval_llm_ms": retrieval_llm_ms,
+            }
+            if tool:
+                row["tool"] = tool
+            if error:
+                row["error"] = True
+            self._data.searches.append(row)
 
     def record_openrouter_stream(
         self,
