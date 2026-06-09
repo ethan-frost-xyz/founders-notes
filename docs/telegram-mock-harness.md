@@ -67,7 +67,32 @@ python dev/mock_telegram_cli.py --suite librarian --live-only -v
 python dev/mock_telegram_cli.py --scenario dev/scenarios/librarian/episode_resolve.yaml -v
 ```
 
-**`-v` / `--verbose`:** prints `tools_called` per turn and adds them to `dev/logs/runs/*-report.json` — use when a live turn fails.
+**`-v` / `--verbose`:** prints `tools_called` per turn, a one-line **timing** summary per turn (pickup / vault local / retrieval LLM / agent TTFT / tok/s), and adds them to `dev/logs/runs/*-report.json` — use when a live turn fails or you are profiling slowness.
+
+### Timing
+
+Per-turn phase timing is **on by default in the harness** (disable with `LIBRARIAN_TIMING=0`). Production Telegram bot timing is **off** unless `LIBRARIAN_TIMING=1` in `~/.config/founders-telegram/env` (appends JSONL on macOS).
+
+```bash
+# Per-turn phase line + suite aggregate table
+python dev/mock_telegram_cli.py --suite librarian --live-only -v
+```
+
+**Verbose output example:** `[vault=120ms retrieval_llm=800ms ttft=450ms tok/s=38.2]`
+
+**Report JSON** (`dev/logs/runs/*-report.json`, when `-v`): each turn may include `timing` (dict) and `timing_summary` (string).
+
+**Suite aggregate** (printed after all scenarios with `-v`): mean/sum for `vault_search_local_ms`, `retrieval_llm_ms`, agent TTFT, and tok/s across turns.
+
+**Production JSONL:** `~/Library/Logs/founders-telegram/librarian-timing.jsonl` (macOS only; one line per turn when enabled).
+
+| Bucket | Meaning |
+|--------|---------|
+| `telegram_pickup_ms` | Telegram message date → handler start (production only; null in harness) |
+| `vault_search_local_ms` | Embed + hybrid search + transcript keyword |
+| `retrieval_llm_ms` | Expand + rerank OpenRouter wall time |
+| `agent_ttft_ms_mean` | Mean time-to-first-token across agent-loop completions |
+| `generation_tok_per_sec_mean` | Mean inter-token speed for streamed agent completions |
 
 **Opt-in pytest** (same OpenRouter requirements):
 
@@ -85,7 +110,7 @@ RUN_LIVE_HARNESS=1 pytest tests/test_harness_scenarios.py -k live -q
 | `--live-only` | Skip scenarios with `llm: echo` |
 | `--stub-llm` | Echo LLM; no OpenRouter |
 | `--preflight` | Print live env + index checks and exit |
-| `-v` / `--verbose` | Tool names per turn + richer failure messages; preflight summary on live runs |
+| `-v` / `--verbose` | Tool names + timing summary per turn; preflight summary on live runs; suite timing aggregate |
 | `--debug` | REPL: show tool traces |
 | `--keep-sandbox` | Keep Janitor temp dirs under `dev/logs/sandbox/` |
 

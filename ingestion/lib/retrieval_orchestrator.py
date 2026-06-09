@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+import time
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -239,6 +240,7 @@ class RetrievalOrchestrator:
         expand_variants: int = EXPAND_VARIANTS_FULL,
         keep: int = SEARCH_VAULT_KEEP,
         on_status: Callable[[str], None] | None = None,
+        on_timing: Callable[[str, int], None] | None = None,
     ) -> EvidenceBundle:
         """Expand → hybrid search → rerank → optional transcript fallback."""
         meta: dict[str, Any] = {"query": query.strip(), "expand_variants": expand_variants}
@@ -253,6 +255,7 @@ class RetrievalOrchestrator:
             if on_status:
                 on_status("Expanding query…")
             expand = self._expand_fn or expand_query_llm
+            t0 = time.perf_counter()
             standalone, variants = expand(
                 q,
                 history=history,
@@ -260,6 +263,8 @@ class RetrievalOrchestrator:
                 api_key=cfg.api_key,
                 base_url=cfg.base_url,
             )
+            if on_timing:
+                on_timing("retrieval_llm", int((time.perf_counter() - t0) * 1000))
             meta["expansion_skipped"] = False
 
         meta["standalone_query"] = standalone
@@ -267,6 +272,7 @@ class RetrievalOrchestrator:
 
         if on_status:
             on_status("Searching vault…")
+        t_local = time.perf_counter()
         vectors = embed_queries(variants)
         pool_k = max(cfg.search_k * 4, 32)
         get_embedding_store(embeddings_path=emb_path, manifest_path=man_path)
@@ -276,6 +282,8 @@ class RetrievalOrchestrator:
         ]
         with ThreadPoolExecutor(max_workers=max(1, len(variants))) as ex:
             per_variant = list(ex.map(_search_one_variant, search_args))
+        if on_timing:
+            on_timing("vault_local", int((time.perf_counter() - t_local) * 1000))
 
         merged = merge_rrf_chunk_lists(
             per_variant,
@@ -288,6 +296,7 @@ class RetrievalOrchestrator:
             on_status("Ranking results…")
         rerank_input = [chunk_for_rerank(ch, root=vault_root) for ch in merged]
         rerank = self._rerank_fn or rerank_candidates
+        t0 = time.perf_counter()
         ranked = rerank(
             standalone,
             rerank_input,
@@ -295,6 +304,8 @@ class RetrievalOrchestrator:
             api_key=cfg.api_key,
             base_url=cfg.base_url,
         )
+        if on_timing:
+            on_timing("retrieval_llm", int((time.perf_counter() - t0) * 1000))
 
         top_scores = [float(ch.get("rerank_score") or 0) for ch in ranked[:RERANK_KEEP]]
         meta["reranked_top5_scores"] = top_scores[:5]
@@ -304,6 +315,7 @@ class RetrievalOrchestrator:
         meta["fallback_triggered"] = fallback
 
         if fallback:
+            t_tx = time.perf_counter()
             tx_hits = search_transcript_keyword(
                 standalone,
                 3,
@@ -319,6 +331,8 @@ class RetrievalOrchestrator:
                         root=vault_root,
                     )
                 )
+            if on_timing:
+                on_timing("vault_local", int((time.perf_counter() - t_tx) * 1000))
             seen: set[str] = set()
             extra: list[dict[str, Any]] = []
             for ch in tx_hits:
@@ -328,6 +342,7 @@ class RetrievalOrchestrator:
                 seen.add(cid)
                 extra.append(chunk_for_rerank(ch, root=vault_root))
             if extra:
+                t0 = time.perf_counter()
                 ranked = rerank(
                     standalone,
                     rerank_input + extra,
@@ -335,6 +350,8 @@ class RetrievalOrchestrator:
                     api_key=cfg.api_key,
                     base_url=cfg.base_url,
                 )
+                if on_timing:
+                    on_timing("retrieval_llm", int((time.perf_counter() - t0) * 1000))
 
         citable: list[EvidenceChunk] = []
         for ch in ranked:

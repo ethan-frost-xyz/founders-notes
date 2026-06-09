@@ -23,8 +23,10 @@ from harness.env import (  # noqa: E402
 from harness.mock_session import DEFAULT_LOG_DIR  # noqa: E402
 from harness.scenario_runner import (  # noqa: E402
     ScenarioRunner,
+    aggregate_timing,
     discover_live_scenarios,
     discover_scenarios,
+    format_timing_aggregate,
     paths_need_live_llm,
 )
 from harness.terminal import run_repl  # noqa: E402
@@ -118,6 +120,9 @@ async def _run_scenarios(args: argparse.Namespace) -> int:
     print(f"Report: {report}\n")
     for result in results:
         print(result.summary(verbose=args.verbose))
+        print()
+    if args.verbose:
+        print(format_timing_aggregate(aggregate_timing(results)))
         print()
     return 0 if all(r.passed for r in results) else 1
 

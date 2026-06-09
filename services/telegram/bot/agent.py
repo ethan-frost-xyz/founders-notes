@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from types import SimpleNamespace
@@ -11,6 +12,7 @@ from typing import Any, Callable
 from tool_status import tool_status_label
 
 from config import AgentConfig, load_agent_config
+from turn_timing import TurnTimer
 
 _LEGACY_PROMPT_PATH = (
     Path(__file__).resolve().parent.parent / "prompts" / "vault_agent.md"
@@ -37,6 +39,7 @@ class TurnResult:
     steps: int = 0
     stop_reason: str = "natural"
     error: bool = False
+    timing: dict[str, Any] | None = None
 
 
 def _load_system_prompt(vault_root: Path) -> str:
@@ -162,6 +165,7 @@ def _tool_handlers(
     config: AgentConfig,
     *,
     history: list[dict[str, Any]] | None = None,
+    timing: TurnTimer | None = None,
 ) -> dict[str, ToolFn]:
     from retrieval import (
         search_transcript_for_turn,
@@ -175,16 +179,19 @@ def _tool_handlers(
             str(args["query"]),
             config=config,
             history=history,
+            timing=timing,
         ),
         "search_vault_many": lambda args: search_vault_many_for_turn(
             list(args.get("queries") or []),
             config=config,
             history=history,
+            timing=timing,
         ),
         "search_transcript": lambda args: search_transcript_for_turn(
             str(args["query"]),
             config=config,
             k=int(args.get("k") or 8),
+            timing=timing,
         ),
         "load_episode": lambda args: load_episode(str(args["episode_id"])),
         "list_episode_ids": lambda args: list_episode_ids(
@@ -200,8 +207,9 @@ def execute_tool(
     *,
     config: AgentConfig,
     history: list[dict[str, Any]] | None = None,
+    timing: TurnTimer | None = None,
 ) -> dict[str, Any]:
-    handlers = _tool_handlers(config, history=history)
+    handlers = _tool_handlers(config, history=history, timing=timing)
     if name not in handlers:
         return {"error": f"unknown tool: {name}"}
     try:
@@ -300,14 +308,25 @@ def _accumulate_streamed_message(
     stream: Any,
     *,
     on_chunk: Callable[[str], None] | None,
+    timing: TurnTimer | None = None,
+    label: str = "agent",
 ) -> SimpleNamespace:
+    t0 = time.perf_counter()
+    first_token_at: float | None = None
     content_parts: list[str] = []
     tool_calls_acc: dict[int, dict[str, Any]] = {}
+    usage_completion_tokens = 0
 
     for chunk in stream:
+        if getattr(chunk, "usage", None) is not None:
+            usage = chunk.usage
+            usage_completion_tokens = int(getattr(usage, "completion_tokens", None) or 0)
         if not chunk.choices:
             continue
         delta = chunk.choices[0].delta
+        has_token = bool(delta.content) or bool(delta.tool_calls)
+        if has_token and first_token_at is None:
+            first_token_at = time.perf_counter()
         if delta.content:
             content_parts.append(delta.content)
             if on_chunk is not None:
@@ -326,6 +345,17 @@ def _accumulate_streamed_message(
                         slot["name"] = tc.function.name
                     if tc.function.arguments:
                         slot["arguments_parts"].append(tc.function.arguments)
+
+    t_end = time.perf_counter()
+    if timing is not None and first_token_at is not None:
+        content = "".join(content_parts)
+        tokens = usage_completion_tokens or max(1, len(content) // 4)
+        timing.record_openrouter_stream(
+            label,
+            ttft_ms=int((first_token_at - t0) * 1000),
+            total_ms=int((t_end - t0) * 1000),
+            tokens=tokens,
+        )
 
     tool_calls = None
     if tool_calls_acc:
@@ -365,12 +395,35 @@ class VaultAgent:
         on_tool_start: Callable[[str, dict[str, Any]], None] | None = None,
         on_chunk: Callable[[str], None] | None = None,
         retrieve_fn: Callable[..., Any] | None = None,
+        timing: TurnTimer | None = None,
     ) -> TurnResult:
         """Cold-start agentic loop: model drives retrieval via tools, then answers."""
         _ = retrieve_fn  # legacy param; agentic loop does not pre-retrieve
         cfg = self.config
         trace: list[dict[str, Any]] = []
         stop_reason = "natural"
+
+        def _finish(
+            *,
+            content: str,
+            steps: int,
+            stop: str,
+            error: bool = False,
+        ) -> TurnResult:
+            timing_dict = None
+            if timing is not None:
+                timing_dict = timing.to_dict()
+                trace.append({"record": "timing", **timing_dict})
+            summary = build_trace_summary(trace, stop_reason=stop)
+            return TurnResult(
+                content=content,
+                tool_trace=trace,
+                trace_summary=summary,
+                steps=steps,
+                stop_reason=stop,
+                error=error,
+                timing=timing_dict,
+            )
 
         messages: list[dict[str, Any]] = [
             {"role": "system", "content": _build_system_message(cfg)},
@@ -388,13 +441,18 @@ class VaultAgent:
                 return client.chat.completions.create(**kwargs)
 
         tools = openrouter_tools(default_k=cfg.default_search_k)
+        agent_round = 0
 
-        def _completion(**kwargs: Any) -> SimpleNamespace:
+        def _completion(*, label: str, **kwargs: Any) -> SimpleNamespace:
             stream = kwargs.pop("stream", False)
             if stream:
+                if "stream_options" not in kwargs:
+                    kwargs["stream_options"] = {"include_usage": True}
                 return _accumulate_streamed_message(
                     completion_fn(**kwargs, stream=True),
                     on_chunk=on_chunk,
+                    timing=timing,
+                    label=label,
                 )
             response = completion_fn(**kwargs)
             return response.choices[0].message
@@ -404,14 +462,16 @@ class VaultAgent:
             step = 0
             while True:
                 step += 1
+                agent_round += 1
                 request: dict[str, Any] = {
                     "model": cfg.model,
                     "messages": messages,
                     "stream": True,
+                    "stream_options": {"include_usage": True},
                     "tools": tools,
                     "tool_choice": "auto",
                 }
-                msg = _completion(**request)
+                msg = _completion(label=f"agent_round_{agent_round}", **request)
 
                 if not msg.tool_calls:
                     text = (msg.content or "").strip() or EMPTY_SYNTHESIS
@@ -427,13 +487,10 @@ class VaultAgent:
                             "session_id": session_id,
                         }
                     )
-                    summary = build_trace_summary(trace, stop_reason=stop_reason)
-                    return TurnResult(
+                    return _finish(
                         content=text,
-                        tool_trace=trace,
-                        trace_summary=summary,
                         steps=step,
-                        stop_reason=stop_reason,
+                        stop=stop_reason,
                     )
 
                 messages.append(_assistant_message_dict(msg))
@@ -463,7 +520,7 @@ class VaultAgent:
                             on_tool_start(name, args)
                         except Exception:
                             pass
-                    result = execute_tool(name, args, config=cfg, history=history)
+                    result = execute_tool(name, args, config=cfg, history=history, timing=timing)
                     round_evidence.extend(_trace_evidence_from_result(result))
                     content = _tool_result_content(result)
                     messages.append(
@@ -497,10 +554,13 @@ class VaultAgent:
                             on_tool_start("synthesis", {})
                         except Exception:
                             pass
+                    agent_round += 1
                     final = _completion(
+                        label=f"agent_round_{agent_round}_cap",
                         model=cfg.model,
                         messages=messages,
                         stream=True,
+                        stream_options={"include_usage": True},
                         tool_choice="none",
                     )
                     text = (final.content or "").strip() or EMPTY_SYNTHESIS
@@ -516,21 +576,15 @@ class VaultAgent:
                             "session_id": session_id,
                         }
                     )
-                    summary = build_trace_summary(trace, stop_reason=stop_reason)
-                    return TurnResult(
+                    return _finish(
                         content=text,
-                        tool_trace=trace,
-                        trace_summary=summary,
                         steps=step + 1,
-                        stop_reason=stop_reason,
+                        stop=stop_reason,
                     )
         except Exception as exc:
-            summary = build_trace_summary(trace, stop_reason="error")
-            return TurnResult(
+            return _finish(
                 content=f"OpenRouter request failed: {exc}",
-                tool_trace=trace,
-                trace_summary=summary,
                 steps=len(trace),
-                stop_reason="error",
+                stop="error",
                 error=True,
             )
