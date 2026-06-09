@@ -413,6 +413,8 @@ class VaultAgent:
             timing_dict = None
             if timing is not None:
                 timing_dict = timing.to_dict()
+                timing_dict["stop_reason"] = stop
+                timing_dict["agent_steps"] = steps
                 trace.append({"record": "timing", **timing_dict})
             summary = build_trace_summary(trace, stop_reason=stop)
             return TurnResult(

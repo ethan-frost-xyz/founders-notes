@@ -35,9 +35,10 @@ def _orchestrator(config: AgentConfig) -> RetrievalOrchestrator:
 class _SearchTiming:
     """Per-search accumulator bridged to TurnTimer."""
 
-    def __init__(self, timer: TurnTimer, query: str) -> None:
+    def __init__(self, timer: TurnTimer, query: str, *, tool: str) -> None:
         self._timer = timer
         self._query = query
+        self._tool = tool
         self.vault_local_ms = 0
         self.retrieval_llm_ms = 0
 
@@ -49,11 +50,13 @@ class _SearchTiming:
             self.retrieval_llm_ms += ms
             self._timer.add_retrieval_llm(ms)
 
-    def finish(self) -> None:
+    def finish(self, *, error: bool = False) -> None:
         self._timer.record_search(
             self._query,
             vault_search_local_ms=self.vault_local_ms,
             retrieval_llm_ms=self.retrieval_llm_ms,
+            tool=self._tool,
+            error=error,
         )
 
 
@@ -76,18 +79,26 @@ def search_vault_for_turn(
     timing: TurnTimer | None = None,
 ) -> dict[str, Any]:
     """Full expand + hybrid + rerank; returns formatted evidence for the agent loop."""
-    search_timing = _SearchTiming(timing, query) if timing is not None else None
-    orch = _orchestrator(config)
-    bundle = orch.retrieve_core(
-        query,
-        history=history,
-        expand_variants=EXPAND_VARIANTS_FULL,
-        keep=SEARCH_VAULT_KEEP,
-        on_status=on_status,
-        on_timing=_timing_callback(timing, search_timing),
+    search_timing = (
+        _SearchTiming(timing, query, tool="search_vault") if timing is not None else None
     )
-    if search_timing is not None:
-        search_timing.finish()
+    orch = _orchestrator(config)
+    failed = False
+    try:
+        bundle = orch.retrieve_core(
+            query,
+            history=history,
+            expand_variants=EXPAND_VARIANTS_FULL,
+            keep=SEARCH_VAULT_KEEP,
+            on_status=on_status,
+            on_timing=_timing_callback(timing, search_timing),
+        )
+    except Exception:
+        failed = True
+        raise
+    finally:
+        if search_timing is not None:
+            search_timing.finish(error=failed)
     return {
         "query": query,
         "evidence": format_evidence_for_tool(bundle, max_chunks=SEARCH_VAULT_KEEP),
@@ -121,7 +132,11 @@ def search_vault_many_for_turn(
     results: list[dict[str, Any]] = [None] * len(cleaned)  # type: ignore[list-item]
 
     def _run_one(idx: int, sub_query: str) -> tuple[int, dict[str, Any]]:
-        search_timing = _SearchTiming(timing, sub_query) if timing is not None else None
+        search_timing = (
+            _SearchTiming(timing, sub_query, tool="search_vault_many")
+            if timing is not None
+            else None
+        )
         try:
             bundle = orch.retrieve_core(
                 sub_query,
@@ -145,7 +160,7 @@ def search_vault_many_for_turn(
             }
         except Exception as exc:
             if search_timing is not None:
-                search_timing.finish()
+                search_timing.finish(error=True)
             return idx, {
                 "query": sub_query,
                 "error": str(exc),
@@ -184,8 +199,15 @@ def search_transcript_for_turn(
     chunks_path = root / "catalog" / "chunks.jsonl"
     t0 = time.perf_counter()
     result = search_transcript_evidence(query, k, chunks_path=chunks_path, root=root)
+    elapsed_ms = int((time.perf_counter() - t0) * 1000)
     if timing is not None:
-        timing.add_vault_local(int((time.perf_counter() - t0) * 1000))
+        timing.add_vault_local(elapsed_ms)
+        timing.record_search(
+            query,
+            vault_search_local_ms=elapsed_ms,
+            retrieval_llm_ms=0,
+            tool="search_transcript",
+        )
     hits = result.get("hits") or []
     lines = [
         "Transcript hits (cite only from this block; use [ep-NNNN]):",

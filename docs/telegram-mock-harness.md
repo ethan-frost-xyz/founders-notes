@@ -191,10 +191,37 @@ turns:
 | Path | Contents |
 |------|----------|
 | `dev/logs/sessions/` | Exported session JSONL (like `/newchat`) |
-| `dev/logs/runs/` | Scenario run JSON reports (`tools_called` per turn when verbose) |
+| `dev/logs/runs/` | Scenario run JSON reports (enriched; see schema below) |
 | `dev/logs/sandbox/` | Janitor temp vaults (gitignored) |
 
-On failure, read the latest `dev/logs/runs/*-report.json` and re-run with `-v`.
+On failure, read the latest `dev/logs/runs/*-report.json`. Use `-v` on the CLI for per-turn timing lines and suite aggregates on stdout.
+
+### Report JSON schema (`*-report.json`)
+
+Written on every scenario run (not gated on `-v`).
+
+**Suite level:** `passed`, `generated_at`, `scenario_count`, `scenarios[]`.
+
+**Per turn (always):**
+
+| Field | Purpose |
+|-------|---------|
+| `response_text` | Full assistant reply — use for quality review |
+| `stop_reason` | `natural`, `cap` (hit 6 tool rounds), or `error` |
+| `tool_calls` | Flat list with `tool`, `arguments`, `step` |
+| `tool_rounds` | Per agent round: `tools`, `queries`, `episode_ids`, `rerank_scores_top3` |
+| `tool_call_counts` | Counts by tool name (e.g. transcript stacking) |
+| `trace_summary` | Human-readable multiline trace |
+| `tools_called` | Legacy flat tool names (unchanged) |
+| `timing` | When Librarian timing is recorded (harness default on) |
+| `timing_summary` | One-line timing bucket summary |
+| `timing_accountability` | `wall_ms` vs summed buckets; `unaccounted_ms` is normal when tools run sequentially |
+
+**Timing notes:**
+
+- `timing.searches[]` rows include `tool` (`search_vault`, `search_vault_many`, `search_transcript`) and optional `error`.
+- `openrouter_calls` covers agent LLM streams only — not vault/transcript tool execution wall time.
+- `agent_ttft_ms_mean` averages all agent rounds (tool-pick and synthesis).
 
 ## CI
 
