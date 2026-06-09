@@ -135,11 +135,16 @@ def enrich_turn_from_traces(
     *,
     elapsed_s: float,
     llm_mode: str = "live",
+    assistant_content: str | None = None,
 ) -> dict[str, Any]:
     timing = timing_dict_from_traces(traces)
     stop_reason = stop_reason_from_traces(traces, llm_mode=llm_mode)
+    if assistant_content is not None:
+        response_text = assistant_content
+    else:
+        response_text = response_text_from_replies(replies)
     out: dict[str, Any] = {
-        "response_text": response_text_from_replies(replies),
+        "response_text": response_text,
         "stop_reason": stop_reason,
         "tool_calls": tool_calls_from_traces(traces),
         "tool_rounds": tool_rounds_from_traces(traces),

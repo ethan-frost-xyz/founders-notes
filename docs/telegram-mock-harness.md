@@ -193,10 +193,10 @@ turns:
 | Path | Contents |
 |------|----------|
 | `dev/logs/sessions/` | Exported session JSONL (like `/newchat`) |
-| `dev/logs/runs/` | Scenario run JSON reports (enriched; see schema below) |
+| `dev/logs/runs/` | `*-report.json` (full trace) and paired `*-report.md` for live librarian runs |
 | `dev/logs/sandbox/` | Janitor temp vaults (gitignored) |
 
-On failure, read the latest `dev/logs/runs/*-report.json`. Use `-v` on the CLI for per-turn timing lines and suite aggregates on stdout.
+On failure, read the latest `dev/logs/runs/*-report.json`. For live librarian quality review, open the paired `*-report.md` in a markdown preview. Use `-v` on the CLI for per-turn timing lines and suite aggregates on stdout.
 
 ### Report JSON schema (`*-report.json`)
 
@@ -208,7 +208,7 @@ Written on every scenario run (not gated on `-v`).
 
 | Field | Purpose |
 |-------|---------|
-| `response_text` | Full assistant reply — use for quality review |
+| `response_text` | Agent final markdown (`result.content`) — clean answer for quality review |
 | `stop_reason` | `natural`, `cap` (hit 6 tool rounds), or `error` |
 | `tool_calls` | Flat list with `tool`, `arguments`, `step` |
 | `tool_rounds` | Per agent round: `tools`, `queries`, `episode_ids`, `rerank_scores_top3` |
@@ -224,6 +224,12 @@ Written on every scenario run (not gated on `-v`).
 - `timing.searches[]` rows include `tool` (`search_vault`, `search_vault_many`, `search_transcript`) and optional `error`.
 - `openrouter_calls` covers agent LLM streams only — not vault/transcript tool execution wall time.
 - `agent_ttft_ms_mean` averages all agent rounds (tool-pick and synthesis).
+
+### Report markdown (`*-report.md`)
+
+Written alongside JSON when the run includes **live** scenarios under `dev/scenarios/librarian/`. Not written for echo/stub CI or Janitor-only runs.
+
+Contains agent answers only (no tool traces or timing): scenario headings with PASS/FAIL, turn headings, blockquoted user prompts, then the raw librarian markdown body. Same timestamp as the JSON report (`2026-06-09T18-25-19-report.md` next to `-report.json`).
 
 ## CI
 

@@ -290,6 +290,7 @@ class MockBotSession:
 
         self.replies: list[Reply] = []
         self.tool_traces: list[dict[str, Any]] = []
+        self.last_assistant_content: str = ""
         self._echo_patches: list[Any] = []
         self._paths_patch: Any | None = None
         self._app: Any = None
@@ -369,11 +370,13 @@ class MockBotSession:
     def _wrap_agent(self, agent: Any) -> Any:
         original = agent.run_turn
         traces = self.tool_traces
+        session = self
 
         def run_turn(*args: Any, **kwargs: Any) -> Any:
             result = original(*args, **kwargs)
             if result.tool_trace:
                 traces.extend(result.tool_trace)
+            session.last_assistant_content = (result.content or "").strip()
             return result
 
         agent.run_turn = run_turn  # type: ignore[method-assign]
@@ -498,6 +501,7 @@ class MockBotSession:
         if self._app is None:
             raise RuntimeError("Session not started; use async with MockBotSession()")
         self.replies.clear()
+        self.last_assistant_content = ""
         await self._app.process_update(self._make_message_update(text))
         return list(self.replies)
 
@@ -505,6 +509,7 @@ class MockBotSession:
         if self._app is None:
             raise RuntimeError("Session not started; use async with MockBotSession()")
         self.replies.clear()
+        self.last_assistant_content = ""
         await self._app.process_update(self._make_callback_update(callback_data))
         return list(self.replies)
 

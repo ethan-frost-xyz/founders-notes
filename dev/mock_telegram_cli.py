@@ -116,8 +116,11 @@ async def _run_scenarios(args: argparse.Namespace) -> int:
         verbose=args.verbose,
     )
     results = await runner.run_paths(paths)
-    report = runner.write_report(results, DEFAULT_LOG_DIR / "runs")
-    print(f"Report: {report}\n")
+    report_paths = runner.write_report(results, DEFAULT_LOG_DIR / "runs")
+    print(f"Report: {report_paths.json}")
+    if report_paths.markdown is not None:
+        print(f"Responses: {report_paths.markdown}")
+    print()
     for result in results:
         print(result.summary(verbose=args.verbose))
         print()

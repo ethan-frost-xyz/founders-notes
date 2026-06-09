@@ -10,6 +10,7 @@ from typing import Any, Literal
 
 from harness.janitor_sandbox import JanitorSandbox
 from harness.mock_session import MockBotSession, Reply
+from harness.response_report import HarnessReportPaths, write_response_markdown
 from harness.trace_report import enrich_turn_from_traces
 
 try:
@@ -36,6 +37,7 @@ class TurnResult:
     tool_call_counts: dict[str, int] = field(default_factory=dict)
     trace_summary: str = ""
     timing_accountability: dict[str, Any] | None = None
+    user_send: str = ""
 
 
 @dataclass
@@ -307,11 +309,12 @@ class ScenarioRunner:
                 turn_t0 = time.perf_counter()
                 action = ""
                 replies: list[Reply] = []
+                user_send = str(turn["send"]) if "send" in turn else ""
 
                 if "send" in turn:
                     action = f"send {turn['send']!r}"
                     session.tool_traces.clear()
-                    replies = await session.send(str(turn["send"]))
+                    replies = await session.send(user_send)
                 elif "button" in turn:
                     action = f"button {turn['button']!r}"
                     replies = await session.tap_button(str(turn["button"]))
@@ -347,6 +350,7 @@ class ScenarioRunner:
                     replies,
                     elapsed_s=elapsed,
                     llm_mode=llm_mode,
+                    assistant_content=session.last_assistant_content,
                 )
                 turn_results.append(
                     TurnResult(
@@ -366,6 +370,7 @@ class ScenarioRunner:
                         tool_call_counts=dict(enriched.get("tool_call_counts") or {}),
                         trace_summary=str(enriched.get("trace_summary") or ""),
                         timing_accountability=enriched.get("timing_accountability"),
+                        user_send=user_send,
                     )
                 )
                 if not ok:
@@ -415,10 +420,10 @@ class ScenarioRunner:
             row["timing_accountability"] = turn.timing_accountability
         return row
 
-    def write_report(self, results: list[ScenarioResult], report_dir: Path) -> Path:
+    def write_report(self, results: list[ScenarioResult], report_dir: Path) -> HarnessReportPaths:
         report_dir.mkdir(parents=True, exist_ok=True)
         stamp = time.strftime("%Y-%m-%dT%H-%M-%S")
-        out = report_dir / f"{stamp}-report.json"
+        json_path = report_dir / f"{stamp}-report.json"
         payload = {
             "passed": all(r.passed for r in results),
             "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
@@ -435,8 +440,9 @@ class ScenarioRunner:
                 for r in results
             ],
         }
-        out.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-        return out
+        json_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+        md_path = write_response_markdown(results, report_dir, stamp=stamp)
+        return HarnessReportPaths(json=json_path, markdown=md_path)
 
 
 def discover_scenarios(root: Path, suite: str | None = None) -> list[Path]:

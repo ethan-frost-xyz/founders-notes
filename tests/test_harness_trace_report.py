@@ -14,6 +14,7 @@ DEV = REPO / "dev"
 if str(DEV) not in sys.path:
     sys.path.insert(0, str(DEV))
 
+from harness.response_report import format_response_markdown, write_response_markdown  # noqa: E402
 from harness.scenario_runner import (  # noqa: E402
     ScenarioResult,
     ScenarioRunner,
@@ -150,6 +151,17 @@ def test_timing_accountability_math():
     assert acc["unaccounted_ms"] == 220600 - (4901 + 103972 + 16345)
 
 
+def test_enrich_turn_prefers_assistant_content():
+    enriched = enrich_turn_from_traces(
+        [],
+        [_Reply("Searching vault…"), _Reply("<b>HTML answer</b>")],
+        elapsed_s=1.0,
+        llm_mode="live",
+        assistant_content="## Clean **markdown** answer",
+    )
+    assert enriched["response_text"] == "## Clean **markdown** answer"
+
+
 def test_enrich_turn_from_traces_includes_accountability():
     enriched = enrich_turn_from_traces(
         _verbatim_transcript_traces(),
@@ -237,8 +249,9 @@ def test_scenario_runner_write_report_includes_tier1_fields(tmp_path: Path):
             llm_mode="live",
         )
     ]
-    out = runner.write_report(results, tmp_path / "runs")
-    payload = json.loads(out.read_text(encoding="utf-8"))
+    report_paths = runner.write_report(results, tmp_path / "runs")
+    assert report_paths.markdown is None
+    payload = json.loads(report_paths.json.read_text(encoding="utf-8"))
     assert payload["scenario_count"] == 1
     assert "generated_at" in payload
     row = payload["scenarios"][0]["turns"][0]
@@ -247,6 +260,83 @@ def test_scenario_runner_write_report_includes_tier1_fields(tmp_path: Path):
     assert row["tool_calls"][0]["arguments"]["query"] == "q"
     assert row["timing"]["vault_search_local_ms"] == 100
     assert row["timing_accountability"]["unaccounted_ms"] == 9700
+
+
+def _librarian_turn(**overrides: object) -> TurnResult:
+    base = dict(
+        index=1,
+        action="send 'Who founded Nike?'",
+        passed=True,
+        message="ok",
+        elapsed_s=10.0,
+        response_text="Phil Knight built Nike [ep-0123].",
+        user_send="Who founded Nike?",
+    )
+    base.update(overrides)
+    return TurnResult(**base)  # type: ignore[arg-type]
+
+
+def _librarian_result(
+    tmp_path: Path,
+    *,
+    llm_mode: str = "live",
+    turns: list[TurnResult] | None = None,
+    passed: bool = True,
+) -> ScenarioResult:
+    return ScenarioResult(
+        name="Librarian test",
+        path=tmp_path / "dev" / "scenarios" / "librarian" / "basic_qa.yaml",
+        passed=passed,
+        turns=turns or [_librarian_turn()],
+        elapsed_s=10.0,
+        llm_mode=llm_mode,
+    )
+
+
+def test_write_response_markdown_live_librarian(tmp_path: Path):
+    result = _librarian_result(tmp_path)
+    body = format_response_markdown([result])
+    assert body is not None
+    assert "# Librarian harness responses" in body
+    assert "## Librarian test (PASS)" in body
+    assert "### Turn 1" in body
+    assert "> Who founded Nike?" in body
+    assert "Phil Knight built Nike [ep-0123]." in body
+
+    md_path = write_response_markdown([result], tmp_path / "runs", stamp="2026-06-09T18-00-00")
+    assert md_path is not None
+    assert md_path.name == "2026-06-09T18-00-00-report.md"
+    assert "Phil Knight" in md_path.read_text(encoding="utf-8")
+
+
+def test_write_response_markdown_skips_empty_turns(tmp_path: Path):
+    turns = [
+        _librarian_turn(index=1, response_text="", user_send="/start"),
+        _librarian_turn(index=2, response_text="Follow-up answer."),
+    ]
+    body = format_response_markdown([_librarian_result(tmp_path, turns=turns)])
+    assert body is not None
+    assert "### Turn 1" not in body
+    assert "### Turn 2" in body
+    assert "Follow-up answer." in body
+
+
+def test_write_response_markdown_skips_echo(tmp_path: Path):
+    result = _librarian_result(tmp_path, llm_mode="echo")
+    assert format_response_markdown([result]) is None
+    assert write_response_markdown([result], tmp_path / "runs", stamp="t") is None
+
+
+def test_write_response_markdown_skips_janitor_only(tmp_path: Path):
+    janitor = ScenarioResult(
+        name="Janitor parse",
+        path=tmp_path / "dev" / "scenarios" / "janitor" / "episode_parse.yaml",
+        passed=True,
+        turns=[TurnResult(1, "send '/janitor'", True, "ok", response_text="Janitor")],
+        elapsed_s=1.0,
+        llm_mode="live",
+    )
+    assert format_response_markdown([janitor]) is None
 
 
 def test_search_vault_records_search_on_exception(
