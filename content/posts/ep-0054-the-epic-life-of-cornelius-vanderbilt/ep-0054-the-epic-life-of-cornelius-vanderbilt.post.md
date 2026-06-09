@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2025-12-12"
 founders_url: "https://www.founderspodcast.com/episodes/54-the-epic-life-of-cornelius-vanderbilt"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/1999355596521505095"
 x_post_id: "1999355596521505095"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "tweet"
 ---
 

@@ -50,14 +50,6 @@ nc -zv ethans-mac-mini 22   # open after Remote Login; refused until then
 
 - **OpenRouter reasoning params** — Optional `reasoning.effort` in [`agent.py`](services/telegram/bot/agent.py) for Librarian synthesis only (thinking-capable models). `librarian_reasoning_effort` independent of `librarian_model`. Decide first: opt-in docs, retry without reasoning on 4xx, env-only, or model allowlist. [OpenRouter reasoning tokens](https://openrouter.ai/docs/guides/best-practices/reasoning-tokens).
 
-### Agentic retrieval (recommended next for Librarian depth)
-
-- **`search_vault` synthesis tool** — Let Librarian re-invoke the orchestrator (or a slim search-only path) when evidence is thin or a near-miss; update [`AGENTS.md`](AGENTS.md) “Retrieval already ran” rule when shipped.
-- **Multi-hop turns** — Cap at N search rounds per thematic question; trace in `tool_trace`.
-- **Fast path unchanged** — Simple questions stay single orchestrator pass (current v3 latency).
-
-See also **Librarian latency** below (parallel variant search shipped; `load_chunks()` cache and batch vector matmul still open).
-
 ### Librarian latency
 
 Operational tuning (no code): fast `retrieval_model` on the Mac mini — [`docs/janitor.md`](docs/janitor.md#model-tuning-playbook), [`docs/retrieval.md`](docs/retrieval.md).

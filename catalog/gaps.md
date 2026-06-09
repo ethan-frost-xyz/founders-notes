@@ -11,13 +11,13 @@
 ## Phase 2 coverage
 
 **Notes files:** 417 / 417 numbered (with transcript)
-**Notes with datapoints:** 179 / 417 numbered (timestamp bullets)
+**Notes with datapoints:** 184 / 417 numbered (timestamp bullets)
 **Bullets missing timestamp:** 60 across 32 numbered (`- —` without `MM:SS`)
-**Posts imported:** 187 / 417 numbered
-**Expanded notes:** 179 / 417 numbered (with transcript)
+**Posts imported:** 195 / 417 numbered
+**Expanded notes:** 184 / 417 numbered (with transcript)
 **Expanded drafts (pending review):** 0 / 417 numbered
 
-## Notes without datapoints (232 numbered)
+## Notes without datapoints (227 numbered)
 
 File exists but no `MM:SS —` bullets yet — **expected** for episodes not listened to (empty scaffold or backlog). Filled in over time via the daily notes workflow; not a blocking gap.
 
@@ -27,11 +27,6 @@ File exists but no `MM:SS —` bullets yet — **expected** for episodes not lis
 - `ep-0119`
 - `ep-0155`
 - `ep-0186`
-- `ep-0192`
-- `ep-0193`
-- `ep-0194`
-- `ep-0195`
-- `ep-0196`
 - `ep-0197`
 - `ep-0198`
 - `ep-0199`
@@ -61,7 +56,12 @@ File exists but no `MM:SS —` bullets yet — **expected** for episodes not lis
 - `ep-0223`
 - `ep-0224`
 - `ep-0225`
-- … and 192 more
+- `ep-0226`
+- `ep-0227`
+- `ep-0228`
+- `ep-0229`
+- `ep-0230`
+- … and 187 more
 
 ## Datapoint bullets missing timestamp (32 numbered)
 
@@ -100,15 +100,8 @@ Notes contain `- — …` bullets with no `MM:SS` prefix — timestamp may have 
 - `ep-0171` (1 bullet(s))
 - `ep-0185` (1 bullet(s))
 
-## Missing posts (228 numbered)
+## Missing posts (221 numbered)
 
-- `ep-0190`
-- `ep-0191`
-- `ep-0192`
-- `ep-0193`
-- `ep-0194`
-- `ep-0195`
-- `ep-0196`
 - `ep-0197`
 - `ep-0198`
 - `ep-0199`
@@ -142,11 +135,17 @@ Notes contain `- — …` bullets with no `MM:SS` prefix — timestamp may have 
 - `ep-0227`
 - `ep-0228`
 - `ep-0229`
-- … and 188 more
+- `ep-0230`
+- `ep-0231`
+- `ep-0232`
+- `ep-0233`
+- `ep-0234`
+- `ep-0235`
+- `ep-0236`
+- … and 181 more
 
-## Post gaps (documented, 2)
+## Post gaps (documented, 1)
 
 - `ep-0159` — skipped — deleted on X or never posted
-- `ep-0189` — not posted yet
 
 No blocking gaps. Phase 1 transcript archive is complete.

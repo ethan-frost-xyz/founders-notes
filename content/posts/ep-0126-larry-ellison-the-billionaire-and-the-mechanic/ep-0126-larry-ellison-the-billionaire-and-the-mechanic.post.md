@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2026-02-23"
 founders_url: "https://www.founderspodcast.com/episodes/126-larry-ellison-the-billionaire-and-the-mechanic"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/2025825422152183907"
 x_post_id: "2025825422152183907"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "article"
 ---
 

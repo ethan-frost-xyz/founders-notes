@@ -39,8 +39,9 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`docs/inges
 | Expand (OpenRouter) | `notes/expand_datapoints_llm.py` | `.expanded.draft.md` → `--promote` → `.expanded.md` |
 | Expand (prompt A/B tune) | `notes/expand_tune.py` | Ad-hoc sandbox under `fixtures/expand-runs/` (not committed) |
 | **Recovery console** | `python maintain.py` | Laptop fallback: coverage, expand, promote, reindex (Telegram is primary) |
-| X sync | `x/sync_x_cache.py` | API → `import/x-posts-raw.csv` |
-| X organize | `x/organize_posts_from_csv.py` | CSV → `content/posts/` (`#N` attribution; review queue) |
+| X sync | `x/x_posts_sync.py` | API → `import/x-posts-raw.csv` + pending queue |
+| X attribute | `x/x_posts_attribute.py` | Pending queue → `content/posts/` (rules → chrono → LLM review) |
+| X status | `x/x_posts_status.py` | Zero-API pipeline status |
 | Search | `search/build_chunks.py` | → `catalog/chunks.jsonl` |
 | Search | `search/search.py` | Query chunks (+ optional `rg`) |
 
@@ -67,7 +68,8 @@ CLI scripts call [`_bootstrap.setup_paths(__file__)`](_bootstrap.py) (adds `inge
 |----------|---------|
 | `COLOSSUS_EMAIL`, `COLOSSUS_PASSWORD` | `transcripts/fetch_transcripts.py` |
 | `COLOSSUS_COOKIES_FILE` | `transcripts/fetch_transcripts.py` (alternative to login) |
-| `X_BEARER_TOKEN`, `X_USERNAME` | `x/sync_x_cache.py`, `x/assign_post_manual.py` |
+| `X_BEARER_TOKEN`, `X_USERNAME` | `x/x_posts_sync.py`, `x/assign_post_manual.py` (mini: `founders-telegram/env`) |
+| `OPENROUTER_API_KEY`, `X_ATTRIBUTION_MODEL` | `x/x_posts_attribute.py --llm-review` |
 | `OPENROUTER_API_KEY` | `notes/expand_datapoints_llm.py`, `notes/expand_tune.py`, `search/build_embeddings.py` |
 | `OPENROUTER_MODEL` | `notes/expand_datapoints_llm.py`, `notes/expand_tune.py` — any [OpenRouter](https://openrouter.ai/models) slug; `--model` overrides; `OPENROUTER_BASE_URL` optional |
 

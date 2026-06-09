@@ -1,8 +1,8 @@
 # All Founders posts (auto-generated)
 
-**Sections:** 187
+**Sections:** 195
 
-Built at 2026-05-21T21:24:40Z
+Built at 2026-06-09T14:04:57Z
 
 ## #1 — #1 Elon Musk: Tesla, SpaceX, & the Quest for a Fantastic Future
 
@@ -4006,3 +4006,121 @@ Business environments are too dynamic to perfectly optimize.
 If you adopt a reasonable strategy rather than waiting for an optimal one and stick with it, you'll probably succeed. Tenacity is as important as brilliance. - Coulombe (22:00)
 
 The greatest danger was not that the enemy learned your plans but that your own troops would not. - General Patton (40:00)
+
+## #189 — #189 David Ogilvy (The book I've given as a gift the most)
+
+Founders #189: David Ogilvy
+
+Quality of salesmanship involves energy, time, and knowledge of the product. (8:00)
+
+In a sales pitch, use social proof and avoid naming competitors. (9:00)
+
+Don't be a dull bore. You can't save souls in an empty church. (29:00)
+
+Many writers hate the act of writing, but they like having written. It's a normal feeling. (23:00)
+
+## #190 — #190 Henry Ford and Thomas Edison
+
+Founders #190: Thomas Edison & Henry Ford
+
+Edison ran a pure R&D shop but had no attention span for capturing market value. He would build massive innovations only to get bored and let competitors eat his lunch.
+
+Ford operated on the complete opposite end of the spectrum. He hammered away at the micro-details of a single product until he owned the entire industry.
+
+That said, Edison remains one of the greatest minds in American history and was one of the few people Ford respected more than himself. (39:00, 48:00)
+
+## #191 — #191 Naval Ravikant (A Guide to Wealth and Happiness)
+
+Founders #191: Naval Ravikant
+
+Be quick with "no" and slow with "yes". 
+
+"If you can't decide, the answer is no." (49:00)
+
+Interpretations will change over time... Understand the original intent may be different than your interpretation. (05:00)
+
+Getting rich is about knowing what to do, who to do it with, and when to do it. (8:00)
+
+Capital and labor are permissioned leverage. (16:00)
+
+Become the best in the world at what you do. Keep redefining what you do until this is true. (25:00)
+
+The newest form of leverage is where all the new fortunes are made. The new generation's fortunes are all made through code or media. (31:00)
+
+Whenever you can in life, optimize for independents rather than pay. What you want in life is to be in control of your time. (32:00)
+
+There are basically three really big decisions you make in your early life, where you live, who you're with and what you do? (35:00)
+
+Self-discipline is a bridge to a new self-image. (59:00)
+
+## #192 — #192 Jim Casey (Founder of UPS)
+
+Founders #192: Jim Casey
+
+UPS started in a Seattle basement with just $100 and a few bicycles. His secret?
+
+"Determined men working together can do anything."
+
+For Casey,  a decade of struggle was only the first part of a trilogy. He remained determined. (46:00)
+
+The key? Culture
+
+In the early years, UPS's culture of discipline, long waiting lists, and physical winnowing led outsiders to call it a cult. Looking back now, he was just right.
+
+He built his "cult" on two principles. The quote above, which became the company motto, and humility, embodied in the iconic brown uniforms.
+
+## #193 — #193 Arnold Schwarzenegger (Arnold's first autobiography)
+
+Founders #193 Arnold Schwarzenegger
+
+Audit your weaknesses like a competitive bodybuilder. Treat lagging areas as a long, almost unending process of measurement and adjustment. (25:00)
+
+Self-confidence, a positive mental attitude, and honest hard work. Many people are aware of these principles, but very few can put them into practice. (59:00)
+
+"In my own mind, I was Mr. Universe. I had this absolutely clear vision of myself up on the pedestal with the trophy. It was only a matter of time before the whole world would be able to see it, too. And it made no difference to me how much I had to struggle to get there." (30:00)
+
+"If I had been able to change my body that much, I could also through the same discipline and determination, change anything else I wanted." (21:00)
+
+## #194 — #194 Ernest Hemingway (Writer, Sailor, Soldier, Spy)
+
+Founders #194: Ernest Hemingway
+
+War gives answers that could be found nowhere else. (17:00)
+
+A man can be destroyed but not defeated. (1:07:00)
+
+Life can be whatever we want it to be. It can be as broad or as narrow as you want it to be. - Steve Jobs (6:00)
+
+If you haven't read hundreds of books, you are functionally illiterate, and you will be incompetent because your personal experiences alone aren't broad enough to sustain you. - Gen. Jim Mattis (41:00)
+
+## #195 — #195 Sid Meier (Computer game designer)
+
+Founders #195: Sid Meier - Civilization
+
+"You shouldn't stick with a bad idea just because you're fond of it." (1:13:00)
+
+You don't need to be perfect at any one job. You just need to be good enough to prove your point and inspire others to join you. (1:10:00)
+
+Big moments rarely feel big until later. The danger of what Meier calls "retroactive mythologizing" (big moments) is that it leads people to hold out for the "right time" rather than throwing themselves into every opportunity. (12:00)
+
+Meier on microtransactions: Gamers hate microtransactions, but the revenue tells a different story. It's not new either; coin-operated arcades were the foundation of the industry. (1:11:00)
+
+Obsession is key, but seek joy in learning elsewhere. You never know where inspiration will strike. (1:08:00)
+
+## #196 — #196 Winston Churchill (Leadership during WW2)
+
+Founders #196: Winston Churchill
+
+Life without productive struggle is not merely wasted but offensive.
+
+Frustrated by his son's behavior, Churchill wrote:
+
+"Your idle and lazy life is offensive to me... You appear to be leading a perfectly useless existence." (38:00)
+
+The greatest speech:
+
+"Let us, therefore, brace ourselves to our duty and so bear ourselves that if the British Commonwealth and empire lasts for 1,000 years, men will still say, this was their finest hour." (31:00)
+
+His ability to kindle the fires in the hearts of his people was among his greatest.
+
+There is always room in organizations to boost performance by amping up the pace and intensity.

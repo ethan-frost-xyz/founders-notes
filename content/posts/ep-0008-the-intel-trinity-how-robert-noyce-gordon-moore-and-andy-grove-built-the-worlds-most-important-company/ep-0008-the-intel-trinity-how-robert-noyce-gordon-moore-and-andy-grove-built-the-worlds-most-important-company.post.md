@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2025-10-27"
 founders_url: "https://www.founderspodcast.com/episodes/8-the-intel-trinity-how-robert-noyce-gordon-moore-and-andy-grove-built-the-worlds-most-important-company"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/1982689327487254641"
 x_post_id: "1982689327487254641"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "article"
 ---
 

@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2026-03-16"
 founders_url: "https://www.founderspodcast.com/episodes/147-sam-colt"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/2033618312513429517"
 x_post_id: "2033618312513429517"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "article"
 ---
 

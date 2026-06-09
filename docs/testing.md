@@ -74,7 +74,7 @@ Harness echo scenarios are **not** the CI time sink (they share the fast ~second
 SKIP_HARNESS_SCENARIOS=1 pytest tests -q
 ```
 
-Live Librarian harness (OpenRouter; loads `~/.config/founders-telegram/env` + repo `.env`; optional `runtime.json` maps `librarian_model` → chat model for laptop runs after Mac mini slim-env cutover):
+Live Librarian harness (OpenRouter; loads `~/.config/founders-telegram/env` + repo `.env`; models from `~/.config/founders-telegram/runtime.json` on the Mac mini, or legacy env vars on any host):
 
 ```bash
 python dev/mock_telegram_cli.py --suite librarian --live-only -v

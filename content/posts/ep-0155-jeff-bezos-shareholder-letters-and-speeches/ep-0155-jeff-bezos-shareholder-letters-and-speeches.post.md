@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2026-03-26"
 founders_url: "https://www.founderspodcast.com/episodes/155-jeff-bezos-shareholder-letters-and-speeches"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/2037223243283570934"
 x_post_id: "2037223243283570934"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "tweet"
 ---
 

@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2025-12-05"
 founders_url: "https://www.founderspodcast.com/episodes/47-losing-my-virginity-how-i-survived-had-fun-and-made-a-fortune-doing-business-my-way"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/1996811499096997990"
 x_post_id: "1996811499096997990"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "article"
 ---
 

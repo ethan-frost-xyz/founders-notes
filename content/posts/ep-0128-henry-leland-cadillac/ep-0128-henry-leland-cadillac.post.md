@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2026-02-25"
 founders_url: "https://www.founderspodcast.com/episodes/128-henry-leland-cadillac"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/2026530848971858064"
 x_post_id: "2026530848971858064"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "article"
 ---
 

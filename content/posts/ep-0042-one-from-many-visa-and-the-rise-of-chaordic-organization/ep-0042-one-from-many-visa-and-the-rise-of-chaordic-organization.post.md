@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2025-11-30"
 founders_url: "https://www.founderspodcast.com/episodes/42-one-from-many-visa-and-the-rise-of-chaordic-organization"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/1994976545593577652"
 x_post_id: "1994976545593577652"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "article"
 ---
 

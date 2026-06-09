@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2026-01-08"
 founders_url: "https://www.founderspodcast.com/episodes/81-henry-royce-founder-of-rolls-royce"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/2009110872908829148"
 x_post_id: "2009110872908829148"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "tweet"
 ---
 

@@ -45,13 +45,9 @@ Expand + rerank inside each search use `retrieval_model` (`/setmodel retrieval �
 | [`ingestion/prompts/query_expand.md`](../ingestion/prompts/query_expand.md) | Founders-specific variant frames: synonym/reframe, operator mental model, biographical angle, contrasting case, cross-episode pattern |
 | [`ingestion/prompts/rerank_evidence.md`](../ingestion/prompts/rerank_evidence.md) | Synthesis-usefulness scoring (0–10 bands); conceptual relevance over keyword overlap |
 
-### Planned: agentic retrieval
+### Tuning and trace
 
-**Not shipped yet.** Backlog: [`potential-ideas.md`](../potential-ideas.md).
-
-- **`search_vault` synthesis tool** — Let Librarian re-invoke the orchestrator (or a slim search-only path) when initial evidence is thin or a near-miss; requires updating [`AGENTS.md`](../AGENTS.md) (“Retrieval already ran”) when implemented.
-- **Multi-hop turns** — Cap at N search rounds per thematic question; trace in `tool_trace`.
-- **Fast path unchanged** — Simple questions stay single orchestrator pass (current v3 latency).
+Per-turn `tool_trace` + `trace_summary` (queries, episode ids, rerank scores, stop reason) are built in `VaultAgent.run_turn()` for harness `-v` runs and tests. Telegram persists `tool_trace` in session exports; live status labels come from `tool_status.py`. Follow-ups: [`potential-ideas.md`](../potential-ideas.md) (latency, reasoning params).
 
 ## Source priority (synthesis policy)
 

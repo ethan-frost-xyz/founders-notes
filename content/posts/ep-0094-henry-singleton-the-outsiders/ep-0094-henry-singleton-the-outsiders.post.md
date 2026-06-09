@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2026-01-21"
 founders_url: "https://www.founderspodcast.com/episodes/94-henry-singleton-the-outsiders"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/2013816875604480091"
 x_post_id: "2013816875604480091"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "tweet"
 ---
 

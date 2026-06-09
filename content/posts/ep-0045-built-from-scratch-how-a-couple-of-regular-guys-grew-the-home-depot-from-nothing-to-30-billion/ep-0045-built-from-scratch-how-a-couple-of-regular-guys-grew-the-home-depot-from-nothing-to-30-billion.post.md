@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2025-12-03"
 founders_url: "https://www.founderspodcast.com/episodes/45-built-from-scratch-how-a-couple-of-regular-guys-grew-the-home-depot-from-nothing-to-30-billion"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/1996106054162415701"
 x_post_id: "1996106054162415701"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "tweet"
 ---
 
