@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 import os
 from pathlib import Path
+from time import perf_counter
 from typing import Any
 
 from tool_status import tool_status_label
@@ -18,6 +19,7 @@ from telegram.ext import ContextTypes
 from agent import VaultAgent
 from messaging import TELEGRAM_MESSAGE_LIMIT, reply_text_chunked
 from runtime_settings import effective_stream_replies
+from turn_timing import TurnTimer, append_timing_jsonl, is_timing_enabled
 
 
 async def _reject_unauthorized(update: Update, config: BotConfig) -> bool:
@@ -302,6 +304,18 @@ async def _run_agent_turn(
     agent = _agent(context)
     history = sessions.history_for_agent(uid)
 
+    t_handler = perf_counter()
+    harness = _is_harness_bot(context)
+    timer: TurnTimer | None = None
+    if is_timing_enabled(harness=harness):
+        timer = TurnTimer()
+        if not harness and update.message and update.message.date:
+            pickup_ms = max(
+                0,
+                int((t_handler - update.message.date.timestamp()) * 1000),
+            )
+            timer.set_telegram_pickup_ms(pickup_ms)
+
     await update.message.reply_chat_action("typing")
 
     status_msg: Any | None = None
@@ -309,7 +323,6 @@ async def _run_agent_turn(
     accumulated_text = ""
     last_stream_edit_at = 0.0
     loop = asyncio.get_running_loop()
-    harness = _is_harness_bot(context)
     stream_enabled, _ = effective_stream_replies()
     stream_lock = asyncio.Lock()
 
@@ -360,6 +373,7 @@ async def _run_agent_turn(
             session_id=str(uid),
             on_tool_start=on_tool_start,
             on_chunk=on_chunk if stream_enabled else None,
+            timing=timer,
         )
     finally:
         if status_msg is not None and not harness:
@@ -367,6 +381,9 @@ async def _run_agent_turn(
                 await status_msg.delete()
             except Exception:
                 pass
+
+    if timer is not None and not harness and is_timing_enabled(harness=False):
+        append_timing_jsonl(timer.to_dict(), session_id=str(uid))
 
     if stream_msg is not None and not harness:
         preview = result.content or "…"

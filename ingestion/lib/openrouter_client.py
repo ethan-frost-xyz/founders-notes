@@ -134,6 +134,7 @@ def call_openrouter(
     temperature: float = 0.0,
     response_format: dict[str, str] | None = None,
     episode_id: str | None = None,
+    on_complete: Callable[[OpenRouterCompletion], None] | None = None,
 ) -> OpenRouterCompletion:
     from openai import OpenAI
 
@@ -170,7 +171,10 @@ def call_openrouter(
             duration_ms=duration_ms,
         )
 
-    return execute_openrouter_with_retry(_once, episode_id=episode_id)
+    result = execute_openrouter_with_retry(_once, episode_id=episode_id)
+    if on_complete is not None:
+        on_complete(result)
+    return result
 
 
 def call_openrouter_streaming(

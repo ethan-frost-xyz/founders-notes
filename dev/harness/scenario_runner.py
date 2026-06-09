@@ -26,6 +26,8 @@ class TurnResult:
     replies: list[Reply] = field(default_factory=list)
     elapsed_s: float = 0.0
     tools_called: list[str] = field(default_factory=list)
+    timing: dict[str, Any] | None = None
+    timing_summary: str | None = None
 
 
 @dataclass
@@ -45,8 +47,77 @@ class ScenarioResult:
             line = f"  [{mark}] turn {turn.index}: {turn.action} — {turn.message}"
             if verbose and turn.tools_called:
                 line += f" (tools: {', '.join(turn.tools_called)})"
+            if verbose and turn.timing_summary:
+                line += f" [{turn.timing_summary}]"
             lines.append(line)
         return "\n".join(lines)
+
+
+def _timing_from_traces(traces: list[dict[str, Any]]) -> tuple[dict[str, Any] | None, str | None]:
+    for entry in reversed(traces):
+        if entry.get("record") == "timing":
+            timing = {k: v for k, v in entry.items() if k != "record"}
+            try:
+                from turn_timing import summary_line_from_dict
+
+                summary = summary_line_from_dict(timing)
+            except ImportError:
+                summary = None
+            return timing, summary
+    return None, None
+
+
+def aggregate_timing(results: list[ScenarioResult]) -> dict[str, Any]:
+    """Mean/sum across all turns that recorded timing."""
+    turns_with_timing: list[dict[str, Any]] = []
+    for result in results:
+        for turn in result.turns:
+            if turn.timing:
+                turns_with_timing.append(turn.timing)
+
+    if not turns_with_timing:
+        return {"turn_count": 0}
+
+    def _sum(key: str) -> int:
+        return sum(int(t.get(key) or 0) for t in turns_with_timing)
+
+    def _mean(key: str) -> float | None:
+        vals = [t.get(key) for t in turns_with_timing if t.get(key) is not None]
+        if not vals:
+            return None
+        return round(sum(float(v) for v in vals) / len(vals), 1)
+
+    pickup_vals = [t["telegram_pickup_ms"] for t in turns_with_timing if t.get("telegram_pickup_ms") is not None]
+
+    return {
+        "turn_count": len(turns_with_timing),
+        "sum_vault_search_local_ms": _sum("vault_search_local_ms"),
+        "sum_retrieval_llm_ms": _sum("retrieval_llm_ms"),
+        "mean_vault_search_local_ms": _mean("vault_search_local_ms"),
+        "mean_retrieval_llm_ms": _mean("retrieval_llm_ms"),
+        "mean_agent_ttft_ms": _mean("agent_ttft_ms_mean"),
+        "mean_generation_tok_per_sec": _mean("generation_tok_per_sec_mean"),
+        "mean_telegram_pickup_ms": (
+            round(sum(pickup_vals) / len(pickup_vals), 1) if pickup_vals else None
+        ),
+    }
+
+
+def format_timing_aggregate(agg: dict[str, Any]) -> str:
+    if not agg.get("turn_count"):
+        return "Timing: no turns recorded timing data."
+    lines = [
+        f"Timing aggregate ({agg['turn_count']} turns):",
+        f"  vault_local  mean={agg.get('mean_vault_search_local_ms')}ms  sum={agg.get('sum_vault_search_local_ms')}ms",
+        f"  retrieval_llm mean={agg.get('mean_retrieval_llm_ms')}ms  sum={agg.get('sum_retrieval_llm_ms')}ms",
+    ]
+    if agg.get("mean_agent_ttft_ms") is not None:
+        lines.append(f"  agent_ttft   mean={agg['mean_agent_ttft_ms']}ms")
+    if agg.get("mean_generation_tok_per_sec") is not None:
+        lines.append(f"  tok/s        mean={agg['mean_generation_tok_per_sec']}")
+    if agg.get("mean_telegram_pickup_ms") is not None:
+        lines.append(f"  pickup       mean={agg['mean_telegram_pickup_ms']}ms")
+    return "\n".join(lines)
 
 
 def load_scenario(path: Path) -> dict[str, Any]:
@@ -239,6 +310,7 @@ class ScenarioRunner:
                 expect = turn.get("expect") or {}
                 traces = list(session.tool_traces)
                 tools_called = [str(t["tool"]) for t in traces if t.get("tool")]
+                timing, timing_summary = _timing_from_traces(traces)
                 ok, msg = _check_expectations(
                     expect,
                     replies=replies,
@@ -259,6 +331,8 @@ class ScenarioRunner:
                         replies=replies,
                         elapsed_s=elapsed,
                         tools_called=tools_called,
+                        timing=timing,
+                        timing_summary=timing_summary,
                     )
                 )
                 if not ok:
@@ -306,6 +380,14 @@ class ScenarioRunner:
                             "message": t.message,
                             "elapsed_s": t.elapsed_s,
                             "tools_called": t.tools_called,
+                            **(
+                                {
+                                    "timing": t.timing,
+                                    "timing_summary": t.timing_summary,
+                                }
+                                if self.verbose and t.timing
+                                else {}
+                            ),
                         }
                         for t in r.turns
                     ],

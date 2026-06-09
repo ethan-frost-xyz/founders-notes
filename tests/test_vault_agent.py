@@ -127,8 +127,10 @@ def _fake_response(*, content: str | None = None, tool_calls: list | None = None
     return SimpleNamespace(choices=[SimpleNamespace(message=message)])
 
 
-def _stream_from_response(response: SimpleNamespace):
+def _stream_from_response(response: SimpleNamespace, *, delay_s: float = 0.0, usage_tokens: int = 0):
     """Simulate a one-chunk stream for agentic loop tests."""
+    import time
+
     msg = response.choices[0].message
     delta = SimpleNamespace(
         content=msg.content,
@@ -146,7 +148,16 @@ def _stream_from_response(response: SimpleNamespace):
             )
             for i, tc in enumerate(msg.tool_calls)
         ]
-    yield SimpleNamespace(choices=[SimpleNamespace(delta=delta)])
+
+    def _gen():
+        if delay_s:
+            time.sleep(delay_s)
+        chunk = SimpleNamespace(choices=[SimpleNamespace(delta=delta)])
+        if usage_tokens:
+            chunk.usage = SimpleNamespace(completion_tokens=usage_tokens)
+        yield chunk
+
+    return _gen()
 
 
 def test_tool_status_label_known_tools():
@@ -362,3 +373,45 @@ def test_run_turn_load_episode_via_tools(agent_config: AgentConfig):
     )
     assert not result.error
     assert any(t.get("tool") == "load_episode" for t in result.tool_trace)
+
+
+def test_run_turn_stream_timing(agent_config: AgentConfig):
+    import time
+
+    from turn_timing import TurnTimer
+
+    timer = TurnTimer()
+    content = "Timed answer with enough tokens here for rate calculation."
+
+    def fake_completion(**kwargs):
+        def _gen():
+            time.sleep(0.03)
+            yield SimpleNamespace(
+                choices=[SimpleNamespace(delta=SimpleNamespace(content="Timed ", tool_calls=None))]
+            )
+            time.sleep(0.05)
+            yield SimpleNamespace(
+                choices=[
+                    SimpleNamespace(
+                        delta=SimpleNamespace(content=content[len("Timed ") :], tool_calls=None)
+                    )
+                ],
+                usage=SimpleNamespace(completion_tokens=40),
+            )
+
+        return _gen()
+
+    result = VaultAgent(config=agent_config).run_turn(
+        "hello",
+        completion_fn=fake_completion,
+        timing=timer,
+    )
+    assert not result.error
+    assert result.timing is not None
+    assert result.timing.get("agent_ttft_ms_mean") is not None
+    assert result.timing.get("generation_tok_per_sec_mean") is not None
+    calls = result.timing.get("openrouter_calls") or []
+    assert calls
+    assert calls[0]["label"] == "agent_round_1"
+    assert calls[0]["tok_per_sec"] is not None
+    assert any(t.get("record") == "timing" for t in result.tool_trace)

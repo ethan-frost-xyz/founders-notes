@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Callable
 
@@ -18,6 +19,7 @@ from retrieval_orchestrator import (
     format_evidence_for_tool,
     orchestrator_from_agent_config,
 )
+from turn_timing import TurnTimer
 
 
 def _orchestrator(config: AgentConfig) -> RetrievalOrchestrator:
@@ -30,14 +32,51 @@ def _orchestrator(config: AgentConfig) -> RetrievalOrchestrator:
     return orchestrator_from_agent_config(config, retrieval_model=retrieval_model)
 
 
+class _SearchTiming:
+    """Per-search accumulator bridged to TurnTimer."""
+
+    def __init__(self, timer: TurnTimer, query: str) -> None:
+        self._timer = timer
+        self._query = query
+        self.vault_local_ms = 0
+        self.retrieval_llm_ms = 0
+
+    def on_timing(self, phase: str, ms: int) -> None:
+        if phase == "vault_local":
+            self.vault_local_ms += ms
+            self._timer.add_vault_local(ms)
+        elif phase == "retrieval_llm":
+            self.retrieval_llm_ms += ms
+            self._timer.add_retrieval_llm(ms)
+
+    def finish(self) -> None:
+        self._timer.record_search(
+            self._query,
+            vault_search_local_ms=self.vault_local_ms,
+            retrieval_llm_ms=self.retrieval_llm_ms,
+        )
+
+
+def _timing_callback(timer: TurnTimer | None, search: _SearchTiming | None) -> Callable[[str, int], None] | None:
+    if timer is None or search is None:
+        return None
+
+    def on_timing(phase: str, ms: int) -> None:
+        search.on_timing(phase, ms)
+
+    return on_timing
+
+
 def search_vault_for_turn(
     query: str,
     *,
     config: AgentConfig,
     history: list[dict[str, Any]] | None = None,
     on_status: Callable[[str], None] | None = None,
+    timing: TurnTimer | None = None,
 ) -> dict[str, Any]:
     """Full expand + hybrid + rerank; returns formatted evidence for the agent loop."""
+    search_timing = _SearchTiming(timing, query) if timing is not None else None
     orch = _orchestrator(config)
     bundle = orch.retrieve_core(
         query,
@@ -45,7 +84,10 @@ def search_vault_for_turn(
         expand_variants=EXPAND_VARIANTS_FULL,
         keep=SEARCH_VAULT_KEEP,
         on_status=on_status,
+        on_timing=_timing_callback(timing, search_timing),
     )
+    if search_timing is not None:
+        search_timing.finish()
     return {
         "query": query,
         "evidence": format_evidence_for_tool(bundle, max_chunks=SEARCH_VAULT_KEEP),
@@ -60,6 +102,7 @@ def search_vault_many_for_turn(
     config: AgentConfig,
     history: list[dict[str, Any]] | None = None,
     on_status: Callable[[str], None] | None = None,
+    timing: TurnTimer | None = None,
 ) -> dict[str, Any]:
     """Concurrent fan-out of retrieve_core per sub-query; labeled results."""
     cleaned = [str(q).strip() for q in queries if str(q).strip()]
@@ -78,6 +121,7 @@ def search_vault_many_for_turn(
     results: list[dict[str, Any]] = [None] * len(cleaned)  # type: ignore[list-item]
 
     def _run_one(idx: int, sub_query: str) -> tuple[int, dict[str, Any]]:
+        search_timing = _SearchTiming(timing, sub_query) if timing is not None else None
         try:
             bundle = orch.retrieve_core(
                 sub_query,
@@ -85,7 +129,10 @@ def search_vault_many_for_turn(
                 expand_variants=EXPAND_VARIANTS_NONE,
                 keep=SEARCH_VAULT_MANY_KEEP,
                 on_status=on_status,
+                on_timing=_timing_callback(timing, search_timing),
             )
+            if search_timing is not None:
+                search_timing.finish()
             return idx, {
                 "query": sub_query,
                 "evidence": format_evidence_for_tool(
@@ -97,6 +144,8 @@ def search_vault_many_for_turn(
                 "trace_evidence": evidence_meta_for_trace(bundle),
             }
         except Exception as exc:
+            if search_timing is not None:
+                search_timing.finish()
             return idx, {
                 "query": sub_query,
                 "error": str(exc),
@@ -122,6 +171,7 @@ def search_transcript_for_turn(
     *,
     config: AgentConfig,
     k: int = 8,
+    timing: TurnTimer | None = None,
 ) -> dict[str, Any]:
     from _bootstrap import setup_ingestion_paths
 
@@ -132,7 +182,10 @@ def search_transcript_for_turn(
 
     root = resolve_vault_root(config.vault_root)
     chunks_path = root / "catalog" / "chunks.jsonl"
+    t0 = time.perf_counter()
     result = search_transcript_evidence(query, k, chunks_path=chunks_path, root=root)
+    if timing is not None:
+        timing.add_vault_local(int((time.perf_counter() - t0) * 1000))
     hits = result.get("hits") or []
     lines = [
         "Transcript hits (cite only from this block; use [ep-NNNN]):",

@@ -175,3 +175,41 @@ def test_format_evidence_for_tool_labels_subquery():
     text = format_evidence_for_tool(bundle, label="Edison teams")
     assert "Edison teams" in text
     assert "No citable evidence" in text
+
+
+def test_retrieve_core_on_timing_split(orch_config: OrchestratorConfig, monkeypatch: pytest.MonkeyPatch):
+    import time
+
+    import retrieval_orchestrator as ro
+
+    monkeypatch.setattr(ro, "_hybrid_search_parent_chunks", lambda *a, **k: [])
+    monkeypatch.setattr(ro, "embed_queries", lambda qs: [None] * len(qs))
+    monkeypatch.setattr(ro, "search_transcript_keyword", lambda *a, **k: [])
+
+    def slow_expand(user_message, **kwargs):
+        time.sleep(0.02)
+        return user_message, [user_message] * 5
+
+    def slow_rerank(query, candidates, **kwargs):
+        time.sleep(0.02)
+        return []
+
+    collected: list[tuple[str, int]] = []
+
+    def on_timing(phase: str, ms: int) -> None:
+        collected.append((phase, ms))
+
+    orch = RetrievalOrchestrator(
+        orch_config,
+        expand_fn=slow_expand,
+        rerank_fn=slow_rerank,
+    )
+    orch.retrieve_core("test query", expand_variants=EXPAND_VARIANTS_FULL, on_timing=on_timing)
+
+    phases = [p for p, _ in collected]
+    assert "retrieval_llm" in phases
+    assert "vault_local" in phases
+    llm_ms = sum(ms for p, ms in collected if p == "retrieval_llm")
+    local_ms = sum(ms for p, ms in collected if p == "vault_local")
+    assert llm_ms >= 30
+    assert local_ms >= 0
