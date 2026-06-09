@@ -42,7 +42,7 @@ The Mac mini needs **three** persisted files:
 | File | Purpose |
 |------|---------|
 | `~/.config/founders-telegram/env` | **Secrets only** — `VAULT_ROOT`, bot token, allowlist, `OPENROUTER_API_KEY` (copy from `deploy/env.example`) |
-| `~/.config/founders-telegram/runtime.json` | **Models + tuning** — librarian, retrieval (expand/rerank; falls back to librarian), Janitor clean, expand, embed, `janitor_clean_temperature`, `stream_replies` (default on; `/settings`) |
+| `~/.config/founders-telegram/runtime.json` | **Models + tuning** — librarian, retrieval (expand/rerank; falls back to librarian), Janitor clean, expand, embed, `janitor_clean_temperature`, `stream_replies` (default off; `/settings`) |
 | `{VAULT_ROOT}/.env` | Ingestion (Colossus, X API); expand subprocess also `load_dotenv` on repo root |
 
 ```bash

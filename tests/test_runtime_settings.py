@@ -104,11 +104,11 @@ def test_reset_janitor_temp_preserves_other_keys(runtime_file: Path, monkeypatch
     assert "env" in src
 
 
-def test_effective_stream_replies_default_on(runtime_file: Path, monkeypatch: pytest.MonkeyPatch):
+def test_effective_stream_replies_default_off(runtime_file: Path, monkeypatch: pytest.MonkeyPatch):
     _ = runtime_file
     monkeypatch.delenv("TELEGRAM_STREAM_REPLIES", raising=False)
     enabled, src = effective_stream_replies()
-    assert enabled is True
+    assert enabled is False
     assert "default" in src
 
 

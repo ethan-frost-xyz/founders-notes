@@ -18,7 +18,7 @@ The **Librarian** should feel like a sharp intellectual thought partner who has 
 
 - **OpenRouter agent** (Librarian model in `runtime.json`, `/setmodel librarian`) runs a **tool-calling loop** (≤6 rounds).
 - **Toolbox:** `search_vault`, `search_vault_many`, `search_transcript`, `list_episode_ids`, `load_episode` — each search tool wraps `retrieve_core` in `ingestion/lib/retrieval_orchestrator.py` (expand → hybrid → rerank; `search_vault_many` skips per-sub-query expansion).
-- **Cold start:** no pre-retrieved evidence; the model decides when to search. **Reply streaming** (default on): each completion round streams token deltas; toggle in `/settings` → **Stream replies**.
+- **Cold start:** no pre-retrieved evidence; the model decides when to search. **Reply streaming** (default off): each completion round can stream token deltas; toggle in `/settings` → **Stream replies**.
 - Index: `catalog/chunks.jsonl` — **expanded** + **summary** parent tiers; `catalog/episode-summaries.jsonl`; embeddings in `catalog/embeddings.npy` (gitignored).
 - Librarian corpus = **studied episodes only** (timestamp bullets in `.notes.md`).
 
@@ -103,7 +103,7 @@ After expanded promote on the Mac mini (or any host running the bot), run the sa
 | v0 SP1–SP4 | Shipped (PR #3) | This doc + codebase |
 | Janitor | Shipped | [janitor.md](janitor.md) |
 | Harness / tool UX | Shipped | [telegram-mock-harness.md](telegram-mock-harness.md) |
-| Librarian quality | Shipped | `load_episode` **candidates**; synthesis **streaming** (default on) |
+| Librarian quality | Shipped | `load_episode` **candidates**; synthesis **streaming** (default off) |
 | Webhook / sync | Shipped | [operations.md](operations.md), [services/telegram/README.md](../services/telegram/README.md) |
 | Follow-ups | Open | [potential-ideas.md](../potential-ideas.md) |
 

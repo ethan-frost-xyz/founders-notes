@@ -171,7 +171,7 @@ def effective_janitor_clean_temperature() -> tuple[float, str]:
 
 
 def effective_stream_replies() -> tuple[bool, str]:
-    return _resolve_bool(RUNTIME_KEY_STREAM_REPLIES, "TELEGRAM_STREAM_REPLIES", True)
+    return _resolve_bool(RUNTIME_KEY_STREAM_REPLIES, "TELEGRAM_STREAM_REPLIES", False)
 
 
 def set_model(role: str, slug: str) -> str:

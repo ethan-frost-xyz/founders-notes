@@ -29,7 +29,7 @@ Private **Telegram bot** on an always-on Mac mini (polling): **Librarian** as a 
 
 **Implementation history:** [`.cursor/plans/archive/README.md`](.cursor/plans/archive/README.md) (completed plans in `archive/legacy/`, gitignored from agent context)
 
-- **Librarian:** agentic retrieval loop (v4) — model-driven `search_vault` / `search_vault_many` / `search_transcript` + `load_episode` / `list_episode_ids` (≤6 tool rounds); synthesis **streaming** default on (`/settings` → Stream replies). Persona: [`AGENTS.md`](AGENTS.md).
+- **Librarian:** agentic retrieval loop (v4) — model-driven `search_vault` / `search_vault_many` / `search_transcript` + `load_episode` / `list_episode_ids` (≤6 tool rounds); synthesis **streaming** default off (`/settings` → Stream replies). Persona: [`AGENTS.md`](AGENTS.md).
 - **Janitor:** `/janitor` → paste bullets → LLM clean → approve → file → expand → promote → reindex. See [`docs/janitor.md`](docs/janitor.md).
 - **Ops:** GitHub webhook or `sync-and-index.sh` (cron / Telegram `/sync`); index refresh after promote on the bot host.
 
