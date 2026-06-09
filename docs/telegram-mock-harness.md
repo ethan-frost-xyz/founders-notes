@@ -2,7 +2,7 @@
 
 Headless and interactive testing for the **Librarian** and **Janitor** Telegram bot **without the real Bot API**. The harness runs the production handler stack (`build_application()`) with a mocked outbound transport; handler routing, sessions, Janitor FSM, and tool loops behave like production.
 
-**When to use:** Before shipping handler or Janitor changes; adding YAML regressions; tuning agent prompts locally.
+**When to use:** Before shipping handler or Janitor changes; adding YAML regressions; tuning agent prompts on the **Mac mini** (or laptop). Uses a mocked Bot API — safe to run while the launchd bot is polling.
 
 **Related:** [testing.md](testing.md) (CI and test-module index) · [services/telegram/README.md](../services/telegram/README.md) (Mac mini runbook) · [janitor.md](janitor.md) (operator workflow)
 

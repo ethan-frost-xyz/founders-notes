@@ -1,6 +1,6 @@
 # Vault operations
 
-How to run Founders Notes across **laptop**, **Mac mini**, and **Telegram**. The product is **Librarian + Janitor** on the always-on host; laptop tooling is recovery and batch work.
+How to run Founders Notes across **Mac mini** (primary bot host and dev machine), optional **laptop**, and **Telegram**. **Librarian + Janitor** run on the mini; the laptop is optional for editing away from the desk and recovery batches.
 
 **Python venv:** use `ingestion/.venv` only (`pip install -r ingestion/requirements.txt -r ingestion/requirements-dev.txt`). A root `.venv` may exist locally — ignore it.
 
@@ -40,7 +40,7 @@ How to run Founders Notes across **laptop**, **Mac mini**, and **Telegram**. The
 | Role | What |
 |------|------|
 | **Janitor** | Paste bullets → clean → file `.notes.md` → expand → promote → reindex |
-| **Librarian** | Q&A over studied corpus (orchestrator + synthesis; [`AGENTS.md`](../AGENTS.md) voice; optional streaming — `/settings` → Stream replies) |
+| **Librarian** | Q&A over studied corpus (agentic retrieval loop; [`AGENTS.md`](../AGENTS.md) voice; optional streaming — `/settings` → Stream replies) |
 
 Runbook: [services/telegram/README.md](../services/telegram/README.md). Architecture: [telegram-vault-agent.md](telegram-vault-agent.md). Janitor guide: [janitor.md](janitor.md).
 
@@ -48,7 +48,34 @@ Runbook: [services/telegram/README.md](../services/telegram/README.md). Architec
 
 ---
 
-## Laptop development
+## Development and testing
+
+`pytest`, the mock harness, and live Librarian harness all run on the **Mac mini** (same clone as production). They use a **mocked Telegram transport** — safe alongside the launchd bot. Do **not** start a second `python -m bot` poller (409 Conflict).
+
+Full guide: [telegram-mock-harness.md](telegram-mock-harness.md) · [testing.md](testing.md).
+
+### Mac mini — quick test ladder
+
+From repo root (`ingestion/.venv`):
+
+```bash
+# 1. Fast (no API) — agent loop + handlers
+ingestion/.venv/bin/pytest tests/test_vault_agent.py tests/test_harness_scenarios.py -q
+
+# 2. Interactive REPL with tool traces (no API)
+ingestion/.venv/bin/python dev/mock_telegram_cli.py --stub-llm --debug
+
+# 3. Live Librarian regression (~8 min, OpenRouter; does not use Bot API)
+ingestion/.venv/bin/python dev/mock_telegram_cli.py --preflight
+ingestion/.venv/bin/python dev/mock_telegram_cli.py --suite librarian --live-only -v
+
+# 4. Production smoke — Telegram app on your phone (same launchd bot)
+#    /restart after code pull, then ask a thematic Q and a multi-founder Q
+```
+
+Configs: `~/.config/founders-telegram/env` + `runtime.json` on this host. Reports: `dev/logs/runs/*-report.json` when using `-v`.
+
+## Laptop development (optional)
 
 ### One-time setup
 
@@ -75,13 +102,13 @@ Optional for **live** harness: `cp .env.example .env` and set `OPENROUTER_API_KE
 
 **Fallback:** `/sync` on Telegram when webhook fails (bot idle).
 
-### What belongs on the laptop
+### What belongs on the laptop (when you use one)
 
 | OK | Avoid |
 |----|--------|
-| Code, docs, tests, `maintain.py` batches | `python -m bot` with **production** token |
-| `pytest`, mock harness | Editing mini `~/.config/founders-telegram/env` from laptop |
-| Merge / revert on GitHub | Assuming laptop clone runs production bot |
+| Code, docs, tests, `maintain.py` batches | `python -m bot` with **production** token while mini bot runs |
+| `pytest`, mock harness (optional mirror of mini) | Assuming only the laptop can run tests |
+| Merge / revert on GitHub | Assuming the laptop clone is the production bot host |
 
 ### Tailscale (laptop ↔ Mac mini)
 
@@ -115,7 +142,7 @@ After new **code** is on the Mac mini disk, the bot must **exit and start again*
 
 ### Happy path
 
-1. **Laptop:** branch → edit → `pytest` (+ harness if needed) → PR → merge `main`.
+1. **Edit host (mini or laptop):** branch → edit → `pytest` (+ harness if needed) → PR → merge `main`.
 2. **Mini:** confirm webhook **202** or `/sync` when idle (`tail sync.log`).
 3. **Phone:** `/restart` → wait → `/start` → smoke test.
 

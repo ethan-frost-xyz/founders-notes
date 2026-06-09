@@ -34,7 +34,7 @@ python dev/mock_telegram_cli.py --scenario dev/scenarios/librarian/episode_resol
 | File | Checks |
 |------|--------|
 | `librarian/episode_resolve.yaml` | NL “episode 191/22” → `load_episode`, `ep-0191` / `ep-0022` |
-| `librarian/tool_coverage.yaml` | All four vault tools called |
+| `librarian/tool_coverage.yaml` | Core vault tools called (`search_vault`, `search_transcript`, `load_episode`, `list_episode_ids`) |
 | `librarian/thematic_search.yaml` | Thematic Q → `search_vault`, citation e.g. `[ep-0016]` |
 | `librarian/multi_founder_comparison.yaml` | Cross-founder → `search_vault_many` (live) |
 | `librarian/thin_evidence_probe.yaml` | Thin-evidence honesty probe (live) |
