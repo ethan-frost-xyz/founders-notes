@@ -120,7 +120,7 @@ pytest tests/test_vault_v0_checklist.py -q
 
 | # | Criterion | Test |
 |---|-----------|------|
-| 1 | Thematic Q → `retrieval_orchestrator` in trace | `test_v0_criterion_retrieval_in_trace` |
+| 1 | Thematic Q → `search_vault` in trace | `test_v0_criterion_retrieval_in_trace` |
 | 2 | After promote + reindex → `expanded:*` in hybrid hits | `test_v0_criterion_expanded_in_index` (skip unless `RUN_REBUILT_INDEX_SCENARIOS=1`) |
 | 3 | Allowlist blocks non-user | `test_v0_criterion_allowlist` |
 | 4 | `/newchat` exports valid session jsonl | `test_v0_criterion_newchat_export` |

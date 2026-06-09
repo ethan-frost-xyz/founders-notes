@@ -4,11 +4,12 @@ turns:
   - send: "What did I note about Rockefeller discipline across episodes?"
     expect:
       expect_live:
-        tool_called: retrieval_orchestrator
+        tool_called: search_vault
   - send: "What did he say verbatim about Standard Oil breakup?"
     expect:
       expect_live:
-        tool_called: retrieval_orchestrator
+        tools_called:
+          - search_transcript
   - send: "Load episode ep-0016."
     expect:
       expect_live:

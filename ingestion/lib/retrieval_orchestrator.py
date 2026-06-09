@@ -26,11 +26,14 @@ QUOTE_INTENT_RE = re.compile(
     r"\b(what did (he|she|they) say|exact words?|verbatim|quote from)\b",
     re.IGNORECASE,
 )
-EPISODE_REF_RE = re.compile(r"\bep-\d{4}\b", re.IGNORECASE)
-GUEST_SIGNAL_RE = re.compile(r"\b(episode\s+)?\d{1,4}\b|[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+")
 
 RERANK_POOL_CAP = 40
 RERANK_KEEP = 12
+SEARCH_VAULT_KEEP = 8
+SEARCH_VAULT_MANY_KEEP = 5
+SEARCH_VAULT_MANY_MAX = 6
+EXPAND_VARIANTS_FULL = 5
+EXPAND_VARIANTS_NONE = 0
 RERANK_SCORE_FALLBACK_THRESHOLD = 6.0
 
 
@@ -50,7 +53,6 @@ class EvidenceChunk:
 class EvidenceBundle:
     chunks: list[EvidenceChunk] = field(default_factory=list)
     retrieval_meta: dict[str, Any] = field(default_factory=dict)
-    skip_retrieval: bool = False
 
 
 @dataclass
@@ -80,23 +82,6 @@ def _paths(cfg: OrchestratorConfig) -> tuple[Path, Path, Path, Path]:
         cfg.manifest_path or EMBEDDINGS_MANIFEST_PATH,
         root,
     )
-
-
-def classify_intent(user_message: str, history: list[dict[str, Any]] | None) -> str:
-    msg = user_message.strip()
-    lower = msg.lower()
-    if msg.startswith("/"):
-        return "meta"
-    if lower in {"hi", "hello", "hey", "thanks", "thank you"}:
-        return "meta"
-    if any(p in lower for p in ("what model", "how many episodes", "which model")):
-        return "meta"
-    if history:
-        recent = [m for m in history if m.get("role") == "assistant"][-1:]
-        if recent and len(msg) < 120:
-            if not EPISODE_REF_RE.search(msg) and not GUEST_SIGNAL_RE.search(msg):
-                return "follow_up"
-    return "thematic"
 
 
 def _extract_json_object(text: str) -> dict[str, Any]:
@@ -142,9 +127,9 @@ def expand_query_llm(
     standalone = str(payload.get("standalone_query") or user_message).strip()
     variants = payload.get("variants") or []
     cleaned = [str(v).strip() for v in variants if str(v).strip()]
-    while len(cleaned) < 5:
+    while len(cleaned) < EXPAND_VARIANTS_FULL:
         cleaned.append(standalone)
-    return standalone, cleaned[:5]
+    return standalone, cleaned[:EXPAND_VARIANTS_FULL]
 
 
 def quote_intent(query: str) -> bool:
@@ -195,19 +180,41 @@ def evidence_chunk_from_dict(ch: dict[str, Any]) -> EvidenceChunk:
     )
 
 
-def format_evidence_for_synthesis(bundle: EvidenceBundle) -> str:
-    """User-message appendix with citable evidence (expanded + transcript only)."""
-    if bundle.skip_retrieval or not bundle.chunks:
-        return ""
-    lines = [
-        "---",
-        "Retrieved evidence (cite only from this block; use [ep-NNNN]):",
-        "",
+def evidence_meta_for_trace(bundle: EvidenceBundle) -> list[dict[str, Any]]:
+    """Compact episode_ids + rerank scores for tool_trace."""
+    return [
+        {
+            "chunk_id": ch.chunk_id,
+            "episode_id": ch.episode_id,
+            "rerank_score": ch.rerank_score,
+            "section": ch.section,
+        }
+        for ch in bundle.chunks
     ]
-    for i, ch in enumerate(bundle.chunks, start=1):
+
+
+def format_evidence_for_tool(
+    bundle: EvidenceBundle,
+    *,
+    label: str | None = None,
+    max_chunks: int = SEARCH_VAULT_KEEP,
+) -> str:
+    """Readable evidence block returned from search_vault / search_vault_many."""
+    if not bundle.chunks:
+        header = f"### {label}\n" if label else ""
+        return f"{header}No citable evidence found for this query."
+
+    lines: list[str] = []
+    if label:
+        lines.append(f"### {label}")
+        lines.append("")
+    lines.append("Retrieved evidence (cite only from this block; use [ep-NNNN]):")
+    lines.append("")
+    for i, ch in enumerate(bundle.chunks[:max_chunks], start=1):
         lines.append(
-            f"### Evidence {i} — {ch.chunk_id} [{ch.episode_id}]\n"
-            f"Title: {ch.title}\nSection: {ch.section}\n\n{ch.excerpt}\n"
+            f"#### Evidence {i} — {ch.chunk_id} [{ch.episode_id}]\n"
+            f"Title: {ch.title}\nSection: {ch.section}\n"
+            f"Score: {ch.rerank_score:.1f}\n\n{ch.excerpt}\n"
         )
     return "\n".join(lines)
 
@@ -224,33 +231,37 @@ class RetrievalOrchestrator:
         self._expand_fn = expand_fn
         self._rerank_fn = rerank_fn
 
-    def retrieve(
+    def retrieve_core(
         self,
-        user_message: str,
+        query: str,
         *,
         history: list[dict[str, Any]] | None = None,
+        expand_variants: int = EXPAND_VARIANTS_FULL,
+        keep: int = SEARCH_VAULT_KEEP,
         on_status: Callable[[str], None] | None = None,
     ) -> EvidenceBundle:
-        intent = classify_intent(user_message, history)
-        meta: dict[str, Any] = {"intent": intent}
-
-        if intent == "meta":
-            meta["skip_reason"] = "meta_intent"
-            return EvidenceBundle(chunks=[], retrieval_meta=meta, skip_retrieval=True)
-
+        """Expand → hybrid search → rerank → optional transcript fallback."""
+        meta: dict[str, Any] = {"query": query.strip(), "expand_variants": expand_variants}
         cfg = self.config
         chunks_path, emb_path, man_path, vault_root = _paths(cfg)
+        q = query.strip()
 
-        if on_status:
-            on_status("Expanding query…")
-        expand = self._expand_fn or expand_query_llm
-        standalone, variants = expand(
-            user_message,
-            history=history,
-            model=cfg.model,
-            api_key=cfg.api_key,
-            base_url=cfg.base_url,
-        )
+        if expand_variants <= EXPAND_VARIANTS_NONE:
+            standalone, variants = q, [q]
+            meta["expansion_skipped"] = True
+        else:
+            if on_status:
+                on_status("Expanding query…")
+            expand = self._expand_fn or expand_query_llm
+            standalone, variants = expand(
+                q,
+                history=history,
+                model=cfg.model,
+                api_key=cfg.api_key,
+                base_url=cfg.base_url,
+            )
+            meta["expansion_skipped"] = False
+
         meta["standalone_query"] = standalone
         meta["variants"] = variants
 
@@ -263,7 +274,7 @@ class RetrievalOrchestrator:
             (variant, qvec, pool_k, chunks_path, emb_path, man_path, vault_root)
             for variant, qvec in zip(variants, vectors)
         ]
-        with ThreadPoolExecutor(max_workers=len(variants)) as ex:
+        with ThreadPoolExecutor(max_workers=max(1, len(variants))) as ex:
             per_variant = list(ex.map(_search_one_variant, search_args))
 
         merged = merge_rrf_chunk_lists(
@@ -333,12 +344,29 @@ class RetrievalOrchestrator:
             if not section.startswith(("expanded:", "transcript:")):
                 continue
             citable.append(evidence_chunk_from_dict(ch))
-            if len(citable) >= RERANK_KEEP:
+            if len(citable) >= keep:
                 break
 
         meta["studied_filter_applied"] = True
         meta["embed_present"] = emb_path.is_file() and man_path.is_file()
-        return EvidenceBundle(chunks=citable, retrieval_meta=meta, skip_retrieval=False)
+        meta["keep"] = keep
+        return EvidenceBundle(chunks=citable, retrieval_meta=meta)
+
+    def retrieve(
+        self,
+        user_message: str,
+        *,
+        history: list[dict[str, Any]] | None = None,
+        on_status: Callable[[str], None] | None = None,
+    ) -> EvidenceBundle:
+        """Backward-compatible alias for retrieve_core with full expansion."""
+        return self.retrieve_core(
+            user_message,
+            history=history,
+            expand_variants=EXPAND_VARIANTS_FULL,
+            keep=SEARCH_VAULT_KEEP,
+            on_status=on_status,
+        )
 
 
 def orchestrator_from_agent_config(

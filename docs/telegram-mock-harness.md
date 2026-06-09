@@ -125,7 +125,9 @@ Each turn:
 | `button` | Inline callback data (optional; can follow `send` in same turn) |
 | `expect` | Assertions (see below) |
 
-**Expect keys:** `contains`, `not_contains`, `response_min_length`, `expect_live` (`tool_called`, `tools_called`, `response_contains`, `response_contains_any`, `load_episode_id`, `status_contains`), `phase` (Janitor), `sandbox_file_written` (substring match on sandbox paths). Harness bot keeps status messages (not deleted) so `status_contains: "Searching notes"` is testable.
+**Expect keys:** `contains`, `not_contains`, `response_min_length`, `expect_live` (`tool_called`, `tools_called`, `response_contains`, `response_contains_any`, `load_episode_id`, `status_contains`), `phase` (Janitor), `sandbox_file_written` (substring match on sandbox paths). Harness bot keeps status messages (not deleted) so `status_contains: "Searching vault"` is testable.
+
+**Agentic Librarian tools (live assertions):** `search_vault`, `search_vault_many`, `search_transcript`, `load_episode`, `list_episode_ids`. Hard-question scenarios live under `dev/scenarios/librarian/` (`multi_founder_comparison`, `thin_evidence_probe`, `verbatim_transcript`, `multi_hop`, `single_founder_depth`).
 
 `load_episode_id` checks that a `load_episode` tool call used an `episode_id` that resolves to the canonical id (stable when the model omits `[ep-NNNN]` from prose).
 

@@ -2,7 +2,7 @@
 
 Short overview for coding agents. **v0 (SP1–SP4)** shipped on `main` (PR #3). Deferred work: [`potential-ideas.md`](../potential-ideas.md). Historical plans: [`.cursor/plans/archive/legacy/`](../.cursor/plans/archive/legacy/) (deep archive; see [archive README](../.cursor/plans/archive/README.md)).
 
-Product is **v3: orchestrated single-pass retrieval + synthesis**. **v4 (planned):** optional synthesis-time search callbacks for multi-hop reasoning — see [Planned: agentic retrieval](#planned-agentic-retrieval) and [`potential-ideas.md`](../potential-ideas.md).
+Product is **v4: agentic retrieval loop** — the librarian model drives search via tools (cold start, no pre-retrieval). Retrieval **internals** remain in `retrieval_orchestrator.retrieve_core`.
 
 ## Product vision
 
@@ -14,11 +14,11 @@ The **Librarian** should feel like a sharp intellectual thought partner who has 
 - **Librarian:** study-partner voice — cross-episode synthesis, verbatim quotes, `[ep-NNNN]` citations — not ranked excerpt dumps. Persona: [`AGENTS.md`](../AGENTS.md).
 - **Janitor:** daily notes ritual in the same bot — see [janitor.md](janitor.md).
 
-## Architecture (v3)
+## Architecture (v4)
 
-- **OpenRouter agent** (Librarian model in `runtime.json`, `/setmodel librarian`).
-- **Retrieval orchestrator** (`ingestion/lib/retrieval_orchestrator.py`) runs **before** synthesis: expand → batched embed → concurrent hybrid search → LLM rerank → optional transcript fallback.
-- **Synthesis turn:** one completion with a pre-built evidence block; optional tools: `load_episode`, `list_episode_ids`. **Reply streaming** (default on): the final synthesis completion can stream token deltas to a live Telegram message; toggle in `/settings` → **Stream replies** (`stream_replies` in `runtime.json`; optional env `TELEGRAM_STREAM_REPLIES`). The canonical reply is still sent via the normal chunked message after the preview is deleted.
+- **OpenRouter agent** (Librarian model in `runtime.json`, `/setmodel librarian`) runs a **tool-calling loop** (≤6 rounds).
+- **Toolbox:** `search_vault`, `search_vault_many`, `search_transcript`, `list_episode_ids`, `load_episode` — each search tool wraps `retrieve_core` in `ingestion/lib/retrieval_orchestrator.py` (expand → hybrid → rerank; `search_vault_many` skips per-sub-query expansion).
+- **Cold start:** no pre-retrieved evidence; the model decides when to search. **Reply streaming** (default on): each completion round streams token deltas; toggle in `/settings` → **Stream replies**.
 - Index: `catalog/chunks.jsonl` — **expanded** + **summary** parent tiers; `catalog/episode-summaries.jsonl`; embeddings in `catalog/embeddings.npy` (gitignored).
 - Librarian corpus = **studied episodes only** (timestamp bullets in `.notes.md`).
 
@@ -26,16 +26,16 @@ The **Librarian** should feel like a sharp intellectual thought partner who has 
 
 ```mermaid
 flowchart LR
-  User --> Orchestrator
-  Orchestrator --> Expand[LLM expand]
-  Expand --> Embed[Batched embed]
-  Embed --> SearchParallel["5x hybrid search concurrent"]
-  SearchParallel --> Rerank[LLM rerank]
-  Rerank --> Synth[Librarian model synthesize]
-  Synth --> Reply
+  User --> Agent[Librarian loop]
+  Agent --> Tools[search_vault / search_vault_many / ...]
+  Tools --> Core[retrieve_core per query]
+  Core --> Expand[LLM expand]
+  Expand --> Search[Hybrid + rerank]
+  Search --> Agent
+  Agent --> Reply[Synthesize + stream]
 ```
 
-~3 LLM calls + 1 batched embed API call per thematic question. Expand + rerank use `retrieval_model` when set (`/setmodel retrieval …`); synthesis uses `librarian_model`.
+Expand + rerank inside each search use `retrieval_model` (`/setmodel retrieval …`); the loop + synthesis use `librarian_model`.
 
 ### Prompt stack
 

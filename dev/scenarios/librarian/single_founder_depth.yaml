@@ -1,0 +1,13 @@
+name: Librarian single-founder depth
+llm: live
+turns:
+  - send: "Give me a deep read on everything I've studied about Warren Buffett's inner scorecard idea."
+    expect:
+      response_min_length: 80
+      expect_live:
+        tools_called:
+          - search_vault
+        response_contains_any:
+          - Buffett
+          - scorecard
+          - ep-

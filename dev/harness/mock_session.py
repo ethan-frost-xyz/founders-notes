@@ -139,6 +139,13 @@ def _install_echo_llm() -> list[Any]:
                 user_text = str(msg.get("content") or "")
                 break
         content = f"[harness echo] {user_text[:400]}"
+        if kwargs.get("stream"):
+            delta = SimpleNamespace(content=content, tool_calls=None)
+
+            def _gen():
+                yield SimpleNamespace(choices=[SimpleNamespace(delta=delta)])
+
+            return _gen()
         assistant = SimpleNamespace(content=content, tool_calls=None)
         return SimpleNamespace(choices=[SimpleNamespace(message=assistant)])
 

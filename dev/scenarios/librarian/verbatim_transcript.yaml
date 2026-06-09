@@ -1,0 +1,11 @@
+name: Librarian verbatim transcript
+llm: live
+turns:
+  - send: "What were Rockefeller's exact words about competition in the transcript?"
+    expect:
+      response_min_length: 40
+      expect_live:
+        tool_called: search_transcript
+        response_contains_any:
+          - Rockefeller
+          - ep-
