@@ -3,17 +3,23 @@
 from __future__ import annotations
 
 import json
+import time
 from pathlib import Path
+from unittest.mock import patch
 
 import numpy as np
 import pytest
 
 import paths
 from search_retrieval import (
+    _hybrid_search_parent_chunks,
     chunk_content_hash,
     chunks_needing_embedding,
+    episode_is_studied,
     excerpt_hash,
+    get_chunk_index,
     hybrid_search_parent,
+    invalidate_chunk_index_cache,
     invalidate_studied_episode_cache,
     is_parent_chunk,
     is_transcript_chunk,
@@ -142,6 +148,87 @@ def test_studied_episode_ids_cache_invalidates_on_notes_touch(
         encoding="utf-8",
     )
     assert "ep-0001" in studied_episode_ids(root=tmp_path)
+
+
+def test_episode_is_studied_fast_after_prime(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+):
+    import paths as vault_paths
+
+    monkeypatch.setattr(vault_paths, "ROOT", tmp_path)
+    catalog = tmp_path / "catalog" / "episodes.jsonl"
+    monkeypatch.setattr(vault_paths, "CATALOG_PATH", catalog)
+    catalog.parent.mkdir(parents=True)
+    catalog.write_text(
+        '{"id":"ep-0001","slug":"1-test","episode_number":1}\n',
+        encoding="utf-8",
+    )
+    notes_dir = tmp_path / "content" / "notes" / "ep-0001-test"
+    notes_dir.mkdir(parents=True)
+    (notes_dir / "ep-0001-test.notes.md").write_text(
+        "---\ntitle: T\n---\n\n## Raw datapoints\n\n- 1:00 — hook\n",
+        encoding="utf-8",
+    )
+    invalidate_studied_episode_cache()
+    studied_episode_ids(root=tmp_path)
+
+    t0 = time.perf_counter()
+    for _ in range(1000):
+        assert episode_is_studied("ep-0001", root=tmp_path)
+    elapsed_ms = (time.perf_counter() - t0) * 1000
+    assert elapsed_ms < 50, f"episode_is_studied loop took {elapsed_ms:.1f}ms"
+
+
+def test_get_chunk_index_caches_by_mtime(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+):
+    import paths as vault_paths
+
+    monkeypatch.setattr(vault_paths, "ROOT", tmp_path)
+    catalog = tmp_path / "catalog" / "episodes.jsonl"
+    chunks_path = tmp_path / "catalog" / "chunks.jsonl"
+    monkeypatch.setattr(vault_paths, "CATALOG_PATH", catalog)
+    monkeypatch.setattr(vault_paths, "CHUNKS_PATH", chunks_path)
+    catalog.parent.mkdir(parents=True)
+    catalog.write_text(
+        '{"id":"ep-0090","slug":"90-test","episode_number":90}\n',
+        encoding="utf-8",
+    )
+    notes_dir = tmp_path / "content" / "notes" / "ep-0090-test"
+    notes_dir.mkdir(parents=True)
+    (notes_dir / "ep-0090-test.notes.md").write_text(
+        "---\ntitle: T\n---\n\n## Raw datapoints\n\n- 1:00 — hook\n",
+        encoding="utf-8",
+    )
+    chunks_path.write_text(FIXTURE.read_text(encoding="utf-8"), encoding="utf-8")
+    invalidate_studied_episode_cache()
+    invalidate_chunk_index_cache()
+
+    first = get_chunk_index(chunks_path=chunks_path, root=tmp_path)
+    second = get_chunk_index(chunks_path=chunks_path, root=tmp_path)
+    assert first is second
+    assert len(first.parent_chunks) >= 1
+
+    time.sleep(0.02)
+    chunks_path.write_text(chunks_path.read_text(encoding="utf-8"), encoding="utf-8")
+    third = get_chunk_index(chunks_path=chunks_path, root=tmp_path)
+    assert third is not second
+
+
+def test_hybrid_search_reuses_shared_index():
+    index = get_chunk_index(chunks_path=FIXTURE)
+    load_calls = 0
+    original = index.all_chunks
+
+    def counting_load(path=None):
+        nonlocal load_calls
+        load_calls += 1
+        return original
+
+    with patch("search_retrieval.load_chunks", side_effect=counting_load):
+        _hybrid_search_parent_chunks("customer", 3, index=index, query_vector=None)
+        _hybrid_search_parent_chunks("focus", 3, index=index, query_vector=None)
+    assert load_calls == 0
 
 
 def test_structured_embed_text_expanded_fields():

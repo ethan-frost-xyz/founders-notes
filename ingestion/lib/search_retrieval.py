@@ -33,8 +33,7 @@ _EXPANDED_FIELD_RE = re.compile(
     re.MULTILINE | re.IGNORECASE,
 )
 
-_studied_episode_ids: set[str] | None = None
-_studied_cache_key: tuple[Any, ...] | None = None
+_studied_state: dict[str, tuple[tuple[Any, ...], set[str]]] = {}
 
 
 def is_parent_chunk(ch: dict[str, Any]) -> bool:
@@ -53,11 +52,15 @@ def tier_boost(section: str) -> float:
     return 0.0
 
 
+def invalidate_chunk_index_cache() -> None:
+    """Clear tier-list cache (tests, post-reindex hooks)."""
+    _chunk_index_cache.clear()
+
+
 def invalidate_studied_episode_cache() -> None:
     """Clear studied-id cache (tests, post-reindex hooks)."""
-    global _studied_episode_ids, _studied_cache_key
-    _studied_episode_ids = None
-    _studied_cache_key = None
+    _studied_state.clear()
+    invalidate_chunk_index_cache()
 
 
 def _tree_max_mtime(directory: Path, glob_pattern: str) -> float:
@@ -95,13 +98,13 @@ def _notes_path_for_root(
     return vault_root / "content" / "notes" / folder / content_filename(folder, "notes")
 
 
-def studied_episode_ids(*, root: Path | None = None) -> set[str]:
-    """Episode ids with timestamp bullets in notes (studied corpus)."""
-    global _studied_episode_ids, _studied_cache_key
-    vault_root = (root or ROOT).resolve()
+def _refresh_studied_ids(vault_root: Path) -> set[str]:
+    """Rebuild studied-id set when cache key changes (notes/catalog/chunks mtime)."""
+    rk = str(vault_root.resolve())
     cache_key = _studied_ids_cache_key(vault_root)
-    if _studied_episode_ids is not None and _studied_cache_key == cache_key:
-        return _studied_episode_ids
+    state = _studied_state.get(rk)
+    if state is not None and state[0] == cache_key:
+        return state[1]
     catalog_path = vault_root / "catalog" / "episodes.jsonl"
     rows = load_jsonl(catalog_path) if catalog_path.is_file() else []
     ids: set[str] = set()
@@ -110,13 +113,22 @@ def studied_episode_ids(*, root: Path | None = None) -> set[str]:
         npath = _notes_path_for_root(vault_root, ep_id, row["slug"], row.get("episode_number"))
         if npath.is_file() and has_timestamp_datapoints(npath):
             ids.add(ep_id)
-    _studied_episode_ids = ids
-    _studied_cache_key = cache_key
+    _studied_state[rk] = (cache_key, ids)
     return ids
 
 
+def studied_episode_ids(*, root: Path | None = None) -> set[str]:
+    """Episode ids with timestamp bullets in notes (studied corpus)."""
+    return _refresh_studied_ids((root or ROOT).resolve())
+
+
 def episode_is_studied(episode_id: str, *, root: Path | None = None) -> bool:
-    return episode_id in studied_episode_ids(root=root)
+    vault_root = (root or ROOT).resolve()
+    rk = str(vault_root)
+    state = _studied_state.get(rk)
+    if state is None:
+        return episode_id in studied_episode_ids(root=vault_root)
+    return episode_id in state[1]
 
 
 def is_studied_chunk(ch: dict[str, Any], *, root: Path | None = None) -> bool:
@@ -189,6 +201,68 @@ def load_chunks(path: Path | None = None) -> list[dict[str, Any]]:
 
 def load_embeddings_manifest(path: Path | None = None) -> list[dict[str, Any]]:
     return load_jsonl(path or EMBEDDINGS_MANIFEST_PATH)
+
+
+@dataclass
+class ChunkIndex:
+    vault_root: Path
+    chunks_path: Path
+    all_chunks: list[dict[str, Any]]
+    parent_chunks: list[dict[str, Any]]
+    transcript_chunks: list[dict[str, Any]]
+    by_chunk_id: dict[str, dict[str, Any]]
+    cache_key: tuple[Any, ...]
+
+
+_chunk_index_cache: dict[tuple[Any, ...], ChunkIndex] = {}
+
+
+def _chunk_index_cache_key(chunks_path: Path, vault_root: Path) -> tuple[Any, ...]:
+    mtime = chunks_path.stat().st_mtime if chunks_path.is_file() else 0.0
+    return (str(chunks_path.resolve()), mtime, str(vault_root.resolve()))
+
+
+def get_chunk_index(
+    chunks_path: Path | None = None,
+    *,
+    root: Path | None = None,
+) -> ChunkIndex:
+    """Load chunks once and pre-split parent/transcript tiers (studied only)."""
+    vault_root = (root or ROOT).resolve()
+    cpath = chunks_path or CHUNKS_PATH
+    key = _chunk_index_cache_key(cpath, vault_root)
+    cached = _chunk_index_cache.get(key)
+    if cached is not None:
+        return cached
+
+    all_chunks = load_chunks(cpath)
+    studied = studied_episode_ids(root=vault_root)
+    parent_chunks: list[dict[str, Any]] = []
+    transcript_chunks: list[dict[str, Any]] = []
+    by_chunk_id: dict[str, dict[str, Any]] = {}
+    for ch in all_chunks:
+        cid = ch.get("chunk_id")
+        if cid:
+            by_chunk_id[str(cid)] = ch
+        ep = ch.get("id") or ch.get("episode_id")
+        if not ep or str(ep) not in studied:
+            continue
+        if is_parent_chunk(ch):
+            parent_chunks.append(ch)
+        elif is_transcript_chunk(ch):
+            transcript_chunks.append(ch)
+
+    index = ChunkIndex(
+        vault_root=vault_root,
+        chunks_path=cpath,
+        all_chunks=all_chunks,
+        parent_chunks=parent_chunks,
+        transcript_chunks=transcript_chunks,
+        by_chunk_id=by_chunk_id,
+        cache_key=key,
+    )
+    _chunk_index_cache[key] = index
+    return index
 
 
 @dataclass
@@ -334,7 +408,8 @@ def _vector_rank_parent(
     query: str,
     limit: int,
     *,
-    chunks: list[dict[str, Any]],
+    parent_chunks: list[dict[str, Any]] | None = None,
+    chunks: list[dict[str, Any]] | None = None,
     embeddings_path: Path | None = None,
     manifest_path: Path | None = None,
     query_vector: np.ndarray | None = None,
@@ -346,7 +421,21 @@ def _vector_rank_parent(
     if matrix is None or not manifest:
         return []
 
-    by_id = {ch["chunk_id"]: ch for ch in chunks if ch.get("chunk_id")}
+    if parent_chunks is not None:
+        parent_by_id = {
+            str(ch["chunk_id"]): ch for ch in parent_chunks if ch.get("chunk_id")
+        }
+    else:
+        vault_root = root or ROOT
+        rows = chunks if chunks is not None else load_chunks()
+        parent_by_id = {
+            str(ch["chunk_id"]): ch
+            for ch in rows
+            if ch.get("chunk_id")
+            and is_parent_chunk(ch)
+            and is_studied_chunk(ch, root=vault_root)
+        }
+
     scored: list[tuple[float, dict[str, Any]]] = []
     if query_vector is None:
         query_vector = embed_query(query)
@@ -362,17 +451,17 @@ def _vector_rank_parent(
     for row in manifest:
         cid = row.get("chunk_id")
         idx = row.get("index")
-        if cid is None or idx is None or cid not in by_id:
+        if cid is None or idx is None:
             continue
-        ch = by_id[cid]
-        if not is_parent_chunk(ch) or not is_studied_chunk(ch, root=root):
+        ch = parent_by_id.get(str(cid))
+        if ch is None:
             continue
         vec = matrix[int(idx)].astype(np.float64)
         v_norm = np.linalg.norm(vec)
         if v_norm == 0:
             continue
         sim = float(np.dot(q, vec / v_norm))
-        scored.append((sim, by_id[cid]))
+        scored.append((sim, ch))
 
     scored.sort(key=lambda x: (-x[0], x[1].get("chunk_id", "")))
     return scored[:limit]
@@ -464,25 +553,22 @@ def _hybrid_search_parent_chunks(
     manifest_path: Path | None = None,
     query_vector: np.ndarray | None = None,
     root: Path | None = None,
+    index: ChunkIndex | None = None,
 ) -> list[dict[str, Any]]:
     """RRF merge of keyword + cosine ranks over expanded + summary tiers (studied only)."""
     vault_root = root or ROOT
-    chunks = load_chunks(chunks_path)
-    parent_chunks = [
-        ch for ch in chunks if _parent_search_predicate(ch, root=vault_root)
-    ]
+    if index is None:
+        index = get_chunk_index(chunks_path=chunks_path, root=vault_root)
+    parent_chunks = index.parent_chunks
     pool = max(k * 4, 32)
 
-    def parent_pred(ch: dict[str, Any]) -> bool:
-        return _parent_search_predicate(ch, root=vault_root)
-
-    kw_hits = search_chunks_keyword(query, pool, chunks=parent_chunks, chunk_predicate=parent_pred)
+    kw_hits = search_chunks_keyword(query, pool, chunks=parent_chunks)
     kw_ranked = [ch["chunk_id"] for _, ch in kw_hits if ch.get("chunk_id")]
 
     vec_hits = _vector_rank_parent(
         query,
         pool,
-        chunks=chunks,
+        parent_chunks=parent_chunks,
         embeddings_path=embeddings_path,
         manifest_path=manifest_path,
         query_vector=query_vector,
@@ -516,9 +602,12 @@ def hybrid_search_parent(
     manifest_path: Path | None = None,
     root: Path | None = None,
     query_vector: np.ndarray | None = None,
+    index: ChunkIndex | None = None,
 ) -> dict[str, Any]:
     vault_root = root or ROOT
     store = get_embedding_store(embeddings_path=embeddings_path, manifest_path=manifest_path)
+    if index is None:
+        index = get_chunk_index(chunks_path=chunks_path, root=vault_root)
     hits = _hybrid_search_parent_chunks(
         query,
         k,
@@ -527,6 +616,7 @@ def hybrid_search_parent(
         manifest_path=manifest_path,
         query_vector=query_vector,
         root=vault_root,
+        index=index,
     )
     return {
         "hits": [chunk_to_hit(ch, root=vault_root) for ch in hits],
@@ -548,19 +638,12 @@ def search_transcript_keyword(
     *,
     chunks_path: Path | None = None,
     root: Path | None = None,
+    index: ChunkIndex | None = None,
 ) -> list[dict[str, Any]]:
     vault_root = root or ROOT
-    chunks = load_chunks(chunks_path)
-
-    def transcript_pred(ch: dict[str, Any]) -> bool:
-        return is_transcript_chunk(ch) and is_studied_chunk(ch, root=vault_root)
-
-    hits = search_chunks_keyword(
-        query,
-        k,
-        chunks=chunks,
-        chunk_predicate=transcript_pred,
-    )
+    if index is None:
+        index = get_chunk_index(chunks_path=chunks_path, root=vault_root)
+    hits = search_chunks_keyword(query, k, chunks=index.transcript_chunks)
     return [ch for _, ch in hits]
 
 
@@ -591,6 +674,7 @@ def search_parent_evidence(
     manifest_path: Path | None = None,
     root: Path | None = None,
     query_vector: np.ndarray | None = None,
+    index: ChunkIndex | None = None,
 ) -> dict[str, Any]:
     result = hybrid_search_parent(
         query,
@@ -600,6 +684,7 @@ def search_parent_evidence(
         manifest_path=manifest_path,
         root=root,
         query_vector=query_vector,
+        index=index,
     )
     result["meta"]["retrieval_meta"] = dict(result["meta"])
     return result
@@ -611,9 +696,16 @@ def search_transcript_evidence(
     *,
     chunks_path: Path | None = None,
     root: Path | None = None,
+    index: ChunkIndex | None = None,
 ) -> dict[str, Any]:
     vault_root = root or ROOT
-    hits = search_transcript_keyword(query, k, chunks_path=chunks_path, root=vault_root)
+    hits = search_transcript_keyword(
+        query,
+        k,
+        chunks_path=chunks_path,
+        root=vault_root,
+        index=index,
+    )
     return {
         "hits": [chunk_to_hit(ch, root=vault_root) for ch in hits],
         "meta": {
