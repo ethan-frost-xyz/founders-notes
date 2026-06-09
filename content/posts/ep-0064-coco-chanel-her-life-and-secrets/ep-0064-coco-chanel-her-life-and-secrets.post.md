@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2025-12-22"
 founders_url: "https://www.founderspodcast.com/episodes/64-coco-chanel-her-life-and-secrets"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/2002960630035472444"
 x_post_id: "2002960630035472444"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "tweet"
 ---
 

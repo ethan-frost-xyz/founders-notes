@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2026-05-01"
 founders_url: "https://www.founderspodcast.com/episodes/174-bill-gates-overdrive"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/2050065155044540427"
 x_post_id: "2050065155044540427"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "article"
 ---
 

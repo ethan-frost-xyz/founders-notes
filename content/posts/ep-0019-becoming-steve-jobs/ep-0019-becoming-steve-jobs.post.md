@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2025-11-07"
 founders_url: "https://www.founderspodcast.com/episodes/19-becoming-steve-jobs"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/1986634843208155641"
 x_post_id: "1986634843208155641"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "article"
 ---
 

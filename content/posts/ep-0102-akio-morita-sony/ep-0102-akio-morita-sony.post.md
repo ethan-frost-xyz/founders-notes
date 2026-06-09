@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2026-01-29"
 founders_url: "https://www.founderspodcast.com/episodes/102-akio-morita-sony"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/2016948896312729759"
 x_post_id: "2016948896312729759"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "article"
 ---
 

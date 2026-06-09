@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2025-11-01"
 founders_url: "https://www.founderspodcast.com/episodes/14-the-accidental-billionaires-the-founding-of-facebook-a-tale-of-sex-money-genius-and-betrayal"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/1984719230361821212"
 x_post_id: "1984719230361821212"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "tweet"
 ---
 

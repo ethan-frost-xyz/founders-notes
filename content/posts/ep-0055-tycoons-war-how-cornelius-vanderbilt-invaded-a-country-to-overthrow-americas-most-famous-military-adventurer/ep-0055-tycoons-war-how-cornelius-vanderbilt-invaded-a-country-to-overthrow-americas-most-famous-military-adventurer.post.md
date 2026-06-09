@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2025-12-13"
 founders_url: "https://www.founderspodcast.com/episodes/55-tycoons-war-how-cornelius-vanderbilt-invaded-a-country-to-overthrow-americas-most-famous-military-adventurer"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/1999734877302698051"
 x_post_id: "1999734877302698051"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "tweet"
 ---
 

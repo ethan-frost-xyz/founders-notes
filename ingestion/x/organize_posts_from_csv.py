@@ -132,14 +132,17 @@ def main() -> None:
     seen_episodes: dict[str, str] = {}
 
     for unit in units:
-        if is_article_unit(unit):
+        text = unit.get("text") or ""
+        post_date = unit.get("created_at")
+        row, score, reason = match_episode(text, post_date, by_number)
+
+        # Long Founders recaps use note_tweet (post_kind: article) — map when #N is explicit.
+        # Skip only legacy native X articles without a high-confidence episode marker.
+        if is_article_unit(unit) and not (row and score >= AUTO_ACCEPT_SCORE):
             skipped_articles += 1
             if args.dry_run:
                 print(f"[article-skip] {unit['x_post_id']}")
             continue
-        text = unit.get("text") or ""
-        post_date = unit.get("created_at")
-        row, score, reason = match_episode(text, post_date, by_number)
 
         if row and score >= AUTO_ACCEPT_SCORE:
             ep_id = row["id"]

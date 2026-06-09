@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2026-01-10"
 founders_url: "https://www.founderspodcast.com/episodes/83-thomas-edison-nikola-tesla-george-westinghouse-and-the-race-to-electrify-the-world"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/2009889151651344547"
 x_post_id: "2009889151651344547"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "article"
 ---
 

@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2025-11-06"
 founders_url: "https://www.founderspodcast.com/episodes/18-let-my-people-go-surfing-the-education-of-a-reluctant-businessman"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/1986319358381961618"
 x_post_id: "1986319358381961618"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "article"
 ---
 

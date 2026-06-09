@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2025-10-26"
 founders_url: "https://www.founderspodcast.com/episodes/7-grinding-it-out-the-making-of-mcdonalds"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/1982254376648409531"
 x_post_id: "1982254376648409531"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "article"
 ---
 

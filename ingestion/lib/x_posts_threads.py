@@ -31,7 +31,7 @@ def is_attributable_row(row: dict[str, str], user_id: str) -> bool:
 
 
 def is_article_unit(unit: dict[str, Any]) -> bool:
-    """Native X article (note_tweet). Not mapped by organize — use assign_post_manual."""
+    """X note_tweet payload (long post). Organize maps when #N is explicit; else manual."""
     return (unit.get("post_kind") or "").strip().lower() == "article"
 
 

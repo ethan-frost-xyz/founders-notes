@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2025-11-08"
 founders_url: "https://www.founderspodcast.com/episodes/21-masters-of-doom-how-two-guys-created-an-empire-and-transformed-pop-culture"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/1987219089400418549"
 x_post_id: "1987219089400418549"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "article"
 ---
 

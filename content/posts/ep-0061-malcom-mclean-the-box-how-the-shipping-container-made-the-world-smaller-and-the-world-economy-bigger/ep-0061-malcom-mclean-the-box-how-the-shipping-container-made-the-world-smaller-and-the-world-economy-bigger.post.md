@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2025-12-18"
 founders_url: "https://www.founderspodcast.com/episodes/61-malcom-mclean-the-box-how-the-shipping-container-made-the-world-smaller-and-the-world-economy-bigger"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/2001790596365594710"
 x_post_id: "2001790596365594710"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "article"
 ---
 

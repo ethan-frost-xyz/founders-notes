@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2025-12-13"
 founders_url: "https://www.founderspodcast.com/episodes/56-the-biography-of-herb-kelleher"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/1999966078101831798"
 x_post_id: "1999966078101831798"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "article"
 ---
 

@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2025-11-29"
 founders_url: "https://www.founderspodcast.com/episodes/41-the-hard-thing-about-hard-things-building-a-business-when-there-are-no-easy-answers"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/1994589404300808304"
 x_post_id: "1994589404300808304"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "tweet"
 ---
 

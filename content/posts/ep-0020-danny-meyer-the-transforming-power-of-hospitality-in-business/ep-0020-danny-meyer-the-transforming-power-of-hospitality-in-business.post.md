@@ -6,10 +6,10 @@ content_type: "post"
 source: "x_csv"
 published_at: "2025-11-08"
 founders_url: "https://www.founderspodcast.com/episodes/20-danny-meyer-the-transforming-power-of-hospitality-in-business"
-created_at: "2026-05-21T21:04:53Z"
+created_at: "2026-06-09T14:04:57Z"
 x_url: "https://x.com/ethanfrost/status/1986966087657730469"
 x_post_id: "1986966087657730469"
-imported_at: "2026-05-21T21:04:53Z"
+imported_at: "2026-06-09T14:04:57Z"
 post_kind: "article"
 ---
 
