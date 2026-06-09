@@ -1,0 +1,15 @@
+name: Librarian thin evidence probe
+llm: live
+turns:
+  - send: "What did I note about how Satya Nadella approached acquisitions at Microsoft?"
+    expect:
+      response_min_length: 40
+      expect_live:
+        tool_called: search_vault
+        response_contains_any:
+          - limited
+          - thin
+          - don't
+          - does not
+          - not really
+          - vault

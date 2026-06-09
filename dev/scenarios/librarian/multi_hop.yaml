@@ -1,0 +1,13 @@
+name: Librarian multi-hop theme
+llm: live
+turns:
+  - send: "How do founders in the vault think about compounding wealth and long-term reputation together?"
+    expect:
+      response_min_length: 80
+      expect_live:
+        tools_called:
+          - search_vault
+        response_contains_any:
+          - compound
+          - reputation
+          - ep-

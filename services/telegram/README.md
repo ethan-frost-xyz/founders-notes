@@ -9,11 +9,12 @@ Private on-the-go access to the Founders vault via a **tool-calling agent** — 
 ## Architecture
 
 ```text
-Telegram (polling) → handlers → VaultAgent.run_turn()
+Telegram (polling) → handlers → VaultAgent.run_turn()  (agentic loop, ≤6 tool rounds)
                                     ↓
-                              OpenRouter + tools (≤5 steps)
+              librarian_model + toolbox: search_vault | search_vault_many | search_transcript
+                                    | load_episode | list_episode_ids
                                     ↓
-                    retrieval_orchestrator → synthesis; optional load_episode | list_episode_ids
+              retrieval_orchestrator.retrieve_core (inside each search_* tool)
                                     ↓
               ingestion/lib/search_retrieval.py + catalog/chunks.jsonl [+ embeddings.npy]
 ```

@@ -25,25 +25,35 @@ python search/build_embeddings.py
 
 Or: `python lib/reindex_vault.py` / Telegram `/reindex` (runs all steps above).
 
-## v3 — Telegram Librarian orchestrator (implemented)
+## v3 — Telegram Librarian orchestrator (retrieval core; superseded as turn driver)
 
-**Scope:** Telegram Librarian only. Python orchestrator in `ingestion/lib/retrieval_orchestrator.py`; thin adapter `services/telegram/bot/retrieval.py`.
+**Scope:** Retrieval **internals** only — expand → hybrid search → RRF → rerank → transcript fallback in `ingestion/lib/retrieval_orchestrator.py` (`retrieve_core`). The live Librarian no longer runs this as a mandatory pre-pass; see v4.
 
 | Step | What |
 |------|------|
-| Intent | Rules-based (`meta` / `follow_up` / `thematic`) — no extra LLM |
-| Expand | 1 LLM call → standalone query + 5 Founders-tuned variants ([`prompts/query_expand.md`](../ingestion/prompts/query_expand.md)): synonym/reframe, operator mental model, biographical angle, contrasting case, cross-episode pattern; model: `retrieval_model` (falls back to `librarian_model`) |
-| Search | 1 batched embed API call + **5 variants searched concurrently** (`ThreadPoolExecutor`); hybrid keyword/cosine per variant (`expanded` + `summary` tiers) |
+| Expand | 1 LLM call → standalone query + 5 Founders-tuned variants ([`prompts/query_expand.md`](../ingestion/prompts/query_expand.md)); model: `retrieval_model` |
+| Search | Batched embed + **variants searched concurrently**; hybrid keyword/cosine (`expanded` + `summary` tiers) |
 | Merge | Dedupe by `chunk_id`, RRF across variants, cap ~40 |
-| Rerank | 1 LLM call → top 10–12 with synthesis-usefulness scores ([`prompts/rerank_evidence.md`](../ingestion/prompts/rerank_evidence.md): 0–10 bands, conceptual over keyword match); same `retrieval_model` as expand |
+| Rerank | 1 LLM call → top chunks with synthesis-usefulness scores ([`prompts/rerank_evidence.md`](../ingestion/prompts/rerank_evidence.md)) |
 | Fallback | Transcript keyword search when max rerank score &lt; 6 or quote-intent detected |
-| Synthesize | 1 completion with evidence block — **no** synthesis-time `search_vault` tool loop (v3) |
 
-**Prompt sources:** [`ingestion/prompts/query_expand.md`](../ingestion/prompts/query_expand.md), [`ingestion/prompts/rerank_evidence.md`](../ingestion/prompts/rerank_evidence.md). Synthesis persona: [`AGENTS.md`](../AGENTS.md).
+`search_vault_many` sub-queries skip LLM expansion (`expand_variants=0`) — the librarian model already decomposed the question.
 
-**LLM calls per thematic turn:** 3 (expand, rerank, synthesize) + 1 batched embed request. Use a fast/cheap slug for expand + rerank (`/setmodel retrieval …`); keep `librarian_model` for synthesis only.
+## v4 — Agentic Librarian loop (implemented)
 
-**Citable sources in synthesis:** `expanded:*` and `transcript:*` only. Summaries inform routing but are stripped from the evidence block.
+**Scope:** Telegram Librarian turn driver in `services/telegram/bot/agent.py`; tool adapters in `services/telegram/bot/retrieval.py`.
+
+| What | Detail |
+|------|--------|
+| Cold start | No pre-retrieved evidence; the `librarian_model` drives retrieval via tools |
+| Toolbox | `search_vault`, `search_vault_many`, `search_transcript`, `list_episode_ids`, `load_episode` |
+| Loop | Model calls tools until it answers or **6 tool-call rounds** (cap forces final synthesis with honesty nudge) |
+| Models | `librarian_model` — loop + synthesis; `retrieval_model` — expand + rerank inside each search |
+| Trace | Per-round `tool_trace` + `trace_summary` (queries, episode_ids, scores, stop reason) |
+
+**Prompt sources:** [`ingestion/prompts/query_expand.md`](../ingestion/prompts/query_expand.md), [`ingestion/prompts/rerank_evidence.md`](../ingestion/prompts/rerank_evidence.md). Persona + composition heuristics: [`AGENTS.md`](../AGENTS.md).
+
+**Citable sources in synthesis:** `expanded:*` and `transcript:*` only. Summaries inform routing but are stripped from tool results.
 
 **Defense in depth:** `episode_is_studied()` in `search_retrieval.py` filters at search time even if the index is stale.
 
@@ -54,9 +64,9 @@ Or: `python lib/reindex_vault.py` / Telegram `/reindex` (runs all steps above).
 - In-process matrix cache (invalidate on `embeddings.npy` mtime)
 - Query embed LRU cache
 
-## v2 — Legacy tool-calling path (superseded for Librarian)
+## v2 — Legacy low-level search helpers
 
-`search_vault_parent` / `search_transcript` remain in `services/telegram/bot/tools/vault.py` for tests and CLI harnesses. The live Librarian agent uses the orchestrator instead.
+`search_vault_parent` remains in `services/telegram/bot/tools/vault.py` for index-quality tests. The live Librarian uses `search_vault` / `search_vault_many` (orchestrator-backed) instead.
 
 ## Graduate to repo-wide embeddings when
 

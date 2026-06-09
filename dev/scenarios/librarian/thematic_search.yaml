@@ -6,7 +6,7 @@ turns:
       response_min_length: 40
       not_contains: "Episode not in catalog"
       expect_live:
-        tool_called: retrieval_orchestrator
+        tool_called: search_vault
         response_contains_any:
           - ep-0016
           - "[ep-0016"

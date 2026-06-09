@@ -1,0 +1,11 @@
+name: Librarian multi-founder comparison
+llm: live
+turns:
+  - send: "How did Edison and Rockefeller differ in how they built teams?"
+    expect:
+      response_min_length: 80
+      expect_live:
+        tool_called: search_vault_many
+        response_contains_any:
+          - Edison
+          - Rockefeller

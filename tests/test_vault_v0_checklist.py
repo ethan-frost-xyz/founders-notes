@@ -44,24 +44,56 @@ def _fake_response(*, content: str | None = None, tool_calls: list | None = None
     ))])
 
 
-def test_v0_criterion_retrieval_in_trace(agent_config: AgentConfig):
-    from retrieval_orchestrator import EvidenceBundle
+def _stream_from_response(response: SimpleNamespace):
+    msg = response.choices[0].message
+    delta = SimpleNamespace(content=msg.content, tool_calls=None)
+    if msg.tool_calls:
+        delta.tool_calls = [
+            SimpleNamespace(
+                index=i,
+                id=tc.id,
+                function=SimpleNamespace(
+                    name=tc.function.name,
+                    arguments=tc.function.arguments,
+                ),
+            )
+            for i, tc in enumerate(msg.tool_calls)
+        ]
+    yield SimpleNamespace(choices=[SimpleNamespace(delta=delta)])
+
+
+def test_v0_criterion_retrieval_in_trace(agent_config: AgentConfig, monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setattr(
+        "retrieval.search_vault_for_turn",
+        lambda query, **kwargs: {
+            "query": query,
+            "evidence": "Quote: discipline [ep-0016]",
+            "meta": {},
+            "trace_evidence": [{"episode_id": "ep-0016", "rerank_score": 8.0}],
+        },
+    )
 
     calls: list[dict] = []
+    step = 0
 
     def fake_completion(**kwargs):
         calls.append(kwargs)
-        return _fake_response(content="Discipline [ep-0016].")
+        nonlocal step
+        step += 1
+        if step == 1:
+            return _stream_from_response(
+                _fake_response(
+                    tool_calls=[_fake_tool_call("search_vault", {"query": "Rockefeller discipline"})],
+                )
+            )
+        return _stream_from_response(_fake_response(content="Discipline [ep-0016]."))
 
     agent = VaultAgent(config=agent_config)
     result = agent.run_turn(
         "Rockefeller discipline",
         completion_fn=fake_completion,
-        retrieve_fn=lambda *_a, **_k: EvidenceBundle(
-            chunks=[], retrieval_meta={"intent": "thematic"}
-        ),
     )
-    assert any(t["tool"] == "retrieval_orchestrator" for t in result.tool_trace)
+    assert any(t.get("tool") == "search_vault" for t in result.tool_trace)
     if calls and "tools" in calls[0]:
         assert "web_search" not in [t["function"]["name"] for t in calls[0]["tools"]]
 
@@ -118,27 +150,32 @@ def test_v0_criterion_unlistened_load_episode(agent_config: AgentConfig):
 
 
 def test_v0_criterion_unlistened_agent_response(agent_config: AgentConfig):
-    calls: list[dict] = []
+    step = 0
 
     def fake_completion(**kwargs):
-        calls.append(kwargs)
-        if kwargs.get("tool_choice") == "none":
-            return _fake_response(
+        nonlocal step
+        step += 1
+        if step == 1:
+            return _stream_from_response(
+                _fake_response(
+                    tool_calls=[_fake_tool_call("list_episode_ids", {"query": "James Dyson"})],
+                )
+            )
+        if step == 2:
+            return _stream_from_response(
+                _fake_response(
+                    tool_calls=[_fake_tool_call("load_episode", {"episode_id": "ep-0400"})],
+                )
+            )
+        return _stream_from_response(
+            _fake_response(
                 content="You have not studied ep-0400 yet — only the transcript exists until you add timestamp bullets.",
             )
-        return _fake_response(
-            tool_calls=[_fake_tool_call("list_episode_ids", {"query": "James Dyson"})],
         )
-
-    from retrieval_orchestrator import EvidenceBundle
 
     result = VaultAgent(config=agent_config).run_turn(
         "What did I note about James Dyson?",
         completion_fn=fake_completion,
-        retrieve_fn=lambda *_a, **_k: EvidenceBundle(
-            chunks=[], retrieval_meta={"intent": "thematic"}
-        ),
     )
-    assert "search_transcript" not in [t["tool"] for t in result.tool_trace]
     lowered = result.content.lower()
     assert "studied" in lowered or "not listened" in lowered or "ep-0400" in lowered

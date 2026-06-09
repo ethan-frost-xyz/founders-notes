@@ -10,10 +10,12 @@ REPO = Path(__file__).resolve().parent.parent
 VAULT_SEARCH_CHUNKS = REPO / "tests" / "fixtures" / "vault_search_chunks.jsonl"
 
 from retrieval_orchestrator import (  # noqa: E402
+    EXPAND_VARIANTS_FULL,
+    EXPAND_VARIANTS_NONE,
     EvidenceBundle,
     OrchestratorConfig,
     RetrievalOrchestrator,
-    classify_intent,
+    format_evidence_for_tool,
     quote_intent,
 )
 
@@ -38,26 +40,11 @@ def _patch_orchestrator_search(monkeypatch: pytest.MonkeyPatch, *, hybrid_hits: 
     monkeypatch.setattr(ro, "search_transcript_keyword", lambda *a, **k: [])
 
 
-def test_classify_meta_greeting():
-    assert classify_intent("hello", None) == "meta"
-
-
-def test_classify_thematic_default():
-    assert classify_intent("What did Rockefeller believe about competition?", None) == "thematic"
-
-
 def test_quote_intent_detected():
     assert quote_intent("What did he say about pricing?")
 
 
-def test_retrieve_meta_skips_search(orch_config: OrchestratorConfig):
-    orch = RetrievalOrchestrator(orch_config)
-    bundle = orch.retrieve("hello")
-    assert bundle.skip_retrieval
-    assert bundle.chunks == []
-
-
-def test_retrieve_thematic_with_mocks(orch_config: OrchestratorConfig, monkeypatch: pytest.MonkeyPatch):
+def test_retrieve_core_thematic_with_mocks(orch_config: OrchestratorConfig, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setenv("VAULT_ROOT", str(REPO))
 
     fake_chunk = {
@@ -84,10 +71,32 @@ def test_retrieve_thematic_with_mocks(orch_config: OrchestratorConfig, monkeypat
         expand_fn=fake_expand,
         rerank_fn=fake_rerank,
     )
-    bundle = orch.retrieve("Rockefeller competition")
-    assert not bundle.skip_retrieval
+    bundle = orch.retrieve_core("Rockefeller competition", expand_variants=EXPAND_VARIANTS_FULL)
     assert bundle.chunks
     assert bundle.chunks[0].section.startswith("expanded:")
+
+
+def test_retrieve_core_skips_expansion_when_zero(
+    orch_config: OrchestratorConfig, monkeypatch: pytest.MonkeyPatch
+):
+    import retrieval_orchestrator as ro
+
+    expand_called = False
+
+    def fake_expand(user_message, **kwargs):
+        nonlocal expand_called
+        expand_called = True
+        return user_message, [user_message] * 5
+
+    monkeypatch.setattr(ro, "_hybrid_search_parent_chunks", lambda *a, **k: [])
+    monkeypatch.setattr(ro, "embed_queries", lambda qs: [None] * len(qs))
+    monkeypatch.setattr(ro, "search_transcript_keyword", lambda *a, **k: [])
+
+    orch = RetrievalOrchestrator(orch_config, expand_fn=fake_expand, rerank_fn=lambda *a, **k: [])
+    bundle = orch.retrieve_core("Edison teams", expand_variants=EXPAND_VARIANTS_NONE)
+    assert expand_called is False
+    assert bundle.retrieval_meta.get("expansion_skipped") is True
+    assert bundle.retrieval_meta["variants"] == ["Edison teams"]
 
 
 def test_retrieve_calls_hybrid_search_per_variant(
@@ -156,3 +165,13 @@ def test_retrieve_excludes_summary_from_citable(orch_config: OrchestratorConfig,
     )
     bundle = orch.retrieve("theme")
     assert all(not ch.section.startswith("summary:") for ch in bundle.chunks)
+
+
+def test_format_evidence_for_tool_labels_subquery():
+    bundle = EvidenceBundle(
+        chunks=[],
+        retrieval_meta={},
+    )
+    text = format_evidence_for_tool(bundle, label="Edison teams")
+    assert "Edison teams" in text
+    assert "No citable evidence" in text
