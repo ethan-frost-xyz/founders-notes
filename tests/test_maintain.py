@@ -175,11 +175,16 @@ def test_run_expand_batch_dry_run(mock_expand, monkeypatch, tmp_path: Path):
 def test_build_all_chunks_helper(monkeypatch, tmp_path: Path):
     monkeypatch.setattr(paths, "ROOT", tmp_path)
     monkeypatch.setattr(paths, "CHUNKS_PATH", tmp_path / "catalog" / "chunks.jsonl")
+    summaries_path = tmp_path / "catalog" / "episode-summaries.jsonl"
+    monkeypatch.setattr(paths, "EPISODE_SUMMARIES_PATH", summaries_path)
     monkeypatch.setattr(paths, "NOTES_DIR", tmp_path / "content" / "notes")
     monkeypatch.setattr(paths, "TRANSCRIPTS_DIR", tmp_path / "content" / "transcripts")
     monkeypatch.setattr(paths, "POSTS_DIR", tmp_path / "content" / "posts")
 
-    from build_chunks import build_all_chunks
+    import build_chunks
+
+    monkeypatch.setattr(build_chunks, "EPISODE_SUMMARIES_PATH", summaries_path)
+    build_all_chunks = build_chunks.build_all_chunks
 
     row = _catalog_row("ep-0001", 1)
     npath = paths.notes_file_path("ep-0001", "1-test", 1)
