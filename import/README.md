@@ -4,7 +4,7 @@ Place one-time exports here (gitignored). Pass paths explicitly to ingestion scr
 
 | Source | Suggested file | Script |
 |--------|----------------|--------|
-| X posts (cache) | `x-posts-raw.csv` | `x/sync_x_cache.py` then `x/organize_posts_from_csv.py` |
+| X posts (cache) | `x-posts-raw.csv` | `x/x_posts_sync.py` then `x/x_posts_attribute.py` |
 | Manual post body | any `.txt` file | `x/assign_post_manual.py --body-file path` |
 
 Personal exports and X cache are not committed (see `.gitignore`).
@@ -26,8 +26,8 @@ Do not bulk-fix these lists. Only **blocking** gaps are transcript/layout (`veri
 cd ingestion
 source .venv/bin/activate
 
-python x/sync_x_cache.py
-python x/organize_posts_from_csv.py
+python x/x_posts_sync.py
+python x/x_posts_attribute.py
 python pipeline/verify.py
 ```
 
@@ -41,7 +41,7 @@ python pipeline/verify.py
 
 ```bash
 # Grow CSV history (optional; not needed to “close” ep-0190+ gaps)
-python x/sync_x_cache.py --full
+python x/x_posts_sync.py --backfill
 ```
 
 ## Manual assignment
@@ -62,5 +62,6 @@ See [`catalog/import-review.md`](../catalog/import-review.md) for ep-0082, ep-00
 - `content/posts/ep-NNNN-.../ep-NNNN-....post.md` — high-confidence Founders matches
 - `content/posts/_other/{id}.md` — non-Founders and low-confidence
 - `catalog/post-mapping-review.jsonl` — medium-confidence matches for LLM / manual review
+- `catalog/x-posts-pending.jsonl` — new units awaiting attribution (written by sync)
 - `content/posts/_corpus/all-posts.md` — Founders corpus
 - `content/posts/_corpus/all-posts-other.md` — other posts corpus

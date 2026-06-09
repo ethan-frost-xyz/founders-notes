@@ -31,6 +31,7 @@ How to run Founders Notes across **Mac mini** (primary bot host and dev machine)
 | Batch expand / promote | `maintain.py` or CLI scripts | Janitor on mini |
 | Fix catalog / layout gaps | `pipeline/verify.py`, `maintain.py` | — |
 | Refresh search index after content change | Webhook on merge, Janitor promote, `/sync` | `maintain.py` menu 8 |
+| Sync X posts into vault | Mac mini weekly cron (`install-x-posts-cron.sh`) | Laptop: `x/x_posts_sync.py` + `x/x_posts_attribute.py` |
 | Ship bot/ingestion code | Laptop PR → merge → mini **pull + `/restart`** | See [Remote product workflow](#remote-product-workflow) |
 
 ---
@@ -204,6 +205,19 @@ sleep 2
 tail -8 "$HOME/Library/Logs/founders-telegram/bot.stderr.log" 2>/dev/null
 tail -5 "$HOME/Library/Logs/founders-telegram/webhook.log" 2>/dev/null
 ```
+
+### Weekly X posts (optional cron)
+
+Requires `X_BEARER_TOKEN`, `X_USERNAME`, and `OPENROUTER_API_KEY` in `~/.config/founders-telegram/env`. The mini must be able to `git push` (SSH remote).
+
+```bash
+REPO="/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes"
+"$REPO/services/telegram/deploy/install-x-posts-cron.sh"   # Sunday 5:00
+"$REPO/services/telegram/deploy/install-x-posts-cron.sh" --print   # review line only
+tail -f "$HOME/Library/Logs/founders-telegram/x-posts.log"
+```
+
+Manual run: `"$REPO/services/telegram/deploy/weekly-x-posts.sh"`. Status without API: `cd "$REPO/ingestion" && ../ingestion/.venv/bin/python x/x_posts_status.py`.
 
 ### Webhook verify
 

@@ -27,6 +27,10 @@ Run scripts from `ingestion/`; each script calls `_bootstrap.setup_paths(__file_
 | `openrouter_pricing.py` | OpenRouter model pricing helpers for expand cost estimates |
 | `reindex_vault.py` | Subprocess orchestrator: `build_chunks.py` + `build_embeddings.py` (Janitor, maintain menu 8, `sync-and-index.sh`) |
 | `vault_subprocess.py` | Shared `python_executable` / `tail_output` for reindex and Janitor expand subprocesses |
+| `x_sync_fetch.py` | Windowed X timeline fetch (`since_id`, catch-up expansion) |
 | `x_posts_csv.py` | X CSV cache I/O, tweet → row conversion |
+| `x_posts_pending.py` | Pending attribution queue (`catalog/x-posts-pending.jsonl`) |
+| `x_posts_chrono.py` | Chronological gap-fill for recap posts without `#N` |
+| `x_post_attribution.py` | Attribution cascade + vault writes, corpus regen |
 | `x_posts_match.py` | Episode attribution scoring |
 | `x_posts_threads.py` | Thread grouping, reply filters, article skip |

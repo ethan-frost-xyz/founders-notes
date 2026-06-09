@@ -69,8 +69,9 @@ Full script index: `[ingestion/README.md](../ingestion/README.md)`.
 | New episodes   | `python pipeline/sync_new.py --repair-urls --apply` → `pipeline/map_colossus.py` → `transcripts/fetch_transcripts.py` → `notes/scaffold_notes.py --missing` |
 | Notes scaffold | `python notes/scaffold_notes.py --missing` or `--next` (see `[docs/notes-pipeline.md](notes-pipeline.md)`)                                             |
 | Edit notes     | Directly in `content/notes/{folder}/{folder}.notes.md` (Working Copy / Cursor) — no Apple Notes import                                                      |
-| X cache sync   | `python x/sync_x_cache.py` (incremental) or `--full` (backfill)                                                                                             |
-| X organize     | `python x/organize_posts_from_csv.py` (reads CSV only; skips native X articles; `#N` attribution; review queue in `catalog/post-mapping-review.jsonl`)   |
+| X cache sync   | `python x/x_posts_sync.py` (windowed) or `--backfill` (full timeline)                                                                                       |
+| X attribute    | `python x/x_posts_attribute.py` (pending queue) or `--rebuild` (full CSV); `--llm-review` for review band                                                   |
+| X status       | `python x/x_posts_status.py` (zero API)                                                                                                                     |
 | Manual post    | `python x/assign_post_manual.py --episode N --x-post-id ID --published-at YYYY-MM-DD --body-file path`                                                      |
 | Chunk index    | `python search/build_chunks.py` — after summaries: `python search/build_summaries.py` then `build_chunks.py` again (or `python lib/reindex_vault.py`) |
 | Verify         | `python pipeline/verify.py`                                                                                                                                 |
