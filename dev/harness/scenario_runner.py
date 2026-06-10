@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -17,6 +18,8 @@ try:
     import yaml
 except ImportError:  # pragma: no cover
     yaml = None  # type: ignore[assignment]
+
+_EPISODE_CITATION_RE = re.compile(r"\[ep-\d{4}\]")
 
 
 @dataclass
@@ -172,6 +175,13 @@ def _check_expectations(
         if needle in combined:
             return False, f"expected reply not to contain {needle!r}"
 
+    not_contains_all = expect.get("not_contains_all")
+    if not_contains_all:
+        for needle in not_contains_all:
+            needle_s = str(needle)
+            if needle_s in combined:
+                return False, f"expected reply not to contain {needle_s!r}"
+
     min_len = expect.get("response_min_length")
     if min_len is not None and len(combined) < int(min_len):
         return False, f"response length {len(combined)} < {min_len}"
@@ -206,6 +216,10 @@ def _check_expectations(
         needles = [str(x) for x in response_any]
         if not any(n in combined for n in needles):
             return False, f"expected response to contain one of {needles!r}"
+
+    if merged.get("response_contains_episode_citation") and llm_mode == "live":
+        if not _EPISODE_CITATION_RE.search(combined):
+            return False, "expected response to contain episode citation [ep-NNNN]"
 
     status_contains = merged.get("status_contains")
     if status_contains and llm_mode == "live":

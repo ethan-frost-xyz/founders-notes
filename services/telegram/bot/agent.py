@@ -5,18 +5,16 @@ from __future__ import annotations
 import json
 import time
 from dataclasses import dataclass, field
-from pathlib import Path
 from types import SimpleNamespace
 from typing import Any, Callable
 
 from tool_status import tool_status_label
 
 from config import AgentConfig, load_agent_config
+from evidence_format import format_load_episode_for_tool
+from librarian_prompt import build_system_message
+from reply_sanitize import sanitize_librarian_reply
 from turn_timing import TurnTimer
-
-_LEGACY_PROMPT_PATH = (
-    Path(__file__).resolve().parent.parent / "prompts" / "vault_agent.md"
-)
 
 ToolFn = Callable[[dict[str, Any]], dict[str, Any]]
 
@@ -40,22 +38,6 @@ class TurnResult:
     stop_reason: str = "natural"
     error: bool = False
     timing: dict[str, Any] | None = None
-
-
-def _load_system_prompt(vault_root: Path) -> str:
-    path = vault_root / "AGENTS.md"
-    if not path.is_file():
-        path = _LEGACY_PROMPT_PATH
-    return path.read_text(encoding="utf-8").strip()
-
-
-def _build_system_message(config: AgentConfig) -> str:
-    from index_status import index_metadata
-
-    base = _load_system_prompt(config.vault_root)
-    meta = index_metadata(config.vault_root)
-    meta_line = json.dumps(meta, separators=(",", ":"))
-    return f"{base}\n\n---\nRuntime: index_metadata={meta_line}"
 
 
 def openrouter_tools(*, default_k: int = 8) -> list[dict[str, Any]]:
@@ -236,8 +218,36 @@ def _assistant_message_dict(msg: Any) -> dict[str, Any]:
     return out
 
 
+def _is_load_episode_payload(payload: dict[str, Any]) -> bool:
+    return (
+        "episode_id" in payload
+        and "sections" in payload
+        and "evidence" not in payload
+        and "error" not in payload
+    )
+
+
+def _search_budget_nudge(turn_evidence: list[dict[str, Any]]) -> str:
+    base = SEARCH_BUDGET_NUDGE
+    if not turn_evidence:
+        return base
+    ep_ids = sorted({str(e.get("episode_id", "")) for e in turn_evidence if e.get("episode_id")})
+    chunk_count = len(turn_evidence)
+    if not ep_ids:
+        return f"{base} Evidence gathered: {chunk_count} chunks. Answer now; say if thin."
+    ep_preview = ", ".join(ep_ids[:8])
+    if len(ep_ids) > 8:
+        ep_preview += f" (+{len(ep_ids) - 8} more)"
+    return (
+        f"{base} Evidence gathered: {ep_preview} ({chunk_count} chunks). "
+        "Answer now; say if thin."
+    )
+
+
 def _tool_result_content(payload: dict[str, Any]) -> str:
     """Serialize tool payload for the model; prefer readable evidence blocks."""
+    if _is_load_episode_payload(payload):
+        return format_load_episode_for_tool(payload)
     if "evidence" in payload and isinstance(payload["evidence"], str):
         meta = payload.get("meta")
         meta_line = ""
@@ -418,8 +428,9 @@ class VaultAgent:
                 timing_dict["agent_steps"] = steps
                 trace.append({"record": "timing", **timing_dict})
             summary = build_trace_summary(trace, stop_reason=stop)
+            clean = sanitize_librarian_reply(content) or EMPTY_SYNTHESIS
             return TurnResult(
-                content=content,
+                content=clean,
                 tool_trace=trace,
                 trace_summary=summary,
                 steps=steps,
@@ -429,7 +440,7 @@ class VaultAgent:
             )
 
         messages: list[dict[str, Any]] = [
-            {"role": "system", "content": _build_system_message(cfg)},
+            {"role": "system", "content": build_system_message(cfg)},
         ]
         if history:
             messages.extend(history)
@@ -463,6 +474,7 @@ class VaultAgent:
         try:
             tool_round = 0
             step = 0
+            turn_evidence: list[dict[str, Any]] = []
             while True:
                 step += 1
                 agent_round += 1
@@ -524,7 +536,9 @@ class VaultAgent:
                         except Exception:
                             pass
                     result = execute_tool(name, args, config=cfg, history=history, timing=timing)
-                    round_evidence.extend(_trace_evidence_from_result(result))
+                    traced = _trace_evidence_from_result(result)
+                    round_evidence.extend(traced)
+                    turn_evidence.extend(traced)
                     content = _tool_result_content(result)
                     messages.append(
                         {
@@ -550,7 +564,7 @@ class VaultAgent:
                 if tool_round >= MAX_TOOL_ROUNDS:
                     stop_reason = "cap"
                     messages.append(
-                        {"role": "system", "content": SEARCH_BUDGET_NUDGE},
+                        {"role": "system", "content": _search_budget_nudge(turn_evidence)},
                     )
                     if on_tool_start is not None:
                         try:
