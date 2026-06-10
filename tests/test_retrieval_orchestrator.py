@@ -18,7 +18,6 @@ from retrieval.orchestrator import (  # noqa: E402
     OrchestratorConfig,
     RetrievalOrchestrator,
     evidence_chunk_from_dict,
-    format_evidence_for_tool,
     quote_intent,
 )
 
@@ -202,16 +201,6 @@ def test_evidence_chunk_excerpt_respects_max_chars():
         }
     )
     assert len(chunk.excerpt) == EXCERPT_MAX_CHARS
-
-
-def test_format_evidence_for_tool_labels_subquery():
-    bundle = EvidenceBundle(
-        chunks=[],
-        retrieval_meta={},
-    )
-    text = format_evidence_for_tool(bundle, label="Edison teams")
-    assert "Edison teams" in text
-    assert "No citable evidence" in text
 
 
 def test_retrieve_core_on_timing_split(orch_config: OrchestratorConfig, monkeypatch: pytest.MonkeyPatch):

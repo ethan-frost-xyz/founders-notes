@@ -37,11 +37,45 @@ from janitor_workflow import (
     run_reindex,
 )
 from messaging import reply_text_chunked
-from telegram import Update
+from telegram import Message, Update
 from telegram.ext import ContextTypes
+
+from config import BotConfig
 
 JANITOR_HELP = """Janitor — paste episode + bullets to file notes.
 Send an episode number to begin, or tap ← Back to return to Q&A."""
+
+
+async def _run_clean_action(
+    message: Message,
+    session,
+    *,
+    bot_cfg: BotConfig,
+    vault_root,
+    feedback: str | None = None,
+    edit_on_error: bool = False,
+) -> None:
+    revising = bool(feedback)
+    status_prefix = "Revising" if revising else "Retrying"
+    fail_label = "Revision failed" if revising else "Retry failed"
+    try:
+        await run_llm_clean(
+            message,
+            session,
+            bot_cfg=bot_cfg,
+            vault_root=vault_root,
+            status_prefix=status_prefix,
+            feedback=feedback,
+        )
+    except Exception as e:
+        session.last_error = str(e)
+        if edit_on_error:
+            await message.edit_text(
+                f"{fail_label}: {e}",
+                reply_markup=exit_keyboard(),
+            )
+        else:
+            await message.reply_text(f"{fail_label}: {e}")
 
 
 async def cmd_janitor(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -104,30 +138,20 @@ async def on_janitor_text(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             )
             return True
         if lowered in ("retry", "again"):
-            try:
-                await run_llm_clean(
-                    update.message,
-                    session,
-                    bot_cfg=bot_cfg,
-                    vault_root=vault_root,
-                    status_prefix="Retrying",
-                )
-            except Exception as e:
-                session.last_error = str(e)
-                await update.message.reply_text(f"Retry failed: {e}")
-            return True
-        try:
-            await run_llm_clean(
+            await _run_clean_action(
                 update.message,
                 session,
                 bot_cfg=bot_cfg,
                 vault_root=vault_root,
-                status_prefix="Revising",
-                feedback=text,
             )
-        except Exception as e:
-            session.last_error = str(e)
-            await update.message.reply_text(f"Revision failed: {e}")
+            return True
+        await _run_clean_action(
+            update.message,
+            session,
+            bot_cfg=bot_cfg,
+            vault_root=vault_root,
+            feedback=text,
+        )
         return True
 
     if session.phase == JanitorPhase.AWAIT_EPISODE:
@@ -213,20 +237,13 @@ async def on_janitor_callback(update: Update, context: ContextTypes.DEFAULT_TYPE
                 reply_markup=exit_keyboard(),
             )
             return
-        try:
-            await run_llm_clean(
-                query.message,
-                session,
-                bot_cfg=bot_cfg,
-                vault_root=vault_root,
-                status_prefix="Retrying",
-            )
-        except Exception as e:
-            session.last_error = str(e)
-            await query.edit_message_text(
-                f"Retry failed: {e}",
-                reply_markup=exit_keyboard(),
-            )
+        await _run_clean_action(
+            query.message,
+            session,
+            bot_cfg=bot_cfg,
+            vault_root=vault_root,
+            edit_on_error=True,
+        )
         return
 
     if data == CALLBACK_JANITOR_APPROVE:

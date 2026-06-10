@@ -7,6 +7,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Callable
 
 from config import AgentConfig
+from evidence_format import format_evidence_for_tool
 from retrieval.orchestrator import (
     EXPAND_VARIANTS_FULL,
     EXPAND_VARIANTS_LIGHT,
@@ -16,7 +17,6 @@ from retrieval.orchestrator import (
     EvidenceBundle,
     RetrievalOrchestrator,
     evidence_meta_for_trace,
-    format_evidence_for_tool,
     orchestrator_from_agent_config,
 )
 from turn_timing import TurnTimer

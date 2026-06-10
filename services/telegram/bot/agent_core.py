@@ -78,11 +78,9 @@ class VaultAgent:
         completion_fn: Callable[..., Any] | None = None,
         on_tool_start: Callable[[str, dict[str, Any]], None] | None = None,
         on_chunk: Callable[[str], None] | None = None,
-        retrieve_fn: Callable[..., Any] | None = None,
         timing: TurnTimer | None = None,
     ) -> TurnResult:
         """Cold-start agentic loop: model drives retrieval via tools, then answers."""
-        _ = retrieve_fn  # legacy param; agentic loop does not pre-retrieve
         cfg = self.config
         trace: list[dict[str, Any]] = []
         stop_reason = "natural"

@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 from evidence_format import (
+    format_evidence_for_tool,
     format_load_episode_for_tool,
     format_search_evidence,
     format_transcript_evidence,
     trace_evidence_from_hits,
 )
+from retrieval.orchestrator import EvidenceBundle  # noqa: E402
 
 
 def test_format_load_episode_strips_frontmatter_and_surfaces_listened():
@@ -124,3 +126,13 @@ def test_trace_evidence_from_hits():
             "section": "expanded:quote",
         }
     ]
+
+
+def test_format_evidence_for_tool_labels_subquery():
+    bundle = EvidenceBundle(
+        chunks=[],
+        retrieval_meta={},
+    )
+    text = format_evidence_for_tool(bundle, label="Edison teams")
+    assert "Edison teams" in text
+    assert "No citable evidence" in text

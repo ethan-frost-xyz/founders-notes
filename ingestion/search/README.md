@@ -19,7 +19,7 @@ See [`docs/retrieval.md`](../../docs/retrieval.md).
 | `build_embeddings.py` | Parent-tier vectors → `catalog/embeddings.npy` (requires `OPENROUTER_API_KEY` + `OPENROUTER_EMBED_MODEL`) |
 | `search.py` | Query chunks; optional ripgrep fallback on corpus |
 
-Parent-tier embeddings power Librarian hybrid search (`services/telegram/lib/retrieval/orchestrator.py` + parent-tier chunks; variant searches run concurrently) — not a repo-wide vector DB. Legacy `search_vault_parent` remains in `services/telegram/bot/tools/vault.py` for index-quality tests only. See [`docs/retrieval.md`](../../docs/retrieval.md).
+Parent-tier embeddings power Librarian hybrid search (`services/telegram/lib/retrieval/orchestrator.py` + parent-tier chunks; variant searches run concurrently) — not a repo-wide vector DB. Index-quality tests call `search_parent_evidence` / `search_transcript_evidence` in `ingestion/lib/search_retrieval.py`. See [`docs/retrieval.md`](../../docs/retrieval.md).
 
 ## Unified reindex
 

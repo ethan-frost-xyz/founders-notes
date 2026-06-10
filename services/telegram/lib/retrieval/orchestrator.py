@@ -189,29 +189,6 @@ def evidence_meta_for_trace(bundle: EvidenceBundle) -> list[dict[str, Any]]:
     ]
 
 
-def format_evidence_for_tool(
-    bundle: EvidenceBundle,
-    *,
-    label: str | None = None,
-    max_chunks: int = SEARCH_VAULT_KEEP,
-) -> str:
-    """Readable evidence block returned from search_vault / search_vault_many."""
-    from evidence_format import format_search_evidence
-
-    chunk_dicts = [
-        {
-            "chunk_id": ch.chunk_id,
-            "episode_id": ch.episode_id,
-            "title": ch.title,
-            "section": ch.section,
-            "excerpt": ch.excerpt,
-            "rerank_score": ch.rerank_score,
-        }
-        for ch in bundle.chunks
-    ]
-    return format_search_evidence(chunk_dicts, label=label, max_chunks=max_chunks)
-
-
 class RetrievalOrchestrator:
     def __init__(
         self,

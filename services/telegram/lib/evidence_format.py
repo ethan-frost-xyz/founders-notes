@@ -17,6 +17,27 @@ def _strip_frontmatter(text: str) -> str:
     return body.strip()
 
 
+def format_evidence_for_tool(
+    bundle,
+    *,
+    label: str | None = None,
+    max_chunks: int = 8,
+) -> str:
+    """Readable evidence block returned from search_vault / search_vault_many."""
+    chunk_dicts = [
+        {
+            "chunk_id": ch.chunk_id,
+            "episode_id": ch.episode_id,
+            "title": ch.title,
+            "section": ch.section,
+            "excerpt": ch.excerpt,
+            "rerank_score": ch.rerank_score,
+        }
+        for ch in bundle.chunks
+    ]
+    return format_search_evidence(chunk_dicts, label=label, max_chunks=max_chunks)
+
+
 def format_search_evidence(
     chunks: Sequence[Mapping[str, Any]],
     *,
