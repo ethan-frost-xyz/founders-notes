@@ -195,8 +195,10 @@ def search_transcript_for_turn(
 
     from _bootstrap import resolve_vault_root
 
+    from paths import catalog_paths
+
     root = resolve_vault_root(config.vault_root)
-    chunks_path = root / "catalog" / "chunks.jsonl"
+    chunks_path = catalog_paths(root).chunks
     t0 = time.perf_counter()
     result = search_transcript_evidence(query, k, chunks_path=chunks_path, root=root)
     elapsed_ms = int((time.perf_counter() - t0) * 1000)
@@ -208,26 +210,11 @@ def search_transcript_for_turn(
             retrieval_llm_ms=0,
             tool="search_transcript",
         )
+    from evidence_format import format_transcript_evidence, trace_evidence_from_hits
+
     hits = result.get("hits") or []
-    lines = [
-        "Transcript hits (cite only from this block; use [ep-NNNN]):",
-        "",
-    ]
-    trace_evidence: list[dict[str, Any]] = []
-    for i, hit in enumerate(hits, start=1):
-        ep = hit.get("episode_id", "")
-        lines.append(
-            f"#### Hit {i} — {hit.get('chunk_id', '')} [{ep}]\n"
-            f"Section: {hit.get('section', '')}\n\n{hit.get('excerpt', '')}\n"
-        )
-        trace_evidence.append(
-            {
-                "chunk_id": hit.get("chunk_id", ""),
-                "episode_id": ep,
-                "section": hit.get("section", ""),
-            }
-        )
-    evidence = "\n".join(lines) if hits else "No transcript hits for this query."
+    evidence = format_transcript_evidence(hits)
+    trace_evidence = trace_evidence_from_hits(hits)
     return {
         "query": query,
         "evidence": evidence,

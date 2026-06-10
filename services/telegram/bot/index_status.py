@@ -9,16 +9,18 @@ from typing import Any
 
 def index_metadata(vault_root: Path) -> dict[str, Any]:
     """Chunk count, embedding presence, and optional git SHA for agent runtime."""
+    from paths import catalog_paths
+
     meta: dict[str, Any] = {}
-    chunks_path = vault_root / "catalog" / "chunks.jsonl"
-    if chunks_path.is_file():
+    cp = catalog_paths(vault_root)
+    if cp.chunks.is_file():
         try:
-            with chunks_path.open(encoding="utf-8") as f:
+            with cp.chunks.open(encoding="utf-8") as f:
                 meta["chunk_count"] = sum(1 for line in f if line.strip())
         except OSError:
             pass
-    manifest = vault_root / "catalog" / "embeddings-manifest.jsonl"
-    emb = vault_root / "catalog" / "embeddings.npy"
+    manifest = cp.embeddings_manifest
+    emb = cp.embeddings
     if manifest.is_file():
         try:
             meta["embeddings_manifest_mtime"] = manifest.stat().st_mtime
@@ -39,7 +41,9 @@ def vault_stats_text(vault_root: Path) -> str:
     from catalog import load_catalog
     from gaps_report import count_phase2_coverage
 
-    chunks_path = vault_root / "catalog" / "chunks.jsonl"
+    from paths import catalog_paths
+
+    chunks_path = catalog_paths(vault_root).chunks
     rows = load_catalog()
     episodes = len(rows)
     _, studied, _, _, _, _, _ = count_phase2_coverage(rows)

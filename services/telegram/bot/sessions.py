@@ -38,10 +38,10 @@ def _utc_filename_slug() -> str:
 
 
 def index_newest_mtime(vault_root: Path) -> float:
-    candidates = [
-        vault_root / "catalog" / "chunks.jsonl",
-        vault_root / "catalog" / "embeddings-manifest.jsonl",
-    ]
+    from paths import catalog_paths
+
+    cp = catalog_paths(vault_root)
+    candidates = [cp.chunks, cp.embeddings_manifest]
     mtimes = [p.stat().st_mtime for p in candidates if p.is_file()]
     return max(mtimes) if mtimes else 0.0
 

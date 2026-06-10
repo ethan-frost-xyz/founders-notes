@@ -65,6 +65,7 @@ def load_agent_config() -> AgentConfig:
 
 
 def load_bot_config() -> BotConfig:
+    from paths import catalog_paths
     from runtime_settings import apply_runtime_to_bot_config, sync_embed_to_os_environ
 
     agent = load_agent_config()
@@ -88,7 +89,7 @@ def load_bot_config() -> BotConfig:
         agent=agent,
         telegram_token=token,
         allowed_user_ids=frozenset(allowed),
-        sessions_dir=agent.vault_root / "catalog" / "telegram-sessions",
+        sessions_dir=catalog_paths(agent.vault_root).telegram_sessions,
         janitor_clean_model=None,
     )
     bot = apply_runtime_to_bot_config(bot)

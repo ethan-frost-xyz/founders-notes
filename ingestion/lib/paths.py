@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from pathlib import Path
 
 INGESTION_DIR = Path(__file__).resolve().parent.parent
@@ -22,6 +23,42 @@ EMBEDDINGS_META_PATH = ROOT / "catalog" / "embeddings-meta.json"
 TELEGRAM_SESSIONS_DIR = ROOT / "catalog" / "telegram-sessions"
 
 CONTENT_TYPES = frozenset({"transcript", "notes", "expanded", "post"})
+
+
+@dataclass(frozen=True)
+class CatalogPaths:
+    root: Path
+    episodes: Path
+    chunks: Path
+    embeddings: Path
+    embeddings_manifest: Path
+    episode_summaries: Path
+    telegram_sessions: Path
+
+
+def catalog_paths(vault_root: Path | None = None) -> CatalogPaths:
+    """Resolve catalog index paths for the vault root (or module ROOT when None)."""
+    root = (vault_root or ROOT).resolve()
+    if root == ROOT.resolve():
+        return CatalogPaths(
+            root=ROOT,
+            episodes=CATALOG_PATH,
+            chunks=CHUNKS_PATH,
+            embeddings=EMBEDDINGS_PATH,
+            embeddings_manifest=EMBEDDINGS_MANIFEST_PATH,
+            episode_summaries=EPISODE_SUMMARIES_PATH,
+            telegram_sessions=TELEGRAM_SESSIONS_DIR,
+        )
+    catalog = root / "catalog"
+    return CatalogPaths(
+        root=root,
+        episodes=catalog / "episodes.jsonl",
+        chunks=catalog / "chunks.jsonl",
+        embeddings=catalog / "embeddings.npy",
+        embeddings_manifest=catalog / "embeddings-manifest.jsonl",
+        episode_summaries=catalog / "episode-summaries.jsonl",
+        telegram_sessions=catalog / "telegram-sessions",
+    )
 
 
 def path_relative_to_root(path: Path) -> str:
