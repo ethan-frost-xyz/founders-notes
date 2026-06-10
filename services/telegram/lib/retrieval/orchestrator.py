@@ -11,7 +11,6 @@ from pathlib import Path
 from typing import Any, Callable
 
 from paths import CHUNKS_PATH, EMBEDDINGS_MANIFEST_PATH, EMBEDDINGS_PATH, ROOT
-from rerank_llm import rerank_candidates
 from search_retrieval import (
     _hybrid_search_parent_chunks,
     embed_queries,
@@ -21,7 +20,10 @@ from search_retrieval import (
     search_transcript_keyword,
 )
 
-PROMPT_EXPAND_PATH = Path(__file__).resolve().parents[1] / "prompts" / "query_expand.md"
+from .rerank_llm import rerank_candidates
+
+_REPO_ROOT = Path(__file__).resolve().parents[4]
+PROMPT_EXPAND_PATH = _REPO_ROOT / "ingestion" / "prompts" / "query_expand.md"
 
 QUOTE_INTENT_RE = re.compile(
     r"\b(what did (he|she|they) say|exact words?|verbatim|quote from)\b",

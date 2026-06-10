@@ -1,4 +1,4 @@
-"""Telegram adapter for ingestion retrieval orchestrator."""
+"""Telegram turn adapter for Librarian search tools (orchestrator-backed)."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Callable
 
 from config import AgentConfig
-from retrieval_orchestrator import (
+from retrieval.orchestrator import (
     EXPAND_VARIANTS_FULL,
     EXPAND_VARIANTS_LIGHT,
     SEARCH_VAULT_KEEP,

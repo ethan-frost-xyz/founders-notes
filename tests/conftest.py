@@ -18,10 +18,12 @@ from _bootstrap import setup_ingestion_paths  # noqa: E402
 setup_ingestion_paths(REPO, include_subpackages=True)
 
 _BOT = REPO / "services" / "telegram" / "bot"
-_TOOLS = _BOT / "tools"
-for entry in (str(_BOT), str(_TOOLS)):
-    if entry not in sys.path:
-        sys.path.insert(0, entry)
+if str(_BOT) not in sys.path:
+    sys.path.insert(0, str(_BOT))
+
+from bootstrap import setup_telegram_paths  # noqa: E402
+
+setup_telegram_paths(REPO)
 
 VAULT_SEARCH_CHUNKS = REPO / "tests" / "fixtures" / "vault_search_chunks.jsonl"
 

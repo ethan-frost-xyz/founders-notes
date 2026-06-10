@@ -2,7 +2,7 @@
 
 Short overview for coding agents. **v0 (SP1–SP4)** shipped on `main` (PR #3). Deferred work: [`potential-ideas.md`](../potential-ideas.md). Historical plans: [`.cursor/plans/archive/legacy/`](../.cursor/plans/archive/legacy/) (deep archive; see [archive README](../.cursor/plans/archive/README.md)).
 
-Product is **v4: agentic retrieval loop** — the librarian model drives search via tools (cold start, no pre-retrieval). Retrieval **internals** remain in `retrieval_orchestrator.retrieve_core`.
+Product is **v4: agentic retrieval loop** — the librarian model drives search via tools (cold start, no pre-retrieval). Retrieval **internals** remain in `services/telegram/lib/retrieval/orchestrator.py` (`retrieve_core`).
 
 ## Product vision
 
@@ -17,7 +17,7 @@ The **Librarian** should feel like a sharp intellectual thought partner who has 
 ## Architecture (v4)
 
 - **OpenRouter agent** (Librarian model in `runtime.json`, `/setmodel librarian`) runs a **tool-calling loop** (≤6 rounds).
-- **Toolbox:** `search_vault`, `search_vault_many`, `search_transcript`, `list_episode_ids`, `load_episode` — each search tool wraps `retrieve_core` in `ingestion/lib/retrieval_orchestrator.py` (expand → hybrid → rerank; `search_vault_many` skips per-sub-query expansion).
+- **Toolbox:** `search_vault`, `search_vault_many`, `search_transcript`, `list_episode_ids`, `load_episode` — each search tool wraps `retrieve_core` in `services/telegram/lib/retrieval/orchestrator.py` (expand → hybrid → rerank; `search_vault_many` skips per-sub-query expansion).
 - **Cold start:** no pre-retrieved evidence; the model decides when to search. **Reply streaming** (default off): each completion round can stream token deltas; toggle in `/settings` → **Stream replies**.
 - Index: `catalog/chunks.jsonl` — **expanded** + **summary** parent tiers; `catalog/episode-summaries.jsonl`; embeddings in `catalog/embeddings.npy` (gitignored).
 - Librarian corpus = **studied episodes only** (timestamp bullets in `.notes.md`).

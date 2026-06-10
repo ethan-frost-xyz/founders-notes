@@ -27,7 +27,7 @@ Or: `python lib/reindex_vault.py` / Telegram `/reindex` (runs all steps above).
 
 ## v3 — Telegram Librarian orchestrator (retrieval core; superseded as turn driver)
 
-**Scope:** Retrieval **internals** only — expand → hybrid search → RRF → rerank → transcript fallback in `ingestion/lib/retrieval_orchestrator.py` (`retrieve_core`). The live Librarian no longer runs this as a mandatory pre-pass; see v4.
+**Scope:** Retrieval **internals** only — expand → hybrid search → RRF → rerank → transcript fallback in `services/telegram/lib/retrieval/orchestrator.py` (`retrieve_core`). The live Librarian no longer runs this as a mandatory pre-pass; see v4.
 
 | Step | What |
 |------|------|
@@ -41,7 +41,7 @@ Or: `python lib/reindex_vault.py` / Telegram `/reindex` (runs all steps above).
 
 ## v4 — Agentic Librarian loop (implemented)
 
-**Scope:** Telegram Librarian turn driver in `services/telegram/bot/agent.py`; tool adapters in `services/telegram/bot/retrieval.py`.
+**Scope:** Telegram Librarian turn driver in `services/telegram/bot/agent.py`; tool adapters in `services/telegram/bot/search_turn.py`.
 
 | What | Detail |
 |------|--------|

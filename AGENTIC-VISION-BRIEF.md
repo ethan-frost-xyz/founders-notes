@@ -21,7 +21,7 @@ The current system is a production-grade hybrid RAG pipeline that runs **once, b
 
 Two escape-hatch tools are available to the synthesis turn today: `load_episode` (pull one full episode) and `list_episode_ids` (resolve a guest name or number to `ep-NNNN`). The model tiers are split: a fast/cheap `retrieval_model` handles expand + rerank, and a stronger `librarian_model` handles synthesis.
 
-Source of truth: [`ingestion/lib/retrieval_orchestrator.py`](ingestion/lib/retrieval_orchestrator.py), [`services/telegram/bot/agent.py`](services/telegram/bot/agent.py), [`docs/retrieval.md`](docs/retrieval.md).
+Source of truth: [`services/telegram/lib/retrieval/orchestrator.py`](services/telegram/lib/retrieval/orchestrator.py), [`services/telegram/bot/agent.py`](services/telegram/bot/agent.py), [`docs/retrieval.md`](docs/retrieval.md).
 
 ***
 
