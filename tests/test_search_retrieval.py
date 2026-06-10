@@ -179,6 +179,73 @@ def test_episode_is_studied_fast_after_prime(
     assert elapsed_ms < 50, f"episode_is_studied loop took {elapsed_ms:.1f}ms"
 
 
+def test_load_jsonl_refreshes_when_file_mtime_changes(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+):
+    from catalog import load_jsonl
+
+    chunks_path = tmp_path / "catalog" / "chunks.jsonl"
+    chunks_path.parent.mkdir(parents=True)
+    chunks_path.write_text(
+        '{"chunk_id":"c1","id":"ep-0001","section":"expanded:1","excerpt":"OLD"}\n',
+        encoding="utf-8",
+    )
+    assert load_jsonl(chunks_path)[0]["excerpt"] == "OLD"
+
+    time.sleep(0.02)
+    chunks_path.write_text(
+        '{"chunk_id":"c1","id":"ep-0001","section":"expanded:1","excerpt":"NEW"}\n',
+        encoding="utf-8",
+    )
+    assert load_jsonl(chunks_path)[0]["excerpt"] == "NEW"
+
+
+def test_get_chunk_index_refreshes_when_studied_episodes_change(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+):
+    import paths as vault_paths
+
+    monkeypatch.setattr(vault_paths, "ROOT", tmp_path)
+    catalog = tmp_path / "catalog" / "episodes.jsonl"
+    chunks_path = tmp_path / "catalog" / "chunks.jsonl"
+    monkeypatch.setattr(vault_paths, "CATALOG_PATH", catalog)
+    monkeypatch.setattr(vault_paths, "CHUNKS_PATH", chunks_path)
+    catalog.parent.mkdir(parents=True)
+    catalog.write_text(
+        '{"id":"ep-0001","slug":"1-test","episode_number":1}\n'
+        '{"id":"ep-0002","slug":"2-test","episode_number":2}\n',
+        encoding="utf-8",
+    )
+    notes1 = tmp_path / "content" / "notes" / "ep-0001-test"
+    notes1.mkdir(parents=True)
+    (notes1 / "ep-0001-test.notes.md").write_text(
+        "---\ntitle: T\n---\n\n## Raw datapoints\n\n- 1:00 — hook\n",
+        encoding="utf-8",
+    )
+    chunks_path.write_text(
+        '{"chunk_id":"c1","id":"ep-0001","section":"expanded:1","excerpt":"ep1"}\n'
+        '{"chunk_id":"c2","id":"ep-0002","section":"expanded:1","excerpt":"ep2"}\n',
+        encoding="utf-8",
+    )
+    invalidate_studied_episode_cache()
+    invalidate_chunk_index_cache()
+
+    first = get_chunk_index(chunks_path=chunks_path, root=tmp_path)
+    assert {ch["id"] for ch in first.parent_chunks} == {"ep-0001"}
+
+    notes2 = tmp_path / "content" / "notes" / "ep-0002-test"
+    notes2.mkdir(parents=True)
+    time.sleep(0.02)
+    (notes2 / "ep-0002-test.notes.md").write_text(
+        "---\ntitle: T2\n---\n\n## Raw datapoints\n\n- 2:00 — hook\n",
+        encoding="utf-8",
+    )
+
+    studied_episode_ids(root=tmp_path)
+    second = get_chunk_index(chunks_path=chunks_path, root=tmp_path)
+    assert {ch["id"] for ch in second.parent_chunks} == {"ep-0001", "ep-0002"}
+
+
 def test_get_chunk_index_caches_by_mtime(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ):

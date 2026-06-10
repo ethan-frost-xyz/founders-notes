@@ -11,17 +11,9 @@ from episode_ids import make_id
 from paths import CATALOG_PATH
 
 
-def _jsonl_cache_key(path: Path | str | None) -> str:
-    p = Path(path) if path is not None else CATALOG_PATH
-    try:
-        return str(p.resolve())
-    except OSError:
-        return str(p)
-
-
 @lru_cache(maxsize=16)
-def _load_jsonl_cached(cache_key: str) -> tuple[dict[str, Any], ...]:
-    path = Path(cache_key)
+def _load_jsonl_cached(resolved_path: str, mtime: float) -> tuple[dict[str, Any], ...]:
+    path = Path(resolved_path)
     if not path.is_file():
         return ()
     rows: list[dict[str, Any]] = []
@@ -34,8 +26,14 @@ def _load_jsonl_cached(cache_key: str) -> tuple[dict[str, Any], ...]:
 
 
 def load_jsonl(path: Path | str | None = None) -> list[dict[str, Any]]:
-    key = _jsonl_cache_key(path)
-    return list(_load_jsonl_cached(key))
+    p = Path(path) if path is not None else CATALOG_PATH
+    try:
+        resolved = str(p.resolve())
+        file_mtime = p.stat().st_mtime if p.is_file() else 0.0
+    except OSError:
+        resolved = str(p)
+        file_mtime = 0.0
+    return list(_load_jsonl_cached(resolved, file_mtime))
 
 
 def clear_jsonl_cache() -> None:

@@ -114,6 +114,7 @@ def _refresh_studied_ids(vault_root: Path) -> set[str]:
         if npath.is_file() and has_timestamp_datapoints(npath):
             ids.add(ep_id)
     _studied_state[rk] = (cache_key, ids)
+    invalidate_chunk_index_cache()
     return ids
 
 
