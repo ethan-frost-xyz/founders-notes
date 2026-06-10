@@ -36,16 +36,16 @@ def _run_scenario(
     *,
     agent_config: AgentConfig,
 ) -> dict[str, Any]:
-    _ = agent_config
-    from vault import search_transcript, search_vault_parent
+    from search_test_helpers import run_parent_search, run_transcript_search
 
     tool = str(row["tool"])
     query = str(row["query"])
     k = int(row.get("k") or 8)
+    vault_root = agent_config.vault_root
     if tool == "search_vault_parent":
-        return search_vault_parent(query, k=k)
+        return run_parent_search(query, k=k, vault_root=vault_root)
     if tool == "search_transcript":
-        return search_transcript(query, k=k)
+        return run_transcript_search(query, k=k, vault_root=vault_root)
     raise ValueError(f"unsupported scenario tool: {tool}")
 
 

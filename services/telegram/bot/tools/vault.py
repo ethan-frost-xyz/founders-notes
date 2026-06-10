@@ -1,4 +1,4 @@
-"""Vault search tools — JSON-serializable evidence for the agent loop (SP1)."""
+"""Vault episode tools — load_episode and list_episode_ids for the agent loop."""
 
 from __future__ import annotations
 
@@ -16,52 +16,15 @@ def _setup_vault_paths() -> Path:
     return root
 
 
-def _paths():
-    """Catalog paths; rebind under VAULT_ROOT when harness sandbox != paths.ROOT."""
-    from _bootstrap import resolve_vault_root
-
-    _setup_vault_paths()
+def _content_paths(vault_root: Path):
     from paths import catalog_paths, expanded_file_path, notes_file_path, post_file_path
 
-    root = resolve_vault_root()
-    cp = catalog_paths(root)
-    return (
-        cp.chunks,
-        cp.embeddings,
-        cp.embeddings_manifest,
-        cp.root,
-        expanded_file_path,
-        notes_file_path,
-        post_file_path,
-    )
-
-
-def search_vault_parent(query: str, k: int = 8) -> dict[str, Any]:
-    _setup_vault_paths()
-    from search_retrieval import search_parent_evidence
-
-    chunks_path, embeddings_path, manifest_path, root, _, _, _ = _paths()
-    return search_parent_evidence(
-        query,
-        k,
-        chunks_path=chunks_path,
-        embeddings_path=embeddings_path,
-        manifest_path=manifest_path,
-        root=root,
-    )
-
-
-def search_transcript(query: str, k: int = 8) -> dict[str, Any]:
-    _setup_vault_paths()
-    from search_retrieval import search_transcript_evidence
-
-    chunks_path, _, _, root, _, _, _ = _paths()
-    return search_transcript_evidence(query, k, chunks_path=chunks_path, root=root)
+    cp = catalog_paths(vault_root)
+    return cp.root, expanded_file_path, notes_file_path, post_file_path
 
 
 def _load_catalog_rows(vault_root: Path) -> list[dict[str, Any]]:
     from catalog import load_jsonl
-
     from paths import catalog_paths
 
     return load_jsonl(catalog_paths(vault_root).episodes)
@@ -80,7 +43,7 @@ def load_episode(episode_id: str, *, char_cap: int = 30_000) -> dict[str, Any]:
     vault_root = _setup_vault_paths()
     from catalog import lookup_catalog_row
 
-    _, _, _, _, expanded_path_fn, notes_path_fn, post_path_fn = _paths()
+    _, expanded_path_fn, notes_path_fn, post_path_fn = _content_paths(vault_root)
 
     rows = _load_catalog_rows(vault_root)
     row = lookup_catalog_row(rows, episode_id)

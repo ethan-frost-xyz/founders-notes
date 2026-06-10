@@ -11,14 +11,14 @@ from pathlib import Path
 from typing import Any, Callable
 
 from paths import catalog_paths
-from search_retrieval import (
-    _hybrid_search_parent_chunks,
-    embed_queries,
-    get_embedding_store,
-    is_studied_chunk,
+from search_embeddings import embed_queries, get_embedding_store
+from search_hybrid import (
+    hybrid_search_parent_chunks,
+    load_chunk_source_excerpt,
     merge_rrf_chunk_lists,
     search_transcript_keyword,
 )
+from search_studied import is_studied_chunk
 
 from .rerank_llm import rerank_candidates
 
@@ -138,7 +138,7 @@ def _search_one_variant(
     args: tuple[str, Any, int, Path, Path, Path, Path],
 ) -> list[dict[str, Any]]:
     variant, qvec, pool_k, chunks_path, emb_path, man_path, vault_root = args
-    return _hybrid_search_parent_chunks(
+    return hybrid_search_parent_chunks(
         variant,
         pool_k,
         chunks_path=chunks_path,
@@ -150,8 +150,6 @@ def _search_one_variant(
 
 
 def chunk_for_rerank(ch: dict[str, Any], *, root: Path) -> dict[str, Any]:
-    from search_retrieval import load_chunk_source_excerpt
-
     excerpt = (ch.get("excerpt") or "").strip()
     if len(excerpt) < 200:
         excerpt = load_chunk_source_excerpt(ch, max_chars=EXCERPT_MAX_CHARS, root=root)

@@ -102,9 +102,9 @@ def test_v0_criterion_expanded_in_index(agent_config: AgentConfig):
     _ = agent_config
     if os.getenv("RUN_REBUILT_INDEX_SCENARIOS") != "1":
         pytest.skip("expanded index check requires RUN_REBUILT_INDEX_SCENARIOS=1")
-    from vault import search_vault_parent
+    from search_test_helpers import run_parent_search
 
-    result = search_vault_parent("inner scorecard Buffett", k=5)
+    result = run_parent_search("inner scorecard Buffett", k=5, vault_root=agent_config.vault_root)
     hits = result.get("hits") or []
     assert hits
     assert any((h.get("section") or "").startswith("expanded:") for h in hits)
@@ -128,13 +128,13 @@ def test_v0_criterion_newchat_export(bot_config: BotConfig):
 
 def test_v0_criterion_unlistened_no_hits(agent_config: AgentConfig):
     _ = agent_config
-    from vault import search_transcript, search_vault_parent
+    from search_test_helpers import run_parent_search, run_transcript_search
 
     for name, fn in (
-        ("search_vault_parent", search_vault_parent),
-        ("search_transcript", search_transcript),
+        ("search_parent_evidence", lambda q, k: run_parent_search(q, k=k, vault_root=agent_config.vault_root)),
+        ("search_transcript_evidence", lambda q, k: run_transcript_search(q, k=k, vault_root=agent_config.vault_root)),
     ):
-        result = fn("Naval Ravikant wealth happiness", k=8)
+        result = fn("Naval Ravikant wealth happiness", 8)
         unlistened = [h for h in (result.get("hits") or []) if h.get("episode_id") == "ep-0400"]
         assert len(unlistened) == 0, f"{name} returned ep-0400 hits: {unlistened[:2]}"
 

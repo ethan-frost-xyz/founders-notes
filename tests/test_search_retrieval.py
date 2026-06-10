@@ -12,8 +12,8 @@ import pytest
 
 import paths
 from search_retrieval import (
-    _hybrid_search_parent_chunks,
     chunk_content_hash,
+    hybrid_search_parent_chunks,
     chunks_needing_embedding,
     episode_is_studied,
     excerpt_hash,
@@ -225,9 +225,9 @@ def test_hybrid_search_reuses_shared_index():
         load_calls += 1
         return original
 
-    with patch("search_retrieval.load_chunks", side_effect=counting_load):
-        _hybrid_search_parent_chunks("customer", 3, index=index, query_vector=None)
-        _hybrid_search_parent_chunks("focus", 3, index=index, query_vector=None)
+    with patch("search_chunk_index.load_chunks", side_effect=counting_load):
+        hybrid_search_parent_chunks("customer", 3, index=index, query_vector=None)
+        hybrid_search_parent_chunks("focus", 3, index=index, query_vector=None)
     assert load_calls == 0
 
 

@@ -55,18 +55,29 @@ Or: `python lib/reindex_vault.py` / Telegram `/reindex` (runs all steps above).
 
 **Citable sources in synthesis:** `expanded:*` and `transcript:*` only. Summaries inform routing but are stripped from tool results.
 
-**Defense in depth:** `episode_is_studied()` in `search_retrieval.py` filters at search time even if the index is stale.
+**Defense in depth:** `episode_is_studied()` in `ingestion/lib/search_studied.py` filters at search time even if the index is stale.
 
 ### Embeddings
 
-- Structured embed text per chunk type (`structured_embed_text()` in `search_retrieval.py`)
+- Structured embed text per chunk type (`structured_embed_text()` in `ingestion/lib/search_embeddings.py`)
 - Model slug: `runtime.json` `/setmodel embed`
 - In-process matrix cache (invalidate on `embeddings.npy` mtime)
 - Query embed LRU cache
 
-## v2 — Legacy low-level search helpers
+## Module layout
 
-`search_vault_parent` remains in `services/telegram/bot/tools/vault.py` for index-quality tests. The live Librarian uses `search_vault` / `search_vault_many` (orchestrator-backed) instead.
+Retrieval implementation lives under `ingestion/lib/search_*.py`:
+
+| Module | Role |
+|--------|------|
+| `search_studied.py` | Studied-episode cache (timestamp bullets in notes) |
+| `search_chunk_index.py` | `chunks.jsonl` load + parent/transcript tier split |
+| `search_embeddings.py` | Embedding matrix store + query embed API |
+| `search_hybrid.py` | Keyword + vector RRF hybrid search |
+| `search_cache.py` | Cache invalidation hook for catalog writes |
+| `search_retrieval.py` | Facade + `search_parent_evidence` / `search_transcript_evidence` |
+
+Index-quality tests call `search_parent_evidence` / `search_transcript_evidence` via [`tests/search_test_helpers.py`](../tests/search_test_helpers.py). The live Librarian uses `search_vault` / `search_vault_many` (orchestrator-backed) instead. [`vault.py`](../services/telegram/bot/tools/vault.py) exposes episode tools only (`load_episode`, `list_episode_ids`).
 
 ## Graduate to repo-wide embeddings when
 
