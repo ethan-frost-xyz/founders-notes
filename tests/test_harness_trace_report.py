@@ -220,6 +220,68 @@ def test_check_expectations_tool_called_any_ignored_in_echo_mode():
     assert ok, msg
 
 
+def test_check_expectations_not_contains_all_passes_when_absent():
+    ok, msg = _check_expectations(
+        {"not_contains_all": ["DSML", "redacted_reasoning"]},
+        replies=[_Reply("Clean answer about Rockefeller.")],
+        tool_traces=[],
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert ok, msg
+
+
+def test_check_expectations_not_contains_all_fails_on_leak():
+    ok, msg = _check_expectations(
+        {"not_contains_all": ["DSML", "redacted_reasoning"]},
+        replies=[_Reply("Answer with DSML leak.")],
+        tool_traces=[],
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert not ok
+    assert "DSML" in msg
+
+
+def test_check_expectations_episode_citation_passes():
+    ok, msg = _check_expectations(
+        {"response_contains_episode_citation": True},
+        replies=[_Reply("Rockefeller built teams differently [ep-0043].")],
+        tool_traces=[],
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert ok, msg
+
+
+def test_check_expectations_episode_citation_fails_on_loose_ep():
+    ok, msg = _check_expectations(
+        {"response_contains_episode_citation": True},
+        replies=[_Reply("See ep-0043 for details without brackets.")],
+        tool_traces=[],
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert not ok
+    assert "[ep-NNNN]" in msg
+
+
+def test_check_expectations_episode_citation_ignored_in_echo_mode():
+    ok, msg = _check_expectations(
+        {"response_contains_episode_citation": True},
+        replies=[_Reply("No citation here.")],
+        tool_traces=[],
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="echo",
+    )
+    assert ok, msg
+
+
 def test_scenario_runner_write_report_includes_tier1_fields(tmp_path: Path):
     runner = ScenarioRunner(verbose=False)
     turn = TurnResult(

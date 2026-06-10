@@ -4,8 +4,9 @@ turns:
   - send: "What did I note on episode 191?"
     expect:
       response_min_length: 40
-      not_contains: "Episode not in catalog"
-      not_contains: "Try naming an episode id like ep-"
+      not_contains_all:
+        - "Episode not in catalog"
+        - "Try naming an episode id like ep-"
       expect_live:
         tool_called: load_episode
         load_episode_id: ep-0191

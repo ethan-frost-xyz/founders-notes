@@ -19,7 +19,7 @@ isProject: true
 
 **Last reviewed:** 2026-06-10
 
-**Active child plan:** [lift 2](librarian_lift_2.plan.md) — harness quality, prompt playbook, `load_episode` formatting (laptop-first).
+**Active child plan:** None — [lift 2](librarian_lift_2.plan.md) **shipped** 2026-06-10 (CI ✅; live re-baseline pending Mac mini). Slice F → lift 3.
 
 ---
 
@@ -29,14 +29,15 @@ Librarian quality is steered by **[`AGENTS.md`](../../AGENTS.md)** (synthesis pe
 
 **Lift B (shipped, CI verified):** Cursor ops stripped from Telegram prompt; DSML/reasoning sanitization; `search_vault_many` light expansion; aligned excerpt caps.
 
-**Remaining gaps (lift 2 target):**
+**Lift 2 (shipped, CI verified):** Harness `tool_called_any` + `response_contains_episode_citation`; `not_contains_all` leak guards; AGENTS.md playbook; cap nudge with trace summary; `evidence_format.py` / `format_load_episode_for_tool()`.
 
-1. **`load_episode` raw JSON** vs formatted search evidence — hurts synthesis on episode deep-dives
-2. **Harness / prompt tension** — scenarios mandate specific tools; answers may be fine (#4, #7)
-3. **Zero-tool / over-tool thematic turns** — soft prompt + citation guards (#4, #11 cap)
-4. **Incomplete leak / citation harness coverage** — verbatim only today
+**Remaining gaps (lift 3+):**
 
-**Refactor priority (updated):** (1) harness quality assertions → (2) AGENTS.md search-stop playbook → (3) `evidence_format.py` / `load_episode` → (4) optional `structured_embed_text`.
+1. **`structured_embed_text` in vault evidence blocks** (lift 2F deferred)
+2. **Live re-baseline** — confirm #4, #7, #11 on Mac mini after lift 2
+3. **`librarian_temperature`**, stream-preview sanitization, multi-turn evidence history
+
+**Refactor priority (updated):** (1) live re-baseline → (2) `structured_embed_text` in formatter → (3) temperature + stream sanitization.
 
 ---
 
@@ -50,9 +51,9 @@ Librarian quality is steered by **[`AGENTS.md`](../../AGENTS.md)** (synthesis pe
 | Legacy pointer | [`vault_agent.md`](../../services/telegram/prompts/vault_agent.md) | Redirect only |
 | Vault evidence | [`retrieval_orchestrator.py`](../../ingestion/lib/retrieval_orchestrator.py) `format_evidence_for_tool()` | Markdown blocks for `search_vault` / `search_vault_many` |
 | Transcript evidence | [`retrieval.py`](../../services/telegram/bot/retrieval.py) | Inline `#### Hit N` formatting |
-| Episode load | [`vault.py`](../../services/telegram/bot/tools/vault.py) `load_episode()` | Raw JSON — **lift 2:** `evidence_format.py` |
-| Tool → model | [`agent.py`](../../services/telegram/bot/agent.py) `_tool_result_content()` | Prefers `evidence` string; else `json.dumps` |
-| Runtime nudges | `agent.py` | `SEARCH_BUDGET_NUDGE`, `EMPTY_SYNTHESIS` — **lift 2:** enrich cap message |
+| Episode load | [`vault.py`](../../services/telegram/bot/tools/vault.py) `load_episode()` | On-disk sections; formatted by `evidence_format.py` |
+| Tool → model | [`agent.py`](../../services/telegram/bot/agent.py) `_tool_result_content()` | Prefers `evidence` string; `format_load_episode_for_tool()` for loads |
+| Runtime nudges | `agent.py` | `SEARCH_BUDGET_NUDGE` + trace summary on cap; `EMPTY_SYNTHESIS` |
 | Telegram delivery | [`messaging.py`](../../services/telegram/bot/messaging.py) | Chunk at 4096; limited markdown → HTML |
 | Retrieval sub-prompts | [`query_expand.md`](../../ingestion/prompts/query_expand.md), [`rerank_evidence.md`](../../ingestion/prompts/rerank_evidence.md) | Evidence *selection*, not reply layout |
 
@@ -62,14 +63,14 @@ flowchart TD
   LibPrompt["librarian_prompt.py"]
   Agent["agent.py"]
   EvidenceFmt["format_evidence_for_tool"]
-  LoadFmt["evidence_format.py\nlift 2"]
+  LoadFmt["evidence_format.py\nlift 2 ✅"]
   Sanitize["reply_sanitize.py"]
   Model["librarian_model"]
   TG["messaging.py"]
 
   AGENTS --> LibPrompt --> Agent
   EvidenceFmt --> Agent
-  LoadFmt -.-> Agent
+  LoadFmt --> Agent
   Agent --> Model --> Agent
   Agent --> Sanitize --> TG
 ```
@@ -101,12 +102,12 @@ Full implementation spec: **[`librarian_lift_2.plan.md`](librarian_lift_2.plan.m
 
 | Slice | Work | Laptop? | Addresses |
 |-------|------|---------|-----------|
-| **A** | Harness: `tool_called_any`, citation regex `\[ep-\d{4}\]` | ✅ | Red flag #8, easy win #7, testing gaps 1 & 3 |
-| **B** | Harness: `not_contains_all` leak list | ✅ | Testing gap 2 (complete lift B partial) |
-| **C** | `AGENTS.md` search-stop / verbatim / comparison playbook | ✅ | Red flag #6, easy win #6 |
-| **D** | Enrich `SEARCH_BUDGET_NUDGE` with evidence summary | ✅ | Red flag #7 |
-| **E** | `evidence_format.py` + `format_load_episode_for_tool()` | ✅ | Red flag #3, easy win #3 |
-| **F** | `structured_embed_text` in vault formatter (optional) | ✅ | Medium #9, easy win #8 |
+| **A** | Harness: `tool_called_any`, `response_contains_episode_citation` | ✅ shipped | Red flag #8, easy win #7 |
+| **B** | Harness: `not_contains_all` leak list | ✅ shipped | Testing gap 2 |
+| **C** | `AGENTS.md` search-stop / verbatim / comparison playbook | ✅ shipped | Red flag #6, easy win #6 |
+| **D** | Enrich `SEARCH_BUDGET_NUDGE` with evidence summary | ✅ shipped | Red flag #7 |
+| **E** | `evidence_format.py` + `format_load_episode_for_tool()` | ✅ shipped | Red flag #3, easy win #3 |
+| **F** | `structured_embed_text` in vault formatter | deferred lift 3 | Medium #9, easy win #8 |
 
 ### Recommended order (laptop)
 
@@ -117,11 +118,14 @@ Full implementation spec: **[`librarian_lift_2.plan.md`](librarian_lift_2.plan.m
 
 `librarian_temperature`, stream-preview sanitization, multi-turn evidence history, mandatory pre-retrieval, JSON-schema replies, split expand/rerank models.
 
-### Grill-me decisions (for planning agent)
+### Grill-me decisions (resolved 2026-06-10)
 
-- Harness-first vs evidence-first slice order?
-- Citation regex on all thematic scenarios or only #4/#3?
-- Include slice F in lift 2 or defer?
+- Harness-first (A+B → C+D → E)
+- Citation assert on baseline-failure trio only (`multi_hop`, `multi_founder_comparison`, `thematic_cross_episode`)
+- Cap nudge: trace-only episode ids + chunk count
+- Slice F deferred to lift 3
+- Leak guards: `verbatim_transcript` only via `not_contains_all`
+- Harness key: `response_contains_episode_citation: true`
 
 ---
 
@@ -135,17 +139,13 @@ Full implementation spec: **[`librarian_lift_2.plan.md`](librarian_lift_2.plan.m
 
 ### 2. No reasoning / DSML leak protection — ✅ lift B
 
-**Shipped:** [`reply_sanitize.py`](../../services/telegram/bot/reply_sanitize.py); verbatim `not_contains: DSML`; `tests/test_reply_sanitize.py`. Stream preview may still flash markup mid-generation (P3 #12).
+**Shipped:** [`reply_sanitize.py`](../../services/telegram/bot/reply_sanitize.py); harness `not_contains_all` on verbatim (lift 2B); `tests/test_reply_sanitize.py`. Stream preview may still flash markup mid-generation (P3 #12).
 
 ---
 
-### 3. `load_episode` is a different species from search evidence — → lift 2 (slice E)
+### 3. `load_episode` is a different species from search evidence — ✅ lift 2
 
-Search tools return labeled markdown. `load_episode` returns raw JSON via `json.dumps` in `_tool_result_content()`.
-
-**Fix:** `format_load_episode_for_tool()` in `evidence_format.py` — strip frontmatter, match search shape, cap size, surface `meta.listened`.
-
-**Priority:** P0 · **Effort:** medium · **Impact:** high
+**Shipped:** [`evidence_format.py`](../../services/telegram/bot/evidence_format.py) `format_load_episode_for_tool()` — frontmatter stripped, search-aligned markdown, `meta.listened` prominent; wired in `_tool_result_content()`.
 
 ---
 
@@ -161,33 +161,21 @@ Search tools return labeled markdown. `load_episode` returns raw JSON via `json.
 
 ---
 
-### 6. Zero-tool answers on thematic questions — → lift 2 (slice C + A)
+### 6. Zero-tool answers on thematic questions — ✅ lift 2 (soft)
 
-Baseline #4 (`multi_hop`) sometimes **0 tools**. Soft fix only — no mandatory pre-retrieval ([`AGENTIC-VISION-BRIEF.md`](../../AGENTIC-VISION-BRIEF.md)).
-
-**Fix:** Stronger `AGENTS.md` + harness citation regex for thematic live scenarios.
-
-**Priority:** P1 · **Effort:** small–medium · **Impact:** medium
+**Shipped:** `AGENTS.md` playbook (answer shape, verbatim, comparison, stop-searching); harness `response_contains_episode_citation` on baseline-failure trio. No mandatory pre-retrieval. Live validation pending Mac mini.
 
 ---
 
-### 7. Tool-round cap causes quality cliffs — → lift 2 (slice C + D)
+### 7. Tool-round cap causes quality cliffs — ✅ lift 2
 
-Baseline #11 hit **cap** at 7 tools. **Fix:** Verbatim playbook in `AGENTS.md`; enrich `SEARCH_BUDGET_NUDGE` with episode ids / chunk count.
-
-**Priority:** P1 · **Effort:** small · **Impact:** medium
+**Shipped:** Verbatim playbook in `AGENTS.md`; `_search_budget_nudge()` appends trace episode ids + chunk count on cap. Live validation pending Mac mini (#11).
 
 ---
 
-### 8. Harness asserts specific tools — → lift 2 (slice A)
+### 8. Harness asserts specific tools — ✅ lift 2
 
-| Scenario | Asserts today | Lift 2 target |
-|----------|---------------|---------------|
-| `multi_hop.yaml` | `tools_called: [search_vault_many]` | `tool_called_any` + citation regex |
-| `multi_founder_comparison.yaml` | `tool_called: search_vault_many` | `tool_called_any` + citation regex |
-| `thematic_cross_episode.yaml` | `tool_called_any` | Add citation regex per turn |
-
-**Priority:** P1 · **Effort:** small · **Impact:** medium (less flake)
+**Shipped:** `tool_called_any` + `response_contains_episode_citation` on `multi_hop`, `multi_founder_comparison`, `thematic_cross_episode`; `not_contains_all` on `verbatim_transcript` and `episode_resolve` turn 1.
 
 ---
 
@@ -195,7 +183,7 @@ Baseline #11 hit **cap** at 7 tools. **Fix:** Verbatim playbook in `AGENTS.md`; 
 
 | # | Issue | Fix | Lift | Priority |
 |---|-------|-----|------|----------|
-| 9 | `structured_embed_text` unused in evidence blocks | Use in `format_evidence_for_tool` | 2F (optional) | P2 |
+| 9 | `structured_embed_text` unused in evidence blocks | Use in `format_evidence_for_tool` | 3 (was 2F) | P2 |
 | 10 | Transcript vs vault format mismatch | Minor unification | 3+ | P3 |
 | 11 | `librarian_temperature` unconfigured | `runtime.json` key | 3+ | P2 |
 | 12 | Streaming shows raw markdown during generation | Sanitize stream or document preview-only | 3+ | P3 |
@@ -223,14 +211,14 @@ Baseline #11 hit **cap** at 7 tools. **Fix:** Verbatim playbook in `AGENTS.md`; 
 |---|--------|--------|--------|------|--------|
 | 1 | Strip Cursor section from Telegram prompt | Small | High | B | ✅ |
 | 2 | `sanitize_librarian_reply()` | Small | High | B | ✅ |
-| 3 | `format_load_episode_for_tool()` | Medium | High | 2E | ⬜ |
+| 3 | `format_load_episode_for_tool()` | Medium | High | 2E | ✅ |
 | 4 | `search_vault_many` expand variants | Small | High | B | ✅ |
 | 5 | Align rerank vs evidence excerpt | Trivial | Medium | B | ✅ |
-| 6 | Prompt search-stop + verbatim playbook | Small | Medium | 2C | ⬜ |
-| 7 | Harness `tool_called_any` + citation regex | Small | Medium | 2A | ⬜ |
-| 8 | `structured_embed_text` in formatter | Small | Medium | 2F | ⬜ |
+| 6 | Prompt search-stop + verbatim playbook | Small | Medium | 2C | ✅ |
+| 7 | Harness `tool_called_any` + citation regex | Small | Medium | 2A | ✅ |
+| 8 | `structured_embed_text` in formatter | Small | Medium | 3 | ⬜ |
 | 9 | `librarian_temperature` runtime key | Small | Medium | 3+ | ⬜ |
-| 10 | Harness leak `not_contains` | Trivial | Medium | B partial / 2B | 🔶 |
+| 10 | Harness leak `not_contains_all` | Trivial | Medium | 2B | ✅ |
 
 ---
 
@@ -240,14 +228,14 @@ Baseline #11 hit **cap** at 7 tools. **Fix:** Verbatim playbook in `AGENTS.md`; 
 services/telegram/bot/
   librarian_prompt.py      # ✅ lift B
   reply_sanitize.py          # ✅ lift B
-  evidence_format.py         # lift 2E — format_load_episode; future transcript unify
+  evidence_format.py         # ✅ lift 2E — format_load_episode; future transcript unify
 ```
 
 Keep [`AGENTS.md`](../../AGENTS.md) as human-edited persona; code handles environment-specific assembly.
 
-### Prompt additions (lift 2C — draft text in child plan)
+### Prompt additions — ✅ lift 2C
 
-- Answer shape, verbatim one-shot, comparison sub-queries, stop-searching heuristic — see [lift 2 plan](librarian_lift_2.plan.md#slice-c--agentsmd-playbook).
+- Answer shape, verbatim one-shot, comparison sub-queries, qualitative stop-searching — in [`AGENTS.md`](../../AGENTS.md) Composition heuristics.
 
 ---
 
@@ -264,9 +252,9 @@ Keep [`AGENTS.md`](../../AGENTS.md) as human-edited persona; code handles enviro
 
 | # | Gap | Lift 2 slice | Status |
 |---|-----|--------------|--------|
-| 1 | Citation `\[ep-\d{4}\]` on thematic live turns | A | ⬜ |
-| 2 | Leak absence (DSML, reasoning tags) | B (+ B verbatim unit tests ✅) | 🔶 |
-| 3 | Tool-optional assertions (`tool_called_any`) | A | ⬜ |
+| 1 | Citation `\[ep-\d{4}\]` on thematic live turns | A | ✅ |
+| 2 | Leak absence (DSML, reasoning tags) | B | ✅ |
+| 3 | Tool-optional assertions (`tool_called_any`) | A | ✅ |
 | 4 | Trace-aware thin evidence (optional) | defer | ⬜ |
 
 **Harness limitation today:** one `not_contains` per turn in YAML; lift 2B adds `not_contains_all`.
@@ -278,18 +266,18 @@ Keep [`AGENTS.md`](../../AGENTS.md) as human-edited persona; code handles enviro
 | Plan | File | Scope | Status |
 |------|------|-------|--------|
 | Lift B | [librarian_lift_b.plan.md](librarian_lift_b.plan.md) | Prompt strip, sanitize, `EXPAND_VARIANTS_LIGHT`, excerpt cap | **shipped** 2026-06-10 (CI ✅; live re-baseline pending mini) |
-| Lift 2 | [librarian_lift_2.plan.md](librarian_lift_2.plan.md) | Harness asserts, playbook, `load_episode` format, optional structured embed | **not started** |
+| Lift 2 | [librarian_lift_2.plan.md](librarian_lift_2.plan.md) | Harness asserts, playbook, `load_episode` format | **shipped** 2026-06-10 (CI ✅; live re-baseline pending mini) |
 
 ### Child plan history
 
 | Slice | Lift B | Lift 2 |
 |-------|--------|--------|
 | Prompt hygiene (strip) | ✅ | — |
-| Prompt hygiene (playbook) | — | 2C |
+| Prompt hygiene (playbook) | — | ✅ 2C |
 | Output sanitization | ✅ | — |
 | `search_vault_many` quality | ✅ | — |
-| Harness quality | partial (verbatim DSML) | 2A, 2B |
-| Evidence formatting | — | 2E, 2F |
+| Harness quality | partial (verbatim DSML) | ✅ 2A, 2B |
+| Evidence formatting | — | ✅ 2E (2F → lift 3) |
 
 ---
 

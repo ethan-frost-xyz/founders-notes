@@ -8,6 +8,7 @@ turns:
         tool_called_any:
           - search_vault
           - search_vault_many
+        response_contains_episode_citation: true
         response_contains_any:
           - ep-
           - Rockefeller
@@ -18,6 +19,7 @@ turns:
         tool_called_any:
           - search_vault
           - search_vault_many
+        response_contains_episode_citation: true
   - send: "What mental models show up around inversion and avoiding stupidity?"
     expect:
       response_min_length: 60
@@ -25,6 +27,7 @@ turns:
         tool_called_any:
           - search_vault
           - search_vault_many
+        response_contains_episode_citation: true
         response_contains_any:
           - Munger
           - invert

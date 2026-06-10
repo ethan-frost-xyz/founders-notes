@@ -11,6 +11,7 @@ from typing import Any, Callable
 from tool_status import tool_status_label
 
 from config import AgentConfig, load_agent_config
+from evidence_format import format_load_episode_for_tool
 from librarian_prompt import build_system_message
 from reply_sanitize import sanitize_librarian_reply
 from turn_timing import TurnTimer
@@ -217,8 +218,36 @@ def _assistant_message_dict(msg: Any) -> dict[str, Any]:
     return out
 
 
+def _is_load_episode_payload(payload: dict[str, Any]) -> bool:
+    return (
+        "episode_id" in payload
+        and "sections" in payload
+        and "evidence" not in payload
+        and "error" not in payload
+    )
+
+
+def _search_budget_nudge(turn_evidence: list[dict[str, Any]]) -> str:
+    base = SEARCH_BUDGET_NUDGE
+    if not turn_evidence:
+        return base
+    ep_ids = sorted({str(e.get("episode_id", "")) for e in turn_evidence if e.get("episode_id")})
+    chunk_count = len(turn_evidence)
+    if not ep_ids:
+        return f"{base} Evidence gathered: {chunk_count} chunks. Answer now; say if thin."
+    ep_preview = ", ".join(ep_ids[:8])
+    if len(ep_ids) > 8:
+        ep_preview += f" (+{len(ep_ids) - 8} more)"
+    return (
+        f"{base} Evidence gathered: {ep_preview} ({chunk_count} chunks). "
+        "Answer now; say if thin."
+    )
+
+
 def _tool_result_content(payload: dict[str, Any]) -> str:
     """Serialize tool payload for the model; prefer readable evidence blocks."""
+    if _is_load_episode_payload(payload):
+        return format_load_episode_for_tool(payload)
     if "evidence" in payload and isinstance(payload["evidence"], str):
         meta = payload.get("meta")
         meta_line = ""
@@ -445,6 +474,7 @@ class VaultAgent:
         try:
             tool_round = 0
             step = 0
+            turn_evidence: list[dict[str, Any]] = []
             while True:
                 step += 1
                 agent_round += 1
@@ -506,7 +536,9 @@ class VaultAgent:
                         except Exception:
                             pass
                     result = execute_tool(name, args, config=cfg, history=history, timing=timing)
-                    round_evidence.extend(_trace_evidence_from_result(result))
+                    traced = _trace_evidence_from_result(result)
+                    round_evidence.extend(traced)
+                    turn_evidence.extend(traced)
                     content = _tool_result_content(result)
                     messages.append(
                         {
@@ -532,7 +564,7 @@ class VaultAgent:
                 if tool_round >= MAX_TOOL_ROUNDS:
                     stop_reason = "cap"
                     messages.append(
-                        {"role": "system", "content": SEARCH_BUDGET_NUDGE},
+                        {"role": "system", "content": _search_budget_nudge(turn_evidence)},
                     )
                     if on_tool_start is not None:
                         try:

@@ -14,6 +14,8 @@ from agent import (  # noqa: E402
     MAX_TOOL_ROUNDS,
     VaultAgent,
     TurnResult,
+    _search_budget_nudge,
+    _tool_result_content,
     build_trace_summary,
     execute_tool,
     openrouter_tools,
@@ -283,12 +285,18 @@ def test_run_turn_cap_forces_final_answer(agent_config: AgentConfig, monkeypatch
             "query": query,
             "evidence": "thin evidence",
             "meta": {},
-            "trace_evidence": [],
+            "trace_evidence": [
+                {"episode_id": "ep-0016", "rerank_score": 7.0},
+                {"episode_id": "ep-0043", "rerank_score": 6.5},
+            ],
         },
     )
 
+    cap_messages: list[list[dict[str, str]]] = []
+
     def fake_completion(**kwargs):
         if kwargs.get("tool_choice") == "none":
+            cap_messages.append(kwargs.get("messages") or [])
             return _stream_from_response(
                 _fake_response(
                     content="The vault has limited coverage here; best I can say is thin [ep-0016].",
@@ -308,6 +316,38 @@ def test_run_turn_cap_forces_final_answer(agent_config: AgentConfig, monkeypatch
     assert "thin" in result.content.lower() or "limited" in result.content.lower()
     tool_rounds = [t for t in result.tool_trace if t.get("record") == "round" and t.get("tools")]
     assert len(tool_rounds) == MAX_TOOL_ROUNDS
+    assert cap_messages
+    system_msgs = [m for m in cap_messages[0] if m.get("role") == "system"]
+    nudge = system_msgs[-1]["content"]
+    assert "Evidence gathered:" in nudge
+    assert "ep-0016" in nudge
+    assert "ep-0043" in nudge
+
+
+def test_search_budget_nudge_summarizes_trace_evidence():
+    nudge = _search_budget_nudge(
+        [
+            {"episode_id": "ep-0001"},
+            {"episode_id": "ep-0002"},
+            {"episode_id": "ep-0001"},
+        ]
+    )
+    assert "ep-0001" in nudge
+    assert "ep-0002" in nudge
+    assert "(3 chunks)" in nudge
+
+
+def test_tool_result_content_formats_load_episode_payload():
+    payload = {
+        "episode_id": "ep-0016",
+        "sections": {"expanded": "Quote: competition."},
+        "meta": {"listened": True, "title": "Rockefeller"},
+    }
+    text = _tool_result_content(payload)
+    assert "Episode ep-0016" in text
+    assert "Listened: true" in text
+    assert "competition" in text
+    assert text[0] != "{"
 
 
 def test_build_trace_summary_includes_rounds():
