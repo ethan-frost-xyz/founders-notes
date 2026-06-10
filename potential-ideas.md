@@ -38,8 +38,6 @@ nc -zv ethans-mac-mini 22   # open after Remote Login; refused until then
 
 ### Ops / sync (recommended next)
 
-- **Handler integration tests** — Mock [`ops_telegram.run_ops_job`](services/telegram/bot/ops_telegram.py) (lock busy, success/fail) and settings-panel ops callbacks; extend [`test_ops_runner.py`](tests/test_ops_runner.py) patterns. [`test_github_webhook.py`](tests/test_github_webhook.py) already covers webhook smoke. No live git/embeddings in CI. Manual `/sync` stays full pull + reindex.
-
 **Defer:** Pull-only / path-filtered reindex on webhook when *all* changed paths match a strict allowlist (`docs/`, `tests/`, `services/telegram/`, `.cursor/`, root markdown); anything under `content/`, `catalog/`, or `ingestion/search/` → full reindex. False negative → stale search until `/sync`. Nightly cron stays full sync. Bundle in one plan only if code-only `main` pushes hurt.
 
 ### Harness / CI
