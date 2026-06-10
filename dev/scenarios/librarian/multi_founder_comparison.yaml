@@ -3,8 +3,8 @@ llm: live
 turns:
   - send: "How did Edison and Rockefeller differ in how they built teams?"
     expect:
-      response_min_length: 80
       expect_live:
+        response_min_length: 80
         tool_called_any:
           - search_vault
           - search_vault_many
