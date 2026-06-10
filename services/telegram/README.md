@@ -14,7 +14,7 @@ Telegram (polling) → handlers → VaultAgent.run_turn()  (agentic loop, ≤6 t
               librarian_model + toolbox: search_vault | search_vault_many | search_transcript
                                     | load_episode | list_episode_ids
                                     ↓
-              retrieval_orchestrator.retrieve_core (inside each search_* tool)
+              retrieval.orchestrator.retrieve_core (inside each search_* tool)
                                     ↓
               ingestion/lib/search_retrieval.py + catalog/chunks.jsonl [+ embeddings.npy]
 ```

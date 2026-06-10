@@ -9,7 +9,7 @@ import pytest
 REPO = Path(__file__).resolve().parent.parent
 VAULT_SEARCH_CHUNKS = REPO / "tests" / "fixtures" / "vault_search_chunks.jsonl"
 
-from retrieval_orchestrator import (  # noqa: E402
+from retrieval.orchestrator import (  # noqa: E402
     EXCERPT_MAX_CHARS,
     EXPAND_VARIANTS_FULL,
     EXPAND_VARIANTS_LIGHT,
@@ -36,7 +36,7 @@ def orch_config() -> OrchestratorConfig:
 
 def _patch_orchestrator_search(monkeypatch: pytest.MonkeyPatch, *, hybrid_hits: list[dict]) -> None:
     """Patch names bound in retrieval_orchestrator (not only search_retrieval)."""
-    import retrieval_orchestrator as ro
+    import retrieval.orchestrator as ro
 
     monkeypatch.setattr(ro, "_hybrid_search_parent_chunks", lambda *a, **k: list(hybrid_hits))
     monkeypatch.setattr(ro, "embed_queries", lambda qs: [None] * len(qs))
@@ -82,7 +82,7 @@ def test_retrieve_core_thematic_with_mocks(orch_config: OrchestratorConfig, monk
 def test_retrieve_core_skips_expansion_when_zero(
     orch_config: OrchestratorConfig, monkeypatch: pytest.MonkeyPatch
 ):
-    import retrieval_orchestrator as ro
+    import retrieval.orchestrator as ro
 
     expand_called = False
 
@@ -105,7 +105,7 @@ def test_retrieve_core_skips_expansion_when_zero(
 def test_retrieve_calls_hybrid_search_per_variant(
     orch_config: OrchestratorConfig, monkeypatch: pytest.MonkeyPatch
 ):
-    import retrieval_orchestrator as ro
+    import retrieval.orchestrator as ro
 
     call_count = 0
 
@@ -173,7 +173,7 @@ def test_retrieve_excludes_summary_from_citable(orch_config: OrchestratorConfig,
 def test_retrieve_core_light_expansion_runs_expand(
     orch_config: OrchestratorConfig, monkeypatch: pytest.MonkeyPatch
 ):
-    import retrieval_orchestrator as ro
+    import retrieval.orchestrator as ro
 
     expand_called = False
 
@@ -217,7 +217,7 @@ def test_format_evidence_for_tool_labels_subquery():
 def test_retrieve_core_on_timing_split(orch_config: OrchestratorConfig, monkeypatch: pytest.MonkeyPatch):
     import time
 
-    import retrieval_orchestrator as ro
+    import retrieval.orchestrator as ro
 
     monkeypatch.setattr(ro, "_hybrid_search_parent_chunks", lambda *a, **k: [])
     monkeypatch.setattr(ro, "embed_queries", lambda qs: [None] * len(qs))

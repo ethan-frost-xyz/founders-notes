@@ -3,123 +3,19 @@
 from __future__ import annotations
 
 import logging
-import os
-import sys
-from pathlib import Path
 
-# Ensure bot/ and tools/ importable when run as python -m bot
-_BOT_DIR = Path(__file__).resolve().parent
-_TOOLS_DIR = _BOT_DIR / "tools"
-for entry in (str(_BOT_DIR), str(_TOOLS_DIR)):
-    if entry not in sys.path:
-        sys.path.insert(0, entry)
+from bootstrap import setup_telegram_paths
 
+setup_telegram_paths()
 
-def _bootstrap_vault_paths() -> None:
-    """Janitor and vault tools import ingestion/lib (episode_ids, catalog, …)."""
-    env = os.environ.get("VAULT_ROOT", "").strip()
-    vault = Path(env).resolve() if env else _BOT_DIR.resolve().parents[2]
-    ingestion = vault / "ingestion"
-    if str(ingestion) not in sys.path:
-        sys.path.insert(0, str(ingestion))
-    from _bootstrap import resolve_vault_root, setup_ingestion_paths
-
-    setup_ingestion_paths(resolve_vault_root())
-
-
-_bootstrap_vault_paths()
-
-from agent import VaultAgent  # noqa: E402
-from config import load_bot_config  # noqa: E402
-from handlers import (  # noqa: E402
-    cmd_clear,
-    cmd_newchat,
-    cmd_pull,
-    cmd_reindex,
-    cmd_resetmodel,
-    cmd_resetcleantemp,
-    cmd_restart,
-    cmd_resume,
-    cmd_setcleantemp,
-    cmd_setmodel,
-    cmd_settings,
-    cmd_start,
-    cmd_sync,
-    on_text,
-)
-from janitor_handlers import (  # noqa: E402
-    cmd_cancel,
-    cmd_janitor,
-    cmd_librarian,
-    on_janitor_callback,
-)
-from settings_handlers import on_settings_callback  # noqa: E402
-from janitor_store import JanitorStore  # noqa: E402
+from app_factory import build_application  # noqa: E402
 from poll_lock import acquire_polling_lock  # noqa: E402
-from sessions import SessionStore  # noqa: E402
 
 logging.basicConfig(
     format="%(asctime)s %(name)s %(levelname)s %(message)s",
     level=logging.INFO,
 )
 logger = logging.getLogger(__name__)
-
-
-async def _register_bot_commands(application) -> None:
-    from telegram import BotCommand
-
-    await application.bot.set_my_commands(
-        [
-            BotCommand("start", "Vault stats"),
-            BotCommand("janitor", "Notes ritual"),
-            BotCommand("settings", "Models, temp, stream, ops"),
-            BotCommand("sync", "Pull + reindex"),
-            BotCommand("newchat", "Export session, reset"),
-            BotCommand("restart", "Restart bot"),
-        ]
-    )
-
-
-def build_application():
-    from telegram.ext import Application, CallbackQueryHandler, CommandHandler, MessageHandler, filters
-
-    bot_config = load_bot_config()
-    agent = VaultAgent(bot_config.agent)
-    sessions = SessionStore(bot_config)
-    janitor = JanitorStore()
-
-    app = (
-        Application.builder()
-        .token(bot_config.telegram_token)
-        .post_init(_register_bot_commands)
-        .build()
-    )
-    app.bot_data["config"] = bot_config
-    app.bot_data["agent"] = agent
-    app.bot_data["sessions"] = sessions
-    app.bot_data["janitor"] = janitor
-
-    app.add_handler(CommandHandler("start", cmd_start))
-    app.add_handler(CommandHandler("janitor", cmd_janitor))
-    app.add_handler(CommandHandler("librarian", cmd_librarian))
-    app.add_handler(CommandHandler("cancel", cmd_cancel))
-    app.add_handler(CommandHandler("clear", cmd_clear))
-    app.add_handler(CommandHandler("newchat", cmd_newchat))
-    app.add_handler(CommandHandler("resume", cmd_resume))
-    app.add_handler(CommandHandler("settings", cmd_settings))
-    app.add_handler(CommandHandler("setmodel", cmd_setmodel))
-    app.add_handler(CommandHandler("resetmodel", cmd_resetmodel))
-    app.add_handler(CommandHandler("setcleantemp", cmd_setcleantemp))
-    app.add_handler(CommandHandler("resetcleantemp", cmd_resetcleantemp))
-    app.add_handler(CommandHandler("pull", cmd_pull))
-    app.add_handler(CommandHandler("reindex", cmd_reindex))
-    app.add_handler(CommandHandler("sync", cmd_sync))
-    app.add_handler(CommandHandler("restart", cmd_restart))
-    app.add_handler(CallbackQueryHandler(on_settings_callback, pattern=r"^set:"))
-    app.add_handler(CallbackQueryHandler(on_janitor_callback, pattern=r"^janitor:"))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, on_text))
-
-    return app
 
 
 def main() -> None:

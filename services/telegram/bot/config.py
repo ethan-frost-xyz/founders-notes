@@ -15,18 +15,9 @@ def _vault_root_default() -> Path:
 
 def setup_bot_paths(vault_root: Path | None = None) -> Path:
     """Bootstrap ingestion packages and telegram bot/tools on sys.path."""
-    import sys
+    from bootstrap import setup_telegram_paths
 
-    from _bootstrap import resolve_vault_root, setup_ingestion_paths
-
-    root = resolve_vault_root(vault_root)
-    setup_ingestion_paths(root)
-    bot_dir = Path(__file__).resolve().parent
-    tools_dir = bot_dir / "tools"
-    for entry in (str(bot_dir), str(tools_dir)):
-        if entry not in sys.path:
-            sys.path.insert(0, entry)
-    return root
+    return setup_telegram_paths(vault_root)
 
 
 @dataclass(frozen=True)

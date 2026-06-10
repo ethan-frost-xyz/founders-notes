@@ -188,10 +188,10 @@ def test_run_turn_cold_start_no_tools(agent_config: AgentConfig):
 
 
 def test_run_turn_search_vault_tool_trace(agent_config: AgentConfig, monkeypatch: pytest.MonkeyPatch):
-    from retrieval import search_vault_for_turn
+    from search_turn import search_vault_for_turn
 
     monkeypatch.setattr(
-        "retrieval.search_vault_for_turn",
+        "search_turn.search_vault_for_turn",
         lambda query, **kwargs: {
             "query": query,
             "evidence": "### Evidence\nQuote: discipline [ep-0016]",
@@ -229,7 +229,7 @@ def test_run_turn_search_vault_tool_trace(agent_config: AgentConfig, monkeypatch
 
 def test_run_turn_search_vault_many_labels_subqueries(agent_config: AgentConfig, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(
-        "retrieval.search_vault_many_for_turn",
+        "search_turn.search_vault_many_for_turn",
         lambda queries, **kwargs: {
             "results": [
                 {
@@ -280,7 +280,7 @@ def test_run_turn_search_vault_many_labels_subqueries(agent_config: AgentConfig,
 
 def test_run_turn_cap_forces_final_answer(agent_config: AgentConfig, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(
-        "retrieval.search_vault_for_turn",
+        "search_turn.search_vault_for_turn",
         lambda query, **kwargs: {
             "query": query,
             "evidence": "thin evidence",

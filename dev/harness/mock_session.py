@@ -36,15 +36,11 @@ _message_id = count(1)
 def _ensure_import_paths(vault_root: Path | None = None) -> Path:
     root = vault_root or REPO_ROOT
     os.environ.setdefault("VAULT_ROOT", str(root))
-    ingestion = root / "ingestion"
-    for entry in (str(ingestion), str(TELEGRAM_BOT_DIR), str(TELEGRAM_TOOLS_DIR)):
-        if entry not in sys.path:
-            sys.path.insert(0, entry)
-    from _bootstrap import resolve_vault_root, setup_ingestion_paths
+    if str(TELEGRAM_BOT_DIR) not in sys.path:
+        sys.path.insert(0, str(TELEGRAM_BOT_DIR))
+    from bootstrap import setup_telegram_paths
 
-    resolved = resolve_vault_root(root)
-    setup_ingestion_paths(resolved)
-    return resolved
+    return setup_telegram_paths(root)
 
 
 @dataclass
@@ -199,69 +195,13 @@ def _install_echo_llm() -> list[Any]:
         patch("openrouter_client.call_openrouter", _echo_call_openrouter),
         patch("janitor_workflow.run_expand", _stub_run_expand),
         patch("janitor_handlers.run_expand", _stub_run_expand),
+        patch("janitor_phases.run_expand", _stub_run_expand),
         patch("janitor_workflow.run_reindex", _stub_run_reindex),
         patch("janitor_handlers.run_reindex", _stub_run_reindex),
     ]
     for p in patches:
         p.start()
     return patches
-
-
-async def _register_bot_commands(application: Any) -> None:
-    from telegram import BotCommand
-
-    await application.bot.set_my_commands(
-        [
-            BotCommand("start", "Help and vault stats"),
-            BotCommand("janitor", "Notes ritual: file → expand → promote"),
-            BotCommand("librarian", "← Back from Janitor to Q&A"),
-            BotCommand("cancel", "Cancel Janitor workflow"),
-            BotCommand("clear", "Clear in-memory chat thread"),
-            BotCommand("newchat", "Export session and reset"),
-            BotCommand("resume", "Resume exported session"),
-        ]
-    )
-
-
-def _build_application(bot_cfg: Any, agent: Any, sessions: Any, janitor: Any) -> Any:
-    from telegram.ext import Application, CallbackQueryHandler, CommandHandler, MessageHandler, filters
-
-    from handlers import (
-        cmd_clear,
-        cmd_newchat,
-        cmd_resume,
-        cmd_start,
-        on_text,
-    )
-    from janitor_handlers import (
-        cmd_cancel,
-        cmd_janitor,
-        cmd_librarian,
-        on_janitor_callback,
-    )
-
-    app = (
-        Application.builder()
-        .token(bot_cfg.telegram_token)
-        .post_init(_register_bot_commands)
-        .build()
-    )
-    app.bot_data["config"] = bot_cfg
-    app.bot_data["agent"] = agent
-    app.bot_data["sessions"] = sessions
-    app.bot_data["janitor"] = janitor
-
-    app.add_handler(CommandHandler("start", cmd_start))
-    app.add_handler(CommandHandler("janitor", cmd_janitor))
-    app.add_handler(CommandHandler("librarian", cmd_librarian))
-    app.add_handler(CommandHandler("cancel", cmd_cancel))
-    app.add_handler(CommandHandler("clear", cmd_clear))
-    app.add_handler(CommandHandler("newchat", cmd_newchat))
-    app.add_handler(CommandHandler("resume", cmd_resume))
-    app.add_handler(CallbackQueryHandler(on_janitor_callback, pattern=r"^janitor:"))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, on_text))
-
-    return app
 
 
 class MockBotSession:
@@ -427,7 +367,15 @@ class MockBotSession:
         sessions = SessionStore(bot_cfg)
         janitor = JanitorStore()
 
-        self._app = _build_application(bot_cfg, agent, sessions, janitor)
+        from app_factory import HARNESS_APP_OPTIONS, build_application
+
+        self._app = build_application(
+            HARNESS_APP_OPTIONS,
+            bot_config=bot_cfg,
+            agent=agent,
+            sessions=sessions,
+            janitor=janitor,
+        )
         self._wire_mock_bot(self._app)
         await self._app.initialize()
 

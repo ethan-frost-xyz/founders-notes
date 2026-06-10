@@ -5,7 +5,6 @@ from __future__ import annotations
 TOOL_STATUS_LABELS: dict[str, str] = {
     "search_vault": "Searching vault…",
     "search_vault_many": "Searching vault (parallel)…",
-    "search_vault_parent": "Searching notes…",
     "search_transcript": "Searching transcripts…",
     "load_episode": "Loading episode…",
     "list_episode_ids": "Looking up episode…",

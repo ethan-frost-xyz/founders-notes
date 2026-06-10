@@ -7,7 +7,9 @@ import re
 from pathlib import Path
 from typing import Any
 
-PROMPT_PATH = Path(__file__).resolve().parents[1] / "prompts" / "rerank_evidence.md"
+PROMPT_PATH = (
+    Path(__file__).resolve().parents[4] / "ingestion" / "prompts" / "rerank_evidence.md"
+)
 
 
 def _extract_json_object(text: str) -> dict[str, Any]:

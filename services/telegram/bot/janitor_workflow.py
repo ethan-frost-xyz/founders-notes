@@ -164,12 +164,9 @@ def run_promote(vault_root: Path, episode_id: str) -> tuple[int, str, list[str]]
 
 
 def run_reindex(vault_root: Path) -> tuple[int, str]:
-    _setup_ingestion(vault_root)
-    from reindex_vault import reindex_vault
-    from runtime_settings import build_subprocess_env
+    from vault_ops import run_reindex as _run_reindex
 
-    env = build_subprocess_env(vault_root=vault_root)
-    return reindex_vault(vault_root, env=env)
+    return _run_reindex(vault_root)
 
 
 def draft_excerpt(vault_root: Path, row: dict[str, Any]) -> str:

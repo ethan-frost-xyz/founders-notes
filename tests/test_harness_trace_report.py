@@ -410,14 +410,14 @@ def test_search_vault_records_search_on_exception(
         if entry not in sys.path:
             sys.path.insert(0, entry)
 
-    from retrieval import search_vault_for_turn
+    from search_turn import search_vault_for_turn
     from turn_timing import TurnTimer
 
     def boom(*args, **kwargs):
         raise RuntimeError("retrieve failed")
 
     monkeypatch.setattr(
-        "retrieval_orchestrator.RetrievalOrchestrator.retrieve_core",
+        "retrieval.orchestrator.RetrievalOrchestrator.retrieve_core",
         boom,
     )
 

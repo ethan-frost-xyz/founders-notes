@@ -1,4 +1,4 @@
-"""Unit tests for LLM reranker (ingestion/lib/rerank_llm.py)."""
+"""Unit tests for LLM reranker (services/telegram/lib/retrieval/rerank_llm.py)."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import json
 import pytest
 
 from openrouter_client import OpenRouterCompletion
-from rerank_llm import rerank_candidates
+from retrieval.rerank_llm import rerank_candidates
 
 
 def _fake_completion(payload: dict) -> OpenRouterCompletion:

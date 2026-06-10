@@ -1,13 +1,12 @@
-"""Git pull and vault reindex ops for Telegram /pull, /reindex, /sync."""
+"""Ops lock and Telegram-facing wrappers around vault_ops."""
 
 from __future__ import annotations
 
-import subprocess
 import threading
 from pathlib import Path
 from typing import Any
 
-from runtime_settings import build_subprocess_env
+from vault_ops import run_git_pull, run_reindex, run_sync
 
 _LOCK = threading.Lock()
 
@@ -30,32 +29,15 @@ def ops_lock_held(bot_data: dict[str, Any]) -> bool:
     return bool(bot_data.get("ops_lock_held")) or _LOCK.locked()
 
 
-def run_git_pull(vault_root: Path) -> tuple[int, str]:
-    proc = subprocess.run(
-        ["git", "pull", "--ff-only"],
-        cwd=str(vault_root),
-        capture_output=True,
-        text=True,
-    )
-    log = (proc.stdout or "") + (proc.stderr or "")
-    return proc.returncode, log.strip() or "(no output)"
-
-
 def run_reindex_op(vault_root: Path) -> tuple[int, str]:
-    from _bootstrap import setup_ingestion_paths
-
-    env = build_subprocess_env(vault_root=vault_root)
-    setup_ingestion_paths(vault_root)
-    from reindex_vault import reindex_vault
-
-    return reindex_vault(vault_root, env=env)
+    return run_reindex(vault_root)
 
 
-def run_sync(vault_root: Path) -> tuple[int, str]:
-    pull_code, pull_log = run_git_pull(vault_root)
-    if pull_code != 0:
-        return pull_code, f"Pull failed (exit {pull_code}).\n\n{pull_log}"
-    idx_code, idx_log = run_reindex_op(vault_root)
-    if idx_code != 0:
-        return idx_code, f"Pull OK.\nReindex failed (exit {idx_code}).\n\n{idx_log}"
-    return 0, f"Pull:\n{pull_log}\n\nReindex:\n{idx_log}"
+__all__ = [
+    "ops_lock_held",
+    "release_ops_lock",
+    "run_git_pull",
+    "run_reindex_op",
+    "run_sync",
+    "try_acquire_ops_lock",
+]

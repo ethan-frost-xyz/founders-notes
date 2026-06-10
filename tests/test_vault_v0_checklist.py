@@ -64,7 +64,7 @@ def _stream_from_response(response: SimpleNamespace):
 
 def test_v0_criterion_retrieval_in_trace(agent_config: AgentConfig, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(
-        "retrieval.search_vault_for_turn",
+        "search_turn.search_vault_for_turn",
         lambda query, **kwargs: {
             "query": query,
             "evidence": "Quote: discipline [ep-0016]",
