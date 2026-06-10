@@ -9,7 +9,7 @@ related:
   - dev/scenarios/librarian/RERUN-LIVE-SUITE.md
   - AGENTIC-VISION-BRIEF.md
   - .cursor/plans/librarian_lift_b.plan.md
-  - .cursor/plans/librarian_lift_2.plan.md
+  - .cursor/plans/archive/legacy/librarian_lift_2.plan.md
 isProject: true
 ---
 
@@ -19,7 +19,7 @@ isProject: true
 
 **Last reviewed:** 2026-06-10
 
-**Active child plan:** None — [lift 2](librarian_lift_2.plan.md) **shipped** 2026-06-10 (CI ✅; live re-baseline pending Mac mini). Slice F → lift 3.
+**Active child plan:** None — lift 2 **shipped** 2026-06-10 (CI ✅; live re-baseline pending Mac mini). Next: lift 3 (`structured_embed_text`, temperature) or Mac mini re-baseline.
 
 ---
 
@@ -94,9 +94,9 @@ Re-run: `ingestion/.venv/bin/python dev/mock_telegram_cli.py --scenario dev/scen
 
 ---
 
-## Lift 2 — next plan (detail)
+## Lift 2 — shipped (detail)
 
-Full implementation spec: **[`librarian_lift_2.plan.md`](librarian_lift_2.plan.md)**.
+Archived spec: [`archive/legacy/librarian_lift_2.plan.md`](archive/legacy/librarian_lift_2.plan.md).
 
 ### Scope summary
 
@@ -266,7 +266,7 @@ Keep [`AGENTS.md`](../../AGENTS.md) as human-edited persona; code handles enviro
 | Plan | File | Scope | Status |
 |------|------|-------|--------|
 | Lift B | [librarian_lift_b.plan.md](librarian_lift_b.plan.md) | Prompt strip, sanitize, `EXPAND_VARIANTS_LIGHT`, excerpt cap | **shipped** 2026-06-10 (CI ✅; live re-baseline pending mini) |
-| Lift 2 | [librarian_lift_2.plan.md](librarian_lift_2.plan.md) | Harness asserts, playbook, `load_episode` format | **shipped** 2026-06-10 (CI ✅; live re-baseline pending mini) |
+| Lift 2 | [archive/legacy/librarian_lift_2.plan.md](archive/legacy/librarian_lift_2.plan.md) | Harness asserts, playbook, `load_episode` format | **shipped** 2026-06-10 (CI ✅; live re-baseline pending mini) |
 
 ### Child plan history
 
