@@ -10,7 +10,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable
 
-from paths import CHUNKS_PATH, EMBEDDINGS_MANIFEST_PATH, EMBEDDINGS_PATH, ROOT
+from paths import catalog_paths
 from search_retrieval import (
     _hybrid_search_parent_chunks,
     embed_queries,
@@ -73,19 +73,12 @@ class OrchestratorConfig:
 
 
 def _paths(cfg: OrchestratorConfig) -> tuple[Path, Path, Path, Path]:
-    root = cfg.vault_root
-    if root != ROOT:
-        return (
-            cfg.chunks_path or root / "catalog" / "chunks.jsonl",
-            cfg.embeddings_path or root / "catalog" / "embeddings.npy",
-            cfg.manifest_path or root / "catalog" / "embeddings-manifest.jsonl",
-            root,
-        )
+    cp = catalog_paths(cfg.vault_root)
     return (
-        cfg.chunks_path or CHUNKS_PATH,
-        cfg.embeddings_path or EMBEDDINGS_PATH,
-        cfg.manifest_path or EMBEDDINGS_MANIFEST_PATH,
-        root,
+        cfg.chunks_path or cp.chunks,
+        cfg.embeddings_path or cp.embeddings,
+        cfg.manifest_path or cp.embeddings_manifest,
+        cp.root,
     )
 
 
@@ -205,23 +198,20 @@ def format_evidence_for_tool(
     max_chunks: int = SEARCH_VAULT_KEEP,
 ) -> str:
     """Readable evidence block returned from search_vault / search_vault_many."""
-    if not bundle.chunks:
-        header = f"### {label}\n" if label else ""
-        return f"{header}No citable evidence found for this query."
+    from evidence_format import format_search_evidence
 
-    lines: list[str] = []
-    if label:
-        lines.append(f"### {label}")
-        lines.append("")
-    lines.append("Retrieved evidence (cite only from this block; use [ep-NNNN]):")
-    lines.append("")
-    for i, ch in enumerate(bundle.chunks[:max_chunks], start=1):
-        lines.append(
-            f"#### Evidence {i} — {ch.chunk_id} [{ch.episode_id}]\n"
-            f"Title: {ch.title}\nSection: {ch.section}\n"
-            f"Score: {ch.rerank_score:.1f}\n\n{ch.excerpt}\n"
-        )
-    return "\n".join(lines)
+    chunk_dicts = [
+        {
+            "chunk_id": ch.chunk_id,
+            "episode_id": ch.episode_id,
+            "title": ch.title,
+            "section": ch.section,
+            "excerpt": ch.excerpt,
+            "rerank_score": ch.rerank_score,
+        }
+        for ch in bundle.chunks
+    ]
+    return format_search_evidence(chunk_dicts, label=label, max_chunks=max_chunks)
 
 
 class RetrievalOrchestrator:

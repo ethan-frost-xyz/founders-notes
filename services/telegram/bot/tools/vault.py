@@ -21,32 +21,15 @@ def _paths():
     from _bootstrap import resolve_vault_root
 
     _setup_vault_paths()
-    from paths import (
-        CHUNKS_PATH,
-        EMBEDDINGS_MANIFEST_PATH,
-        EMBEDDINGS_PATH,
-        ROOT,
-        expanded_file_path,
-        notes_file_path,
-        post_file_path,
-    )
+    from paths import catalog_paths, expanded_file_path, notes_file_path, post_file_path
 
     root = resolve_vault_root()
-    if root != ROOT:
-        return (
-            root / "catalog" / "chunks.jsonl",
-            root / "catalog" / "embeddings.npy",
-            root / "catalog" / "embeddings-manifest.jsonl",
-            root,
-            expanded_file_path,
-            notes_file_path,
-            post_file_path,
-        )
+    cp = catalog_paths(root)
     return (
-        CHUNKS_PATH,
-        EMBEDDINGS_PATH,
-        EMBEDDINGS_MANIFEST_PATH,
-        ROOT,
+        cp.chunks,
+        cp.embeddings,
+        cp.embeddings_manifest,
+        cp.root,
         expanded_file_path,
         notes_file_path,
         post_file_path,
@@ -79,7 +62,9 @@ def search_transcript(query: str, k: int = 8) -> dict[str, Any]:
 def _load_catalog_rows(vault_root: Path) -> list[dict[str, Any]]:
     from catalog import load_jsonl
 
-    return load_jsonl(vault_root / "catalog" / "episodes.jsonl")
+    from paths import catalog_paths
+
+    return load_jsonl(catalog_paths(vault_root).episodes)
 
 
 def _episode_listened(notes_path: Path) -> bool:

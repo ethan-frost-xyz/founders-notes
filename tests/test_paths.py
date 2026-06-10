@@ -1,6 +1,20 @@
 from pathlib import Path
 
-from paths import content_filename, folder_name, notes_file_path, path_relative_to_root, transcript_path
+from paths import (
+    CATALOG_PATH,
+    CHUNKS_PATH,
+    EMBEDDINGS_MANIFEST_PATH,
+    EMBEDDINGS_PATH,
+    EPISODE_SUMMARIES_PATH,
+    ROOT,
+    TELEGRAM_SESSIONS_DIR,
+    catalog_paths,
+    content_filename,
+    folder_name,
+    notes_file_path,
+    path_relative_to_root,
+    transcript_path,
+)
 
 
 def test_path_relative_to_root(monkeypatch, tmp_path):
@@ -50,3 +64,26 @@ def test_staging_draft_file_path(tmp_path):
     root = tmp_path / "runs" / "tune-001"
     p = staging_draft_file_path(root, "A", "ep-0001", "1-test", 1)
     assert p == root / "A" / "ep-0001-test" / "ep-0001-test.expanded.draft.md"
+
+
+def test_catalog_paths_default_matches_module_constants():
+    cp = catalog_paths()
+    assert cp.root == ROOT
+    assert cp.episodes == CATALOG_PATH
+    assert cp.chunks == CHUNKS_PATH
+    assert cp.embeddings == EMBEDDINGS_PATH
+    assert cp.embeddings_manifest == EMBEDDINGS_MANIFEST_PATH
+    assert cp.episode_summaries == EPISODE_SUMMARIES_PATH
+    assert cp.telegram_sessions == TELEGRAM_SESSIONS_DIR
+
+
+def test_catalog_paths_none_equals_default():
+    assert catalog_paths(None) == catalog_paths()
+
+
+def test_catalog_paths_sandbox_root(tmp_path):
+    cp = catalog_paths(tmp_path)
+    assert cp.root == tmp_path.resolve()
+    assert cp.chunks == tmp_path / "catalog" / "chunks.jsonl"
+    assert cp.embeddings == tmp_path / "catalog" / "embeddings.npy"
+    assert cp.telegram_sessions == tmp_path / "catalog" / "telegram-sessions"
