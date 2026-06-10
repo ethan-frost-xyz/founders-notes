@@ -5,18 +5,15 @@ from __future__ import annotations
 import json
 import time
 from dataclasses import dataclass, field
-from pathlib import Path
 from types import SimpleNamespace
 from typing import Any, Callable
 
 from tool_status import tool_status_label
 
 from config import AgentConfig, load_agent_config
+from librarian_prompt import build_system_message
+from reply_sanitize import sanitize_librarian_reply
 from turn_timing import TurnTimer
-
-_LEGACY_PROMPT_PATH = (
-    Path(__file__).resolve().parent.parent / "prompts" / "vault_agent.md"
-)
 
 ToolFn = Callable[[dict[str, Any]], dict[str, Any]]
 
@@ -40,22 +37,6 @@ class TurnResult:
     stop_reason: str = "natural"
     error: bool = False
     timing: dict[str, Any] | None = None
-
-
-def _load_system_prompt(vault_root: Path) -> str:
-    path = vault_root / "AGENTS.md"
-    if not path.is_file():
-        path = _LEGACY_PROMPT_PATH
-    return path.read_text(encoding="utf-8").strip()
-
-
-def _build_system_message(config: AgentConfig) -> str:
-    from index_status import index_metadata
-
-    base = _load_system_prompt(config.vault_root)
-    meta = index_metadata(config.vault_root)
-    meta_line = json.dumps(meta, separators=(",", ":"))
-    return f"{base}\n\n---\nRuntime: index_metadata={meta_line}"
 
 
 def openrouter_tools(*, default_k: int = 8) -> list[dict[str, Any]]:
@@ -418,8 +399,9 @@ class VaultAgent:
                 timing_dict["agent_steps"] = steps
                 trace.append({"record": "timing", **timing_dict})
             summary = build_trace_summary(trace, stop_reason=stop)
+            clean = sanitize_librarian_reply(content) or EMPTY_SYNTHESIS
             return TurnResult(
-                content=content,
+                content=clean,
                 tool_trace=trace,
                 trace_summary=summary,
                 steps=steps,
@@ -429,7 +411,7 @@ class VaultAgent:
             )
 
         messages: list[dict[str, Any]] = [
-            {"role": "system", "content": _build_system_message(cfg)},
+            {"role": "system", "content": build_system_message(cfg)},
         ]
         if history:
             messages.extend(history)

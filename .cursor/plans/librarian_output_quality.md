@@ -15,7 +15,9 @@ isProject: true
 
 **Purpose:** Source context for multiple implementation plans. When a child plan ships, note it under [Derived plans](#derived-plans) and tick items here. Do not duplicate full runbooks — link to [`docs/telegram-vault-agent.md`](../../docs/telegram-vault-agent.md).
 
-**Last reviewed:** 2026-06-09
+**Last reviewed:** 2026-06-10
+
+**Active child plan:** lift B (hygiene + retrieval micro-fixes) — see [Derived plans](#derived-plans).
 
 ---
 
@@ -40,7 +42,8 @@ The biggest gaps are not missing retrieval power — they are:
 | Layer | Location | What it controls |
 |-------|----------|------------------|
 | Synthesis persona | [`AGENTS.md`](../../AGENTS.md) | Voice, citations `[ep-NNNN]`, evidence honesty, tool heuristics |
-| Prompt load | [`services/telegram/bot/agent.py`](../../services/telegram/bot/agent.py) `_load_system_prompt()` | Reads `AGENTS.md` + appends `index_metadata` JSON |
+| Prompt load | [`services/telegram/bot/librarian_prompt.py`](../../services/telegram/bot/librarian_prompt.py) | Strips `## Cursor Cloud` from `AGENTS.md` + appends `index_metadata` JSON |
+| Reply sanitize | [`services/telegram/bot/reply_sanitize.py`](../../services/telegram/bot/reply_sanitize.py) | `sanitize_librarian_reply()` in `agent._finish()` before harness/session/Telegram |
 | Legacy pointer | [`services/telegram/prompts/vault_agent.md`](../../services/telegram/prompts/vault_agent.md) | Redirect only |
 | Vault evidence | [`ingestion/lib/retrieval_orchestrator.py`](../../ingestion/lib/retrieval_orchestrator.py) `format_evidence_for_tool()` | Markdown blocks for `search_vault` / `search_vault_many` |
 | Transcript evidence | [`services/telegram/bot/retrieval.py`](../../services/telegram/bot/retrieval.py) `search_transcript_for_turn()` | Inline `#### Hit N` formatting |
@@ -88,7 +91,7 @@ Re-run before/after each child plan: `ingestion/.venv/bin/python dev/mock_telegr
 
 [`AGENTS.md`](../../AGENTS.md) lines 58–75 ("Cursor Cloud specific instructions" — pytest, venv, mock harness) are appended to the Librarian system message for Telegram. Wastes context and dilutes persona.
 
-**Fix:** Split into `AGENTS.md` (persona) + `AGENTS.cursor.md`, or strip everything after `## Cursor Cloud` in `_load_system_prompt()`.
+**Shipped (lift B):** [`librarian_prompt.py`](../../services/telegram/bot/librarian_prompt.py) strips at `## Cursor Cloud`.
 
 **Priority:** P0 · **Effort:** small · **Impact:** high
 
@@ -98,7 +101,7 @@ Re-run before/after each child plan: `ingestion/.venv/bin/python dev/mock_telegr
 
 Baseline #11 (`verbatim_transcript`) — DSML / thinking markup in user-visible text. `agent.py` only `.strip()`; `handlers.py` streams and sends raw model output.
 
-**Fix:** `sanitize_librarian_reply(text)` before `reply_text_chunked` — strip `` blocks, `DSML` tags, etc. Harness `not_contains` for those patterns.
+**Shipped (lift B):** [`reply_sanitize.py`](../../services/telegram/bot/reply_sanitize.py) in `agent._finish()`; verbatim scenario `not_contains: DSML`; `tests/test_reply_sanitize.py`.
 
 **Priority:** P0 · **Effort:** small · **Impact:** high
 
@@ -123,7 +126,7 @@ In [`retrieval.py`](../../services/telegram/bot/retrieval.py):
 
 Multi-founder comparison is exactly where per-angle retrieval should be *stronger*, not cheaper.
 
-**Fix:** Use 1–2 expand variants for `search_vault_many` (not 0 or 5). Optional runtime flag.
+**Shipped (lift B):** `EXPAND_VARIANTS_LIGHT = 2` in orchestrator; `search_vault_many` uses it; variants sliced to `expand_variants` after expand.
 
 **Priority:** P0 · **Effort:** small · **Impact:** high
 
@@ -133,7 +136,7 @@ Multi-founder comparison is exactly where per-angle retrieval should be *stronge
 
 `chunk_for_rerank` caps at 600; `evidence_chunk_from_dict` allows 1200. Reranker may score on partial text the model never sees (or vice versa).
 
-**Fix:** Align caps (600 everywhere or 1200 everywhere for rerank input).
+**Shipped (lift B):** `EXCERPT_MAX_CHARS = 600` shared by `chunk_for_rerank` and `evidence_chunk_from_dict`.
 
 **Priority:** P1 · **Effort:** trivial · **Impact:** medium
 
@@ -205,18 +208,18 @@ Baseline #7 failed tool asserts while answers may have been fine — measuring *
 
 ## Easy wins (ranked)
 
-| # | Change | Effort | Impact | Status |
-|---|--------|--------|--------|--------|
-| 1 | Strip/split Cursor section from Telegram system prompt | Small | High | ⬜ |
-| 2 | `sanitize_librarian_reply()` for DSML/reasoning leaks | Small | High | ⬜ |
-| 3 | `format_load_episode_for_tool()` | Medium | High | ⬜ |
-| 4 | `search_vault_many`: 1–2 expand variants, not 0 | Small | High | ⬜ |
-| 5 | Align rerank vs evidence excerpt length | Trivial | Medium | ⬜ |
-| 6 | Prompt: search-stop heuristics + verbatim playbook | Small | Medium | ⬜ |
-| 7 | Harness: `tool_called_any` + citation regex | Small | Medium | ⬜ |
-| 8 | `structured_embed_text` in evidence formatter | Small | Medium | ⬜ |
-| 9 | `librarian_temperature` runtime key | Small | Medium | ⬜ |
-| 10 | Harness `not_contains` for leak patterns | Trivial | Medium | ⬜ |
+| # | Change | Effort | Impact | Lift | Status |
+|---|--------|--------|--------|------|--------|
+| 1 | Strip/split Cursor section from Telegram system prompt | Small | High | B | ✅ |
+| 2 | `sanitize_librarian_reply()` for DSML/reasoning leaks | Small | High | B | ✅ |
+| 3 | `format_load_episode_for_tool()` | Medium | High | 2 | ⬜ |
+| 4 | `search_vault_many`: 1–2 expand variants, not 0 | Small | High | B | ✅ |
+| 5 | Align rerank vs evidence excerpt length | Trivial | Medium | B | ✅ |
+| 6 | Prompt: search-stop heuristics + verbatim playbook | Small | Medium | 2 | ⬜ |
+| 7 | Harness: `tool_called_any` + citation regex | Small | Medium | 2 | ⬜ |
+| 8 | `structured_embed_text` in evidence formatter | Small | Medium | 2 | ⬜ |
+| 9 | `librarian_temperature` runtime key | Small | Medium | 2 | ⬜ |
+| 10 | Harness `not_contains` for leak patterns | Trivial | Medium | B | ✅ |
 
 ---
 
@@ -259,7 +262,7 @@ Short additions only — avoid rigid section headers (Telegram doesn't render th
 Add with child plans:
 
 1. **Citation presence** — thematic live turns must match `\[ep-\d{4}\]` at least once
-2. **Leak absence** — ``, `DSML`, ``
+2. **Leak absence** — ``, `DSML`, `` — **partial (lift B):** `tests/test_reply_sanitize.py` + verbatim `not_contains`; full-suite guards → lift 2
 3. **Tool-optional assertions** — `tool_called_any` for multi-hop scenarios
 4. **Trace-aware thin evidence** (optional) — assert honesty phrases when rerank scores low
 
@@ -271,15 +274,17 @@ _Child `.plan.md` files built from this doc. Link here when created; move to [`a
 
 | Plan | File | Scope | Status |
 |------|------|-------|--------|
-| _—_ | _—_ | _—_ | _not started_ |
+| Lift B | [librarian_lift_b.plan.md](librarian_lift_b.plan.md) | Prompt strip, `reply_sanitize`, `EXPAND_VARIANTS_LIGHT`, excerpt cap, verbatim leak guard | **shipped** (2026-06-10; CI ✅; live #3/#7/#11 pending Mac mini SSH) |
+
+**Next (lift 2):** `format_load_episode_for_tool()` + AGENTS.md search-stop playbook + harness `tool_called_any` / citation regex (easy wins #3, #6, #7).
 
 ### Suggested child plan slices
 
-1. **Prompt hygiene** — split Cursor section, search-stop / verbatim playbook in `AGENTS.md`
-2. **Evidence formatting** — `evidence_format.py`, `load_episode` formatter, `structured_embed_text`
-3. **Output sanitization** — `reply_sanitize.py` + harness leak checks
-4. **search_vault_many quality** — expansion variants + excerpt cap alignment
-5. **Harness quality assertions** — citation regex, relaxed tool asserts, leak `not_contains`
+1. **Prompt hygiene** — split Cursor section, search-stop / verbatim playbook in `AGENTS.md` — *partially in lift B (strip only); playbook → lift 2*
+2. **Evidence formatting** — `evidence_format.py`, `load_episode` formatter, `structured_embed_text` — *→ lift 2*
+3. **Output sanitization** — `reply_sanitize.py` + harness leak checks — *in lift B*
+4. **search_vault_many quality** — expansion variants + excerpt cap alignment — *in lift B*
+5. **Harness quality assertions** — citation regex, relaxed tool asserts, leak `not_contains` — *partially in lift B (verbatim only); rest → lift 2*
 
 ---
 

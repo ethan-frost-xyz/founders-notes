@@ -10,11 +10,14 @@ REPO = Path(__file__).resolve().parent.parent
 VAULT_SEARCH_CHUNKS = REPO / "tests" / "fixtures" / "vault_search_chunks.jsonl"
 
 from retrieval_orchestrator import (  # noqa: E402
+    EXCERPT_MAX_CHARS,
     EXPAND_VARIANTS_FULL,
+    EXPAND_VARIANTS_LIGHT,
     EXPAND_VARIANTS_NONE,
     EvidenceBundle,
     OrchestratorConfig,
     RetrievalOrchestrator,
+    evidence_chunk_from_dict,
     format_evidence_for_tool,
     quote_intent,
 )
@@ -165,6 +168,40 @@ def test_retrieve_excludes_summary_from_citable(orch_config: OrchestratorConfig,
     )
     bundle = orch.retrieve("theme")
     assert all(not ch.section.startswith("summary:") for ch in bundle.chunks)
+
+
+def test_retrieve_core_light_expansion_runs_expand(
+    orch_config: OrchestratorConfig, monkeypatch: pytest.MonkeyPatch
+):
+    import retrieval_orchestrator as ro
+
+    expand_called = False
+
+    def fake_expand(user_message, **kwargs):
+        nonlocal expand_called
+        expand_called = True
+        return user_message, ["v1", "v2"]
+
+    monkeypatch.setattr(ro, "_hybrid_search_parent_chunks", lambda *a, **k: [])
+    monkeypatch.setattr(ro, "embed_queries", lambda qs: [None] * len(qs))
+    monkeypatch.setattr(ro, "search_transcript_keyword", lambda *a, **k: [])
+
+    orch = RetrievalOrchestrator(orch_config, expand_fn=fake_expand, rerank_fn=lambda *a, **k: [])
+    bundle = orch.retrieve_core("Edison teams", expand_variants=EXPAND_VARIANTS_LIGHT)
+    assert expand_called is True
+    assert len(bundle.retrieval_meta["variants"]) == EXPAND_VARIANTS_LIGHT
+
+
+def test_evidence_chunk_excerpt_respects_max_chars():
+    long_excerpt = "x" * (EXCERPT_MAX_CHARS + 100)
+    chunk = evidence_chunk_from_dict(
+        {
+            "chunk_id": "ep-0001#expanded:x#1",
+            "id": "ep-0001",
+            "excerpt": long_excerpt,
+        }
+    )
+    assert len(chunk.excerpt) == EXCERPT_MAX_CHARS
 
 
 def test_format_evidence_for_tool_labels_subquery():

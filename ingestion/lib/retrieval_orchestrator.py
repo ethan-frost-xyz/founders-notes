@@ -34,7 +34,9 @@ SEARCH_VAULT_KEEP = 8
 SEARCH_VAULT_MANY_KEEP = 5
 SEARCH_VAULT_MANY_MAX = 6
 EXPAND_VARIANTS_FULL = 5
+EXPAND_VARIANTS_LIGHT = 2
 EXPAND_VARIANTS_NONE = 0
+EXCERPT_MAX_CHARS = 600
 RERANK_SCORE_FALLBACK_THRESHOLD = 6.0
 
 
@@ -157,13 +159,13 @@ def chunk_for_rerank(ch: dict[str, Any], *, root: Path) -> dict[str, Any]:
 
     excerpt = (ch.get("excerpt") or "").strip()
     if len(excerpt) < 200:
-        excerpt = load_chunk_source_excerpt(ch, max_chars=600, root=root)
+        excerpt = load_chunk_source_excerpt(ch, max_chars=EXCERPT_MAX_CHARS, root=root)
     return {
         "chunk_id": ch.get("chunk_id", ""),
         "id": ch.get("id", ""),
         "title": ch.get("title", ""),
         "section": ch.get("section", ""),
-        "excerpt": excerpt[:600],
+        "excerpt": excerpt[:EXCERPT_MAX_CHARS],
         "source_path": ch.get("source_path", ""),
     }
 
@@ -174,7 +176,7 @@ def evidence_chunk_from_dict(ch: dict[str, Any]) -> EvidenceChunk:
         episode_id=str(ch.get("id") or ch.get("episode_id", "")),
         title=str(ch.get("title") or ""),
         section=str(ch.get("section") or ""),
-        excerpt=str(ch.get("excerpt") or "")[:1200],
+        excerpt=str(ch.get("excerpt") or "")[:EXCERPT_MAX_CHARS],
         rerank_score=float(ch.get("rerank_score") or 0.0),
         source_path=str(ch.get("source_path") or ""),
         rationale=str(ch.get("rerank_rationale") or ""),
@@ -265,6 +267,7 @@ class RetrievalOrchestrator:
             )
             if on_timing:
                 on_timing("retrieval_llm", int((time.perf_counter() - t0) * 1000))
+            variants = variants[:expand_variants]
             meta["expansion_skipped"] = False
 
         meta["standalone_query"] = standalone

@@ -4,6 +4,7 @@ turns:
   - send: "What were Rockefeller's exact words about competition in the transcript?"
     expect:
       response_min_length: 40
+      not_contains: "DSML"
       expect_live:
         tool_called: search_transcript
         response_contains_any:

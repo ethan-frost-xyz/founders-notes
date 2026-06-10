@@ -9,7 +9,7 @@ from typing import Any, Callable
 from config import AgentConfig
 from retrieval_orchestrator import (
     EXPAND_VARIANTS_FULL,
-    EXPAND_VARIANTS_NONE,
+    EXPAND_VARIANTS_LIGHT,
     SEARCH_VAULT_KEEP,
     SEARCH_VAULT_MANY_KEEP,
     SEARCH_VAULT_MANY_MAX,
@@ -141,7 +141,7 @@ def search_vault_many_for_turn(
             bundle = orch.retrieve_core(
                 sub_query,
                 history=history,
-                expand_variants=EXPAND_VARIANTS_NONE,
+                expand_variants=EXPAND_VARIANTS_LIGHT,
                 keep=SEARCH_VAULT_MANY_KEEP,
                 on_status=on_status,
                 on_timing=_timing_callback(timing, search_timing),
