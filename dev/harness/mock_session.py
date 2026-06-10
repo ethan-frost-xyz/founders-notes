@@ -195,6 +195,7 @@ def _install_echo_llm() -> list[Any]:
         patch("openrouter_client.call_openrouter", _echo_call_openrouter),
         patch("janitor_workflow.run_expand", _stub_run_expand),
         patch("janitor_handlers.run_expand", _stub_run_expand),
+        patch("janitor_phases.run_expand", _stub_run_expand),
         patch("janitor_workflow.run_reindex", _stub_run_reindex),
         patch("janitor_handlers.run_reindex", _stub_run_reindex),
     ]
