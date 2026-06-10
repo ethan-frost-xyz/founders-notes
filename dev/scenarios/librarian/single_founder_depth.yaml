@@ -5,8 +5,9 @@ turns:
     expect:
       response_min_length: 80
       expect_live:
-        tools_called:
+        tool_called_any:
           - search_vault
+          - search_vault_many
         response_contains_any:
           - Buffett
           - scorecard
