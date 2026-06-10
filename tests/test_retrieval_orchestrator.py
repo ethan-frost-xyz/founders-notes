@@ -38,7 +38,7 @@ def _patch_orchestrator_search(monkeypatch: pytest.MonkeyPatch, *, hybrid_hits: 
     """Patch names bound in retrieval_orchestrator (not only search_retrieval)."""
     import retrieval.orchestrator as ro
 
-    monkeypatch.setattr(ro, "_hybrid_search_parent_chunks", lambda *a, **k: list(hybrid_hits))
+    monkeypatch.setattr(ro, "hybrid_search_parent_chunks", lambda *a, **k: list(hybrid_hits))
     monkeypatch.setattr(ro, "embed_queries", lambda qs: [None] * len(qs))
     monkeypatch.setattr(ro, "search_transcript_keyword", lambda *a, **k: [])
 
@@ -91,7 +91,7 @@ def test_retrieve_core_skips_expansion_when_zero(
         expand_called = True
         return user_message, [user_message] * 5
 
-    monkeypatch.setattr(ro, "_hybrid_search_parent_chunks", lambda *a, **k: [])
+    monkeypatch.setattr(ro, "hybrid_search_parent_chunks", lambda *a, **k: [])
     monkeypatch.setattr(ro, "embed_queries", lambda qs: [None] * len(qs))
     monkeypatch.setattr(ro, "search_transcript_keyword", lambda *a, **k: [])
 
@@ -114,7 +114,7 @@ def test_retrieve_calls_hybrid_search_per_variant(
         call_count += 1
         return []
 
-    monkeypatch.setattr(ro, "_hybrid_search_parent_chunks", counting_hybrid)
+    monkeypatch.setattr(ro, "hybrid_search_parent_chunks", counting_hybrid)
     monkeypatch.setattr(ro, "embed_queries", lambda qs: [None] * len(qs))
     monkeypatch.setattr(ro, "get_embedding_store", lambda **k: None)
     monkeypatch.setattr(ro, "search_transcript_keyword", lambda *a, **k: [])
@@ -182,7 +182,7 @@ def test_retrieve_core_light_expansion_runs_expand(
         expand_called = True
         return user_message, ["v1", "v2"]
 
-    monkeypatch.setattr(ro, "_hybrid_search_parent_chunks", lambda *a, **k: [])
+    monkeypatch.setattr(ro, "hybrid_search_parent_chunks", lambda *a, **k: [])
     monkeypatch.setattr(ro, "embed_queries", lambda qs: [None] * len(qs))
     monkeypatch.setattr(ro, "search_transcript_keyword", lambda *a, **k: [])
 
@@ -219,7 +219,7 @@ def test_retrieve_core_on_timing_split(orch_config: OrchestratorConfig, monkeypa
 
     import retrieval.orchestrator as ro
 
-    monkeypatch.setattr(ro, "_hybrid_search_parent_chunks", lambda *a, **k: [])
+    monkeypatch.setattr(ro, "hybrid_search_parent_chunks", lambda *a, **k: [])
     monkeypatch.setattr(ro, "embed_queries", lambda qs: [None] * len(qs))
     monkeypatch.setattr(ro, "search_transcript_keyword", lambda *a, **k: [])
 

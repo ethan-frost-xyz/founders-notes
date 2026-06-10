@@ -41,9 +41,9 @@ def load_jsonl(path: Path | str | None = None) -> list[dict[str, Any]]:
 def clear_jsonl_cache() -> None:
     """Drop cached JSONL reads after catalog/chunks/manifest writes in-process."""
     _load_jsonl_cached.cache_clear()
-    from search_retrieval import invalidate_studied_episode_cache
+    from search_cache import invalidate_all_search_caches
 
-    invalidate_studied_episode_cache()
+    invalidate_all_search_caches()
 
 
 def load_catalog() -> list[dict[str, Any]]:
