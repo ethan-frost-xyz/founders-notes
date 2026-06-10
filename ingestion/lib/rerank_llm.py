@@ -79,6 +79,8 @@ def rerank_candidates(
     )
     out: list[dict[str, Any]] = []
     for cid in ordered_ids:
+        if cid not in by_id:
+            continue
         ch = dict(by_id[cid])
         score, rationale = score_by_id[cid]
         ch["rerank_score"] = score

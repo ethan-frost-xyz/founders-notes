@@ -34,7 +34,7 @@ Or: `python lib/reindex_vault.py` / Telegram `/reindex` (runs all steps above).
 | Expand | 1 LLM call → standalone query + 5 Founders-tuned variants ([`prompts/query_expand.md`](../ingestion/prompts/query_expand.md)); model: `retrieval_model` |
 | Search | Batched embed + **variants searched concurrently**; hybrid keyword/cosine (`expanded` + `summary` tiers) |
 | Merge | Dedupe by `chunk_id`, RRF across variants, cap ~40 |
-| Rerank | 1 LLM call → top chunks with synthesis-usefulness scores ([`prompts/rerank_evidence.md`](../ingestion/prompts/rerank_evidence.md)) |
+| Rerank | 1 LLM call → top chunks with synthesis-usefulness scores ([`prompts/rerank_evidence.md`](../ingestion/prompts/rerank_evidence.md)); chunk IDs not in the candidate pool are ignored (unranked candidates keep score 0) |
 | Fallback | Transcript keyword search when max rerank score &lt; 6 or quote-intent detected |
 
 `search_vault_many` sub-queries skip LLM expansion (`expand_variants=0`) — the librarian model already decomposed the question.
