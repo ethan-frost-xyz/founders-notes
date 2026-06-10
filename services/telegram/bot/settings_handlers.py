@@ -4,8 +4,16 @@ from __future__ import annotations
 
 from typing import Any
 
-from auth import is_allowed
-from config import BotConfig
+from callbacks import (
+    CALLBACK_SET_OPS,
+    CALLBACK_SET_STREAM,
+    CALLBACK_SET_TEMP,
+)
+from context import (
+    config as _config,
+    reject_unauthorized as _reject_unauthorized,
+    reload_bot_config as _reload_bot_config,
+)
 from model_presets import MODEL_PRESETS, ROLE_LABELS
 from runtime_settings import (
     MODEL_ROLE_TO_KEY,
@@ -29,32 +37,6 @@ from ui_keyboards import (
 AWAITING_MODEL_SLUG_KEY = "awaiting_model_slug"
 
 
-def _config(context: ContextTypes.DEFAULT_TYPE) -> BotConfig:
-    return context.application.bot_data["config"]
-
-
-def _reload_bot_config(context: ContextTypes.DEFAULT_TYPE):
-    from agent import VaultAgent
-    from config import load_bot_config
-
-    bot_config = load_bot_config()
-    agent = VaultAgent(bot_config.agent)
-    context.application.bot_data["config"] = bot_config
-    context.application.bot_data["agent"] = agent
-    return bot_config, agent
-
-
-async def _reject_unauthorized(update: Update, config: BotConfig) -> bool:
-    user = update.effective_user
-    if is_allowed(user.id if user else None, config):
-        return False
-    if update.callback_query:
-        await update.callback_query.answer("Unauthorized.", show_alert=True)
-    elif update.message:
-        await update.message.reply_text("Unauthorized.")
-    return True
-
-
 def _stream_replies_button_label() -> str:
     enabled, _ = effective_stream_replies()
     return f"Stream replies: {'ON' if enabled else 'OFF'}"
@@ -72,9 +54,9 @@ def settings_keyboard() -> InlineKeyboardMarkup:
                 InlineKeyboardButton("Expand", callback_data="set:r:expand"),
             ],
             [InlineKeyboardButton("Embed", callback_data="set:r:embed")],
-            [InlineKeyboardButton("Janitor temp", callback_data="set:temp")],
-            [InlineKeyboardButton(_stream_replies_button_label(), callback_data="set:stream")],
-            [InlineKeyboardButton("Ops", callback_data="set:ops")],
+            [InlineKeyboardButton("Janitor temp", callback_data=CALLBACK_SET_TEMP)],
+            [InlineKeyboardButton(_stream_replies_button_label(), callback_data=CALLBACK_SET_STREAM)],
+            [InlineKeyboardButton("Ops", callback_data=CALLBACK_SET_OPS)],
         ]
     )
 
@@ -176,7 +158,7 @@ async def on_settings_callback(update: Update, context: ContextTypes.DEFAULT_TYP
         await query.edit_message_text(text, reply_markup=settings_keyboard())
         return
 
-    if data == "set:stream":
+    if data == CALLBACK_SET_STREAM:
         enabled, _ = effective_stream_replies()
         set_stream_replies(not enabled)
         text = format_settings_summary(bot_cfg.agent, bot_cfg)
@@ -185,7 +167,7 @@ async def on_settings_callback(update: Update, context: ContextTypes.DEFAULT_TYP
         await query.edit_message_text(text, reply_markup=settings_keyboard())
         return
 
-    if data == "set:ops":
+    if data == CALLBACK_SET_OPS:
         await query.edit_message_text("Vault ops:", reply_markup=_ops_keyboard())
         return
 
@@ -227,7 +209,7 @@ async def on_settings_callback(update: Update, context: ContextTypes.DEFAULT_TYP
         )
         return
 
-    if data == "set:temp":
+    if data == CALLBACK_SET_TEMP:
         await query.edit_message_text(
             "Choose Janitor clean temperature (LLM paste normalization):",
             reply_markup=_janitor_temp_keyboard(),
