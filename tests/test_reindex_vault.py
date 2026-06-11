@@ -80,6 +80,48 @@ def test_reindex_vault_chunks_failure_returns_tail(
     assert "chunk error" in msg
 
 
+def test_reindex_vault_summaries_failure_returns_tail(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    vault = _make_vault(tmp_path)
+    calls = 0
+
+    def fake_run(argv, **kwargs):
+        nonlocal calls
+        calls += 1
+        if calls == 1:
+            return MagicMock(returncode=0, stdout="", stderr="")
+        return MagicMock(returncode=2, stdout="", stderr="summary build failed\n")
+
+    monkeypatch.setattr("reindex_vault.subprocess.run", fake_run)
+
+    code, msg = reindex_vault(vault, python="/usr/bin/python3")
+
+    assert code == 2
+    assert "summary build failed" in msg
+
+
+def test_reindex_vault_second_chunks_failure_returns_tail(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    vault = _make_vault(tmp_path)
+    calls = 0
+
+    def fake_run(argv, **kwargs):
+        nonlocal calls
+        calls += 1
+        if calls <= 2:
+            return MagicMock(returncode=0, stdout="", stderr="")
+        return MagicMock(returncode=3, stdout="", stderr="second chunk pass failed\n")
+
+    monkeypatch.setattr("reindex_vault.subprocess.run", fake_run)
+
+    code, msg = reindex_vault(vault, python="/usr/bin/python3")
+
+    assert code == 3
+    assert "second chunk pass failed" in msg
+
+
 def test_reindex_vault_sets_cwd_and_vault_root_env(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:
