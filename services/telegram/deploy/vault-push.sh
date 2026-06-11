@@ -18,6 +18,7 @@ if [[ ! -x "${PYTHON}" ]]; then
 fi
 
 LOCK_DIR="${VAULT_ROOT}/catalog/.vault-push-in-progress"
+SYNC_LOCK_DIR="${VAULT_ROOT}/catalog/.sync-in-progress"
 COMMIT_MSG="vault: push from Mac mini"
 EPISODE_ID=""
 DRY_RUN=0
@@ -69,6 +70,11 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+
+if [[ -d "${SYNC_LOCK_DIR}" ]]; then
+  echo "vault-push: skipped (sync-and-index in progress — retry in a minute)"
+  exit 2
+fi
 
 if ! mkdir "${LOCK_DIR}" 2>/dev/null; then
   echo "vault-push: skipped (another vault-push in progress)"
@@ -127,18 +133,31 @@ if [[ "${RUN_VERIFY}" -eq 1 ]]; then
   fi
 fi
 
+_stage_if_dirty() {
+  local path="$1"
+  if [[ -n "$(git status --porcelain -- "${path}")" ]]; then
+    git add "${path}"
+    echo "vault-push: staged ${path}"
+  fi
+}
+
 stage_paths() {
   if [[ -n "${EPISODE_ID}" ]]; then
     if [[ ! -d "${NOTES_DIR}" ]]; then
       echo "vault-push: episode notes dir missing: ${NOTES_DIR}" >&2
       return 1
     fi
-    git add "${NOTES_DIR}/"
-    echo "vault-push: staged ${NOTES_DIR}/"
+    if [[ -n "$(git status --porcelain -- "${NOTES_DIR}/")" ]]; then
+      git add "${NOTES_DIR}/"
+      echo "vault-push: staged ${NOTES_DIR}/"
+    fi
     return 0
   fi
 
-  git add content/notes/
+  if [[ -n "$(git status --porcelain -- content/notes/)" ]]; then
+    git add content/notes/
+    echo "vault-push: staged content/notes/"
+  fi
 
   local pattern path
   shopt -s nullglob
@@ -148,15 +167,13 @@ stage_paths() {
     dev/logs/runs/*-librarian-live-suite-summary.json \
     dev/logs/runs/*-librarian-live-suite-rerun-summary.json; do
     for path in ${pattern}; do
-      git add "${path}"
-      echo "vault-push: staged ${path}"
+      _stage_if_dirty "${path}"
     done
   done
   shopt -u nullglob
 
   if [[ "${RUN_VERIFY}" -eq 1 && -f catalog/gaps.md ]]; then
-    git add catalog/gaps.md
-    echo "vault-push: staged catalog/gaps.md"
+    _stage_if_dirty catalog/gaps.md
   fi
 }
 
@@ -178,6 +195,25 @@ if git diff --cached --quiet; then
   exit 0
 fi
 
-git commit -m "${COMMIT_MSG}"
-git push
+if ! out="$(git commit -m "${COMMIT_MSG}" 2>&1)"; then
+  echo "${out}"
+  echo "vault-push: git commit failed" >&2
+  exit 1
+fi
+echo "${out}"
+
+# Webhook sync may have landed while we staged; ff-only again before push.
+if ! out="$(git pull --ff-only 2>&1)"; then
+  echo "${out}"
+  echo "vault-push: git pull before push failed (resolve on laptop, /sync, retry)" >&2
+  exit 1
+fi
+[[ -n "${out}" && "${out}" != "Already up to date." ]] && echo "${out}"
+
+if ! out="$(git push 2>&1)"; then
+  echo "${out}"
+  echo "vault-push: git push failed" >&2
+  exit 1
+fi
+echo "${out}"
 echo "vault-push: committed and pushed"

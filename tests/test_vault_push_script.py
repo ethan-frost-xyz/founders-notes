@@ -79,6 +79,41 @@ def test_vault_push_commits_notes(tmp_path: Path) -> None:
     assert "vault: test push" in log.stdout
 
 
+def test_vault_push_skips_when_sync_lock_held(tmp_path: Path) -> None:
+    vault = _init_vault_with_remote(tmp_path)
+    (vault / "catalog" / ".sync-in-progress").mkdir()
+    env = {**os.environ, "VAULT_ROOT": str(vault)}
+    proc = subprocess.run(
+        [str(vault / "services" / "telegram" / "deploy" / "vault-push.sh"), "--skip-verify"],
+        env=env,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 2
+    assert "sync-and-index in progress" in proc.stdout
+
+
+def test_vault_push_no_op_when_tracked_reports_clean(tmp_path: Path) -> None:
+    vault = _init_vault_with_remote(tmp_path)
+    runs = vault / "dev/logs/runs"
+    runs.mkdir(parents=True)
+    report = runs / "2026-01-01T00-00-00-report.json"
+    report.write_text("{}\n", encoding="utf-8")
+    _git("add", str(report.relative_to(vault)), cwd=vault)
+    _git("commit", "-m", "report", cwd=vault)
+
+    env = {**os.environ, "VAULT_ROOT": str(vault)}
+    proc = subprocess.run(
+        [str(vault / "services" / "telegram" / "deploy" / "vault-push.sh"), "--skip-verify"],
+        env=env,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+    assert "no whitelisted changes to commit" in proc.stdout
+    assert "staged" not in proc.stdout
+
+
 def test_vault_push_episode_resolve_dry_run_on_repo() -> None:
     env = {**os.environ, "VAULT_ROOT": str(REPO)}
     proc = subprocess.run(
