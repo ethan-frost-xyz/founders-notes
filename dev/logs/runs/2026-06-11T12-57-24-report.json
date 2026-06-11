@@ -1,0 +1,128 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-11T12:57:24",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Janitor episode parse formats",
+      "path": "/Users/ethan/Desktop/Projects/founders/founders-notes/dev/scenarios/janitor/episode_parse.yaml",
+      "passed": true,
+      "elapsed_s": 0.0028097089962102473,
+      "llm_mode": "echo",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/janitor'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0005475830112118274,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 2,
+          "action": "send '191'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.00029516700305975974,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 3,
+          "action": "send '/cancel'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0002467920130584389,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 4,
+          "action": "send '/janitor'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.000254082988249138,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 5,
+          "action": "send 'ep-0191'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0002513750223442912,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 6,
+          "action": "send '/cancel'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.00023362497449852526,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 7,
+          "action": "send '/janitor'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.00024983298499137163,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 8,
+          "action": "send 'Episode 191'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.00023941698600538075,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        }
+      ]
+    }
+  ]
+}
