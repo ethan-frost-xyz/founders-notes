@@ -60,8 +60,8 @@ Full guide: [telegram-mock-harness.md](telegram-mock-harness.md) · [testing.md]
 From repo root (`ingestion/.venv`):
 
 ```bash
-# 1. Fast (no API) — agent loop + handlers
-ingestion/.venv/bin/pytest tests/test_vault_agent.py tests/test_harness_scenarios.py -q
+# 1. Fast (no API) — agent loop, handlers, harness echo
+ingestion/.venv/bin/pytest tests/test_vault_agent.py tests/test_telegram_handlers.py tests/test_harness_scenarios.py -q
 
 # 2. Interactive REPL with tool traces (no API)
 ingestion/.venv/bin/python dev/mock_telegram_cli.py --stub-llm --debug

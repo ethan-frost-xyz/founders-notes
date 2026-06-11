@@ -11,6 +11,7 @@ Headless and interactive testing for the **Librarian** and **Janitor** Telegram 
 | Layer | What it proves | Command | CI |
 |-------|----------------|---------|-----|
 | **Tool unit** | `load_episode` (incl. ambiguous → `candidates`), `list_episode_ids`, `resolve_episode_ref` | `pytest tests/test_vault_agent.py -q` | Yes |
+| **Handler unit** | Librarian/Janitor/Settings callback wiring (mocked agent/workflow) | `pytest tests/test_telegram_handlers.py tests/test_janitor_handlers.py tests/test_settings_handlers.py -q` | Yes |
 | **Harness echo** | Handlers, commands, Janitor FSM (stub LLM) | `pytest tests/test_harness_scenarios.py -q` | Yes (~seconds; not the pytest bottleneck) |
 | **Harness live** | Full Librarian tool loop + OpenRouter | `python dev/mock_telegram_cli.py --suite librarian --live-only -v` | No (opt-in pytest below) |
 | **Real Telegram** | Production bot + Bot API | Mac mini manual smoke | No |

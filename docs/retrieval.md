@@ -77,7 +77,7 @@ Retrieval implementation lives under `ingestion/lib/search_*.py`:
 | `search_cache.py` | Cache invalidation hook for catalog writes |
 | `search_retrieval.py` | Facade + `search_parent_evidence` / `search_transcript_evidence` |
 
-Index-quality tests call `search_parent_evidence` / `search_transcript_evidence` via [`tests/search_test_helpers.py`](../tests/search_test_helpers.py). The live Librarian uses `search_vault` / `search_vault_many` (orchestrator-backed) instead. [`vault.py`](../services/telegram/bot/tools/vault.py) exposes episode tools only (`load_episode`, `list_episode_ids`).
+Index-quality tests call `search_parent_evidence` / `search_transcript_evidence` via [`tests/search_test_helpers.py`](../tests/search_test_helpers.py). Scenario JSONL: `test_vault_retrieval_scenarios.py`; unit tests: `test_search_retrieval.py`, `test_retrieval_orchestrator.py`. Full index: [testing.md](testing.md). The live Librarian uses `search_vault` / `search_vault_many` (orchestrator-backed) instead. [`vault.py`](../services/telegram/bot/tools/vault.py) exposes episode tools only (`load_episode`, `list_episode_ids`).
 
 ## Graduate to repo-wide embeddings when
 
