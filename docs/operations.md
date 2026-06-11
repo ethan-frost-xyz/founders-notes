@@ -113,7 +113,14 @@ Optional for **live** harness: `cp .env.example .env` and set `OPENROUTER_API_KE
 
 ### Tailscale (laptop ↔ Mac mini)
 
-Optional: Tailscale on the laptop in the **same tailnet** as the mini (`ethans-mac-mini`) so you can `tailscale ping ethans-mac-mini` and, after **Remote Login** is on, `ssh <user>@ethans-mac-mini` for logs and `~/.config/founders-telegram/runtime.json`. **Model tuning** (`/setmodel`, `/settings`) and Librarian/Janitor daily use need **Telegram only** — no laptop Tailscale required. **Tailscale Funnel** for the GitHub webhook runs **on the mini only**; do not run Funnel on the laptop. Pending SSH setup: [potential-ideas.md](../potential-ideas.md) (Ops / Tailscale).
+Laptop (`ethans-macbook-air`) and mini (`ethans-mac-mini`) share tailnet `ethan-frost-xyz@`. From the laptop:
+
+```bash
+tailscale ping ethans-mac-mini
+ssh ethans-mac-mini   # ethanfrost; Host in ~/.ssh/config
+```
+
+Use SSH for logs (`~/Library/Logs/founders-telegram/`) and `~/.config/founders-telegram/runtime.json`. **Model tuning** (`/setmodel`, `/settings`) and Librarian/Janitor daily use need **Telegram only** — no laptop Tailscale required. **Tailscale Funnel** for the GitHub webhook runs **on the mini only**; do not run Funnel on the laptop.
 
 ### CI parity
 
