@@ -5,7 +5,11 @@ Copy everything inside the block below into a **new Cursor chat** to replay the 
 ---
 
 ```
-Run the librarian live scenarios one at a time, alphabetically, starting from #1 (or tell me which # to start from). Do not run the next scenario until I say "proceed".
+Run the librarian live suite per dev/scenarios/librarian/RERUN-LIVE-SUITE.md.
+
+**First:** ask whether I want **interactive** (one scenario per turn, wait for "proceed") or **sequential** (all 11 in one session via `--suite librarian --live-only -v`).
+
+Start from #1 unless I specify otherwise.
 
 ## Baseline (compare every run against this)
 
@@ -37,7 +41,8 @@ Run the librarian live scenarios one at a time, alphabetically, starting from #1
 - **Wall time & retrieval_llm** → lower is better; flag regressions >25% vs baseline row
 - **Tool count** → fewer tools on simple Qs (#1, #8); no zero-tool answers on thematic (#4)
 - **stop_reason** → prefer `natural`; flag new `cap` hits (#11)
-- **unaccounted_ms** → flag turns >60s unaccounted
+- **unaccounted_ms** → flag turns >60s (wall-based formula: search_wall_ms + tool_local_ms + openrouter; baseline Jun 9 unaccounted not 1:1 comparable)
+- **search_wall_ms / tool_local_ms / thread_wait_ms / parallelism_excess_ms** → read `timing_accountability.accounted_breakdown`; high parallelism_excess on search_vault_many is expected
 - **Substantive quality** → read `response_text` / `dev/logs/runs/*-report.md`; flag hallucination, missing thin-evidence honesty, DSML leaks
 - **Known flakes** → `search_vault` vs `search_vault_many` on #4/#7: note whether behavior or assertion changed
 
@@ -47,8 +52,14 @@ When the full queue finishes, write a new suite summary JSON:
 `dev/logs/runs/YYYY-MM-DD-librarian-live-suite-summary.json`
 with the same schema as the baseline file and a `baseline_comparison` section.
 
-## Command per scenario
+## Commands
 
+**Sequential (all 11):**
+cd /Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes
+ingestion/.venv/bin/python dev/mock_telegram_cli.py \
+  --suite librarian --live-only -v
+
+**Interactive (one at a time):**
 cd /Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes
 ingestion/.venv/bin/python dev/mock_telegram_cli.py \
   --scenario dev/scenarios/librarian/<FILE>.yaml -v
@@ -74,13 +85,14 @@ ingestion/.venv/bin/python dev/mock_telegram_cli.py \
 - stop_reason (natural / cap)
 - tool_call_counts and notable tool_calls[].arguments
 - response_text quality (1–2 sentences — would you trust this answer?)
-- Key timing: retrieval_llm_ms, timing_accountability.unaccounted_ms
+- Key timing: retrieval_llm_ms (effort), search_wall_ms, tool_local_ms, timing_accountability.unaccounted_ms
 - Report paths: `dev/logs/runs/*-report.json` and `*-report.md`
 
 ## Rules
 
 - Do not change code unless I ask
-- Do not run the full suite — **one scenario per turn**
+- **Interactive:** one scenario per turn — wait for "proceed"
+- **Sequential:** full suite in one session is OK
 - Preflight only if needed: `ingestion/.venv/bin/python dev/mock_telegram_cli.py --preflight`
 - Reports are enriched: use `response_text`, `tool_rounds`, `trace_summary`, `stop_reason` for diagnosis
 - Confirm `retrieval_model` is still `deepseek/deepseek-v4-flash` before starting (or note if different)
@@ -92,4 +104,4 @@ Start with #1.
 
 ## Quick one-liner
 
-> Rerun librarian live suite per `dev/scenarios/librarian/RERUN-LIVE-SUITE.md` — compare to `dev/logs/runs/2026-06-09-librarian-live-suite-summary.json`, one scenario per turn, start #1.
+> Rerun librarian live suite per `dev/scenarios/librarian/RERUN-LIVE-SUITE.md` — compare to `dev/logs/runs/2026-06-09-librarian-live-suite-summary.json`. Ask interactive vs sequential, start #1.
