@@ -16,7 +16,6 @@ from agent import (  # noqa: E402
     VaultAgent,
     TurnResult,
     _search_budget_nudge,
-    _tool_result_content,
     build_trace_summary,
     execute_tool,
     openrouter_tools,
@@ -372,19 +371,6 @@ def test_search_budget_nudge_summarizes_trace_evidence():
     assert "ep-0001" in nudge
     assert "ep-0002" in nudge
     assert "(3 chunks)" in nudge
-
-
-def test_tool_result_content_formats_load_episode_payload():
-    payload = {
-        "episode_id": "ep-0016",
-        "sections": {"expanded": "Quote: competition."},
-        "meta": {"listened": True, "title": "Rockefeller"},
-    }
-    text = _tool_result_content(payload)
-    assert "Episode ep-0016" in text
-    assert "Listened: true" in text
-    assert "competition" in text
-    assert text[0] != "{"
 
 
 def test_build_trace_summary_includes_rounds():

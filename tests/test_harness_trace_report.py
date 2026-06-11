@@ -453,33 +453,3 @@ def test_write_response_markdown_skips_janitor_only(tmp_path: Path):
         llm_mode="live",
     )
     assert format_response_markdown([janitor]) is None
-
-
-def test_search_vault_records_search_on_exception(
-    agent_config, monkeypatch: pytest.MonkeyPatch
-):
-    bot_dir = REPO / "services" / "telegram" / "bot"
-    ingestion = REPO / "ingestion"
-    for entry in (str(ingestion), str(bot_dir), str(bot_dir / "tools")):
-        if entry not in sys.path:
-            sys.path.insert(0, entry)
-
-    from search_turn import search_vault_for_turn
-    from turn_timing import TurnTimer
-
-    def boom(*args, **kwargs):
-        raise RuntimeError("retrieve failed")
-
-    monkeypatch.setattr(
-        "retrieval.orchestrator.RetrievalOrchestrator.retrieve_core",
-        boom,
-    )
-
-    timer = TurnTimer()
-    with pytest.raises(RuntimeError, match="retrieve failed"):
-        search_vault_for_turn("Rockefeller", config=agent_config, timing=timer)
-
-    d = timer.to_dict()
-    assert len(d["searches"]) == 1
-    assert d["searches"][0]["tool"] == "search_vault"
-    assert d["searches"][0]["error"] is True

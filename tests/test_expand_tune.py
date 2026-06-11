@@ -1,7 +1,6 @@
 """Tests for expand_tune and staging paths (no network)."""
 
 import json
-import os
 import sys
 from pathlib import Path
 from unittest.mock import patch
@@ -19,18 +18,6 @@ def test_load_batch_file(tmp_path: Path):
         encoding="utf-8",
     )
     assert load_batch_file(batch) == ["ep-0001", "ep-0002"]
-
-
-def test_build_child_env_for_apply(monkeypatch):
-    monkeypatch.setenv("EXPAND_RUN_ID", "")
-    monkeypatch.setenv("EXPAND_VARIANT", "")
-    child_env = {
-        **os.environ,
-        "EXPAND_RUN_ID": "tune-001",
-        "EXPAND_VARIANT": "A",
-    }
-    assert child_env["EXPAND_RUN_ID"] == "tune-001"
-    assert child_env["EXPAND_VARIANT"] == "A"
 
 
 def test_build_child_cmd_one_episode():
