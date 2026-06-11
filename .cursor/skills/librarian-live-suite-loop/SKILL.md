@@ -31,7 +31,6 @@ Record the chosen mode in your first reply. If the user already specified a mode
 - Prefer the canonical suite command (alphabetical order matches the queue table):
 
 ```bash
-cd /Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes
 ingestion/.venv/bin/python dev/mock_telegram_cli.py \
   --suite librarian --live-only -v
 ```
@@ -41,12 +40,13 @@ ingestion/.venv/bin/python dev/mock_telegram_cli.py \
 
 ## Before the first scenario
 
+All commands below run from the **repo root** (same pattern as [`docs/operations.md`](../../../docs/operations.md)).
+
 1. Read `dev/scenarios/librarian/RERUN-LIVE-SUITE.md` and the baseline JSON it references.
 2. Check `~/.config/founders-telegram/runtime.json` — note `retrieval_model` and `librarian_model` (baseline: `deepseek/deepseek-v4-flash` / `deepseek/deepseek-v4-pro`).
 3. Preflight if keys/vault are uncertain:
 
 ```bash
-cd /Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes
 ingestion/.venv/bin/python dev/mock_telegram_cli.py --preflight
 ```
 
@@ -58,7 +58,6 @@ ingestion/.venv/bin/python dev/mock_telegram_cli.py --preflight
 **Single scenario:**
 
 ```bash
-cd /Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes
 ingestion/.venv/bin/python dev/mock_telegram_cli.py \
   --scenario dev/scenarios/librarian/<FILE>.yaml -v
 ```

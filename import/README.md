@@ -16,7 +16,7 @@ Personal exports and X cache are not committed (see `.gitignore`).
 `catalog/gaps.md` low counts are **expected** while you work through the catalog (~1 episode/day):
 
 - **Notes without datapoints** — not listened yet.
-- **Missing posts** — not posted on X yet (today the list starts around **ep-0190** because ~187 posts exist through ~ep-0188).
+- **Missing posts** — not posted on X yet. See [`catalog/gaps.md`](../catalog/gaps.md) for the live list.
 
 Do not bulk-fix these lists. Only **blocking** gaps are transcript/layout (`verify.py` exit 1).
 
@@ -31,16 +31,16 @@ python x/x_posts_attribute.py
 python pipeline/verify.py
 ```
 
-- **Organize** auto-maps tweets with explicit Founders `#N` / `ep. N` (high confidence).
-- **Native X articles** (`post_kind: article`) are **skipped** by organize — not written to `content/posts/`. Legacy bodies use manual assign below.
+- **Attribute** auto-maps tweets with explicit Founders `#N` / `ep. N` (high confidence).
+- **Native X articles** (`post_kind: article`) are **skipped** by attribute — not written to `content/posts/`. Legacy bodies use manual assign below.
 - **Low-confidence** rows land in `catalog/post-mapping-review.jsonl` or `content/posts/_other/` — fix with `assign_post_manual.py` or edit attribution in the review file.
 
-`organize_posts_from_csv.py` **rewrites** `post-mapping-review.jsonl` each run. Record manual resolutions in [`catalog/import-review.md`](../catalog/import-review.md).
+`x_posts_attribute.py` **rewrites** `post-mapping-review.jsonl` each run. Record manual resolutions in [`catalog/import-review.md`](../catalog/import-review.md).
 
 ## One-time / rare
 
 ```bash
-# Grow CSV history (optional; not needed to “close” ep-0190+ gaps)
+# Grow CSV history (optional backfill)
 python x/x_posts_sync.py --backfill
 ```
 

@@ -1,6 +1,12 @@
 # Retrieval strategy
 
-## v0 — Cursor + ripgrep (now)
+## Design rationale
+
+The Telegram **Librarian** is a study partner over your vault—not a ranked excerpt dump. **v4** gives the model cold-start retrieval: it drives search via tools (`search_vault`, `search_vault_many`, `search_transcript`, `load_episode`, `list_episode_ids`) with no mandatory pre-pass. Retrieval **internals** (expand → hybrid search → rerank) live in v3 and are invoked per tool call.
+
+Historical motivation for moving off pre-scripted RAG: [`.cursor/plans/archive/legacy/AGENTIC-VISION-BRIEF.md`](../.cursor/plans/archive/legacy/AGENTIC-VISION-BRIEF.md).
+
+## v0 — Cursor + ripgrep (local workflow)
 
 - `@` mention episode folders
 - `rg` over `content/`

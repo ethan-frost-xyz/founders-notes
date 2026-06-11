@@ -156,4 +156,4 @@ python dev/mock_telegram_cli.py --stub-llm --run-scenarios
 
 ## Gaps (no dedicated tests yet)
 
-`cli_args`, `expanded_timestamp_lint`, `x_posts_csv`, and most network CLIs (`fetch_transcripts`, `sync_x_cache`) rely on `verify.py` and manual checks.
+`cli_args`, `expanded_timestamp_lint`, `x_posts_csv`, and most network CLIs (`fetch_transcripts`, `x_posts_sync`) rely on `verify.py` and manual checks.

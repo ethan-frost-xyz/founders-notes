@@ -1,6 +1,6 @@
 # Telegram vault agent
 
-Short overview for coding agents. **v0 (SP1–SP4)** shipped on `main` (PR #3). Deferred work: [`potential-ideas.md`](../potential-ideas.md). Historical plans: [`.cursor/plans/archive/legacy/`](../.cursor/plans/archive/legacy/) (deep archive; see [archive README](../.cursor/plans/archive/README.md)).
+Short overview for coding agents. **v0 (SP1–SP5)** shipped on `main` (PR #3). Deferred work: [`potential-ideas.md`](../potential-ideas.md). Historical plans: [`.cursor/plans/archive/legacy/`](../.cursor/plans/archive/legacy/) (deep archive; see [archive README](../.cursor/plans/archive/README.md)).
 
 Product is **v4: agentic retrieval loop** — the librarian model drives search via tools (cold start, no pre-retrieval). Retrieval **internals** remain in `services/telegram/lib/retrieval/orchestrator.py` (`retrieve_core`).
 
@@ -100,7 +100,7 @@ After expanded promote on the Mac mini (or any host running the bot), run the sa
 
 | Area | Status | Reference |
 |------|--------|-----------|
-| v0 SP1–SP4 | Shipped (PR #3) | This doc + codebase |
+| v0 SP1–SP5 | Shipped (PR #3) | This doc + codebase |
 | Janitor | Shipped | [janitor.md](janitor.md) |
 | Harness / tool UX | Shipped | [telegram-mock-harness.md](telegram-mock-harness.md) |
 | Librarian quality | Shipped | `load_episode` **candidates**; synthesis **streaming** (default off) |

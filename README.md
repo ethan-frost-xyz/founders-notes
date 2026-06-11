@@ -2,17 +2,17 @@
 
 Personal knowledge vault for [@ethanfrost](https://x.com/ethanfrost)'s daily Founders podcast ritual — transcripts, study notes, and X posts in one queryable archive.
 
-## Status (2026-05-29)
+## Status
 
 | Layer | Coverage | Notes |
 |-------|----------|--------|
-| **Transcripts** | 417 / 417 numbered | Phase 1 complete — Colossus archives in `content/transcripts/` |
-| **Notes** | 417 files / 177 datapoints | **In progress (daily):** edit `.notes.md` in git (~1 episode/day); empty scaffolds = not listened yet |
-| **X posts** | 187 / 417 | CSV cache + organizer; 2 documented gaps (ep-0159 skipped, ep-0189 not posted) |
-| **Search** | v1 CLI + v2 Telegram | [`catalog/chunks.jsonl`](catalog/chunks.jsonl); keyword CLI + parent-tier hybrid in Librarian — [`docs/retrieval.md`](docs/retrieval.md) |
+| **Transcripts** | See [`catalog/gaps.md`](catalog/gaps.md) | Phase 1 complete — Colossus archives in `content/transcripts/` |
+| **Notes** | See [`catalog/gaps.md`](catalog/gaps.md) | **In progress (daily):** edit `.notes.md` in git (~1 episode/day); empty scaffolds = not listened yet |
+| **X posts** | See [`catalog/gaps.md`](catalog/gaps.md) | CSV cache + attribute pipeline; manual gaps in [`catalog/import-review.md`](catalog/import-review.md) |
+| **Search** | CLI keyword search + agentic Telegram Librarian | [`catalog/chunks.jsonl`](catalog/chunks.jsonl) — [`docs/retrieval.md`](docs/retrieval.md) |
 | **Telegram** | Shipped | Librarian + Janitor on Mac mini; push-to-`main` webhook sync — see below |
 
-Details: `catalog/gaps.md` (auto), `catalog/import-review.md` (manual attributions).
+Live counts: [`catalog/gaps.md`](catalog/gaps.md) (auto). Manual attributions: [`catalog/import-review.md`](catalog/import-review.md).
 
 ## Telegram vault agent (Mac mini)
 
@@ -46,16 +46,16 @@ Expanded corpus quality: promote `.expanded.md`, then reindex — see [`docs/exp
 - **Notes:** `content/notes/{folder}/{folder}.notes.md` — timestamp bullets under `## Raw datapoints`, edited directly in the repo (see [docs/notes-pipeline.md](docs/notes-pipeline.md)). Coverage grows daily (~1 episode).
 - **Posts:** `content/posts/{folder}/{folder}.post.md` — one Founders post per episode (threads + articles)
 - **Corpus:** `content/posts/_corpus/all-posts.md` — all Founders posts for cross-episode search
-- **X pipeline:** sync API → `import/x-posts-raw.csv` (gitignored) → organize (no API on organize)
+- **X pipeline:** sync API → `import/x-posts-raw.csv` (gitignored) → attribute (no API on attribute)
 
 ```bash
 cd ingestion
 source .venv/bin/activate
 
-# X: cache first, then organize (requires .env)
-python x/sync_x_cache.py --full    # one-time backfill
-python x/sync_x_cache.py           # incremental
-python x/organize_posts_from_csv.py
+# X: cache first, then attribute (requires .env)
+python x/x_posts_sync.py --full      # one-time backfill
+python x/x_posts_sync.py             # incremental
+python x/x_posts_attribute.py        # map cache → .post.md
 
 # Manual episode post (article text, wrong ep # on X, recap threads)
 python x/assign_post_manual.py --episode 148 --x-post-id ID --published-at 2026-03-17 \
@@ -112,8 +112,8 @@ python pipeline/sync_new.py --repair-urls --apply
 python notes/scaffold_notes.py --missing
 
 # Phase 2 — notes and posts (notes: edit .notes.md directly; see docs/notes-pipeline.md)
-python x/sync_x_cache.py --full
-python x/organize_posts_from_csv.py
+python x/x_posts_sync.py --full
+python x/x_posts_attribute.py
 python search/build_chunks.py
 python pipeline/verify.py
 ```
@@ -128,44 +128,38 @@ Phase 2 progress is in `catalog/gaps.md` (notes files vs datapoints, posts). **L
 
 ---
 
-## What to build next
+## Current priorities
 
-Three high-leverage options, ordered by impact on the daily ritual:
+Daily ritual work, ordered by impact:
 
-### 1. Janitor daily ritual (Telegram)
+### 1. Notes catch-up
 
-**Primary workflow on phone:** `/janitor` in the Telegram bot — paste episode + bullets → LLM clean → approve → file → expand → promote → reindex. See [`docs/janitor.md`](docs/janitor.md) and [`services/telegram/README.md`](services/telegram/README.md).
-
-**Also (desktop):** vault-native notes in git — [docs/notes-pipeline.md](docs/notes-pipeline.md) (Working Copy, Cursor).
-
-**Done when:** Each listened episode flows through Janitor (or direct `.notes.md` edit) with promoted `.expanded.md` and a fresh index on the Mac mini.
-
-### 2. Notes catch-up (episodes 0190–0417, in progress)
-
-177 episodes have datapoints (see `catalog/gaps.md`). Ep 0190–0417 have **empty scaffolds** (`python notes/scaffold_notes.py`); add timestamp bullets as you finish each episode (~1/day).
+Add timestamp bullets as you finish each episode (~1/day) via `/janitor` on Telegram or direct `.notes.md` edit in git. See [`docs/janitor.md`](docs/janitor.md), [`docs/notes-pipeline.md`](docs/notes-pipeline.md).
 
 ```bash
 python notes/scaffold_notes.py --next   # path to next file to edit
-python pipeline/verify.py                  # notes files vs notes with datapoints
+python pipeline/verify.py
 python search/build_chunks.py            # after adding bullets
 ```
 
-**Also:** Replace ep-0021 `XYZ` placeholder when that note exists.
+**Done when:** `notes with datapoints` in [`catalog/gaps.md`](catalog/gaps.md) tracks how far you have listened—not all 417 overnight.
 
-**Done when:** `notes with datapoints` in `catalog/gaps.md` tracks how far you have listened—not all 417 overnight.
+### 2. Incremental X posts
 
-### 3. X posts (recurring, not bulk backfill)
-
-~187 posts match episodes published on X through ~ep-0188. **Missing posts from ep-0190 onward are expected**—those episodes are not posted yet. Native X articles are skipped by `organize_posts_from_csv.py`; use `assign_post_manual.py --body-file` for legacy article bodies (ep-0082, ep-0088, ep-0148).
-
-**After each X post:**
+After each new post on X, sync and attribute. See [`ingestion/x/README.md`](ingestion/x/README.md).
 
 ```bash
-python x/sync_x_cache.py
-python x/organize_posts_from_csv.py
+python x/x_posts_sync.py
+python x/x_posts_attribute.py
 # ambiguous rows → catalog/post-mapping-review.jsonl; fix manually or assign_post_manual.py
 ```
 
-**Done when:** Each new episode you publish gets a `.post.md` via organize (`#N` in tweet) or manual assign—not when all 417 rows are filled.
+Native X articles are skipped by attribute; use `assign_post_manual.py --body-file` for legacy article bodies (ep-0082, ep-0088, ep-0148).
 
-**Expansion (bulk backfill):** For episodes with bullets but no `.expanded.md`, use [`docs/expanded-backfill.md`](docs/expanded-backfill.md) or Janitor expand/promote. Shipped: `expand_datapoints_llm.py`, `maintain.py`, chunk index includes expanded sections after promote.
+**Done when:** Each new episode you publish gets a `.post.md` via attribute (`#N` in tweet) or manual assign—not when all 417 rows are filled.
+
+### 3. Expanded backfill
+
+For episodes with bullets but no `.expanded.md`, use [`docs/expanded-backfill.md`](docs/expanded-backfill.md) or Janitor expand/promote.
+
+Engineering backlog: [`potential-ideas.md`](potential-ideas.md).

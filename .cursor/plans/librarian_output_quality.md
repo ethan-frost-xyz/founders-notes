@@ -7,8 +7,7 @@ related:
   - AGENTS.md
   - docs/telegram-vault-agent.md
   - dev/scenarios/librarian/RERUN-LIVE-SUITE.md
-  - AGENTIC-VISION-BRIEF.md
-  - .cursor/plans/librarian_lift_b.plan.md
+  - .cursor/plans/archive/legacy/librarian_lift_b.plan.md
   - .cursor/plans/archive/legacy/librarian_lift_2.plan.md
 isProject: true
 ---
@@ -27,11 +26,9 @@ isProject: true
 
 Librarian quality is steered by **[`AGENTS.md`](../../AGENTS.md)** (synthesis persona), **how tool results are formatted** before the model sees them, and a thin **output sanitizer** on the way out.
 
-**Lift B (shipped, CI verified):** Cursor ops stripped from Telegram prompt; DSML/reasoning sanitization; `search_vault_many` light expansion; aligned excerpt caps.
+**Shipped (lift B + lift 2, CI verified):** Prompt hygiene, reply sanitization, harness asserts, `evidence_format.py`, `search_vault_many` light expansion. Specs: [`archive/legacy/librarian_lift_b.plan.md`](archive/legacy/librarian_lift_b.plan.md), [`archive/legacy/librarian_lift_2.plan.md`](archive/legacy/librarian_lift_2.plan.md).
 
-**Lift 2 (shipped, CI verified):** Harness `tool_called_any` + `response_contains_episode_citation`; `not_contains_all` leak guards; AGENTS.md playbook; cap nudge with trace summary; `evidence_format.py` / `format_load_episode_for_tool()`.
-
-**Remaining gaps (lift 3+):**
+**Open work (lift 3+):**
 
 1. **`structured_embed_text` in vault evidence blocks** (lift 2F deferred)
 2. **Live re-baseline** — confirm #4, #7, #11 on Mac mini after lift 2
@@ -49,8 +46,8 @@ Librarian quality is steered by **[`AGENTS.md`](../../AGENTS.md)** (synthesis pe
 | Prompt load | [`librarian_prompt.py`](../../services/telegram/bot/librarian_prompt.py) | Strips `## Cursor Cloud` from `AGENTS.md` + appends `index_metadata` JSON |
 | Reply sanitize | [`reply_sanitize.py`](../../services/telegram/bot/reply_sanitize.py) | `sanitize_librarian_reply()` in `agent._finish()` |
 | Legacy pointer | [`vault_agent.md`](../../services/telegram/prompts/vault_agent.md) | Redirect only |
-| Vault evidence | [`retrieval_orchestrator.py`](../../ingestion/lib/retrieval_orchestrator.py) `format_evidence_for_tool()` | Markdown blocks for `search_vault` / `search_vault_many` |
-| Transcript evidence | [`retrieval.py`](../../services/telegram/bot/retrieval.py) | Inline `#### Hit N` formatting |
+| Vault evidence | [`evidence_format.py`](../../services/telegram/lib/evidence_format.py) `format_evidence_for_tool()` | Markdown blocks for `search_vault` / `search_vault_many` |
+| Transcript evidence | [`search_turn.py`](../../services/telegram/bot/search_turn.py) | Inline `#### Hit N` formatting via tool adapters |
 | Episode load | [`vault.py`](../../services/telegram/bot/tools/vault.py) `load_episode()` | On-disk sections; formatted by `evidence_format.py` |
 | Tool → model | [`agent.py`](../../services/telegram/bot/agent.py) `_tool_result_content()` | Prefers `evidence` string; `format_load_episode_for_tool()` for loads |
 | Runtime nudges | `agent.py` | `SEARCH_BUDGET_NUDGE` + trace summary on cap; `EMPTY_SYNTHESIS` |
@@ -94,38 +91,9 @@ Re-run: `ingestion/.venv/bin/python dev/mock_telegram_cli.py --scenario dev/scen
 
 ---
 
-## Lift 2 — shipped (detail)
+## Lift 2 — shipped
 
-Archived spec: [`archive/legacy/librarian_lift_2.plan.md`](archive/legacy/librarian_lift_2.plan.md).
-
-### Scope summary
-
-| Slice | Work | Laptop? | Addresses |
-|-------|------|---------|-----------|
-| **A** | Harness: `tool_called_any`, `response_contains_episode_citation` | ✅ shipped | Red flag #8, easy win #7 |
-| **B** | Harness: `not_contains_all` leak list | ✅ shipped | Testing gap 2 |
-| **C** | `AGENTS.md` search-stop / verbatim / comparison playbook | ✅ shipped | Red flag #6, easy win #6 |
-| **D** | Enrich `SEARCH_BUDGET_NUDGE` with evidence summary | ✅ shipped | Red flag #7 |
-| **E** | `evidence_format.py` + `format_load_episode_for_tool()` | ✅ shipped | Red flag #3, easy win #3 |
-| **F** | `structured_embed_text` in vault formatter | deferred lift 3 | Medium #9, easy win #8 |
-
-### Recommended order (laptop)
-
-1. Living doc before → **A + B** (harness) → **C + D** (prompt + nudge) → **E** (evidence) → optional **F** → CI → living doc after
-2. Mac mini when available: live suite + update baseline in this doc
-
-### Out of scope for lift 2
-
-`librarian_temperature`, stream-preview sanitization, multi-turn evidence history, mandatory pre-retrieval, JSON-schema replies, split expand/rerank models.
-
-### Grill-me decisions (resolved 2026-06-10)
-
-- Harness-first (A+B → C+D → E)
-- Citation assert on baseline-failure trio only (`multi_hop`, `multi_founder_comparison`, `thematic_cross_episode`)
-- Cap nudge: trace-only episode ids + chunk count
-- Slice F deferred to lift 3
-- Leak guards: `verbatim_transcript` only via `not_contains_all`
-- Harness key: `response_contains_episode_citation: true`
+Full spec: [`archive/legacy/librarian_lift_2.plan.md`](archive/legacy/librarian_lift_2.plan.md). Slice F (`structured_embed_text` in vault formatter) deferred to lift 3.
 
 ---
 
@@ -145,7 +113,7 @@ Archived spec: [`archive/legacy/librarian_lift_2.plan.md`](archive/legacy/librar
 
 ### 3. `load_episode` is a different species from search evidence — ✅ lift 2
 
-**Shipped:** [`evidence_format.py`](../../services/telegram/bot/evidence_format.py) `format_load_episode_for_tool()` — frontmatter stripped, search-aligned markdown, `meta.listened` prominent; wired in `_tool_result_content()`.
+**Shipped:** [`evidence_format.py`](../../services/telegram/lib/evidence_format.py) `format_load_episode_for_tool()` — frontmatter stripped, search-aligned markdown, `meta.listened` prominent; wired in `_tool_result_content()`.
 
 ---
 
@@ -189,7 +157,6 @@ Archived spec: [`archive/legacy/librarian_lift_2.plan.md`](archive/legacy/librar
 | 12 | Streaming shows raw markdown during generation | Sanitize stream or document preview-only | 3+ | P3 |
 | 13 | `_meta: {...}` echoed by model | Clearer delimiter | 3+ | P3 |
 | 14 | Multi-turn history loses evidence | Optional evidence summary | defer | P3 |
-| 15 | `AGENTIC-VISION-BRIEF.md` stale sections | Doc cleanup | 3+ | P3 |
 
 ---
 
@@ -225,10 +192,10 @@ Archived spec: [`archive/legacy/librarian_lift_2.plan.md`](archive/legacy/librar
 ## Suggested module layout
 
 ```
-services/telegram/bot/
-  librarian_prompt.py      # ✅ lift B
-  reply_sanitize.py          # ✅ lift B
-  evidence_format.py         # ✅ lift 2E — format_load_episode; future transcript unify
+services/telegram/
+  bot/librarian_prompt.py    # ✅ lift B
+  bot/reply_sanitize.py      # ✅ lift B
+  lib/evidence_format.py     # ✅ lift 2E — format_load_episode; future transcript unify
 ```
 
 Keep [`AGENTS.md`](../../AGENTS.md) as human-edited persona; code handles environment-specific assembly.
@@ -265,7 +232,7 @@ Keep [`AGENTS.md`](../../AGENTS.md) as human-edited persona; code handles enviro
 
 | Plan | File | Scope | Status |
 |------|------|-------|--------|
-| Lift B | [librarian_lift_b.plan.md](librarian_lift_b.plan.md) | Prompt strip, sanitize, `EXPAND_VARIANTS_LIGHT`, excerpt cap | **shipped** 2026-06-10 (CI ✅; live re-baseline pending mini) |
+| Lift B | [archive/legacy/librarian_lift_b.plan.md](archive/legacy/librarian_lift_b.plan.md) | Prompt strip, sanitize, `EXPAND_VARIANTS_LIGHT`, excerpt cap | **shipped** 2026-06-10 (CI ✅; live re-baseline pending mini) |
 | Lift 2 | [archive/legacy/librarian_lift_2.plan.md](archive/legacy/librarian_lift_2.plan.md) | Harness asserts, playbook, `load_episode` format | **shipped** 2026-06-10 (CI ✅; live re-baseline pending mini) |
 
 ### Child plan history

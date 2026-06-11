@@ -90,7 +90,7 @@ python notes/expand_datapoints_llm.py --missing-expanded --apply --subprocess --
 # After review
 python notes/expand_datapoints_llm.py --promote --all-ready --apply
 python search/build_chunks.py
-# On Mac mini running the vault agent (when implemented):
+# On Mac mini running the vault agent:
 #   ./services/telegram/deploy/sync-and-index.sh
 
 # Monitor spend
@@ -101,27 +101,7 @@ Single episode: `--id ep-0200` instead of `--missing-expanded`.
 
 ---
 
-## Bulk draft run (in progress)
-
-While a large **draft-only** run is executing:
-
-### Safe
-
-- Read `catalog/expand-run.jsonl` and menu **10** summaries.
-- Spot-check finished drafts (do not promote until the batch you care about is done).
-- Doc/plan work, tests, Telegram vault agent planning (no writes under `content/notes/` for in-flight episodes).
-- Fix bullets in `.notes.md` for episodes **not** currently expanding.
-
-### Avoid
-
-| Action | Why |
-|--------|-----|
-| `--promote` on in-flight episodes | Draft may be incomplete |
-| `build_chunks.py` expecting expanded search | Drafts are not chunked |
-| `--force` re-expand same id in parallel | Overwrites draft mid-write |
-| Editing `expand_datapoints.md` mid-batch | Workers already started may use old prompt |
-
-### Parallel workers (manual)
+## Parallel expand workers
 
 The console and `--subprocess` batch modes are **sequential**. For ~N concurrent episodes, run N separate processes with distinct `--id` and `--no-stream`:
 
