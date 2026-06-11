@@ -17,5 +17,6 @@ When you finish a new plan in [`.cursor/plans/`](../), move it to `legacy/` and 
 | Mock harness | `legacy/telegram_mock_harness_2296d9fc.plan.md` |
 | Janitor architecture | `legacy/vault_janitor_agent.plan.md` |
 | v0 SP1–SP4 (PR #3) | `legacy/telegram_vault_sp1_tools.plan.md` … `sp4_ops.plan.md` |
+| v4 agentic loop (post-SP4) | Shipped on `main`; see [`docs/telegram-vault-agent.md`](../../../docs/telegram-vault-agent.md) — docs may label this **SP5** |
 
 New implementation work starts in `.cursor/plans/*.plan.md` until shipped.

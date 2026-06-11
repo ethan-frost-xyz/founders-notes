@@ -18,7 +18,7 @@ See also [`docs/episode-id-rules.md`](../docs/episode-id-rules.md), [`docs/inges
 | [`pipeline/`](pipeline/README.md) | Catalog build, Colossus URL map, gaps verify |
 | [`transcripts/`](transcripts/README.md) | Fetch transcripts from Colossus |
 | [`notes/`](notes/README.md) | Note scaffolds and datapoint expansion |
-| [`x/`](x/README.md) | X cache sync and post organization |
+| [`x/`](x/README.md) | X cache sync and post attribution |
 | [`search/`](search/README.md) | Chunk index and search |
 | [`maintain.py`](maintain.py) | Interactive console for notes, expansion, promote, index rebuild, tune |
 | [`lib/`](lib/README.md) | Shared Python modules (no CLI) |

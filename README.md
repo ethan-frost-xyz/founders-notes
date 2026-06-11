@@ -53,7 +53,7 @@ cd ingestion
 source .venv/bin/activate
 
 # X: cache first, then attribute (requires .env)
-python x/x_posts_sync.py --full      # one-time backfill
+python x/x_posts_sync.py --backfill  # one-time backfill
 python x/x_posts_sync.py             # incremental
 python x/x_posts_attribute.py        # map cache → .post.md
 
@@ -112,7 +112,7 @@ python pipeline/sync_new.py --repair-urls --apply
 python notes/scaffold_notes.py --missing
 
 # Phase 2 — notes and posts (notes: edit .notes.md directly; see docs/notes-pipeline.md)
-python x/x_posts_sync.py --full
+python x/x_posts_sync.py --backfill
 python x/x_posts_attribute.py
 python search/build_chunks.py
 python pipeline/verify.py
