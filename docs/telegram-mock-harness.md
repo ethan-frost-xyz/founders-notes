@@ -215,7 +215,19 @@ On failure, read the latest `dev/logs/runs/*-report.json`. For live librarian qu
 
 Written on every scenario run (not gated on `-v`). **`schema_version`: `"2.0"`** — legacy top-level turn fields retained for one release.
 
-**Suite level:** `schema_version`, `harness_version` (git sha), `suite` (`librarian` / `janitor` / null), `passed`, `generated_at`, `scenario_count`, `aggregate` (when timing on), `scenarios[]`.
+**Suite level:** `schema_version`, `harness_version` (git sha), `suite` (`librarian` / `janitor` / null), `passed`, `generated_at`, `scenario_count`, `aggregate` (when timing on), `run_context` (provenance), `scenarios[]`.
+
+**Run context (`run_context`) — optional provenance block:**
+
+| Field | Purpose |
+|-------|---------|
+| `run_note` | Human tag from `--run-note` or `HARNESS_RUN_NOTE` |
+| `git_sha`, `git_branch`, `git_dirty` | Repo state at run time |
+| `librarian_model`, `retrieval_model`, `embed_model` | Models from `runtime.json` / env |
+| `runtime_path` | Path to `runtime.json` |
+| `scenario_yaml` | Basename when one scenario; `scenario_yamls[]` when many |
+
+Tag a run: `--run-note "librarian-live/2026-06-11 #1 basic_qa main@b53a43b"`. Multi-scenario `--suite` runs print per-scenario PASS/FAIL to stdout when `-v` is set.
 
 **Aggregate (`aggregate`):** `pass_count`, `scenario_count`, `cap_hits`, `mean_wall_s`, `mean_final_ttft_ms`, `mean_thrash_score`, plus legacy timing rollups when present.
 
@@ -263,7 +275,7 @@ Appended automatically when running scenarios under `dev/scenarios/librarian/`.
 |-------|---------|
 | `schema_version` | `"1.0"` |
 | `baseline_run_id` | First run id unless overridden |
-| `runs[]` | `run_id`, `report_path`, `markdown_path`, `harness_version`, `pass_count`, `total_wall_s`, `cap_hits`, `delta_vs_baseline`, `observability_aggregate` |
+| `runs[]` | `run_id`, `report_path`, `markdown_path`, `harness_version`, `pass_count`, `total_wall_s`, `cap_hits`, `run_note`, `scenario_yaml`, `run_context`, `delta_vs_baseline`, `observability_aggregate` |
 
 Set `baseline_run_id` manually in the history file to pin a comparison target for `delta_vs_baseline` (`pass_count_delta`, `wall_pct`, `cap_hits_delta`).
 

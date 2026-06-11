@@ -61,10 +61,11 @@ cd /Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders
 ingestion/.venv/bin/python dev/mock_telegram_cli.py \
   --suite librarian --live-only -v
 
-**Interactive (one at a time):**
+**Interactive (one at a time) — always tag with `--run-note`:**
 cd /Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes
 ingestion/.venv/bin/python dev/mock_telegram_cli.py \
-  --scenario dev/scenarios/librarian/<FILE>.yaml -v
+  --scenario dev/scenarios/librarian/<FILE>.yaml -v \
+  --run-note "librarian-live/YYYY-MM-DD #N <stem> <branch>@<sha>"
 
 ## Queue (11)
 

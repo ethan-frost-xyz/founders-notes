@@ -60,12 +60,20 @@ def test_append_librarian_run_writes_history(tmp_path: Path):
     scenario_paths = [tmp_path / "dev/scenarios/librarian/thematic_search.yaml"]
     scenario_paths[0].parent.mkdir(parents=True)
 
+    run_context = {
+        "run_note": "librarian-live #8 thematic_search",
+        "scenario_yaml": "thematic_search.yaml",
+        "git_sha": "abc1234",
+        "git_branch": "main",
+        "git_dirty": False,
+    }
     history_path = append_librarian_run(
         report_paths=HarnessReportPaths(json=report_json, markdown=None),
         results=results,
         runs_dir=runs_dir,
         repo_root=tmp_path,
         scenario_paths=scenario_paths,
+        run_context=run_context,
     )
     assert history_path is not None
     history = json.loads(history_path.read_text(encoding="utf-8"))
@@ -74,3 +82,6 @@ def test_append_librarian_run_writes_history(tmp_path: Path):
     latest = history["runs"][-1]
     assert latest["run_id"] == "2026-06-11T12-00-00"
     assert latest["delta_vs_baseline"]["pass_count_delta"] == 0
+    assert latest["run_note"] == "librarian-live #8 thematic_search"
+    assert latest["scenario_yaml"] == "thematic_search.yaml"
+    assert latest["run_context"]["git_sha"] == "abc1234"

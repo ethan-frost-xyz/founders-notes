@@ -489,10 +489,16 @@ class ScenarioRunner:
             llm_mode=llm_mode,
         )
 
-    async def run_paths(self, paths: list[Path]) -> list[ScenarioResult]:
+    async def run_paths(self, paths: list[Path], *, verbose: bool = False) -> list[ScenarioResult]:
         results: list[ScenarioResult] = []
-        for path in sorted(paths):
-            results.append(await self.run(path))
+        ordered = sorted(paths)
+        total = len(ordered)
+        for index, path in enumerate(ordered, start=1):
+            result = await self.run(path)
+            results.append(result)
+            if verbose and total > 1:
+                print(f"\n--- scenario {index}/{total}: {path.name} ---", flush=True)
+                print(result.summary(verbose=verbose), flush=True)
         return results
 
     def _turn_report_dict(self, turn: TurnResult) -> dict[str, Any]:
@@ -526,6 +532,7 @@ class ScenarioRunner:
         report_dir: Path,
         *,
         repo_root: Path | None = None,
+        run_context: dict[str, Any] | None = None,
     ) -> HarnessReportPaths:
         report_dir.mkdir(parents=True, exist_ok=True)
         stamp = time.strftime("%Y-%m-%dT%H-%M-%S")
@@ -553,6 +560,8 @@ class ScenarioRunner:
         }
         if aggregate:
             payload["aggregate"] = aggregate
+        if run_context:
+            payload["run_context"] = run_context
         json_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
         md_path = write_response_markdown(results, report_dir, stamp=stamp)
         return HarnessReportPaths(json=json_path, markdown=md_path)

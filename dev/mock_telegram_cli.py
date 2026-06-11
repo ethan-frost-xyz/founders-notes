@@ -30,6 +30,7 @@ from harness.scenario_runner import (  # noqa: E402
     format_timing_aggregate,
     paths_need_live_llm,
 )
+from harness.report_meta import build_run_context  # noqa: E402
 from harness.suite_history import append_librarian_run  # noqa: E402
 from harness.terminal import run_repl  # noqa: E402
 
@@ -83,6 +84,10 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Print live env + index checks and exit (use before --suite librarian --live-only)",
     )
+    parser.add_argument(
+        "--run-note",
+        help="Tag this run in report JSON and librarian-suite-history (also HARNESS_RUN_NOTE env)",
+    )
     return parser
 
 
@@ -111,27 +116,37 @@ async def _run_scenarios(args: argparse.Namespace) -> int:
         if args.verbose:
             print(format_preflight_report(meta), file=sys.stderr)
 
+    run_context = build_run_context(REPO_ROOT, paths, run_note=args.run_note)
+
     runner = ScenarioRunner(
         log_dir=DEFAULT_LOG_DIR,
         stub_llm=args.stub_llm,
         keep_sandbox=args.keep_sandbox,
         verbose=args.verbose,
     )
-    results = await runner.run_paths(paths)
+    results = await runner.run_paths(paths, verbose=args.verbose)
     runs_dir = DEFAULT_LOG_DIR / "runs"
-    report_paths = runner.write_report(results, runs_dir, repo_root=REPO_ROOT)
+    report_paths = runner.write_report(
+        results,
+        runs_dir,
+        repo_root=REPO_ROOT,
+        run_context=run_context,
+    )
     history_path = append_librarian_run(
         report_paths=report_paths,
         results=results,
         runs_dir=runs_dir,
         repo_root=REPO_ROOT,
         scenario_paths=paths,
+        run_context=run_context,
     )
     print(f"Report: {report_paths.json}")
     if report_paths.markdown is not None:
         print(f"Responses: {report_paths.markdown}")
     if history_path is not None:
         print(f"Suite history: {history_path}")
+    if run_context.get("run_note"):
+        print(f"Run note: {run_context['run_note']}")
     print()
     for result in results:
         print(result.summary(verbose=args.verbose))

@@ -65,3 +65,15 @@ def test_paths_need_live_llm_librarian_without_stub():
 def test_build_parser_preflight_flag():
     args = _parse(["--preflight"])
     assert args.preflight is True
+
+
+def test_build_parser_run_note_flag():
+    args = _parse(
+        [
+            "--scenario",
+            "dev/scenarios/librarian/basic_qa.yaml",
+            "--run-note",
+            "librarian-live #1 basic_qa",
+        ]
+    )
+    assert args.run_note == "librarian-live #1 basic_qa"
