@@ -1,6 +1,6 @@
 ---
 id: "ep-0090"
-episode_number: 90
+episode_number: "90"
 title: "#90 Charlie Munger (Poor Charlie's Almanack)"
 content_type: "notes"
 source: "apple_notes_import"
@@ -11,8 +11,7 @@ imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints
-
-- — Acquire worldly wisdom.
+- 02:00 — Acquire worldly wisdom.
 - 02:00 — Learning is useless unless it changes your behavior.
 - 03:00 — Reputation is persuasion
 - 12:30 — Self pitty
@@ -29,4 +28,4 @@ imported_at: "2026-05-21T19:05:42Z"
 - 1:24:00 — Machine tools, thinking tools
 - 1:26:00 — Maximization minimization checklist for extreme success
 - 1:28:00 — Learning machines
-- — Venmo boys
+- 70:00 — Venmo boys

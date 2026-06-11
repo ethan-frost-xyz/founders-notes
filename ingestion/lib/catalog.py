@@ -97,9 +97,10 @@ def new_row(
     founders_url: str,
     published_at: str | None = None,
     colossus_url: str | None = None,
+    duration_seconds: int | None = None,
 ) -> dict[str, Any]:
     episode_id = make_id(episode_number, slug)
-    return {
+    row: dict[str, Any] = {
         "id": episode_id,
         "episode_number": episode_number,
         "title": title,
@@ -112,3 +113,6 @@ def new_row(
         "last_error": None,
         "fetched_at": None,
     }
+    if duration_seconds is not None:
+        row["duration_seconds"] = duration_seconds
+    return row

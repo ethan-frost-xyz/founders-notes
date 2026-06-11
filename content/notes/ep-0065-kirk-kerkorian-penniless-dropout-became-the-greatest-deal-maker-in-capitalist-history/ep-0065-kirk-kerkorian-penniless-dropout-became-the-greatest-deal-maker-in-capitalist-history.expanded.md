@@ -6,42 +6,42 @@ content_type: "expanded"
 source: "expand_llm"
 published_at: "2019-03-31"
 founders_url: "https://www.founderspodcast.com/episodes/65-kirk-kerkorian-penniless-dropout-became-the-greatest-deal-maker-in-capitalist-history"
-created_at: "2026-05-27T12:43:39Z"
-expanded_at: "2026-05-27T12:43:39Z"
+created_at: "2026-06-11T18:04:16Z"
+expanded_at: "2026-06-11T18:04:16Z"
 expanded_model: "deepseek/deepseek-v4-pro"
-prompt_hash: "f4ffa5a3693602e1"
+prompt_hash: "6c7edea7b02a9daa"
 ---
 
 ## Expanded datapoints
 
-### 08:45 — anonymous donations are the purest form of charity
+### 08:45 — Anonymous donations are the purest form of charity
 
-Context: Kirk Kerkorian, the intensely private billionaire, believed that charity should be given without expectation of recognition. His view is expressed early in the story as he built his fortune and gave away millions in secret.
+Context: Kirk Kerkorian gave away millions in secret, believing that charity should be selfless and anonymous. He felt that seeking public recognition turned giving into a transaction.
 
-Quote: "When his donations grew into the tens of millions, he formed a charitable foundation, and it gave away more than $1 billion. **So he had a saying that -- he felt like anonymous donations -- donations made anonymously to an anonymous person was like the purest form of giving.** And he's saying, if you wanted something in return, like you wanted your name on a building or you wanted a plaque or an award or you wanted people to know, like you're publicizing what you're doing, he's like, then it's not charity." (08:45)
+Quote: "He gave away millions to charity and to people in need on the strict condition that his gifts were kept secret. **He felt like anonymous donations—donations made anonymously to an anonymous person—was like the purest form of giving.** And he's saying, if you wanted something in return, like you wanted your name on a building or you wanted a plaque or an award or you wanted people to know, like you're publicizing what you're doing, he's like, then it's not charity." (08:45)
 
-Key takeaway: Kerkorian considered public acknowledgment a transaction, not true charity. His strict anonymity led to unfair criticism until he reluctantly set up a foundation, showing how deeply held principles can clash with public perception. The lesson is that pure giving means detaching from ego and letting the act speak for itself.
+Key takeaway: Kerkorian’s philosophy reframes charity as an act free of ego or exchange. By insisting on anonymity, he preserved the purity of the gesture and avoided the dilution of goodwill that comes with public accolades. This mindset underscores that true generosity expects nothing in return—not even gratitude.
 
-### — Moving rocks for $2.60 at MGM, later owns it
+### 17:00 — Moving rocks at MGM for $2.60 later owned the entire company
 
-Context: This note captures Kerkorian’s humble beginnings and ultimate triumph. As a penniless youth, he took odd jobs, including a night moving boulders at MGM Studios for $2.60. Decades later, he owned MGM, and his investment earned $260,000 a day.
+Context: As a penniless dropout during the Great Depression, young Kirk Kerkorian took odd jobs to survive. One night he and a friend moved boulders in a water tank at MGM Studios. Three decades later he owned MGM outright, turning a single day’s labor into a fortune.
 
-Quote: "One of the odd jobs he picked up was moving boulders at MGM Studios in Culver City. So they were going to film like some kind of underwater scene, and they needed to move these giant rocks. And so the boys spent a night shifting, pushing and shoving rocks around a big tank used for filming underwater scenes. **They made $2.60 each, personal best for a single day's work.** Now I'm going to jump right to the punch line in the book."
+Quote: "And so the boys spent a night shifting, pushing and shoving rocks around a big tank used for filming underwater scenes. **They made $2.60 each, personal best for a single day's work.**" (17:00)
 
-Key takeaway: This rags-to-riches arc illustrates the extraordinary trajectory of an entrepreneur who started with nothing and later owned the same iconic company. It underscores that even the most menial work can be a stepping stone if paired with relentless ambition and a long time horizon.
+Key takeaway: The contrast between the $2.60 day-laborer and the future owner of MGM illustrates the staggering compounding of entrepreneurial vision. Humble beginnings don’t limit the destination; they often fuel a relentless drive to learn an industry from the ground up before eventually controlling it.
 
-### — Never late, handshakes as binding contracts
+### 06:00 — Never late, handshakes were binding contracts
 
-Context: Kerkorian’s character was defined by extreme punctuality and an unbending commitment to his word. The raw note “Never late, handshakes” captures two core traits: he demanded absolute timeliness and treated a handshake as a legally binding agreement.
+Context: Kirk Kerkorian’s personal code fused extreme punctuality with an ironclad belief that his word was his bond. He refused to tolerate lateness from himself or others, and he treated every handshake as a legal commitment, even when it cost him millions.
 
-Quote: "Kirk was soft-spoken and understated with a paralyzing fear of public speaking. **Kirk never defaulted on a loan and always regarded his handshake as a binding contract.** Later on in his life, he owned a majority of this company, and he puts it on the market to sell."
+Quote: "He said, 'He studied in the school of hard knocks.' It turned out to be an advanced course in survival and the value of trust, loyalty and hard work. **Kirk never defaulted on a loan and always regarded his handshake as a binding contract.** Later on in his life, he's got an entire staff working for him." (06:00)
 
-Key takeaway: Kerkorian’s refusal to renege on a handshake deal—even when offered $15 million more—demonstrates that integrity can be a harder asset than cash. His obsession with being on time further reinforced a culture of reliability. The twin lessons: honor your word unconditionally and respect others’ time as if it were your own.
+Key takeaway: Punctuality and handshake integrity are not mere formalities; they build a reputation that attracts partners, lenders, and lifelong opportunities. By putting his word above immediate financial gain, Kerkorian cultivated a trust that became a competitive moat in an industry often short on honor.
 
-### 27:46 — Built the largest hotel in Vegas three separate times
+### 27:46 — Kirk Kerkorian built the largest hotel in Las Vegas three separate times
 
-Context: Despite setbacks, Kerkorian repeatedly erected the world’s largest hotel in Las Vegas. The note refers to the International Hotel (later the Hilton), the first MGM Grand, and the MGM Hotel. This moment in the transcript marks the first such project, a 1,500-room giant that would set a pattern.
+Context: After his charter airline introduced him to Las Vegas, Kirk Kerkorian repeatedly bet big on the city’s growth. He designed, built, and later sold—or partnered on—the world’s largest hotels, including the International (later Hilton) and the MGM Grand, each time setting new records.
 
-Quote: "He planned to break ground on the city's tallest high-rise hotel project later in 1967. **This was the first time -- first of three times that he builds the largest hotel in Las Vegas.** I didn't know he also builds the MGM Grand hotel, which is the first version and then the MGM Hotel, which is the one that's still there to this day." (27:46)
+Quote: "That charter business is introduced into Las Vegas. **Later on, he winds up building the largest hotel in Las Vegas three separate times.** Okay. So, 'Williams was a regular, hiring Kirk and his Cessna for weekly flights to the gaming center.'" (27:46)
 
-Key takeaway: Kerkorian’s willingness to build the biggest hotel not once but three times reflects his appetite for large-scale risk and his refusal to be defined by a single loss. It demonstrates that a true gambler’s edge lies in the willingness to bet again after failure, scaling up each time with lessons learned.
+Key takeaway: Kerkorian’s pattern of constructing the largest hotel not once but three times reveals a master of scaling and market timing. Rather than rest on a single success, he repeatedly identified the next wave of demand, leveraged his deep operating knowledge, and refused to place small bets in a high-growth environment.

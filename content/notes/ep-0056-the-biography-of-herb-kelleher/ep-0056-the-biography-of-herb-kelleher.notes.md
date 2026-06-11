@@ -1,6 +1,6 @@
 ---
 id: "ep-0056"
-episode_number: 56
+episode_number: "56"
 title: "#56 The Biography of Herb Kelleher"
 content_type: "notes"
 source: "apple_notes_import"
@@ -11,8 +11,7 @@ imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints
-
-- — behinds with safari analogy
-- — Cocktail napkin
+- 03:00 — behinds with safari analogy
+- 20:00 — Cocktail napkin
 - 39:00 — Competition wasn't in its own industry
 - 34:00 — being forced to innovate

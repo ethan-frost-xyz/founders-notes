@@ -23,6 +23,8 @@ Run scripts from `ingestion/`; each script calls `_bootstrap.setup_paths(__file_
 | `expand_run_log.py` | `catalog/expand-run.jsonl` logging and CLI progress output |
 | `expand_prompt.py` | Prompt templates, cost estimates, progress reporters |
 | `expanded_timestamp_lint.py` | Timestamp meta validation on expanded drafts (used by promote) |
+| `rss_duration.py` | Parse RSS `itunes:duration` → seconds for catalog backfill |
+| `timestamp_estimate.py` | Estimate `MM:00` for lost-timestamp note bullets from transcript position |
 | `search_retrieval.py` | Parent/transcript chunk filters, keyword + hybrid RRF (Telegram tools) |
 | `openrouter_pricing.py` | OpenRouter model pricing helpers for expand cost estimates |
 | `reindex_vault.py` | Subprocess orchestrator: `build_chunks.py` + `build_embeddings.py` (Janitor, maintain menu 8, `sync-and-index.sh`) |

@@ -1,6 +1,6 @@
 ---
 id: "ep-0185"
-episode_number: 185
+episode_number: "185"
 title: "#185 César Ritz and Auguste Escoffier (The Hotelier and The Chef)"
 content_type: "notes"
 source: "apple_notes_import"
@@ -13,4 +13,4 @@ imported_at: "2026-05-21T19:05:42Z"
 ## Raw datapoints
 
 - 30:00 — When people say you can't do something, they are saying what they can't do
-- — Insane motivational speech about doing what you want not what people say
+- 12:00 — Insane motivational speech about doing what you want not what people say

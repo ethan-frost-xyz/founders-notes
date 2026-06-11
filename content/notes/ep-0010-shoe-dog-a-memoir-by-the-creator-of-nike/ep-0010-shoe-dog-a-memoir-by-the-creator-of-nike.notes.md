@@ -1,6 +1,6 @@
 ---
 id: "ep-0010"
-episode_number: 10
+episode_number: "10"
 title: "#10 Shoe Dog: A Memoir by the Creator of Nike"
 content_type: "notes"
 source: "apple_notes_import"
@@ -11,8 +11,7 @@ imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints
-
-- — What Phil calls the secret of happiness "Play. Yes, I thought, that's it. That's the word. The secret of happiness, I'd always suspected, the essence of beauty or truth or all we ever need to know of either, lay somewhere in that moment when the ball is in midair, when both boxers sense the approach of the bell, when the runners near the finish line and the crowd rises as one. There's a kind of exuberant clarity in that pulsing half second before winning and losing are decided. I wanted that, whatever that was, to be my life, my daily life."
+- 03:00 — What Phil calls the secret of happiness "Play. Yes, I thought, that's it. That's the word. The secret of happiness, I'd always suspected, the essence of beauty or truth or all we ever need to know of either, lay somewhere in that moment when the ball is in midair, when both boxers sense the approach of the bell, when the runners near the finish line and the crowd rises as one. There's a kind of exuberant clarity in that pulsing half second before winning and losing are decided. I wanted that, whatever that was, to be my life, my daily life."
 - 7:36 — history is one long processional of crazy ideass
 - 17:30 — lightness
 - 26:00 — critics don't know shit

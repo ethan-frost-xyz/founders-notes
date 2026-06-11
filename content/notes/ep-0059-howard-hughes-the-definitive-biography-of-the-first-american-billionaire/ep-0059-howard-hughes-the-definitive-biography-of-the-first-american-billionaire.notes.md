@@ -1,6 +1,6 @@
 ---
 id: "ep-0059"
-episode_number: 59
+episode_number: "59"
 title: "#59 Howard Hughes: The Definitive Biography of the First American Billionaire"
 content_type: "notes"
 source: "apple_notes_import"
@@ -11,5 +11,4 @@ imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints
-
-- — Howard Hughes
+- 02:00 — Howard Hughes

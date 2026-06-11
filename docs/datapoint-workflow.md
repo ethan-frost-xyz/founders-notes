@@ -2,6 +2,21 @@
 
 Turn half-sentence timestamp bullets in `{folder}.notes.md` into full transcript quotes and takeaways — without manually pasting the transcript.
 
+## Lost timestamps (Apple Notes import)
+
+Some early `.notes.md` files have `- — bullet` lines with no `MM:SS` prefix. Transcripts are plain prose (no embedded timecodes), so exact recovery is impossible.
+
+**Estimate (recommended for bulk repair):**
+
+```bash
+cd ingestion
+python pipeline/backfill_catalog_duration.py   # once: RSS → catalog duration_seconds
+python notes/estimate_timestamps.py --all-missing          # dry-run table
+python notes/estimate_timestamps.py --all-missing --apply  # rewrite bullets
+```
+
+Estimates use **RSS episode length × match position in transcript**, rounded to the nearest minute (`MM:00`). Re-run expand/promote after applying. See `catalog/gaps.md` § "Datapoint bullets missing timestamp".
+
 ## Files per episode
 
 | File | Role |

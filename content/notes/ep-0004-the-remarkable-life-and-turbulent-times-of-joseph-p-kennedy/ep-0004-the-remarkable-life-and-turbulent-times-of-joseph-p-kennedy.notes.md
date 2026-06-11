@@ -1,6 +1,6 @@
 ---
 id: "ep-0004"
-episode_number: 4
+episode_number: "4"
 title: "#4 The Remarkable Life and Turbulent Times of Joseph P. Kennedy"
 content_type: "notes"
 source: "apple_notes_import"
@@ -13,6 +13,6 @@ imported_at: "2026-05-21T19:05:42Z"
 ## Raw datapoints
 
 - 27:00 — following path of others
-- — Going fr. Brokerage to film, network was key
+- 56:00 — Going fr. Brokerage to film, network was key
 - 39:20 — Tom ford syndrome
-- — His goal was to bring his next generations into public service free of money, pretty unique
+- 43:00 — His goal was to bring his next generations into public service free of money, pretty unique

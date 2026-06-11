@@ -1,6 +1,6 @@
 ---
 id: "ep-0165"
-episode_number: 165
+episode_number: "165"
 title: "#165 William Shockley (Creator of the Electronic Age)"
 content_type: "notes"
 source: "apple_notes_import"
@@ -11,5 +11,4 @@ imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints
-
-- — kind over clever
+- 56:00 — kind over clever

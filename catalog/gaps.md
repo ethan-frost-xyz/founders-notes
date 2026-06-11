@@ -11,10 +11,10 @@
 ## Phase 2 coverage
 
 **Notes files:** 417 / 417 numbered (with transcript)
-**Notes with datapoints:** 186 / 417 numbered (timestamp bullets)
-**Bullets missing timestamp:** 60 across 32 numbered (`- —` without `MM:SS`)
+**Notes with datapoints:** 192 / 417 numbered (timestamp bullets)
+**Bullets missing timestamp:** 0
 **Posts imported:** 195 / 417 numbered
-**Expanded notes:** 186 / 417 numbered (with transcript)
+**Expanded notes:** 192 / 417 numbered (with transcript)
 **Expanded drafts (pending review):** 0 / 417 numbered
 
 ## Notes without datapoints (225 numbered)
@@ -62,43 +62,6 @@ File exists but no `MM:SS —` bullets yet — **expected** for episodes not lis
 - `ep-0231`
 - `ep-0232`
 - … and 185 more
-
-## Datapoint bullets missing timestamp (32 numbered)
-
-Notes contain `- — …` bullets with no `MM:SS` prefix — timestamp may have been lost. Re-add times before LLM expand; mixed episodes may still expand from timestamped bullets only.
-
-- `ep-0002` (4 bullet(s))
-- `ep-0004` (2 bullet(s))
-- `ep-0006` (2 bullet(s))
-- `ep-0007` (3 bullet(s))
-- `ep-0008` (3 bullet(s))
-- `ep-0010` (1 bullet(s))
-- `ep-0011` (6 bullet(s))
-- `ep-0019` (2 bullet(s))
-- `ep-0030` (1 bullet(s))
-- `ep-0031` (2 bullet(s))
-- `ep-0035` (1 bullet(s))
-- `ep-0036` (2 bullet(s))
-- `ep-0045` (1 bullet(s))
-- `ep-0046` (1 bullet(s))
-- `ep-0047` (1 bullet(s))
-- `ep-0048` (1 bullet(s))
-- `ep-0052` (1 bullet(s))
-- `ep-0056` (2 bullet(s))
-- `ep-0057` (3 bullet(s))
-- `ep-0059` (1 bullet(s))
-- `ep-0060` (2 bullet(s))
-- `ep-0063` (2 bullet(s))
-- `ep-0065` (2 bullet(s))
-- `ep-0066` (3 bullet(s))
-- `ep-0090` (2 bullet(s))
-- `ep-0095` (1 bullet(s))
-- `ep-0140` (1 bullet(s))
-- `ep-0152` (2 bullet(s))
-- `ep-0165` (1 bullet(s))
-- `ep-0168` (2 bullet(s))
-- `ep-0171` (1 bullet(s))
-- `ep-0185` (1 bullet(s))
 
 ## Missing posts (221 numbered)
 

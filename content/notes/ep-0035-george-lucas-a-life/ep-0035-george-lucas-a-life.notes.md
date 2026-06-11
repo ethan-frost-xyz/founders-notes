@@ -1,6 +1,6 @@
 ---
 id: "ep-0035"
-episode_number: 35
+episode_number: "35"
 title: "#35 George Lucas: A Life"
 content_type: "notes"
 source: "apple_notes_import"
@@ -11,5 +11,4 @@ imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints
-
-- — Great
+- 00:00 — Great

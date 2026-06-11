@@ -21,6 +21,7 @@ See [`docs/notes-pipeline.md`](../../docs/notes-pipeline.md) and [`docs/datapoin
 | `expand_datapoints.py` | Build expansion prompt from notes + transcript (manual / Cursor) |
 | `expand_datapoints_llm.py` | OpenRouter → `.expanded.draft.md`; `--promote` → `.expanded.md` |
 | `expand_tune.py` | Ad-hoc A/B under `fixtures/expand-runs/` (`init`, `expand`, `report`, `verify`, `promote`; local batch JSON) |
+| `estimate_timestamps.py` | Estimate `MM:00` for `- —` bullets (`--all-missing`, `--apply`; needs `duration_seconds` in catalog) |
 
 ## Environment
 
