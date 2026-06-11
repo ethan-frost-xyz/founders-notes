@@ -14,8 +14,8 @@ Janitor is a **mode** in the same Telegram bot as the Librarian vault agent. Use
 4. You review the cleaned preview: **reply with text** to revise, or use **Retry** / **Approve** / **← Back**.
 5. On approve: if `{folder}.notes.md` already has timestamp bullets, the bot asks you to **confirm overwrite** (replace, not merge). Otherwise notes are written to `{folder}.notes.md`, then **expand** runs (`expand_datapoints_llm.py` → `.expanded.draft.md`).
 6. You review the draft excerpt; tap **Promote & reindex** to write `.expanded.md` and rebuild `chunks.jsonl` + embeddings on the bot host.
-7. Optionally tap **Push to GitHub** to commit that episode's notes folder (`vault-push.sh --episode`) or **Skip** to stay local-only on the mini.
-8. Back in Librarian mode; the episode is in the studied corpus once timestamp bullets exist and expanded chunks are indexed (push optional for GitHub/laptop visibility).
+7. Optionally tap **Push to GitHub** to commit that episode's notes folder (`vault-push.sh --episode`, `--skip-verify`) or **Skip** to stay local-only on the mini. Push commits `.notes.md` and `.expanded.md` only — not `catalog/chunks.jsonl` or embeddings (those refresh on the mini from promote/reindex; laptop gets them via webhook after merge).
+8. Back in Librarian mode; the episode is in the studied corpus once timestamp bullets exist and expanded chunks are indexed on the mini (push optional for GitHub/laptop visibility of note files).
 
 ```mermaid
 stateDiagram-v2
@@ -108,7 +108,9 @@ Laptop-only expand still uses `{VAULT_ROOT}/.env` for `OPENROUTER_MODEL` when ru
 
 ## After promote
 
-Promote runs shared `reindex_vault()` (`build_chunks.py` + `build_embeddings.py` subprocesses on the Mac mini). If reindex fails, run manually when the bot is idle:
+Promote runs shared `reindex_vault()` (`build_chunks.py` + `build_embeddings.py` subprocesses on the Mac mini). **Push to GitHub** is optional and episode-scoped: commit message `vault: Janitor promote ep-NNNN`. If push fails (sync lock, `index.lock`), notes are still on the mini and searchable there — retry **Push** or use `/push` / SSH later. See [operations.md — outbound push](operations.md#tailscale-laptop--mac-mini).
+
+If reindex fails, run manually when the bot is idle:
 
 ```bash
 services/telegram/deploy/sync-and-index.sh

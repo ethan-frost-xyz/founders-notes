@@ -122,7 +122,7 @@ ssh ethans-mac-mini   # ethanfrost; Host in ~/.ssh/config
 
 Use SSH for logs (`~/Library/Logs/founders-telegram/`) and `~/.config/founders-telegram/runtime.json`. **Model tuning** (`/setmodel`, `/settings`) and Librarian/Janitor daily use need **Telegram only** — no laptop Tailscale required. **Tailscale Funnel** for the GitHub webhook runs **on the mini only**; do not run Funnel on the laptop.
 
-**Outbound push (mini → GitHub):** Janitor notes, harness reports, and related whitelisted paths via [`vault-push.sh`](../services/telegram/deploy/vault-push.sh) or Telegram **`/push`** (Settings → Ops → Push). Pull-first (`git pull --ff-only`), path whitelist only — no force push. Janitor offers **Push to GitHub** / **Skip** after promote (episode folder only).
+**Outbound push (mini → GitHub):** Janitor notes, harness reports, and related whitelisted paths via [`vault-push.sh`](../services/telegram/deploy/vault-push.sh) or Telegram **`/push`** (Settings → Ops → Push). Pull-first (`git pull --ff-only`), path whitelist only — no force push. Janitor offers **Push to GitHub** / **Skip** after promote (episode folder only, `--skip-verify`).
 
 ```bash
 # Mac mini (or SSH)
@@ -130,9 +130,20 @@ Use SSH for logs (`~/Library/Logs/founders-telegram/`) and `~/.config/founders-t
 "$VAULT_ROOT/services/telegram/deploy/vault-push.sh" --episode ep-0191 -m "vault: Janitor promote ep-0191" --skip-verify
 ```
 
+**`/push` whitelist:** `content/notes/`, `dev/logs/runs/*-report.{json,md}`, librarian suite summary JSONs, and `catalog/gaps.md` (when `verify.py` runs). Janitor **Push to GitHub** stages only that episode's `content/notes/{folder}/` (`.notes.md` + `.expanded.md`); local reindex artifacts (`catalog/chunks.jsonl`, embeddings) stay on the mini until a laptop merge + webhook `/sync`.
+
+**Locks and concurrency:** `vault-push` skips (exit 2) while `catalog/.sync-in-progress` is held by webhook/cron `sync-and-index.sh`, or while another push holds `catalog/.vault-push-in-progress`. Only paths with real git changes are staged (no log spam for already-committed harness reports). After staging, the script runs `git pull --ff-only` again before `git push` so an inbound sync during the run does not race the push.
+
 **Harness reports** are git-tracked under `dev/logs/runs/`. From the laptop after a mini suite: `./dev/pull-harness-reports.sh`, or `/push` on the mini. `dev/logs/sessions/` and `dev/logs/sandbox/` remain gitignored.
 
-If `vault-push` fails on `pull --ff-only`, reconcile on the laptop (merge to `main`) then `/sync` on the mini before retrying.
+**Troubleshooting**
+
+| Symptom | Action |
+|---------|--------|
+| `no whitelisted changes to commit` | Expected when nothing dirty in the whitelist |
+| `skipped (sync-and-index in progress)` | Wait ~30s; retry `/push` when idle |
+| `index.lock` / `git commit failed` | Another git op overlapped (`/sync`, webhook); retry when idle |
+| `pull --ff-only` failed | Reconcile on laptop (merge to `main`), `/sync` on mini, retry |
 
 ### CI parity
 

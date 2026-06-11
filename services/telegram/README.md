@@ -234,12 +234,12 @@ Day-to-day tuning and vault ops without SSH:
 | `/pull` | `git pull --ff-only` on the vault |
 | `/reindex` | Rebuild `chunks.jsonl` + embeddings |
 | `/sync` | `/pull` then `/reindex` (traveling shortcut; cron still uses `sync-and-index.sh`) |
-| `/push` | `vault-push.sh`: pull, commit whitelisted paths, push to GitHub |
+| `/push` | `vault-push.sh`: pull, stage dirty whitelisted paths only, pull again, push (skips if sync lock held) |
 | `/restart` | Exit process; launchd starts a fresh bot |
 
-After `/setmodel embed`, run `/reindex` or `/sync` when idle before trusting search (stale vectors rebuild automatically). Avoid `/pull`/`/sync`/`/push` during active Librarian turns. Janitor offers optional **Push to GitHub** after promote.
+After `/setmodel embed`, run `/reindex` or `/sync` when idle before trusting search (stale vectors rebuild automatically). Avoid `/pull`/`/sync`/`/push` during active Librarian turns — overlapping git ops can hit `index.lock`. Janitor offers optional **Push to GitHub** after promote (episode notes folder only).
 
-Shell entry point: [`deploy/vault-push.sh`](deploy/vault-push.sh) (also used by `/push` and Janitor push).
+Shell entry point: [`deploy/vault-push.sh`](deploy/vault-push.sh) (also used by `/push` and Janitor push). Locks: respects `catalog/.sync-in-progress` and `catalog/.vault-push-in-progress`. Details: [`docs/operations.md`](../../docs/operations.md#tailscale-laptop--mac-mini).
 
 ## Troubleshooting
 
@@ -253,6 +253,8 @@ Shell entry point: [`deploy/vault-push.sh`](deploy/vault-push.sh) (also used by 
 | Stale answers after git pull | `/sync` when idle; `/resume` warns if index newer than session |
 | Webhook ping **401** | `GITHUB_WEBHOOK_SECRET` must match GitHub webhook secret; restart webhook job |
 | `git pull` fails in `sync.log` | Use SSH remote; `ssh -T git@github.com` |
+| `/push` exit 2 | Sync or another push in progress — wait and retry |
+| `/push` exit 1 / `index.lock` | Overlapping git with webhook or `/sync` — retry when idle |
 | Janitor clean blocked | `/setmodel janitor <slug>` (see `/settings`) |
 
 ## Deferred (post-v0)
