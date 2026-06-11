@@ -8,6 +8,15 @@ from pathlib import Path
 from runtime_settings import build_subprocess_env
 
 
+def _clear_vault_read_caches(vault_root: Path) -> None:
+    from _bootstrap import setup_ingestion_paths
+
+    setup_ingestion_paths(vault_root)
+    from catalog import clear_jsonl_cache
+
+    clear_jsonl_cache()
+
+
 def run_git_pull(vault_root: Path) -> tuple[int, str]:
     proc = subprocess.run(
         ["git", "pull", "--ff-only"],
@@ -16,6 +25,8 @@ def run_git_pull(vault_root: Path) -> tuple[int, str]:
         text=True,
     )
     log = (proc.stdout or "") + (proc.stderr or "")
+    if proc.returncode == 0:
+        _clear_vault_read_caches(vault_root)
     return proc.returncode, log.strip() or "(no output)"
 
 
@@ -26,7 +37,9 @@ def run_reindex(vault_root: Path) -> tuple[int, str]:
     setup_ingestion_paths(vault_root)
     from reindex_vault import reindex_vault
 
-    return reindex_vault(vault_root, env=env)
+    code, msg = reindex_vault(vault_root, env=env)
+    _clear_vault_read_caches(vault_root)
+    return code, msg
 
 
 def run_sync(vault_root: Path) -> tuple[int, str]:
