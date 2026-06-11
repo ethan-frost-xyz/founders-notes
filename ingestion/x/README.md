@@ -20,8 +20,6 @@ See [`import/README.md`](../../import/README.md).
 | `x_posts_attribute.py` | Pending queue → `content/posts/` (default); `--rebuild` for full CSV scan |
 | `x_posts_status.py` | Zero-API status: vault max ep, pending count, last sync |
 | `assign_post_manual.py` | One-off manual post from `--body-file` |
-| `sync_x_cache.py` | **Deprecated** — use `x_posts_sync.py` |
-| `organize_posts_from_csv.py` | **Deprecated** — use `x_posts_attribute.py --rebuild` |
 
 ## Environment
 

@@ -21,7 +21,7 @@ Telegram (polling) → handlers → VaultAgent.run_turn()  (agentic loop, ≤6 t
 
 **Librarian system prompt:** [`AGENTS.md`](../../AGENTS.md) at repo root (loaded by `bot/agent.py`; legacy fallback: `prompts/vault_agent.md`).
 
-## Mac mini install (SP4)
+## Mac mini install
 
 ### 1. Clone and Python env
 

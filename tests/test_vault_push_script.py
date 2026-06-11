@@ -29,6 +29,8 @@ def _init_vault_with_remote(tmp_path: Path) -> Path:
     vault.mkdir()
     subprocess.run(["git", "init", "--bare", str(bare)], check=True, capture_output=True)
     _git("init", "-b", "main", cwd=vault)
+    _git("config", "user.email", "vault-push-test@example.com", cwd=vault)
+    _git("config", "user.name", "vault-push test", cwd=vault)
     (vault / "README.md").write_text("init\n", encoding="utf-8")
     (vault / "catalog").mkdir()
     deploy = vault / "services" / "telegram" / "deploy"
