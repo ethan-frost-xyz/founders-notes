@@ -1,0 +1,152 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-11T13:15:43",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian basic Q&A",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/basic_qa.yaml",
+      "passed": true,
+      "elapsed_s": 108.07136933301808,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/start'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.017824666982050985,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 2,
+          "action": "send \"What was Carnegie's key insight about steel?\"",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 108.0523418749799,
+          "tools_called": [
+            "search_vault"
+          ],
+          "response_text": "## Carnegie's key insight: costs are permanent; prices are temporary\n\nCarnegie's foundational insight about steel \u2014 and really about industrial capitalism \u2014 was that **you can't control what you sell for, but you can control what it costs to make**. While every other steelmaker fixated on market prices, Carnegie obsessed over costs. He understood that a price advantage vanishes the moment the market turns, but a cost advantage compounds forever [ep-0073].\n\n> \"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent.\"\n\nThis sounds obvious in hindsight, but it wasn't how most industrialists thought. They rode booms and survived busts. Carnegie's approach meant that *in the worst markets, he was still profitable*, and in the best, he printed money. He ran what David has described as fanatical cost accounting \u2014 every process measured, every inefficiency hunted down [ep-0073].\n\nThe second piece of the insight was **counter-cyclical expansion**: if costs are everything, then the time to build is when everyone else is panicking. During the panic of 1873, while competitors froze, Carnegie was constructing his first steel mill \u2014 and the depression had slashed his materials and labor costs by roughly 25%. He learned that the best time to expand is \"when no one else dared to take the risks\" [ep-0073]. This wasn't just guts; it was the logical extension of his cost obsession. If building cheaply locks in a permanent structural advantage, downturns aren't threats \u2014 they're opportunities.\n\nSo the steel insight wasn't one thing. It was a two-part flywheel: **drive costs down relentlessly (because savings are forever), then expand when fear makes expansion cheap (because that locks in an even lower cost base)**. That's how a telegraph boy from Scotland built the largest steel operation in the world.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Carnegie key insight about steel"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault"
+              ],
+              "queries": [
+                "Carnegie key insight about steel"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0073",
+                "ep-0074"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                8.5,
+                6.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "## Carnegie's key insight: costs are permanent; prices are temporary\n\nCarnegie's foundational insight about steel \u2014 and really about industrial capitalism \u2014 was that **you can't control what you sell for, but you can control what it costs to make**. While every other steelmaker fixated on market prices, Carnegie obsessed over costs. He understood that a price advantage vanishes the moment the market turns, but a cost advantage compounds forever [ep-0073].\n\n> \"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent.\"\n\nThis sounds obvious in hindsight, but it wasn't how most industrialists thought. They rode booms and survived busts. Carnegie's approach meant that *in the worst markets, he was still profitable*, and in the best, he printed money. He ran what David has described as fanatical cost accounting \u2014 every process measured, every inefficiency hunted down [ep-0073].\n\nThe second piece of the insight was **counter-cyclical expansion**: if costs are everything, then the time to build is when everyone else is panicking. During the panic of 1873, while competitors froze, Carnegie was constructing his first steel mill \u2014 and the depression had slashed his materials and labor costs by roughly 25%. He learned that the best time to expand is \"when no one else dared to take the risks\" [ep-0073]. This wasn't just guts; it was the logical extension of his cost obsession. If building cheaply locks in a permanent structural advantage, downturns aren't threats \u2014 they're opportunities.\n\nSo the steel insight wasn't one thing. It was a two-part flywheel: **drive costs down relentlessly (because savings are forever), then expand when fear makes expansion cheap (because that locks in an even lower cost base)**. That's how a telegraph boy from Scotland built the largest steel operation in the world."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault\n  queries: Carnegie key insight about steel\n  episodes: ep-0016, ep-0073, ep-0074 top_scores=[10.0, 8.5, 6.0]\nround 2: (answer)\n  reasoning: ## Carnegie's key insight: costs are permanent; prices are temporary\n\nCarnegie's foundational insight about steel \u2014 and really about industrial capitalism \u2014 was that **you can't control what you sell ",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 1125,
+            "retrieval_llm_ms": 87217,
+            "thread_wait_ms": 0,
+            "expand_retry_ms": 0,
+            "tool_local_ms": 0,
+            "searches": [
+              {
+                "query": "Carnegie key insight about steel",
+                "vault_search_local_ms": 1125,
+                "retrieval_llm_ms": 87217,
+                "wall_ms": 88346,
+                "tool": "search_vault"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1918,
+                "total_ms": 2265,
+                "completion_tokens": 94,
+                "tok_per_sec": 270.9
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 3766,
+                "total_ms": 11158,
+                "completion_tokens": 648,
+                "tok_per_sec": 87.7
+              }
+            ],
+            "agent_ttft_ms_mean": 2842,
+            "generation_tok_per_sec_mean": 179.3,
+            "stop_reason": "natural",
+            "agent_steps": 2
+          },
+          "timing_summary": "vault=1125ms retrieval_llm=87217ms ttft=2842ms tok/s=179.3",
+          "timing_accountability": {
+            "wall_ms": 108052,
+            "accounted_ms": 101769,
+            "unaccounted_ms": 6283,
+            "accounted_breakdown": {
+              "search_wall_ms": 88346,
+              "tool_local_ms": 0,
+              "openrouter_total_ms": 13423,
+              "thread_wait_ms": 0,
+              "expand_retry_ms": 0,
+              "parallelism_excess_ms": 0,
+              "vault_search_local_ms": 1125,
+              "retrieval_llm_ms": 87217
+            }
+          }
+        },
+        {
+          "index": 3,
+          "action": "send '/clear'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0007044580415822566,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        }
+      ]
+    }
+  ]
+}

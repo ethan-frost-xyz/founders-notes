@@ -11,13 +11,13 @@
 ## Phase 2 coverage
 
 **Notes files:** 417 / 417 numbered (with transcript)
-**Notes with datapoints:** 185 / 417 numbered (timestamp bullets)
+**Notes with datapoints:** 186 / 417 numbered (timestamp bullets)
 **Bullets missing timestamp:** 60 across 32 numbered (`- —` without `MM:SS`)
 **Posts imported:** 195 / 417 numbered
-**Expanded notes:** 185 / 417 numbered (with transcript)
+**Expanded notes:** 186 / 417 numbered (with transcript)
 **Expanded drafts (pending review):** 0 / 417 numbered
 
-## Notes without datapoints (226 numbered)
+## Notes without datapoints (225 numbered)
 
 File exists but no `MM:SS —` bullets yet — **expected** for episodes not listened to (empty scaffold or backlog). Filled in over time via the daily notes workflow; not a blocking gap.
 
@@ -27,7 +27,6 @@ File exists but no `MM:SS —` bullets yet — **expected** for episodes not lis
 - `ep-0119`
 - `ep-0155`
 - `ep-0186`
-- `ep-0198`
 - `ep-0199`
 - `ep-0200`
 - `ep-0201`
@@ -61,7 +60,8 @@ File exists but no `MM:SS —` bullets yet — **expected** for episodes not lis
 - `ep-0229`
 - `ep-0230`
 - `ep-0231`
-- … and 186 more
+- `ep-0232`
+- … and 185 more
 
 ## Datapoint bullets missing timestamp (32 numbered)
 
