@@ -1,6 +1,6 @@
 ---
 id: "ep-0047"
-episode_number: 47
+episode_number: "47"
 title: "#47 Losing My Virginity: How I Survived, Had Fun, and Made a Fortune Doing Business My Way"
 content_type: "notes"
 source: "apple_notes_import"
@@ -11,5 +11,4 @@ imported_at: "2026-05-21T19:05:42Z"
 ---
 
 ## Raw datapoints
-
-- — Branded venture capital
+- 52:00 — Branded venture capital

@@ -18,13 +18,14 @@ from email.utils import parsedate_to_datetime
 
 from catalog import new_row, save_catalog
 from colossus import parse_episode_number, session
+from rss_duration import duration_seconds_from_rss_item
 from sitemap import iter_sitemap_episodes
 
 RSS_URL = "https://feeds.megaphone.fm/DSLLC6297708582"
 
 
 def load_rss_meta(sess) -> dict[int | str, dict]:
-    """Map episode_number or lowercase title -> {title, published_at}."""
+    """Map episode_number or lowercase title -> {title, published_at, duration_seconds}."""
     resp = sess.get(RSS_URL, timeout=60)
     resp.raise_for_status()
     root = ET.fromstring(resp.content)
@@ -45,7 +46,12 @@ def load_rss_meta(sess) -> dict[int | str, dict]:
         founders_url = link_el.text.strip() if link_el is not None and link_el.text else None
 
         ep_num = parse_episode_number(title)
-        entry = {"title": title, "published_at": published_at, "founders_url": founders_url}
+        entry = {
+            "title": title,
+            "published_at": published_at,
+            "founders_url": founders_url,
+            "duration_seconds": duration_seconds_from_rss_item(item),
+        }
         if ep_num is not None:
             meta[ep_num] = entry
         meta[title.lower()] = entry
@@ -86,12 +92,21 @@ def main() -> None:
             if low in rss_meta and rss_meta[low].get("published_at"):
                 published_at = rss_meta[low]["published_at"]
 
+        duration_seconds = None
+        if ep_num is not None and ep_num in rss_meta:
+            duration_seconds = rss_meta[ep_num].get("duration_seconds")
+        else:
+            low = title.lower()
+            if low in rss_meta:
+                duration_seconds = rss_meta[low].get("duration_seconds")
+
         row = new_row(
             episode_number=ep_num,
             title=title,
             slug=slug,
             founders_url=founders_url,
             published_at=published_at,
+            duration_seconds=duration_seconds,
         )
         rows.append(row)
 

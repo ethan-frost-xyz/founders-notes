@@ -14,7 +14,8 @@ python pipeline/verify.py
 
 | Script | Purpose |
 |--------|---------|
-| `build_catalog.py` | Paginate founderspodcast.com sitemap + RSS → `catalog/episodes.jsonl` |
+| `build_catalog.py` | Paginate founderspodcast.com sitemap + RSS → `catalog/episodes.jsonl` (includes `duration_seconds` from RSS) |
+| `backfill_catalog_duration.py` | Merge RSS `itunes:duration` into existing catalog rows without full rebuild |
 | `map_colossus.py` | Resolve `colossus_url` for each catalog row |
 | `sync_new.py` | Append new sitemap episodes; `--repair-urls --apply` fixes weak `founders_url` |
 | `verify.py` | Regenerate `catalog/gaps.md`; **exit 1** on blocking layout/transcript gaps |

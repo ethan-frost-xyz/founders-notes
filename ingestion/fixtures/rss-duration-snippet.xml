@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+  <channel>
+    <item>
+      <title>#1 Elon Musk: Tesla, SpaceX, &amp; the Quest for a Fantastic Future</title>
+      <itunes:duration>3721</itunes:duration>
+    </item>
+    <item>
+      <title>#2 Walt Disney</title>
+      <itunes:duration>1:02:01</itunes:duration>
+    </item>
+    <item>
+      <title>#3 The Wizard of Menlo Park</title>
+      <itunes:duration>45:30</itunes:duration>
+    </item>
+    <item>
+      <title>Special — No duration</title>
+    </item>
+  </channel>
+</rss>

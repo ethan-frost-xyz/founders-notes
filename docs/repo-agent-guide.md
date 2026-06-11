@@ -74,6 +74,8 @@ Full script index: `[ingestion/README.md](../ingestion/README.md)`.
 | X status       | `python x/x_posts_status.py` (zero API)                                                                                                                     |
 | Manual post    | `python x/assign_post_manual.py --episode N --x-post-id ID --published-at YYYY-MM-DD --body-file path`                                                      |
 | Chunk index    | `python search/build_chunks.py` — after summaries: `python search/build_summaries.py` then `build_chunks.py` again (or `python lib/reindex_vault.py`) |
+| Catalog duration | `python pipeline/backfill_catalog_duration.py` — merge RSS `itunes:duration` → `duration_seconds` on existing rows |
+| Lost timestamps | `python notes/estimate_timestamps.py --all-missing` (dry-run) → `--apply` — estimates `MM:00` from transcript position × duration (not from transcript timecodes) |
 | Verify         | `python pipeline/verify.py`                                                                                                                                 |
 | Tests (CI)     | From repo root: `pytest tests -q` then `cd ingestion && python pipeline/verify.py` — see [`docs/testing.md`](testing.md); Telegram harness: [`docs/telegram-mock-harness.md`](telegram-mock-harness.md) |
 

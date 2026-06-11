@@ -104,6 +104,7 @@ One JSON object per line:
 | `transcript_path` | string \| null | Relative path when complete |
 | `last_error` | string \| null | Last fetch error message |
 | `fetched_at` | string \| null | ISO 8601 UTC |
+| `duration_seconds` | int \| null | Episode length from RSS `itunes:duration` (`build_catalog.py` / `backfill_catalog_duration.py`) |
 
 ## `transcript_status` meanings
 
