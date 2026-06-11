@@ -101,6 +101,7 @@ def expand_query_llm(
     model: str,
     api_key: str,
     base_url: str | None,
+    on_retry: Callable[[int, int, int], None] | None = None,
 ) -> tuple[str, list[str]]:
     system = PROMPT_EXPAND_PATH.read_text(encoding="utf-8").strip()
     turns = ""
@@ -120,6 +121,7 @@ def expand_query_llm(
         base_url=base_url,
         temperature=0.2,
         response_format={"type": "json_object"},
+        on_retry=on_retry,
     )
     payload = _extract_json_object(result.content)
     standalone = str(payload.get("standalone_query") or user_message).strip()
@@ -210,6 +212,7 @@ class RetrievalOrchestrator:
         keep: int = SEARCH_VAULT_KEEP,
         on_status: Callable[[str], None] | None = None,
         on_timing: Callable[[str, int], None] | None = None,
+        on_retry: Callable[[int, int, int], None] | None = None,
     ) -> EvidenceBundle:
         """Expand → hybrid search → rerank → optional transcript fallback."""
         meta: dict[str, Any] = {"query": query.strip(), "expand_variants": expand_variants}
@@ -223,15 +226,24 @@ class RetrievalOrchestrator:
         else:
             if on_status:
                 on_status("Expanding query…")
-            expand = self._expand_fn or expand_query_llm
             t0 = time.perf_counter()
-            standalone, variants = expand(
-                q,
-                history=history,
-                model=cfg.model,
-                api_key=cfg.api_key,
-                base_url=cfg.base_url,
-            )
+            if self._expand_fn is None:
+                standalone, variants = expand_query_llm(
+                    q,
+                    history=history,
+                    model=cfg.model,
+                    api_key=cfg.api_key,
+                    base_url=cfg.base_url,
+                    on_retry=on_retry,
+                )
+            else:
+                standalone, variants = self._expand_fn(
+                    q,
+                    history=history,
+                    model=cfg.model,
+                    api_key=cfg.api_key,
+                    base_url=cfg.base_url,
+                )
             if on_timing:
                 on_timing("retrieval_llm", int((time.perf_counter() - t0) * 1000))
             variants = variants[:expand_variants]
@@ -265,15 +277,24 @@ class RetrievalOrchestrator:
         if on_status:
             on_status("Ranking results…")
         rerank_input = [chunk_for_rerank(ch, root=vault_root) for ch in merged]
-        rerank = self._rerank_fn or rerank_candidates
         t0 = time.perf_counter()
-        ranked = rerank(
-            standalone,
-            rerank_input,
-            model=cfg.model,
-            api_key=cfg.api_key,
-            base_url=cfg.base_url,
-        )
+        if self._rerank_fn is None:
+            ranked = rerank_candidates(
+                standalone,
+                rerank_input,
+                model=cfg.model,
+                api_key=cfg.api_key,
+                base_url=cfg.base_url,
+                on_retry=on_retry,
+            )
+        else:
+            ranked = self._rerank_fn(
+                standalone,
+                rerank_input,
+                model=cfg.model,
+                api_key=cfg.api_key,
+                base_url=cfg.base_url,
+            )
         if on_timing:
             on_timing("retrieval_llm", int((time.perf_counter() - t0) * 1000))
 
@@ -313,13 +334,23 @@ class RetrievalOrchestrator:
                 extra.append(chunk_for_rerank(ch, root=vault_root))
             if extra:
                 t0 = time.perf_counter()
-                ranked = rerank(
-                    standalone,
-                    rerank_input + extra,
-                    model=cfg.model,
-                    api_key=cfg.api_key,
-                    base_url=cfg.base_url,
-                )
+                if self._rerank_fn is None:
+                    ranked = rerank_candidates(
+                        standalone,
+                        rerank_input + extra,
+                        model=cfg.model,
+                        api_key=cfg.api_key,
+                        base_url=cfg.base_url,
+                        on_retry=on_retry,
+                    )
+                else:
+                    ranked = self._rerank_fn(
+                        standalone,
+                        rerank_input + extra,
+                        model=cfg.model,
+                        api_key=cfg.api_key,
+                        base_url=cfg.base_url,
+                    )
                 if on_timing:
                     on_timing("retrieval_llm", int((time.perf_counter() - t0) * 1000))
 

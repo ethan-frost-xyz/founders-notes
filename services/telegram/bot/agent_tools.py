@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import time
 from typing import Any, Callable
 
 from config import AgentConfig
@@ -148,12 +149,30 @@ def _tool_handlers(
             k=int(args.get("k") or 8),
             timing=timing,
         ),
-        "load_episode": lambda args: load_episode(str(args["episode_id"])),
-        "list_episode_ids": lambda args: list_episode_ids(
-            str(args["query"]),
-            limit=int(args.get("limit") or 8),
+        "load_episode": lambda args: _timed_local_tool(
+            timing,
+            lambda: load_episode(str(args["episode_id"])),
+        ),
+        "list_episode_ids": lambda args: _timed_local_tool(
+            timing,
+            lambda: list_episode_ids(
+                str(args["query"]),
+                limit=int(args.get("limit") or 8),
+            ),
         ),
     }
+
+
+def _timed_local_tool(
+    timing: TurnTimer | None,
+    fn: Callable[[], dict[str, Any]],
+) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    try:
+        return fn()
+    finally:
+        if timing is not None:
+            timing.add_tool_local(int((time.perf_counter() - t0) * 1000))
 
 
 def execute_tool(

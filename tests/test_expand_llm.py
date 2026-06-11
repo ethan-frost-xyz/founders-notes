@@ -283,6 +283,38 @@ def test_execute_openrouter_with_retry_succeeds_on_third_attempt(mock_sleep):
 
 
 @patch("openrouter_client.time.sleep")
+def test_execute_openrouter_with_retry_invokes_on_retry(mock_sleep):
+    retries: list[tuple[int, int, int]] = []
+
+    def flaky() -> OpenRouterCompletion:
+        if len(retries) < 1:
+            raise ValueError("empty model response")
+        return OpenRouterCompletion(
+            content="ok",
+            response_id=None,
+            prompt_tokens=0,
+            completion_tokens=0,
+            total_tokens=0,
+            cost_usd=None,
+            duration_ms=5,
+        )
+
+    def on_retry(failed_attempt: int, sleep_ms: int, failed_call_ms: int) -> None:
+        retries.append((failed_attempt, sleep_ms, failed_call_ms))
+
+    out = execute_openrouter_with_retry(
+        flaky,
+        max_attempts=OPENROUTER_MAX_ATTEMPTS,
+        on_retry=on_retry,
+    )
+    assert out.content == "ok"
+    assert len(retries) == 1
+    assert retries[0][0] == 1
+    assert retries[0][1] >= 0
+    assert retries[0][2] >= 0
+
+
+@patch("openrouter_client.time.sleep")
 def test_execute_openrouter_with_retry_raises_after_max_attempts(mock_sleep):
     def always_fail() -> OpenRouterCompletion:
         raise ValueError("empty model response")

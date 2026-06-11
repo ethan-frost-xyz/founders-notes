@@ -102,14 +102,17 @@ def execute_openrouter_with_retry(
     *,
     max_attempts: int = OPENROUTER_MAX_ATTEMPTS,
     episode_id: str | None = None,
+    on_retry: Callable[[int, int, int], None] | None = None,
 ) -> OpenRouterCompletion:
     """Run an OpenRouter call up to max_attempts times on retriable errors."""
     prefix = f"[expand] {episode_id}  " if episode_id else "[expand] "
     last_exc: Exception | None = None
     for attempt in range(1, max_attempts + 1):
         try:
+            t0 = time.perf_counter()
             return operation()
         except Exception as e:
+            failed_call_ms = int((time.perf_counter() - t0) * 1000)
             last_exc = e
             if attempt >= max_attempts or not is_retriable_openrouter_error(e):
                 raise
@@ -119,7 +122,11 @@ def execute_openrouter_with_retry(
                 f"({type(e).__name__}: {e}); retrying in {delay:.0f}s…",
                 flush=True,
             )
+            sleep_start = time.perf_counter()
             time.sleep(delay)
+            sleep_ms = int((time.perf_counter() - sleep_start) * 1000)
+            if on_retry is not None:
+                on_retry(attempt, sleep_ms, failed_call_ms)
     assert last_exc is not None
     raise last_exc
 
@@ -135,6 +142,7 @@ def call_openrouter(
     response_format: dict[str, str] | None = None,
     episode_id: str | None = None,
     on_complete: Callable[[OpenRouterCompletion], None] | None = None,
+    on_retry: Callable[[int, int, int], None] | None = None,
 ) -> OpenRouterCompletion:
     from openai import OpenAI
 
@@ -171,7 +179,11 @@ def call_openrouter(
             duration_ms=duration_ms,
         )
 
-    result = execute_openrouter_with_retry(_once, episode_id=episode_id)
+    result = execute_openrouter_with_retry(
+        _once,
+        episode_id=episode_id,
+        on_retry=on_retry,
+    )
     if on_complete is not None:
         on_complete(result)
     return result

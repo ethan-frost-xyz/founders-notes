@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
+from collections.abc import Callable
 from typing import Any
 
 PROMPT_PATH = (
@@ -32,6 +33,7 @@ def rerank_candidates(
     api_key: str,
     base_url: str | None = None,
     max_excerpt_chars: int = 600,
+    on_retry: Callable[[int, int, int], None] | None = None,
 ) -> list[dict[str, Any]]:
     """Return candidates ordered by LLM relevance score (descending)."""
     if not candidates:
@@ -58,6 +60,7 @@ def rerank_candidates(
         base_url=base_url,
         temperature=0.0,
         response_format={"type": "json_object"},
+        on_retry=on_retry,
     )
     payload = _extract_json_object(result.content)
     ranked = payload.get("ranked") or []

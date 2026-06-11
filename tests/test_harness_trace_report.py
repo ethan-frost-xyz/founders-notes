@@ -148,7 +148,61 @@ def test_timing_accountability_math():
     assert acc is not None
     assert acc["wall_ms"] == 220600
     assert acc["accounted_breakdown"]["openrouter_total_ms"] == 16345
+    assert acc["accounted_breakdown"]["search_wall_ms"] == 4901 + 103972
     assert acc["unaccounted_ms"] == 220600 - (4901 + 103972 + 16345)
+
+
+def test_timing_accountability_concurrent_many_uses_max_not_sum():
+    timing = {
+        "vault_search_local_ms": 3608,
+        "retrieval_llm_ms": 328105,
+        "thread_wait_ms": 74535,
+        "searches": [
+            {
+                "query": "a",
+                "tool": "search_vault_many",
+                "vault_search_local_ms": 401,
+                "retrieval_llm_ms": 15267,
+                "wall_ms": 16000,
+            },
+            {
+                "query": "b",
+                "tool": "search_vault_many",
+                "vault_search_local_ms": 775,
+                "retrieval_llm_ms": 57207,
+                "wall_ms": 58000,
+            },
+            {
+                "query": "c",
+                "tool": "search_vault_many",
+                "vault_search_local_ms": 870,
+                "retrieval_llm_ms": 57229,
+                "wall_ms": 74535,
+            },
+        ],
+        "openrouter_calls": [{"total_ms": 41252}],
+    }
+    acc = timing_accountability(timing, elapsed_s=124.329)
+    assert acc is not None
+    assert acc["accounted_breakdown"]["search_wall_ms"] == 74535
+    assert acc["accounted_breakdown"]["parallelism_excess_ms"] == 3608 + 328105 - 74535
+    assert acc["accounted_ms"] == 74535 + 41252
+    assert acc["unaccounted_ms"] == 124329 - (74535 + 41252)
+
+
+def test_timing_accountability_includes_tool_local():
+    timing = {
+        "vault_search_local_ms": 0,
+        "retrieval_llm_ms": 0,
+        "tool_local_ms": 9320,
+        "openrouter_calls": [{"total_ms": 9564}],
+        "searches": [],
+    }
+    acc = timing_accountability(timing, elapsed_s=18.884)
+    assert acc is not None
+    assert acc["accounted_breakdown"]["tool_local_ms"] == 9320
+    assert acc["accounted_ms"] == 9320 + 9564
+    assert acc["unaccounted_ms"] == 18884 - (9320 + 9564)
 
 
 def test_enrich_turn_prefers_assistant_content():

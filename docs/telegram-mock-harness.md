@@ -89,8 +89,11 @@ python dev/mock_telegram_cli.py --suite librarian --live-only -v
 | Bucket | Meaning |
 |--------|---------|
 | `telegram_pickup_ms` | Telegram message date → handler start (production only; null in harness) |
-| `vault_search_local_ms` | Embed + hybrid search + transcript keyword |
-| `retrieval_llm_ms` | Expand + rerank OpenRouter wall time |
+| `vault_search_local_ms` | Embed + hybrid search + transcript keyword (**effort** total; can exceed wall when `search_vault_many` fans out) |
+| `retrieval_llm_ms` | Expand + rerank OpenRouter wall time (**effort** total; same concurrent caveat) |
+| `thread_wait_ms` | Parent wall waiting on `search_vault_many` `ThreadPoolExecutor` (diagnostic) |
+| `expand_retry_ms` | OpenRouter expand/rerank retry backoff + failed-attempt wall (diagnostic) |
+| `tool_local_ms` | `load_episode` / `list_episode_ids` disk + catalog work |
 | `agent_ttft_ms_mean` | Mean time-to-first-token across agent-loop completions |
 | `generation_tok_per_sec_mean` | Mean inter-token speed for streamed agent completions |
 
@@ -217,13 +220,14 @@ Written on every scenario run (not gated on `-v`).
 | `tools_called` | Legacy flat tool names (unchanged) |
 | `timing` | When Librarian timing is recorded (harness default on) |
 | `timing_summary` | One-line timing bucket summary |
-| `timing_accountability` | `wall_ms` vs summed buckets; `unaccounted_ms` is normal when tools run sequentially |
+| `timing_accountability` | `wall_ms` vs wall-based buckets; see breakdown below |
 
 **Timing notes:**
 
-- `timing.searches[]` rows include `tool` (`search_vault`, `search_vault_many`, `search_transcript`) and optional `error`.
+- `timing.searches[]` rows include `tool` (`search_vault`, `search_vault_many`, `search_transcript`), optional `wall_ms`, and optional `error`.
 - `openrouter_calls` covers agent LLM streams only — not vault/transcript tool execution wall time.
 - `agent_ttft_ms_mean` averages all agent rounds (tool-pick and synthesis).
+- **`timing_accountability` math:** `accounted_ms = search_wall_ms + tool_local_ms + openrouter_total_ms`. For consecutive `search_vault_many` rows, `search_wall_ms` uses **max** `wall_ms` per batch (not sum). `vault_search_local_ms` / `retrieval_llm_ms` remain effort totals; `parallelism_excess_ms` in the breakdown shows their over-count vs wall. Flag `unaccounted_ms` >60s on turns with heavy local tools or agent overhead.
 
 ### Report markdown (`*-report.md`)
 

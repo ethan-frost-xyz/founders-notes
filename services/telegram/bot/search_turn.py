@@ -39,6 +39,7 @@ class _SearchTiming:
         self._timer = timer
         self._query = query
         self._tool = tool
+        self._t0 = time.perf_counter()
         self.vault_local_ms = 0
         self.retrieval_llm_ms = 0
 
@@ -51,10 +52,12 @@ class _SearchTiming:
             self._timer.add_retrieval_llm(ms)
 
     def finish(self, *, error: bool = False) -> None:
+        wall_ms = int((time.perf_counter() - self._t0) * 1000)
         self._timer.record_search(
             self._query,
             vault_search_local_ms=self.vault_local_ms,
             retrieval_llm_ms=self.retrieval_llm_ms,
+            wall_ms=wall_ms,
             tool=self._tool,
             error=error,
         )
@@ -68,6 +71,16 @@ def _timing_callback(timer: TurnTimer | None, search: _SearchTiming | None) -> C
         search.on_timing(phase, ms)
 
     return on_timing
+
+
+def _retry_callback(timer: TurnTimer | None) -> Callable[[int, int, int], None] | None:
+    if timer is None:
+        return None
+
+    def on_retry(_failed_attempt: int, sleep_ms: int, failed_call_ms: int) -> None:
+        timer.add_expand_retry(sleep_ms + failed_call_ms)
+
+    return on_retry
 
 
 def search_vault_for_turn(
@@ -92,6 +105,7 @@ def search_vault_for_turn(
             keep=SEARCH_VAULT_KEEP,
             on_status=on_status,
             on_timing=_timing_callback(timing, search_timing),
+            on_retry=_retry_callback(timing),
         )
     except Exception:
         failed = True
@@ -145,6 +159,7 @@ def search_vault_many_for_turn(
                 keep=SEARCH_VAULT_MANY_KEEP,
                 on_status=on_status,
                 on_timing=_timing_callback(timing, search_timing),
+                on_retry=_retry_callback(timing),
             )
             if search_timing is not None:
                 search_timing.finish()
@@ -168,11 +183,14 @@ def search_vault_many_for_turn(
                 "trace_evidence": [],
             }
 
+    t_batch = time.perf_counter()
     with ThreadPoolExecutor(max_workers=len(cleaned)) as ex:
         futures = [ex.submit(_run_one, i, q) for i, q in enumerate(cleaned)]
         for fut in as_completed(futures):
             idx, payload = fut.result()
             results[idx] = payload
+    if timing is not None:
+        timing.add_thread_wait(int((time.perf_counter() - t_batch) * 1000))
 
     out: dict[str, Any] = {"results": results}
     if truncated:
@@ -208,6 +226,7 @@ def search_transcript_for_turn(
             query,
             vault_search_local_ms=elapsed_ms,
             retrieval_llm_ms=0,
+            wall_ms=elapsed_ms,
             tool="search_transcript",
         )
     from evidence_format import format_transcript_evidence, trace_evidence_from_hits

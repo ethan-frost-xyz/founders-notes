@@ -73,6 +73,25 @@ def test_summary_line():
     assert "pickup" not in line
 
 
+def test_timer_new_buckets():
+    timer = TurnTimer()
+    timer.add_thread_wait(100)
+    timer.add_expand_retry(50)
+    timer.add_tool_local(25)
+    timer.record_search(
+        "q",
+        vault_search_local_ms=10,
+        retrieval_llm_ms=20,
+        wall_ms=30,
+        tool="search_vault",
+    )
+    d = timer.to_dict()
+    assert d["thread_wait_ms"] == 100
+    assert d["expand_retry_ms"] == 50
+    assert d["tool_local_ms"] == 25
+    assert d["searches"][0]["wall_ms"] == 30
+
+
 def test_timer_thread_safe_concurrent_adds():
     timer = TurnTimer()
     n = 50

@@ -17,6 +17,9 @@ class TurnTiming:
     telegram_pickup_ms: int | None = None
     vault_search_local_ms: int = 0
     retrieval_llm_ms: int = 0
+    thread_wait_ms: int = 0
+    expand_retry_ms: int = 0
+    tool_local_ms: int = 0
     searches: list[dict[str, Any]] = field(default_factory=list)
     openrouter_calls: list[dict[str, Any]] = field(default_factory=list)
 
@@ -45,12 +48,25 @@ class TurnTimer:
         with self._lock:
             self._data.retrieval_llm_ms += ms
 
+    def add_thread_wait(self, ms: int) -> None:
+        with self._lock:
+            self._data.thread_wait_ms += ms
+
+    def add_expand_retry(self, ms: int) -> None:
+        with self._lock:
+            self._data.expand_retry_ms += ms
+
+    def add_tool_local(self, ms: int) -> None:
+        with self._lock:
+            self._data.tool_local_ms += ms
+
     def record_search(
         self,
         query: str,
         *,
         vault_search_local_ms: int = 0,
         retrieval_llm_ms: int = 0,
+        wall_ms: int | None = None,
         tool: str | None = None,
         error: bool = False,
     ) -> None:
@@ -60,6 +76,8 @@ class TurnTimer:
                 "vault_search_local_ms": vault_search_local_ms,
                 "retrieval_llm_ms": retrieval_llm_ms,
             }
+            if wall_ms is not None:
+                row["wall_ms"] = wall_ms
             if tool:
                 row["tool"] = tool
             if error:
@@ -95,6 +113,9 @@ class TurnTimer:
                 "telegram_pickup_ms": self._data.telegram_pickup_ms,
                 "vault_search_local_ms": self._data.vault_search_local_ms,
                 "retrieval_llm_ms": self._data.retrieval_llm_ms,
+                "thread_wait_ms": self._data.thread_wait_ms,
+                "expand_retry_ms": self._data.expand_retry_ms,
+                "tool_local_ms": self._data.tool_local_ms,
                 "searches": list(self._data.searches),
                 "openrouter_calls": list(self._data.openrouter_calls),
             }
