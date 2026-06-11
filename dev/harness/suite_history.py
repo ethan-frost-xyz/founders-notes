@@ -71,6 +71,7 @@ def append_librarian_run(
     runs_dir: Path,
     repo_root: Path,
     scenario_paths: list[Path],
+    baseline_run_id: str | None = None,
 ) -> Path | None:
     if not is_librarian_run(scenario_paths):
         return None
@@ -102,11 +103,11 @@ def append_librarian_run(
     if report_paths.markdown is not None:
         entry["markdown_path"] = str(report_paths.markdown.relative_to(repo_root))
 
-    baseline_run_id = history.get("baseline_run_id")
+    effective_baseline = baseline_run_id or history.get("baseline_run_id")
     baseline_entry = None
-    if baseline_run_id:
+    if effective_baseline:
         for run in history.get("runs") or []:
-            if run.get("run_id") == baseline_run_id:
+            if run.get("run_id") == effective_baseline:
                 baseline_entry = run
                 break
 

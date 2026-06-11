@@ -64,7 +64,8 @@ class ScenarioResult:
         path_note = ""
         if verbose and self.turns:
             obs = self.turns[0].observability or {}
-            path_str = (obs.get("agent_path") or {}).get("path_string") or ""
+            agent_path = obs.get("agent_path") or {}
+            path_str = agent_path.get("path_string_compact") or agent_path.get("path_string") or ""
             if path_str:
                 path_note = f" | path: {path_str}"
         lines = [

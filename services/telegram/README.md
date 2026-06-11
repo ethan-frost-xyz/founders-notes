@@ -184,7 +184,7 @@ python dev/mock_telegram_cli.py --stub-llm --debug
 python dev/mock_telegram_cli.py --suite librarian --live-only -v
 ```
 
-`--suite` and `--scenario` run YAML flows directly (no `--run-scenarios` needed). Janitor scenarios write to `dev/logs/sandbox/` only — not `content/notes/`. Full guide: [`docs/telegram-mock-harness.md`](../../docs/telegram-mock-harness.md). Scenario index: [`dev/scenarios/README.md`](../../dev/scenarios/README.md).
+`--suite` and `--scenario` run YAML flows directly (no `--run-scenarios` needed). Janitor scenarios write to `dev/logs/sandbox/` only — not `content/notes/`. Live runs emit **schema v2** harness reports with per-turn `observability` (agent path, latency spans, cap thrash); timing/spans on by default in harness (`LIBRARIAN_TIMING=0` to disable). Full guide: [`docs/telegram-mock-harness.md`](../../docs/telegram-mock-harness.md). Scenario index: [`dev/scenarios/README.md`](../../dev/scenarios/README.md).
 
 ## Janitor (daily notes)
 

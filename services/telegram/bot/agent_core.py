@@ -188,7 +188,12 @@ class VaultAgent:
         tools = openrouter_tools(default_k=cfg.default_search_k)
         agent_round = 0
 
-        def _completion(*, label: str, **kwargs: Any) -> SimpleNamespace:
+        def _completion(
+            *,
+            label: str,
+            span_name: str | None = None,
+            **kwargs: Any,
+        ) -> SimpleNamespace:
             stream = kwargs.pop("stream", False)
             if stream:
                 if "stream_options" not in kwargs:
@@ -198,6 +203,7 @@ class VaultAgent:
                     on_chunk=on_chunk,
                     timing=timing,
                     label=label,
+                    span_name=span_name,
                 )
             response = completion_fn(**kwargs)
             return response.choices[0].message
@@ -210,7 +216,7 @@ class VaultAgent:
             **kwargs: Any,
         ) -> SimpleNamespace:
             t0 = time.perf_counter()
-            msg = _completion(label=label, **kwargs)
+            msg = _completion(label=label, span_name=phase_name, **kwargs)
             ms = int((time.perf_counter() - t0) * 1000)
             attrs = dict(phase_attrs or {})
             attrs.setdefault("label", label)
@@ -238,6 +244,8 @@ class VaultAgent:
                 route_ms = int((time.perf_counter() - t_route) * 1000)
 
                 if not msg.tool_calls:
+                    if timing is not None:
+                        timing.annotate_last_openrouter_span("agent.synthesis.final")
                     collector.record_phase(
                         "agent.synthesis.final",
                         route_ms,
@@ -261,6 +269,8 @@ class VaultAgent:
                         stop=stop_reason,
                     )
 
+                if timing is not None:
+                    timing.annotate_last_openrouter_span("agent.routing")
                 collector.record_phase(
                     "agent.routing",
                     route_ms,

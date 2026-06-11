@@ -267,6 +267,55 @@ Appended automatically when running scenarios under `dev/scenarios/librarian/`.
 
 Set `baseline_run_id` manually in the history file to pin a comparison target for `delta_vs_baseline` (`pass_count_delta`, `wall_pct`, `cap_hits_delta`).
 
+**Example — per-turn `observability` (truncated):**
+
+```json
+{
+  "timing_enabled": true,
+  "agent_path": {
+    "sequence": ["search_vault"],
+    "path_string": "search_vault",
+    "path_string_compact": "search_vault",
+    "tool_rounds_used": 1,
+    "max_tool_rounds": 6
+  },
+  "latency": {
+    "wall_ms": 62601,
+    "agent_routing_ms": 2700,
+    "retrieval": {
+      "query_expand_ms": 14206,
+      "hybrid_search_ms": 1034,
+      "llm_rerank_ms": 30519
+    },
+    "synthesis": {
+      "final_ttft_ms": 4169,
+      "final_total_ms": 11083,
+      "label": "agent_round_2"
+    }
+  },
+  "synthesis_quality": {
+    "citation_count": 1,
+    "dsml_leak": false,
+    "final_synthesis_ttft_ms": 4169
+  }
+}
+```
+
+**Example — suite `aggregate`:**
+
+```json
+{
+  "pass_count": 11,
+  "scenario_count": 11,
+  "cap_hits": 1,
+  "mean_wall_s": 349.4,
+  "mean_final_ttft_ms": 2100,
+  "mean_thrash_score": 0.12
+}
+```
+
+**Migration:** Consumers should check `schema_version`. When `"2.0"`, prefer `observability` for new metrics; legacy `timing` / `timing_accountability` remain on each turn. Set `LIBRARIAN_TIMING=0` to disable span collection — `observability` will be `{"timing_enabled": false}`.
+
 ### Report markdown (`*-report.md`)
 
 Written alongside JSON when the run includes **live** scenarios under `dev/scenarios/librarian/`. Not written for echo/stub CI or Janitor-only runs.

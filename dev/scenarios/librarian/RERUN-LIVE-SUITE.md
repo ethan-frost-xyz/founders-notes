@@ -82,13 +82,16 @@ ingestion/.venv/bin/python dev/mock_telegram_cli.py \
 
 ## After each run, summarize
 
-- Pass/fail + **delta vs baseline** (harness + substantive)
+- Pass/fail + **delta vs baseline** (harness + substantive; also `librarian-suite-history.json` → `delta_vs_baseline`)
 - Wall time + **±% vs baseline**
+- `observability.agent_path.path_string_compact` and `tool_rounds_used`
+- `observability.latency.synthesis.final_ttft_ms` and retrieval spans (`query_expand_ms`, `hybrid_search_ms`, `llm_rerank_ms`)
+- `observability.cap_thrash.gathered.thrash_score` when `stop_reason=cap`
+- `observability.routing_efficiency.redundant_queries`
 - stop_reason (natural / cap)
-- tool_call_counts and notable tool_calls[].arguments
-- response_text quality (1–2 sentences — would you trust this answer?)
-- Key timing: retrieval_llm_ms (effort), search_wall_ms, tool_local_ms, timing_accountability.unaccounted_ms
-- Report paths: `dev/logs/runs/*-report.json` and `*-report.md`
+- response_text quality (1–2 sentences); `observability.synthesis_quality.dsml_leak`
+- Legacy timing: retrieval_llm_ms, timing_accountability.unaccounted_ms
+- Report paths: `dev/logs/runs/*-report.json`, `*-report.md`, suite history
 
 ## Rules
 
@@ -96,7 +99,7 @@ ingestion/.venv/bin/python dev/mock_telegram_cli.py \
 - **Interactive:** one scenario per turn — wait for "proceed"
 - **Sequential:** full suite in one session is OK
 - Preflight only if needed: `ingestion/.venv/bin/python dev/mock_telegram_cli.py --preflight`
-- Reports are enriched: use `response_text`, `tool_rounds`, `trace_summary`, `stop_reason` for diagnosis
+- Reports are schema v2: use `observability`, `response_text`, `tool_rounds`, `trace_summary`, `stop_reason` for diagnosis
 - Confirm `retrieval_model` is still `deepseek/deepseek-v4-flash` before starting (or note if different)
 
 Start with #1.

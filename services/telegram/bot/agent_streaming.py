@@ -15,6 +15,7 @@ def accumulate_streamed_message(
     on_chunk: Callable[[str], None] | None,
     timing: TurnTimer | None = None,
     label: str = "agent",
+    span_name: str | None = None,
 ) -> SimpleNamespace:
     t0 = time.perf_counter()
     first_token_at: float | None = None
@@ -60,6 +61,7 @@ def accumulate_streamed_message(
             ttft_ms=int((first_token_at - t0) * 1000),
             total_ms=int((t_end - t0) * 1000),
             tokens=tokens,
+            span_name=span_name,
         )
 
     tool_calls = None

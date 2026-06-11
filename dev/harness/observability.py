@@ -35,6 +35,23 @@ def _sum_span_exact(spans: list[dict[str, Any]], name: str) -> int:
     return _sum_span_ms(spans, name)
 
 
+def _compact_tool_path(sequence: list[str]) -> str:
+    if not sequence:
+        return ""
+    segments: list[str] = []
+    current = sequence[0]
+    count = 1
+    for tool in sequence[1:]:
+        if tool == current:
+            count += 1
+            continue
+        segments.append(f"{current}×{count}" if count > 1 else current)
+        current = tool
+        count = 1
+    segments.append(f"{current}×{count}" if count > 1 else current)
+    return " -> ".join(segments)
+
+
 def agent_path_from_traces(
     traces: list[dict[str, Any]],
     *,
@@ -54,6 +71,7 @@ def agent_path_from_traces(
     return {
         "sequence": sequence,
         "path_string": " -> ".join(sequence) if sequence else "",
+        "path_string_compact": _compact_tool_path(sequence),
         "tool_rounds_used": tool_rounds_used,
         "max_tool_rounds": MAX_TOOL_ROUNDS,
         "reasoning_snippets": reasoning_snippets,
@@ -231,7 +249,24 @@ def latency_from_traces(
             retrieval[f"{short}_ms"] = retrieval.get(f"{short}_ms", 0) + int(span.get("ms") or 0)
 
     agent_routing_ms = _sum_span_exact(spans, "agent.routing")
+    if agent_routing_ms == 0 and timing:
+        final_call_preview = _final_synthesis_call(timing, stop_reason)
+        final_label = str((final_call_preview or {}).get("label") or "")
+        agent_routing_ms = sum(
+            int(c.get("total_ms") or 0)
+            for c in (timing.get("openrouter_calls") or [])
+            if str(c.get("label") or "") != final_label
+        )
+
     tool_local_ms = int((timing or {}).get("tool_local_ms") or 0)
+
+    if not retrieval and timing:
+        vault_ms = int(timing.get("vault_search_local_ms") or 0)
+        retrieval_ms = int(timing.get("retrieval_llm_ms") or 0)
+        if vault_ms:
+            retrieval["hybrid_search_ms"] = vault_ms
+        if retrieval_ms:
+            retrieval["llm_rerank_ms"] = retrieval_ms
 
     synthesis: dict[str, Any] = {}
     final_call = _final_synthesis_call(timing, stop_reason)
@@ -260,11 +295,15 @@ def synthesis_quality_from_traces(
 ) -> dict[str, Any]:
     citations = _EPISODE_CITATION_RE.findall(response_text or "")
     final_call = _final_synthesis_call(timing, stop_reason)
-    return {
+    final_ttft = final_call.get("ttft_ms") if final_call else None
+    out: dict[str, Any] = {
         "citation_count": len(citations),
         "dsml_leak": bool(_DSML_LEAK_RE.search(response_text or "")),
-        "final_synthesis_ttft_ms": final_call.get("ttft_ms") if final_call else None,
+        "final_synthesis_ttft_ms": final_ttft,
     }
+    if stop_reason == "cap" and final_ttft is not None:
+        out["cap_synthesis_ttft_ms"] = final_ttft
+    return out
 
 
 def build_observability(

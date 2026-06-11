@@ -336,6 +336,20 @@ def test_check_expectations_episode_citation_ignored_in_echo_mode():
     assert ok, msg
 
 
+def test_enrich_turn_includes_observability():
+    traces = _verbatim_transcript_traces()
+    enriched = enrich_turn_from_traces(
+        traces,
+        [_Reply("Answer [ep-0016].")],
+        elapsed_s=136.0,
+        llm_mode="live",
+    )
+    obs = enriched.get("observability") or {}
+    assert obs.get("timing_enabled") is True
+    assert obs.get("agent_path", {}).get("path_string")
+    assert obs.get("latency", {}).get("synthesis", {}).get("final_ttft_ms") == 11927
+
+
 def test_scenario_runner_write_report_includes_tier1_fields(tmp_path: Path):
     runner = ScenarioRunner(verbose=False)
     turn = TurnResult(

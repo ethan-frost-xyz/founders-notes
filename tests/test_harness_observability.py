@@ -77,6 +77,16 @@ def test_agent_path_string():
     assert path["tool_rounds_used"] == 1
 
 
+def test_agent_path_compact_counts_repeats():
+    traces = [
+        {"step": 1, "tool": "search_transcript", "arguments": {}},
+        {"step": 1, "tool": "search_transcript", "arguments": {}},
+        {"step": 1, "tool": "search_vault", "arguments": {}},
+    ]
+    path = agent_path_from_traces(traces)
+    assert path["path_string_compact"] == "search_transcript×2 -> search_vault"
+
+
 def test_cap_thrash_gathered_and_cited():
     from harness.trace_report import tool_rounds_from_traces
 

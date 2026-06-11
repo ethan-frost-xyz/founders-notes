@@ -1,0 +1,273 @@
+{
+  "schema_version": "2.0",
+  "harness_version": "70c3505",
+  "suite": "librarian",
+  "passed": true,
+  "generated_at": "2026-06-11T15:31:46",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian thematic search SP6",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/thematic_search.yaml",
+      "passed": true,
+      "elapsed_s": 62.60238954197848,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'What did I note about Rockefeller and competition?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 62.600810374948196,
+          "tools_called": [
+            "search_vault"
+          ],
+          "response_text": "Your notes on Rockefeller and competition cluster around a handful of interlocking ideas \u2014 and they're remarkably consistent across both episodes you've studied on him.\n\n**The core insight is that Rockefeller won not by being loud but by being silent, precise, and relentless about costs.** You flagged two variations of the same principle: in ep-0016, you noted he made money quietly so he wouldn't invite competition [ep-0016], and in ep-0148 you captured the aphorism \"Bad boys move in silence\" \u2014 the habit of keeping his intentions private so competitors couldn't anticipate his moves [ep-0148]. This wasn't just style; it was strategy.\n\n**The second big theme: cost control as an unbeatable weapon.** You highlighted the story where a rival refused to sell, so Rockefeller showed him his books \u2014 and the competitor, seeing how much leaner Standard Oil operated, immediately capitulated [ep-0016]. The takeaway you pulled is that fanatical cost discipline made competing against him economically irrational.\n\n**Then there's the post-competition move: absorption, not annihilation.** You noted that Rockefeller \"constantly took adversaries\" and that after the battle, he'd turn them into allies \u2014 Henry Rogers being the named example [ep-0016]. He didn't just destroy competitors; he brought them and their talent inside the machine.\n\n**One detail worth calling out:** your notes from ep-0016 reference a Genghis Khan comparison, but the transcript doesn't actually contain that \u2014 it may be your own annotation rather than something from the book or the episode. Worth verifying if you go back.\n\n**The final note, from ep-0148, is the flip side of dominance:** Rockefeller warned that if Standard Oil managers ever relaxed, the business would collapse \"about as long as any other neglected business\" [ep-0148]. The lesson you extracted is that no competitive advantage is permanent \u2014 the moment you stop pushing, decline is inevitable.\n\n**A cross-founder echo:** you've also noted similar competitive intensity in Bill Gates \u2014 the idea of killing competition early and viewing a lost deal as a $100K loss (the $50K you didn't get plus the $50K your rival now has to fight you with) [ep-0140]. The specific tactics differ, but the zero-sum mindset threads through both.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Rockefeller competition"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault"
+              ],
+              "queries": [
+                "Rockefeller competition"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0054",
+                "ep-0140",
+                "ep-0148"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.0,
+                8.5
+              ],
+              "evidence": [
+                {
+                  "chunk_id": "ep-0016#expanded:expanded_datapoints#17",
+                  "episode_id": "ep-0016",
+                  "rerank_score": 9.5,
+                  "section": "expanded:expanded_datapoints"
+                },
+                {
+                  "chunk_id": "ep-0016#expanded:expanded_datapoints#25",
+                  "episode_id": "ep-0016",
+                  "rerank_score": 9.0,
+                  "section": "expanded:expanded_datapoints"
+                },
+                {
+                  "chunk_id": "ep-0016#expanded:expanded_datapoints#33",
+                  "episode_id": "ep-0016",
+                  "rerank_score": 8.5,
+                  "section": "expanded:expanded_datapoints"
+                },
+                {
+                  "chunk_id": "ep-0148#expanded:expanded_datapoints#17",
+                  "episode_id": "ep-0148",
+                  "rerank_score": 8.5,
+                  "section": "expanded:expanded_datapoints"
+                },
+                {
+                  "chunk_id": "ep-0148#expanded:expanded_datapoints#41",
+                  "episode_id": "ep-0148",
+                  "rerank_score": 8.0,
+                  "section": "expanded:expanded_datapoints"
+                },
+                {
+                  "chunk_id": "ep-0140#expanded:expanded_datapoints#47",
+                  "episode_id": "ep-0140",
+                  "rerank_score": 7.5,
+                  "section": "expanded:expanded_datapoints"
+                },
+                {
+                  "chunk_id": "ep-0054#expanded:expanded_datapoints#25",
+                  "episode_id": "ep-0054",
+                  "rerank_score": 7.0,
+                  "section": "expanded:expanded_datapoints"
+                },
+                {
+                  "chunk_id": "ep-0140#expanded:expanded_datapoints#57",
+                  "episode_id": "ep-0140",
+                  "rerank_score": 7.0,
+                  "section": "expanded:expanded_datapoints"
+                }
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "evidence": [],
+              "stop": "natural",
+              "reasoning": "Your notes on Rockefeller and competition cluster around a handful of interlocking ideas \u2014 and they're remarkably consistent across both episodes you've studied on him.\n\n**The core insight is that Rockefeller won not by being loud but by being silent, precise, and relentless about costs.** You flagged two variations of the same principle: in ep-0016, you noted he made money quietly so he wouldn't invite competition [ep-0016], and in ep-0148 you captured the aphorism \"Bad boys move in silence\" \u2014 the habit of keeping his intentions private so competitors couldn't anticipate his moves [ep-0148]. This wasn't just style; it was strategy.\n\n**The second big theme: cost control as an unbeatable weapon.** You highlighted the story where a rival refused to sell, so Rockefeller showed him his books \u2014 and the competitor, seeing how much leaner Standard Oil operated, immediately capitulated [ep-0016]. The takeaway you pulled is that fanatical cost discipline made competing against him economically irrational.\n\n**Then there's the post-competition move: absorption, not annihilation.** You noted that Rockefeller \"constantly took adversaries\" and that after the battle, he'd turn them into allies \u2014 Henry Rogers being the named example [ep-0016]. He didn't just destroy competitors; he brought them and their talent inside the machine.\n\n**One detail worth calling out:** your notes from ep-0016 reference a Genghis Khan comparison, but the transcript doesn't actually contain that \u2014 it may be your own annotation rather than something from the book or the episode. Worth verifying if you go back.\n\n**The final note, from ep-0148, is the flip side of dominance:** Rockefeller warned that if Standard Oil managers ever relaxed, the business would collapse \"about as long as any other neglected business\" [ep-0148]. The lesson you extracted is that no competitive advantage is permanent \u2014 the moment you stop pushing, decline is inevitable.\n\n**A cross-founder echo:** you've also noted similar competitive intensity in Bill Gates \u2014 the idea of killing competition early and viewing a lost deal as a $100K loss (the $50K you didn't get plus the $50K your rival now has to fight you with) [ep-0140]. The specific tactics differ, but the zero-sum mindset threads through both."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault\n  queries: Rockefeller competition\n  episodes: ep-0016, ep-0054, ep-0140, ep-0148 top_scores=[9.5, 9.0, 8.5]\nround 2: (answer)\n  reasoning: Your notes on Rockefeller and competition cluster around a handful of interlocking ideas \u2014 and they're remarkably consistent across both episodes you've studied on him.\n\n**The core insight is that Roc",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 1034,
+            "retrieval_llm_ms": 44725,
+            "thread_wait_ms": 0,
+            "expand_retry_ms": 0,
+            "tool_local_ms": 0,
+            "searches": [
+              {
+                "query": "Rockefeller competition",
+                "vault_search_local_ms": 1034,
+                "retrieval_llm_ms": 44725,
+                "wall_ms": 45765,
+                "tool": "search_vault"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 563,
+                "total_ms": 755,
+                "completion_tokens": 75,
+                "tok_per_sec": 390.6
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 4169,
+                "total_ms": 11083,
+                "completion_tokens": 776,
+                "tok_per_sec": 112.2
+              }
+            ],
+            "agent_ttft_ms_mean": 2366,
+            "generation_tok_per_sec_mean": 251.4,
+            "stop_reason": "natural",
+            "agent_steps": 2
+          },
+          "timing_summary": "vault=1034ms retrieval_llm=44725ms ttft=2366ms tok/s=251.4",
+          "timing_accountability": {
+            "wall_ms": 62601,
+            "accounted_ms": 57603,
+            "unaccounted_ms": 4998,
+            "accounted_breakdown": {
+              "search_wall_ms": 45765,
+              "tool_local_ms": 0,
+              "openrouter_total_ms": 11838,
+              "thread_wait_ms": 0,
+              "expand_retry_ms": 0,
+              "parallelism_excess_ms": 0,
+              "vault_search_local_ms": 1034,
+              "retrieval_llm_ms": 44725
+            }
+          },
+          "observability": {
+            "timing_enabled": true,
+            "agent_path": {
+              "sequence": [
+                "search_vault"
+              ],
+              "path_string": "search_vault",
+              "tool_rounds_used": 2,
+              "max_tool_rounds": 6,
+              "reasoning_snippets": [
+                "Your notes on Rockefeller and competition cluster around a handful of interlocking ideas \u2014 and they're remarkably consistent across both episodes you've studied on him.\n\n**The core insight is that Rockefeller won not by being loud but by being silent, precise, and relentless about costs.** You flagged two variations of the same principle: in ep-0016, you noted he made money quietly so he wouldn't invite competition [ep-0016], and in ep-0148 you captured the aphorism \"Bad boys move in silence\" \u2014 the habit of keeping his intentions private so competitors couldn't anticipate his moves [ep-0148]. This wasn't just style; it was strategy.\n\n**The second big theme: cost control as an unbeatable weapon.** You highlighted the story where a rival refused to sell, so Rockefeller showed him his books \u2014 and the competitor, seeing how much leaner Standard Oil operated, immediately capitulated [ep-0016]. The takeaway you pulled is that fanatical cost discipline made competing against him economically irrational.\n\n**Then there's the post-competition move: absorption, not annihilation.** You noted that Rockefeller \"constantly took adversaries\" and that after the battle, he'd turn them into allies \u2014 Henry Rogers being the named example [ep-0016]. He didn't just destroy competitors; he brought them and their talent inside the machine.\n\n**One detail worth calling out:** your notes from ep-0016 reference a Genghis Khan comparison, but the transcript doesn't actually contain that \u2014 it may be your own annotation rather than something from the book or the episode. Worth verifying if you go back.\n\n**The final note, from ep-0148, is the flip side of dominance:** Rockefeller warned that if Standard Oil managers ever relaxed, the business would collapse \"about as long as any other neglected business\" [ep-0148]. The lesson you extracted is that no competitive advantage is permanent \u2014 the moment you stop pushing, decline is inevitable.\n\n**A cross-founder echo:** you've also noted similar competitive intensity in Bill Gates \u2014 the idea of killing competition early and viewing a lost deal as a $100K loss (the $50K you didn't get plus the $50K your rival now has to fight you with) [ep-0140]. The specific tactics differ, but the zero-sum mindset threads through both."
+              ]
+            },
+            "routing_efficiency": {
+              "redundant_queries": [],
+              "search_before_load_pattern": false,
+              "tool_switches": 0
+            },
+            "latency": {
+              "wall_ms": 62601,
+              "agent_routing_ms": 2723,
+              "retrieval": {
+                "query_expand_ms": 14206,
+                "hybrid_search_ms": 1034,
+                "llm_rerank_ms": 30519
+              },
+              "tool_local_ms": 0,
+              "synthesis": {
+                "final_ttft_ms": 4169,
+                "final_total_ms": 11083,
+                "label": "agent_round_2"
+              },
+              "accountability": {
+                "wall_ms": 62601,
+                "accounted_ms": 57603,
+                "unaccounted_ms": 4998,
+                "accounted_breakdown": {
+                  "search_wall_ms": 45765,
+                  "tool_local_ms": 0,
+                  "openrouter_total_ms": 11838,
+                  "thread_wait_ms": 0,
+                  "expand_retry_ms": 0,
+                  "parallelism_excess_ms": 0,
+                  "vault_search_local_ms": 1034,
+                  "retrieval_llm_ms": 44725
+                }
+              }
+            },
+            "evidence_yield": {
+              "chunks_per_round": [
+                8,
+                0
+              ],
+              "unique_episodes_per_round": [
+                4,
+                0
+              ],
+              "rerank_top_score_per_round": [
+                9.5,
+                null
+              ]
+            },
+            "synthesis_quality": {
+              "citation_count": 6,
+              "dsml_leak": false,
+              "final_synthesis_ttft_ms": 4169
+            }
+          }
+        },
+        {
+          "index": 2,
+          "action": "send '/clear'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0007596659706905484,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n",
+          "observability": {
+            "timing_enabled": false
+          }
+        }
+      ]
+    }
+  ],
+  "aggregate": {
+    "turn_count": 1,
+    "cap_hits": 0,
+    "mean_final_ttft_ms": 4169.0,
+    "mean_wall_ms": 62601.0,
+    "pass_count": 1,
+    "scenario_count": 1,
+    "mean_wall_s": 62.6
+  }
+}

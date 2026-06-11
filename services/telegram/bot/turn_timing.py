@@ -91,21 +91,29 @@ class TurnTimer:
         ttft_ms: int,
         total_ms: int,
         tokens: int,
+        span_name: str | None = None,
     ) -> None:
         tok_per_sec: float | None = None
         gen_ms = total_ms - ttft_ms
         if tokens > 0 and gen_ms > 0:
             tok_per_sec = round(tokens / (gen_ms / 1000.0), 1)
+        row: dict[str, Any] = {
+            "label": label,
+            "ttft_ms": ttft_ms,
+            "total_ms": total_ms,
+            "completion_tokens": tokens,
+            "tok_per_sec": tok_per_sec,
+        }
+        if span_name:
+            row["span_name"] = span_name
         with self._lock:
-            self._data.openrouter_calls.append(
-                {
-                    "label": label,
-                    "ttft_ms": ttft_ms,
-                    "total_ms": total_ms,
-                    "completion_tokens": tokens,
-                    "tok_per_sec": tok_per_sec,
-                }
-            )
+            self._data.openrouter_calls.append(row)
+
+    def annotate_last_openrouter_span(self, span_name: str) -> None:
+        with self._lock:
+            if not self._data.openrouter_calls:
+                return
+            self._data.openrouter_calls[-1]["span_name"] = span_name
 
     def to_dict(self) -> dict[str, Any]:
         with self._lock:
