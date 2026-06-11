@@ -117,6 +117,8 @@ def append_librarian_run(
 
     obs_agg = aggregate_observability(turn_obs)
     if obs_agg:
+        # Align with entry cap_hits (stop_reason == "cap"), not cap_thrash.hit_cap.
+        obs_agg["cap_hits"] = cap_hits
         entry["observability_aggregate"] = obs_agg
 
     runs: list[dict[str, Any]] = list(history.get("runs") or [])
