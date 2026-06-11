@@ -201,6 +201,8 @@ turns:
 
 On failure, read the latest `dev/logs/runs/*-report.json`. For live librarian quality review, open the paired `*-report.md` in a markdown preview. Use `-v` on the CLI for per-turn timing lines and suite aggregates on stdout.
 
+**Remote (Mac mini):** reports are local-only (gitignored). From a laptop on Tailscale, `./dev/pull-harness-reports.sh` rsyncs `dev/logs/runs/` from the mini; `--list` / `--latest-json` / `--latest-md` peek without a full sync. See [operations.md](operations.md) (Tailscale section).
+
 ### Report JSON schema (`*-report.json`)
 
 Written on every scenario run (not gated on `-v`).
