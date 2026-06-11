@@ -12,6 +12,7 @@ turns:
   - send: "What book did he rely on?"
     expect:
       response_min_length: 20
+      not_contains: "I could not compose an answer"
   - send: "/newchat"
     expect:
       contains: "new chat"

@@ -4,7 +4,10 @@ turns:
   - send: "What did I note about Rockefeller discipline across episodes?"
     expect:
       expect_live:
-        tool_called: search_vault
+        tool_called_any:
+          - search_vault
+          - search_vault_many
+        response_contains_episode_citation: true
   - send: "What did he say verbatim about Standard Oil breakup?"
     expect:
       expect_live:

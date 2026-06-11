@@ -45,12 +45,18 @@ class TurnResult:
     timing: dict[str, Any] | None = None
 
 
+def _episode_evidence_summary(
+    turn_evidence: list[dict[str, Any]],
+) -> tuple[list[str], int]:
+    ep_ids = sorted({str(e.get("episode_id", "")) for e in turn_evidence if e.get("episode_id")})
+    return ep_ids, len(turn_evidence)
+
+
 def search_budget_nudge(turn_evidence: list[dict[str, Any]]) -> str:
     base = SEARCH_BUDGET_NUDGE
     if not turn_evidence:
         return base
-    ep_ids = sorted({str(e.get("episode_id", "")) for e in turn_evidence if e.get("episode_id")})
-    chunk_count = len(turn_evidence)
+    ep_ids, chunk_count = _episode_evidence_summary(turn_evidence)
     if not ep_ids:
         return f"{base} Evidence gathered: {chunk_count} chunks. Answer now; say if thin."
     ep_preview = ", ".join(ep_ids[:8])
@@ -60,6 +66,47 @@ def search_budget_nudge(turn_evidence: list[dict[str, Any]]) -> str:
         f"{base} Evidence gathered: {ep_preview} ({chunk_count} chunks). "
         "Answer now; say if thin."
     )
+
+
+def cap_thin_evidence_reply(turn_evidence: list[dict[str, Any]]) -> str:
+    """User-visible fallback when cap synthesis is empty after sanitization."""
+    ep_ids, chunk_count = _episode_evidence_summary(turn_evidence)
+    if ep_ids:
+        ep_preview = ", ".join(ep_ids[:8])
+        if len(ep_ids) > 8:
+            ep_preview += f" (+{len(ep_ids) - 8} more)"
+        gathered = (
+            f"I searched episodes including {ep_preview} ({chunk_count} evidence chunks) "
+            "but could not turn that into a clean answer."
+        )
+    elif turn_evidence:
+        gathered = (
+            f"I gathered {chunk_count} evidence chunks but could not turn that "
+            "into a clean answer."
+        )
+    else:
+        gathered = (
+            "I used the full search budget for this turn but could not turn the "
+            "results into a clean answer."
+        )
+    return (
+        f"{gathered} The vault may not have a direct hit here — try a guest name, "
+        "episode number, or a narrower theme."
+    )
+
+
+def finalize_librarian_content(
+    raw: str,
+    *,
+    turn_evidence: list[dict[str, Any]],
+    cap: bool,
+) -> str:
+    cleaned = sanitize_librarian_reply(raw)
+    if cleaned:
+        return cleaned
+    if cap and turn_evidence:
+        return cap_thin_evidence_reply(turn_evidence)
+    return EMPTY_SYNTHESIS
 
 
 class VaultAgent:
@@ -99,7 +146,11 @@ class VaultAgent:
                 timing_dict["agent_steps"] = steps
                 trace.append({"record": "timing", **timing_dict})
             summary = build_trace_summary(trace, stop_reason=stop)
-            clean = sanitize_librarian_reply(content) or EMPTY_SYNTHESIS
+            clean = finalize_librarian_content(
+                content,
+                turn_evidence=turn_evidence,
+                cap=(stop == "cap"),
+            )
             return TurnResult(
                 content=clean,
                 tool_trace=trace,
@@ -160,7 +211,6 @@ class VaultAgent:
                 msg = _completion(label=f"agent_round_{agent_round}", **request)
 
                 if not msg.tool_calls:
-                    text = (msg.content or "").strip() or EMPTY_SYNTHESIS
                     trace.append(
                         {
                             "record": "round",
@@ -174,7 +224,7 @@ class VaultAgent:
                         }
                     )
                     return _finish(
-                        content=text,
+                        content=msg.content or "",
                         steps=step,
                         stop=stop_reason,
                     )
@@ -251,7 +301,6 @@ class VaultAgent:
                         stream_options={"include_usage": True},
                         tool_choice="none",
                     )
-                    text = (final.content or "").strip() or EMPTY_SYNTHESIS
                     trace.append(
                         {
                             "record": "round",
@@ -265,7 +314,7 @@ class VaultAgent:
                         }
                     )
                     return _finish(
-                        content=text,
+                        content=final.content or "",
                         steps=step + 1,
                         stop=stop_reason,
                     )

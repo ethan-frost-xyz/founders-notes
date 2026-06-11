@@ -11,6 +11,7 @@ import pytest
 REPO = Path(__file__).resolve().parent.parent
 
 from agent import (  # noqa: E402
+    EMPTY_SYNTHESIS,
     MAX_TOOL_ROUNDS,
     VaultAgent,
     TurnResult,
@@ -322,6 +323,42 @@ def test_run_turn_cap_forces_final_answer(agent_config: AgentConfig, monkeypatch
     assert "Evidence gathered:" in nudge
     assert "ep-0016" in nudge
     assert "ep-0043" in nudge
+
+
+def test_run_turn_cap_dsml_only_uses_thin_fallback(
+    agent_config: AgentConfig, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.setattr(
+        "search_turn.search_vault_for_turn",
+        lambda query, **kwargs: {
+            "query": query,
+            "evidence": "thin evidence",
+            "meta": {},
+            "trace_evidence": [
+                {"episode_id": "ep-0016", "rerank_score": 7.0},
+            ],
+        },
+    )
+
+    dsml_only = '<DSML invoke="x">only markup</DSML>'
+
+    def fake_completion(**kwargs):
+        if kwargs.get("tool_choice") == "none":
+            return _stream_from_response(_fake_response(content=dsml_only))
+        return _stream_from_response(
+            _fake_response(
+                tool_calls=[_fake_tool_call("search_vault", {"query": "more please"})],
+            )
+        )
+
+    result = VaultAgent(config=agent_config).run_turn(
+        "obscure topic",
+        completion_fn=fake_completion,
+    )
+    assert result.stop_reason == "cap"
+    assert result.content != EMPTY_SYNTHESIS
+    assert "ep-0016" in result.content
+    assert "DSML" not in result.content
 
 
 def test_search_budget_nudge_summarizes_trace_evidence():
