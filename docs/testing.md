@@ -120,11 +120,13 @@ pytest tests/test_vault_v0_checklist.py -q
 
 | # | Criterion | Test |
 |---|-----------|------|
-| 1 | Thematic Q → `search_vault` in trace | `test_v0_criterion_retrieval_in_trace` |
+| 1 | Thematic Q → `search_vault` in trace | `test_run_turn_search_vault_tool_trace` in `test_vault_agent.py` |
 | 2 | After promote + reindex → `expanded:*` in hybrid hits | `test_v0_criterion_expanded_in_index` (skip unless `RUN_REBUILT_INDEX_SCENARIOS=1`) |
-| 3 | Allowlist blocks non-user | `test_v0_criterion_allowlist` |
-| 4 | `/newchat` exports valid session jsonl | `test_v0_criterion_newchat_export` |
-| — | Un-listened episode absent from search index | `test_v0_criterion_unlistened_no_hits` (calls `tools/vault.py` directly) |
+| 3 | Allowlist blocks non-user | `test_is_allowed_rejects_unknown_user` in `test_telegram_bot.py` |
+| 4 | `/newchat` exports valid session jsonl | `test_newchat_exports_valid_jsonl` in `test_telegram_bot.py` |
+| — | Un-listened episode absent from search index | `test_vault_retrieval_scenario[unlistened_vault_parent]` + `[unlistened_transcript]` |
+| — | Un-listened `load_episode` payload | `test_v0_criterion_unlistened_load_episode` |
+| — | Un-listened agent response UX | `test_v0_criterion_unlistened_agent_response` |
 
 Related: `test_vault_retrieval_scenarios.py`, `test_vault_agent.py`, `test_runtime_settings.py` (`stream_replies`).
 

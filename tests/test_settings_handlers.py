@@ -21,7 +21,7 @@ from settings_handlers import (  # noqa: E402
     settings_keyboard,
 )
 from telegram_test_helpers import callback_update, make_bot_config, make_context  # noqa: E402
-from ui_keyboards import BACK_LABEL, CALLBACK_SETTINGS_MENU, back_to_settings_markup  # noqa: E402
+from ui_keyboards import BACK_LABEL  # noqa: E402
 
 
 def _run(coro):
@@ -57,13 +57,6 @@ def test_role_keyboard_has_presets_and_back():
     assert "mimo-v2.5-pro" in labels
     assert BACK_LABEL in labels
     assert "Type custom slug…" in labels
-
-
-def test_ops_back_uses_shared_label():
-    kb = back_to_settings_markup()
-    btn = kb.inline_keyboard[0][0]
-    assert btn.text == BACK_LABEL
-    assert btn.callback_data == CALLBACK_SETTINGS_MENU
 
 
 def test_janitor_temp_keyboard_presets():

@@ -54,9 +54,6 @@ def test_vault_retrieval_scenario(
     row: dict[str, Any],
     agent_config: AgentConfig,
 ) -> None:
-    if row.get("needs_rebuild") and os.getenv("RUN_REBUILT_INDEX_SCENARIOS") != "1":
-        pytest.skip("rebuilt index scenarios require RUN_REBUILT_INDEX_SCENARIOS=1")
-
     result = _run_scenario(row, agent_config=agent_config)
     hits = result.get("hits") or []
 
