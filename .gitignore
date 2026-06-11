@@ -18,4 +18,7 @@ catalog/telegram-sessions/
 dev/logs/sessions/
 dev/logs/sandbox/
 dev/logs/runs/*.log
+dev/logs/runs/*-report.json
+dev/logs/runs/*-report.md
+dev/logs/runs/librarian-suite-history.json
 catalog/openrouter-models-cache.json

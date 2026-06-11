@@ -8,6 +8,7 @@ from typing import Any, Callable
 
 from config import AgentConfig
 from evidence_format import format_load_episode_for_tool
+from telemetry import TelemetryCollector
 from turn_timing import TurnTimer
 
 ToolFn = Callable[[dict[str, Any]], dict[str, Any]]
@@ -122,6 +123,7 @@ def _tool_handlers(
     *,
     history: list[dict[str, Any]] | None = None,
     timing: TurnTimer | None = None,
+    telemetry: TelemetryCollector | None = None,
 ) -> dict[str, ToolFn]:
     from search_turn import (
         search_transcript_for_turn,
@@ -136,18 +138,21 @@ def _tool_handlers(
             config=config,
             history=history,
             timing=timing,
+            telemetry=telemetry,
         ),
         "search_vault_many": lambda args: search_vault_many_for_turn(
             list(args.get("queries") or []),
             config=config,
             history=history,
             timing=timing,
+            telemetry=telemetry,
         ),
         "search_transcript": lambda args: search_transcript_for_turn(
             str(args["query"]),
             config=config,
             k=int(args.get("k") or 8),
             timing=timing,
+            telemetry=telemetry,
         ),
         "load_episode": lambda args: _timed_local_tool(
             timing,
@@ -182,8 +187,9 @@ def execute_tool(
     config: AgentConfig,
     history: list[dict[str, Any]] | None = None,
     timing: TurnTimer | None = None,
+    telemetry: TelemetryCollector | None = None,
 ) -> dict[str, Any]:
-    handlers = _tool_handlers(config, history=history, timing=timing)
+    handlers = _tool_handlers(config, history=history, timing=timing, telemetry=telemetry)
     if name not in handlers:
         return {"error": f"unknown tool: {name}"}
     try:

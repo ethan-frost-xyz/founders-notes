@@ -239,3 +239,27 @@ def test_retrieve_core_on_timing_split(orch_config: OrchestratorConfig, monkeypa
     local_ms = sum(ms for p, ms in collected if p == "vault_local")
     assert llm_ms >= 30
     assert local_ms >= 0
+
+
+def test_retrieve_core_on_phase_granular(orch_config: OrchestratorConfig, monkeypatch: pytest.MonkeyPatch):
+    import retrieval.orchestrator as ro
+
+    monkeypatch.setattr(ro, "hybrid_search_parent_chunks", lambda *a, **k: [])
+    monkeypatch.setattr(ro, "embed_queries", lambda qs: [None] * len(qs))
+    monkeypatch.setattr(ro, "search_transcript_keyword", lambda *a, **k: [])
+
+    orch = RetrievalOrchestrator(
+        orch_config,
+        expand_fn=lambda q, **k: (q, [q] * 5),
+        rerank_fn=lambda *a, **k: [],
+    )
+    phases: list[str] = []
+
+    def on_phase(name: str, ms: int) -> None:
+        _ = ms
+        phases.append(name)
+
+    orch.retrieve_core("test query", expand_variants=EXPAND_VARIANTS_FULL, on_phase=on_phase)
+    assert "retrieval.query_expand" in phases
+    assert "retrieval.hybrid_search" in phases
+    assert "retrieval.llm_rerank" in phases

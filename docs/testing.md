@@ -148,7 +148,7 @@ Harness **echo** mode intentionally skips `expect_live` assertions in YAML scena
 
 Headless and REPL testing without the real Bot API. Uses the production handler stack with a mocked transport; Janitor writes go to a temp sandbox under `dev/logs/sandbox/`, not `content/notes/`.
 
-Full guide: **[telegram-mock-harness.md](telegram-mock-harness.md)**.
+Full guide: **[telegram-mock-harness.md](telegram-mock-harness.md)**. Live librarian reports use **schema v2.0** with per-turn `observability` (agent pathing, latency spans, cap thrash) when timing is enabled.
 
 ```bash
 python dev/mock_telegram_cli.py --stub-llm --run-scenarios

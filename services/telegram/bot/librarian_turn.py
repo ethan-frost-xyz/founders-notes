@@ -13,6 +13,7 @@ from runtime_settings import effective_stream_replies
 from telegram import Update
 from telegram.ext import ContextTypes
 from tool_status import tool_status_label
+from telemetry import TurnTimerCollector
 from turn_timing import TurnTimer, append_timing_jsonl, is_timing_enabled
 
 
@@ -34,8 +35,10 @@ async def run_librarian_turn(
     t_handler = perf_counter()
     harness = _is_harness_bot(context)
     timer: TurnTimer | None = None
+    telemetry: TurnTimerCollector | None = None
     if is_timing_enabled(harness=harness):
         timer = TurnTimer()
+        telemetry = TurnTimerCollector()
         if not harness and update.message and update.message.date:
             pickup_ms = max(
                 0,
@@ -101,6 +104,7 @@ async def run_librarian_turn(
             on_tool_start=on_tool_start,
             on_chunk=on_chunk if stream_enabled else None,
             timing=timer,
+            telemetry=telemetry,
         )
     finally:
         if status_msg is not None and not harness:

@@ -39,18 +39,20 @@ Start from #1 unless I specify otherwise.
 
 - **Harness pass rate** → target 11/11 (fix assertions or agent, not just reroll)
 - **Wall time & retrieval_llm** → lower is better; flag regressions >25% vs baseline row
-- **Tool count** → fewer tools on simple Qs (#1, #8); no zero-tool answers on thematic (#4)
+- **Agent path** → `observability.agent_path.path_string`; flag redundant tool chains on simple Qs (#1, #8)
+- **Final synthesis TTFT** → `observability.latency.synthesis.final_ttft_ms` (not `agent_ttft_ms_mean`)
+- **Retrieval spans** → `observability.latency.retrieval` (`query_expand_ms`, `hybrid_search_ms`, `llm_rerank_ms`)
+- **Cap thrash** → `observability.cap_thrash.gathered.thrash_score` when `stop_reason=cap`; flag high final-round evidence dependency
+- **Routing efficiency** → `observability.routing_efficiency.redundant_queries`, `tool_switches`
 - **stop_reason** → prefer `natural`; flag new `cap` hits (#11)
-- **unaccounted_ms** → flag turns >60s (wall-based formula: search_wall_ms + tool_local_ms + openrouter; baseline Jun 9 unaccounted not 1:1 comparable)
-- **search_wall_ms / tool_local_ms / thread_wait_ms / parallelism_excess_ms** → read `timing_accountability.accounted_breakdown`; high parallelism_excess on search_vault_many is expected
-- **Substantive quality** → read `response_text` / `dev/logs/runs/*-report.md`; flag hallucination, missing thin-evidence honesty, DSML leaks
+- **unaccounted_ms** → flag turns >60s via `timing_accountability` or `observability.latency.accountability`
+- **Substantive quality** → `response_text` / `*-report.md`; check `observability.synthesis_quality.dsml_leak`
+- **Suite history** → auto-appended to `dev/logs/runs/librarian-suite-history.json` with `delta_vs_baseline`
 - **Known flakes** → `search_vault` vs `search_vault_many` on #4/#7: note whether behavior or assertion changed
 
 After each scenario, print a **delta vs baseline** line (pass/fail change, wall ±%, tools, stop_reason, retrieval_llm).
 
-When the full queue finishes, write a new suite summary JSON:
-`dev/logs/runs/YYYY-MM-DD-librarian-live-suite-summary.json`
-with the same schema as the baseline file and a `baseline_comparison` section.
+Harness auto-appends each librarian suite run to `dev/logs/runs/librarian-suite-history.json`. Optional: copy a run entry to a dated snapshot (e.g. `YYYY-MM-DD-librarian-live-suite-summary.json`) for long-term baselines.
 
 ## Commands
 
@@ -80,13 +82,16 @@ ingestion/.venv/bin/python dev/mock_telegram_cli.py \
 
 ## After each run, summarize
 
-- Pass/fail + **delta vs baseline** (harness + substantive)
+- Pass/fail + **delta vs baseline** (harness + substantive; also `librarian-suite-history.json` → `delta_vs_baseline`)
 - Wall time + **±% vs baseline**
+- `observability.agent_path.path_string_compact` and `tool_rounds_used`
+- `observability.latency.synthesis.final_ttft_ms` and retrieval spans (`query_expand_ms`, `hybrid_search_ms`, `llm_rerank_ms`)
+- `observability.cap_thrash.gathered.thrash_score` when `stop_reason=cap`
+- `observability.routing_efficiency.redundant_queries`
 - stop_reason (natural / cap)
-- tool_call_counts and notable tool_calls[].arguments
-- response_text quality (1–2 sentences — would you trust this answer?)
-- Key timing: retrieval_llm_ms (effort), search_wall_ms, tool_local_ms, timing_accountability.unaccounted_ms
-- Report paths: `dev/logs/runs/*-report.json` and `*-report.md`
+- response_text quality (1–2 sentences); `observability.synthesis_quality.dsml_leak`
+- Legacy timing: retrieval_llm_ms, timing_accountability.unaccounted_ms
+- Report paths: `dev/logs/runs/*-report.json`, `*-report.md`, suite history
 
 ## Rules
 
@@ -94,7 +99,7 @@ ingestion/.venv/bin/python dev/mock_telegram_cli.py \
 - **Interactive:** one scenario per turn — wait for "proceed"
 - **Sequential:** full suite in one session is OK
 - Preflight only if needed: `ingestion/.venv/bin/python dev/mock_telegram_cli.py --preflight`
-- Reports are enriched: use `response_text`, `tool_rounds`, `trace_summary`, `stop_reason` for diagnosis
+- Reports are schema v2: use `observability`, `response_text`, `tool_rounds`, `trace_summary`, `stop_reason` for diagnosis
 - Confirm `retrieval_model` is still `deepseek/deepseek-v4-flash` before starting (or note if different)
 
 Start with #1.

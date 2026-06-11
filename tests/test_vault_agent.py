@@ -478,3 +478,28 @@ def test_run_turn_stream_timing(agent_config: AgentConfig):
     assert calls[0]["label"] == "agent_round_1"
     assert calls[0]["tok_per_sec"] is not None
     assert any(t.get("record") == "timing" for t in result.tool_trace)
+
+
+def test_run_turn_emits_spans_with_telemetry(agent_config: AgentConfig):
+    from telemetry import TurnTimerCollector
+    from turn_timing import TurnTimer
+
+    timer = TurnTimer()
+    telemetry = TurnTimerCollector()
+
+    def fake_completion(**kwargs):
+        return _stream_from_response(_fake_response(content="Direct answer [ep-0016]."))
+
+    result = VaultAgent(config=agent_config).run_turn(
+        "hello",
+        completion_fn=fake_completion,
+        timing=timer,
+        telemetry=telemetry,
+    )
+    assert not result.error
+    spans_record = next(t for t in result.tool_trace if t.get("record") == "spans")
+    span_names = [s["name"] for s in spans_record.get("spans") or []]
+    assert "agent.synthesis.final" in span_names
+    calls = (result.timing or {}).get("openrouter_calls") or []
+    assert calls
+    assert calls[0].get("span_name") == "agent.synthesis.final"

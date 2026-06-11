@@ -56,6 +56,7 @@ def tool_rounds_from_traces(traces: list[dict[str, Any]]) -> list[dict[str, Any]
             "queries": list(entry.get("queries") or []),
             "episode_ids": ep_ids,
             "rerank_scores_top3": scores[:3],
+            "evidence": list(ev),
         }
         if entry.get("stop"):
             row["stop"] = entry["stop"]
@@ -185,6 +186,7 @@ def enrich_turn_from_traces(
     elapsed_s: float,
     llm_mode: str = "live",
     assistant_content: str | None = None,
+    timing_enabled: bool = True,
 ) -> dict[str, Any]:
     timing = timing_dict_from_traces(traces)
     stop_reason = stop_reason_from_traces(traces, llm_mode=llm_mode)
@@ -192,14 +194,16 @@ def enrich_turn_from_traces(
         response_text = assistant_content
     else:
         response_text = response_text_from_replies(replies)
+    tool_rounds = tool_rounds_from_traces(traces)
     out: dict[str, Any] = {
         "response_text": response_text,
         "stop_reason": stop_reason,
         "tool_calls": tool_calls_from_traces(traces),
-        "tool_rounds": tool_rounds_from_traces(traces),
+        "tool_rounds": tool_rounds,
         "tool_call_counts": tool_call_counts_from_traces(traces),
         "trace_summary": trace_summary_from_traces(traces, stop_reason),
     }
+    accountability = None
     if timing is not None:
         out["timing"] = timing
         try:
@@ -211,4 +215,17 @@ def enrich_turn_from_traces(
         accountability = timing_accountability(timing, elapsed_s)
         if accountability is not None:
             out["timing_accountability"] = accountability
+
+    from harness.observability import build_observability
+
+    out["observability"] = build_observability(
+        traces,
+        response_text=response_text,
+        elapsed_s=elapsed_s,
+        timing=timing,
+        stop_reason=stop_reason,
+        accountability=accountability,
+        tool_rounds=tool_rounds,
+        timing_enabled=timing_enabled and timing is not None,
+    )
     return out
