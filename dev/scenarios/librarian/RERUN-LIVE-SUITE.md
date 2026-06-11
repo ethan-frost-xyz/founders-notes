@@ -39,18 +39,20 @@ Start from #1 unless I specify otherwise.
 
 - **Harness pass rate** → target 11/11 (fix assertions or agent, not just reroll)
 - **Wall time & retrieval_llm** → lower is better; flag regressions >25% vs baseline row
-- **Tool count** → fewer tools on simple Qs (#1, #8); no zero-tool answers on thematic (#4)
+- **Agent path** → `observability.agent_path.path_string`; flag redundant tool chains on simple Qs (#1, #8)
+- **Final synthesis TTFT** → `observability.latency.synthesis.final_ttft_ms` (not `agent_ttft_ms_mean`)
+- **Retrieval spans** → `observability.latency.retrieval` (`query_expand_ms`, `hybrid_search_ms`, `llm_rerank_ms`)
+- **Cap thrash** → `observability.cap_thrash.gathered.thrash_score` when `stop_reason=cap`; flag high final-round evidence dependency
+- **Routing efficiency** → `observability.routing_efficiency.redundant_queries`, `tool_switches`
 - **stop_reason** → prefer `natural`; flag new `cap` hits (#11)
-- **unaccounted_ms** → flag turns >60s (wall-based formula: search_wall_ms + tool_local_ms + openrouter; baseline Jun 9 unaccounted not 1:1 comparable)
-- **search_wall_ms / tool_local_ms / thread_wait_ms / parallelism_excess_ms** → read `timing_accountability.accounted_breakdown`; high parallelism_excess on search_vault_many is expected
-- **Substantive quality** → read `response_text` / `dev/logs/runs/*-report.md`; flag hallucination, missing thin-evidence honesty, DSML leaks
+- **unaccounted_ms** → flag turns >60s via `timing_accountability` or `observability.latency.accountability`
+- **Substantive quality** → `response_text` / `*-report.md`; check `observability.synthesis_quality.dsml_leak`
+- **Suite history** → auto-appended to `dev/logs/runs/librarian-suite-history.json` with `delta_vs_baseline`
 - **Known flakes** → `search_vault` vs `search_vault_many` on #4/#7: note whether behavior or assertion changed
 
 After each scenario, print a **delta vs baseline** line (pass/fail change, wall ±%, tools, stop_reason, retrieval_llm).
 
-When the full queue finishes, write a new suite summary JSON:
-`dev/logs/runs/YYYY-MM-DD-librarian-live-suite-summary.json`
-with the same schema as the baseline file and a `baseline_comparison` section.
+Harness auto-appends each librarian suite run to `dev/logs/runs/librarian-suite-history.json`. Optional: copy a run entry to a dated snapshot (e.g. `YYYY-MM-DD-librarian-live-suite-summary.json`) for long-term baselines.
 
 ## Commands
 

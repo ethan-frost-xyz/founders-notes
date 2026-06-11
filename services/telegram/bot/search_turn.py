@@ -19,6 +19,7 @@ from retrieval.orchestrator import (
     evidence_meta_for_trace,
     orchestrator_from_agent_config,
 )
+from telemetry import TelemetryCollector
 from turn_timing import TurnTimer
 
 
@@ -83,6 +84,18 @@ def _retry_callback(timer: TurnTimer | None) -> Callable[[int, int, int], None] 
     return on_retry
 
 
+def _phase_callback(
+    telemetry: TelemetryCollector | None,
+) -> Callable[[str, int], None] | None:
+    if telemetry is None:
+        return None
+
+    def on_phase(name: str, ms: int) -> None:
+        telemetry.record_phase(name, ms)
+
+    return on_phase
+
+
 def search_vault_for_turn(
     query: str,
     *,
@@ -90,6 +103,7 @@ def search_vault_for_turn(
     history: list[dict[str, Any]] | None = None,
     on_status: Callable[[str], None] | None = None,
     timing: TurnTimer | None = None,
+    telemetry: TelemetryCollector | None = None,
 ) -> dict[str, Any]:
     """Full expand + hybrid + rerank; returns formatted evidence for the agent loop."""
     search_timing = (
@@ -105,6 +119,7 @@ def search_vault_for_turn(
             keep=SEARCH_VAULT_KEEP,
             on_status=on_status,
             on_timing=_timing_callback(timing, search_timing),
+            on_phase=_phase_callback(telemetry),
             on_retry=_retry_callback(timing),
         )
     except Exception:
@@ -128,6 +143,7 @@ def search_vault_many_for_turn(
     history: list[dict[str, Any]] | None = None,
     on_status: Callable[[str], None] | None = None,
     timing: TurnTimer | None = None,
+    telemetry: TelemetryCollector | None = None,
 ) -> dict[str, Any]:
     """Concurrent fan-out of retrieve_core per sub-query; labeled results."""
     cleaned = [str(q).strip() for q in queries if str(q).strip()]
@@ -159,6 +175,7 @@ def search_vault_many_for_turn(
                 keep=SEARCH_VAULT_MANY_KEEP,
                 on_status=on_status,
                 on_timing=_timing_callback(timing, search_timing),
+                on_phase=_phase_callback(telemetry),
                 on_retry=_retry_callback(timing),
             )
             if search_timing is not None:
@@ -205,6 +222,7 @@ def search_transcript_for_turn(
     config: AgentConfig,
     k: int = 8,
     timing: TurnTimer | None = None,
+    telemetry: TelemetryCollector | None = None,
 ) -> dict[str, Any]:
     from _bootstrap import setup_ingestion_paths
 
@@ -229,6 +247,8 @@ def search_transcript_for_turn(
             wall_ms=elapsed_ms,
             tool="search_transcript",
         )
+    if telemetry is not None:
+        telemetry.record_phase("retrieval.transcript_search", elapsed_ms)
     from evidence_format import format_transcript_evidence, trace_evidence_from_hits
 
     hits = result.get("hits") or []

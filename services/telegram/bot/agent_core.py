@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import time
 from dataclasses import dataclass, field
 from types import SimpleNamespace
 from typing import Any, Callable
@@ -21,6 +22,7 @@ from config import AgentConfig, load_agent_config
 from librarian_prompt import build_system_message
 from reply_sanitize import sanitize_librarian_reply
 from tool_status import tool_status_label
+from telemetry import NO_OP_COLLECTOR, TelemetryCollector, TurnTimerCollector
 from turn_timing import TurnTimer
 
 MAX_TOOL_ROUNDS = 6
@@ -126,11 +128,14 @@ class VaultAgent:
         on_tool_start: Callable[[str, dict[str, Any]], None] | None = None,
         on_chunk: Callable[[str], None] | None = None,
         timing: TurnTimer | None = None,
+        telemetry: TelemetryCollector | None = None,
     ) -> TurnResult:
         """Cold-start agentic loop: model drives retrieval via tools, then answers."""
         cfg = self.config
         trace: list[dict[str, Any]] = []
         stop_reason = "natural"
+        collector = telemetry if telemetry is not None else NO_OP_COLLECTOR
+        span_collector = collector if isinstance(collector, TurnTimerCollector) else None
 
         def _finish(
             *,
@@ -145,6 +150,10 @@ class VaultAgent:
                 timing_dict["stop_reason"] = stop
                 timing_dict["agent_steps"] = steps
                 trace.append({"record": "timing", **timing_dict})
+            if span_collector is not None:
+                spans_record = span_collector.to_trace_record()
+                if spans_record is not None:
+                    trace.append(spans_record)
             summary = build_trace_summary(trace, stop_reason=stop)
             clean = finalize_librarian_content(
                 content,
@@ -193,6 +202,21 @@ class VaultAgent:
             response = completion_fn(**kwargs)
             return response.choices[0].message
 
+        def _timed_completion(
+            *,
+            label: str,
+            phase_name: str,
+            phase_attrs: dict[str, Any] | None = None,
+            **kwargs: Any,
+        ) -> SimpleNamespace:
+            t0 = time.perf_counter()
+            msg = _completion(label=label, **kwargs)
+            ms = int((time.perf_counter() - t0) * 1000)
+            attrs = dict(phase_attrs or {})
+            attrs.setdefault("label", label)
+            collector.record_phase(phase_name, ms, attrs=attrs)
+            return msg
+
         try:
             tool_round = 0
             step = 0
@@ -208,9 +232,17 @@ class VaultAgent:
                     "tools": tools,
                     "tool_choice": "auto",
                 }
-                msg = _completion(label=f"agent_round_{agent_round}", **request)
+                routing_label = f"agent_round_{agent_round}"
+                t_route = time.perf_counter()
+                msg = _completion(label=routing_label, **request)
+                route_ms = int((time.perf_counter() - t_route) * 1000)
 
                 if not msg.tool_calls:
+                    collector.record_phase(
+                        "agent.synthesis.final",
+                        route_ms,
+                        attrs={"round": agent_round, "stop": "natural", "label": routing_label},
+                    )
                     trace.append(
                         {
                             "record": "round",
@@ -229,6 +261,11 @@ class VaultAgent:
                         stop=stop_reason,
                     )
 
+                collector.record_phase(
+                    "agent.routing",
+                    route_ms,
+                    attrs={"round": agent_round, "label": routing_label},
+                )
                 messages.append(assistant_message_dict(msg))
                 round_tools: list[str] = []
                 round_queries: list[str] = []
@@ -256,7 +293,14 @@ class VaultAgent:
                             on_tool_start(name, args)
                         except Exception:
                             pass
-                    result = execute_tool(name, args, config=cfg, history=history, timing=timing)
+                    result = execute_tool(
+                        name,
+                        args,
+                        config=cfg,
+                        history=history,
+                        timing=timing,
+                        telemetry=collector,
+                    )
                     traced = trace_evidence_from_result(result)
                     round_evidence.extend(traced)
                     turn_evidence.extend(traced)
@@ -293,8 +337,11 @@ class VaultAgent:
                         except Exception:
                             pass
                     agent_round += 1
-                    final = _completion(
-                        label=f"agent_round_{agent_round}_cap",
+                    cap_label = f"agent_round_{agent_round}_cap"
+                    final = _timed_completion(
+                        label=cap_label,
+                        phase_name="agent.synthesis.final",
+                        phase_attrs={"round": agent_round, "stop": "cap"},
                         model=cfg.model,
                         messages=messages,
                         stream=True,

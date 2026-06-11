@@ -212,6 +212,7 @@ class RetrievalOrchestrator:
         keep: int = SEARCH_VAULT_KEEP,
         on_status: Callable[[str], None] | None = None,
         on_timing: Callable[[str, int], None] | None = None,
+        on_phase: Callable[[str, int], None] | None = None,
         on_retry: Callable[[int, int, int], None] | None = None,
     ) -> EvidenceBundle:
         """Expand → hybrid search → rerank → optional transcript fallback."""
@@ -244,8 +245,11 @@ class RetrievalOrchestrator:
                     api_key=cfg.api_key,
                     base_url=cfg.base_url,
                 )
+            expand_ms = int((time.perf_counter() - t0) * 1000)
             if on_timing:
-                on_timing("retrieval_llm", int((time.perf_counter() - t0) * 1000))
+                on_timing("retrieval_llm", expand_ms)
+            if on_phase:
+                on_phase("retrieval.query_expand", expand_ms)
             variants = variants[:expand_variants]
             meta["expansion_skipped"] = False
 
@@ -264,8 +268,11 @@ class RetrievalOrchestrator:
         ]
         with ThreadPoolExecutor(max_workers=max(1, len(variants))) as ex:
             per_variant = list(ex.map(_search_one_variant, search_args))
+        hybrid_ms = int((time.perf_counter() - t_local) * 1000)
         if on_timing:
-            on_timing("vault_local", int((time.perf_counter() - t_local) * 1000))
+            on_timing("vault_local", hybrid_ms)
+        if on_phase:
+            on_phase("retrieval.hybrid_search", hybrid_ms)
 
         merged = merge_rrf_chunk_lists(
             per_variant,
@@ -295,8 +302,11 @@ class RetrievalOrchestrator:
                 api_key=cfg.api_key,
                 base_url=cfg.base_url,
             )
+        rerank_ms = int((time.perf_counter() - t0) * 1000)
         if on_timing:
-            on_timing("retrieval_llm", int((time.perf_counter() - t0) * 1000))
+            on_timing("retrieval_llm", rerank_ms)
+        if on_phase:
+            on_phase("retrieval.llm_rerank", rerank_ms)
 
         top_scores = [float(ch.get("rerank_score") or 0) for ch in ranked[:RERANK_KEEP]]
         meta["reranked_top5_scores"] = top_scores[:5]
@@ -322,8 +332,11 @@ class RetrievalOrchestrator:
                         root=vault_root,
                     )
                 )
+            tx_ms = int((time.perf_counter() - t_tx) * 1000)
             if on_timing:
-                on_timing("vault_local", int((time.perf_counter() - t_tx) * 1000))
+                on_timing("vault_local", tx_ms)
+            if on_phase:
+                on_phase("retrieval.transcript_fallback", tx_ms)
             seen: set[str] = set()
             extra: list[dict[str, Any]] = []
             for ch in tx_hits:
@@ -351,8 +364,11 @@ class RetrievalOrchestrator:
                         api_key=cfg.api_key,
                         base_url=cfg.base_url,
                     )
+                rerank_fb_ms = int((time.perf_counter() - t0) * 1000)
                 if on_timing:
-                    on_timing("retrieval_llm", int((time.perf_counter() - t0) * 1000))
+                    on_timing("retrieval_llm", rerank_fb_ms)
+                if on_phase:
+                    on_phase("retrieval.rerank_fallback", rerank_fb_ms)
 
         citable: list[EvidenceChunk] = []
         for ch in ranked:

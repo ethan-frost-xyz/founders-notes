@@ -29,7 +29,7 @@ python dev/mock_telegram_cli.py --scenario dev/scenarios/librarian/episode_resol
 
 `--suite` and `--scenario` **run scenarios** (no need for `--run-scenarios`). Bare `python dev/mock_telegram_cli.py` starts the REPL.
 
-Live librarian runs write enriched JSON to `dev/logs/runs/*-report.json` plus a paired `*-report.md` with formatted answers for preview. JSON has `response_text`, `tool_rounds`, and `stop_reason` for full review (see [telegram-mock-harness.md](../../docs/telegram-mock-harness.md#report-json-schema--reportjson)).
+Live librarian runs write **schema v2** JSON to `dev/logs/runs/*-report.json` plus a paired `*-report.md` with formatted answers for preview. JSON includes `observability` (agent path, latency breakdown, cap thrash), legacy `timing`, and `stop_reason`. Suite runs also append `dev/logs/runs/librarian-suite-history.json`. See [telegram-mock-harness.md](../../docs/telegram-mock-harness.md#report-json-schema--reportjson).
 
 ## Key files
 

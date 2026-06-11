@@ -23,12 +23,14 @@ from harness.env import (  # noqa: E402
 from harness.mock_session import DEFAULT_LOG_DIR  # noqa: E402
 from harness.scenario_runner import (  # noqa: E402
     ScenarioRunner,
+    aggregate_scenario_observability,
     aggregate_timing,
     discover_live_scenarios,
     discover_scenarios,
     format_timing_aggregate,
     paths_need_live_llm,
 )
+from harness.suite_history import append_librarian_run  # noqa: E402
 from harness.terminal import run_repl  # noqa: E402
 
 SCENARIOS_ROOT = _DEV_DIR / "scenarios"
@@ -116,16 +118,28 @@ async def _run_scenarios(args: argparse.Namespace) -> int:
         verbose=args.verbose,
     )
     results = await runner.run_paths(paths)
-    report_paths = runner.write_report(results, DEFAULT_LOG_DIR / "runs")
+    runs_dir = DEFAULT_LOG_DIR / "runs"
+    report_paths = runner.write_report(results, runs_dir, repo_root=REPO_ROOT)
+    history_path = append_librarian_run(
+        report_paths=report_paths,
+        results=results,
+        runs_dir=runs_dir,
+        repo_root=REPO_ROOT,
+        scenario_paths=paths,
+    )
     print(f"Report: {report_paths.json}")
     if report_paths.markdown is not None:
         print(f"Responses: {report_paths.markdown}")
+    if history_path is not None:
+        print(f"Suite history: {history_path}")
     print()
     for result in results:
         print(result.summary(verbose=args.verbose))
         print()
     if args.verbose:
-        print(format_timing_aggregate(aggregate_timing(results)))
+        agg = aggregate_timing(results)
+        agg.update(aggregate_scenario_observability(results))
+        print(format_timing_aggregate(agg))
         print()
     return 0 if all(r.passed for r in results) else 1
 

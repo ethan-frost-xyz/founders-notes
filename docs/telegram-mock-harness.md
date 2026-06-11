@@ -67,7 +67,7 @@ python dev/mock_telegram_cli.py --suite librarian --live-only -v
 python dev/mock_telegram_cli.py --scenario dev/scenarios/librarian/episode_resolve.yaml -v
 ```
 
-**`-v` / `--verbose`:** prints `tools_called` per turn, a one-line **timing** summary per turn (pickup / vault local / retrieval LLM / agent TTFT / tok/s), and adds them to `dev/logs/runs/*-report.json` — use when a live turn fails or you are profiling slowness.
+**`-v` / `--verbose`:** prints `tools_called` per turn, agent path string, latency breakdown (routing / expand / hybrid / rerank / final TTFT / thrash score), and a one-line **timing** summary per turn — use when a live turn fails or you are profiling slowness.
 
 ### Timing
 
@@ -78,11 +78,19 @@ Per-turn phase timing is **on by default in the harness** (disable with `LIBRARI
 python dev/mock_telegram_cli.py --suite librarian --live-only -v
 ```
 
-**Verbose output example:** `[vault=120ms retrieval_llm=800ms ttft=450ms tok/s=38.2]`
+**Verbose output example:**
 
-**Report JSON** (`dev/logs/runs/*-report.json`, when `-v`): each turn may include `timing` (dict) and `timing_summary` (string).
+```text
+PASS thematic_search (64.0s, live) | path: search_vault
+  [ok] turn 1: send '...' — ok [vault=120ms retrieval_llm=800ms ttft=450ms tok/s=38.2]
+    latency: routing=2.1s expand=0.8s hybrid=0.1s rerank=0.7s final_ttft=4.5s
+```
 
-**Suite aggregate** (printed after all scenarios with `-v`): mean/sum for `vault_search_local_ms`, `retrieval_llm_ms`, agent TTFT, and tok/s across turns.
+**Report JSON** (`dev/logs/runs/*-report.json`): schema **v2.0** with `observability` per turn when timing is enabled (harness default on).
+
+**Suite aggregate** (printed after all scenarios with `-v`): legacy timing means plus `cap_hits`, `mean_final_ttft_ms`, `mean_thrash_score`.
+
+**Librarian suite history:** `dev/logs/runs/librarian-suite-history.json` — append-only registry of librarian runs with `delta_vs_baseline` when a baseline is set.
 
 **Production JSONL:** `~/Library/Logs/founders-telegram/librarian-timing.jsonl` (macOS only; one line per turn when enabled).
 
@@ -113,7 +121,7 @@ RUN_LIVE_HARNESS=1 pytest tests/test_harness_scenarios.py -k live -q
 | `--live-only` | Skip scenarios with `llm: echo` |
 | `--stub-llm` | Echo LLM; no OpenRouter |
 | `--preflight` | Print live env + index checks and exit |
-| `-v` / `--verbose` | Tool names + timing summary per turn; preflight summary on live runs; suite timing aggregate |
+| `-v` / `--verbose` | Tool names, agent path, latency breakdown, timing summary; suite aggregate; preflight on live runs |
 | `--debug` | REPL: show tool traces |
 | `--keep-sandbox` | Keep Janitor temp dirs under `dev/logs/sandbox/` |
 
@@ -196,7 +204,7 @@ turns:
 | Path | Contents |
 |------|----------|
 | `dev/logs/sessions/` | Exported session JSONL (like `/newchat`) |
-| `dev/logs/runs/` | `*-report.json` (full trace) and paired `*-report.md` for live librarian runs |
+| `dev/logs/runs/` | `*-report.json` (v2 observability), `*-report.md` (live librarian), `librarian-suite-history.json` |
 | `dev/logs/sandbox/` | Janitor temp vaults (gitignored) |
 
 On failure, read the latest `dev/logs/runs/*-report.json`. For live librarian quality review, open the paired `*-report.md` in a markdown preview. Use `-v` on the CLI for per-turn timing lines and suite aggregates on stdout.
@@ -205,9 +213,11 @@ On failure, read the latest `dev/logs/runs/*-report.json`. For live librarian qu
 
 ### Report JSON schema (`*-report.json`)
 
-Written on every scenario run (not gated on `-v`).
+Written on every scenario run (not gated on `-v`). **`schema_version`: `"2.0"`** — legacy top-level turn fields retained for one release.
 
-**Suite level:** `passed`, `generated_at`, `scenario_count`, `scenarios[]`.
+**Suite level:** `schema_version`, `harness_version` (git sha), `suite` (`librarian` / `janitor` / null), `passed`, `generated_at`, `scenario_count`, `aggregate` (when timing on), `scenarios[]`.
+
+**Aggregate (`aggregate`):** `pass_count`, `scenario_count`, `cap_hits`, `mean_wall_s`, `mean_final_ttft_ms`, `mean_thrash_score`, plus legacy timing rollups when present.
 
 **Per turn (always):**
 
@@ -216,20 +226,46 @@ Written on every scenario run (not gated on `-v`).
 | `response_text` | Agent final markdown (`result.content`) — clean answer for quality review |
 | `stop_reason` | `natural`, `cap` (hit 6 tool rounds), or `error` |
 | `tool_calls` | Flat list with `tool`, `arguments`, `step` |
-| `tool_rounds` | Per agent round: `tools`, `queries`, `episode_ids`, `rerank_scores_top3` |
+| `tool_rounds` | Per agent round: `tools`, `queries`, `episode_ids`, `rerank_scores_top3`, `evidence` |
 | `tool_call_counts` | Counts by tool name (e.g. transcript stacking) |
 | `trace_summary` | Human-readable multiline trace |
 | `tools_called` | Legacy flat tool names (unchanged) |
 | `timing` | When Librarian timing is recorded (harness default on) |
 | `timing_summary` | One-line timing bucket summary |
 | `timing_accountability` | `wall_ms` vs wall-based buckets; see breakdown below |
+| `observability` | Derived metrics block (when `LIBRARIAN_TIMING != 0`) |
 
-**Timing notes:**
+**Observability (`observability`) — per turn:**
+
+| Sub-block | Purpose |
+|-----------|---------|
+| `agent_path` | `sequence`, `path_string` (e.g. `search_vault -> search_transcript`), `tool_rounds_used`, `reasoning_snippets` |
+| `routing_efficiency` | `redundant_queries`, `search_before_load_pattern`, `tool_switches` |
+| `latency` | `wall_ms`, `agent_routing_ms`, `retrieval.*_ms` spans, `tool_local_ms`, `synthesis.final_ttft_ms`, `accountability` |
+| `evidence_yield` | `chunks_per_round`, `unique_episodes_per_round`, `rerank_top_score_per_round` |
+| `synthesis_quality` | `citation_count`, `dsml_leak`, `final_synthesis_ttft_ms` |
+| `cap_thrash` | When cap hit: gathered round shares + cited `[ep-NNNN]` utilization |
+
+**Span source (`tool_trace` record `spans`):** `retrieval.query_expand`, `retrieval.hybrid_search`, `retrieval.llm_rerank`, `retrieval.transcript_fallback`, `retrieval.rerank_fallback`, `agent.routing`, `agent.synthesis.final`. New retrieval stages can add `retrieval.*` names without a schema bump.
+
+**Timing notes (legacy `timing` block):**
 
 - `timing.searches[]` rows include `tool` (`search_vault`, `search_vault_many`, `search_transcript`), optional `wall_ms`, and optional `error`.
 - `openrouter_calls` covers agent LLM streams only — not vault/transcript tool execution wall time.
-- `agent_ttft_ms_mean` averages all agent rounds (tool-pick and synthesis).
-- **`timing_accountability` math:** `accounted_ms = search_wall_ms + tool_local_ms + openrouter_total_ms`. For consecutive `search_vault_many` rows, `search_wall_ms` uses **max** `wall_ms` per batch (not sum). `vault_search_local_ms` / `retrieval_llm_ms` remain effort totals; `parallelism_excess_ms` in the breakdown shows their over-count vs wall. Flag `unaccounted_ms` >60s on turns with heavy local tools or agent overhead.
+- `agent_ttft_ms_mean` averages **all** agent rounds (tool-pick and synthesis). Use `observability.latency.synthesis.final_ttft_ms` for **final answer** TTFT.
+- **`timing_accountability` math:** `accounted_ms = search_wall_ms + tool_local_ms + openrouter_total_ms`. For consecutive `search_vault_many` rows, `search_wall_ms` uses **max** `wall_ms` per batch (not sum). Flag `unaccounted_ms` >60s on turns with heavy local tools or agent overhead.
+
+### Librarian suite history (`librarian-suite-history.json`)
+
+Appended automatically when running scenarios under `dev/scenarios/librarian/`.
+
+| Field | Purpose |
+|-------|---------|
+| `schema_version` | `"1.0"` |
+| `baseline_run_id` | First run id unless overridden |
+| `runs[]` | `run_id`, `report_path`, `markdown_path`, `harness_version`, `pass_count`, `total_wall_s`, `cap_hits`, `delta_vs_baseline`, `observability_aggregate` |
+
+Set `baseline_run_id` manually in the history file to pin a comparison target for `delta_vs_baseline` (`pass_count_delta`, `wall_pct`, `cap_hits_delta`).
 
 ### Report markdown (`*-report.md`)
 
@@ -270,7 +306,11 @@ dev/
   harness/
     env.py                  # Auto-load founders-telegram + repo .env
     mock_session.py         # MockBotSession + echo LLM patches
-    scenario_runner.py      # YAML loader + assertions
+    scenario_runner.py      # YAML loader + assertions + v2 reports
+    observability.py        # Derived metrics from tool traces
+    suite_history.py        # Librarian suite history append
+    report_meta.py          # schema_version + git sha
+    trace_report.py         # Trace → report field extractors
     janitor_sandbox.py      # Temp vault for Janitor
     terminal.py             # REPL
   scenarios/

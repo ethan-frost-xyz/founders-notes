@@ -368,6 +368,8 @@ def test_scenario_runner_write_report_includes_tier1_fields(tmp_path: Path):
     report_paths = runner.write_report(results, tmp_path / "runs")
     assert report_paths.markdown is None
     payload = json.loads(report_paths.json.read_text(encoding="utf-8"))
+    assert payload["schema_version"] == "2.0"
+    assert "harness_version" in payload
     assert payload["scenario_count"] == 1
     assert "generated_at" in payload
     row = payload["scenarios"][0]["turns"][0]

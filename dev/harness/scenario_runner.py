@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import time
 from dataclasses import dataclass, field
@@ -12,6 +13,8 @@ from typing import Any, Literal
 from harness.janitor_sandbox import JanitorSandbox
 from harness.mock_session import MockBotSession, Reply
 from harness.response_report import HarnessReportPaths, write_response_markdown
+from harness.observability import aggregate_observability
+from harness.report_meta import REPORT_SCHEMA_VERSION, harness_git_sha
 from harness.trace_report import enrich_turn_from_traces
 
 try:
@@ -40,6 +43,7 @@ class TurnResult:
     tool_call_counts: dict[str, int] = field(default_factory=dict)
     trace_summary: str = ""
     timing_accountability: dict[str, Any] | None = None
+    observability: dict[str, Any] | None = None
     user_send: str = ""
 
 
@@ -54,7 +58,18 @@ class ScenarioResult:
 
     def summary(self, *, verbose: bool = False) -> str:
         status = "PASS" if self.passed else "FAIL"
-        lines = [f"{status}  {self.name}  ({self.elapsed_s:.1f}s, {self.llm_mode})"]
+        cap_note = ""
+        if any(t.stop_reason == "cap" for t in self.turns):
+            cap_note = " cap"
+        path_note = ""
+        if verbose and self.turns:
+            obs = self.turns[0].observability or {}
+            path_str = (obs.get("agent_path") or {}).get("path_string") or ""
+            if path_str:
+                path_note = f" | path: {path_str}"
+        lines = [
+            f"{status}  {self.name}  ({self.elapsed_s:.1f}s, {self.llm_mode}){cap_note}{path_note}"
+        ]
         for turn in self.turns:
             mark = "ok" if turn.passed else "FAIL"
             line = f"  [{mark}] turn {turn.index}: {turn.action} — {turn.message}"
@@ -68,6 +83,8 @@ class ScenarioResult:
                 unaccounted = int(turn.timing_accountability.get("unaccounted_ms") or 0)
                 if unaccounted > 30_000:
                     line += f" [unaccounted={unaccounted}ms]"
+            if verbose and turn.observability:
+                line += _format_observability_verbose_line(turn.observability)
             lines.append(line)
         return "\n".join(lines)
 
@@ -122,6 +139,36 @@ def aggregate_timing(results: list[ScenarioResult]) -> dict[str, Any]:
     }
 
 
+def _harness_timing_enabled() -> bool:
+    return os.environ.get("LIBRARIAN_TIMING", "").strip() != "0"
+
+
+def _format_observability_verbose_line(obs: dict[str, Any]) -> str:
+    if not obs.get("timing_enabled"):
+        return ""
+    latency = obs.get("latency") or {}
+    retrieval = latency.get("retrieval") or {}
+    parts: list[str] = []
+    routing = latency.get("agent_routing_ms")
+    if routing is not None:
+        parts.append(f"routing={routing / 1000:.1f}s")
+    for key in ("query_expand_ms", "hybrid_search_ms", "llm_rerank_ms"):
+        val = retrieval.get(key)
+        if val:
+            short = key.replace("_ms", "").replace("query_expand", "expand").replace("hybrid_search", "hybrid").replace("llm_rerank", "rerank")
+            parts.append(f"{short}={val / 1000:.1f}s")
+    synth = latency.get("synthesis") or {}
+    if synth.get("final_ttft_ms") is not None:
+        parts.append(f"final_ttft={synth['final_ttft_ms'] / 1000:.1f}s")
+    cap_thrash = obs.get("cap_thrash") or {}
+    gathered = cap_thrash.get("gathered") or {}
+    if gathered.get("thrash_score") is not None:
+        parts.append(f"thrash={gathered['thrash_score']}")
+    if not parts:
+        return ""
+    return f"\n    latency: {' '.join(parts)}"
+
+
 def format_timing_aggregate(agg: dict[str, Any]) -> str:
     if not agg.get("turn_count"):
         return "Timing: no turns recorded timing data."
@@ -136,7 +183,41 @@ def format_timing_aggregate(agg: dict[str, Any]) -> str:
         lines.append(f"  tok/s        mean={agg['mean_generation_tok_per_sec']}")
     if agg.get("mean_telegram_pickup_ms") is not None:
         lines.append(f"  pickup       mean={agg['mean_telegram_pickup_ms']}ms")
+    if agg.get("mean_final_ttft_ms") is not None:
+        lines.append(f"  final_ttft   mean={agg['mean_final_ttft_ms']}ms")
+    if agg.get("cap_hits") is not None:
+        lines.append(f"  cap_hits     {agg['cap_hits']}")
+    if agg.get("mean_thrash_score") is not None:
+        lines.append(f"  thrash_score mean={agg['mean_thrash_score']}")
     return "\n".join(lines)
+
+
+def aggregate_scenario_observability(results: list[ScenarioResult]) -> dict[str, Any]:
+    turn_rows: list[dict[str, Any]] = []
+    for result in results:
+        for turn in result.turns:
+            if turn.observability:
+                turn_rows.append({"observability": turn.observability})
+    agg = aggregate_observability(turn_rows)
+    if not agg:
+        return {}
+    agg["pass_count"] = sum(1 for r in results if r.passed)
+    agg["scenario_count"] = len(results)
+    agg["mean_wall_s"] = round(sum(r.elapsed_s for r in results) / len(results), 1) if results else 0
+    agg["cap_hits"] = sum(
+        1 for r in results for t in r.turns if t.stop_reason == "cap"
+    )
+    return agg
+
+
+def detect_suite_from_results(results: list[ScenarioResult]) -> str | None:
+    if not results:
+        return None
+    if all("librarian" in r.path.parts for r in results):
+        return "librarian"
+    if all("janitor" in r.path.parts for r in results):
+        return "janitor"
+    return None
 
 
 def load_scenario(path: Path) -> dict[str, Any]:
@@ -365,6 +446,7 @@ class ScenarioRunner:
                     elapsed_s=elapsed,
                     llm_mode=llm_mode,
                     assistant_content=session.last_assistant_content,
+                    timing_enabled=_harness_timing_enabled(),
                 )
                 turn_results.append(
                     TurnResult(
@@ -384,6 +466,7 @@ class ScenarioRunner:
                         tool_call_counts=dict(enriched.get("tool_call_counts") or {}),
                         trace_summary=str(enriched.get("trace_summary") or ""),
                         timing_accountability=enriched.get("timing_accountability"),
+                        observability=enriched.get("observability"),
                         user_send=user_send,
                     )
                 )
@@ -432,13 +515,26 @@ class ScenarioRunner:
             row["timing_summary"] = turn.timing_summary
         if turn.timing_accountability is not None:
             row["timing_accountability"] = turn.timing_accountability
+        if turn.observability is not None:
+            row["observability"] = turn.observability
         return row
 
-    def write_report(self, results: list[ScenarioResult], report_dir: Path) -> HarnessReportPaths:
+    def write_report(
+        self,
+        results: list[ScenarioResult],
+        report_dir: Path,
+        *,
+        repo_root: Path | None = None,
+    ) -> HarnessReportPaths:
         report_dir.mkdir(parents=True, exist_ok=True)
         stamp = time.strftime("%Y-%m-%dT%H-%M-%S")
         json_path = report_dir / f"{stamp}-report.json"
-        payload = {
+        root = repo_root or report_dir.parents[3]
+        aggregate = aggregate_scenario_observability(results)
+        payload: dict[str, Any] = {
+            "schema_version": REPORT_SCHEMA_VERSION,
+            "harness_version": harness_git_sha(root),
+            "suite": detect_suite_from_results(results),
             "passed": all(r.passed for r in results),
             "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
             "scenario_count": len(results),
@@ -454,6 +550,8 @@ class ScenarioRunner:
                 for r in results
             ],
         }
+        if aggregate:
+            payload["aggregate"] = aggregate
         json_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
         md_path = write_response_markdown(results, report_dir, stamp=stamp)
         return HarnessReportPaths(json=json_path, markdown=md_path)
