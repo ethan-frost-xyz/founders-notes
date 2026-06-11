@@ -122,19 +122,14 @@ ssh ethans-mac-mini   # ethanfrost; Host in ~/.ssh/config
 
 Use SSH for logs (`~/Library/Logs/founders-telegram/`) and `~/.config/founders-telegram/runtime.json`. **Model tuning** (`/setmodel`, `/settings`) and Librarian/Janitor daily use need **Telegram only** — no laptop Tailscale required. **Tailscale Funnel** for the GitHub webhook runs **on the mini only**; do not run Funnel on the laptop.
 
-**Harness reports** (`dev/logs/runs/*-report.json`, paired `*-report.md`, suite summaries) stay on the mini (`dev/logs/` is gitignored). From the laptop:
+**Harness reports** (`dev/logs/runs/*-report.json`, paired `*-report.md`, suite summaries) are **committed to git** — browse on GitHub or locally after pull. Runs on the mini still write there first; sync then commit:
 
 ```bash
-# Sync all reports into your local clone
-./dev/pull-harness-reports.sh
-
-# Peek without downloading
+./dev/pull-harness-reports.sh    # rsync mini → laptop (then git add/commit)
 ./dev/pull-harness-reports.sh --list
-./dev/pull-harness-reports.sh --latest-json | jq '.scenarios[] | {name, passed, elapsed_s}'
-./dev/pull-harness-reports.sh --latest-md   # readable answers for markdown preview
 ```
 
-Or open the mini repo directly via **Remote SSH** in Cursor/VS Code (`ssh ethans-mac-mini`). Override host/path with `FOUNDERS_MINI_HOST` / `FOUNDERS_MINI_REPO` if needed.
+Or commit and `git push` directly from the mini after a suite. `dev/logs/sessions/` and `dev/logs/sandbox/` remain gitignored.
 
 ### CI parity
 

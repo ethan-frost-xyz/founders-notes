@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "scenarios": [
+    {
+      "name": "Librarian episode resolve NL",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/episode_resolve.yaml",
+      "passed": true,
+      "elapsed_s": 56.822212249971926,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'What did I note on episode 191?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 35.94702220894396,
+          "tools_called": [
+            "list_episode_ids",
+            "load_episode"
+          ]
+        },
+        {
+          "index": 2,
+          "action": "send 'Summarize what I captured on episode 22.'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 20.87414383282885,
+          "tools_called": [
+            "list_episode_ids",
+            "load_episode"
+          ]
+        },
+        {
+          "index": 3,
+          "action": "send '/clear'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0007389998063445091,
+          "tools_called": []
+        }
+      ]
+    }
+  ]
+}

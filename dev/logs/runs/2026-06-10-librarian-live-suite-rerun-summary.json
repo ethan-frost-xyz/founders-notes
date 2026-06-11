@@ -1,0 +1,316 @@
+{
+  "suite": "librarian-live",
+  "generated_at": "2026-06-10T23:15:00",
+  "session_date": "2026-06-10",
+  "baseline_path": "dev/logs/runs/2026-06-09-librarian-live-suite-summary.json",
+  "config": {
+    "retrieval_model": "deepseek/deepseek-v4-flash",
+    "librarian_model": "deepseek/deepseek-v4-pro",
+    "runtime_path": "~/.config/founders-telegram/runtime.json",
+    "harness_command": "ingestion/.venv/bin/python dev/mock_telegram_cli.py --scenario dev/scenarios/librarian/<FILE>.yaml -v"
+  },
+  "summary": {
+    "scenarios_in_queue": 11,
+    "harness_pass": 10,
+    "harness_fail": 1,
+    "substantive_pass_estimate": 9,
+    "failed_scenarios": [
+      "tool_coverage.yaml"
+    ],
+    "quality_failures": [
+      {
+        "yaml": "multi_turn.yaml",
+        "issue": "T3 cap hit; generic compose-failure message instead of honest Knight book synthesis"
+      },
+      {
+        "yaml": "thematic_search.yaml",
+        "issue": "response_text appears truncated mid-sentence despite natural stop"
+      }
+    ],
+    "known_flakes": [
+      "tool_coverage T1: search_vault vs search_vault_many (scenario still pins search_vault only)"
+    ],
+    "primary_runs_wall_s": 3810.7,
+    "notes": [
+      "multi_hop and thematic_cross_episode harness flakes fixed vs Jun 9 baseline",
+      "verbatim_transcript substantive recovery: natural stop, verbatim quotes, no DSML leak",
+      "multi_founder_comparison and multi_turn T3 hit cap with heavy unaccounted_ms on #3",
+      "thematic_search wall +237% vs baseline on same 1-tool path",
+      "expand API empty-response retry observed during tool_coverage"
+    ]
+  },
+  "baseline_comparison": {
+    "harness_pass_delta": "+1 (9→10)",
+    "substantive_pass_delta": "-1 (10→9)",
+    "wall_s_delta": -32.5,
+    "wall_s_delta_pct": -0.8,
+    "improved": [
+      "multi_hop.yaml — harness ✗→✓, substantive ✗→✓",
+      "thematic_cross_episode.yaml — harness ✗→✓ (3/3 turns)",
+      "verbatim_transcript.yaml — substantive ✗→✓ (cap/DSML→natural/verbatim quotes)",
+      "single_founder_depth.yaml — wall 574s→139s (−76%), tools 7→2"
+    ],
+    "regressed": [
+      "multi_founder_comparison.yaml — stop natural→cap, unaccounted 23s→230s",
+      "multi_turn.yaml — T3 substantive fail (cap + generic failure message)",
+      "episode_resolve.yaml — wall 28s→56s (+104%)",
+      "thematic_search.yaml — wall 64s→216s (+237%), possible truncation",
+      "tool_coverage.yaml — harness ✓→✗ (T1 search_vault_many assertion)"
+    ],
+    "unchanged_harness_pass": [
+      "basic_qa.yaml",
+      "episode_resolve.yaml",
+      "thin_evidence_probe.yaml"
+    ]
+  },
+  "queue": [
+    {
+      "number": 1,
+      "yaml": "basic_qa.yaml",
+      "name": "Librarian basic Q&A",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 96.5,
+      "baseline_elapsed_s": 114.2,
+      "wall_delta_pct": -15.5,
+      "stop_reason": "natural",
+      "tool_call_counts": {
+        "search_vault": 2,
+        "search_transcript": 1,
+        "load_episode": 1
+      },
+      "retrieval_llm_ms": 49849,
+      "baseline_retrieval_llm_ms": 75973,
+      "unaccounted_ms": 15587,
+      "report_path": "dev/logs/runs/2026-06-10T21-25-11-report.json",
+      "quality": "Strong — Carnegie steel thesis; 4 tools vs baseline 2"
+    },
+    {
+      "number": 2,
+      "yaml": "episode_resolve.yaml",
+      "name": "Librarian episode resolve NL",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 56.4,
+      "baseline_elapsed_s": 27.7,
+      "wall_delta_pct": 103.6,
+      "stop_reason": "natural",
+      "tool_call_counts_aggregate": {
+        "load_episode": 2,
+        "list_episode_ids": 1
+      },
+      "retrieval_llm_ms": 0,
+      "unaccounted_ms": 31539,
+      "report_path": "dev/logs/runs/2026-06-10T21-57-11-report.json",
+      "quality": "Strong — Naval ep-191 and Spiegel ep-22; T2 added list_episode_ids"
+    },
+    {
+      "number": 3,
+      "yaml": "multi_founder_comparison.yaml",
+      "name": "Librarian multi-founder comparison",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 646.2,
+      "baseline_elapsed_s": 550.2,
+      "wall_delta_pct": 17.4,
+      "stop_reason": "cap",
+      "baseline_stop_reason": "natural",
+      "tool_call_counts": {
+        "search_vault_many": 1,
+        "search_vault": 3,
+        "load_episode": 3,
+        "search_transcript": 3
+      },
+      "retrieval_llm_ms": 237179,
+      "baseline_retrieval_llm_ms": 463062,
+      "unaccounted_ms": 230483,
+      "report_path": "dev/logs/runs/2026-06-10T22-14-54-report.json",
+      "quality": "Strong answer; cap on round 7; 230s unaccounted regression"
+    },
+    {
+      "number": 4,
+      "yaml": "multi_hop.yaml",
+      "name": "Librarian multi-hop theme",
+      "harness_pass": true,
+      "baseline_harness_pass": false,
+      "substantive_pass": true,
+      "baseline_substantive_pass": false,
+      "elapsed_s": 124.3,
+      "baseline_elapsed_s": 157.7,
+      "wall_delta_pct": -21.2,
+      "stop_reason": "natural",
+      "tool_call_counts": {
+        "search_vault_many": 1
+      },
+      "retrieval_llm_ms": 328105,
+      "baseline_retrieval_llm_ms": 237120,
+      "unaccounted_ms": 0,
+      "report_path": "dev/logs/runs/2026-06-10T22-18-01-report.json",
+      "quality": "Excellent — compounding+reputation synthesis; harness flake fixed"
+    },
+    {
+      "number": 5,
+      "yaml": "multi_turn.yaml",
+      "name": "Librarian multi-turn session",
+      "harness_pass": true,
+      "substantive_pass": false,
+      "baseline_substantive_pass": true,
+      "elapsed_s": 717.6,
+      "baseline_elapsed_s": 531.3,
+      "wall_delta_pct": 35.1,
+      "stop_reason": "natural",
+      "turns": [
+        {
+          "turn": 2,
+          "elapsed_s": 27.8,
+          "baseline_elapsed_s": 126.2,
+          "stop_reason": "natural",
+          "tools": ["list_episode_ids", "load_episode", "load_episode"],
+          "retrieval_llm_ms": 0
+        },
+        {
+          "turn": 3,
+          "elapsed_s": 689.7,
+          "baseline_elapsed_s": 405.1,
+          "stop_reason": "cap",
+          "tools": ["search_vault", "search_vault_many", "list_episode_ids", "search_transcript", "search_vault", "search_transcript"],
+          "retrieval_llm_ms": 841619,
+          "substantive_pass": false,
+          "issue": "generic compose-failure after cap"
+        }
+      ],
+      "report_path": "dev/logs/runs/2026-06-10T22-30-52-report.json",
+      "quality": "T2 strong; T3 substantive regression vs baseline honest book answer"
+    },
+    {
+      "number": 6,
+      "yaml": "single_founder_depth.yaml",
+      "name": "Librarian single-founder depth",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 139.3,
+      "baseline_elapsed_s": 574.3,
+      "wall_delta_pct": -75.7,
+      "stop_reason": "natural",
+      "tool_call_counts": {
+        "search_vault_many": 1,
+        "search_transcript": 1
+      },
+      "retrieval_llm_ms": 172196,
+      "baseline_retrieval_llm_ms": 262686,
+      "unaccounted_ms": 0,
+      "report_path": "dev/logs/runs/2026-06-10T22-33-30-report.json",
+      "quality": "Excellent — Buffett inner scorecard; best timing improvement in suite"
+    },
+    {
+      "number": 7,
+      "yaml": "thematic_cross_episode.yaml",
+      "name": "Librarian thematic cross-episode",
+      "harness_pass": true,
+      "baseline_harness_pass": false,
+      "substantive_pass": true,
+      "elapsed_s": 626.1,
+      "baseline_elapsed_s": 471.3,
+      "wall_delta_pct": 32.8,
+      "stop_reason": "natural",
+      "turns": [
+        {"turn": 1, "elapsed_s": 120.1, "tools": ["search_vault_many"], "retrieval_llm_ms": 247832},
+        {"turn": 2, "elapsed_s": 198.4, "tools": ["search_vault_many"], "retrieval_llm_ms": 434163},
+        {"turn": 3, "elapsed_s": 307.6, "tools": ["search_vault_many"], "retrieval_llm_ms": 597065}
+      ],
+      "report_path": "dev/logs/runs/2026-06-10T22-45-04-report.json",
+      "quality": "Strong all turns; harness 3/3 pass (was 1/3)"
+    },
+    {
+      "number": 8,
+      "yaml": "thematic_search.yaml",
+      "name": "Librarian thematic search SP6",
+      "harness_pass": true,
+      "substantive_pass": false,
+      "elapsed_s": 215.9,
+      "baseline_elapsed_s": 64.1,
+      "wall_delta_pct": 236.8,
+      "stop_reason": "natural",
+      "tool_call_counts": {
+        "search_vault": 1
+      },
+      "retrieval_llm_ms": 191335,
+      "baseline_retrieval_llm_ms": 43222,
+      "unaccounted_ms": 10607,
+      "report_path": "dev/logs/runs/2026-06-10T22-50-52-report.json",
+      "quality": "Good synthesis but truncated mid-sentence; retrieval_llm +343%"
+    },
+    {
+      "number": 9,
+      "yaml": "thin_evidence_probe.yaml",
+      "name": "Librarian thin evidence probe",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 420.4,
+      "baseline_elapsed_s": 401.6,
+      "wall_delta_pct": 4.7,
+      "stop_reason": "natural",
+      "tool_call_counts": {
+        "search_vault": 2,
+        "search_vault_many": 1,
+        "list_episode_ids": 1,
+        "search_transcript": 2
+      },
+      "retrieval_llm_ms": 492567,
+      "baseline_retrieval_llm_ms": 347433,
+      "unaccounted_ms": 0,
+      "report_path": "dev/logs/runs/2026-06-10T22-58-29-report.json",
+      "quality": "Excellent — honest no Nadella coverage"
+    },
+    {
+      "number": 10,
+      "yaml": "tool_coverage.yaml",
+      "name": "Librarian tool coverage",
+      "harness_pass": false,
+      "baseline_harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 531.6,
+      "baseline_elapsed_s": 466.6,
+      "wall_delta_pct": 13.9,
+      "stop_reason": "mixed",
+      "failure_mode": "T1 tool_assertion_expected_search_vault_got_search_vault_many",
+      "tools_exercised": [
+        "search_vault_many",
+        "search_transcript",
+        "load_episode",
+        "list_episode_ids"
+      ],
+      "turns": [
+        {"turn": 1, "elapsed_s": 130.7, "harness_pass": false, "tools": ["search_vault_many"], "stop_reason": "natural"},
+        {"turn": 2, "elapsed_s": 350.4, "harness_pass": true, "tools": ["search_transcript", "search_vault", "search_transcript", "search_vault", "search_transcript", "load_episode", "load_episode", "search_transcript", "search_transcript"], "stop_reason": "cap", "unaccounted_ms": 45667},
+        {"turn": 3, "elapsed_s": 22.9, "harness_pass": true, "tools": ["load_episode"], "stop_reason": "natural"},
+        {"turn": 4, "elapsed_s": 27.5, "harness_pass": true, "tools": ["list_episode_ids"], "stop_reason": "natural"}
+      ],
+      "report_path": "dev/logs/runs/2026-06-10T23-08-50-report.json",
+      "quality": "Substantively strong; T1 harness flake only"
+    },
+    {
+      "number": 11,
+      "yaml": "verbatim_transcript.yaml",
+      "name": "Librarian verbatim transcript",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "baseline_substantive_pass": false,
+      "elapsed_s": 236.4,
+      "baseline_elapsed_s": 135.8,
+      "wall_delta_pct": 74.1,
+      "stop_reason": "natural",
+      "baseline_stop_reason": "cap",
+      "tool_call_counts": {
+        "search_transcript": 5,
+        "search_vault_many": 1
+      },
+      "retrieval_llm_ms": 297136,
+      "baseline_retrieval_llm_ms": 64963,
+      "unaccounted_ms": 0,
+      "agent_steps": 6,
+      "report_path": "dev/logs/runs/2026-06-10T23-13-15-report.json",
+      "quality": "Strong — verbatim Rockefeller quotes ep-0148/ep-0016; no DSML leak"
+    }
+  ]
+}

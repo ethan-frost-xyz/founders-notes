@@ -1,0 +1,258 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-09T20:55:28",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian verbatim transcript",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/verbatim_transcript.yaml",
+      "passed": true,
+      "elapsed_s": 304.533755499986,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send \"What were Rockefeller's exact words about competition in the transcript?\"",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 304.533139208972,
+          "tools_called": [
+            "search_transcript",
+            "search_transcript",
+            "search_vault",
+            "search_transcript",
+            "search_transcript"
+          ],
+          "response_text": "Here's what I found from Rockefeller in his own words on competition, drawn from two episodes \u2014 the Chernow biography (ep-0016) and his autobiography (ep-0148).\n\n---\n\n**On the enemy being ruinous overcapacity, not competition itself:**\n\nRockefeller diagnosed the problem as \"the over development of the refining industry\" which had created **\"ruinous competition.\"** His solution: replace competition with cooperation. He explicitly cited 1869\u20131870 as the start of his \"campaign to replace competition with cooperation in the industry, what is also known as Monopoly.\" [ep-0016]\n\n---\n\n**On \"unintelligent competition\":**\n\nThis is the sharpest direct quote. From his autobiography:\n\n> \"We had the type of man who really never knew all the facts about his own affairs. Many kept their books in such a way that they did not actually know when they were making money on a certain operation and when they were losing money. **This unintelligent competition was a hard matter to contend with.** Good old-fashion common sense has always been a mighty rare commodity.\"\n\nHe then contrasted it with his own approach: \"The men who managed the Standard Oil Company kept their books intelligently as well as correctly. We knew how much we made and where we gained or lost. We tried not to deceive ourselves.\" [ep-0148]\n\n---\n\n**On needless duplication as waste:**\n\n> \"The one thing which such a business philosopher would be most careful to avoid in his investments of time and effort or money is the unnecessary duplication of existing industries. He would regard all money spent in increasing needless competition as wasted.\" [ep-0148]\n\n---\n\n**On making money quietly to avoid inviting competition:**\n\nThe host paraphrases this as a recurring Rockefeller principle: \"It's a lot smarter to make money quietly so you don't invite competition, which is what Rockefeller said multiple times throughout the book in his career.\" And Rockefeller's own aphorism from *Titan*: **\"Success comes from keeping the ears open and the mouth closed.\"** [ep-0016]\n\n---\n\n**The through-line:** Rockefeller didn't oppose competition in principle \u2014 he opposed *uninformed, wasteful* competition. His frame was that competitors who didn't know their own numbers created a destructive race to the bottom that hurt everyone. His fix wasn't to out-compete them in a fair fight; it was to absorb, consolidate, and make the fight unnecessary. He saw himself as the industry's \"savior,\" not its predator \u2014 a self-serving narrative, but one he genuinely seemed to believe.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Rockefeller competition",
+                "k": 10
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "\"Rockefeller\" \"competition\" own words said",
+                "k": 10
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Rockefeller exact words quotes about competition monopoly cooperation"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_transcript",
+              "arguments": {
+                "k": 10,
+                "query": "\"My ideas of business\" Rockefeller"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_transcript",
+              "arguments": {
+                "k": 10,
+                "query": "Rockefeller \"unintelligent competition\" OR \"ruinous competition\" OR \"cooperation\""
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_transcript"
+              ],
+              "queries": [
+                "Rockefeller competition"
+              ],
+              "episode_ids": [
+                "ep-0002",
+                "ep-0003",
+                "ep-0016",
+                "ep-0054",
+                "ep-0124",
+                "ep-0148"
+              ],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_transcript"
+              ],
+              "queries": [
+                "\"Rockefeller\" \"competition\" own words said"
+              ],
+              "episode_ids": [
+                "ep-0001",
+                "ep-0002",
+                "ep-0009",
+                "ep-0015",
+                "ep-0016",
+                "ep-0133",
+                "ep-0148",
+                "ep-0166"
+              ],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 3,
+              "tools": [
+                "search_vault"
+              ],
+              "queries": [
+                "Rockefeller exact words quotes about competition monopoly cooperation"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0148"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.0,
+                9.0
+              ]
+            },
+            {
+              "round": 4,
+              "tools": [
+                "search_transcript",
+                "search_transcript"
+              ],
+              "queries": [
+                "\"My ideas of business\" Rockefeller",
+                "Rockefeller \"unintelligent competition\" OR \"ruinous competition\" OR \"cooperation\""
+              ],
+              "episode_ids": [
+                "ep-0002",
+                "ep-0003",
+                "ep-0006",
+                "ep-0016",
+                "ep-0032",
+                "ep-0054",
+                "ep-0068",
+                "ep-0090",
+                "ep-0124",
+                "ep-0148"
+              ],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 5,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "Here's what I found from Rockefeller in his own words on competition, drawn from two episodes \u2014 the Chernow biography (ep-0016) and his autobiography (ep-0148).\n\n---\n\n**On the enemy being ruinous overcapacity, not competition itself:**\n\nRockefeller diagnosed the problem as \"the over development of the refining industry\" which had created **\"ruinous competition.\"** His solution: replace competition with cooperation. He explicitly cited 1869\u20131870 as the start of his \"campaign to replace competition with cooperation in the industry, what is also known as Monopoly.\" [ep-0016]\n\n---\n\n**On \"unintelligent competition\":**\n\nThis is the sharpest direct quote. From his autobiography:\n\n> \"We had the type of man who really never knew all the facts about his own affairs. Many kept their books in such a way that they did not actually know when they were making money on a certain operation and when they were losing money. **This unintelligent competition was a hard matter to contend with.** Good old-fashion common sense has always been a mighty rare commodity.\"\n\nHe then contrasted it with his own approach: \"The men who managed the Standard Oil Company kept their books intelligently as well as correctly. We knew how much we made and where we gained or lost. We tried not to deceive ourselves.\" [ep-0148]\n\n---\n\n**On needless duplication as waste:**\n\n> \"The one thing which such a business philosopher would be most careful to avoid in his investments of time and effort or money is the unnecessary duplication of existing industries. He would regard all money spent in increasing needless competition as wasted.\" [ep-0148]\n\n---\n\n**On making money quietly to avoid inviting competition:**\n\nThe host paraphrases this as a recurring Rockefeller principle: \"It's a lot smarter to make money quietly so you don't invite competition, which is what Rockefeller said multiple times throughout the book in his career.\" And Rockefeller's own aphorism from *Titan*: **\"Success comes from keeping the ears open and the mouth closed.\"** [ep-0016]\n\n---\n\n**The through-line:** Rockefeller didn't oppose competition in principle \u2014 he opposed *uninformed, wasteful* competition. His frame was that competitors who didn't know their own numbers created a destructive race to the bottom that hurt everyone. His fix wasn't to out-compete them in a fair fight; it was to absorb, consolidate, and make the fight unnecessary. He saw himself as the industry's \"savior,\" not its predator \u2014 a self-serving narrative, but one he genuinely seemed to believe."
+            }
+          ],
+          "tool_call_counts": {
+            "search_transcript": 4,
+            "search_vault": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_transcript\n  queries: Rockefeller competition\n  episodes: ep-0002, ep-0003, ep-0016, ep-0054, ep-0124, ep-0148\nround 2: search_transcript\n  queries: \"Rockefeller\" \"competition\" own words said\n  episodes: ep-0001, ep-0002, ep-0009, ep-0015, ep-0016, ep-0133, ep-0148, ep-0166\nround 3: search_vault\n  queries: Rockefeller exact words quotes about competition monopoly cooperation\n  episodes: ep-0016, ep-0148 top_scores=[9.5, 9.0, 9.0]\nround 4: search_transcript, search_transcript\n  queries: \"My ideas of business\" Rockefeller; Rockefeller \"unintelligent competition\" OR \"ruinous competition\" OR \"cooperation\"\n  episodes: ep-0002, ep-0003, ep-0006, ep-0016, ep-0032, ep-0054, ep-0068, ep-0090, ep-0124, ep-0148\nround 5: (answer)\n  reasoning: Here's what I found from Rockefeller in his own words on competition, drawn from two episodes \u2014 the Chernow biography (ep-0016) and his autobiography (ep-0148).\n\n---\n\n**On the enemy being ruinous over",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 13496,
+            "retrieval_llm_ms": 123186,
+            "searches": [
+              {
+                "query": "Rockefeller competition",
+                "vault_search_local_ms": 95,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "\"Rockefeller\" \"competition\" own words said",
+                "vault_search_local_ms": 36,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Rockefeller exact words quotes about competition monopoly cooperation",
+                "vault_search_local_ms": 13299,
+                "retrieval_llm_ms": 123186,
+                "tool": "search_vault"
+              },
+              {
+                "query": "\"My ideas of business\" Rockefeller",
+                "vault_search_local_ms": 38,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Rockefeller \"unintelligent competition\" OR \"ruinous competition\" OR \"cooperation\"",
+                "vault_search_local_ms": 28,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1081,
+                "total_ms": 1508,
+                "completion_tokens": 120,
+                "tok_per_sec": 281.0
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 6871,
+                "total_ms": 9717,
+                "completion_tokens": 445,
+                "tok_per_sec": 156.4
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 6461,
+                "total_ms": 7372,
+                "completion_tokens": 576,
+                "tok_per_sec": 632.3
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 20257,
+                "total_ms": 21832,
+                "completion_tokens": 194,
+                "tok_per_sec": 123.2
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 44513,
+                "total_ms": 90391,
+                "completion_tokens": 532,
+                "tok_per_sec": 11.6
+              }
+            ],
+            "agent_ttft_ms_mean": 15837,
+            "generation_tok_per_sec_mean": 240.9,
+            "stop_reason": "natural",
+            "agent_steps": 5
+          },
+          "timing_summary": "vault=13496ms retrieval_llm=123186ms ttft=15837ms tok/s=240.9",
+          "timing_accountability": {
+            "wall_ms": 304533,
+            "accounted_ms": 267502,
+            "unaccounted_ms": 37031,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 13496,
+              "retrieval_llm_ms": 123186,
+              "openrouter_total_ms": 130820
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

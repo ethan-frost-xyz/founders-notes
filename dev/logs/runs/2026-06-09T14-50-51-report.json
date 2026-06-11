@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "scenarios": [
+    {
+      "name": "Librarian thematic search SP6",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/thematic_search.yaml",
+      "passed": true,
+      "elapsed_s": 90.75648866698612,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'What did I note about Rockefeller and competition?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 90.75510920898523,
+          "tools_called": [
+            "search_vault"
+          ],
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 1124,
+            "retrieval_llm_ms": 63323,
+            "searches": [
+              {
+                "query": "Rockefeller competition",
+                "vault_search_local_ms": 1124,
+                "retrieval_llm_ms": 63323
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 689,
+                "total_ms": 1220,
+                "completion_tokens": 76,
+                "tok_per_sec": 143.1
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 5654,
+                "total_ms": 18521,
+                "completion_tokens": 745,
+                "tok_per_sec": 57.9
+              }
+            ],
+            "agent_ttft_ms_mean": 3172,
+            "generation_tok_per_sec_mean": 100.5
+          },
+          "timing_summary": "vault=1124ms retrieval_llm=63323ms ttft=3172ms tok/s=100.5"
+        },
+        {
+          "index": 2,
+          "action": "send '/clear'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0009955000132322311,
+          "tools_called": []
+        }
+      ]
+    }
+  ]
+}

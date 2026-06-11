@@ -1,0 +1,109 @@
+{
+  "passed": true,
+  "scenarios": [
+    {
+      "name": "Librarian basic Q&A",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/basic_qa.yaml",
+      "passed": true,
+      "elapsed_s": 386.94868225004757,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/start'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.04202612495282665,
+          "tools_called": []
+        },
+        {
+          "index": 2,
+          "action": "send \"What was Carnegie's key insight about steel?\"",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 386.9060400830349,
+          "tools_called": [
+            "search_vault",
+            "search_vault",
+            "search_transcript",
+            "list_episode_ids",
+            "search_vault",
+            "load_episode",
+            "search_vault_many",
+            "search_transcript"
+          ],
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 15928,
+            "retrieval_llm_ms": 96163,
+            "searches": [
+              {
+                "query": "Carnegie steel replaced iron vision cheaper durable",
+                "vault_search_local_ms": 2973,
+                "retrieval_llm_ms": 32867
+              },
+              {
+                "query": "Carnegie saw steel future before others",
+                "vault_search_local_ms": 601,
+                "retrieval_llm_ms": 45950
+              },
+              {
+                "query": "Carnegie Bessemer process steel mass production insight",
+                "vault_search_local_ms": 601,
+                "retrieval_llm_ms": 0
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 113,
+                "total_ms": 275,
+                "completion_tokens": 72,
+                "tok_per_sec": 444.4
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 617,
+                "total_ms": 2332,
+                "completion_tokens": 144,
+                "tok_per_sec": 84.0
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 4876,
+                "total_ms": 5598,
+                "completion_tokens": 341,
+                "tok_per_sec": 472.3
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 5086,
+                "total_ms": 6642,
+                "completion_tokens": 387,
+                "tok_per_sec": 248.7
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 7848,
+                "total_ms": 16537,
+                "completion_tokens": 838,
+                "tok_per_sec": 96.4
+              }
+            ],
+            "agent_ttft_ms_mean": 3708,
+            "generation_tok_per_sec_mean": 269.2
+          },
+          "timing_summary": "vault=15928ms retrieval_llm=96163ms ttft=3708ms tok/s=269.2"
+        },
+        {
+          "index": 3,
+          "action": "send '/clear'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0004617499653249979,
+          "tools_called": []
+        }
+      ]
+    }
+  ]
+}

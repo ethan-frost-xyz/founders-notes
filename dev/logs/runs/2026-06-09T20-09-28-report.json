@@ -1,0 +1,553 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-09T20:09:28",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian thematic cross-episode",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/thematic_cross_episode.yaml",
+      "passed": true,
+      "elapsed_s": 466.39568737498485,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'What did I note about Rockefeller and competition across episodes?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 94.81263266701717,
+          "tools_called": [
+            "search_vault_many"
+          ],
+          "response_text": "Your notes on Rockefeller and competition across the two episodes form a remarkably consistent, layered picture. There are three core interlocking principles, plus one operational foundation beneath them all.\n\n---\n\n### The three pillars of Rockefeller's competitive posture\n\n**1. Make money quietly \u2014 don't invite competition in the first place.**\n\nThis is the thread that spans both episodes most explicitly. In ep-0016, you noted the host's reflection at 49:13: \"It's a lot smarter to make money quietly so you don't invite competition, which is what Rockefeller said multiple times throughout the book in his career.\" Then in ep-0148, the same idea gets distilled into a sharper aphorism at 6:00: \"Bad boys move in silence,\" paired with Rockefeller's own quote from *Titan*: \"Success comes from keeping the ears open and the mouth closed.\"\n\nThe cross-episode reinforcement here is striking \u2014 it's not just that you captured the same idea twice; it's that ep-0148 adds the *mechanism*: Rockefeller used this principle early in his career to outmaneuver competitors before they even knew he was a threat [ep-0148].\n\n**2. When competition does show up, beat them on cost \u2014 and let them see the books.**\n\nIn ep-0016 at 21:30, you noted the story of a rival refusing to sell, and Rockefeller responding by showing him Standard Oil's books. The competitor capitulated after seeing the cost structure. This isn't a hostile takeover tactic in the aggressive sense \u2014 it's a *demonstration of inevitability*. The message was: you cannot compete on price, so you might as well sell.\n\n**3. Then turn adversaries into allies.**\n\nImmediately after describing the Cleveland Massacre in ep-0016 (33:30), you flagged Rockefeller's pattern of co-opting former rivals \u2014 the Henry Rogers example. He \"constantly took adversaries\" and after the battle, \"he winds up getting a lot of these people\" working for him. This completes the arc: silence \u2192 cost dominance \u2192 absorption.\n\n---\n\n### The operational foundation\n\nUnderneath all of this is what you captured at ep-0148, 21:00 \u2014 Rockefeller's near-obsessive attention to \"figures and facts, no matter how small they were.\" That bookkeeper's precision from his first job became Standard Oil's structural advantage. You can't beat competitors on cost if you don't know your own costs down to the penny.\n\nAnd the thread that ties it all together defensively: **complacency is the real enemy.** In ep-0148 at 32:00, Rockefeller warns that even Standard Oil would fail quickly if its managers relaxed \u2014 \"How long would their business last? About as long as any other neglected business.\" Competition isn't something you defeat once; it's something you have to keep outpacing forever.\n\n---\n\nOne thing worth flagging: the \"Genghis Khan\" annotation in your ep-0016 notes at 33:30 doesn't appear in the actual transcript \u2014 that may be your own marginalia rather than something from the book or the host. If you intended that as a comparison to Rockefeller absorbing conquered rivals into his own operation, the pattern fits, but it's your framing, not the source's.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "Rockefeller competition strategy",
+                  "Rockefeller monopolistic practices",
+                  "Rockefeller competitors rivals"
+                ]
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "Rockefeller competition strategy",
+                "Rockefeller monopolistic practices",
+                "Rockefeller competitors rivals"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0148"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.0,
+                8.5
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "Your notes on Rockefeller and competition across the two episodes form a remarkably consistent, layered picture. There are three core interlocking principles, plus one operational foundation beneath them all.\n\n---\n\n### The three pillars of Rockefeller's competitive posture\n\n**1. Make money quietly \u2014 don't invite competition in the first place.**\n\nThis is the thread that spans both episodes most explicitly. In ep-0016, you noted the host's reflection at 49:13: \"It's a lot smarter to make money quietly so you don't invite competition, which is what Rockefeller said multiple times throughout the book in his career.\" Then in ep-0148, the same idea gets distilled into a sharper aphorism at 6:00: \"Bad boys move in silence,\" paired with Rockefeller's own quote from *Titan*: \"Success comes from keeping the ears open and the mouth closed.\"\n\nThe cross-episode reinforcement here is striking \u2014 it's not just that you captured the same idea twice; it's that ep-0148 adds the *mechanism*: Rockefeller used this principle early in his career to outmaneuver competitors before they even knew he was a threat [ep-0148].\n\n**2. When competition does show up, beat them on cost \u2014 and let them see the books.**\n\nIn ep-0016 at 21:30, you noted the story of a rival refusing to sell, and Rockefeller responding by showing him Standard Oil's books. The competitor capitulated after seeing the cost structure. This isn't a hostile takeover tactic in the aggressive sense \u2014 it's a *demonstration of inevitability*. The message was: you cannot compete on price, so you might as well sell.\n\n**3. Then turn adversaries into allies.**\n\nImmediately after describing the Cleveland Massacre in ep-0016 (33:30), you flagged Rockefeller's pattern of co-opting former rivals \u2014 the Henry Rogers example. He \"constantly took adversaries\" and after the battle, \"he winds up getting a lot of these people\" working for him. This completes the arc: silence \u2192 cost dominance \u2192 absorption.\n\n---\n\n### The operational foundation\n\nUnderneath all of this is what you captured at ep-0148, 21:00 \u2014 Rockefeller's near-obsessive attention to \"figures and facts, no matter how small they were.\" That bookkeeper's precision from his first job became Standard Oil's structural advantage. You can't beat competitors on cost if you don't know your own costs down to the penny.\n\nAnd the thread that ties it all together defensively: **complacency is the real enemy.** In ep-0148 at 32:00, Rockefeller warns that even Standard Oil would fail quickly if its managers relaxed \u2014 \"How long would their business last? About as long as any other neglected business.\" Competition isn't something you defeat once; it's something you have to keep outpacing forever.\n\n---\n\nOne thing worth flagging: the \"Genghis Khan\" annotation in your ep-0016 notes at 33:30 doesn't appear in the actual transcript \u2014 that may be your own marginalia rather than something from the book or the host. If you intended that as a comparison to Rockefeller absorbing conquered rivals into his own operation, the pattern fits, but it's your framing, not the source's."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault_many": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault_many\n  queries: Rockefeller competition strategy; Rockefeller monopolistic practices; Rockefeller competitors rivals\n  episodes: ep-0016, ep-0148 top_scores=[9.5, 9.0, 8.5]\nround 2: (answer)\n  reasoning: Your notes on Rockefeller and competition across the two episodes form a remarkably consistent, layered picture. There are three core interlocking principles, plus one operational foundation beneath t",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 2812,
+            "retrieval_llm_ms": 108220,
+            "searches": [
+              {
+                "query": "Rockefeller competitors rivals",
+                "vault_search_local_ms": 1124,
+                "retrieval_llm_ms": 17512,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Rockefeller competition strategy",
+                "vault_search_local_ms": 368,
+                "retrieval_llm_ms": 24794,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Rockefeller monopolistic practices",
+                "vault_search_local_ms": 1320,
+                "retrieval_llm_ms": 65914,
+                "tool": "search_vault_many"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 692,
+                "total_ms": 1253,
+                "completion_tokens": 106,
+                "tok_per_sec": 188.9
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 2410,
+                "total_ms": 13260,
+                "completion_tokens": 950,
+                "tok_per_sec": 87.6
+              }
+            ],
+            "agent_ttft_ms_mean": 1551,
+            "generation_tok_per_sec_mean": 138.2,
+            "stop_reason": "natural",
+            "agent_steps": 2
+          },
+          "timing_summary": "vault=2812ms retrieval_llm=108220ms ttft=1551ms tok/s=138.2",
+          "timing_accountability": {
+            "wall_ms": 94813,
+            "accounted_ms": 125545,
+            "unaccounted_ms": 0,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 2812,
+              "retrieval_llm_ms": 108220,
+              "openrouter_total_ms": 14513
+            }
+          }
+        },
+        {
+          "index": 2,
+          "action": "send 'How do founders think about compounding and long-term reputation?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 268.2049272499862,
+          "tools_called": [
+            "search_vault_many",
+            "search_vault",
+            "search_vault",
+            "search_transcript",
+            "search_transcript"
+          ],
+          "response_text": "Here's how the founders you've studied think about compounding and long-term reputation \u2014 and the two concepts are deeply intertwined.\n\n---\n\n## Compounding: the patience to accept pain now for asymmetric payoff later\n\nThe single richest episode here is ep-0070 on Mark Spitznagel's *The Dao of Capital*, where the host draws a through-line from Henry Ford to Jeff Bezos. The core idea is captured in Spitznagel's thesis: *\"The entrepreneur who foresees a profit opportunity in the distant future, and who patiently reinvests earnings into his business year after year in anticipation, has a much greater opportunity for eventually posting an enormous return than entrepreneurs who are engaged in short-term projects\"* [ep-0070].\n\nFord is the archetype: he *\"sacrificed immediate profits that other carmakers are getting to build the system because he knows that this system is going to give him an advantage\"* [ep-0070] \u2014 the River Rouge plant and its entire vertically integrated ecosystem. Bezos does the same, making *\"bold rather than timid investment decisions where we see sufficient probability of gaining market leadership advantages\"* \u2014 explicitly prioritizing long-term free cash flow over short-term profitability [ep-0017].\n\nCharlie Munger sharpens this into a behavioral directive: *\"Thus, once the purchase is made, it is wisest to sit on the investment as long as possible because the longer we own the company, the more it grows in value\"* [ep-0078]. And he extends compounding beyond money: *\"Many things that are not directly financial will compound. Skills, relationships, and other aspects of life can compound\"* [ep-0079].\n\nWalt Disney lived it in a different domain \u2014 three years, seven days a week, building Snow White while *\"everybody is telling him it's not going to work\"* [ep-0002]. The through-line: compounding demands enduring disbelief.\n\n**The dark side \u2014 costs compound too.** John Bogle's insight is that this cuts both ways: *\"The wonderful magic of compounding returns has been overwhelmed by the powerful tyranny of compounding costs\"* [ep-0058]. Ben Franklin understood this intuitively \u2014 your notes connect his frugality directly to Bogle's framework: *\"Keep your expenses low for the tyranny of compounding costs can devastate the miracle of compounding returns\"* [ep-0062]. Franklin kept his compounding costs low so he could enjoy the upside of compounding returns.\n\n---\n\n## Reputation: the compound interest of trust\n\nFour founders from your vault converge on the same idea, each from a different angle:\n\n**Bezos and Munger share an identical phrase:** *\"Reputation is persuasive.\"* In ep-0071, Bezos argues that human memory is fallible and reputation fills the gaps \u2014 so keeping the customer first builds a reputational moat that competitors can't easily breach. Munger repeats the idea so often in his writings that the host flags it as a structural feature of *Poor Charlie's Almanack*: *\"He has a bunch of ideas that he repeats in different ways because he understands\"* \u2014 that reputation carries weight logic alone cannot match [ep-0090].\n\n**Rockefeller treats it as literal capital.** Near the end of his autobiography, he distills permanent business success into a single sentence: *\"There can be no permanent success without fair dealing that leads to widespread confidence in the man himself, and that is the real capital we all prize and work for\"* [ep-0148]. Not a nice-to-have. The capital.\n\n**Peter Cundill makes it existential.** When his boss's real estate speculation threatened the firm, Cundill realized: *\"Reputation and credibility are actually all we have to sell\"* [ep-0160]. In client-facing businesses, there's nothing else.\n\n**Ben Franklin treats reputation as something you engineer.** He understood that perception and reality must align \u2014 so he *\"made a show of personally carting the rolls of paper he bought in a wheelbarrow down the street to his shop, rather than having a hired hand do it\"* even after he could afford help [ep-0115]. He was *\"an apostle of being and, just as important, of appearing to be industrious.\"*\n\n---\n\n## How they connect\n\nThe thread that stitches compounding and reputation together is **time horizon**. You can't get the miracle of compounding returns without patience, and you can't build a reputation without consistency over decades. Rockefeller's competitors in Cleveland couldn't match his cost structure because he'd been compounding operational advantages for years while they were chasing quarterly wins. Bezos can afford to make \"bold rather than timid\" bets because Amazon's reputation with customers compounds into repeat purchases that fund the next round of experiments.\n\nAnd the fragility runs both ways: just as *compounding costs* can devastate returns, a single reputational breach can destroy trust built over a lifetime. That's why Munger says *\"it is remarkable how much long-term advantage people like us have gotten by trying to be consistently not stupid instead of trying to be very intelligent\"* [ep-0078]. Avoiding the dumb move \u2014 the cost that compounds, the trust-breaking shortcut \u2014 *is* the strategy.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "compounding wealth over time",
+                  "long-term reputation trust",
+                  "compounding effects business reputation",
+                  "founders patience delayed gratification"
+                ]
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "compounding reinvestment long-term time horizon"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "reputation trust competitive advantage founder"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "compounding returns reinvestment long term"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "reputation trust long-term game"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "compounding wealth over time",
+                "long-term reputation trust",
+                "compounding effects business reputation",
+                "founders patience delayed gratification"
+              ],
+              "episode_ids": [
+                "ep-0002",
+                "ep-0070",
+                "ep-0071",
+                "ep-0090",
+                "ep-0115",
+                "ep-0148",
+                "ep-0160"
+              ],
+              "rerank_scores_top3": [
+                9.0,
+                9.0,
+                9.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_vault",
+                "search_vault"
+              ],
+              "queries": [
+                "compounding reinvestment long-term time horizon",
+                "reputation trust competitive advantage founder"
+              ],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "reasoning": "Let me try to recover the evidence from those two failed queries before I synthesize."
+            },
+            {
+              "round": 3,
+              "tools": [
+                "search_transcript",
+                "search_transcript"
+              ],
+              "queries": [
+                "compounding returns reinvestment long term",
+                "reputation trust long-term game"
+              ],
+              "episode_ids": [
+                "ep-0001",
+                "ep-0017",
+                "ep-0018",
+                "ep-0019",
+                "ep-0026",
+                "ep-0036",
+                "ep-0057",
+                "ep-0058",
+                "ep-0062",
+                "ep-0063",
+                "ep-0078",
+                "ep-0079"
+              ],
+              "rerank_scores_top3": [],
+              "reasoning": "Good \u2014 I got strong returns from two of the four sub-queries. Let me dig a layer deeper to close the gaps from the two that failed."
+            },
+            {
+              "round": 4,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "Here's how the founders you've studied think about compounding and long-term reputation \u2014 and the two concepts are deeply intertwined.\n\n---\n\n## Compounding: the patience to accept pain now for asymmetric payoff later\n\nThe single richest episode here is ep-0070 on Mark Spitznagel's *The Dao of Capital*, where the host draws a through-line from Henry Ford to Jeff Bezos. The core idea is captured in Spitznagel's thesis: *\"The entrepreneur who foresees a profit opportunity in the distant future, and who patiently reinvests earnings into his business year after year in anticipation, has a much greater opportunity for eventually posting an enormous return than entrepreneurs who are engaged in short-term projects\"* [ep-0070].\n\nFord is the archetype: he *\"sacrificed immediate profits that other carmakers are getting to build the system because he knows that this system is going to give him an advantage\"* [ep-0070] \u2014 the River Rouge plant and its entire vertically integrated ecosystem. Bezos does the same, making *\"bold rather than timid investment decisions where we see sufficient probability of gaining market leadership advantages\"* \u2014 explicitly prioritizing long-term free cash flow over short-term profitability [ep-0017].\n\nCharlie Munger sharpens this into a behavioral directive: *\"Thus, once the purchase is made, it is wisest to sit on the investment as long as possible because the longer we own the company, the more it grows in value\"* [ep-0078]. And he extends compounding beyond money: *\"Many things that are not directly financial will compound. Skills, relationships, and other aspects of life can compound\"* [ep-0079].\n\nWalt Disney lived it in a different domain \u2014 three years, seven days a week, building Snow White while *\"everybody is telling him it's not going to work\"* [ep-0002]. The through-line: compounding demands enduring disbelief.\n\n**The dark side \u2014 costs compound too.** John Bogle's insight is that this cuts both ways: *\"The wonderful magic of compounding returns has been overwhelmed by the powerful tyranny of compounding costs\"* [ep-0058]. Ben Franklin understood this intuitively \u2014 your notes connect his frugality directly to Bogle's framework: *\"Keep your expenses low for the tyranny of compounding costs can devastate the miracle of compounding returns\"* [ep-0062]. Franklin kept his compounding costs low so he could enjoy the upside of compounding returns.\n\n---\n\n## Reputation: the compound interest of trust\n\nFour founders from your vault converge on the same idea, each from a different angle:\n\n**Bezos and Munger share an identical phrase:** *\"Reputation is persuasive.\"* In ep-0071, Bezos argues that human memory is fallible and reputation fills the gaps \u2014 so keeping the customer first builds a reputational moat that competitors can't easily breach. Munger repeats the idea so often in his writings that the host flags it as a structural feature of *Poor Charlie's Almanack*: *\"He has a bunch of ideas that he repeats in different ways because he understands\"* \u2014 that reputation carries weight logic alone cannot match [ep-0090].\n\n**Rockefeller treats it as literal capital.** Near the end of his autobiography, he distills permanent business success into a single sentence: *\"There can be no permanent success without fair dealing that leads to widespread confidence in the man himself, and that is the real capital we all prize and work for\"* [ep-0148]. Not a nice-to-have. The capital.\n\n**Peter Cundill makes it existential.** When his boss's real estate speculation threatened the firm, Cundill realized: *\"Reputation and credibility are actually all we have to sell\"* [ep-0160]. In client-facing businesses, there's nothing else.\n\n**Ben Franklin treats reputation as something you engineer.** He understood that perception and reality must align \u2014 so he *\"made a show of personally carting the rolls of paper he bought in a wheelbarrow down the street to his shop, rather than having a hired hand do it\"* even after he could afford help [ep-0115]. He was *\"an apostle of being and, just as important, of appearing to be industrious.\"*\n\n---\n\n## How they connect\n\nThe thread that stitches compounding and reputation together is **time horizon**. You can't get the miracle of compounding returns without patience, and you can't build a reputation without consistency over decades. Rockefeller's competitors in Cleveland couldn't match his cost structure because he'd been compounding operational advantages for years while they were chasing quarterly wins. Bezos can afford to make \"bold rather than timid\" bets because Amazon's reputation with customers compounds into repeat purchases that fund the next round of experiments.\n\nAnd the fragility runs both ways: just as *compounding costs* can devastate returns, a single reputational breach can destroy trust built over a lifetime. That's why Munger says *\"it is remarkable how much long-term advantage people like us have gotten by trying to be consistently not stupid instead of trying to be very intelligent\"* [ep-0078]. Avoiding the dumb move \u2014 the cost that compounds, the trust-breaking shortcut \u2014 *is* the strategy."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault_many": 1,
+            "search_vault": 2,
+            "search_transcript": 2
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault_many\n  queries: compounding wealth over time; long-term reputation trust; compounding effects business reputation (+1 more)\n  episodes: ep-0002, ep-0070, ep-0071, ep-0090, ep-0115, ep-0148, ep-0160 top_scores=[9.0, 9.0, 9.0]\nround 2: search_vault, search_vault\n  queries: compounding reinvestment long-term time horizon; reputation trust competitive advantage founder\n  reasoning: Let me try to recover the evidence from those two failed queries before I synthesize.\nround 3: search_transcript, search_transcript\n  queries: compounding returns reinvestment long term; reputation trust long-term game\n  episodes: ep-0001, ep-0017, ep-0018, ep-0019, ep-0026, ep-0036, ep-0057, ep-0058, ep-0062, ep-0063, ep-0078, ep-0079\n  reasoning: Good \u2014 I got strong returns from two of the four sub-queries. Let me dig a layer deeper to close the gaps from the two that failed.\nround 4: (answer)\n  reasoning: Here's how the founders you've studied think about compounding and long-term reputation \u2014 and the two concepts are deeply intertwined.\n\n---\n\n## Compounding: the patience to accept pain now for asymmet",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 19788,
+            "retrieval_llm_ms": 57001,
+            "searches": [
+              {
+                "query": "compounding effects business reputation",
+                "vault_search_local_ms": 963,
+                "retrieval_llm_ms": 18576,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "founders patience delayed gratification",
+                "vault_search_local_ms": 1227,
+                "retrieval_llm_ms": 22052,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "long-term reputation trust",
+                "vault_search_local_ms": 279,
+                "retrieval_llm_ms": 0,
+                "tool": "search_vault_many",
+                "error": true
+              },
+              {
+                "query": "compounding wealth over time",
+                "vault_search_local_ms": 967,
+                "retrieval_llm_ms": 0,
+                "tool": "search_vault_many",
+                "error": true
+              },
+              {
+                "query": "compounding reinvestment long-term time horizon",
+                "vault_search_local_ms": 14231,
+                "retrieval_llm_ms": 13592,
+                "tool": "search_vault",
+                "error": true
+              },
+              {
+                "query": "reputation trust competitive advantage founder",
+                "vault_search_local_ms": 2048,
+                "retrieval_llm_ms": 2781,
+                "tool": "search_vault",
+                "error": true
+              },
+              {
+                "query": "compounding returns reinvestment long term",
+                "vault_search_local_ms": 41,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "reputation trust long-term game",
+                "vault_search_local_ms": 32,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 880,
+                "total_ms": 1642,
+                "completion_tokens": 121,
+                "tok_per_sec": 158.8
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 9221,
+                "total_ms": 10814,
+                "completion_tokens": 718,
+                "tok_per_sec": 450.7
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 4286,
+                "total_ms": 5775,
+                "completion_tokens": 456,
+                "tok_per_sec": 306.2
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 7282,
+                "total_ms": 40948,
+                "completion_tokens": 1655,
+                "tok_per_sec": 49.2
+              }
+            ],
+            "agent_ttft_ms_mean": 5417,
+            "generation_tok_per_sec_mean": 241.2,
+            "stop_reason": "natural",
+            "agent_steps": 4
+          },
+          "timing_summary": "vault=19788ms retrieval_llm=57001ms ttft=5417ms tok/s=241.2",
+          "timing_accountability": {
+            "wall_ms": 268205,
+            "accounted_ms": 135968,
+            "unaccounted_ms": 132237,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 19788,
+              "retrieval_llm_ms": 57001,
+              "openrouter_total_ms": 59179
+            }
+          }
+        },
+        {
+          "index": 3,
+          "action": "send 'What mental models show up around inversion and avoiding stupidity?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 103.37733404198661,
+          "tools_called": [
+            "search_vault_many",
+            "search_transcript",
+            "search_transcript"
+          ],
+          "response_text": "Two mental models run through your vault like a current \u2014 and they're not separate ideas so much as a thinking tool and its behavioral output.\n\n---\n\n## Inversion: work backwards from what you want to avoid\n\nThe origin story across the vault: Charlie Munger proposes *\"All I want to know is where I'm going to die, so I'll never go there\"* \u2014 a line he actually borrowed from Johnny Carson's commencement speech before tracing it back to Jacobi, the Prussian mathematician who counseled *\"Invert, always invert\"* [ep-0088] [ep-0090]. Buffett then operationalized it at Berkshire: *\"Charlie and I avoid businesses whose futures we can't evaluate, no matter how exciting their products may be\"* [ep-0088].\n\nBut what makes this a mental model and not just a clever quip is that it shows up across founders who never read Munger:\n\n**Aristotle Onassis** couldn't sell tobacco door-to-door. So he inverted \u2014 *\"start at the problem and work backwards\"* \u2014 and realized he needed to reach the managing director first, not the purchasing department. Years later, the same backwards logic unlocked shipping finance: instead of begging banks for loans (which they'd never give a foreigner), he worked backwards from the asset \u2014 the ship itself \u2014 and structured deals around the cargo contracts that ship would carry [ep-0084].\n\n**Carl Bosch** faced a seemingly impossible problem: high-pressure hydrogen kept seeping into steel reactor walls and exploding. Every engineer was trying to make the steel impermeable. Bosch inverted: *\"What if he separated those two things? Why not let the hydrogen out?\"* \u2014 and built a reactor with a permeable inner liner. The problem dissolved [ep-0086].\n\n**Paul Orfalea (Kinko's)** didn't ask \"how do I grow?\" \u2014 he inverted: *\"One particular effective way of staying on your life is to envision the kind of future you do not want.\"* He pictured himself 30 years later, still running a single copy shop near a college campus \u2014 and that image of the future he was determined to avoid shaped every expansion decision [ep-0181].\n\n**Les Schwab** inverted something as mundane as tire-shop layout: *\"Most tire businesses had a small showroom, and all the tires were hidden in the warehouse. My thinking was to reverse this to make the showroom the warehouse\"* [ep-0105].\n\nThe pattern: inversion isn't a once-a-year strategic exercise for these founders. It's their default orientation toward any hard problem.\n\n---\n\n## Avoiding stupidity: the behavioral output of inversion\n\nIf inversion is the thinking tool, avoiding stupidity is what you do with it. Munger states it bluntly: *\"It is remarkable how much long-term advantage people like us have gotten by trying to be consistently not stupid instead of trying to be very intelligent\"* [ep-0078].\n\nThis isn't false modesty. It's a systematic practice. Munger *collects* human stupidities \u2014 *\"Some people collect stamps. I collect insanities and absurdities, and then I avoid them. And it's amazing how well it works\"* [ep-0162]. The evidence across your vault that this actually works as a strategy:\n\n**Chuck Yeager** observed that *\"in nearly every case, the worst pilots died by their own stupidity\"* \u2014 not from enemy fire, not from mechanical failure, but from avoidable error [ep-0162].\n\n**Joe Coulombe (Trader Joe's)** studied the graveyard of American retail and simply avoided what killed everyone else: *\"Too many stores, too many irreversible leases. Too much geographical saturation was a recurrent theme in the failure of American retail chains in the 20th century.\"* His strategy: have as few stores as possible, as far apart as possible, and make them as high-volume as possible. The host's note: *\"All he did was look, why all these guys going bankrupt, what are they doing, and let me just avoid that\"* [ep-0188].\n\n**Hetty Green**, at nearly 80, handed her son a list of *don'ts* \u2014 not \"do this,\" but \"avoid this.\" Don't cheat. Don't fail to be fair. Don't kick a man when he's down. Don't envy. The host explicitly ties this to Munger: *\"What is Charlie Munger saying? He's like, me and Warren are not trying to be smart, we're just trying to not be stupid. That's negative advice\"* [ep-0103].\n\n**Johnny Carson** paid his second wife $6,000/month from 1972 until he died in 2005 \u2014 and his third wife $35 million \u2014 after repeatedly ignoring his own warning to his lawyer: *\"Don't let me do this again.\"* The host's gloss: *\"It's easier to be not stupid than be brilliant\"* \u2014 he knew the mistake, and made it anyway [ep-0183].\n\n---\n\n## What makes both possible: self-criticism and admitting ignorance\n\nYou can't invert if you're too attached to your own ideas. You can't avoid stupidity if you can't admit you've been stupid. This is the prerequisite layer:\n\n**Munger**: *\"I like people admitting that they were complete stupid horses' asses. I know I'll perform better if I rub my nose in my mistakes\"* [ep-0078]. And: *\"knowing what you don't know is more useful than being brilliant\"* [ep-0078].\n\n**Einstein**, as Munger invoked him: his successful theories came from *\"curiosity, concentration, perseverance and self-criticism\"* \u2014 and by self-criticism he meant *\"testing and destruction of his own well-loved ideas\"* [ep-0090].\n\n**Darwin** is Munger's exemplar of inversion-as-habit: *\"He always gave priority and attention to evidence tending to disconfirm whatever cherished and hard-won theory he already had. In contrast, most people early achieve a lifelong inability to absorb new evidence that disconfirms their beliefs\"* [ep-0090].\n\n**Edwin Land** answered a student's question with *\"We have no idea\"* \u2014 while his associate gave a vague runaround. The takeaway: great leaders aren't threatened by gaps in their knowledge [ep-0132].\n\n**Bill Walsh** warned against the trap that looks like the opposite of stupidity: *\"Don't let anybody call you a genius.\"* Once you accept that label, you stop questioning yourself \u2014 and that's when the stupidities creep in [ep-0106].\n\n---\n\n## The connection\n\nInversion and avoiding stupidity are the same idea viewed from different angles. Inversion is the *method* \u2014 start from the failure state and work backwards. Avoiding stupidity is the *posture* \u2014 orient your life around not doing the dumb thing, rather than chasing the brilliant thing.\n\nAnd the prerequisite for both is the same: you have to be willing to destroy your own ideas. Munger's addition to Jacobi's formula is essentially: *invert, always invert \u2014 especially against yourself.*",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "inversion mental model thinking backwards",
+                  "avoiding stupidity anti-stupidity not trying to be intelligent",
+                  "Munger inversion avoiding stupidity",
+                  "invert always invert"
+                ]
+              }
+            },
+            {
+              "step": 1,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "invert always invert"
+              }
+            },
+            {
+              "step": 1,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "avoid stupidity not stupid"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault_many",
+                "search_transcript",
+                "search_transcript"
+              ],
+              "queries": [
+                "inversion mental model thinking backwards",
+                "avoiding stupidity anti-stupidity not trying to be intelligent",
+                "Munger inversion avoiding stupidity",
+                "invert always invert",
+                "invert always invert",
+                "avoid stupidity not stupid"
+              ],
+              "episode_ids": [
+                "ep-0001",
+                "ep-0031",
+                "ep-0036",
+                "ep-0078",
+                "ep-0084",
+                "ep-0086",
+                "ep-0088",
+                "ep-0090",
+                "ep-0100",
+                "ep-0103",
+                "ep-0104",
+                "ep-0105",
+                "ep-0106",
+                "ep-0125",
+                "ep-0132",
+                "ep-0162",
+                "ep-0181",
+                "ep-0183",
+                "ep-0188"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                9.0,
+                9.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "Two mental models run through your vault like a current \u2014 and they're not separate ideas so much as a thinking tool and its behavioral output.\n\n---\n\n## Inversion: work backwards from what you want to avoid\n\nThe origin story across the vault: Charlie Munger proposes *\"All I want to know is where I'm going to die, so I'll never go there\"* \u2014 a line he actually borrowed from Johnny Carson's commencement speech before tracing it back to Jacobi, the Prussian mathematician who counseled *\"Invert, always invert\"* [ep-0088] [ep-0090]. Buffett then operationalized it at Berkshire: *\"Charlie and I avoid businesses whose futures we can't evaluate, no matter how exciting their products may be\"* [ep-0088].\n\nBut what makes this a mental model and not just a clever quip is that it shows up across founders who never read Munger:\n\n**Aristotle Onassis** couldn't sell tobacco door-to-door. So he inverted \u2014 *\"start at the problem and work backwards\"* \u2014 and realized he needed to reach the managing director first, not the purchasing department. Years later, the same backwards logic unlocked shipping finance: instead of begging banks for loans (which they'd never give a foreigner), he worked backwards from the asset \u2014 the ship itself \u2014 and structured deals around the cargo contracts that ship would carry [ep-0084].\n\n**Carl Bosch** faced a seemingly impossible problem: high-pressure hydrogen kept seeping into steel reactor walls and exploding. Every engineer was trying to make the steel impermeable. Bosch inverted: *\"What if he separated those two things? Why not let the hydrogen out?\"* \u2014 and built a reactor with a permeable inner liner. The problem dissolved [ep-0086].\n\n**Paul Orfalea (Kinko's)** didn't ask \"how do I grow?\" \u2014 he inverted: *\"One particular effective way of staying on your life is to envision the kind of future you do not want.\"* He pictured himself 30 years later, still running a single copy shop near a college campus \u2014 and that image of the future he was determined to avoid shaped every expansion decision [ep-0181].\n\n**Les Schwab** inverted something as mundane as tire-shop layout: *\"Most tire businesses had a small showroom, and all the tires were hidden in the warehouse. My thinking was to reverse this to make the showroom the warehouse\"* [ep-0105].\n\nThe pattern: inversion isn't a once-a-year strategic exercise for these founders. It's their default orientation toward any hard problem.\n\n---\n\n## Avoiding stupidity: the behavioral output of inversion\n\nIf inversion is the thinking tool, avoiding stupidity is what you do with it. Munger states it bluntly: *\"It is remarkable how much long-term advantage people like us have gotten by trying to be consistently not stupid instead of trying to be very intelligent\"* [ep-0078].\n\nThis isn't false modesty. It's a systematic practice. Munger *collects* human stupidities \u2014 *\"Some people collect stamps. I collect insanities and absurdities, and then I avoid them. And it's amazing how well it works\"* [ep-0162]. The evidence across your vault that this actually works as a strategy:\n\n**Chuck Yeager** observed that *\"in nearly every case, the worst pilots died by their own stupidity\"* \u2014 not from enemy fire, not from mechanical failure, but from avoidable error [ep-0162].\n\n**Joe Coulombe (Trader Joe's)** studied the graveyard of American retail and simply avoided what killed everyone else: *\"Too many stores, too many irreversible leases. Too much geographical saturation was a recurrent theme in the failure of American retail chains in the 20th century.\"* His strategy: have as few stores as possible, as far apart as possible, and make them as high-volume as possible. The host's note: *\"All he did was look, why all these guys going bankrupt, what are they doing, and let me just avoid that\"* [ep-0188].\n\n**Hetty Green**, at nearly 80, handed her son a list of *don'ts* \u2014 not \"do this,\" but \"avoid this.\" Don't cheat. Don't fail to be fair. Don't kick a man when he's down. Don't envy. The host explicitly ties this to Munger: *\"What is Charlie Munger saying? He's like, me and Warren are not trying to be smart, we're just trying to not be stupid. That's negative advice\"* [ep-0103].\n\n**Johnny Carson** paid his second wife $6,000/month from 1972 until he died in 2005 \u2014 and his third wife $35 million \u2014 after repeatedly ignoring his own warning to his lawyer: *\"Don't let me do this again.\"* The host's gloss: *\"It's easier to be not stupid than be brilliant\"* \u2014 he knew the mistake, and made it anyway [ep-0183].\n\n---\n\n## What makes both possible: self-criticism and admitting ignorance\n\nYou can't invert if you're too attached to your own ideas. You can't avoid stupidity if you can't admit you've been stupid. This is the prerequisite layer:\n\n**Munger**: *\"I like people admitting that they were complete stupid horses' asses. I know I'll perform better if I rub my nose in my mistakes\"* [ep-0078]. And: *\"knowing what you don't know is more useful than being brilliant\"* [ep-0078].\n\n**Einstein**, as Munger invoked him: his successful theories came from *\"curiosity, concentration, perseverance and self-criticism\"* \u2014 and by self-criticism he meant *\"testing and destruction of his own well-loved ideas\"* [ep-0090].\n\n**Darwin** is Munger's exemplar of inversion-as-habit: *\"He always gave priority and attention to evidence tending to disconfirm whatever cherished and hard-won theory he already had. In contrast, most people early achieve a lifelong inability to absorb new evidence that disconfirms their beliefs\"* [ep-0090].\n\n**Edwin Land** answered a student's question with *\"We have no idea\"* \u2014 while his associate gave a vague runaround. The takeaway: great leaders aren't threatened by gaps in their knowledge [ep-0132].\n\n**Bill Walsh** warned against the trap that looks like the opposite of stupidity: *\"Don't let anybody call you a genius.\"* Once you accept that label, you stop questioning yourself \u2014 and that's when the stupidities creep in [ep-0106].\n\n---\n\n## The connection\n\nInversion and avoiding stupidity are the same idea viewed from different angles. Inversion is the *method* \u2014 start from the failure state and work backwards. Avoiding stupidity is the *posture* \u2014 orient your life around not doing the dumb thing, rather than chasing the brilliant thing.\n\nAnd the prerequisite for both is the same: you have to be willing to destroy your own ideas. Munger's addition to Jacobi's formula is essentially: *invert, always invert \u2014 especially against yourself.*"
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault_many": 1,
+            "search_transcript": 2
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault_many, search_transcript, search_transcript\n  queries: inversion mental model thinking backwards; avoiding stupidity anti-stupidity not trying to be intelligent; Munger inversion avoiding stupidity (+3 more)\n  episodes: ep-0001, ep-0031, ep-0036, ep-0078, ep-0084, ep-0086, ep-0088, ep-0090, ep-0100, ep-0103, ep-0104, ep-0105, ep-0106, ep-0125, ep-0132, ep-0162, ep-0181, ep-0183, ep-0188 top_scores=[10.0, 9.0, 9.0]\nround 2: (answer)\n  reasoning: Two mental models run through your vault like a current \u2014 and they're not separate ideas so much as a thinking tool and its behavioral output.\n\n---\n\n## Inversion: work backwards from what you want to ",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 6526,
+            "retrieval_llm_ms": 124310,
+            "searches": [
+              {
+                "query": "avoiding stupidity anti-stupidity not trying to be intelligent",
+                "vault_search_local_ms": 2238,
+                "retrieval_llm_ms": 21602,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "inversion mental model thinking backwards",
+                "vault_search_local_ms": 881,
+                "retrieval_llm_ms": 0,
+                "tool": "search_vault_many",
+                "error": true
+              },
+              {
+                "query": "invert always invert",
+                "vault_search_local_ms": 1696,
+                "retrieval_llm_ms": 45476,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Munger inversion avoiding stupidity",
+                "vault_search_local_ms": 1651,
+                "retrieval_llm_ms": 57232,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "invert always invert",
+                "vault_search_local_ms": 32,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "avoid stupidity not stupid",
+                "vault_search_local_ms": 28,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 891,
+                "total_ms": 2129,
+                "completion_tokens": 203,
+                "tok_per_sec": 164.0
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 13018,
+                "total_ms": 34540,
+                "completion_tokens": 2556,
+                "tok_per_sec": 118.8
+              }
+            ],
+            "agent_ttft_ms_mean": 6954,
+            "generation_tok_per_sec_mean": 141.4,
+            "stop_reason": "natural",
+            "agent_steps": 2
+          },
+          "timing_summary": "vault=6526ms retrieval_llm=124310ms ttft=6954ms tok/s=141.4",
+          "timing_accountability": {
+            "wall_ms": 103377,
+            "accounted_ms": 167505,
+            "unaccounted_ms": 0,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 6526,
+              "retrieval_llm_ms": 124310,
+              "openrouter_total_ms": 36669
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

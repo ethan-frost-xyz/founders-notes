@@ -15,5 +15,7 @@ catalog/embeddings.npy
 catalog/embeddings-manifest.jsonl
 catalog/embeddings-meta.json
 catalog/telegram-sessions/
-dev/logs/
+dev/logs/sessions/
+dev/logs/sandbox/
+dev/logs/runs/*.log
 catalog/openrouter-models-cache.json

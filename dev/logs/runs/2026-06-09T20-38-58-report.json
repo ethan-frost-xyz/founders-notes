@@ -1,0 +1,657 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-09T20:38:58",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian tool coverage",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/tool_coverage.yaml",
+      "passed": true,
+      "elapsed_s": 646.4646007090341,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'What did I note about Rockefeller discipline across episodes?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 192.12186650000513,
+          "tools_called": [
+            "search_vault",
+            "search_vault"
+          ],
+          "response_text": "Here's what you've noted about Rockefeller's discipline across the episodes \u2014 it falls into a handful of interlocking themes.\n\n## Cost Discipline: Fanatical Attention to the Small\n\nThis is the backbone. In **ep-0016**, the story of Rockefeller showing his books to a rival who then immediately capitulated captures it perfectly: his cost advantage was so extreme it functioned as a weapon. In **ep-0148**, Rockefeller himself gives the philosophy: *\"I learned to have great respect for **figures and facts, no matter how small they were**\"* [ep-0148]. Every penny mattered. That granular precision built a culture where Standard Oil could operate more efficiently than anyone else \u2014 not by a little, but by an unbeatable margin.\n\n## Silence as Strategy\n\nYou've noted this across both Rockefeller episodes as a deliberate form of discipline \u2014 the discipline to *not talk*. From **ep-0148**: *\"Success comes from keeping the ears open and the mouth closed\"* \u2014 or as David puts it, *\"Bad boys move in silence\"* [ep-0148]. And from **ep-0016**: *\"It's a lot smarter to make money quietly so you don't invite competition, which is what Rockefeller said multiple times throughout the book in his career\"* [ep-0016]. The insight here is counterintuitive: the discipline of silence isn't just about secrecy, it's about not triggering challengers. Talking about success invites people to come take it from you.\n\n## No Shortcuts, No Complacency\n\nIn **ep-0148**, you noted Rockefeller's rejection of the American \"short road to success\" mindset: *\"Real efficiency in work comes from **knowing your facts and building upon that sheer foundation**\"* [ep-0148]. Paired with his warning that even Standard Oil would collapse quickly if managers *\"were to relax efforts\"* [ep-0148], the pattern is clear: discipline isn't a one-time setup, it's a permanent posture. The moment you stop, decline begins.\n\n## Turning Adversaries into Assets\n\nFrom **ep-0016**, you noted that Rockefeller *\"constantly took adversaries. And then after they had their competition or their battle... he winds up getting a lot of these people\"* [ep-0016] \u2014 co-opting former rivals like Henry Rogers rather than simply crushing them. This is a higher-order discipline: suppressing ego and vengeance after winning, in favor of utility.\n\n---\n\n**The thread across all of it**: Rockefeller's discipline wasn't about asceticism for its own sake. Every form of it \u2014 cost obsession, silence, rejecting shortcuts, relentless effort, co-opting enemies \u2014 served a single function: making his position so unassailable that competition became irrational. He wasn't disciplined because he was virtuous; he was disciplined because it was the most efficient path to monopoly.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Rockefeller discipline"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Rockefeller self-control patience delayed gratification"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault"
+              ],
+              "queries": [
+                "Rockefeller discipline"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0054",
+                "ep-0148"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                10.0,
+                9.5
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_vault"
+              ],
+              "queries": [
+                "Rockefeller self-control patience delayed gratification"
+              ],
+              "episode_ids": [
+                "ep-0070",
+                "ep-0078",
+                "ep-0088",
+                "ep-0100"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                10.0,
+                9.5
+              ]
+            },
+            {
+              "round": 3,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "Here's what you've noted about Rockefeller's discipline across the episodes \u2014 it falls into a handful of interlocking themes.\n\n## Cost Discipline: Fanatical Attention to the Small\n\nThis is the backbone. In **ep-0016**, the story of Rockefeller showing his books to a rival who then immediately capitulated captures it perfectly: his cost advantage was so extreme it functioned as a weapon. In **ep-0148**, Rockefeller himself gives the philosophy: *\"I learned to have great respect for **figures and facts, no matter how small they were**\"* [ep-0148]. Every penny mattered. That granular precision built a culture where Standard Oil could operate more efficiently than anyone else \u2014 not by a little, but by an unbeatable margin.\n\n## Silence as Strategy\n\nYou've noted this across both Rockefeller episodes as a deliberate form of discipline \u2014 the discipline to *not talk*. From **ep-0148**: *\"Success comes from keeping the ears open and the mouth closed\"* \u2014 or as David puts it, *\"Bad boys move in silence\"* [ep-0148]. And from **ep-0016**: *\"It's a lot smarter to make money quietly so you don't invite competition, which is what Rockefeller said multiple times throughout the book in his career\"* [ep-0016]. The insight here is counterintuitive: the discipline of silence isn't just about secrecy, it's about not triggering challengers. Talking about success invites people to come take it from you.\n\n## No Shortcuts, No Complacency\n\nIn **ep-0148**, you noted Rockefeller's rejection of the American \"short road to success\" mindset: *\"Real efficiency in work comes from **knowing your facts and building upon that sheer foundation**\"* [ep-0148]. Paired with his warning that even Standard Oil would collapse quickly if managers *\"were to relax efforts\"* [ep-0148], the pattern is clear: discipline isn't a one-time setup, it's a permanent posture. The moment you stop, decline begins.\n\n## Turning Adversaries into Assets\n\nFrom **ep-0016**, you noted that Rockefeller *\"constantly took adversaries. And then after they had their competition or their battle... he winds up getting a lot of these people\"* [ep-0016] \u2014 co-opting former rivals like Henry Rogers rather than simply crushing them. This is a higher-order discipline: suppressing ego and vengeance after winning, in favor of utility.\n\n---\n\n**The thread across all of it**: Rockefeller's discipline wasn't about asceticism for its own sake. Every form of it \u2014 cost obsession, silence, rejecting shortcuts, relentless effort, co-opting enemies \u2014 served a single function: making his position so unassailable that competition became irrational. He wasn't disciplined because he was virtuous; he was disciplined because it was the most efficient path to monopoly."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 2
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault\n  queries: Rockefeller discipline\n  episodes: ep-0016, ep-0054, ep-0148 top_scores=[10.0, 10.0, 9.5]\nround 2: search_vault\n  queries: Rockefeller self-control patience delayed gratification\n  episodes: ep-0070, ep-0078, ep-0088, ep-0100 top_scores=[10.0, 10.0, 9.5]\nround 3: (answer)\n  reasoning: Here's what you've noted about Rockefeller's discipline across the episodes \u2014 it falls into a handful of interlocking themes.\n\n## Cost Discipline: Fanatical Attention to the Small\n\nThis is the backbon",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 32781,
+            "retrieval_llm_ms": 125707,
+            "searches": [
+              {
+                "query": "Rockefeller discipline",
+                "vault_search_local_ms": 30900,
+                "retrieval_llm_ms": 53356,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Rockefeller self-control patience delayed gratification",
+                "vault_search_local_ms": 1881,
+                "retrieval_llm_ms": 72351,
+                "tool": "search_vault"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1362,
+                "total_ms": 1606,
+                "completion_tokens": 139,
+                "tok_per_sec": 569.7
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 6126,
+                "total_ms": 6958,
+                "completion_tokens": 472,
+                "tok_per_sec": 567.3
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 4758,
+                "total_ms": 14871,
+                "completion_tokens": 929,
+                "tok_per_sec": 91.9
+              }
+            ],
+            "agent_ttft_ms_mean": 4082,
+            "generation_tok_per_sec_mean": 409.6,
+            "stop_reason": "natural",
+            "agent_steps": 3
+          },
+          "timing_summary": "vault=32781ms retrieval_llm=125707ms ttft=4082ms tok/s=409.6",
+          "timing_accountability": {
+            "wall_ms": 192122,
+            "accounted_ms": 181923,
+            "unaccounted_ms": 10199,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 32781,
+              "retrieval_llm_ms": 125707,
+              "openrouter_total_ms": 23435
+            }
+          }
+        },
+        {
+          "index": 2,
+          "action": "send 'What did he say verbatim about Standard Oil breakup?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 419.60078437498305,
+          "tools_called": [
+            "search_vault",
+            "search_transcript",
+            "search_vault_many",
+            "search_transcript",
+            "search_transcript",
+            "search_vault",
+            "search_transcript",
+            "search_vault"
+          ],
+          "response_text": "## Honest answer: the vault doesn't have it\n\nI've now run multiple searches \u2014 vault expanded notes, cross-episode synthesis, and raw transcripts \u2014 targeting the 1911 Supreme Court breakup, the antitrust case, Ida Tarbell, Rockefeller's reaction to the dissolution, and any verbatim quote from him about it. Every search converges on the same result: **nothing in the vault covers the breakup.**\n\nWhat the vault *does* cover across the two Rockefeller episodes ([ep-0016] and [ep-0148]) is the building of Standard Oil \u2014 the cost discipline, the Cleveland Massacre, the silence as strategy, the co-opting of rivals, the early incorporation, and his philosophy of never relaxing. But both episodes end well before the legal dismantling. David Senra simply didn't get to that portion of Chernow's *Titan* or the autobiography in these recordings.\n\nThe closest fragment I found is a one-line aside in a completely different episode about Aristotle Onassis ([ep-0084]), where Senra mentions in passing: *\"you know how they were broken up and they're constantly like all derivatives of standard oil at some point, if I'm not mistaken\"* \u2014 but that's Senra speaking offhand, not Rockefeller.\n\nSo: no verbatim Rockefeller quote about the breakup exists in this vault. If you want, I could dig into the raw transcript of ep-0016 end-to-end to verify whether Senra touches the dissolution at all, but the expanded notes suggest he focused the episode on the *rise*, not the fall.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Rockefeller Standard Oil breakup dissolution"
+              }
+            },
+            {
+              "step": 1,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Standard Oil breakup dissolution"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "Standard Oil 1911 Supreme Court antitrust dissolution breakup",
+                  "Rockefeller reaction response Standard Oil breakup forced dissolution",
+                  "Rockefeller antitrust trust busting monopoly legal battle"
+                ]
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "antitrust 1911 Supreme Court dissolved broken up"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Rockefeller broke up broken apart dissolved empire I",
+                "k": 10
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Rockefeller breakup \"Standard Oil\" 1911 reaction value increased"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "government sued trust Ida Tarbell muckraker lawsuit public opinion",
+                "k": 10
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Rockefeller trial Ida Tarbell government Standard Oil lawsuit court judge ruling"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault",
+                "search_transcript"
+              ],
+              "queries": [
+                "Rockefeller Standard Oil breakup dissolution",
+                "Standard Oil breakup dissolution"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0123",
+                "ep-0139",
+                "ep-0148"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                8.5,
+                8.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_vault_many",
+                "search_transcript"
+              ],
+              "queries": [
+                "Standard Oil 1911 Supreme Court antitrust dissolution breakup",
+                "Rockefeller reaction response Standard Oil breakup forced dissolution",
+                "Rockefeller antitrust trust busting monopoly legal battle",
+                "antitrust 1911 Supreme Court dissolved broken up"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0042",
+                "ep-0053",
+                "ep-0054",
+                "ep-0056",
+                "ep-0061",
+                "ep-0063",
+                "ep-0074",
+                "ep-0148"
+              ],
+              "rerank_scores_top3": [
+                2.0,
+                2.0,
+                2.0
+              ],
+              "reasoning": "The search didn't surface anything about the breakup itself yet. Let me try a few sharper angles \u2014 the actual antitrust case, the 1911 dissolution, and any verbatim Rockefeller reaction."
+            },
+            {
+              "round": 3,
+              "tools": [
+                "search_transcript",
+                "search_vault"
+              ],
+              "queries": [
+                "Rockefeller broke up broken apart dissolved empire I",
+                "Rockefeller breakup \"Standard Oil\" 1911 reaction value increased"
+              ],
+              "episode_ids": [
+                "ep-0001",
+                "ep-0003",
+                "ep-0009",
+                "ep-0016",
+                "ep-0063",
+                "ep-0084",
+                "ep-0114",
+                "ep-0124",
+                "ep-0148",
+                "ep-0149",
+                "ep-0159"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                8.5,
+                8.0
+              ],
+              "reasoning": "The searches so far haven't surfaced the breakup. Let me try a more direct transcript scan for the actual dissolution language."
+            },
+            {
+              "round": 4,
+              "tools": [
+                "search_transcript",
+                "search_vault"
+              ],
+              "queries": [
+                "government sued trust Ida Tarbell muckraker lawsuit public opinion",
+                "Rockefeller trial Ida Tarbell government Standard Oil lawsuit court judge ruling"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0031",
+                "ep-0051",
+                "ep-0053",
+                "ep-0062",
+                "ep-0063",
+                "ep-0068",
+                "ep-0103",
+                "ep-0115",
+                "ep-0142",
+                "ep-0145",
+                "ep-0148"
+              ],
+              "rerank_scores_top3": [
+                2.0,
+                2.0,
+                2.0
+              ],
+              "reasoning": "Let me try one more targeted angle \u2014 searching the transcript for where the Titan biography coverage ends, since Chernow's book definitely covers the antitrust case."
+            },
+            {
+              "round": 5,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "## Honest answer: the vault doesn't have it\n\nI've now run multiple searches \u2014 vault expanded notes, cross-episode synthesis, and raw transcripts \u2014 targeting the 1911 Supreme Court breakup, the antitrust case, Ida Tarbell, Rockefeller's reaction to the dissolution, and any verbatim quote from him about it. Every search converges on the same result: **nothing in the vault covers the breakup.**\n\nWhat the vault *does* cover across the two Rockefeller episodes ([ep-0016] and [ep-0148]) is the building of Standard Oil \u2014 the cost discipline, the Cleveland Massacre, the silence as strategy, the co-opting of rivals, the early incorporation, and his philosophy of never relaxing. But both episodes end well before the legal dismantling. David Senra simply didn't get to that portion of Chernow's *Titan* or the autobiography in these recordings.\n\nThe closest fragment I found is a one-line aside in a completely different episode about Aristotle Onassis ([ep-0084]), where Senra mentions in passing: *\"you know how they were broken up and they're constantly like all derivatives of standard oil at some point, if I'm not mistaken\"* \u2014 but that's Senra speaking offhand, not Rockefeller.\n\nSo: no verbatim Rockefeller quote about the breakup exists in this vault. If you want, I could dig into the raw transcript of ep-0016 end-to-end to verify whether Senra touches the dissolution at all, but the expanded notes suggest he focused the episode on the *rise*, not the fall."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 3,
+            "search_transcript": 4,
+            "search_vault_many": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault, search_transcript\n  queries: Rockefeller Standard Oil breakup dissolution; Standard Oil breakup dissolution\n  episodes: ep-0016, ep-0123, ep-0139, ep-0148 top_scores=[9.5, 8.5, 8.0]\nround 2: search_vault_many, search_transcript\n  queries: Standard Oil 1911 Supreme Court antitrust dissolution breakup; Rockefeller reaction response Standard Oil breakup forced dissolution; Rockefeller antitrust trust busting monopoly legal battle (+1 more)\n  episodes: ep-0016, ep-0042, ep-0053, ep-0054, ep-0056, ep-0061, ep-0063, ep-0074, ep-0148 top_scores=[2.0, 2.0, 2.0]\n  reasoning: The search didn't surface anything about the breakup itself yet. Let me try a few sharper angles \u2014 the actual antitrust case, the 1911 dissolution, and any verbatim Rockefeller reaction.\nround 3: search_transcript, search_vault\n  queries: Rockefeller broke up broken apart dissolved empire I; Rockefeller breakup \"Standard Oil\" 1911 reaction value increased\n  episodes: ep-0001, ep-0003, ep-0009, ep-0016, ep-0063, ep-0084, ep-0114, ep-0124, ep-0148, ep-0149, ep-0159 top_scores=[9.5, 8.5, 8.0]\n  reasoning: The searches so far haven't surfaced the breakup. Let me try a more direct transcript scan for the actual dissolution language.\nround 4: search_transcript, search_vault\n  queries: government sued trust Ida Tarbell muckraker lawsuit public opinion; Rockefeller trial Ida Tarbell government Standard Oil lawsuit court judge ruling\n  episodes: ep-0016, ep-0031, ep-0051, ep-0053, ep-0062, ep-0063, ep-0068, ep-0103, ep-0115, ep-0142, ep-0145, ep-0148 top_scores=[2.0, 2.0, 2.0]\n  reasoning: Let me try one more targeted angle \u2014 searching the transcript for where the Titan biography coverage ends, since Chernow's book definitely covers the antitrust case.\nround 5: (answer)\n  reasoning: ## Honest answer: the vault doesn't have it\n\nI've now run multiple searches \u2014 vault expanded notes, cross-episode synthesis, and raw transcripts \u2014 targeting the 1911 Supreme Court breakup, the antitru",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 50032,
+            "retrieval_llm_ms": 442884,
+            "searches": [
+              {
+                "query": "Rockefeller Standard Oil breakup dissolution",
+                "vault_search_local_ms": 4487,
+                "retrieval_llm_ms": 103569,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Standard Oil breakup dissolution",
+                "vault_search_local_ms": 50,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Rockefeller reaction response Standard Oil breakup forced dissolution",
+                "vault_search_local_ms": 7833,
+                "retrieval_llm_ms": 49715,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Standard Oil 1911 Supreme Court antitrust dissolution breakup",
+                "vault_search_local_ms": 7822,
+                "retrieval_llm_ms": 62763,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Rockefeller antitrust trust busting monopoly legal battle",
+                "vault_search_local_ms": 18019,
+                "retrieval_llm_ms": 73545,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "antitrust 1911 Supreme Court dissolved broken up",
+                "vault_search_local_ms": 50,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Rockefeller broke up broken apart dissolved empire I",
+                "vault_search_local_ms": 51,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Rockefeller breakup \"Standard Oil\" 1911 reaction value increased",
+                "vault_search_local_ms": 3055,
+                "retrieval_llm_ms": 55535,
+                "tool": "search_vault"
+              },
+              {
+                "query": "government sued trust Ida Tarbell muckraker lawsuit public opinion",
+                "vault_search_local_ms": 60,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Rockefeller trial Ida Tarbell government Standard Oil lawsuit court judge ruling",
+                "vault_search_local_ms": 8605,
+                "retrieval_llm_ms": 97757,
+                "tool": "search_vault"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 245,
+                "total_ms": 1276,
+                "completion_tokens": 117,
+                "tok_per_sec": 113.5
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 1711,
+                "total_ms": 4001,
+                "completion_tokens": 265,
+                "tok_per_sec": 115.7
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 1785,
+                "total_ms": 3964,
+                "completion_tokens": 225,
+                "tok_per_sec": 103.3
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 2028,
+                "total_ms": 4096,
+                "completion_tokens": 259,
+                "tok_per_sec": 125.2
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 7401,
+                "total_ms": 15130,
+                "completion_tokens": 676,
+                "tok_per_sec": 87.5
+              }
+            ],
+            "agent_ttft_ms_mean": 2634,
+            "generation_tok_per_sec_mean": 109.0,
+            "stop_reason": "natural",
+            "agent_steps": 5
+          },
+          "timing_summary": "vault=50032ms retrieval_llm=442884ms ttft=2634ms tok/s=109.0",
+          "timing_accountability": {
+            "wall_ms": 419601,
+            "accounted_ms": 521383,
+            "unaccounted_ms": 0,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 50032,
+              "retrieval_llm_ms": 442884,
+              "openrouter_total_ms": 28467
+            }
+          }
+        },
+        {
+          "index": 3,
+          "action": "send 'Load episode ep-0016.'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 21.311168916989118,
+          "tools_called": [
+            "load_episode"
+          ],
+          "response_text": "## Confirmed: no breakup content in ep-0016\n\nThe full episode loads cleanly \u2014 post, raw notes, and expanded LLM notes all present. Here's what's there and what isn't:\n\n**What's covered:** Three main themes, all about the *rise*:\n- The cost-advantage-as-weapon story (showing his books to a rival who immediately surrendered) at 21:30\n- Co-opting former adversaries like Henry Rogers at 33:30\n- Making money quietly to avoid inviting competition at 49:13\n\n**What's not:** Nothing about the 1911 antitrust breakup, the Supreme Court case, Ida Tarbell, or Rockefeller's reaction to dissolution. This episode ends while Standard Oil is still in its ascendancy.\n\n---\n\nOne thing that *did* surface now that the full episode is loaded: the Genghis Khan parallel you noted in your raw bullet at 33:30 is **your annotation, not Senra's**. The expanded notes flag this explicitly \u2014 \"the transcript contains no comparison to Genghis Khan.\" Your X post also draws the parallel, so it was clearly an idea that occurred to you while listening. Senra's point at that timestamp is strictly about Rockefeller absorbing competitors into Standard Oil, not the Khan comparison.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0016"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "load_episode"
+              ],
+              "queries": [
+                "ep-0016"
+              ],
+              "episode_ids": [],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 2,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "## Confirmed: no breakup content in ep-0016\n\nThe full episode loads cleanly \u2014 post, raw notes, and expanded LLM notes all present. Here's what's there and what isn't:\n\n**What's covered:** Three main themes, all about the *rise*:\n- The cost-advantage-as-weapon story (showing his books to a rival who immediately surrendered) at 21:30\n- Co-opting former adversaries like Henry Rogers at 33:30\n- Making money quietly to avoid inviting competition at 49:13\n\n**What's not:** Nothing about the 1911 antitrust breakup, the Supreme Court case, Ida Tarbell, or Rockefeller's reaction to dissolution. This episode ends while Standard Oil is still in its ascendancy.\n\n---\n\nOne thing that *did* surface now that the full episode is loaded: the Genghis Khan parallel you noted in your raw bullet at 33:30 is **your annotation, not Senra's**. The expanded notes flag this explicitly \u2014 \"the transcript contains no comparison to Genghis Khan.\" Your X post also draws the parallel, so it was clearly an idea that occurred to you while listening. Senra's point at that timestamp is strictly about Rockefeller absorbing competitors into Standard Oil, not the Khan comparison."
+            }
+          ],
+          "tool_call_counts": {
+            "load_episode": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: load_episode\n  queries: ep-0016\nround 2: (answer)\n  reasoning: ## Confirmed: no breakup content in ep-0016\n\nThe full episode loads cleanly \u2014 post, raw notes, and expanded LLM notes all present. Here's what's there and what isn't:\n\n**What's covered:** Three main t",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 0,
+            "retrieval_llm_ms": 0,
+            "searches": [],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 126,
+                "total_ms": 607,
+                "completion_tokens": 74,
+                "tok_per_sec": 153.8
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 6212,
+                "total_ms": 11137,
+                "completion_tokens": 684,
+                "tok_per_sec": 138.9
+              }
+            ],
+            "agent_ttft_ms_mean": 3169,
+            "generation_tok_per_sec_mean": 146.4,
+            "stop_reason": "natural",
+            "agent_steps": 2
+          },
+          "timing_summary": "vault=0ms retrieval_llm=0ms ttft=3169ms tok/s=146.4",
+          "timing_accountability": {
+            "wall_ms": 21311,
+            "accounted_ms": 11744,
+            "unaccounted_ms": 9567,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 0,
+              "retrieval_llm_ms": 0,
+              "openrouter_total_ms": 11744
+            }
+          }
+        },
+        {
+          "index": 4,
+          "action": "send 'List episodes matching rockefeller.'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 13.429001458978746,
+          "tools_called": [
+            "list_episode_ids"
+          ],
+          "response_text": "Here are all the Rockefeller-tagged episodes:\n\n| Episode | Title | Status |\n|---------|-------|--------|\n| **ep-0016** | #16 Titan: The Life of John D. Rockefeller | \u2705 Listened |\n| **ep-0148** | #148 John D. Rockefeller (Autobiography) | \u2705 Listened |\n| ep-0247 | #247 Henry Flagler (Rockefeller's partner) | \u274c Unstudied |\n| ep-0248 | #248 John D. Rockefeller (Titan) | \u274c Unstudied |\n| ep-0254 | #254 John D. Rockefeller: The Founding Father of the Rockefellers | \u274c Unstudied |\n| ep-0307 | #307: The World's Great Family Dynasties: Rockefeller, Rothschild, Morgan, & Toyada | \u274c Unstudied |\n| ep-0324 | #324 John D. Rockefeller (38 Letters Rockefeller Wrote to His Son) | \u274c Unstudied |\n| ep-0359 | #359 The Russian Rockefellers: The Nobel Family Dynasty | \u274c Unstudied |\n\nThe two you've studied are the Chernow biography (ep-0016) and the autobiography (ep-0148). The remaining six are unstudied \u2014 but **ep-0248** (another Chernow Titan episode) and **ep-0254** (a different biography) are the most likely candidates if you want me to check whether Senra ever covers the 1911 breakup. Want me to load one of those?",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "list_episode_ids",
+              "arguments": {
+                "query": "rockefeller",
+                "limit": 8
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "list_episode_ids"
+              ],
+              "queries": [
+                "rockefeller"
+              ],
+              "episode_ids": [],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 2,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "Here are all the Rockefeller-tagged episodes:\n\n| Episode | Title | Status |\n|---------|-------|--------|\n| **ep-0016** | #16 Titan: The Life of John D. Rockefeller | \u2705 Listened |\n| **ep-0148** | #148 John D. Rockefeller (Autobiography) | \u2705 Listened |\n| ep-0247 | #247 Henry Flagler (Rockefeller's partner) | \u274c Unstudied |\n| ep-0248 | #248 John D. Rockefeller (Titan) | \u274c Unstudied |\n| ep-0254 | #254 John D. Rockefeller: The Founding Father of the Rockefellers | \u274c Unstudied |\n| ep-0307 | #307: The World's Great Family Dynasties: Rockefeller, Rothschild, Morgan, & Toyada | \u274c Unstudied |\n| ep-0324 | #324 John D. Rockefeller (38 Letters Rockefeller Wrote to His Son) | \u274c Unstudied |\n| ep-0359 | #359 The Russian Rockefellers: The Nobel Family Dynasty | \u274c Unstudied |\n\nThe two you've studied are the Chernow biography (ep-0016) and the autobiography (ep-0148). The remaining six are unstudied \u2014 but **ep-0248** (another Chernow Titan episode) and **ep-0254** (a different biography) are the most likely candidates if you want me to check whether Senra ever covers the 1911 breakup. Want me to load one of those?"
+            }
+          ],
+          "tool_call_counts": {
+            "list_episode_ids": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: list_episode_ids\n  queries: rockefeller\nround 2: (answer)\n  reasoning: Here are all the Rockefeller-tagged episodes:\n\n| Episode | Title | Status |\n|---------|-------|--------|\n| **ep-0016** | #16 Titan: The Life of John D. Rockefeller | \u2705 Listened |\n| **ep-0148** | #148 ",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 0,
+            "retrieval_llm_ms": 0,
+            "searches": [],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 594,
+                "total_ms": 1216,
+                "completion_tokens": 87,
+                "tok_per_sec": 139.9
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 3027,
+                "total_ms": 6542,
+                "completion_tokens": 461,
+                "tok_per_sec": 131.2
+              }
+            ],
+            "agent_ttft_ms_mean": 1810,
+            "generation_tok_per_sec_mean": 135.6,
+            "stop_reason": "natural",
+            "agent_steps": 2
+          },
+          "timing_summary": "vault=0ms retrieval_llm=0ms ttft=1810ms tok/s=135.6",
+          "timing_accountability": {
+            "wall_ms": 13429,
+            "accounted_ms": 7758,
+            "unaccounted_ms": 5671,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 0,
+              "retrieval_llm_ms": 0,
+              "openrouter_total_ms": 7758
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

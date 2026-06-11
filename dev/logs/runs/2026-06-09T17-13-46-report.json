@@ -1,0 +1,333 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-09T17:13:46",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian thin evidence probe",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/thin_evidence_probe.yaml",
+      "passed": true,
+      "elapsed_s": 401.5513885419932,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'What did I note about how Satya Nadella approached acquisitions at Microsoft?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 401.5509527500253,
+          "tools_called": [
+            "search_vault",
+            "search_vault_many",
+            "list_episode_ids",
+            "search_transcript",
+            "search_vault",
+            "search_transcript",
+            "search_vault",
+            "search_transcript"
+          ],
+          "response_text": "Searching vault\u2026\n\nSearching vault (parallel)\u2026\n\nLooking up episode\u2026\n\nSearching transcripts\u2026\n\nSearching vault\u2026\n\nSearching transcripts\u2026\n\nSearching vault\u2026\n\nSearching transcripts\u2026\n\n<b>Honest answer: the vault doesn&#x27;t cover Satya Nadella.</b> I ran multiple search angles \u2014 his name directly, *Hit Refresh*, his major acquisitions (Minecraft, LinkedIn, GitHub), his cultural transformation at Microsoft, and broader queries about Microsoft acquisition strategy. None returned any Nadella-specific evidence. The <code>list_episode_ids</code> call for &quot;Satya Nadella&quot; returned zero results.\n\nWhat the vault *does* cover extensively is the Bill Gates era (ep-0044, ep-0140, ep-0174) and the founding of Microsoft, plus plenty on acquisition strategy from other founders \u2014 Rockefeller&#x27;s stealth roll-ups, Billy Durant&#x27;s indigestion at GM, Ben Horowitz&#x27;s rules about when to sell, Henry Singleton&#x27;s Teledyne approach. But Nadella&#x27;s chapter at Microsoft isn&#x27;t here.\n\nIf you *know* you wrote notes about Nadella&#x27;s acquisition approach \u2014 specific deal rationales, the cultural-fit lens, how he left acquired companies autonomous (LinkedIn, GitHub, Minecraft) versus the old Microsoft embrace-and-extinguish playbook \u2014 those notes may not have made it into the expanded vault yet. If you can point me to a specific episode where you discussed him, I can load it directly.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Satya Nadella acquisitions Microsoft"
+              }
+            },
+            {
+              "step": 1,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "Satya Nadella Microsoft acquisition strategy",
+                  "Minecraft LinkedIn GitHub Nadella deal rationale",
+                  "Nadella M&A integration approach"
+                ]
+              }
+            },
+            {
+              "step": 2,
+              "tool": "list_episode_ids",
+              "arguments": {
+                "query": "Satya Nadella"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Nadella acquisition"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Nadella Minecraft LinkedIn GitHub acquisition strategy cultural fit"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Nadella LinkedIn deal Minecraft GitHub"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Hit Refresh Nadella Microsoft CEO culture transformation"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "\"Nadella\" Microsoft \"Hit Refresh\""
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault",
+                "search_vault_many"
+              ],
+              "queries": [
+                "Satya Nadella acquisitions Microsoft",
+                "Satya Nadella Microsoft acquisition strategy",
+                "Minecraft LinkedIn GitHub Nadella deal rationale",
+                "Nadella M&A integration approach"
+              ],
+              "episode_ids": [
+                "ep-0008",
+                "ep-0016",
+                "ep-0019",
+                "ep-0023",
+                "ep-0041",
+                "ep-0050",
+                "ep-0070",
+                "ep-0110",
+                "ep-0111",
+                "ep-0121",
+                "ep-0124",
+                "ep-0140",
+                "ep-0174"
+              ],
+              "rerank_scores_top3": [
+                8.0,
+                4.0,
+                3.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "list_episode_ids",
+                "search_transcript"
+              ],
+              "queries": [
+                "Satya Nadella",
+                "Nadella acquisition"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0017",
+                "ep-0019",
+                "ep-0022",
+                "ep-0034",
+                "ep-0041"
+              ],
+              "rerank_scores_top3": [],
+              "reasoning": "The vault results aren't returning Nadella-specific evidence \u2014 let me check if there's a dedicated Nadella episode, and also try a more direct transcript search."
+            },
+            {
+              "round": 3,
+              "tools": [
+                "search_vault",
+                "search_transcript"
+              ],
+              "queries": [
+                "Nadella Minecraft LinkedIn GitHub acquisition strategy cultural fit",
+                "Nadella LinkedIn deal Minecraft GitHub"
+              ],
+              "episode_ids": [
+                "ep-0001",
+                "ep-0002",
+                "ep-0003",
+                "ep-0004",
+                "ep-0005",
+                "ep-0006"
+              ],
+              "rerank_scores_top3": [],
+              "reasoning": "No dedicated Nadella episode came up, and those direct hits are all about other founders. Let me dig a layer deeper \u2014 Nadella might be discussed within episodes about Microsoft or in cross-founder comparisons."
+            },
+            {
+              "round": 4,
+              "tools": [
+                "search_vault",
+                "search_transcript"
+              ],
+              "queries": [
+                "Hit Refresh Nadella Microsoft CEO culture transformation",
+                "\"Nadella\" Microsoft \"Hit Refresh\""
+              ],
+              "episode_ids": [
+                "ep-0001",
+                "ep-0019",
+                "ep-0034",
+                "ep-0044",
+                "ep-0050",
+                "ep-0106",
+                "ep-0124",
+                "ep-0159",
+                "ep-0174",
+                "ep-0178",
+                "ep-0184"
+              ],
+              "rerank_scores_top3": [
+                6.5,
+                6.5,
+                6.0
+              ]
+            },
+            {
+              "round": 5,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "**Honest answer: the vault doesn't cover Satya Nadella.** I ran multiple search angles \u2014 his name directly, *Hit Refresh*, his major acquisitions (Minecraft, LinkedIn, GitHub), his cultural transformation at Microsoft, and broader queries about Microsoft acquisition strategy. None returned any Nadella-specific evidence. The `list_episode_ids` call for \"Satya Nadella\" returned zero results.\n\nWhat the vault *does* cover extensively is the Bill Gates era (ep-0044, ep-0140, ep-0174) and the founding of Microsoft, plus plenty on acquisition strategy from other founders \u2014 Rockefeller's stealth roll-ups, Billy Durant's indigestion at GM, Ben Horowitz's rules about when to sell, Henry Singleton's Teledyne approach. But Nadella's chapter at Microsoft isn't here.\n\nIf you *know* you wrote notes about Nadella's acquisition approach \u2014 specific deal rationales, the cultural-fit lens, how he left acquired companies autonomous (LinkedIn, GitHub, Minecraft) versus the old Microsoft embrace-and-extinguish playbook \u2014 those notes may not have made it into the expanded vault yet. If you can point me to a specific episode where you discussed him, I can load it directly."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 3,
+            "search_vault_many": 1,
+            "list_episode_ids": 1,
+            "search_transcript": 3
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault, search_vault_many\n  queries: Satya Nadella acquisitions Microsoft; Satya Nadella Microsoft acquisition strategy; Minecraft LinkedIn GitHub Nadella deal rationale (+1 more)\n  episodes: ep-0008, ep-0016, ep-0019, ep-0023, ep-0041, ep-0050, ep-0070, ep-0110, ep-0111, ep-0121, ep-0124, ep-0140, ep-0174 top_scores=[8.0, 4.0, 3.0]\nround 2: list_episode_ids, search_transcript\n  queries: Satya Nadella; Nadella acquisition\n  episodes: ep-0016, ep-0017, ep-0019, ep-0022, ep-0034, ep-0041\n  reasoning: The vault results aren't returning Nadella-specific evidence \u2014 let me check if there's a dedicated Nadella episode, and also try a more direct transcript search.\nround 3: search_vault, search_transcript\n  queries: Nadella Minecraft LinkedIn GitHub acquisition strategy cultural fit; Nadella LinkedIn deal Minecraft GitHub\n  episodes: ep-0001, ep-0002, ep-0003, ep-0004, ep-0005, ep-0006\n  reasoning: No dedicated Nadella episode came up, and those direct hits are all about other founders. Let me dig a layer deeper \u2014 Nadella might be discussed within episodes about Microsoft or in cross-founder com\nround 4: search_vault, search_transcript\n  queries: Hit Refresh Nadella Microsoft CEO culture transformation; \"Nadella\" Microsoft \"Hit Refresh\"\n  episodes: ep-0001, ep-0019, ep-0034, ep-0044, ep-0050, ep-0106, ep-0124, ep-0159, ep-0174, ep-0178, ep-0184 top_scores=[6.5, 6.5, 6.0]\nround 5: (answer)\n  reasoning: **Honest answer: the vault doesn't cover Satya Nadella.** I ran multiple search angles \u2014 his name directly, *Hit Refresh*, his major acquisitions (Minecraft, LinkedIn, GitHub), his cultural transforma",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 8702,
+            "retrieval_llm_ms": 347433,
+            "searches": [
+              {
+                "query": "Satya Nadella acquisitions Microsoft",
+                "vault_search_local_ms": 3063,
+                "retrieval_llm_ms": 39235,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Satya Nadella Microsoft acquisition strategy",
+                "vault_search_local_ms": 570,
+                "retrieval_llm_ms": 45357,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Nadella M&A integration approach",
+                "vault_search_local_ms": 1477,
+                "retrieval_llm_ms": 46934,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Minecraft LinkedIn GitHub Nadella deal rationale",
+                "vault_search_local_ms": 1461,
+                "retrieval_llm_ms": 89788,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Nadella acquisition",
+                "vault_search_local_ms": 26,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Nadella Minecraft LinkedIn GitHub acquisition strategy cultural fit",
+                "vault_search_local_ms": 622,
+                "retrieval_llm_ms": 1858,
+                "tool": "search_vault",
+                "error": true
+              },
+              {
+                "query": "Nadella LinkedIn deal Minecraft GitHub",
+                "vault_search_local_ms": 44,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Hit Refresh Nadella Microsoft CEO culture transformation",
+                "vault_search_local_ms": 1397,
+                "retrieval_llm_ms": 124261,
+                "tool": "search_vault"
+              },
+              {
+                "query": "\"Nadella\" Microsoft \"Hit Refresh\"",
+                "vault_search_local_ms": 42,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 237,
+                "total_ms": 1330,
+                "completion_tokens": 143,
+                "tok_per_sec": 130.8
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 130,
+                "total_ms": 1018,
+                "completion_tokens": 155,
+                "tok_per_sec": 174.5
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 1238,
+                "total_ms": 3001,
+                "completion_tokens": 205,
+                "tok_per_sec": 116.3
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 579,
+                "total_ms": 1177,
+                "completion_tokens": 137,
+                "tok_per_sec": 229.1
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 3525,
+                "total_ms": 10188,
+                "completion_tokens": 449,
+                "tok_per_sec": 67.4
+              }
+            ],
+            "agent_ttft_ms_mean": 1142,
+            "generation_tok_per_sec_mean": 143.6,
+            "stop_reason": "natural",
+            "agent_steps": 5
+          },
+          "timing_summary": "vault=8702ms retrieval_llm=347433ms ttft=1142ms tok/s=143.6",
+          "timing_accountability": {
+            "wall_ms": 401551,
+            "accounted_ms": 372849,
+            "unaccounted_ms": 28702,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 8702,
+              "retrieval_llm_ms": 347433,
+              "openrouter_total_ms": 16714
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

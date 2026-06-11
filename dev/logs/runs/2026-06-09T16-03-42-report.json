@@ -1,0 +1,160 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-09T16:03:42",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian basic Q&A",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/basic_qa.yaml",
+      "passed": true,
+      "elapsed_s": 243.49763133301167,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/start'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.04329295799834654,
+          "tools_called": [],
+          "response_text": "Episodes in catalog: 442\nStudied (timestamp bullets): 184\nChunks index updated: 2026-06-09 19:51 UTC",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 2,
+          "action": "send \"What was Carnegie's key insight about steel?\"",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 243.4534222499933,
+          "tools_called": [
+            "search_vault",
+            "search_transcript"
+          ],
+          "response_text": "Searching vault\u2026\n\nSearching transcripts\u2026\n\n##\n\n## The permanent advantage of costs\n\nCarnegie's deepest insight about steel wasn't technical \u2014 it was structural. He grasped that **steel was the material that would build modern America** (railroads, bridges, skyscrapers), and that in a commodity business, the only\n\n## The permanent advantage of costs\n\nCarnegie's deepest insight about steel wasn't technical \u2014 it was structural. He grasped that **steel was the material that would build modern America** (railroads, bridges, skyscrapers), and that in a commodity business, the only moat that can't be taken from you is **lower costs than everyone else**. Not lower prices \u2014 lower *costs*.\n\nThe\n\n## The permanent advantage of costs\n\nCarnegie's deepest insight about steel wasn't technical \u2014 it was structural. He grasped that **steel was the material that would build modern America** (railroads, bridges, skyscrapers), and that in a commodity business, the only moat that can't be taken from you is **lower costs than everyone else**. Not lower prices \u2014 lower *costs*.\n\nThe mantra that ran through his entire career: **\"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent.\"** [ep-\n\n## The permanent advantage of costs\n\nCarnegie's deepest insight about steel wasn't technical \u2014 it was structural. He grasped that **steel was the material that would build modern America** (railroads, bridges, skyscrapers), and that in a commodity business, the only moat that can't be taken from you is **lower costs than everyone else**. Not lower prices \u2014 lower *costs*.\n\nThe mantra that ran through his entire career: **\"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent.\"** [ep-0073] This is a reorientation of what matters. Most industrialists watched revenue. Carnegie watched the cost ledger because he understood that in a downturn, the low-cost producer survives and the rest get wiped\n\n## The permanent advantage of costs\n\nCarnegie's deepest insight about steel wasn't technical \u2014 it was structural. He grasped that **steel was the material that would build modern America** (railroads, bridges, skyscrapers), and that in a commodity business, the only moat that can't be taken from you is **lower costs than everyone else**. Not lower prices \u2014 lower *costs*.\n\nThe mantra that ran through his entire career: **\"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent.\"** [ep-0073] This is a reorientation of what matters. Most industrialists watched revenue. Carnegie watched the cost ledger because he understood that in a downturn, the low-cost producer survives and the rest get wiped out.\n\nThat led directly to his second insight: **the best time to build is when nobody else will.** During the Panic of 1873, while competitors froze, Carnegie was constructing his first steel mill. The\n\n## The permanent advantage of costs\n\nCarnegie's deepest insight about steel wasn't technical \u2014 it was structural. He grasped that **steel was the material that would build modern America** (railroads, bridges, skyscrapers), and that in a commodity business, the only moat that can't be taken from you is **lower costs than everyone else**. Not lower prices \u2014 lower *costs*.\n\nThe mantra that ran through his entire career: **\"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent.\"** [ep-0073] This is a reorientation of what matters. Most industrialists watched revenue. Carnegie watched the cost ledger because he understood that in a downturn, the low-cost producer survives and the rest get wiped out.\n\nThat led directly to his second insight: **the best time to build is when nobody else will.** During the Panic of 1873, while competitors froze, Carnegie was constructing his first steel mill. The depression slashed his construction costs by 25%. He learned that having the financial discipline and contrarian nerve\n\n## The permanent advantage of costs\n\nCarnegie's deepest insight about steel wasn't technical \u2014 it was structural. He grasped that **steel was the material that would build modern America** (railroads, bridges, skyscrapers), and that in a commodity business, the only moat that can't be taken from you is **lower costs than everyone else**. Not lower prices \u2014 lower *costs*.\n\nThe mantra that ran through his entire career: **\"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent.\"** [ep-0073] This is a reorientation of what matters. Most industrialists watched revenue. Carnegie watched the cost ledger because he understood that in a downturn, the low-cost producer survives and the rest get wiped out.\n\nThat led directly to his second insight: **the best time to build is when nobody else will.** During the Panic of 1873, while competitors froze, Carnegie was constructing his first steel mill. The depression slashed his construction costs by 25%. He learned that having the financial discipline and contrarian nerve to expand during a crash was itself a competitive weapon [ep-0073].\n\nHe then chased costs relentlessly up the supply chain \u2014\n\n## The permanent advantage of costs\n\nCarnegie's deepest insight about steel wasn't technical \u2014 it was structural. He grasped that **steel was the material that would build modern America** (railroads, bridges, skyscrapers), and that in a commodity business, the only moat that can't be taken from you is **lower costs than everyone else**. Not lower prices \u2014 lower *costs*.\n\nThe mantra that ran through his entire career: **\"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent.\"** [ep-0073] This is a reorientation of what matters. Most industrialists watched revenue. Carnegie watched the cost ledger because he understood that in a downturn, the low-cost producer survives and the rest get wiped out.\n\nThat led directly to his second insight: **the best time to build is when nobody else will.** During the Panic of 1873, while competitors froze, Carnegie was constructing his first steel mill. The depression slashed his construction costs by 25%. He learned that having the financial discipline and contrarian nerve to expand during a crash was itself a competitive weapon [ep-0073].\n\nHe then chased costs relentlessly up the supply chain \u2014 **vertical integration into raw materials** before that was even a named concept. He realized he couldn't fully control steel costs without controlling coke (the fuel for steel\n\n## The permanent advantage of costs\n\nCarnegie's deepest insight about steel wasn't technical \u2014 it was structural. He grasped that **steel was the material that would build modern America** (railroads, bridges, skyscrapers), and that in a commodity business, the only moat that can't be taken from you is **lower costs than everyone else**. Not lower prices \u2014 lower *costs*.\n\nThe mantra that ran through his entire career: **\"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent.\"** [ep-0073] This is a reorientation of what matters. Most industrialists watched revenue. Carnegie watched the cost ledger because he understood that in a downturn, the low-cost producer survives and the rest get wiped out.\n\nThat led directly to his second insight: **the best time to build is when nobody else will.** During the Panic of 1873, while competitors froze, Carnegie was constructing his first steel mill. The depression slashed his construction costs by 25%. He learned that having the financial discipline and contrarian nerve to expand during a crash was itself a competitive weapon [ep-0073].\n\nHe then chased costs relentlessly up the supply chain \u2014 **vertical integration into raw materials** before that was even a named concept. He realized he couldn't fully control steel costs without controlling coke (the fuel for steel production), which is what brought Frick into his orbit. The coke savings alone amounted to about $0.18 less per ton than competitors paid \u2014 small on a per-unit basis, but massive at scale [ep-0073].\n\nAnd then the Bessemer process: Carnegie recognized that Bess\n\n## The permanent advantage of costs\n\nCarnegie's deepest insight about steel wasn't technical \u2014 it was structural. He grasped that **steel was the material that would build modern America** (railroads, bridges, skyscrapers), and that in a commodity business, the only moat that can't be taken from you is **lower costs than everyone else**. Not lower prices \u2014 lower *costs*.\n\nThe mantra that ran through his entire career: **\"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent.\"** [ep-0073] This is a reorientation of what matters. Most industrialists watched revenue. Carnegie watched the cost ledger because he understood that in a downturn, the low-cost producer survives and the rest get wiped out.\n\nThat led directly to his second insight: **the best time to build is when nobody else will.** During the Panic of 1873, while competitors froze, Carnegie was constructing his first steel mill. The depression slashed his construction costs by 25%. He learned that having the financial discipline and contrarian nerve to expand during a crash was itself a competitive weapon [ep-0073].\n\nHe then chased costs relentlessly up the supply chain \u2014 **vertical integration into raw materials** before that was even a named concept. He realized he couldn't fully control steel costs without controlling coke (the fuel for steel production), which is what brought Frick into his orbit. The coke savings alone amounted to about $0.18 less per ton than competitors paid \u2014 small on a per-unit basis, but massive at scale [ep-0073].\n\nAnd then the Bessemer process: Carnegie recognized that Bessemer's innovation made steel *cheaper and more durable than iron*, and that whoever got in \"on the ground floor\" of this transition would feed the entire\n\n## The permanent advantage of costs\n\nCarnegie's deepest insight about steel wasn't technical \u2014 it was structural. He grasped that **steel was the material that would build modern America** (railroads, bridges, skyscrapers), and that in a commodity business, the only moat that can't be taken from you is **lower costs than everyone else**. Not lower prices \u2014 lower *costs*.\n\nThe mantra that ran through his entire career: **\"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent.\"** [ep-0073] This is a reorientation of what matters. Most industrialists watched revenue. Carnegie watched the cost ledger because he understood that in a downturn, the low-cost producer survives and the rest get wiped out.\n\nThat led directly to his second insight: **the best time to build is when nobody else will.** During the Panic of 1873, while competitors froze, Carnegie was constructing his first steel mill. The depression slashed his construction costs by 25%. He learned that having the financial discipline and contrarian nerve to expand during a crash was itself a competitive weapon [ep-0073].\n\nHe then chased costs relentlessly up the supply chain \u2014 **vertical integration into raw materials** before that was even a named concept. He realized he couldn't fully control steel costs without controlling coke (the fuel for steel production), which is what brought Frick into his orbit. The coke savings alone amounted to about $0.18 less per ton than competitors paid \u2014 small on a per-unit basis, but massive at scale [ep-0073].\n\nAnd then the Bessemer process: Carnegie recognized that Bessemer's innovation made steel *cheaper and more durable than iron*, and that whoever got in \"on the ground floor\" of this transition would feed the entire infrastructure buildout of a rapidly industrializing nation \u2014 akin to selling pickaxes in a gold rush [ep-0073].\n\nSo the unified insight: **steel was the inevitable replacement for iron; commodity markets ruthlessly reward the lowest-cost producer; therefore, fanatical cost control plus counter\n\n## The permanent advantage of costs\n\nCarnegie's deepest insight about steel wasn't technical \u2014 it was structural. He grasped that **steel was the material that would build modern America** (railroads, bridges, skyscrapers), and that in a commodity business, the only moat that can't be taken from you is **lower costs than everyone else**. Not lower prices \u2014 lower *costs*.\n\nThe mantra that ran through his entire career: **\"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent.\"** [ep-0073] This is a reorientation of what matters. Most industrialists watched revenue. Carnegie watched the cost ledger because he understood that in a downturn, the low-cost producer survives and the rest get wiped out.\n\nThat led directly to his second insight: **the best time to build is when nobody else will.** During the Panic of 1873, while competitors froze, Carnegie was constructing his first steel mill. The depression slashed his construction costs by 25%. He learned that having the financial discipline and contrarian nerve to expand during a crash was itself a competitive weapon [ep-0073].\n\nHe then chased costs relentlessly up the supply chain \u2014 **vertical integration into raw materials** before that was even a named concept. He realized he couldn't fully control steel costs without controlling coke (the fuel for steel production), which is what brought Frick into his orbit. The coke savings alone amounted to about $0.18 less per ton than competitors paid \u2014 small on a per-unit basis, but massive at scale [ep-0073].\n\nAnd then the Bessemer process: Carnegie recognized that Bessemer's innovation made steel *cheaper and more durable than iron*, and that whoever got in \"on the ground floor\" of this transition would feed the entire infrastructure buildout of a rapidly industrializing nation \u2014 akin to selling pickaxes in a gold rush [ep-0073].\n\nSo the unified insight: **steel was the inevitable replacement for iron; commodity markets ruthlessly reward the lowest-cost producer; therefore, fanatical cost control plus counter-cyclical capital deployment equals an unbeatable position\n\n## The permanent advantage of costs\n\nCarnegie&#x27;s deepest insight about steel wasn&#x27;t technical \u2014 it was structural. He grasped that <b>steel was the material that would build modern America</b> (railroads, bridges, skyscrapers), and that in a commodity business, the only moat that can&#x27;t be taken from you is <b>lower costs than everyone else</b>. Not lower prices \u2014 lower *costs*.\n\nThe mantra that ran through his entire career: <b>&quot;Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie&#x27;s view, any savings achieved in the cost of goods were permanent.&quot;</b> [ep-0073] This is a reorientation of what matters. Most industrialists watched revenue. Carnegie watched the cost ledger because he understood that in a downturn, the low-cost producer survives and the rest get wiped out.\n\nThat led directly to his second insight: <b>the best time to build is when nobody else will.</b> During the Panic of 1873, while competitors froze, Carnegie was constructing his first steel mill. The depression slashed his construction costs by 25%. He learned that having the financial discipline and contrarian nerve to expand during a crash was itself a competitive weapon [ep-0073].\n\nHe then chased costs relentlessly up the supply chain \u2014 <b>vertical integration into raw materials</b> before that was even a named concept. He realized he couldn&#x27;t fully control steel costs without controlling coke (the fuel for steel production), which is what brought Frick into his orbit. The coke savings alone amounted to about $0.18 less per ton than competitors paid \u2014 small on a per-unit basis, but massive at scale [ep-0073].\n\nAnd then the Bessemer process: Carnegie recognized that Bessemer&#x27;s innovation made steel *cheaper and more durable than iron*, and that whoever got in &quot;on the ground floor&quot; of this transition would feed the entire infrastructure buildout of a rapidly industrializing nation \u2014 akin to selling pickaxes in a gold rush [ep-0073].\n\nSo the unified insight: <b>steel was the inevitable replacement for iron; commodity markets ruthlessly reward the lowest-cost producer; therefore, fanatical cost control plus counter-cyclical capital deployment equals an unbeatable position.</b> It&#x27;s a simple formula, but executing it required an almost pathological frugality and a willingness to bet big when everyone else was terrified.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Carnegie key insight about steel"
+              }
+            },
+            {
+              "step": 1,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Carnegie steel insight"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault",
+                "search_transcript"
+              ],
+              "queries": [
+                "Carnegie key insight about steel",
+                "Carnegie steel insight"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0073",
+                "ep-0074"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                9.0,
+                7.5
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "## The permanent advantage of costs\n\nCarnegie's deepest insight about steel wasn't technical \u2014 it was structural. He grasped that **steel was the material that would build modern America** (railroads, bridges, skyscrapers), and that in a commodity business, the only moat that can't be taken from you is **lower costs than everyone else**. Not lower prices \u2014 lower *costs*.\n\nThe mantra that ran through his entire career: **\"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent.\"** [ep-0073] This is a reorientation of what matters. Most industrialists watched revenue. Carnegie watched the cost ledger because he understood that in a downturn, the low-cost producer survives and the rest get wiped out.\n\nThat led directly to his second insight: **the best time to build is when nobody else will.** During the Panic of 1873, while competitors froze, Carnegie was constructing his first steel mill. The depression slashed his construction costs by 25%. He learned that having the financial discipline and contrarian nerve to expand during a crash was itself a competitive weapon [ep-0073].\n\nHe then chased costs relentlessly up the supply chain \u2014 **vertical integration into raw materials** before that was even a named concept. He realized he couldn't fully control steel costs without controlling coke (the fuel for steel production), which is what brought Frick into his orbit. The coke savings alone amounted to about $0.18 less per ton than competitors paid \u2014 small on a per-unit basis, but massive at scale [ep-0073].\n\nAnd then the Bessemer process: Carnegie recognized that Bessemer's innovation made steel *cheaper and more durable than iron*, and that whoever got in \"on the ground floor\" of this transition would feed the entire infrastructure buildout of a rapidly industrializing nation \u2014 akin to selling pickaxes in a gold rush [ep-0073].\n\nSo the unified insight: **steel was the inevitable replacement for iron; commodity markets ruthlessly reward the lowest-cost producer; therefore, fanatical cost control plus counter-cyclical capital deployment equals an unbeatable position.** It's a simple formula, but executing it required an almost pathological frugality and a willingness to bet big when everyone else was terrified."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 1,
+            "search_transcript": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault, search_transcript\n  queries: Carnegie key insight about steel; Carnegie steel insight\n  episodes: ep-0016, ep-0073, ep-0074 top_scores=[10.0, 9.0, 7.5]\nround 2: (answer)\n  reasoning: ## The permanent advantage of costs\n\nCarnegie's deepest insight about steel wasn't technical \u2014 it was structural. He grasped that **steel was the material that would build modern America** (railroads,",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 1188,
+            "retrieval_llm_ms": 203313,
+            "searches": [
+              {
+                "query": "Carnegie key insight about steel",
+                "vault_search_local_ms": 1152,
+                "retrieval_llm_ms": 203313,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Carnegie steel insight",
+                "vault_search_local_ms": 36,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 258,
+                "total_ms": 1250,
+                "completion_tokens": 105,
+                "tok_per_sec": 105.8
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 10350,
+                "total_ms": 24082,
+                "completion_tokens": 886,
+                "tok_per_sec": 64.5
+              }
+            ],
+            "agent_ttft_ms_mean": 5304,
+            "generation_tok_per_sec_mean": 85.2,
+            "stop_reason": "natural",
+            "agent_steps": 2
+          },
+          "timing_summary": "vault=1188ms retrieval_llm=203313ms ttft=5304ms tok/s=85.2",
+          "timing_accountability": {
+            "wall_ms": 243453,
+            "accounted_ms": 229833,
+            "unaccounted_ms": 13620,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 1188,
+              "retrieval_llm_ms": 203313,
+              "openrouter_total_ms": 25332
+            }
+          }
+        },
+        {
+          "index": 3,
+          "action": "send '/clear'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0004651250201277435,
+          "tools_called": [],
+          "response_text": "Session cleared.",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        }
+      ]
+    }
+  ]
+}

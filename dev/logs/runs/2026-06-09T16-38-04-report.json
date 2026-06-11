@@ -1,0 +1,142 @@
+{
+  "passed": false,
+  "generated_at": "2026-06-09T16:38:04",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian multi-hop theme",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/multi_hop.yaml",
+      "passed": false,
+      "elapsed_s": 157.697612708027,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'How do founders in the vault think about compounding wealth and long-term reputation together?'",
+          "passed": false,
+          "message": "expected tools ['search_vault'], got ['search_vault_many']; tools called: ['search_vault_many']",
+          "elapsed_s": 157.69726729101967,
+          "tools_called": [
+            "search_vault_many"
+          ],
+          "response_text": "Searching vault (parallel)\u2026\n\nThe vault&#x27;s deepest pattern here isn&#x27;t a tradeoff at all \u2014 it&#x27;s that the founders who compound the most wealth are the ones who treat reputation as a form of compounding capital in its own right, not a constraint on it.\n\n## Reputation is the real capital\n\nRockefeller puts it plainly: after decades of building Standard Oil, he concluded that &quot;there can be no permanent success without fair dealing that leads to <b>widespread confidence in the man himself, and that is the real capital we all prize and work for</b>&quot; [ep-0148]. This isn&#x27;t soft talk from a philanthropist in retirement \u2014 it&#x27;s the core insight of the wealthiest man in American history. Peter Cundill sharpens the same point from the money-management side: &quot;<b>reputation and credibility are actually all we have to sell</b>&quot; [ep-0160]. Not a nice-to-have. The whole thing.\n\nBezos, Munger, and even Sony&#x27;s Akio Morita converge on a shared phrase: <b>reputation is persuasive</b> [ep-0071, ep-0090, ep-0102]. The reasoning is practical, not moralistic \u2014 humans have fallible memories, so reputation fills the gaps. Trust becomes a moat. It&#x27;s cheaper to retain customers who already trust you than to constantly acquire new ones. It&#x27;s faster to attract partners who believe you&#x27;ll deal fairly. Morita&#x27;s Sony fought so hard against the &quot;cheap Japanese goods&quot; stigma that they literally printed &quot;Made in Japan&quot; as small as legally possible on early products [ep-0102], because they understood that a bad reputation would cap everything else they tried to build.\n\n## Patience is the mechanism that links them\n\nThis is where Spitznagel and the compounders tie the two threads together. The entrepreneur who &quot;<b>foresees a profit opportunity in the distant future, and who patiently reinvests earnings into his business year after year</b>&quot; posts enormous returns that short-term operators can&#x27;t touch [ep-0070]. Henry Ford embodies this: he sacrificed immediate profits that competitors were collecting hand over fist to build the River Rouge plant \u2014 a fully integrated production system that eventually made him untouchable [ep-0070].\n\nThe link to reputation is subtle but crucial: long reinvestment horizons force you to build real relationships. You can&#x27;t keep bluffing suppliers, customers, or employees for a decade. Patience filters out the charlatans. As Buffett says, &quot;time is the friend of the wonderful business and the enemy of the mediocre&quot; [ep-0088] \u2014 and the same applies to the founder&#x27;s character. Time reveals whether you&#x27;re building or just extracting.\n\n## The counterexamples prove the rule\n\nThe vault is honest about founders who get this wrong, and the pattern is stark:\n\n- <b>Robert Campeau</b> wasn&#x27;t building a real business \u2014 he was chasing an outer scorecard, needing to be idolized. The leveraged-buyout empire collapsed because it was built on applause, not substance [ep-0177].\n- <b>Joseph Pulitzer</b> spent years crusading against corruption, then quietly accepted a patronage job on the St. Louis Police Commission with minimal duties and a fat salary, in exchange for favorable coverage [ep-0135]. He traded reputation for a small, immediate gain \u2014 exactly the short-term move Spitznagel warns against.\n- <b>David Geffen</b> explicitly chose money over his genuine interest in movies because someone told him music was faster [ep-0111]. He made the money, but the vault flags it as a pivot away from intrinsic motivation \u2014 the very thing that sustains long-term compounding.\n\n## What it means: one scorecard, not two\n\nThe unifying idea across episodes is that <b>wealth and reputation compound on the same schedule</b>. Forbes wealth doesn&#x27;t compound at 20% for 40 years if your counterparties stop trusting you at year 15. The founders who understood this \u2014 Rockefeller, Bezos, Buffett/Munger, Singleton \u2014 didn&#x27;t see reputation as a sacrifice of wealth but as the asset that makes wealth durable. Henry Singleton&#x27;s genius wasn&#x27;t just capital allocation; it was knowing &quot;where he could create the most value and focus on that&quot; [ep-0110]. For the great ones, that highest-value activity almost always turns out to be building trust at scale.\n\nThe Campeaus and Pulitzers of the world prove the inverse: reputation extracted for short-term gain destroys compounding. You get one big score, then it&#x27;s gone.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "compounding wealth long-term thinking capital allocation",
+                  "reputation brand trust long-term founder mindset",
+                  "wealth versus reputation tradeoff sacrifice founder"
+                ]
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "compounding wealth long-term thinking capital allocation",
+                "reputation brand trust long-term founder mindset",
+                "wealth versus reputation tradeoff sacrifice founder"
+              ],
+              "episode_ids": [
+                "ep-0070",
+                "ep-0071",
+                "ep-0088",
+                "ep-0090",
+                "ep-0094",
+                "ep-0102",
+                "ep-0110",
+                "ep-0111",
+                "ep-0135",
+                "ep-0148",
+                "ep-0160",
+                "ep-0177"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.5,
+                9.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "The vault's deepest pattern here isn't a tradeoff at all \u2014 it's that the founders who compound the most wealth are the ones who treat reputation as a form of compounding capital in its own right, not a constraint on it.\n\n## Reputation is the real capital\n\nRockefeller puts it plainly: after decades of building Standard Oil, he concluded that \"there can be no permanent success without fair dealing that leads to **widespread confidence in the man himself, and that is the real capital we all prize and work for**\" [ep-0148]. This isn't soft talk from a philanthropist in retirement \u2014 it's the core insight of the wealthiest man in American history. Peter Cundill sharpens the same point from the money-management side: \"**reputation and credibility are actually all we have to sell**\" [ep-0160]. Not a nice-to-have. The whole thing.\n\nBezos, Munger, and even Sony's Akio Morita converge on a shared phrase: **reputation is persuasive** [ep-0071, ep-0090, ep-0102]. The reasoning is practical, not moralistic \u2014 humans have fallible memories, so reputation fills the gaps. Trust becomes a moat. It's cheaper to retain customers who already trust you than to constantly acquire new ones. It's faster to attract partners who believe you'll deal fairly. Morita's Sony fought so hard against the \"cheap Japanese goods\" stigma that they literally printed \"Made in Japan\" as small as legally possible on early products [ep-0102], because they understood that a bad reputation would cap everything else they tried to build.\n\n## Patience is the mechanism that links them\n\nThis is where Spitznagel and the compounders tie the two threads together. The entrepreneur who \"**foresees a profit opportunity in the distant future, and who patiently reinvests earnings into his business year after year**\" posts enormous returns that short-term operators can't touch [ep-0070]. Henry Ford embodies this: he sacrificed immediate profits that competitors were collecting hand over fist to build the River Rouge plant \u2014 a fully integrated production system that eventually made him untouchable [ep-0070].\n\nThe link to reputation is subtle but crucial: long reinvestment horizons force you to build real relationships. You can't keep bluffing suppliers, customers, or employees for a decade. Patience filters out the charlatans. As Buffett says, \"time is the friend of the wonderful business and the enemy of the mediocre\" [ep-0088] \u2014 and the same applies to the founder's character. Time reveals whether you're building or just extracting.\n\n## The counterexamples prove the rule\n\nThe vault is honest about founders who get this wrong, and the pattern is stark:\n\n- **Robert Campeau** wasn't building a real business \u2014 he was chasing an outer scorecard, needing to be idolized. The leveraged-buyout empire collapsed because it was built on applause, not substance [ep-0177].\n- **Joseph Pulitzer** spent years crusading against corruption, then quietly accepted a patronage job on the St. Louis Police Commission with minimal duties and a fat salary, in exchange for favorable coverage [ep-0135]. He traded reputation for a small, immediate gain \u2014 exactly the short-term move Spitznagel warns against.\n- **David Geffen** explicitly chose money over his genuine interest in movies because someone told him music was faster [ep-0111]. He made the money, but the vault flags it as a pivot away from intrinsic motivation \u2014 the very thing that sustains long-term compounding.\n\n## What it means: one scorecard, not two\n\nThe unifying idea across episodes is that **wealth and reputation compound on the same schedule**. Forbes wealth doesn't compound at 20% for 40 years if your counterparties stop trusting you at year 15. The founders who understood this \u2014 Rockefeller, Bezos, Buffett/Munger, Singleton \u2014 didn't see reputation as a sacrifice of wealth but as the asset that makes wealth durable. Henry Singleton's genius wasn't just capital allocation; it was knowing \"where he could create the most value and focus on that\" [ep-0110]. For the great ones, that highest-value activity almost always turns out to be building trust at scale.\n\nThe Campeaus and Pulitzers of the world prove the inverse: reputation extracted for short-term gain destroys compounding. You get one big score, then it's gone."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault_many": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault_many\n  queries: compounding wealth long-term thinking capital allocation; reputation brand trust long-term founder mindset; wealth versus reputation tradeoff sacrifice founder\n  episodes: ep-0070, ep-0071, ep-0088, ep-0090, ep-0094, ep-0102, ep-0110, ep-0111, ep-0135, ep-0148, ep-0160, ep-0177 top_scores=[9.5, 9.5, 9.0]\nround 2: (answer)\n  reasoning: The vault's deepest pattern here isn't a tradeoff at all \u2014 it's that the founders who compound the most wealth are the ones who treat reputation as a form of compounding capital in its own right, not ",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 13998,
+            "retrieval_llm_ms": 237120,
+            "searches": [
+              {
+                "query": "compounding wealth long-term thinking capital allocation",
+                "vault_search_local_ms": 516,
+                "retrieval_llm_ms": 45707,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "wealth versus reputation tradeoff sacrifice founder",
+                "vault_search_local_ms": 8488,
+                "retrieval_llm_ms": 74094,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "reputation brand trust long-term founder mindset",
+                "vault_search_local_ms": 4994,
+                "retrieval_llm_ms": 117319,
+                "tool": "search_vault_many"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 2810,
+                "total_ms": 4496,
+                "completion_tokens": 180,
+                "tok_per_sec": 106.8
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 6591,
+                "total_ms": 24570,
+                "completion_tokens": 1361,
+                "tok_per_sec": 75.7
+              }
+            ],
+            "agent_ttft_ms_mean": 4700,
+            "generation_tok_per_sec_mean": 91.2,
+            "stop_reason": "natural",
+            "agent_steps": 2
+          },
+          "timing_summary": "vault=13998ms retrieval_llm=237120ms ttft=4700ms tok/s=91.2",
+          "timing_accountability": {
+            "wall_ms": 157697,
+            "accounted_ms": 280184,
+            "unaccounted_ms": 0,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 13998,
+              "retrieval_llm_ms": 237120,
+              "openrouter_total_ms": 29066
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

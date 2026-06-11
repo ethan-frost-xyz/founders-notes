@@ -1,0 +1,229 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-10T21:25:11",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian basic Q&A",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/basic_qa.yaml",
+      "passed": true,
+      "elapsed_s": 96.47099645796698,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/start'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.04320429195649922,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 2,
+          "action": "send \"What was Carnegie's key insight about steel?\"",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 96.42675166699337,
+          "tools_called": [
+            "search_vault",
+            "search_vault",
+            "search_transcript",
+            "load_episode"
+          ],
+          "response_text": "Carnegie's key insight about steel was really three interlocking realizations that compounded into a virtually unassailable business model.\n\n**First, he saw that steel \u2014 not iron \u2014 would become the fundamental building material of the industrial world.** The Bessemer process had made steel cheaper and more durable than iron, and Carnegie grasped earlier than almost anyone in America that this would trigger a revolution in railroads, bridges, and buildings. As the podcast puts it: *\"If there was a cheaper and more durable substance than iron, it would lead to a revolution in the business, not to mention any fortune for those who got in on the ground floor\"* [ep-0073]. He took a pickaxe-seller's approach \u2014 rather than build railroads himself, he'd supply the material every builder needed.\n\n**Second, and more distinctively, he realized that the only way to profit from steel at scale was total vertical integration.** In his own words after studying the British steel industry: *\"one vital lesson in iron and steel that I learned in Britain was the necessity of owning raw materials and finishing the completed article ready for its purpose\"* [ep-0075]. He systematically acquired coke ovens, iron ore lands, railroads, and finishing mills \u2014 controlling every input before \"vertical integration\" was even a term.\n\n**Third, he built a philosophy of cost permanence that made the whole machine work.** *\"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent\"* [ep-0073]. This is the insight that turned vertical integration from a structural play into a compounding advantage \u2014 every dollar of cost savings was a dollar you kept forever, regardless of where steel prices moved in any given year. He reinforced this by building during panics when rivals retreated, lowering his construction costs by 25% and embedding a structural cost advantage from day one [ep-0073].\n\nThe pattern that ties it all together: Carnegie wasn't just a steelmaker who happened to be good at costs. He understood that steel was a commodity, and in commodities, the lowest-cost producer with the most integrated supply chain wins \u2014 period. Everything else was detail.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Carnegie key insight about steel"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Carnegie steel realization Bessemer process insight"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Carnegie steel insight Bessemer iron vertical integration"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0073"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault"
+              ],
+              "queries": [
+                "Carnegie key insight about steel"
+              ],
+              "episode_ids": [
+                "ep-0073",
+                "ep-0074"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.0,
+                7.5
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_vault"
+              ],
+              "queries": [
+                "Carnegie steel realization Bessemer process insight"
+              ],
+              "episode_ids": [
+                "ep-0073",
+                "ep-0074"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                8.0,
+                7.5
+              ]
+            },
+            {
+              "round": 3,
+              "tools": [
+                "search_transcript",
+                "load_episode"
+              ],
+              "queries": [
+                "Carnegie steel insight Bessemer iron vertical integration",
+                "ep-0073"
+              ],
+              "episode_ids": [
+                "ep-0013",
+                "ep-0073",
+                "ep-0075"
+              ],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 4,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "Carnegie's key insight about steel was really three interlocking realizations that compounded into a virtually unassailable business model.\n\n**First, he saw that steel \u2014 not iron \u2014 would become the fundamental building material of the industrial world.** The Bessemer process had made steel cheaper and more durable than iron, and Carnegie grasped earlier than almost anyone in America that this would trigger a revolution in railroads, bridges, and buildings. As the podcast puts it: *\"If there was a cheaper and more durable substance than iron, it would lead to a revolution in the business, not to mention any fortune for those who got in on the ground floor\"* [ep-0073]. He took a pickaxe-seller's approach \u2014 rather than build railroads himself, he'd supply the material every builder needed.\n\n**Second, and more distinctively, he realized that the only way to profit from steel at scale was total vertical integration.** In his own words after studying the British steel industry: *\"one vital lesson in iron and steel that I learned in Britain was the necessity of owning raw materials and finishing the completed article ready for its purpose\"* [ep-0075]. He systematically acquired coke ovens, iron ore lands, railroads, and finishing mills \u2014 controlling every input before \"vertical integration\" was even a term.\n\n**Third, he built a philosophy of cost permanence that made the whole machine work.** *\"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent\"* [ep-0073]. This is the insight that turned vertical integration from a structural play into a compounding advantage \u2014 every dollar of cost savings was a dollar you kept forever, regardless of where steel prices moved in any given year. He reinforced this by building during panics when rivals retreated, lowering his construction costs by 25% and embedding a structural cost advantage from day one [ep-0073].\n\nThe pattern that ties it all together: Carnegie wasn't just a steelmaker who happened to be good at costs. He understood that steel was a commodity, and in commodities, the lowest-cost producer with the most integrated supply chain wins \u2014 period. Everything else was detail."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 2,
+            "search_transcript": 1,
+            "load_episode": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault\n  queries: Carnegie key insight about steel\n  episodes: ep-0073, ep-0074 top_scores=[9.5, 9.0, 7.5]\nround 2: search_vault\n  queries: Carnegie steel realization Bessemer process insight\n  episodes: ep-0073, ep-0074 top_scores=[9.5, 8.0, 7.5]\nround 3: search_transcript, load_episode\n  queries: Carnegie steel insight Bessemer iron vertical integration; ep-0073\n  episodes: ep-0013, ep-0073, ep-0075\nround 4: (answer)\n  reasoning: Carnegie's key insight about steel was really three interlocking realizations that compounded into a virtually unassailable business model.\n\n**First, he saw that steel \u2014 not iron \u2014 would become the fu",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 1938,
+            "retrieval_llm_ms": 49849,
+            "searches": [
+              {
+                "query": "Carnegie key insight about steel",
+                "vault_search_local_ms": 1124,
+                "retrieval_llm_ms": 25403,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Carnegie steel realization Bessemer process insight",
+                "vault_search_local_ms": 757,
+                "retrieval_llm_ms": 24446,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Carnegie steel insight Bessemer iron vertical integration",
+                "vault_search_local_ms": 57,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1438,
+                "total_ms": 1887,
+                "completion_tokens": 81,
+                "tok_per_sec": 180.4
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 1570,
+                "total_ms": 2756,
+                "completion_tokens": 98,
+                "tok_per_sec": 82.6
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 2007,
+                "total_ms": 2696,
+                "completion_tokens": 169,
+                "tok_per_sec": 245.3
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 11995,
+                "total_ms": 21714,
+                "completion_tokens": 1129,
+                "tok_per_sec": 116.2
+              }
+            ],
+            "agent_ttft_ms_mean": 4252,
+            "generation_tok_per_sec_mean": 156.1,
+            "stop_reason": "natural",
+            "agent_steps": 4
+          },
+          "timing_summary": "vault=1938ms retrieval_llm=49849ms ttft=4252ms tok/s=156.1",
+          "timing_accountability": {
+            "wall_ms": 96427,
+            "accounted_ms": 80840,
+            "unaccounted_ms": 15587,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 1938,
+              "retrieval_llm_ms": 49849,
+              "openrouter_total_ms": 29053
+            }
+          }
+        },
+        {
+          "index": 3,
+          "action": "send '/clear'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0006353749777190387,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        }
+      ]
+    }
+  ]
+}

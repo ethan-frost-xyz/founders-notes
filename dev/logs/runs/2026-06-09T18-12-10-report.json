@@ -1,0 +1,148 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-09T18:12:10",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian multi-hop theme",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/multi_hop.yaml",
+      "passed": true,
+      "elapsed_s": 91.3357447499875,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'How do founders in the vault think about compounding wealth and long-term reputation together?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 91.33533145900583,
+          "tools_called": [
+            "search_vault_many"
+          ],
+          "response_text": "Searching vault (parallel)\u2026\n\nAcross the vault, a clear pattern emerges: <b>reputation is a compounding asset, and compounding only works at scale when reputation holds the structure together.</b> Founders who master one inevitably think deeply about the other, because the two are not separate strategies \u2014 they&#x27;re the same long game viewed from different angles.\n\n---\n\n## The core insight: reputation *is* compounding, applied to trust\n\nThe most direct statement of this comes from Rockefeller, who near the end of his career explicitly equated reputation with capital itself:\n\n&gt; &quot;There is no mystery in business success. The great industrial leaders have told again and again the plan and obvious fact that there can be no permanent success without fair dealing that leads to <b>widespread confidence in the man himself, and that is the real capital we all prize and work for.</b>&quot; [ep-0148]\n\nHe&#x27;s not being sentimental. He&#x27;s describing a compounding machine: every fair deal deposits trust into an account that earns interest over decades, and the principal itself grows \u2014 more people trust you, which opens doors that no amount of cash could unlock.\n\nPeter Cundill arrived at the same conclusion from the opposite direction \u2014 watching a boss gamble away a firm&#x27;s credibility on speculative real estate deals:\n\n&gt; &quot;The more I think about this, the more I recognize that <b>reputation and credibility are actually all we have to sell.</b>&quot; [ep-0160]\n\n---\n\n## The structural link: the roundabout path\n\nMark Spitznagel&#x27;s framework in [ep-0070] provides the theoretical spine connecting these two themes. His central idea is the *roundabout process* \u2014 accepting short-term deprivation to build a system that produces exponentially more later. Crusoe goes hungry to build a boat and net. Henry Ford foregoes immediate profits to build the River Rouge plant.\n\nThe vault shows founders applying this same logic to reputation. Sam Bronfman, when a desperate Hudson&#x27;s Bay executive needed 2,000 cases of liquor, refused to charge a premium \u2014 even though he had every leverage. He lent the goods at cost:\n\n&gt; &quot;Sam&#x27;s reply was chivalrous and staked out his claim to be treated seriously by the marketing giant: &#x27;I don&#x27;t want your money, he said. Just let me have the same amount back as soon as you can.&#x27; His point was that it would be <b>foolish to capitalize on his momentary advantage</b>.&quot; [ep-0116]\n\nThat&#x27;s pure roundabout logic: sacrifice the immediate profit to build the relationship, knowing the relationship compounds into something far larger than the one-time gain. Bronfman traded a short-term win for a long-term asset.\n\n---\n\n## Reputation compounds because human memory is fallible\n\nBezos and Munger both land on the same specific mechanism for *why* reputation behaves like compounding \u2014 it automates persuasion when raw logic fails:\n\n&gt; &quot;He knows that <b>reputation is persuasive</b>. This is just helpful in human relations in general, like our memories are fallible...&quot; [ep-0071]\n\nMunger repeats this so often it becomes a deliberate rhetorical strategy:\n\n&gt; &quot;He has a bunch of ideas that he repeats in different ways because he understands the idea that <b>reputation is persuasive</b>.&quot; [ep-0090]\n\nThe insight is subtle but practical: in any single transaction, you could reason someone into trusting you. But at scale, across thousands of transactions with people who don&#x27;t know you personally, the logic collapses \u2014 reputation fills the gap. And the only way to build that reputation is time: consistent, uninterrupted fair dealing.\n\n---\n\n## Don&#x27;t interrupt the compounding \u2014 on either dimension\n\nCharles Schulz&#x27;s story of Peanuts growing from 7 newspapers to 2,000 over 34 years yields the simplest formulation of what ties everything together:\n\n&gt; &quot;There&#x27;s a huge benefit to just not quitting. In other words, <b>don&#x27;t interrupt the compounding.</b>&quot; [ep-0154]\n\nInterrupt the compounding on wealth, and you lose the exponential curve. Interrupt the compounding on reputation \u2014 one opportunistic deal, one exploited customer, one moment of short-term greed \u2014 and you don&#x27;t just lose one transaction; you lose the accumulated trust that would have paid dividends for decades. Cundill&#x27;s boss learned this the hard way. Bronfman built an empire by refusing to learn it.\n\n---\n\n## A tension worth noting\n\nThere&#x27;s a quiet split in the vault between those who emphasize the *internal discipline* of compounding (Munger living in the same house long after becoming a multimillionaire, refusing to buy a new car until nearly 60 [ep-0078]; Spitznagel absorbing small daily losses while waiting years for one explosive payoff [ep-0070]) and those who emphasize the *external* dimension \u2014 that reputation is what makes compounding possible at scale.\n\nBut they converge on the same point: you cannot sustain compounding without reputation, and you cannot build reputation without the patience to let it compound. The entrepreneur who chases short-term profit destroys both. The one who &quot;patiently reinvests earnings into his business year after year&quot; [ep-0070] \u2014 and deals fairly with every counterparty along the way \u2014 gets both the wealth and the confidence that Rockefeller called &quot;the real capital.&quot;",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "compounding wealth over time",
+                  "long-term reputation",
+                  "reputation as an asset",
+                  "delayed gratification wealth building"
+                ]
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "compounding wealth over time",
+                "long-term reputation",
+                "reputation as an asset",
+                "delayed gratification wealth building"
+              ],
+              "episode_ids": [
+                "ep-0057",
+                "ep-0070",
+                "ep-0071",
+                "ep-0078",
+                "ep-0090",
+                "ep-0115",
+                "ep-0116",
+                "ep-0148",
+                "ep-0154",
+                "ep-0160"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                10.0,
+                9.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "Across the vault, a clear pattern emerges: **reputation is a compounding asset, and compounding only works at scale when reputation holds the structure together.** Founders who master one inevitably think deeply about the other, because the two are not separate strategies \u2014 they're the same long game viewed from different angles.\n\n---\n\n## The core insight: reputation *is* compounding, applied to trust\n\nThe most direct statement of this comes from Rockefeller, who near the end of his career explicitly equated reputation with capital itself:\n\n> \"There is no mystery in business success. The great industrial leaders have told again and again the plan and obvious fact that there can be no permanent success without fair dealing that leads to **widespread confidence in the man himself, and that is the real capital we all prize and work for.**\" [ep-0148]\n\nHe's not being sentimental. He's describing a compounding machine: every fair deal deposits trust into an account that earns interest over decades, and the principal itself grows \u2014 more people trust you, which opens doors that no amount of cash could unlock.\n\nPeter Cundill arrived at the same conclusion from the opposite direction \u2014 watching a boss gamble away a firm's credibility on speculative real estate deals:\n\n> \"The more I think about this, the more I recognize that **reputation and credibility are actually all we have to sell.**\" [ep-0160]\n\n---\n\n## The structural link: the roundabout path\n\nMark Spitznagel's framework in [ep-0070] provides the theoretical spine connecting these two themes. His central idea is the *roundabout process* \u2014 accepting short-term deprivation to build a system that produces exponentially more later. Crusoe goes hungry to build a boat and net. Henry Ford foregoes immediate profits to build the River Rouge plant.\n\nThe vault shows founders applying this same logic to reputation. Sam Bronfman, when a desperate Hudson's Bay executive needed 2,000 cases of liquor, refused to charge a premium \u2014 even though he had every leverage. He lent the goods at cost:\n\n> \"Sam's reply was chivalrous and staked out his claim to be treated seriously by the marketing giant: 'I don't want your money, he said. Just let me have the same amount back as soon as you can.' His point was that it would be **foolish to capitalize on his momentary advantage**.\" [ep-0116]\n\nThat's pure roundabout logic: sacrifice the immediate profit to build the relationship, knowing the relationship compounds into something far larger than the one-time gain. Bronfman traded a short-term win for a long-term asset.\n\n---\n\n## Reputation compounds because human memory is fallible\n\nBezos and Munger both land on the same specific mechanism for *why* reputation behaves like compounding \u2014 it automates persuasion when raw logic fails:\n\n> \"He knows that **reputation is persuasive**. This is just helpful in human relations in general, like our memories are fallible...\" [ep-0071]\n\nMunger repeats this so often it becomes a deliberate rhetorical strategy:\n\n> \"He has a bunch of ideas that he repeats in different ways because he understands the idea that **reputation is persuasive**.\" [ep-0090]\n\nThe insight is subtle but practical: in any single transaction, you could reason someone into trusting you. But at scale, across thousands of transactions with people who don't know you personally, the logic collapses \u2014 reputation fills the gap. And the only way to build that reputation is time: consistent, uninterrupted fair dealing.\n\n---\n\n## Don't interrupt the compounding \u2014 on either dimension\n\nCharles Schulz's story of Peanuts growing from 7 newspapers to 2,000 over 34 years yields the simplest formulation of what ties everything together:\n\n> \"There's a huge benefit to just not quitting. In other words, **don't interrupt the compounding.**\" [ep-0154]\n\nInterrupt the compounding on wealth, and you lose the exponential curve. Interrupt the compounding on reputation \u2014 one opportunistic deal, one exploited customer, one moment of short-term greed \u2014 and you don't just lose one transaction; you lose the accumulated trust that would have paid dividends for decades. Cundill's boss learned this the hard way. Bronfman built an empire by refusing to learn it.\n\n---\n\n## A tension worth noting\n\nThere's a quiet split in the vault between those who emphasize the *internal discipline* of compounding (Munger living in the same house long after becoming a multimillionaire, refusing to buy a new car until nearly 60 [ep-0078]; Spitznagel absorbing small daily losses while waiting years for one explosive payoff [ep-0070]) and those who emphasize the *external* dimension \u2014 that reputation is what makes compounding possible at scale.\n\nBut they converge on the same point: you cannot sustain compounding without reputation, and you cannot build reputation without the patience to let it compound. The entrepreneur who chases short-term profit destroys both. The one who \"patiently reinvests earnings into his business year after year\" [ep-0070] \u2014 and deals fairly with every counterparty along the way \u2014 gets both the wealth and the confidence that Rockefeller called \"the real capital.\""
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault_many": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault_many\n  queries: compounding wealth over time; long-term reputation; reputation as an asset (+1 more)\n  episodes: ep-0057, ep-0070, ep-0071, ep-0078, ep-0090, ep-0115, ep-0116, ep-0148, ep-0154, ep-0160 top_scores=[10.0, 10.0, 9.0]\nround 2: (answer)\n  reasoning: Across the vault, a clear pattern emerges: **reputation is a compounding asset, and compounding only works at scale when reputation holds the structure together.** Founders who master one inevitably t",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 1763,
+            "retrieval_llm_ms": 199920,
+            "searches": [
+              {
+                "query": "delayed gratification wealth building",
+                "vault_search_local_ms": 459,
+                "retrieval_llm_ms": 46358,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "long-term reputation",
+                "vault_search_local_ms": 427,
+                "retrieval_llm_ms": 48949,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "reputation as an asset",
+                "vault_search_local_ms": 452,
+                "retrieval_llm_ms": 49941,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "compounding wealth over time",
+                "vault_search_local_ms": 425,
+                "retrieval_llm_ms": 54672,
+                "tool": "search_vault_many"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1730,
+                "total_ms": 2341,
+                "completion_tokens": 168,
+                "tok_per_sec": 275.0
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 7720,
+                "total_ms": 29271,
+                "completion_tokens": 1428,
+                "tok_per_sec": 66.3
+              }
+            ],
+            "agent_ttft_ms_mean": 4725,
+            "generation_tok_per_sec_mean": 170.7,
+            "stop_reason": "natural",
+            "agent_steps": 2
+          },
+          "timing_summary": "vault=1763ms retrieval_llm=199920ms ttft=4725ms tok/s=170.7",
+          "timing_accountability": {
+            "wall_ms": 91335,
+            "accounted_ms": 233295,
+            "unaccounted_ms": 0,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 1763,
+              "retrieval_llm_ms": 199920,
+              "openrouter_total_ms": 31612
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

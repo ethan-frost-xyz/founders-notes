@@ -1,0 +1,225 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-09T19:10:40",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian episode resolve NL",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/episode_resolve.yaml",
+      "passed": true,
+      "elapsed_s": 28.13191120803822,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'What did I note on episode 191?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 11.197593082964886,
+          "tools_called": [
+            "load_episode"
+          ],
+          "response_text": "Here's what you noted on **#191 Naval Ravikant (A Guide to Wealth and Happiness)**. Nine raw datapoints, each timestamped:\n\n1. **5:00** \u2014 Context changes over time \u2014 interpretations shift, and original intent can change.\n2. **8:00** \u2014 Getting rich is not just about hard work; it's about several factors.\n3. **16:00** \u2014 Labor leverage and capital leverage.\n4. **25:00** \u2014 The best thing you can do is what you can do best, then scale.\n5. **31:00** \u2014 The newest form of leverage is code and media.\n6. **32:00** \u2014 What you want is to be in control of your time.\n7. **35:00** \u2014 Spend more time on the big decisions.\n8. **49:00** \u2014 Say no quickly, yes slowly.\n9. **59:00** \u2014 Self-discipline is a bridge to self-image.\n\nYour X post about this episode highlighted that last one \u2014 *\"Be quick with 'no' and slow with 'yes'\"* \u2014 along with the permissionless leverage idea (code and media) and the three big life decisions (where you live, who you're with, what you do).",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0191"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "load_episode"
+              ],
+              "queries": [
+                "ep-0191"
+              ],
+              "episode_ids": [],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 2,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "Here's what you noted on **#191 Naval Ravikant (A Guide to Wealth and Happiness)**. Nine raw datapoints, each timestamped:\n\n1. **5:00** \u2014 Context changes over time \u2014 interpretations shift, and original intent can change.\n2. **8:00** \u2014 Getting rich is not just about hard work; it's about several factors.\n3. **16:00** \u2014 Labor leverage and capital leverage.\n4. **25:00** \u2014 The best thing you can do is what you can do best, then scale.\n5. **31:00** \u2014 The newest form of leverage is code and media.\n6. **32:00** \u2014 What you want is to be in control of your time.\n7. **35:00** \u2014 Spend more time on the big decisions.\n8. **49:00** \u2014 Say no quickly, yes slowly.\n9. **59:00** \u2014 Self-discipline is a bridge to self-image.\n\nYour X post about this episode highlighted that last one \u2014 *\"Be quick with 'no' and slow with 'yes'\"* \u2014 along with the permissionless leverage idea (code and media) and the three big life decisions (where you live, who you're with, what you do)."
+            }
+          ],
+          "tool_call_counts": {
+            "load_episode": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: load_episode\n  queries: ep-0191\nround 2: (answer)\n  reasoning: Here's what you noted on **#191 Naval Ravikant (A Guide to Wealth and Happiness)**. Nine raw datapoints, each timestamped:\n\n1. **5:00** \u2014 Context changes over time \u2014 interpretations shift, and origina",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 0,
+            "retrieval_llm_ms": 0,
+            "searches": [],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 416,
+                "total_ms": 670,
+                "completion_tokens": 70,
+                "tok_per_sec": 275.6
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 614,
+                "total_ms": 4171,
+                "completion_tokens": 297,
+                "tok_per_sec": 83.5
+              }
+            ],
+            "agent_ttft_ms_mean": 515,
+            "generation_tok_per_sec_mean": 179.6,
+            "stop_reason": "natural",
+            "agent_steps": 2
+          },
+          "timing_summary": "vault=0ms retrieval_llm=0ms ttft=515ms tok/s=179.6",
+          "timing_accountability": {
+            "wall_ms": 11198,
+            "accounted_ms": 4841,
+            "unaccounted_ms": 6357,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 0,
+              "retrieval_llm_ms": 0,
+              "openrouter_total_ms": 4841
+            }
+          }
+        },
+        {
+          "index": 2,
+          "action": "send 'Summarize what I captured on episode 22.'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 16.93341166601749,
+          "tools_called": [
+            "list_episode_ids",
+            "load_episode"
+          ],
+          "response_text": "You captured three raw datapoints on **#22 How To Turn Down A Billion Dollars: The Snapchat Story** \u2014 Evan Spiegel's journey at Snapchat:\n\n**1. \"The idea of 'standard' is a construct\" (22:03)**\nWhen Lightspeed's Jeremy Liew included unfavorable terms in Snapchat's early funding, Spiegel was told the terms were \"standard\" and therefore agreeable. He later realized this was a deflection tactic. As he put it: *\"I forgot that the idea of standard is a construct. It simply does not exist.\"* The lesson: interrogate every clause yourself \u2014 what gets presented as an industry norm is often just a negotiating lever to push through bad terms.\n\n**2. Privacy is the understanding of context (1:00:05)**\nDrawing on privacy scholar Helen Nissenbaum, Spiegel argues privacy isn't secrecy \u2014 it's about respecting the boundaries of different relationships: *\"Privacy is actually focused on an understanding of context, not what is said, but where it is said and to whom.\"* People naturally share different things with different people in real life; platforms that collapse all contexts into one public feed violate that.\n\n**3. Social media = capitalism getting into our personal relationships (1:02:29)**\nSpiegel's sharpest critique: *\"Social media businesses represent an aggressive expansion of capitalism into our personal relationships. We are asked to perform for our friends, to create things they like, to work on a personal brand.\"* When likes and shares quantify human connection, you're no longer being yourself \u2014 you're optimizing a marketable self. That's why impermanent, like-free spaces feel liberating.\n\nYour X post on this episode zeroed in on privacy-as-context and the \"capitalism in our relationships\" line. Three datapoints, all clustered around Spiegel's philosophy of what makes communication authentic \u2014 and what breaks it.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "list_episode_ids",
+              "arguments": {
+                "query": "22"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0022"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "list_episode_ids"
+              ],
+              "queries": [
+                "22"
+              ],
+              "episode_ids": [],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 2,
+              "tools": [
+                "load_episode"
+              ],
+              "queries": [
+                "ep-0022"
+              ],
+              "episode_ids": [],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 3,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "You captured three raw datapoints on **#22 How To Turn Down A Billion Dollars: The Snapchat Story** \u2014 Evan Spiegel's journey at Snapchat:\n\n**1. \"The idea of 'standard' is a construct\" (22:03)**\nWhen Lightspeed's Jeremy Liew included unfavorable terms in Snapchat's early funding, Spiegel was told the terms were \"standard\" and therefore agreeable. He later realized this was a deflection tactic. As he put it: *\"I forgot that the idea of standard is a construct. It simply does not exist.\"* The lesson: interrogate every clause yourself \u2014 what gets presented as an industry norm is often just a negotiating lever to push through bad terms.\n\n**2. Privacy is the understanding of context (1:00:05)**\nDrawing on privacy scholar Helen Nissenbaum, Spiegel argues privacy isn't secrecy \u2014 it's about respecting the boundaries of different relationships: *\"Privacy is actually focused on an understanding of context, not what is said, but where it is said and to whom.\"* People naturally share different things with different people in real life; platforms that collapse all contexts into one public feed violate that.\n\n**3. Social media = capitalism getting into our personal relationships (1:02:29)**\nSpiegel's sharpest critique: *\"Social media businesses represent an aggressive expansion of capitalism into our personal relationships. We are asked to perform for our friends, to create things they like, to work on a personal brand.\"* When likes and shares quantify human connection, you're no longer being yourself \u2014 you're optimizing a marketable self. That's why impermanent, like-free spaces feel liberating.\n\nYour X post on this episode zeroed in on privacy-as-context and the \"capitalism in our relationships\" line. Three datapoints, all clustered around Spiegel's philosophy of what makes communication authentic \u2014 and what breaks it."
+            }
+          ],
+          "tool_call_counts": {
+            "list_episode_ids": 1,
+            "load_episode": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: list_episode_ids\n  queries: 22\nround 2: load_episode\n  queries: ep-0022\nround 3: (answer)\n  reasoning: You captured three raw datapoints on **#22 How To Turn Down A Billion Dollars: The Snapchat Story** \u2014 Evan Spiegel's journey at Snapchat:\n\n**1. \"The idea of 'standard' is a construct\" (22:03)**\nWhen L",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 0,
+            "retrieval_llm_ms": 0,
+            "searches": [],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 534,
+                "total_ms": 833,
+                "completion_tokens": 72,
+                "tok_per_sec": 240.8
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 85,
+                "total_ms": 297,
+                "completion_tokens": 82,
+                "tok_per_sec": 386.8
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 286,
+                "total_ms": 6306,
+                "completion_tokens": 426,
+                "tok_per_sec": 70.8
+              }
+            ],
+            "agent_ttft_ms_mean": 302,
+            "generation_tok_per_sec_mean": 232.8,
+            "stop_reason": "natural",
+            "agent_steps": 3
+          },
+          "timing_summary": "vault=0ms retrieval_llm=0ms ttft=302ms tok/s=232.8",
+          "timing_accountability": {
+            "wall_ms": 16933,
+            "accounted_ms": 7436,
+            "unaccounted_ms": 9497,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 0,
+              "retrieval_llm_ms": 0,
+              "openrouter_total_ms": 7436
+            }
+          }
+        },
+        {
+          "index": 3,
+          "action": "send '/clear'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0004789580125361681,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        }
+      ]
+    }
+  ]
+}

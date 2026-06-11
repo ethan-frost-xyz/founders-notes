@@ -1,0 +1,449 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-09T16:47:50",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian multi-turn session",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/multi_turn.yaml",
+      "passed": true,
+      "elapsed_s": 531.3467387920246,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/start'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.04161045799264684,
+          "tools_called": [],
+          "response_text": "Episodes in catalog: 442\nStudied (timestamp bullets): 184\nChunks index updated: 2026-06-09 20:10 UTC",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 2,
+          "action": "send 'Who founded Nike?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 126.1818558750092,
+          "tools_called": [
+            "search_vault",
+            "search_transcript"
+          ],
+          "response_text": "Searching vault\u2026\n\nSearching transcripts\u2026\n\n<b>Nike was founded by Phil Knight and Bill Bowerman.</b>\n\nPhil Knight was a University of Oregon track athlete and Stanford MBA who, in 1964, started the company (originally called Blue Ribbon Sports) importing Japanese running shoes. His former track coach at Oregon, Bill Bowerman, became his co-founder \u2014 the obsessive tinkerer and design mind who famously created the waffle sole by pouring rubber into his wife&#x27;s waffle iron in their kitchen [ep-0010] [ep-0153].\n\nThe partnership was essentially: Knight handled the business (selling shoes out of his trunk in the early days, often dismissed by his father as &quot;jackassing around&quot; [ep-0010]), while Bowerman relentlessly pursued marginal engineering gains. Bowerman&#x27;s core philosophy was that <b>lightness = speed</b>. He believed every ounce shaved from a shoe translated directly to competitive advantage, and that obsessive pursuit became embedded in Nike&#x27;s DNA [ep-0010].\n\nAn ironic coda: Bowerman&#x27;s decades of working with rubber cement in a poorly ventilated workshop caused permanent nerve damage in his legs. He ultimately <b>couldn&#x27;t run in the shoes he spent his life perfecting</b> [ep-0153].",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "who founded Nike"
+              }
+            },
+            {
+              "step": 1,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Nike founded"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault",
+                "search_transcript"
+              ],
+              "queries": [
+                "who founded Nike",
+                "Nike founded"
+              ],
+              "episode_ids": [
+                "ep-0001",
+                "ep-0002",
+                "ep-0004",
+                "ep-0008",
+                "ep-0010",
+                "ep-0109",
+                "ep-0153"
+              ],
+              "rerank_scores_top3": [
+                9.0,
+                9.0,
+                8.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "**Nike was founded by Phil Knight and Bill Bowerman.**\n\nPhil Knight was a University of Oregon track athlete and Stanford MBA who, in 1964, started the company (originally called Blue Ribbon Sports) importing Japanese running shoes. His former track coach at Oregon, Bill Bowerman, became his co-founder \u2014 the obsessive tinkerer and design mind who famously created the waffle sole by pouring rubber into his wife's waffle iron in their kitchen [ep-0010] [ep-0153].\n\nThe partnership was essentially: Knight handled the business (selling shoes out of his trunk in the early days, often dismissed by his father as \"jackassing around\" [ep-0010]), while Bowerman relentlessly pursued marginal engineering gains. Bowerman's core philosophy was that **lightness = speed**. He believed every ounce shaved from a shoe translated directly to competitive advantage, and that obsessive pursuit became embedded in Nike's DNA [ep-0010].\n\nAn ironic coda: Bowerman's decades of working with rubber cement in a poorly ventilated workshop caused permanent nerve damage in his legs. He ultimately **couldn't run in the shoes he spent his life perfecting** [ep-0153]."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 1,
+            "search_transcript": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault, search_transcript\n  queries: who founded Nike; Nike founded\n  episodes: ep-0001, ep-0002, ep-0004, ep-0008, ep-0010, ep-0109, ep-0153 top_scores=[9.0, 9.0, 8.0]\nround 2: (answer)\n  reasoning: **Nike was founded by Phil Knight and Bill Bowerman.**\n\nPhil Knight was a University of Oregon track athlete and Stanford MBA who, in 1964, started the company (originally called Blue Ribbon Sports) i",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 5651,
+            "retrieval_llm_ms": 106211,
+            "searches": [
+              {
+                "query": "who founded Nike",
+                "vault_search_local_ms": 5627,
+                "retrieval_llm_ms": 106211,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Nike founded",
+                "vault_search_local_ms": 24,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 564,
+                "total_ms": 1254,
+                "completion_tokens": 107,
+                "tok_per_sec": 155.1
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 3755,
+                "total_ms": 8754,
+                "completion_tokens": 481,
+                "tok_per_sec": 96.2
+              }
+            ],
+            "agent_ttft_ms_mean": 2160,
+            "generation_tok_per_sec_mean": 125.7,
+            "stop_reason": "natural",
+            "agent_steps": 2
+          },
+          "timing_summary": "vault=5651ms retrieval_llm=106211ms ttft=2160ms tok/s=125.7",
+          "timing_accountability": {
+            "wall_ms": 126182,
+            "accounted_ms": 121870,
+            "unaccounted_ms": 4312,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 5651,
+              "retrieval_llm_ms": 106211,
+              "openrouter_total_ms": 10008
+            }
+          }
+        },
+        {
+          "index": 3,
+          "action": "send 'What book did he rely on?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 405.10337741702097,
+          "tools_called": [
+            "search_vault",
+            "search_transcript",
+            "search_vault_many",
+            "load_episode",
+            "search_transcript",
+            "search_vault"
+          ],
+          "response_text": "Searching vault\u2026\n\nSearching transcripts\u2026\n\nSearching vault (parallel)\u2026\n\nLoading episode\u2026\n\nSearching transcripts\u2026\n\nSearching vault\u2026\n\nI&#x27;ve dug through the vault extensively on this \u2014 across multiple search angles \u2014 and here&#x27;s the honest answer: <b>the vault doesn&#x27;t identify a specific book that Phil Knight relied on as his guiding text.</b>\n\nThis is actually revealing in itself. The &quot;book&quot; that set Nike in motion wasn&#x27;t something Knight read \u2014 it was something he *wrote*. While at Stanford&#x27;s Graduate School of Business in 1962, Knight wrote a paper titled: <b>&quot;Can Japanese Sports Shoes Do to German Sports Shoes What Japanese Cameras Did to German Cameras?&quot;</b> [ep-0022]. That paper was the blueprint. Japanese cameras had disrupted German dominance (Leica, etc.) by being cheaper and just as good \u2014 Knight saw the same dynamic waiting to happen in athletic footwear, with Japanese brands poised to undercut Adidas and Puma.\n\nHis classmates were reportedly bored by the presentation [ep-0022]. He went and built the thesis anyway.\n\nBeyond that, Knight&#x27;s philosophical framework in *Shoe Dog* is highly self-generated \u2014 the core insight he returns to isn&#x27;t from a book but from a moment of clarity on a morning run: <b>&quot;Play. Yes, I thought, that&#x27;s it. That&#x27;s the word. The secret of happiness...&quot;</b> [ep-0010]. His drive wasn&#x27;t book-derived; it was experiential.\n\nOne thing the vault *does* surface indirectly: Knight loved books broadly (&quot;The things I love most, books, sports, democracy, free enterprise started as crazy ideas&quot; [ep-0010]), but unlike many founders in this archive who explicitly name a single book that shaped them (Bezos with *The Goal*, for instance [ep-0179]), Knight&#x27;s references remain autobiographical rather than external. If there&#x27;s a specific book he singled out, the vault simply doesn&#x27;t have it.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "book Phil Knight relied on influenced by"
+              }
+            },
+            {
+              "step": 1,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Phil Knight book relied on"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "Phil Knight specific book that influenced his business philosophy",
+                  "what book did Phil Knight read that shaped Nike",
+                  "Phil Knight Stanford paper Japanese shoes book influence"
+                ]
+              }
+            },
+            {
+              "step": 3,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0010"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Phil Knight favorite book relied on biography read"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "book that Phil Knight called his bible or guide or blueprint"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault",
+                "search_transcript"
+              ],
+              "queries": [
+                "book Phil Knight relied on influenced by",
+                "Phil Knight book relied on"
+              ],
+              "episode_ids": [
+                "ep-0009",
+                "ep-0010",
+                "ep-0022",
+                "ep-0028",
+                "ep-0044",
+                "ep-0053",
+                "ep-0063",
+                "ep-0070",
+                "ep-0153",
+                "ep-0179"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                7.0,
+                6.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "Phil Knight specific book that influenced his business philosophy",
+                "what book did Phil Knight read that shaped Nike",
+                "Phil Knight Stanford paper Japanese shoes book influence"
+              ],
+              "episode_ids": [
+                "ep-0009",
+                "ep-0010"
+              ],
+              "rerank_scores_top3": [
+                5.0,
+                5.0,
+                5.0
+              ]
+            },
+            {
+              "round": 3,
+              "tools": [
+                "load_episode"
+              ],
+              "queries": [
+                "ep-0010"
+              ],
+              "episode_ids": [],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 4,
+              "tools": [
+                "search_transcript",
+                "search_vault"
+              ],
+              "queries": [
+                "Phil Knight favorite book relied on biography read",
+                "book that Phil Knight called his bible or guide or blueprint"
+              ],
+              "episode_ids": [
+                "ep-0006",
+                "ep-0007",
+                "ep-0009",
+                "ep-0010",
+                "ep-0022",
+                "ep-0028",
+                "ep-0033",
+                "ep-0048",
+                "ep-0053",
+                "ep-0083"
+              ],
+              "rerank_scores_top3": [
+                2.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "round": 5,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "I've dug through the vault extensively on this \u2014 across multiple search angles \u2014 and here's the honest answer: **the vault doesn't identify a specific book that Phil Knight relied on as his guiding text.**\n\nThis is actually revealing in itself. The \"book\" that set Nike in motion wasn't something Knight read \u2014 it was something he *wrote*. While at Stanford's Graduate School of Business in 1962, Knight wrote a paper titled: **\"Can Japanese Sports Shoes Do to German Sports Shoes What Japanese Cameras Did to German Cameras?\"** [ep-0022]. That paper was the blueprint. Japanese cameras had disrupted German dominance (Leica, etc.) by being cheaper and just as good \u2014 Knight saw the same dynamic waiting to happen in athletic footwear, with Japanese brands poised to undercut Adidas and Puma.\n\nHis classmates were reportedly bored by the presentation [ep-0022]. He went and built the thesis anyway.\n\nBeyond that, Knight's philosophical framework in *Shoe Dog* is highly self-generated \u2014 the core insight he returns to isn't from a book but from a moment of clarity on a morning run: **\"Play. Yes, I thought, that's it. That's the word. The secret of happiness...\"** [ep-0010]. His drive wasn't book-derived; it was experiential.\n\nOne thing the vault *does* surface indirectly: Knight loved books broadly (\"The things I love most, books, sports, democracy, free enterprise started as crazy ideas\" [ep-0010]), but unlike many founders in this archive who explicitly name a single book that shaped them (Bezos with *The Goal*, for instance [ep-0179]), Knight's references remain autobiographical rather than external. If there's a specific book he singled out, the vault simply doesn't have it."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 2,
+            "search_transcript": 2,
+            "search_vault_many": 1,
+            "load_episode": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault, search_transcript\n  queries: book Phil Knight relied on influenced by; Phil Knight book relied on\n  episodes: ep-0009, ep-0010, ep-0022, ep-0028, ep-0044, ep-0053, ep-0063, ep-0070, ep-0153, ep-0179 top_scores=[10.0, 7.0, 6.0]\nround 2: search_vault_many\n  queries: Phil Knight specific book that influenced his business philosophy; what book did Phil Knight read that shaped Nike; Phil Knight Stanford paper Japanese shoes book influence\n  episodes: ep-0009, ep-0010 top_scores=[5.0, 5.0, 5.0]\nround 3: load_episode\n  queries: ep-0010\nround 4: search_transcript, search_vault\n  queries: Phil Knight favorite book relied on biography read; book that Phil Knight called his bible or guide or blueprint\n  episodes: ep-0006, ep-0007, ep-0009, ep-0010, ep-0022, ep-0028, ep-0033, ep-0048, ep-0053, ep-0083 top_scores=[2.0, 1.0, 1.0]\nround 5: (answer)\n  reasoning: I've dug through the vault extensively on this \u2014 across multiple search angles \u2014 and here's the honest answer: **the vault doesn't identify a specific book that Phil Knight relied on as his guiding te",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 5062,
+            "retrieval_llm_ms": 572991,
+            "searches": [
+              {
+                "query": "book Phil Knight relied on influenced by",
+                "vault_search_local_ms": 906,
+                "retrieval_llm_ms": 42328,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Phil Knight book relied on",
+                "vault_search_local_ms": 46,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Phil Knight specific book that influenced his business philosophy",
+                "vault_search_local_ms": 729,
+                "retrieval_llm_ms": 90525,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Phil Knight Stanford paper Japanese shoes book influence",
+                "vault_search_local_ms": 584,
+                "retrieval_llm_ms": 140974,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "what book did Phil Knight read that shaped Nike",
+                "vault_search_local_ms": 1790,
+                "retrieval_llm_ms": 151944,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Phil Knight favorite book relied on biography read",
+                "vault_search_local_ms": 60,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "book that Phil Knight called his bible or guide or blueprint",
+                "vault_search_local_ms": 947,
+                "retrieval_llm_ms": 147220,
+                "tool": "search_vault"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1012,
+                "total_ms": 2033,
+                "completion_tokens": 180,
+                "tok_per_sec": 176.3
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 10673,
+                "total_ms": 12964,
+                "completion_tokens": 456,
+                "tok_per_sec": 199.0
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 3460,
+                "total_ms": 3912,
+                "completion_tokens": 229,
+                "tok_per_sec": 506.6
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 3318,
+                "total_ms": 5137,
+                "completion_tokens": 285,
+                "tok_per_sec": 156.7
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 5528,
+                "total_ms": 12360,
+                "completion_tokens": 707,
+                "tok_per_sec": 103.5
+              }
+            ],
+            "agent_ttft_ms_mean": 4798,
+            "generation_tok_per_sec_mean": 228.4,
+            "stop_reason": "natural",
+            "agent_steps": 5
+          },
+          "timing_summary": "vault=5062ms retrieval_llm=572991ms ttft=4798ms tok/s=228.4",
+          "timing_accountability": {
+            "wall_ms": 405103,
+            "accounted_ms": 614459,
+            "unaccounted_ms": 0,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 5062,
+              "retrieval_llm_ms": 572991,
+              "openrouter_total_ms": 36406
+            }
+          }
+        },
+        {
+          "index": 4,
+          "action": "send '/newchat'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0027200000477023423,
+          "tools_called": [],
+          "response_text": "Exported 2026-06-09T20-47-50Z_who-founded-nike.jsonl and started a new chat.",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 5,
+          "action": "send '/resume'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.016728457994759083,
+          "tools_called": [],
+          "response_text": "Resumed 2026-06-09T20-47-50Z_who-founded-nike.jsonl (4 messages).",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        }
+      ]
+    }
+  ]
+}

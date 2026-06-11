@@ -1,0 +1,194 @@
+{
+  "passed": false,
+  "generated_at": "2026-06-09T19:44:05",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian single-founder depth",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/single_founder_depth.yaml",
+      "passed": false,
+      "elapsed_s": 110.76202891598223,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send \"Give me a deep read on everything I've studied about Warren Buffett's inner scorecard idea.\"",
+          "passed": false,
+          "message": "expected tools ['search_vault'], got ['search_vault_many', 'search_transcript', 'load_episode']; tools called: ['search_vault_many', 'search_transcript', 'load_episode']",
+          "elapsed_s": 110.76166345801903,
+          "tools_called": [
+            "search_vault_many",
+            "search_transcript",
+            "load_episode"
+          ],
+          "response_text": "# Warren Buffett's Inner Scorecard: A Deep Read Across Your Vault\n\nThe inner scorecard isn't just a Buffett aphorism in your study \u2014 it's become a recurring diagnostic lens that Senra uses to explain why certain founders built lasting empires and others spectacularly self-destructed. Here's the full architecture as it appears across episodes.\n\n---\n\n## The Core Idea (ep-0100)\n\nBuffett learned this from his father Howard, and it's one of the few ideas he frames in near-absolute terms. From *The Snowball*:\n\n> \"The big question about how people behave is whether they've got an inner scorecard or an outer scorecard. It helps if you can be satisfied with an inner scorecard, I would also say it's probably the single only way to have a happy life.\" [ep-0100]\n\nThe inner scorecard means measuring yourself against **your own standards**. The outer scorecard means measuring yourself against what other people think of you.\n\nBuffett's parents embodied the split. His father Howard was \"a 100% inner scorecard guy\" \u2014 a maverick, but not performatively so. He became a stockbroker in 1927, right before the crash, because it was what he genuinely wanted to do. He didn't care that people thought he was crazy. His mother Leila, by contrast, had an outer scorecard, and it made her miserable. She was consumed by what others thought of her and her family. [ep-0100]\n\nThe relationship consequences were stark. Buffett had \"a very terrible relationship with his mother\" and his deepest respect for his father. The mother's outer scorecard manifested as abuse \u2014 described in ep-0182 as \"vicious rebukes\" where \"nothing they had done measured up.\" [ep-0182]\n\n---\n\n## The Litmus Test\n\nBuffett had a specific thought experiment to reveal which scorecard you're running:\n\n> \"If the world couldn't see your results, would you rather be thought of as the world's greatest investor, but in reality, have the world's worst record \u2014 or be thought of as the world's worst investor when you actually have the best?\" [ep-0100]\n\nIf you'd pick the first option, you're on an outer scorecard. You'd rather *appear* great than *be* great. That's the trap.\n\n---\n\n## The Father's Philosophy (ep-0182)\n\nHoward Buffett grounded the inner scorecard in Emerson:\n\n> \"The great man is he who in the middle of the crowd keeps with perfect sweetness the independence of solitude.\" [ep-0182]\n\nHoward stressed \"the habit of developing independent thought\" above all political opinions. The inner scorecard isn't about being contrarian for its own sake \u2014 it's about the capacity to hold your own judgment when everyone around you pressures you to conform. [ep-0182]\n\n---\n\n## How It Played Out Across Episodes\n\n### Robert Campeau \u2014 The Outer Scorecard as Fatal Flaw (ep-0177)\n\nThis is the cleanest cautionary tale. Campeau's entire leveraged-buyout spree in retail wasn't about building anything. Every deal closed with a self-aggrandizing party. When he bought Allied, he ordered First Boston to invite \"New York's best business people\" to celebrate him. No one showed up \u2014 they had to staff the party with bank employees.\n\n> \"He's not doing this because he actually gives a shit about building a great business, a great product. He just wants you to idolize him.\" [ep-0177]\n\nSenra frames the whole episode as: Campeau needed adulation, made decisions to get it, and destroyed everything. Both Allied and Federated went bankrupt. The outer scorecard literally bankrupted him.\n\n### Walt Disney vs. Louis B. Mayer \u2014 Same Output, Different Scorecard (ep-0173)\n\nThis is the most *surgical* application. Both men obsessed over quality. But the *why* was everything:\n\n- **Walt Disney**: Inner scorecard. Quality was its own reward. And crucially, when animation no longer satisfied him, his inner scorecard told him to build theme parks \u2014 which everyone said was insane, dirty, impossible. He did it anyway. His inner compass changed, and he followed it.\n\n- **Louis B. Mayer**: Outer scorecard. He made quality films because that's what won the largest audience and the most praise. \"Mayer was plainly a person who needed his share of praise, who demanded some positive recognition of what a great man he was.\" [ep-0173]\n\nSame surface behavior. Completely different internal engine. One built an enduring creative legacy. The other was hollow.\n\n### William Randolph Hearst \u2014 The Scorecard That Slipped (ep-0145)\n\nHearst is the most nuanced case because he *started* with an inner scorecard. He refused society functions, wouldn't marry well, dated waitresses, lived downtown while fashionable New York moved north, and \"despised society.\" [ep-0145]\n\nBut then he started comparing himself to Teddy Roosevelt \u2014 and his inner scorecard temporarily collapsed into an outer one. The result? Depression and misery, even while his newspapers were thriving. Senra flags this explicitly:\n\n> \"He kind of gave way to his inner scorecard and then switched to an outer scorecard temporarily, and then, no surprise there, he's depressed and upset.\" [ep-0145]\n\nAnd he drops the line: **\"Comparison is the thief of joy.\"** That's the mechanism \u2014 comparison is the doorway from inner to outer scorecard.\n\n---\n\n## The Deeper Layer: Measuring a Life (ep-0100)\n\nBuffett's most poignant articulation came not in a boardroom but while his wife was dying. He told Georgia Tech students:\n\n> \"When you get to my age, you'll really measure your success in life by how many of the people you want to have love you actually do love you. I know people who have a lot of money, and they get testimonial dinners and they get hospital wings named after them.\" [ep-0100]\n\nThis isn't the same as the inner/outer scorecard distinction, but it's the natural endpoint of it. If you run an inner scorecard, you're building toward relationships where people genuinely love you \u2014 not because you bought a hospital wing, but because you were lovable. Money can't buy that. The outer scorecard chases the testimonial dinner; the inner scorecard builds the conditions for real love.\n\n---\n\n## The Tie-In: How the Vault Uses \"Scorecard\" More Broadly\n\nBuffett's shareholder letters also use scorecard language in a narrower, investing-specific way:\n\n> \"Investors should remember that their scorecard is not computed using Olympic diving methods. The degree of difficulty doesn't count.\" [ep-0150]\n\nThis is a different application but the same root idea: don't measure yourself by what looks impressive to others (complex deals, sophisticated strategies). Judge by results against your own clear standard. Simple, boring, right beats complicated, impressive, wrong.\n\n---\n\n## Synthesis: What This Idea Really Is\n\nAcross your study, the inner scorecard functions as a **root cause variable**. It explains:\n\n1. **Who stays happy** \u2014 Buffett, Walt Disney, Howard Buffett\n2. **Who destroys themselves** \u2014 Campeau, Mayer, Leila Buffett\n3. **Who oscillates and suffers** \u2014 Hearst (inner \u2192 outer \u2192 depression)\n4. **What the mechanism of corruption is** \u2014 comparison to others. \"Comparison is the thief of joy\" is the bridge from inner to outer.\n\nThe practical takeaway isn't just \"be yourself.\" It's more specific: **make decisions as if nobody will ever know you made them.** Would you still do it? If yes, inner scorecard. If no \u2014 if the decision only makes sense when there's an audience \u2014 you're building on sand.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "Warren Buffett inner scorecard",
+                  "Buffett internal standards vs external validation",
+                  "Buffett how he measures himself success",
+                  "inner scorecard outer scorecard founder"
+                ]
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "inner scorecard outer scorecard"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0100"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "Warren Buffett inner scorecard",
+                "Buffett internal standards vs external validation",
+                "Buffett how he measures himself success",
+                "inner scorecard outer scorecard founder"
+              ],
+              "episode_ids": [
+                "ep-0088",
+                "ep-0100",
+                "ep-0150",
+                "ep-0177"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                9.5,
+                6.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_transcript",
+                "load_episode"
+              ],
+              "queries": [
+                "inner scorecard outer scorecard",
+                "ep-0100"
+              ],
+              "episode_ids": [
+                "ep-0100",
+                "ep-0145",
+                "ep-0173",
+                "ep-0177",
+                "ep-0182"
+              ],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 3,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "# Warren Buffett's Inner Scorecard: A Deep Read Across Your Vault\n\nThe inner scorecard isn't just a Buffett aphorism in your study \u2014 it's become a recurring diagnostic lens that Senra uses to explain why certain founders built lasting empires and others spectacularly self-destructed. Here's the full architecture as it appears across episodes.\n\n---\n\n## The Core Idea (ep-0100)\n\nBuffett learned this from his father Howard, and it's one of the few ideas he frames in near-absolute terms. From *The Snowball*:\n\n> \"The big question about how people behave is whether they've got an inner scorecard or an outer scorecard. It helps if you can be satisfied with an inner scorecard, I would also say it's probably the single only way to have a happy life.\" [ep-0100]\n\nThe inner scorecard means measuring yourself against **your own standards**. The outer scorecard means measuring yourself against what other people think of you.\n\nBuffett's parents embodied the split. His father Howard was \"a 100% inner scorecard guy\" \u2014 a maverick, but not performatively so. He became a stockbroker in 1927, right before the crash, because it was what he genuinely wanted to do. He didn't care that people thought he was crazy. His mother Leila, by contrast, had an outer scorecard, and it made her miserable. She was consumed by what others thought of her and her family. [ep-0100]\n\nThe relationship consequences were stark. Buffett had \"a very terrible relationship with his mother\" and his deepest respect for his father. The mother's outer scorecard manifested as abuse \u2014 described in ep-0182 as \"vicious rebukes\" where \"nothing they had done measured up.\" [ep-0182]\n\n---\n\n## The Litmus Test\n\nBuffett had a specific thought experiment to reveal which scorecard you're running:\n\n> \"If the world couldn't see your results, would you rather be thought of as the world's greatest investor, but in reality, have the world's worst record \u2014 or be thought of as the world's worst investor when you actually have the best?\" [ep-0100]\n\nIf you'd pick the first option, you're on an outer scorecard. You'd rather *appear* great than *be* great. That's the trap.\n\n---\n\n## The Father's Philosophy (ep-0182)\n\nHoward Buffett grounded the inner scorecard in Emerson:\n\n> \"The great man is he who in the middle of the crowd keeps with perfect sweetness the independence of solitude.\" [ep-0182]\n\nHoward stressed \"the habit of developing independent thought\" above all political opinions. The inner scorecard isn't about being contrarian for its own sake \u2014 it's about the capacity to hold your own judgment when everyone around you pressures you to conform. [ep-0182]\n\n---\n\n## How It Played Out Across Episodes\n\n### Robert Campeau \u2014 The Outer Scorecard as Fatal Flaw (ep-0177)\n\nThis is the cleanest cautionary tale. Campeau's entire leveraged-buyout spree in retail wasn't about building anything. Every deal closed with a self-aggrandizing party. When he bought Allied, he ordered First Boston to invite \"New York's best business people\" to celebrate him. No one showed up \u2014 they had to staff the party with bank employees.\n\n> \"He's not doing this because he actually gives a shit about building a great business, a great product. He just wants you to idolize him.\" [ep-0177]\n\nSenra frames the whole episode as: Campeau needed adulation, made decisions to get it, and destroyed everything. Both Allied and Federated went bankrupt. The outer scorecard literally bankrupted him.\n\n### Walt Disney vs. Louis B. Mayer \u2014 Same Output, Different Scorecard (ep-0173)\n\nThis is the most *surgical* application. Both men obsessed over quality. But the *why* was everything:\n\n- **Walt Disney**: Inner scorecard. Quality was its own reward. And crucially, when animation no longer satisfied him, his inner scorecard told him to build theme parks \u2014 which everyone said was insane, dirty, impossible. He did it anyway. His inner compass changed, and he followed it.\n\n- **Louis B. Mayer**: Outer scorecard. He made quality films because that's what won the largest audience and the most praise. \"Mayer was plainly a person who needed his share of praise, who demanded some positive recognition of what a great man he was.\" [ep-0173]\n\nSame surface behavior. Completely different internal engine. One built an enduring creative legacy. The other was hollow.\n\n### William Randolph Hearst \u2014 The Scorecard That Slipped (ep-0145)\n\nHearst is the most nuanced case because he *started* with an inner scorecard. He refused society functions, wouldn't marry well, dated waitresses, lived downtown while fashionable New York moved north, and \"despised society.\" [ep-0145]\n\nBut then he started comparing himself to Teddy Roosevelt \u2014 and his inner scorecard temporarily collapsed into an outer one. The result? Depression and misery, even while his newspapers were thriving. Senra flags this explicitly:\n\n> \"He kind of gave way to his inner scorecard and then switched to an outer scorecard temporarily, and then, no surprise there, he's depressed and upset.\" [ep-0145]\n\nAnd he drops the line: **\"Comparison is the thief of joy.\"** That's the mechanism \u2014 comparison is the doorway from inner to outer scorecard.\n\n---\n\n## The Deeper Layer: Measuring a Life (ep-0100)\n\nBuffett's most poignant articulation came not in a boardroom but while his wife was dying. He told Georgia Tech students:\n\n> \"When you get to my age, you'll really measure your success in life by how many of the people you want to have love you actually do love you. I know people who have a lot of money, and they get testimonial dinners and they get hospital wings named after them.\" [ep-0100]\n\nThis isn't the same as the inner/outer scorecard distinction, but it's the natural endpoint of it. If you run an inner scorecard, you're building toward relationships where people genuinely love you \u2014 not because you bought a hospital wing, but because you were lovable. Money can't buy that. The outer scorecard chases the testimonial dinner; the inner scorecard builds the conditions for real love.\n\n---\n\n## The Tie-In: How the Vault Uses \"Scorecard\" More Broadly\n\nBuffett's shareholder letters also use scorecard language in a narrower, investing-specific way:\n\n> \"Investors should remember that their scorecard is not computed using Olympic diving methods. The degree of difficulty doesn't count.\" [ep-0150]\n\nThis is a different application but the same root idea: don't measure yourself by what looks impressive to others (complex deals, sophisticated strategies). Judge by results against your own clear standard. Simple, boring, right beats complicated, impressive, wrong.\n\n---\n\n## Synthesis: What This Idea Really Is\n\nAcross your study, the inner scorecard functions as a **root cause variable**. It explains:\n\n1. **Who stays happy** \u2014 Buffett, Walt Disney, Howard Buffett\n2. **Who destroys themselves** \u2014 Campeau, Mayer, Leila Buffett\n3. **Who oscillates and suffers** \u2014 Hearst (inner \u2192 outer \u2192 depression)\n4. **What the mechanism of corruption is** \u2014 comparison to others. \"Comparison is the thief of joy\" is the bridge from inner to outer.\n\nThe practical takeaway isn't just \"be yourself.\" It's more specific: **make decisions as if nobody will ever know you made them.** Would you still do it? If yes, inner scorecard. If no \u2014 if the decision only makes sense when there's an audience \u2014 you're building on sand."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault_many": 1,
+            "search_transcript": 1,
+            "load_episode": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault_many\n  queries: Warren Buffett inner scorecard; Buffett internal standards vs external validation; Buffett how he measures himself success (+1 more)\n  episodes: ep-0088, ep-0100, ep-0150, ep-0177 top_scores=[10.0, 9.5, 6.0]\nround 2: search_transcript, load_episode\n  queries: inner scorecard outer scorecard; ep-0100\n  episodes: ep-0100, ep-0145, ep-0173, ep-0177, ep-0182\nround 3: (answer)\n  reasoning: # Warren Buffett's Inner Scorecard: A Deep Read Across Your Vault\n\nThe inner scorecard isn't just a Buffett aphorism in your study \u2014 it's become a recurring diagnostic lens that Senra uses to explain ",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 7159,
+            "retrieval_llm_ms": 42125,
+            "searches": [
+              {
+                "query": "Warren Buffett inner scorecard",
+                "vault_search_local_ms": 1155,
+                "retrieval_llm_ms": 16520,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Buffett how he measures himself success",
+                "vault_search_local_ms": 3639,
+                "retrieval_llm_ms": 25605,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "inner scorecard outer scorecard founder",
+                "vault_search_local_ms": 1688,
+                "retrieval_llm_ms": 0,
+                "tool": "search_vault_many",
+                "error": true
+              },
+              {
+                "query": "Buffett internal standards vs external validation",
+                "vault_search_local_ms": 648,
+                "retrieval_llm_ms": 0,
+                "tool": "search_vault_many",
+                "error": true
+              },
+              {
+                "query": "inner scorecard outer scorecard",
+                "vault_search_local_ms": 29,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1743,
+                "total_ms": 2334,
+                "completion_tokens": 212,
+                "tok_per_sec": 358.7
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 2845,
+                "total_ms": 4981,
+                "completion_tokens": 257,
+                "tok_per_sec": 120.3
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 7048,
+                "total_ms": 32011,
+                "completion_tokens": 2243,
+                "tok_per_sec": 89.9
+              }
+            ],
+            "agent_ttft_ms_mean": 3879,
+            "generation_tok_per_sec_mean": 189.6,
+            "stop_reason": "natural",
+            "agent_steps": 3
+          },
+          "timing_summary": "vault=7159ms retrieval_llm=42125ms ttft=3879ms tok/s=189.6",
+          "timing_accountability": {
+            "wall_ms": 110762,
+            "accounted_ms": 88610,
+            "unaccounted_ms": 22152,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 7159,
+              "retrieval_llm_ms": 42125,
+              "openrouter_total_ms": 39326
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

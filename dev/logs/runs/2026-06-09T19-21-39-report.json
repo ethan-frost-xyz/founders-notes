@@ -1,0 +1,414 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-09T19:21:39",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian multi-founder comparison",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/multi_founder_comparison.yaml",
+      "passed": true,
+      "elapsed_s": 533.4904582499876,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'How did Edison and Rockefeller differ in how they built teams?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 533.4898593329708,
+          "tools_called": [
+            "search_vault_many",
+            "search_vault_many",
+            "search_transcript",
+            "search_vault",
+            "load_episode",
+            "load_episode",
+            "search_transcript",
+            "search_vault",
+            "search_transcript",
+            "search_vault"
+          ],
+          "response_text": "**Rockefeller built an organization; Edison built an extension of himself.** That's the spine of the difference, and everything else flows from it.\n\n---\n\n**Rockefeller's approach: absorb talent, cultivate trust, build a self-running system.**\n\nRockefeller had a signature move: rather than just crushing competitors, he'd win and then recruit them. \"Rockefeller constantly took adversaries. And then after they had their competition or their battle... **he winds up getting a lot of these people to work for them in Standard Oil**\" [ep-0016]. Henry Rogers, who became one of his most capable lieutenants, arrived this way \u2014 a former rival turned into a pillar of the enterprise.\n\nBut the deeper layer is *why* this worked. Rockefeller genuinely valued relationships as the core asset. In his autobiography, he says that \"**above all other possessions, is the value of a friend in every department of life without any exception whatsoever**\" [ep-0148]. This wasn't sentimentality \u2014 it was strategic philosophy. He believed \"there can be no permanent success without fair dealing that leads to **widespread confidence in the man himself, and that is the real capital we all prize and work for**\" [ep-0148]. Trust was the operating system. Partners who trusted him stayed, executed, and managed pieces of the empire without needing his constant presence. He could delegate because the relational foundation was solid.\n\nHe also built the organization around a shared obsession with the numbers \u2014 \"**figures and facts, no matter how small they were**\" [ep-0148] \u2014 which created a common language and accountability that scaled beyond his personal oversight.\n\n---\n\n**Edison's approach: gather assistants around the genius, stay at the center, move on when bored.**\n\nEdison absolutely had a team. Batchelor, Edward Johnson, and other named employees worked alongside him at Menlo Park [ep-0003 transcript]. They handled letters, ran experiments, and supported the relentless pace. But the relationship was fundamentally different: they were *assistants to the wizard*, not partners in an institution.\n\nThe deeper pattern is this: Edison's \"need for autonomy was primal and unvarying. It would determine the course of his career from the beginning to the end\" [ep-0003 transcript]. He didn't want a system that ran without him \u2014 he wanted \"one's own shop, working on projects of one's own choosing.\" The team existed to amplify *his* inventive capacity, not to build something durable independent of him.\n\nAnd when the inventing was done, he lost interest. \"Time and again, he invented things with long-term market appeal only to **lose interest** or miscalculate what form of his inventions consumer wanted to buy. Examples were plentiful\" [ep-0190]. He and his assistants \"failed to appreciate what they had discovered\" with the phonograph \u2014 they saw it as an office dictation tool, missing the entertainment market entirely [ep-0050]. The organization wasn't designed to capture value independently; it was designed to follow Edison's curiosity wherever it went next.\n\nHe admired Napoleon \u2014 \"You know, I like a hustler\" [ep-0003] \u2014 and that tells you something. He valued relentless drive from the individual, not the patient construction of a system that outlasts the individual.\n\n---\n\n**The tension in one sentence:** Rockefeller turned adversaries into partners and built an institution held together by trust and shared discipline; Edison hired helpers to execute *his* vision and moved on when the interesting part was over. One built Standard Oil. The other left a trail of world-changing inventions \u2014 and let competitors capture the profits.\n\n---\n\n**A note on evidence quality:** The vault has rich material on Rockefeller's relational philosophy and Edison's autonomy-drive and attention-fragmentation, but it's thinner on the granular, day-to-day mechanics of how each man ran team meetings or assigned work. The synthesis above is grounded in what we have, but there's likely more texture in biographies the vault didn't deeply index on this specific question.",
+          "stop_reason": "cap",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "how Edison built teams",
+                  "how Rockefeller built teams"
+                ]
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "Edison muckers team lab employees menlo park",
+                  "Rockefeller partnerships hiring trust culture"
+                ]
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Edison team Menlo Park muckers employees worked together"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Edison abandoned inventions moved on too quickly lost interest competitors captured value"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0003"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0016"
+              }
+            },
+            {
+              "step": 5,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Edison hired men assistants worked together laboratory Menlo Park crew"
+              }
+            },
+            {
+              "step": 5,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Rockefeller delegated trusted partners relied on associates management style"
+              }
+            },
+            {
+              "step": 6,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "muckers Edison team worked all night invention factory"
+              }
+            },
+            {
+              "step": 6,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Edison individual genius solo inventor versus system builder organizational capability"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "how Edison built teams",
+                "how Rockefeller built teams"
+              ],
+              "episode_ids": [
+                "ep-0003",
+                "ep-0009",
+                "ep-0016",
+                "ep-0148",
+                "ep-0190"
+              ],
+              "rerank_scores_top3": [
+                4.0,
+                4.0,
+                3.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "Edison muckers team lab employees menlo park",
+                "Rockefeller partnerships hiring trust culture"
+              ],
+              "episode_ids": [
+                "ep-0003",
+                "ep-0005",
+                "ep-0009",
+                "ep-0016",
+                "ep-0050",
+                "ep-0060",
+                "ep-0148"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                9.0,
+                7.0
+              ],
+              "reasoning": "The Edison results are thinly about team-building per se \u2014 they're more about Edison's personal traits. Let me dig deeper with more targeted queries."
+            },
+            {
+              "round": 3,
+              "tools": [
+                "search_transcript",
+                "search_vault"
+              ],
+              "queries": [
+                "Edison team Menlo Park muckers employees worked together",
+                "Edison abandoned inventions moved on too quickly lost interest competitors captured value"
+              ],
+              "episode_ids": [
+                "ep-0003",
+                "ep-0023",
+                "ep-0040",
+                "ep-0050",
+                "ep-0069",
+                "ep-0093",
+                "ep-0109",
+                "ep-0158",
+                "ep-0163",
+                "ep-0174",
+                "ep-0190",
+                "ep-0192"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                7.0,
+                6.0
+              ]
+            },
+            {
+              "round": 4,
+              "tools": [
+                "load_episode",
+                "load_episode"
+              ],
+              "queries": [
+                "ep-0003",
+                "ep-0016"
+              ],
+              "episode_ids": [],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 5,
+              "tools": [
+                "search_transcript",
+                "search_vault"
+              ],
+              "queries": [
+                "Edison hired men assistants worked together laboratory Menlo Park crew",
+                "Rockefeller delegated trusted partners relied on associates management style"
+              ],
+              "episode_ids": [
+                "ep-0002",
+                "ep-0003",
+                "ep-0008",
+                "ep-0016",
+                "ep-0098",
+                "ep-0104",
+                "ep-0120",
+                "ep-0122",
+                "ep-0148",
+                "ep-0158"
+              ],
+              "rerank_scores_top3": [
+                9.0,
+                8.0,
+                7.0
+              ]
+            },
+            {
+              "round": 6,
+              "tools": [
+                "search_transcript",
+                "search_vault"
+              ],
+              "queries": [
+                "muckers Edison team worked all night invention factory",
+                "Edison individual genius solo inventor versus system builder organizational capability"
+              ],
+              "episode_ids": [
+                "ep-0003",
+                "ep-0009",
+                "ep-0011",
+                "ep-0018",
+                "ep-0025",
+                "ep-0026",
+                "ep-0027",
+                "ep-0070",
+                "ep-0083",
+                "ep-0138",
+                "ep-0163",
+                "ep-0190"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                9.5,
+                9.0
+              ]
+            },
+            {
+              "round": 7,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "cap",
+              "reasoning": "**Rockefeller built an organization; Edison built an extension of himself.** That's the spine of the difference, and everything else flows from it.\n\n---\n\n**Rockefeller's approach: absorb talent, cultivate trust, build a self-running system.**\n\nRockefeller had a signature move: rather than just crushing competitors, he'd win and then recruit them. \"Rockefeller constantly took adversaries. And then after they had their competition or their battle... **he winds up getting a lot of these people to work for them in Standard Oil**\" [ep-0016]. Henry Rogers, who became one of his most capable lieutenants, arrived this way \u2014 a former rival turned into a pillar of the enterprise.\n\nBut the deeper layer is *why* this worked. Rockefeller genuinely valued relationships as the core asset. In his autobiography, he says that \"**above all other possessions, is the value of a friend in every department of life without any exception whatsoever**\" [ep-0148]. This wasn't sentimentality \u2014 it was strategic philosophy. He believed \"there can be no permanent success without fair dealing that leads to **widespread confidence in the man himself, and that is the real capital we all prize and work for**\" [ep-0148]. Trust was the operating system. Partners who trusted him stayed, executed, and managed pieces of the empire without needing his constant presence. He could delegate because the relational foundation was solid.\n\nHe also built the organization around a shared obsession with the numbers \u2014 \"**figures and facts, no matter how small they were**\" [ep-0148] \u2014 which created a common language and accountability that scaled beyond his personal oversight.\n\n---\n\n**Edison's approach: gather assistants around the genius, stay at the center, move on when bored.**\n\nEdison absolutely had a team. Batchelor, Edward Johnson, and other named employees worked alongside him at Menlo Park [ep-0003 transcript]. They handled letters, ran experiments, and supported the relentless pace. But the relationship was fundamentally different: they were *assistants to the wizard*, not partners in an institution.\n\nThe deeper pattern is this: Edison's \"need for autonomy was primal and unvarying. It would determine the course of his career from the beginning to the end\" [ep-0003 transcript]. He didn't want a system that ran without him \u2014 he wanted \"one's own shop, working on projects of one's own choosing.\" The team existed to amplify *his* inventive capacity, not to build something durable independent of him.\n\nAnd when the inventing was done, he lost interest. \"Time and again, he invented things with long-term market appeal only to **lose interest** or miscalculate what form of his inventions consumer wanted to buy. Examples were plentiful\" [ep-0190]. He and his assistants \"failed to appreciate what they had discovered\" with the phonograph \u2014 they saw it as an office dictation tool, missing the entertainment market entirely [ep-0050]. The organization wasn't designed to capture value independently; it was designed to follow Edison's curiosity wherever it went next.\n\nHe admired Napoleon \u2014 \"You know, I like a hustler\" [ep-0003] \u2014 and that tells you something. He valued relentless drive from the individual, not the patient construction of a system that outlasts the individual.\n\n---\n\n**The tension in one sentence:** Rockefeller turned adversaries into partners and built an institution held together by trust and shared discipline; Edison hired helpers to execute *his* vision and moved on when the interesting part was over. One built Standard Oil. The other left a trail of world-changing inventions \u2014 and let competitors capture the profits.\n\n---\n\n**A note on evidence quality:** The vault has rich material on Rockefeller's relational philosophy and Edison's autonomy-drive and attention-fragmentation, but it's thinner on the granular, day-to-day mechanics of how each man ran team meetings or assigned work. The synthesis above is grounded in what we have, but there's likely more texture in biographies the vault didn't deeply index on this specific question."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault_many": 2,
+            "search_transcript": 3,
+            "search_vault": 3,
+            "load_episode": 2
+          },
+          "trace_summary": "stop: cap\n\nround 1: search_vault_many\n  queries: how Edison built teams; how Rockefeller built teams\n  episodes: ep-0003, ep-0009, ep-0016, ep-0148, ep-0190 top_scores=[4.0, 4.0, 3.0]\nround 2: search_vault_many\n  queries: Edison muckers team lab employees menlo park; Rockefeller partnerships hiring trust culture\n  episodes: ep-0003, ep-0005, ep-0009, ep-0016, ep-0050, ep-0060, ep-0148 top_scores=[10.0, 9.0, 7.0]\n  reasoning: The Edison results are thinly about team-building per se \u2014 they're more about Edison's personal traits. Let me dig deeper with more targeted queries.\nround 3: search_transcript, search_vault\n  queries: Edison team Menlo Park muckers employees worked together; Edison abandoned inventions moved on too quickly lost interest competitors captured value\n  episodes: ep-0003, ep-0023, ep-0040, ep-0050, ep-0069, ep-0093, ep-0109, ep-0158, ep-0163, ep-0174, ep-0190, ep-0192 top_scores=[10.0, 7.0, 6.0]\nround 4: load_episode, load_episode\n  queries: ep-0003; ep-0016\nround 5: search_transcript, search_vault\n  queries: Edison hired men assistants worked together laboratory Menlo Park crew; Rockefeller delegated trusted partners relied on associates management style\n  episodes: ep-0002, ep-0003, ep-0008, ep-0016, ep-0098, ep-0104, ep-0120, ep-0122, ep-0148, ep-0158 top_scores=[9.0, 8.0, 7.0]\nround 6: search_transcript, search_vault\n  queries: muckers Edison team worked all night invention factory; Edison individual genius solo inventor versus system builder organizational capability\n  episodes: ep-0003, ep-0009, ep-0011, ep-0018, ep-0025, ep-0026, ep-0027, ep-0070, ep-0083, ep-0138, ep-0163, ep-0190 top_scores=[10.0, 9.5, 9.0]\nround 7: (answer)\n  reasoning: **Rockefeller built an organization; Edison built an extension of himself.** That's the spine of the difference, and everything else flows from it.\n\n---\n\n**Rockefeller's approach: absorb talent, culti",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 14074,
+            "retrieval_llm_ms": 555620,
+            "searches": [
+              {
+                "query": "how Rockefeller built teams",
+                "vault_search_local_ms": 728,
+                "retrieval_llm_ms": 53714,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "how Edison built teams",
+                "vault_search_local_ms": 9548,
+                "retrieval_llm_ms": 101885,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Rockefeller partnerships hiring trust culture",
+                "vault_search_local_ms": 907,
+                "retrieval_llm_ms": 63561,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Edison muckers team lab employees menlo park",
+                "vault_search_local_ms": 431,
+                "retrieval_llm_ms": 148200,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Edison team Menlo Park muckers employees worked together",
+                "vault_search_local_ms": 63,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Edison abandoned inventions moved on too quickly lost interest competitors captured value",
+                "vault_search_local_ms": 771,
+                "retrieval_llm_ms": 64789,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Edison hired men assistants worked together laboratory Menlo Park crew",
+                "vault_search_local_ms": 71,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Rockefeller delegated trusted partners relied on associates management style",
+                "vault_search_local_ms": 717,
+                "retrieval_llm_ms": 50026,
+                "tool": "search_vault"
+              },
+              {
+                "query": "muckers Edison team worked all night invention factory",
+                "vault_search_local_ms": 65,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Edison individual genius solo inventor versus system builder organizational capability",
+                "vault_search_local_ms": 773,
+                "retrieval_llm_ms": 73445,
+                "tool": "search_vault"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1765,
+                "total_ms": 2231,
+                "completion_tokens": 125,
+                "tok_per_sec": 268.2
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 1757,
+                "total_ms": 3533,
+                "completion_tokens": 262,
+                "tok_per_sec": 147.5
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 1651,
+                "total_ms": 2602,
+                "completion_tokens": 189,
+                "tok_per_sec": 198.7
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 1129,
+                "total_ms": 2504,
+                "completion_tokens": 141,
+                "tok_per_sec": 102.5
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 4666,
+                "total_ms": 5596,
+                "completion_tokens": 414,
+                "tok_per_sec": 445.2
+              },
+              {
+                "label": "agent_round_6",
+                "ttft_ms": 8020,
+                "total_ms": 9129,
+                "completion_tokens": 607,
+                "tok_per_sec": 547.3
+              },
+              {
+                "label": "agent_round_7_cap",
+                "ttft_ms": 9713,
+                "total_ms": 24546,
+                "completion_tokens": 1445,
+                "tok_per_sec": 97.4
+              }
+            ],
+            "agent_ttft_ms_mean": 4100,
+            "generation_tok_per_sec_mean": 258.1,
+            "stop_reason": "cap",
+            "agent_steps": 7
+          },
+          "timing_summary": "vault=14074ms retrieval_llm=555620ms ttft=4100ms tok/s=258.1",
+          "timing_accountability": {
+            "wall_ms": 533490,
+            "accounted_ms": 619835,
+            "unaccounted_ms": 0,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 14074,
+              "retrieval_llm_ms": 555620,
+              "openrouter_total_ms": 50141
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-09T17:06:57",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian thematic search SP6",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/thematic_search.yaml",
+      "passed": true,
+      "elapsed_s": 64.13169895799365,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'What did I note about Rockefeller and competition?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 64.1309987079585,
+          "tools_called": [
+            "search_vault"
+          ],
+          "response_text": "Searching vault\u2026\n\n## Rockefeller and Competition: What You Noted\n\nYour notes across two Rockefeller episodes paint a coherent picture: <b>Rockefeller won not by attacking competitors directly, but by making attack unnecessary.</b> He built such an overwhelming cost advantage that rivals capitulated on their own, all while deliberately avoiding the spotlight that might attract new challengers.\n\n### The cost advantage as the weapon\n\nYou captured this vividly: Rockefeller would show a resistant competitor his books, and the guy would sell immediately \u2014 because Rockefeller could produce kerosene *so much cheaper* that competing was mathematically hopeless. The fanatical attention to &quot;figures and facts, no matter how small&quot; [ep-0148] compounded into an unassailable moat. It wasn&#x27;t predatory pricing as a temporary tactic; it was structural.\n\n### Absorb, don&#x27;t destroy\n\nThe pattern you noted is that Rockefeller &quot;constantly took adversaries&quot; \u2014 and after the fight, he hired them [ep-0016]. Henry Rogers, a fierce competitor, ended up inside Standard Oil. This is a recurring theme in your notes: victory meant co-option, not annihilation. The talent of former rivals became fuel for the machine.\n\n### Silence as strategy\n\nYou return to this idea in both episodes: &quot;make money quietly so you don&#x27;t invite competition&quot; [ep-0016], and &quot;Bad boys move in silence&quot; / &quot;Success comes from keeping the ears open and the mouth closed&quot; [ep-0148]. The insight is counterintuitive \u2014 most people want to be seen winning. Rockefeller understood that visibility *is* a liability; obscurity protected margins better than any contract could.\n\n### The never-ending race\n\nYou also captured Rockefeller&#x27;s warning that no dominance is permanent: if Standard Oil&#x27;s managers relaxed, the business would last &quot;about as long as any other neglected business&quot; [ep-0148]. Competition doesn&#x27;t just come from rivals \u2014 it comes from your own complacency. This is the flip side of the cost obsession: it&#x27;s not something you achieve and then coast on. It&#x27;s a permanent posture.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Rockefeller competition"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault"
+              ],
+              "queries": [
+                "Rockefeller competition"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0054",
+                "ep-0066",
+                "ep-0148"
+              ],
+              "rerank_scores_top3": [
+                9.0,
+                9.0,
+                9.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "## Rockefeller and Competition: What You Noted\n\nYour notes across two Rockefeller episodes paint a coherent picture: **Rockefeller won not by attacking competitors directly, but by making attack unnecessary.** He built such an overwhelming cost advantage that rivals capitulated on their own, all while deliberately avoiding the spotlight that might attract new challengers.\n\n### The cost advantage as the weapon\n\nYou captured this vividly: Rockefeller would show a resistant competitor his books, and the guy would sell immediately \u2014 because Rockefeller could produce kerosene *so much cheaper* that competing was mathematically hopeless. The fanatical attention to \"figures and facts, no matter how small\" [ep-0148] compounded into an unassailable moat. It wasn't predatory pricing as a temporary tactic; it was structural.\n\n### Absorb, don't destroy\n\nThe pattern you noted is that Rockefeller \"constantly took adversaries\" \u2014 and after the fight, he hired them [ep-0016]. Henry Rogers, a fierce competitor, ended up inside Standard Oil. This is a recurring theme in your notes: victory meant co-option, not annihilation. The talent of former rivals became fuel for the machine.\n\n### Silence as strategy\n\nYou return to this idea in both episodes: \"make money quietly so you don't invite competition\" [ep-0016], and \"Bad boys move in silence\" / \"Success comes from keeping the ears open and the mouth closed\" [ep-0148]. The insight is counterintuitive \u2014 most people want to be seen winning. Rockefeller understood that visibility *is* a liability; obscurity protected margins better than any contract could.\n\n### The never-ending race\n\nYou also captured Rockefeller's warning that no dominance is permanent: if Standard Oil's managers relaxed, the business would last \"about as long as any other neglected business\" [ep-0148]. Competition doesn't just come from rivals \u2014 it comes from your own complacency. This is the flip side of the cost obsession: it's not something you achieve and then coast on. It's a permanent posture."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault\n  queries: Rockefeller competition\n  episodes: ep-0016, ep-0054, ep-0066, ep-0148 top_scores=[9.0, 9.0, 9.0]\nround 2: (answer)\n  reasoning: ## Rockefeller and Competition: What You Noted\n\nYour notes across two Rockefeller episodes paint a coherent picture: **Rockefeller won not by attacking competitors directly, but by making attack unnec",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 2047,
+            "retrieval_llm_ms": 43222,
+            "searches": [
+              {
+                "query": "Rockefeller competition",
+                "vault_search_local_ms": 2047,
+                "retrieval_llm_ms": 43222,
+                "tool": "search_vault"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 537,
+                "total_ms": 1459,
+                "completion_tokens": 71,
+                "tok_per_sec": 77.0
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 4075,
+                "total_ms": 12473,
+                "completion_tokens": 688,
+                "tok_per_sec": 81.9
+              }
+            ],
+            "agent_ttft_ms_mean": 2306,
+            "generation_tok_per_sec_mean": 79.5,
+            "stop_reason": "natural",
+            "agent_steps": 2
+          },
+          "timing_summary": "vault=2047ms retrieval_llm=43222ms ttft=2306ms tok/s=79.5",
+          "timing_accountability": {
+            "wall_ms": 64131,
+            "accounted_ms": 59201,
+            "unaccounted_ms": 4930,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 2047,
+              "retrieval_llm_ms": 43222,
+              "openrouter_total_ms": 13932
+            }
+          }
+        },
+        {
+          "index": 2,
+          "action": "send '/clear'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.00040204200195148587,
+          "tools_called": [],
+          "response_text": "Session cleared.",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "passed": true,
+  "scenarios": [
+    {
+      "name": "Janitor episode parse formats",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/janitor/episode_parse.yaml",
+      "passed": true,
+      "elapsed_s": 0.0036031659692525864,
+      "llm_mode": "echo",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/janitor'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.000639582984149456,
+          "tools_called": []
+        },
+        {
+          "index": 2,
+          "action": "send '191'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.00031962525099515915,
+          "tools_called": []
+        },
+        {
+          "index": 3,
+          "action": "send '/cancel'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0002747499383985996,
+          "tools_called": []
+        },
+        {
+          "index": 4,
+          "action": "send '/janitor'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.000291542150080204,
+          "tools_called": []
+        },
+        {
+          "index": 5,
+          "action": "send 'ep-0191'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.00028024986386299133,
+          "tools_called": []
+        },
+        {
+          "index": 6,
+          "action": "send '/cancel'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0002620839513838291,
+          "tools_called": []
+        },
+        {
+          "index": 7,
+          "action": "send '/janitor'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.00031904177740216255,
+          "tools_called": []
+        },
+        {
+          "index": 8,
+          "action": "send 'Episode 191'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0003109998069703579,
+          "tools_called": []
+        }
+      ]
+    },
+    {
+      "name": "Janitor full workflow (sandbox)",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/janitor/full_workflow.yaml",
+      "passed": true,
+      "elapsed_s": 0.03590125031769276,
+      "llm_mode": "echo",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/janitor'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.00036166608333587646,
+          "tools_called": []
+        },
+        {
+          "index": 2,
+          "action": "send '191 naval\\n* wealth is assets (2:00)\\n* happiness is a skill (8:00)\\n'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.003300124779343605,
+          "tools_called": []
+        },
+        {
+          "index": 3,
+          "action": "button 'janitor:approve'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.003014584071934223,
+          "tools_called": []
+        },
+        {
+          "index": 4,
+          "action": "button 'janitor:promote'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.02868341701105237,
+          "tools_called": []
+        }
+      ]
+    }
+  ]
+}

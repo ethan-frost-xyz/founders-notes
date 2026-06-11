@@ -1,0 +1,267 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-09T16:57:37",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian single-founder depth",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/single_founder_depth.yaml",
+      "passed": true,
+      "elapsed_s": 574.3262229580432,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send \"Give me a deep read on everything I've studied about Warren Buffett's inner scorecard idea.\"",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 574.3259700420313,
+          "tools_called": [
+            "search_vault",
+            "search_vault",
+            "search_transcript",
+            "search_vault",
+            "search_vault",
+            "search_vault",
+            "search_vault"
+          ],
+          "response_text": "Searching vault\u2026\n\nSearching vault\u2026\n\nSearching transcripts\u2026\n\nSearching vault\u2026\n\nSearching vault\u2026\n\nSearching vault\u2026\n\nSearching vault\u2026\n\n# Warren Buffett&#x27;s Inner Scorecard: A Deep Read Across the Vault\n\nThe inner scorecard is one of the most recurrent and personally significant ideas in the podcast \u2014 the kind of idea Senra clearly never forgot after first encountering it and then kept spotting everywhere. Here&#x27;s what you&#x27;ve actually studied.\n\n---\n\n## The Origin: A Tale of Two Parents\n\nThe concept comes directly from Buffett&#x27;s childhood. His father, Howard Buffett, was \u2014 in Warren&#x27;s words \u2014 &quot;a 100% inner scorecard guy.&quot; His mother, Leila, was the opposite.\n\n<b>Howard modeled it through action, not lecture.</b> He decided to become a stockbroker in 1927, two years before the crash. After the market collapsed, it took him four months to make a single sale \u2014 his first commission was $5. People thought he was crazy. He didn&#x27;t care. Warren on his father:\n\n&gt; &quot;He was really a maverick... but he wasn&#x27;t a maverick for the sake of being a maverick. He just didn&#x27;t care about what other people thought. My dad told me how life should be lived. I have never seen anybody quite like him.&quot; [ep-0100]\n\n<b>Leila was the cautionary tale.</b> The outer scorecard personified \u2014 and it made her, and everyone around her, miserable. From the second Buffett biography you studied:\n\n&gt; &quot;She would turn on Warren and his sisters with the wrath of God. Without warning, the good-humored woman would become furious beyond words and rage at her children with an unrelenting meanness, sometimes not letting up for hours. She scolded and degraded her children. Nothing they had done measured up.&quot; [ep-0182]\n\nThat&#x27;s the outer scorecard in its most destructive form: measuring everything against external standards, against others, against what the neighbors think \u2014 and finding it all perpetually inadequate. Buffett had a terrible relationship with his mother. He had a &quot;really great relationship with his father&quot; [ep-0173]. The inner scorecard was an inheritance \u2014 and a survival mechanism.\n\n---\n\n## The Core Idea\n\nBuffett&#x27;s own framing, captured in the Snowball episode:\n\n&gt; &quot;The big question about how people behave is whether they&#x27;ve got an inner scorecard or an outer scorecard. It helps if you can be satisfied with an inner scorecard, I would also say it&#x27;s probably the single only way to have a happy life.&quot; [ep-0100]\n\nAnd the clarifying thought experiment he uses:\n\n&gt; &quot;If the world couldn&#x27;t see your results, would you rather be thought of as the world&#x27;s greatest investor, but in reality, have the world&#x27;s worst record or be thought of as the world&#x27;s worst investor when you actually have the best?&quot; [ep-0100]\n\nThe point: if your entire emphasis is on what the world thinks, forgetting how you actually behave, you wind up with an outer scorecard. The inner scorecard means making decisions you&#x27;re satisfied with \u2014 living with the results *as long as you&#x27;re comfortable with what you did* \u2014 regardless of whether anyone else understands or applauds.\n\n---\n\n## The Emerson Connection\n\nHoward Buffett didn&#x27;t just model this; he gave it philosophical grounding. He would recite Emerson&#x27;s maxim to his children:\n\n&gt; &quot;The great man is he who in the middle of the crowd keeps with perfect sweetness the independence of solitude.&quot; [ep-0182]\n\nThis is the inner scorecard in literary form \u2014 maintaining your own standards, your own compass, your own judgment, even when surrounded by people who don&#x27;t get it. It&#x27;s not about being antisocial. It&#x27;s about not outsourcing your self-worth.\n\n---\n\n## How It Manifests in a Builder&#x27;s Life\n\nThe inner scorecard isn&#x27;t a feel-good aphorism. It&#x27;s a *functional operating principle* for doing great work. You can see it in several dimensions of Buffett&#x27;s life that run through the vault:\n\n<b>1. Early self-belief without evidence.</b> At 25, Buffett was running partnerships from his bedroom with &quot;no record as an independent operator&quot; and &quot;nothing on paper to indicate that he was worthy of people&#x27;s trust&quot; \u2014 yet he had &quot;awesome self-confidence&quot; and was already worried about how to handle the massive fortune he was certain he&#x27;d accumulate [ep-0182]. That&#x27;s an inner scorecard: you know what you&#x27;re capable of before the world confirms it.\n\n<b>2. Working for whom you admire, not for prestige.</b> Buffett&#x27;s career advice: &quot;Go work for whom they most admire&quot; \u2014 not for the best r\u00e9sum\u00e9 line [ep-0100]. This filters out jobs that look good on paper but teach nothing. It&#x27;s inner-scorecard decision-making applied to one of the highest-stakes choices of early career.\n\n<b>3. Repetition as persuasion.</b> Buffett repeats his core principles obsessively across decades of shareholder letters because &quot;repetition is persuasive&quot; [ep-0088]. He&#x27;s not chasing novelty or market trends. He&#x27;s anchored to his own principles and keeps teaching them whether or not they&#x27;re fashionable.\n\n<b>4. Measuring success by love, not money.</b> In a moment late in life, while his wife was dying, Buffett told students that the real measure isn&#x27;t wealth but &quot;how many of the people you want to have love you actually do love you&quot; [ep-0100]. This isn&#x27;t a contradiction \u2014 it&#x27;s a refinement. Authentic love isn&#x27;t external validation. It&#x27;s earned through being true to yourself over decades, and the people who genuinely love you know who you actually are.\n\n---\n\n## The Vault-Wide Pattern: Contrast Cases\n\nSenra clearly found this idea so powerful that he started seeing its shadow everywhere. The inner/outer scorecard becomes a diagnostic tool \u2014 and the outer-scorecard founders become cautionary tales:\n\n<b>Robert Campeau (ep-0177)</b> \u2014 The purest outer-scorecard disaster. He threw parties to celebrate himself. He closed billion-dollar deals and then immediately wanted First Boston to &quot;send invitations out to New York&#x27;s best business people.&quot; When no one showed up, his bankers faked the attendance. Senra&#x27;s verdict:\n\n&gt; &quot;He&#x27;s not doing this because he actually gives a shit about building a great business, a great product. He just wants you to idolize him.&quot; [ep-0177]\n\nCampeau&#x27;s entire leveraged-buyout spree collapsed into bankruptcy. The outer scorecard doesn&#x27;t just make you unhappy \u2014 it makes you *bad at business*.\n\n<b>Louis B. Mayer vs. Walt Disney (ep-0173)</b> \u2014 The most subtle and instructive contrast. Both pursued quality. But Mayer did it because that&#x27;s what the largest market would reward \u2014 adulation. Disney did it because that&#x27;s what his inner scorecard demanded. And when Disney&#x27;s inner scorecard changed \u2014 when he fell out of love with animation and wanted to do theme parks \u2014 he followed it, even when everyone told him it was a terrible idea. &quot;His inner scorecard now tells me, I don&#x27;t want to do movies, I want to do theme parks.&quot; He was driven by what was in front of him. &quot;Quality was his God&quot; \u2014 but the *why* was entirely different from Mayer&#x27;s. [ep-0173]\n\n<b>William Randolph Hearst (ep-0145)</b> \u2014 A more complex case. Hearst had inner-scorecard instincts: &quot;He didn&#x27;t care what people thought of him, and he despised society.&quot; He refused to attend operas, rent boxes, court eligible women, or &quot;marry well.&quot; But his competitiveness with Teddy Roosevelt reveals the outer scorecard creeping in. Senra notes: &quot;He&#x27;s depressed, not because his newspaper is doing bad. It&#x27;s because he feels that Teddy Roosevelt has accomplished more than he does.&quot; And then the diagnosis: &quot;He kind of gave way to his inner scorecard and then switched to an outer scorecard temporarily, and then, no surprise there, he&#x27;s depressed and upset.&quot; [ep-0145]\n\n---\n\n## What You&#x27;ve Actually Got \u2014 and What&#x27;s Missing\n\n<b>The vault covers this idea deeply from three angles:</b> the origin story in Buffett&#x27;s childhood (ep-0100, ep-0182), the contrast cases where it destroys founders (ep-0177, ep-0173, ep-0145), and the philosophical grounding via Emerson (ep-0182). The inversion principle from ep-0088 \u2014 &quot;All I want to know is where I&#x27;m going to die, so I&#x27;ll never go there&quot; \u2014 is also a natural pairing: the outer scorecard is one of the places you know you&#x27;ll die, so don&#x27;t go there.\n\n<b>What isn&#x27;t deeply explored:</b> How Buffett *maintained* his inner scorecard through periods of public criticism (he&#x27;s had several \u2014 the late &#x27;90s tech bubble being the most famous). The vault has the concept&#x27;s origin and its negative-space applications, but less on the *maintenance* problem: what do you do when the world is screaming that you&#x27;re wrong, and you genuinely might be? The &quot;Kanye-level self-belief&quot; note from ep-0182 hints at this, but it&#x27;s more descriptive than prescriptive.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Warren Buffett inner scorecard"
+              }
+            },
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Buffett internal scorecard self-worth external validation"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "inner scorecard outer scorecard",
+                "k": 8
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "inner scorecard applied Sam Walton Est\u00e9e Lauder Jay Gould Enzo Ferrari"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Howard Buffett inner scorecard father independent thought maverick"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Leila Buffett mother outer scorecard criticism rage childhood"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "inner scorecard satisfaction happy life Buffett quote"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault",
+                "search_vault"
+              ],
+              "queries": [
+                "Warren Buffett inner scorecard",
+                "Buffett internal scorecard self-worth external validation"
+              ],
+              "episode_ids": [
+                "ep-0088",
+                "ep-0100",
+                "ep-0177",
+                "ep-0182"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                9.5,
+                8.5
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_transcript",
+                "search_vault"
+              ],
+              "queries": [
+                "inner scorecard outer scorecard",
+                "inner scorecard applied Sam Walton Est\u00e9e Lauder Jay Gould Enzo Ferrari"
+              ],
+              "episode_ids": [
+                "ep-0100",
+                "ep-0145",
+                "ep-0173",
+                "ep-0177",
+                "ep-0182"
+              ],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 3,
+              "tools": [
+                "search_vault",
+                "search_vault",
+                "search_vault"
+              ],
+              "queries": [
+                "Howard Buffett inner scorecard father independent thought maverick",
+                "Leila Buffett mother outer scorecard criticism rage childhood",
+                "inner scorecard satisfaction happy life Buffett quote"
+              ],
+              "episode_ids": [
+                "ep-0002",
+                "ep-0088",
+                "ep-0100",
+                "ep-0112",
+                "ep-0177",
+                "ep-0182"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                8.0,
+                7.5
+              ]
+            },
+            {
+              "round": 4,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "# Warren Buffett's Inner Scorecard: A Deep Read Across the Vault\n\nThe inner scorecard is one of the most recurrent and personally significant ideas in the podcast \u2014 the kind of idea Senra clearly never forgot after first encountering it and then kept spotting everywhere. Here's what you've actually studied.\n\n---\n\n## The Origin: A Tale of Two Parents\n\nThe concept comes directly from Buffett's childhood. His father, Howard Buffett, was \u2014 in Warren's words \u2014 \"a 100% inner scorecard guy.\" His mother, Leila, was the opposite.\n\n**Howard modeled it through action, not lecture.** He decided to become a stockbroker in 1927, two years before the crash. After the market collapsed, it took him four months to make a single sale \u2014 his first commission was $5. People thought he was crazy. He didn't care. Warren on his father:\n\n> \"He was really a maverick... but he wasn't a maverick for the sake of being a maverick. He just didn't care about what other people thought. My dad told me how life should be lived. I have never seen anybody quite like him.\" [ep-0100]\n\n**Leila was the cautionary tale.** The outer scorecard personified \u2014 and it made her, and everyone around her, miserable. From the second Buffett biography you studied:\n\n> \"She would turn on Warren and his sisters with the wrath of God. Without warning, the good-humored woman would become furious beyond words and rage at her children with an unrelenting meanness, sometimes not letting up for hours. She scolded and degraded her children. Nothing they had done measured up.\" [ep-0182]\n\nThat's the outer scorecard in its most destructive form: measuring everything against external standards, against others, against what the neighbors think \u2014 and finding it all perpetually inadequate. Buffett had a terrible relationship with his mother. He had a \"really great relationship with his father\" [ep-0173]. The inner scorecard was an inheritance \u2014 and a survival mechanism.\n\n---\n\n## The Core Idea\n\nBuffett's own framing, captured in the Snowball episode:\n\n> \"The big question about how people behave is whether they've got an inner scorecard or an outer scorecard. It helps if you can be satisfied with an inner scorecard, I would also say it's probably the single only way to have a happy life.\" [ep-0100]\n\nAnd the clarifying thought experiment he uses:\n\n> \"If the world couldn't see your results, would you rather be thought of as the world's greatest investor, but in reality, have the world's worst record or be thought of as the world's worst investor when you actually have the best?\" [ep-0100]\n\nThe point: if your entire emphasis is on what the world thinks, forgetting how you actually behave, you wind up with an outer scorecard. The inner scorecard means making decisions you're satisfied with \u2014 living with the results *as long as you're comfortable with what you did* \u2014 regardless of whether anyone else understands or applauds.\n\n---\n\n## The Emerson Connection\n\nHoward Buffett didn't just model this; he gave it philosophical grounding. He would recite Emerson's maxim to his children:\n\n> \"The great man is he who in the middle of the crowd keeps with perfect sweetness the independence of solitude.\" [ep-0182]\n\nThis is the inner scorecard in literary form \u2014 maintaining your own standards, your own compass, your own judgment, even when surrounded by people who don't get it. It's not about being antisocial. It's about not outsourcing your self-worth.\n\n---\n\n## How It Manifests in a Builder's Life\n\nThe inner scorecard isn't a feel-good aphorism. It's a *functional operating principle* for doing great work. You can see it in several dimensions of Buffett's life that run through the vault:\n\n**1. Early self-belief without evidence.** At 25, Buffett was running partnerships from his bedroom with \"no record as an independent operator\" and \"nothing on paper to indicate that he was worthy of people's trust\" \u2014 yet he had \"awesome self-confidence\" and was already worried about how to handle the massive fortune he was certain he'd accumulate [ep-0182]. That's an inner scorecard: you know what you're capable of before the world confirms it.\n\n**2. Working for whom you admire, not for prestige.** Buffett's career advice: \"Go work for whom they most admire\" \u2014 not for the best r\u00e9sum\u00e9 line [ep-0100]. This filters out jobs that look good on paper but teach nothing. It's inner-scorecard decision-making applied to one of the highest-stakes choices of early career.\n\n**3. Repetition as persuasion.** Buffett repeats his core principles obsessively across decades of shareholder letters because \"repetition is persuasive\" [ep-0088]. He's not chasing novelty or market trends. He's anchored to his own principles and keeps teaching them whether or not they're fashionable.\n\n**4. Measuring success by love, not money.** In a moment late in life, while his wife was dying, Buffett told students that the real measure isn't wealth but \"how many of the people you want to have love you actually do love you\" [ep-0100]. This isn't a contradiction \u2014 it's a refinement. Authentic love isn't external validation. It's earned through being true to yourself over decades, and the people who genuinely love you know who you actually are.\n\n---\n\n## The Vault-Wide Pattern: Contrast Cases\n\nSenra clearly found this idea so powerful that he started seeing its shadow everywhere. The inner/outer scorecard becomes a diagnostic tool \u2014 and the outer-scorecard founders become cautionary tales:\n\n**Robert Campeau (ep-0177)** \u2014 The purest outer-scorecard disaster. He threw parties to celebrate himself. He closed billion-dollar deals and then immediately wanted First Boston to \"send invitations out to New York's best business people.\" When no one showed up, his bankers faked the attendance. Senra's verdict:\n\n> \"He's not doing this because he actually gives a shit about building a great business, a great product. He just wants you to idolize him.\" [ep-0177]\n\nCampeau's entire leveraged-buyout spree collapsed into bankruptcy. The outer scorecard doesn't just make you unhappy \u2014 it makes you *bad at business*.\n\n**Louis B. Mayer vs. Walt Disney (ep-0173)** \u2014 The most subtle and instructive contrast. Both pursued quality. But Mayer did it because that's what the largest market would reward \u2014 adulation. Disney did it because that's what his inner scorecard demanded. And when Disney's inner scorecard changed \u2014 when he fell out of love with animation and wanted to do theme parks \u2014 he followed it, even when everyone told him it was a terrible idea. \"His inner scorecard now tells me, I don't want to do movies, I want to do theme parks.\" He was driven by what was in front of him. \"Quality was his God\" \u2014 but the *why* was entirely different from Mayer's. [ep-0173]\n\n**William Randolph Hearst (ep-0145)** \u2014 A more complex case. Hearst had inner-scorecard instincts: \"He didn't care what people thought of him, and he despised society.\" He refused to attend operas, rent boxes, court eligible women, or \"marry well.\" But his competitiveness with Teddy Roosevelt reveals the outer scorecard creeping in. Senra notes: \"He's depressed, not because his newspaper is doing bad. It's because he feels that Teddy Roosevelt has accomplished more than he does.\" And then the diagnosis: \"He kind of gave way to his inner scorecard and then switched to an outer scorecard temporarily, and then, no surprise there, he's depressed and upset.\" [ep-0145]\n\n---\n\n## What You've Actually Got \u2014 and What's Missing\n\n**The vault covers this idea deeply from three angles:** the origin story in Buffett's childhood (ep-0100, ep-0182), the contrast cases where it destroys founders (ep-0177, ep-0173, ep-0145), and the philosophical grounding via Emerson (ep-0182). The inversion principle from ep-0088 \u2014 \"All I want to know is where I'm going to die, so I'll never go there\" \u2014 is also a natural pairing: the outer scorecard is one of the places you know you'll die, so don't go there.\n\n**What isn't deeply explored:** How Buffett *maintained* his inner scorecard through periods of public criticism (he's had several \u2014 the late '90s tech bubble being the most famous). The vault has the concept's origin and its negative-space applications, but less on the *maintenance* problem: what do you do when the world is screaming that you're wrong, and you genuinely might be? The \"Kanye-level self-belief\" note from ep-0182 hints at this, but it's more descriptive than prescriptive."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 6,
+            "search_transcript": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault, search_vault\n  queries: Warren Buffett inner scorecard; Buffett internal scorecard self-worth external validation\n  episodes: ep-0088, ep-0100, ep-0177, ep-0182 top_scores=[10.0, 9.5, 8.5]\nround 2: search_transcript, search_vault\n  queries: inner scorecard outer scorecard; inner scorecard applied Sam Walton Est\u00e9e Lauder Jay Gould Enzo Ferrari\n  episodes: ep-0100, ep-0145, ep-0173, ep-0177, ep-0182\nround 3: search_vault, search_vault, search_vault\n  queries: Howard Buffett inner scorecard father independent thought maverick; Leila Buffett mother outer scorecard criticism rage childhood; inner scorecard satisfaction happy life Buffett quote\n  episodes: ep-0002, ep-0088, ep-0100, ep-0112, ep-0177, ep-0182 top_scores=[10.0, 8.0, 7.5]\nround 4: (answer)\n  reasoning: # Warren Buffett's Inner Scorecard: A Deep Read Across the Vault\n\nThe inner scorecard is one of the most recurrent and personally significant ideas in the podcast \u2014 the kind of idea Senra clearly neve",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 7839,
+            "retrieval_llm_ms": 262686,
+            "searches": [
+              {
+                "query": "Warren Buffett inner scorecard",
+                "vault_search_local_ms": 1102,
+                "retrieval_llm_ms": 6642,
+                "tool": "search_vault",
+                "error": true
+              },
+              {
+                "query": "Buffett internal scorecard self-worth external validation",
+                "vault_search_local_ms": 796,
+                "retrieval_llm_ms": 76765,
+                "tool": "search_vault"
+              },
+              {
+                "query": "inner scorecard outer scorecard",
+                "vault_search_local_ms": 39,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "inner scorecard applied Sam Walton Est\u00e9e Lauder Jay Gould Enzo Ferrari",
+                "vault_search_local_ms": 1126,
+                "retrieval_llm_ms": 8944,
+                "tool": "search_vault",
+                "error": true
+              },
+              {
+                "query": "Howard Buffett inner scorecard father independent thought maverick",
+                "vault_search_local_ms": 1743,
+                "retrieval_llm_ms": 156718,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Leila Buffett mother outer scorecard criticism rage childhood",
+                "vault_search_local_ms": 992,
+                "retrieval_llm_ms": 5602,
+                "tool": "search_vault",
+                "error": true
+              },
+              {
+                "query": "inner scorecard satisfaction happy life Buffett quote",
+                "vault_search_local_ms": 2041,
+                "retrieval_llm_ms": 8015,
+                "tool": "search_vault",
+                "error": true
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1831,
+                "total_ms": 2533,
+                "completion_tokens": 192,
+                "tok_per_sec": 273.5
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 610,
+                "total_ms": 1831,
+                "completion_tokens": 160,
+                "tok_per_sec": 131.0
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 3704,
+                "total_ms": 5003,
+                "completion_tokens": 354,
+                "tok_per_sec": 272.5
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 12964,
+                "total_ms": 43430,
+                "completion_tokens": 2746,
+                "tok_per_sec": 90.1
+              }
+            ],
+            "agent_ttft_ms_mean": 4777,
+            "generation_tok_per_sec_mean": 191.8,
+            "stop_reason": "natural",
+            "agent_steps": 4
+          },
+          "timing_summary": "vault=7839ms retrieval_llm=262686ms ttft=4777ms tok/s=191.8",
+          "timing_accountability": {
+            "wall_ms": 574326,
+            "accounted_ms": 323322,
+            "unaccounted_ms": 251004,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 7839,
+              "retrieval_llm_ms": 262686,
+              "openrouter_total_ms": 52797
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

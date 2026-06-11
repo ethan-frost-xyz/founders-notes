@@ -1,0 +1,218 @@
+{
+  "passed": true,
+  "scenarios": [
+    {
+      "name": "Janitor episode parse formats",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/janitor/episode_parse.yaml",
+      "passed": true,
+      "elapsed_s": 0.00707125011831522,
+      "llm_mode": "echo",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/janitor'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0007497076876461506
+        },
+        {
+          "index": 2,
+          "action": "send '191'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0004886253736913204
+        },
+        {
+          "index": 3,
+          "action": "send '/cancel'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0006777090020477772
+        },
+        {
+          "index": 4,
+          "action": "send '/janitor'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0017572497017681599
+        },
+        {
+          "index": 5,
+          "action": "send 'ep-0191'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0011144578456878662
+        },
+        {
+          "index": 6,
+          "action": "send '/cancel'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0004665832966566086
+        },
+        {
+          "index": 7,
+          "action": "send '/janitor'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0006326660513877869
+        },
+        {
+          "index": 8,
+          "action": "send 'Episode 191'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0004844171926379204
+        }
+      ]
+    },
+    {
+      "name": "Janitor full workflow (sandbox)",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/janitor/full_workflow.yaml",
+      "passed": true,
+      "elapsed_s": 0.046323582995682955,
+      "llm_mode": "echo",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/janitor'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0015245000831782818
+        },
+        {
+          "index": 2,
+          "action": "send '191 naval\\n* wealth is assets (2:00)\\n* happiness is a skill (8:00)\\n'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.008977124933153391
+        },
+        {
+          "index": 3,
+          "action": "button 'janitor:approve'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.004397834185510874
+        },
+        {
+          "index": 4,
+          "action": "button 'janitor:promote'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.030899833422154188
+        }
+      ]
+    },
+    {
+      "name": "Librarian basic Q&A",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/basic_qa.yaml",
+      "passed": true,
+      "elapsed_s": 0.013284916058182716,
+      "llm_mode": "echo",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/start'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.00029237521812319756
+        },
+        {
+          "index": 2,
+          "action": "send \"What was Carnegie's key insight about steel?\"",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.012806292157620192
+        },
+        {
+          "index": 3,
+          "action": "send '/clear'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.00011458294466137886
+        }
+      ]
+    },
+    {
+      "name": "Librarian multi-turn session",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/multi_turn.yaml",
+      "passed": true,
+      "elapsed_s": 0.0244999579153955,
+      "llm_mode": "echo",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/start'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.00027687521651387215
+        },
+        {
+          "index": 2,
+          "action": "send 'Who founded Nike?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.01171091664582491
+        },
+        {
+          "index": 3,
+          "action": "send 'What book did he rely on?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.011531750205904245
+        },
+        {
+          "index": 4,
+          "action": "send '/newchat'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0003327499143779278
+        },
+        {
+          "index": 5,
+          "action": "send '/resume'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.000578584149479866
+        }
+      ]
+    },
+    {
+      "name": "Librarian tool coverage",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/tool_coverage.yaml",
+      "passed": true,
+      "elapsed_s": 0.04799737501889467,
+      "llm_mode": "echo",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'Search the vault for Rockefeller discipline themes.'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.012568249832838774
+        },
+        {
+          "index": 2,
+          "action": "send 'Search transcripts for Standard Oil breakup.'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.011690834071487188
+        },
+        {
+          "index": 3,
+          "action": "send 'Load episode ep-0016.'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.012120291125029325
+        },
+        {
+          "index": 4,
+          "action": "send 'List episodes matching rockefeller.'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.011543749831616879
+        }
+      ]
+    }
+  ]
+}

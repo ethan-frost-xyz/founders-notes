@@ -1,0 +1,174 @@
+{
+  "passed": true,
+  "scenarios": [
+    {
+      "name": "Librarian multi-turn session",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/multi_turn.yaml",
+      "passed": true,
+      "elapsed_s": 624.627811125014,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/start'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.03322108299471438,
+          "tools_called": []
+        },
+        {
+          "index": 2,
+          "action": "send 'Who founded Nike?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 220.60008816601476,
+          "tools_called": [
+            "search_vault",
+            "load_episode",
+            "search_vault",
+            "search_transcript"
+          ],
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 4901,
+            "retrieval_llm_ms": 103972,
+            "searches": [
+              {
+                "query": "Phil Knight founded Nike Blue Ribbon Sports",
+                "vault_search_local_ms": 3644,
+                "retrieval_llm_ms": 98992
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1415,
+                "total_ms": 2414,
+                "completion_tokens": 93,
+                "tok_per_sec": 93.1
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 2,
+                "total_ms": 435,
+                "completion_tokens": 51,
+                "tok_per_sec": 117.8
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 1450,
+                "total_ms": 2460,
+                "completion_tokens": 163,
+                "tok_per_sec": 161.4
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 3326,
+                "total_ms": 11471,
+                "completion_tokens": 471,
+                "tok_per_sec": 57.8
+              }
+            ],
+            "agent_ttft_ms_mean": 1548,
+            "generation_tok_per_sec_mean": 107.5
+          },
+          "timing_summary": "vault=4901ms retrieval_llm=103972ms ttft=1548ms tok/s=107.5"
+        },
+        {
+          "index": 3,
+          "action": "send 'What book did he rely on?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 403.97979945800034,
+          "tools_called": [
+            "search_vault",
+            "search_transcript",
+            "search_vault",
+            "search_transcript",
+            "load_episode"
+          ],
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 12231,
+            "retrieval_llm_ms": 312000,
+            "searches": [
+              {
+                "query": "Phil Knight relied on book referenced guide founding Nike",
+                "vault_search_local_ms": 9349,
+                "retrieval_llm_ms": 210931
+              },
+              {
+                "query": "Phil Knight Stanford thesis paper Japanese shoes blueprint relied on book",
+                "vault_search_local_ms": 2766,
+                "retrieval_llm_ms": 101069
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 2054,
+                "total_ms": 3112,
+                "completion_tokens": 111,
+                "tok_per_sec": 104.9
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 959,
+                "total_ms": 1486,
+                "completion_tokens": 95,
+                "tok_per_sec": 180.3
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 9384,
+                "total_ms": 10624,
+                "completion_tokens": 55,
+                "tok_per_sec": 44.4
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 2330,
+                "total_ms": 3197,
+                "completion_tokens": 170,
+                "tok_per_sec": 196.1
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 4106,
+                "total_ms": 5743,
+                "completion_tokens": 257,
+                "tok_per_sec": 157.0
+              },
+              {
+                "label": "agent_round_6",
+                "ttft_ms": 16606,
+                "total_ms": 25582,
+                "completion_tokens": 1173,
+                "tok_per_sec": 130.7
+              }
+            ],
+            "agent_ttft_ms_mean": 5906,
+            "generation_tok_per_sec_mean": 135.6
+          },
+          "timing_summary": "vault=12231ms retrieval_llm=312000ms ttft=5906ms tok/s=135.6"
+        },
+        {
+          "index": 4,
+          "action": "send '/newchat'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0021417089737951756,
+          "tools_called": []
+        },
+        {
+          "index": 5,
+          "action": "send '/resume'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.012432916992111132,
+          "tools_called": []
+        }
+      ]
+    }
+  ]
+}

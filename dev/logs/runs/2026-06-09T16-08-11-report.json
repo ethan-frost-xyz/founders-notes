@@ -1,0 +1,159 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-09T16:08:11",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian basic Q&A",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/basic_qa.yaml",
+      "passed": true,
+      "elapsed_s": 114.22038483398501,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/start'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.021829291014000773,
+          "tools_called": [],
+          "response_text": "Episodes in catalog: 442\nStudied (timestamp bullets): 184\nChunks index updated: 2026-06-09 20:05 UTC",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 2,
+          "action": "send \"What was Carnegie's key insight about steel?\"",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 114.19774562498787,
+          "tools_called": [
+            "search_vault",
+            "search_transcript"
+          ],
+          "response_text": "Searching vault\u2026\n\nSearching transcripts\u2026\n\nCarnegie&#x27;s key insight about steel was really two interlocking realizations \u2014 one about the market, and one about how to dominate it.\n\n<b>The market insight: steel was about to eat the world.</b> Carnegie saw, earlier than almost anyone, that the Bessemer process had flipped the economics of steel production. Steel wasn&#x27;t just stronger and more durable than iron \u2014 it was now *cheaper* to produce at scale. That meant the entire built world \u2014 railroads, bridges, buildings \u2014 was about to be rebuilt in steel. And the fortune would go to whoever got in on the ground floor. As the transcript puts it:\n\n&gt; &quot;If there was a cheaper and more durable substance than iron, it would lead to a revolution in the business, not to mention any fortune for those who got in on the ground floor.&quot; [ep-0073]\n\nThis wasn&#x27;t incremental \u2014 it was a total substitution bet. Carnegie&#x27;s timing was perfect because he acted during the panic of 1873, when construction costs collapsed and competitors were hunkering down. That taught him a lesson he&#x27;d apply for the rest of his career:\n\n&gt; &quot;The best time to expand was when no one else dared to take the risks.&quot; [ep-0073]\n\n<b>The operating insight: costs are forever; prices are temporary.</b> Once he was in steel, Carnegie&#x27;s real competitive weapon was an almost obsessive focus on cost accounting. He understood something his rivals didn&#x27;t internalize the same way:\n\n&gt; &quot;Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie&#x27;s view, any savings achieved in the cost of goods were permanent.&quot; [ep-0073]\n\nThis wasn&#x27;t just frugality. It was a philosophy: market prices will swing, but every cent you strip out of production cost is a cent you keep forever, in every cycle, good or bad. That&#x27;s what let him reinvest relentlessly, vertically integrate into raw materials like coke, and eventually control something like 25\u201330% of the market.\n\nSo the insight wasn&#x27;t just &quot;steel is the future.&quot; It was: *the Bessemer process makes steel the future, and the player who treats cost reduction as a permanent advantage \u2014 not a cyclical exercise \u2014 will own that future.*",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Carnegie key insight about steel"
+              }
+            },
+            {
+              "step": 1,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Carnegie steel insight"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault",
+                "search_transcript"
+              ],
+              "queries": [
+                "Carnegie key insight about steel",
+                "Carnegie steel insight"
+              ],
+              "episode_ids": [
+                "ep-0073",
+                "ep-0074"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.0,
+                7.5
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "Carnegie's key insight about steel was really two interlocking realizations \u2014 one about the market, and one about how to dominate it.\n\n**The market insight: steel was about to eat the world.** Carnegie saw, earlier than almost anyone, that the Bessemer process had flipped the economics of steel production. Steel wasn't just stronger and more durable than iron \u2014 it was now *cheaper* to produce at scale. That meant the entire built world \u2014 railroads, bridges, buildings \u2014 was about to be rebuilt in steel. And the fortune would go to whoever got in on the ground floor. As the transcript puts it:\n\n> \"If there was a cheaper and more durable substance than iron, it would lead to a revolution in the business, not to mention any fortune for those who got in on the ground floor.\" [ep-0073]\n\nThis wasn't incremental \u2014 it was a total substitution bet. Carnegie's timing was perfect because he acted during the panic of 1873, when construction costs collapsed and competitors were hunkering down. That taught him a lesson he'd apply for the rest of his career:\n\n> \"The best time to expand was when no one else dared to take the risks.\" [ep-0073]\n\n**The operating insight: costs are forever; prices are temporary.** Once he was in steel, Carnegie's real competitive weapon was an almost obsessive focus on cost accounting. He understood something his rivals didn't internalize the same way:\n\n> \"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent.\" [ep-0073]\n\nThis wasn't just frugality. It was a philosophy: market prices will swing, but every cent you strip out of production cost is a cent you keep forever, in every cycle, good or bad. That's what let him reinvest relentlessly, vertically integrate into raw materials like coke, and eventually control something like 25\u201330% of the market.\n\nSo the insight wasn't just \"steel is the future.\" It was: *the Bessemer process makes steel the future, and the player who treats cost reduction as a permanent advantage \u2014 not a cyclical exercise \u2014 will own that future.*"
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 1,
+            "search_transcript": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault, search_transcript\n  queries: Carnegie key insight about steel; Carnegie steel insight\n  episodes: ep-0073, ep-0074 top_scores=[9.5, 9.0, 7.5]\nround 2: (answer)\n  reasoning: Carnegie's key insight about steel was really two interlocking realizations \u2014 one about the market, and one about how to dominate it.\n\n**The market insight: steel was about to eat the world.** Carnegi",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 1507,
+            "retrieval_llm_ms": 75973,
+            "searches": [
+              {
+                "query": "Carnegie key insight about steel",
+                "vault_search_local_ms": 1469,
+                "retrieval_llm_ms": 75973,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Carnegie steel insight",
+                "vault_search_local_ms": 38,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 505,
+                "total_ms": 2626,
+                "completion_tokens": 104,
+                "tok_per_sec": 49.0
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 9356,
+                "total_ms": 21723,
+                "completion_tokens": 935,
+                "tok_per_sec": 75.6
+              }
+            ],
+            "agent_ttft_ms_mean": 4930,
+            "generation_tok_per_sec_mean": 62.3,
+            "stop_reason": "natural",
+            "agent_steps": 2
+          },
+          "timing_summary": "vault=1507ms retrieval_llm=75973ms ttft=4930ms tok/s=62.3",
+          "timing_accountability": {
+            "wall_ms": 114198,
+            "accounted_ms": 101829,
+            "unaccounted_ms": 12369,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 1507,
+              "retrieval_llm_ms": 75973,
+              "openrouter_total_ms": 24349
+            }
+          }
+        },
+        {
+          "index": 3,
+          "action": "send '/clear'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0004689999623224139,
+          "tools_called": [],
+          "response_text": "Session cleared.",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        }
+      ]
+    }
+  ]
+}

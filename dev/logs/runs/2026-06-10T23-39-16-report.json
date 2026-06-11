@@ -1,0 +1,537 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-10T23:39:16",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian multi-turn session",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/multi_turn.yaml",
+      "passed": true,
+      "elapsed_s": 537.5483136249823,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/start'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.042289582954254,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 2,
+          "action": "send 'Who founded Nike?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 42.55316158302594,
+          "tools_called": [
+            "search_vault"
+          ],
+          "response_text": "Nike was co-founded by **Phil Knight** and **Bill Bowerman**.\n\nKnight is the central figure in the Nike origin story \u2014 covered extensively in episode 10 on *Shoe Dog*, his memoir. He started the venture in 1964 (originally as Blue Ribbon Sports) after a \"crazy idea\" epiphany during a morning run in 1962, selling Japanese running shoes out of the trunk of his car [ep-0010].\n\nBowerman was Knight's track coach at the University of Oregon and his eventual business partner. He was the obsessive engineer of the duo \u2014 maniacally focused on reducing shoe weight because he believed \"lightness directly translated to less burden, which meant more energy, which meant more speed and speed equaled winning\" [ep-0010]. His first-principles thinking about athletics (he pioneered the \"hard-easy\" training method when it was scorned by other coaches) and his hands-on shoe tinkering \u2014 famously creating the waffle sole in his own kitchen \u2014 became foundational to Nike's culture and competitive edge [ep-0153].\n\nSo it's a classic two-founder dynamic: Knight brought the entrepreneurial drive and vision, Bowerman brought the coach's engineering mindset and relentless focus on marginal gains.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "who founded Nike"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault"
+              ],
+              "queries": [
+                "who founded Nike"
+              ],
+              "episode_ids": [
+                "ep-0010",
+                "ep-0109",
+                "ep-0153"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                10.0,
+                9.5
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "Nike was co-founded by **Phil Knight** and **Bill Bowerman**.\n\nKnight is the central figure in the Nike origin story \u2014 covered extensively in episode 10 on *Shoe Dog*, his memoir. He started the venture in 1964 (originally as Blue Ribbon Sports) after a \"crazy idea\" epiphany during a morning run in 1962, selling Japanese running shoes out of the trunk of his car [ep-0010].\n\nBowerman was Knight's track coach at the University of Oregon and his eventual business partner. He was the obsessive engineer of the duo \u2014 maniacally focused on reducing shoe weight because he believed \"lightness directly translated to less burden, which meant more energy, which meant more speed and speed equaled winning\" [ep-0010]. His first-principles thinking about athletics (he pioneered the \"hard-easy\" training method when it was scorned by other coaches) and his hands-on shoe tinkering \u2014 famously creating the waffle sole in his own kitchen \u2014 became foundational to Nike's culture and competitive edge [ep-0153].\n\nSo it's a classic two-founder dynamic: Knight brought the entrepreneurial drive and vision, Bowerman brought the coach's engineering mindset and relentless focus on marginal gains."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault\n  queries: who founded Nike\n  episodes: ep-0010, ep-0109, ep-0153 top_scores=[10.0, 10.0, 9.5]\nround 2: (answer)\n  reasoning: Nike was co-founded by **Phil Knight** and **Bill Bowerman**.\n\nKnight is the central figure in the Nike origin story \u2014 covered extensively in episode 10 on *Shoe Dog*, his memoir. He started the ventu",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 954,
+            "retrieval_llm_ms": 23931,
+            "searches": [
+              {
+                "query": "who founded Nike",
+                "vault_search_local_ms": 954,
+                "retrieval_llm_ms": 23931,
+                "tool": "search_vault"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 976,
+                "total_ms": 1486,
+                "completion_tokens": 73,
+                "tok_per_sec": 143.1
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 3633,
+                "total_ms": 10207,
+                "completion_tokens": 408,
+                "tok_per_sec": 62.1
+              }
+            ],
+            "agent_ttft_ms_mean": 2304,
+            "generation_tok_per_sec_mean": 102.6,
+            "stop_reason": "natural",
+            "agent_steps": 2
+          },
+          "timing_summary": "vault=954ms retrieval_llm=23931ms ttft=2304ms tok/s=102.6",
+          "timing_accountability": {
+            "wall_ms": 42553,
+            "accounted_ms": 36578,
+            "unaccounted_ms": 5975,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 954,
+              "retrieval_llm_ms": 23931,
+              "openrouter_total_ms": 11693
+            }
+          }
+        },
+        {
+          "index": 3,
+          "action": "send 'What book did he rely on?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 494.93116137501784,
+          "tools_called": [
+            "search_vault",
+            "search_transcript",
+            "search_vault",
+            "search_vault",
+            "search_transcript",
+            "search_vault",
+            "search_transcript",
+            "search_transcript",
+            "search_vault",
+            "load_episode"
+          ],
+          "response_text": "The vault doesn\u2019t actually point to a specific book Phil Knight relied on to guide him. What it *does* surface \u2014 across multiple episodes \u2014 is that the intellectual scaffolding for Nike wasn't a book he read, but a **paper he wrote himself** at Stanford Business School in 1962.\n\nThe paper was titled: *\"Can Japanese Sports Shoes Do to German Sports Shoes What Japanese Cameras Did to German Cameras?\"* [ep-0022, ep-0153, ep-0161]. That analogy \u2014 Japanese manufacturers had already displaced German dominance in cameras and electronics, so why not in athletic shoes? \u2014 became the thesis on which he built the entire venture. As David Senra puts it in the Bill Bowerman episode: \"That was the thesis on which he built Nike on, which wound up being correct\" [ep-0153].\n\nThis is actually a neat pattern in itself. Knight didn't find his roadmap in someone else's book; he looked at the historical precedent playing out in a parallel industry and drew a straight line. His Stanford classmates were bored by the paper [ep-0022], but the idea was essentially the entire business plan.\n\nIf you're asking because you remember him mentioning a specific title in *Shoe Dog* itself, that detail doesn't appear in the vault's coverage of the episode \u2014 which is possible given that Senra explicitly says his goal isn't to summarize the whole book, just to pull out the parts that surprised him [ep-0010]. So the honest answer is: the vault is thin on any single book Knight relied on, and his proven \"guide\" was his own cross-industry analogy.",
+          "stop_reason": "cap",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Phil Knight book he relied on early Blue Ribbon Sports"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Phil Knight book relied on",
+                "k": 8
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Phil Knight inspirational book guide manual Japanese business"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Phil Knight Stanford paper book inspired him Japanese shoes crazy idea"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Stanford paper Knight wrote Japanese sports shoes German cameras"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Phil Knight favorite book relied on influenced him inspiration"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Phil Knight book he read depended on guiding"
+              }
+            },
+            {
+              "step": 5,
+              "tool": "search_transcript",
+              "arguments": {
+                "k": 8,
+                "query": "Phil Knight read book biography inspired him guide"
+              }
+            },
+            {
+              "step": 5,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Phil Knight book that inspired his Stanford thesis Japanese cameras analogy source"
+              }
+            },
+            {
+              "step": 6,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0010"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault"
+              ],
+              "queries": [
+                "Phil Knight book he relied on early Blue Ribbon Sports"
+              ],
+              "episode_ids": [
+                "ep-0003",
+                "ep-0005",
+                "ep-0010",
+                "ep-0153"
+              ],
+              "rerank_scores_top3": [
+                2.0,
+                2.0,
+                2.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_transcript",
+                "search_vault"
+              ],
+              "queries": [
+                "Phil Knight book relied on",
+                "Phil Knight inspirational book guide manual Japanese business"
+              ],
+              "episode_ids": [
+                "ep-0009",
+                "ep-0010",
+                "ep-0022",
+                "ep-0028",
+                "ep-0044",
+                "ep-0053",
+                "ep-0063",
+                "ep-0102",
+                "ep-0109"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.5,
+                8.0
+              ]
+            },
+            {
+              "round": 3,
+              "tools": [
+                "search_vault",
+                "search_transcript"
+              ],
+              "queries": [
+                "Phil Knight Stanford paper book inspired him Japanese shoes crazy idea",
+                "Stanford paper Knight wrote Japanese sports shoes German cameras"
+              ],
+              "episode_ids": [
+                "ep-0003",
+                "ep-0010",
+                "ep-0022",
+                "ep-0027",
+                "ep-0109",
+                "ep-0153",
+                "ep-0161"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                9.0,
+                8.0
+              ]
+            },
+            {
+              "round": 4,
+              "tools": [
+                "search_vault",
+                "search_transcript"
+              ],
+              "queries": [
+                "Phil Knight favorite book relied on influenced him inspiration",
+                "Phil Knight book he read depended on guiding"
+              ],
+              "episode_ids": [
+                "ep-0009",
+                "ep-0010",
+                "ep-0022",
+                "ep-0028",
+                "ep-0053",
+                "ep-0063",
+                "ep-0070",
+                "ep-0109",
+                "ep-0117",
+                "ep-0153"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.0,
+                8.5
+              ]
+            },
+            {
+              "round": 5,
+              "tools": [
+                "search_transcript",
+                "search_vault"
+              ],
+              "queries": [
+                "Phil Knight read book biography inspired him guide",
+                "Phil Knight book that inspired his Stanford thesis Japanese cameras analogy source"
+              ],
+              "episode_ids": [
+                "ep-0001",
+                "ep-0009",
+                "ep-0010",
+                "ep-0028",
+                "ep-0042",
+                "ep-0053",
+                "ep-0083",
+                "ep-0102",
+                "ep-0106",
+                "ep-0111",
+                "ep-0117",
+                "ep-0161"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                6.0,
+                2.0
+              ]
+            },
+            {
+              "round": 6,
+              "tools": [
+                "load_episode"
+              ],
+              "queries": [
+                "ep-0010"
+              ],
+              "episode_ids": [],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 7,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "cap",
+              "reasoning": "The vault doesn\u2019t actually point to a specific book Phil Knight relied on to guide him. What it *does* surface \u2014 across multiple episodes \u2014 is that the intellectual scaffolding for Nike wasn't a book he read, but a **paper he wrote himself** at Stanford Business School in 1962.\n\nThe paper was titled: *\"Can Japanese Sports Shoes Do to German Sports Shoes What Japanese Cameras Did to German Cameras?\"* [ep-0022, ep-0153, ep-0161]. That analogy \u2014 Japanese manufacturers had already displaced German dominance in cameras and electronics, so why not in athletic shoes? \u2014 became the thesis on which he built the entire venture. As David Senra puts it in the Bill Bowerman episode: \"That was the thesis on which he built Nike on, which wound up being correct\" [ep-0153].\n\nThis is actually a neat pattern in itself. Knight didn't find his roadmap in someone else's book; he looked at the historical precedent playing out in a parallel industry and drew a straight line. His Stanford classmates were bored by the paper [ep-0022], but the idea was essentially the entire business plan.\n\nIf you're asking because you remember him mentioning a specific title in *Shoe Dog* itself, that detail doesn't appear in the vault's coverage of the episode \u2014 which is possible given that Senra explicitly says his goal isn't to summarize the whole book, just to pull out the parts that surprised him [ep-0010]. So the honest answer is: the vault is thin on any single book Knight relied on, and his proven \"guide\" was his own cross-industry analogy."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 5,
+            "search_transcript": 4,
+            "load_episode": 1
+          },
+          "trace_summary": "stop: cap\n\nround 1: search_vault\n  queries: Phil Knight book he relied on early Blue Ribbon Sports\n  episodes: ep-0003, ep-0005, ep-0010, ep-0153 top_scores=[2.0, 2.0, 2.0]\nround 2: search_transcript, search_vault\n  queries: Phil Knight book relied on; Phil Knight inspirational book guide manual Japanese business\n  episodes: ep-0009, ep-0010, ep-0022, ep-0028, ep-0044, ep-0053, ep-0063, ep-0102, ep-0109 top_scores=[9.5, 9.5, 8.0]\nround 3: search_vault, search_transcript\n  queries: Phil Knight Stanford paper book inspired him Japanese shoes crazy idea; Stanford paper Knight wrote Japanese sports shoes German cameras\n  episodes: ep-0003, ep-0010, ep-0022, ep-0027, ep-0109, ep-0153, ep-0161 top_scores=[10.0, 9.0, 8.0]\nround 4: search_vault, search_transcript\n  queries: Phil Knight favorite book relied on influenced him inspiration; Phil Knight book he read depended on guiding\n  episodes: ep-0009, ep-0010, ep-0022, ep-0028, ep-0053, ep-0063, ep-0070, ep-0109, ep-0117, ep-0153 top_scores=[9.5, 9.0, 8.5]\nround 5: search_transcript, search_vault\n  queries: Phil Knight read book biography inspired him guide; Phil Knight book that inspired his Stanford thesis Japanese cameras analogy source\n  episodes: ep-0001, ep-0009, ep-0010, ep-0028, ep-0042, ep-0053, ep-0083, ep-0102, ep-0106, ep-0111, ep-0117, ep-0161 top_scores=[10.0, 6.0, 2.0]\nround 6: load_episode\n  queries: ep-0010\nround 7: (answer)\n  reasoning: The vault doesn\u2019t actually point to a specific book Phil Knight relied on to guide him. What it *does* surface \u2014 across multiple episodes \u2014 is that the intellectual scaffolding for Nike wasn't a book ",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 5130,
+            "retrieval_llm_ms": 372085,
+            "searches": [
+              {
+                "query": "Phil Knight book he relied on early Blue Ribbon Sports",
+                "vault_search_local_ms": 810,
+                "retrieval_llm_ms": 134652,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Phil Knight book relied on",
+                "vault_search_local_ms": 49,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Phil Knight inspirational book guide manual Japanese business",
+                "vault_search_local_ms": 968,
+                "retrieval_llm_ms": 47424,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Phil Knight Stanford paper book inspired him Japanese shoes crazy idea",
+                "vault_search_local_ms": 705,
+                "retrieval_llm_ms": 51462,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Stanford paper Knight wrote Japanese sports shoes German cameras",
+                "vault_search_local_ms": 65,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Phil Knight favorite book relied on influenced him inspiration",
+                "vault_search_local_ms": 1414,
+                "retrieval_llm_ms": 46746,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Phil Knight book he read depended on guiding",
+                "vault_search_local_ms": 55,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Phil Knight read book biography inspired him guide",
+                "vault_search_local_ms": 64,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Phil Knight book that inspired his Stanford thesis Japanese cameras analogy source",
+                "vault_search_local_ms": 1000,
+                "retrieval_llm_ms": 91801,
+                "tool": "search_vault"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 2299,
+                "total_ms": 3170,
+                "completion_tokens": 145,
+                "tok_per_sec": 166.5
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 2198,
+                "total_ms": 3639,
+                "completion_tokens": 150,
+                "tok_per_sec": 104.1
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 5775,
+                "total_ms": 6958,
+                "completion_tokens": 308,
+                "tok_per_sec": 260.4
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 7345,
+                "total_ms": 8452,
+                "completion_tokens": 427,
+                "tok_per_sec": 385.7
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 13939,
+                "total_ms": 17004,
+                "completion_tokens": 690,
+                "tok_per_sec": 225.1
+              },
+              {
+                "label": "agent_round_6",
+                "ttft_ms": 9078,
+                "total_ms": 9583,
+                "completion_tokens": 431,
+                "tok_per_sec": 853.5
+              },
+              {
+                "label": "agent_round_7_cap",
+                "ttft_ms": 17778,
+                "total_ms": 26754,
+                "completion_tokens": 1012,
+                "tok_per_sec": 112.7
+              }
+            ],
+            "agent_ttft_ms_mean": 8345,
+            "generation_tok_per_sec_mean": 301.1,
+            "stop_reason": "cap",
+            "agent_steps": 7
+          },
+          "timing_summary": "vault=5130ms retrieval_llm=372085ms ttft=8345ms tok/s=301.1",
+          "timing_accountability": {
+            "wall_ms": 494931,
+            "accounted_ms": 452775,
+            "unaccounted_ms": 42156,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 5130,
+              "retrieval_llm_ms": 372085,
+              "openrouter_total_ms": 75560
+            }
+          }
+        },
+        {
+          "index": 4,
+          "action": "send '/newchat'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.00279908295487985,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 5,
+          "action": "send '/resume'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.018189250025898218,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        }
+      ]
+    }
+  ]
+}

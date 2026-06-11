@@ -1,0 +1,373 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-10T22:14:54",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian multi-founder comparison",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/multi_founder_comparison.yaml",
+      "passed": true,
+      "elapsed_s": 646.1637436249875,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'How did Edison and Rockefeller differ in how they built teams?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 646.1632226249785,
+          "tools_called": [
+            "search_vault_many",
+            "search_vault",
+            "search_vault",
+            "load_episode",
+            "load_episode",
+            "search_transcript",
+            "search_transcript",
+            "search_transcript",
+            "search_vault",
+            "load_episode"
+          ],
+          "response_text": "**Edison built a workshop around himself. Rockefeller built an organization that could run without him.** That's the core difference, and it flows directly from what each man was actually trying to do.\n\nEdison's primary drive was autonomy \u2014 the freedom to tinker. His \"one ambition\" was \"to be able to work without regard to the expense... What I want is the perfect workshop\" [ep-0083]. He hired assistants to extend his own hands: people like Batchelor who handled correspondence so he could stay in the lab, and a rotating cast of young men who worked alongside him in the noisy shops [ep-0003]. But it was always *his* shop, *his* inventions, *his* celebrity. He valued hustle and action \u2014 \"I like a hustler\" \u2014 and seems to have selected people who matched his intensity rather than complemented his weaknesses [ep-0003]. The evidence on his specific hiring practices is admittedly thin \u2014 the vault focuses far more on Edison's personal traits than his team-building philosophy \u2014 but the pattern is clear: he built a creative laboratory centered on himself.\n\nRockefeller, by contrast, built a machine designed to outlast any single person. He \"hired talented people as found, not as needed\" \u2014 a proactive, almost anticipatory approach to talent acquisition [ep-0016]. His genius move was absorbing adversaries: after the Cleveland Massacre, \"he winds up getting a lot of these people to work for them in Standard Oil\" \u2014 turning former enemies into lieutenants [ep-0016]. He then delegated aggressively, \"dedicated most of his time to broad policy decisions\" while partners like Henry Flagler ran operations [ep-0016]. His operating philosophy was partnership language: \"Never forget that we are all partners. Whatever is done for the general good is done for the good of us all\" [ep-0148]. He was the strategist; the system was the product.\n\nThe contrast is really about what each man was optimizing for. Edison optimized for creative freedom \u2014 the team existed to serve his inventive process. Rockefeller optimized for durable market dominance \u2014 the team *was* the competitive advantage. One was a soloist with accompanists; the other was a conductor who built an orchestra capable of playing without him.",
+          "stop_reason": "cap",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "how Edison built teams",
+                  "how Rockefeller built teams"
+                ]
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Thomas Edison Menlo Park team laboratory assistants muckers"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Rockefeller Standard Oil partners associates lieutenants hiring"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0003"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0016"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Edison Menlo Park assistants team muckers laboratory"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Rockefeller partners associates Flagler Rogers hire talent"
+              }
+            },
+            {
+              "step": 5,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Edison muckers hiring shop employees work together"
+              }
+            },
+            {
+              "step": 5,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Edison hiring young men talent shop Menlo Park laboratory team culture"
+              }
+            },
+            {
+              "step": 6,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0083"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "how Edison built teams",
+                "how Rockefeller built teams"
+              ],
+              "episode_ids": [
+                "ep-0002",
+                "ep-0005",
+                "ep-0008",
+                "ep-0016",
+                "ep-0087",
+                "ep-0118",
+                "ep-0120",
+                "ep-0124",
+                "ep-0143"
+              ],
+              "rerank_scores_top3": [
+                7.0,
+                7.0,
+                6.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_vault",
+                "search_vault"
+              ],
+              "queries": [
+                "Thomas Edison Menlo Park team laboratory assistants muckers",
+                "Rockefeller Standard Oil partners associates lieutenants hiring"
+              ],
+              "episode_ids": [
+                "ep-0003",
+                "ep-0009",
+                "ep-0050"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                8.0,
+                7.5
+              ]
+            },
+            {
+              "round": 3,
+              "tools": [
+                "load_episode",
+                "load_episode"
+              ],
+              "queries": [
+                "ep-0003",
+                "ep-0016"
+              ],
+              "episode_ids": [],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 4,
+              "tools": [
+                "search_transcript",
+                "search_transcript"
+              ],
+              "queries": [
+                "Edison Menlo Park assistants team muckers laboratory",
+                "Rockefeller partners associates Flagler Rogers hire talent"
+              ],
+              "episode_ids": [
+                "ep-0003",
+                "ep-0009",
+                "ep-0016",
+                "ep-0045",
+                "ep-0079",
+                "ep-0148",
+                "ep-0149",
+                "ep-0158",
+                "ep-0163",
+                "ep-0178"
+              ],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 5,
+              "tools": [
+                "search_transcript",
+                "search_vault"
+              ],
+              "queries": [
+                "Edison muckers hiring shop employees work together",
+                "Edison hiring young men talent shop Menlo Park laboratory team culture"
+              ],
+              "episode_ids": [
+                "ep-0002",
+                "ep-0003",
+                "ep-0013",
+                "ep-0017",
+                "ep-0050",
+                "ep-0083",
+                "ep-0140",
+                "ep-0190"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                8.0,
+                7.5
+              ]
+            },
+            {
+              "round": 6,
+              "tools": [
+                "load_episode"
+              ],
+              "queries": [
+                "ep-0083"
+              ],
+              "episode_ids": [],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 7,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "cap",
+              "reasoning": "**Edison built a workshop around himself. Rockefeller built an organization that could run without him.** That's the core difference, and it flows directly from what each man was actually trying to do.\n\nEdison's primary drive was autonomy \u2014 the freedom to tinker. His \"one ambition\" was \"to be able to work without regard to the expense... What I want is the perfect workshop\" [ep-0083]. He hired assistants to extend his own hands: people like Batchelor who handled correspondence so he could stay in the lab, and a rotating cast of young men who worked alongside him in the noisy shops [ep-0003]. But it was always *his* shop, *his* inventions, *his* celebrity. He valued hustle and action \u2014 \"I like a hustler\" \u2014 and seems to have selected people who matched his intensity rather than complemented his weaknesses [ep-0003]. The evidence on his specific hiring practices is admittedly thin \u2014 the vault focuses far more on Edison's personal traits than his team-building philosophy \u2014 but the pattern is clear: he built a creative laboratory centered on himself.\n\nRockefeller, by contrast, built a machine designed to outlast any single person. He \"hired talented people as found, not as needed\" \u2014 a proactive, almost anticipatory approach to talent acquisition [ep-0016]. His genius move was absorbing adversaries: after the Cleveland Massacre, \"he winds up getting a lot of these people to work for them in Standard Oil\" \u2014 turning former enemies into lieutenants [ep-0016]. He then delegated aggressively, \"dedicated most of his time to broad policy decisions\" while partners like Henry Flagler ran operations [ep-0016]. His operating philosophy was partnership language: \"Never forget that we are all partners. Whatever is done for the general good is done for the good of us all\" [ep-0148]. He was the strategist; the system was the product.\n\nThe contrast is really about what each man was optimizing for. Edison optimized for creative freedom \u2014 the team existed to serve his inventive process. Rockefeller optimized for durable market dominance \u2014 the team *was* the competitive advantage. One was a soloist with accompanists; the other was a conductor who built an orchestra capable of playing without him."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault_many": 1,
+            "search_vault": 3,
+            "load_episode": 3,
+            "search_transcript": 3
+          },
+          "trace_summary": "stop: cap\n\nround 1: search_vault_many\n  queries: how Edison built teams; how Rockefeller built teams\n  episodes: ep-0002, ep-0005, ep-0008, ep-0016, ep-0087, ep-0118, ep-0120, ep-0124, ep-0143 top_scores=[7.0, 7.0, 6.0]\nround 2: search_vault, search_vault\n  queries: Thomas Edison Menlo Park team laboratory assistants muckers; Rockefeller Standard Oil partners associates lieutenants hiring\n  episodes: ep-0003, ep-0009, ep-0050 top_scores=[9.5, 8.0, 7.5]\nround 3: load_episode, load_episode\n  queries: ep-0003; ep-0016\nround 4: search_transcript, search_transcript\n  queries: Edison Menlo Park assistants team muckers laboratory; Rockefeller partners associates Flagler Rogers hire talent\n  episodes: ep-0003, ep-0009, ep-0016, ep-0045, ep-0079, ep-0148, ep-0149, ep-0158, ep-0163, ep-0178\nround 5: search_transcript, search_vault\n  queries: Edison muckers hiring shop employees work together; Edison hiring young men talent shop Menlo Park laboratory team culture\n  episodes: ep-0002, ep-0003, ep-0013, ep-0017, ep-0050, ep-0083, ep-0140, ep-0190 top_scores=[9.5, 8.0, 7.5]\nround 6: load_episode\n  queries: ep-0083\nround 7: (answer)\n  reasoning: **Edison built a workshop around himself. Rockefeller built an organization that could run without him.** That's the core difference, and it flows directly from what each man was actually trying to do",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 100295,
+            "retrieval_llm_ms": 237179,
+            "searches": [
+              {
+                "query": "how Edison built teams",
+                "vault_search_local_ms": 29236,
+                "retrieval_llm_ms": 31631,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "how Rockefeller built teams",
+                "vault_search_local_ms": 36895,
+                "retrieval_llm_ms": 66319,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Thomas Edison Menlo Park team laboratory assistants muckers",
+                "vault_search_local_ms": 21417,
+                "retrieval_llm_ms": 65048,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Rockefeller Standard Oil partners associates lieutenants hiring",
+                "vault_search_local_ms": 2772,
+                "retrieval_llm_ms": 5611,
+                "tool": "search_vault",
+                "error": true
+              },
+              {
+                "query": "Edison Menlo Park assistants team muckers laboratory",
+                "vault_search_local_ms": 59,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Rockefeller partners associates Flagler Rogers hire talent",
+                "vault_search_local_ms": 33,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Edison muckers hiring shop employees work together",
+                "vault_search_local_ms": 52,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Edison hiring young men talent shop Menlo Park laboratory team culture",
+                "vault_search_local_ms": 9831,
+                "retrieval_llm_ms": 68570,
+                "tool": "search_vault"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1625,
+                "total_ms": 2105,
+                "completion_tokens": 107,
+                "tok_per_sec": 222.9
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 4111,
+                "total_ms": 5846,
+                "completion_tokens": 199,
+                "tok_per_sec": 114.7
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 1743,
+                "total_ms": 2466,
+                "completion_tokens": 144,
+                "tok_per_sec": 199.2
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 2361,
+                "total_ms": 5642,
+                "completion_tokens": 242,
+                "tok_per_sec": 73.8
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 9336,
+                "total_ms": 10765,
+                "completion_tokens": 432,
+                "tok_per_sec": 302.3
+              },
+              {
+                "label": "agent_round_6",
+                "ttft_ms": 18430,
+                "total_ms": 19681,
+                "completion_tokens": 842,
+                "tok_per_sec": 673.1
+              },
+              {
+                "label": "agent_round_7_cap",
+                "ttft_ms": 21335,
+                "total_ms": 31701,
+                "completion_tokens": 1462,
+                "tok_per_sec": 141.0
+              }
+            ],
+            "agent_ttft_ms_mean": 8420,
+            "generation_tok_per_sec_mean": 246.7,
+            "stop_reason": "cap",
+            "agent_steps": 7
+          },
+          "timing_summary": "vault=100295ms retrieval_llm=237179ms ttft=8420ms tok/s=246.7",
+          "timing_accountability": {
+            "wall_ms": 646163,
+            "accounted_ms": 415680,
+            "unaccounted_ms": 230483,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 100295,
+              "retrieval_llm_ms": 237179,
+              "openrouter_total_ms": 78206
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

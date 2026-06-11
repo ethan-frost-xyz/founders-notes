@@ -1,0 +1,71 @@
+{
+  "passed": true,
+  "scenarios": [
+    {
+      "name": "Librarian thematic search SP6",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/thematic_search.yaml",
+      "passed": true,
+      "elapsed_s": 968.9375579579792,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'What did I note about Rockefeller and competition?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 968.9372278329975,
+          "tools_called": [
+            "search_vault",
+            "search_vault"
+          ],
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 799614,
+            "retrieval_llm_ms": 49494,
+            "searches": [
+              {
+                "query": "Rockefeller competition strategy Standard Oil",
+                "vault_search_local_ms": 384353,
+                "retrieval_llm_ms": 46599
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 857,
+                "total_ms": 1262,
+                "completion_tokens": 83,
+                "tok_per_sec": 204.9
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 441,
+                "total_ms": 1340,
+                "completion_tokens": 70,
+                "tok_per_sec": 77.9
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 5465,
+                "total_ms": 19269,
+                "completion_tokens": 783,
+                "tok_per_sec": 56.7
+              }
+            ],
+            "agent_ttft_ms_mean": 2254,
+            "generation_tok_per_sec_mean": 113.2
+          },
+          "timing_summary": "vault=799614ms retrieval_llm=49494ms ttft=2254ms tok/s=113.2"
+        },
+        {
+          "index": 2,
+          "action": "send '/clear'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.00027395799406804144,
+          "tools_called": []
+        }
+      ]
+    }
+  ]
+}

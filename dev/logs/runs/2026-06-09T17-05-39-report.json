@@ -1,0 +1,485 @@
+{
+  "passed": false,
+  "generated_at": "2026-06-09T17:05:39",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian thematic cross-episode",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/thematic_cross_episode.yaml",
+      "passed": false,
+      "elapsed_s": 471.3189194580191,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'What did I note about Rockefeller and competition across episodes?'",
+          "passed": false,
+          "message": "expected tool 'search_vault', got ['search_vault_many', 'search_transcript']; tools called: ['search_vault_many', 'search_transcript']",
+          "elapsed_s": 103.00318854197394,
+          "tools_called": [
+            "search_vault_many",
+            "search_transcript"
+          ],
+          "response_text": "Searching vault (parallel)\u2026\n\nSearching transcripts\u2026\n\n## Rockefeller and Competition: What You&#x27;ve Noted\n\nThe pattern that runs through your Rockefeller notes is a counterintuitive approach to competition: <b>he didn&#x27;t fight competitors so much as make competition structurally impossible.</b> Three interlocking moves show up across both episodes:\n\n### 1. Cost advantage as a weapon, not just a moat\n\nThe story that clearly stuck with you is Rockefeller showing a reluctant competitor his books \u2014 and the competitor immediately capitulating. He didn&#x27;t have to threaten; the math was the threat. Rockefeller&#x27;s fanatical cost discipline created a gap so wide that rivals couldn&#x27;t see a path to winning [ep-0016].\n\n### 2. Invisibility as strategy\n\nThis is the Rockefeller insight you seem most fascinated by. You noted it in both episodes: <b>&quot;It&#x27;s a lot smarter to make money quietly so you don&#x27;t invite competition.&quot;</b> [ep-0016]. In ep-0148 you doubled down, pulling the quote &quot;Success comes from keeping the ears open and the mouth closed&quot; and your own aphorism: *&quot;Bad boys move in silence.&quot;* You explicitly flagged how hard this is \u2014 that being young, fabulously wealthy, and unknown requires a level of self-control you haven&#x27;t seen in any other founder.\n\nThe transcript captures your genuine awe here: *&quot;It&#x27;s very hard to compete with somebody you don&#x27;t even know exists.&quot;* [ep-0016]\n\n### 3. Absorb, don&#x27;t just destroy\n\nYou noted Rockefeller&#x27;s habit of turning former adversaries into allies \u2014 the Henry Rogers example \u2014 where after the competition or battle, *&quot;he winds up getting a lot of these people&quot;* [ep-0016]. This isn&#x27;t annihilation for its own sake; it&#x27;s consolidation through co-option.\n\n### A cross-episode thread you may not have made explicit\n\nThe &quot;move in silence&quot; principle shows up as both a <b>tactical</b> and a <b>lifelong</b> practice. In ep-0148, you flagged the story of 25-year-old Rockefeller secretly lining up financing, then winning the auction against partners who thought he had no money \u2014 they *&quot;woke up and saw for the first time that my mind had not been idle while they were talking so big and loud.&quot;* That&#x27;s the same discipline operating at age 25 that later let him monopolize global kerosene while remaining unknown to the public. The principle didn&#x27;t change; the scale did.\n\n### One gap worth noting\n\nThe vault has strong coverage of ep-0016 and ep-0148 on these themes, but there&#x27;s no cross-reference in your notes to how other founders you&#x27;ve covered *contrasted* with Rockefeller on competition style. For example, ep-0124 has Larry Ellison explicitly naming Rockefeller&#x27;s Standard Oil strategy, but that&#x27;s Ellison&#x27;s framing, not your own comparative analysis. If you&#x27;ve drawn contrasts with someone like Bezos or Walton on the visibility question, that didn&#x27;t make it into the expanded notes I can see.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "Rockefeller competition strategy",
+                  "Rockefeller monopoly consolidation",
+                  "Rockefeller competitors tactics"
+                ]
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Rockefeller competition quietly avoid competitors",
+                "k": 5
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "Rockefeller competition strategy",
+                "Rockefeller monopoly consolidation",
+                "Rockefeller competitors tactics"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0131",
+                "ep-0148"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.0,
+                9.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_transcript"
+              ],
+              "queries": [
+                "Rockefeller competition quietly avoid competitors"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0061",
+                "ep-0124",
+                "ep-0125",
+                "ep-0148"
+              ],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 3,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "## Rockefeller and Competition: What You've Noted\n\nThe pattern that runs through your Rockefeller notes is a counterintuitive approach to competition: **he didn't fight competitors so much as make competition structurally impossible.** Three interlocking moves show up across both episodes:\n\n### 1. Cost advantage as a weapon, not just a moat\n\nThe story that clearly stuck with you is Rockefeller showing a reluctant competitor his books \u2014 and the competitor immediately capitulating. He didn't have to threaten; the math was the threat. Rockefeller's fanatical cost discipline created a gap so wide that rivals couldn't see a path to winning [ep-0016].\n\n### 2. Invisibility as strategy\n\nThis is the Rockefeller insight you seem most fascinated by. You noted it in both episodes: **\"It's a lot smarter to make money quietly so you don't invite competition.\"** [ep-0016]. In ep-0148 you doubled down, pulling the quote \"Success comes from keeping the ears open and the mouth closed\" and your own aphorism: *\"Bad boys move in silence.\"* You explicitly flagged how hard this is \u2014 that being young, fabulously wealthy, and unknown requires a level of self-control you haven't seen in any other founder.\n\nThe transcript captures your genuine awe here: *\"It's very hard to compete with somebody you don't even know exists.\"* [ep-0016]\n\n### 3. Absorb, don't just destroy\n\nYou noted Rockefeller's habit of turning former adversaries into allies \u2014 the Henry Rogers example \u2014 where after the competition or battle, *\"he winds up getting a lot of these people\"* [ep-0016]. This isn't annihilation for its own sake; it's consolidation through co-option.\n\n### A cross-episode thread you may not have made explicit\n\nThe \"move in silence\" principle shows up as both a **tactical** and a **lifelong** practice. In ep-0148, you flagged the story of 25-year-old Rockefeller secretly lining up financing, then winning the auction against partners who thought he had no money \u2014 they *\"woke up and saw for the first time that my mind had not been idle while they were talking so big and loud.\"* That's the same discipline operating at age 25 that later let him monopolize global kerosene while remaining unknown to the public. The principle didn't change; the scale did.\n\n### One gap worth noting\n\nThe vault has strong coverage of ep-0016 and ep-0148 on these themes, but there's no cross-reference in your notes to how other founders you've covered *contrasted* with Rockefeller on competition style. For example, ep-0124 has Larry Ellison explicitly naming Rockefeller's Standard Oil strategy, but that's Ellison's framing, not your own comparative analysis. If you've drawn contrasts with someone like Bezos or Walton on the visibility question, that didn't make it into the expanded notes I can see."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault_many": 1,
+            "search_transcript": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault_many\n  queries: Rockefeller competition strategy; Rockefeller monopoly consolidation; Rockefeller competitors tactics\n  episodes: ep-0016, ep-0131, ep-0148 top_scores=[9.5, 9.0, 9.0]\nround 2: search_transcript\n  queries: Rockefeller competition quietly avoid competitors\n  episodes: ep-0016, ep-0061, ep-0124, ep-0125, ep-0148\nround 3: (answer)\n  reasoning: ## Rockefeller and Competition: What You've Noted\n\nThe pattern that runs through your Rockefeller notes is a counterintuitive approach to competition: **he didn't fight competitors so much as make com",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 4993,
+            "retrieval_llm_ms": 107600,
+            "searches": [
+              {
+                "query": "Rockefeller monopoly consolidation",
+                "vault_search_local_ms": 1390,
+                "retrieval_llm_ms": 0,
+                "tool": "search_vault_many",
+                "error": true
+              },
+              {
+                "query": "Rockefeller competitors tactics",
+                "vault_search_local_ms": 1389,
+                "retrieval_llm_ms": 48231,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Rockefeller competition strategy",
+                "vault_search_local_ms": 2174,
+                "retrieval_llm_ms": 59369,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Rockefeller competition quietly avoid competitors",
+                "vault_search_local_ms": 40,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 307,
+                "total_ms": 1339,
+                "completion_tokens": 122,
+                "tok_per_sec": 118.2
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 5512,
+                "total_ms": 8027,
+                "completion_tokens": 381,
+                "tok_per_sec": 151.5
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 3900,
+                "total_ms": 15117,
+                "completion_tokens": 909,
+                "tok_per_sec": 81.0
+              }
+            ],
+            "agent_ttft_ms_mean": 3240,
+            "generation_tok_per_sec_mean": 116.9,
+            "stop_reason": "natural",
+            "agent_steps": 3
+          },
+          "timing_summary": "vault=4993ms retrieval_llm=107600ms ttft=3240ms tok/s=116.9",
+          "timing_accountability": {
+            "wall_ms": 103003,
+            "accounted_ms": 137076,
+            "unaccounted_ms": 0,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 4993,
+              "retrieval_llm_ms": 107600,
+              "openrouter_total_ms": 24483
+            }
+          }
+        },
+        {
+          "index": 2,
+          "action": "send 'How do founders think about compounding and long-term reputation?'",
+          "passed": false,
+          "message": "expected tool 'search_vault', got ['search_vault_many']; tools called: ['search_vault_many']",
+          "elapsed_s": 125.40653095801827,
+          "tools_called": [
+            "search_vault_many"
+          ],
+          "response_text": "Searching vault (parallel)\u2026\n\n## The Synthesis: Reputation *Is* Compounding\n\nAcross your notes, I think the deepest pattern is that <b>these founders don&#x27;t treat reputation as separate from compounding \u2014 they see reputation as compounding applied to trust instead of capital.</b> The same mathematical force is at work: early returns look unimpressive, the middle years look steady but unremarkable, and the late years look like magic to outsiders. The difference is that reputation compounds in human minds rather than in dollar accounts.\n\n### The mechanism: fair dealing today = cheap capital tomorrow\n\nRockefeller states this most baldly: *&quot;There can be no permanent success without fair dealing that leads to widespread confidence in the man himself, and that is the real capital we all prize and work for.&quot;* [ep-0148] He&#x27;s not being sentimental \u2014 he&#x27;s describing a balance sheet. Confidence is capital. Every honest transaction deposits into an account that can be drawn on later at lower cost than any competitor can match.\n\nSam Bronfman makes the same calculation in a single moment: when he could have gouged a desperate buyer for 2,000 cases of liquor, he lent it at cost instead. Your note: *&quot;foolish to capitalize on his momentary advantage&quot;* [ep-0116]. Bronfman was trading short-term profit for a long-term position in the buyer&#x27;s mind \u2014 and that position would compound across all future dealings.\n\n### The persuasion engine\n\nYou&#x27;ve underlined the phrase &quot;reputation is persuasive&quot; in three separate episodes \u2014 Bezos [ep-0071], Munger [ep-0090], and it echoes through Cundill: *&quot;reputation and credibility are actually all we have to sell&quot;* [ep-0160]. The insight, as you captured from Bezos&#x27;s 2000 shareholder letter, is that human memory is fallible [ep-0071]. We can&#x27;t independently verify every claim, so reputation fills the gaps. A company with a 10-year track record of putting the customer first doesn&#x27;t have to argue anymore \u2014 the reputation does the persuading.\n\nThis is the moment where reputation crosses over into compounding proper: each honest interaction makes the next interaction cheaper (less persuasion needed, less marketing spend, less friction). The flywheel Bezos drew with Jim Collins [ep-0017] is reputation compounding through customer visits.\n\n### The quiet years are the engine\n\nCharles Schulz&#x27;s Peanuts went from 7 newspapers to 2,000 over 34 years. Your note: *&quot;Don&#x27;t interrupt the compounding.&quot;* [ep-0154] That&#x27;s not just about skill or luck \u2014 it&#x27;s about not breaking the chain. The same theme appears in Spitznagel&#x27;s thesis: *&quot;The entrepreneur who foresees a profit opportunity in the distant future, and who patiently reinvests earnings into his business year after year in anticipation, has a much greater opportunity for eventually posting an enormous return.&quot;* [ep-0070]\n\nAnd Buffett&#x27;s distillation is the sharpest version: *&quot;Time is the friend of the wonderful business and the enemy of the mediocre.&quot;* [ep-0088] Reputation follows the same rule. A mediocre reputation erodes with time \u2014 customers eventually notice the shortcuts. A wonderful reputation compounds.\n\n### A tension worth naming\n\nYou might not have made this explicit, but there&#x27;s an interesting friction between Rockefeller&#x27;s &quot;move in silence&quot; strategy and the more public reputation-building of a Bezos or Bronfman. Rockefeller kept his name out of newspapers \u2014 your note: *&quot;It&#x27;s very hard to compete with somebody you don&#x27;t even know exists&quot;* [ep-0016] \u2014 while Bezos writes annual public letters. But they&#x27;re solving different problems. Rockefeller&#x27;s silence was about not inviting competitors into a high-margin business; his reputation for fair dealing was built one-on-one with partners, bankers, and railroad men. Bezos&#x27;s public reputation is aimed at customers. The audience determines the channel, but the underlying math \u2014 trust compounding over time \u2014 is identical.\n\n### A gap in the vault\n\nYour notes capture the *principle* beautifully across these founders, but I don&#x27;t see much on what happens when reputation compounding *breaks* \u2014 when a founder damages trust and has to rebuild, or when short-term temptation wins. Munger&#x27;s self-criticism habit (&quot;I like people admitting that they were complete stupid horses&#x27; asses&quot;) [ep-0078] gestures at repair, but there&#x27;s no case study in your notes of a founder recovering from a reputation collapse. That might be a thread worth pulling if you revisit someone like Carnegie or a more controversial figure.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "compounding long-term thinking",
+                  "reputation long-term trust brand",
+                  "compounding effects business growth",
+                  "Charlie Munger compounding reputation"
+                ]
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "compounding long-term thinking",
+                "reputation long-term trust brand",
+                "compounding effects business growth",
+                "Charlie Munger compounding reputation"
+              ],
+              "episode_ids": [
+                "ep-0017",
+                "ep-0070",
+                "ep-0071",
+                "ep-0078",
+                "ep-0088",
+                "ep-0090",
+                "ep-0114",
+                "ep-0116",
+                "ep-0148",
+                "ep-0154",
+                "ep-0160"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.5,
+                8.5
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "## The Synthesis: Reputation *Is* Compounding\n\nAcross your notes, I think the deepest pattern is that **these founders don't treat reputation as separate from compounding \u2014 they see reputation as compounding applied to trust instead of capital.** The same mathematical force is at work: early returns look unimpressive, the middle years look steady but unremarkable, and the late years look like magic to outsiders. The difference is that reputation compounds in human minds rather than in dollar accounts.\n\n### The mechanism: fair dealing today = cheap capital tomorrow\n\nRockefeller states this most baldly: *\"There can be no permanent success without fair dealing that leads to widespread confidence in the man himself, and that is the real capital we all prize and work for.\"* [ep-0148] He's not being sentimental \u2014 he's describing a balance sheet. Confidence is capital. Every honest transaction deposits into an account that can be drawn on later at lower cost than any competitor can match.\n\nSam Bronfman makes the same calculation in a single moment: when he could have gouged a desperate buyer for 2,000 cases of liquor, he lent it at cost instead. Your note: *\"foolish to capitalize on his momentary advantage\"* [ep-0116]. Bronfman was trading short-term profit for a long-term position in the buyer's mind \u2014 and that position would compound across all future dealings.\n\n### The persuasion engine\n\nYou've underlined the phrase \"reputation is persuasive\" in three separate episodes \u2014 Bezos [ep-0071], Munger [ep-0090], and it echoes through Cundill: *\"reputation and credibility are actually all we have to sell\"* [ep-0160]. The insight, as you captured from Bezos's 2000 shareholder letter, is that human memory is fallible [ep-0071]. We can't independently verify every claim, so reputation fills the gaps. A company with a 10-year track record of putting the customer first doesn't have to argue anymore \u2014 the reputation does the persuading.\n\nThis is the moment where reputation crosses over into compounding proper: each honest interaction makes the next interaction cheaper (less persuasion needed, less marketing spend, less friction). The flywheel Bezos drew with Jim Collins [ep-0017] is reputation compounding through customer visits.\n\n### The quiet years are the engine\n\nCharles Schulz's Peanuts went from 7 newspapers to 2,000 over 34 years. Your note: *\"Don't interrupt the compounding.\"* [ep-0154] That's not just about skill or luck \u2014 it's about not breaking the chain. The same theme appears in Spitznagel's thesis: *\"The entrepreneur who foresees a profit opportunity in the distant future, and who patiently reinvests earnings into his business year after year in anticipation, has a much greater opportunity for eventually posting an enormous return.\"* [ep-0070]\n\nAnd Buffett's distillation is the sharpest version: *\"Time is the friend of the wonderful business and the enemy of the mediocre.\"* [ep-0088] Reputation follows the same rule. A mediocre reputation erodes with time \u2014 customers eventually notice the shortcuts. A wonderful reputation compounds.\n\n### A tension worth naming\n\nYou might not have made this explicit, but there's an interesting friction between Rockefeller's \"move in silence\" strategy and the more public reputation-building of a Bezos or Bronfman. Rockefeller kept his name out of newspapers \u2014 your note: *\"It's very hard to compete with somebody you don't even know exists\"* [ep-0016] \u2014 while Bezos writes annual public letters. But they're solving different problems. Rockefeller's silence was about not inviting competitors into a high-margin business; his reputation for fair dealing was built one-on-one with partners, bankers, and railroad men. Bezos's public reputation is aimed at customers. The audience determines the channel, but the underlying math \u2014 trust compounding over time \u2014 is identical.\n\n### A gap in the vault\n\nYour notes capture the *principle* beautifully across these founders, but I don't see much on what happens when reputation compounding *breaks* \u2014 when a founder damages trust and has to rebuild, or when short-term temptation wins. Munger's self-criticism habit (\"I like people admitting that they were complete stupid horses' asses\") [ep-0078] gestures at repair, but there's no case study in your notes of a founder recovering from a reputation collapse. That might be a thread worth pulling if you revisit someone like Carnegie or a more controversial figure."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault_many": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault_many\n  queries: compounding long-term thinking; reputation long-term trust brand; compounding effects business growth (+1 more)\n  episodes: ep-0017, ep-0070, ep-0071, ep-0078, ep-0088, ep-0090, ep-0114, ep-0116, ep-0148, ep-0154, ep-0160 top_scores=[9.5, 9.5, 8.5]\nround 2: (answer)\n  reasoning: ## The Synthesis: Reputation *Is* Compounding\n\nAcross your notes, I think the deepest pattern is that **these founders don't treat reputation as separate from compounding \u2014 they see reputation as comp",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 3466,
+            "retrieval_llm_ms": 182436,
+            "searches": [
+              {
+                "query": "Charlie Munger compounding reputation",
+                "vault_search_local_ms": 434,
+                "retrieval_llm_ms": 41071,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "compounding effects business growth",
+                "vault_search_local_ms": 1359,
+                "retrieval_llm_ms": 0,
+                "tool": "search_vault_many",
+                "error": true
+              },
+              {
+                "query": "compounding long-term thinking",
+                "vault_search_local_ms": 1249,
+                "retrieval_llm_ms": 51281,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "reputation long-term trust brand",
+                "vault_search_local_ms": 424,
+                "retrieval_llm_ms": 90084,
+                "tool": "search_vault_many"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1550,
+                "total_ms": 2144,
+                "completion_tokens": 218,
+                "tok_per_sec": 367.0
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 7835,
+                "total_ms": 25329,
+                "completion_tokens": 1426,
+                "tok_per_sec": 81.5
+              }
+            ],
+            "agent_ttft_ms_mean": 4692,
+            "generation_tok_per_sec_mean": 224.2,
+            "stop_reason": "natural",
+            "agent_steps": 2
+          },
+          "timing_summary": "vault=3466ms retrieval_llm=182436ms ttft=4692ms tok/s=224.2",
+          "timing_accountability": {
+            "wall_ms": 125407,
+            "accounted_ms": 213375,
+            "unaccounted_ms": 0,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 3466,
+              "retrieval_llm_ms": 182436,
+              "openrouter_total_ms": 27473
+            }
+          }
+        },
+        {
+          "index": 3,
+          "action": "send 'What mental models show up around inversion and avoiding stupidity?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 242.9084237080533,
+          "tools_called": [
+            "search_vault_many",
+            "search_vault"
+          ],
+          "response_text": "Searching vault (parallel)\u2026\n\nSearching vault\u2026\n\n## Inversion and Avoiding Stupidity: Two Flavors, One Engine\n\nAcross your notes, there are actually <b>two distinct species</b> of inversion that founders use \u2014 and they serve different functions but share the same underlying logic. The deeper pattern is that inversion is the operating system that *protects compounding from interruption*.\n\n---\n\n### Preventative Inversion: The Art of Not Dying\n\nThis is the Munger strain. The formulation is simple: <b>figure out what kills you, then never go there.</b> Buffett gives Munger full credit, tracing it back to the Prussian mathematician Jacobi: *&quot;Long ago, Charlie laid out his strongest ambition. All I want to know is where I&#x27;m going to die, so I&#x27;ll never go there.&quot;* [ep-0088]\n\nWhat&#x27;s interesting is how *systematic* this becomes across the founders you&#x27;ve studied. It&#x27;s not just a clever aphorism \u2014 it&#x27;s a practice:\n\n- <b>Munger collects stupidities.</b> Literally. *&quot;Figuring out the standard stupidities and avoiding them. And I actually collect them&quot;* \u2014 like a stamp collection of human error [ep-0162]. \n- <b>Hetty Green handed her son a list of don&#x27;ts.</b> Not a list of what to do. A list of what *not* to do: don&#x27;t cheat, don&#x27;t be unfair, don&#x27;t get arrogant [ep-0103].\n- <b>Yeager&#x27;s pilots who died were victims of their own mistakes.</b> The worst pilots weren&#x27;t unlucky \u2014 they flew themselves into the ground through stupidity. The connection Senra draws to Munger is explicit: avoiding standard stupidities outperforms chasing brilliance [ep-0162].\n\nThe corollary Munger pounds hardest: *&quot;Knowing what you don&#x27;t know is more useful than being brilliant.&quot;* [ep-0078] That&#x27;s not humility theater. It&#x27;s a direct inversion of how most people approach success \u2014 they try to be smart. Munger says the edge is in *not being stupid.* The asymmetry is real: one brilliant move might make you 10x, but one catastrophic stupidity wipes you to zero. Inversion protects the denominator.\n\n---\n\n### Creative Inversion: Working Backwards from Fantasy\n\nThe second species solves a different problem. It&#x27;s not about *avoiding* a bad outcome \u2014 it&#x27;s about *reverse-engineering* a good one that seems impossible from the starting point.\n\n- <b>Edwin Land starts with fantasy.</b> Not with what&#x27;s feasible: *&quot;You always start with a fantasy. Part of the fantasy technique is to visualize something as perfect. Then with the experiments you work back from that fantasy to reality, hacking away at the components.&quot;* [ep-0134] The SX-70 camera required decades of research \u2014 but starting from &quot;what can we build today&quot; would never have produced it.\n- <b>Onassis didn&#x27;t knock on doors; he worked backwards.</b> The breakthrough came when he abandoned the conventional sales approach and asked: who do I need to convince, and what&#x27;s the chain that leads from them to a purchase? [ep-0084] Both Onassis and Buffett trace this to the exact same Jacobi principle \u2014 *invert, always invert.*\n- <b>Bushnell at Atari reversed the critical/creative dynamic.</b> He had employees rank ideas from worst to best, then forced them to figure out how to make the *worst* ideas succeed. *&quot;Instead of trying to figure out what&#x27;s wrong with something, which triggers people&#x27;s critical instincts, they had to figure out what was right with something, which triggers people&#x27;s creative instincts.&quot;* [ep-0036] Same inversion tool, completely different application.\n\n---\n\n### The Connection to Compounding\n\nHere&#x27;s where the two species converge \u2014 and where this question connects to your previous one about reputation. Inversion is what <b>clears the path for compounding to work uninterrupted.</b>\n\nPreventative inversion (Munger, Hetty, Yeager) says: don&#x27;t do anything that could permanently disrupt the compounding. Don&#x27;t cheat, don&#x27;t get addicted, don&#x27;t operate outside your circle of competence, don&#x27;t bet the farm. Charles Schulz&#x27;s *&quot;don&#x27;t interrupt the compounding&quot;* [ep-0154] is itself an inverted instruction \u2014 he didn&#x27;t say &quot;keep going,&quot; he said *don&#x27;t stop.* The framing matters because it makes the threat legible: the enemy isn&#x27;t lack of brilliance, it&#x27;s the stupidity of quitting or getting yourself killed.\n\nCreative inversion (Land, Onassis) solves the *direction* problem. Compounding is useless if you&#x27;re compounding toward the wrong destination. Working backwards from a perfect fantasy ensures you&#x27;re climbing the right mountain before you spend decades climbing it.\n\n---\n\n### The Tension You May Not Have Named\n\nThere&#x27;s a paradox buried in your notes that&#x27;s worth surfacing. Ed Catmull, late in Pixar&#x27;s history, warns: *&quot;The attempt to avoid failure makes failure more likely.&quot;* [ep-0034] Once a company becomes successful, it gets *too good* at preventative inversion \u2014 it becomes risk-averse, stops experimenting, loses the beginner&#x27;s mind. The very instinct that protected it now kills it.\n\nSpitznagel&#x27;s Klipp&#x27;s Paradox is the counterweight: *&quot;You&#x27;ve got to love to lose money, hate to make money.&quot;* [ep-0070] Accept many small, survivable losses to capture rare enormous gains. This is inversion applied *to* inversion \u2014 a meta-layer that prevents the Munger-style &quot;avoid all stupidity&quot; from calcifying into &quot;avoid all risk.&quot; The goal isn&#x27;t to be flawless. It&#x27;s to avoid the terminal mistakes so you can survive long enough to make the asymmetric bets.\n\nDalio&#x27;s shift from *&quot;I know I&#x27;m right&quot;* to *&quot;how do I know I&#x27;m right?&quot;* [ep-0043] captures the synthesis perfectly: the posture is preventative (question your own certainty), but the function is creative (it opens you to new hypotheses). Einstein&#x27;s self-criticism \u2014 *&quot;testing and destruction of his own well-loved ideas&quot;* [ep-0090] \u2014 is the same move at the highest level. You destroy your own ideas before reality does, so the ones that survive can compound.\n\n---\n\n### One Gap\n\nYour notes are rich on the *formulations* of inversion across founders, but thinner on whether any founder you&#x27;ve studied *rejected* this approach or used a radically different mental model. The Catmull tension suggests limits to preventative inversion, but I don&#x27;t see a founder in the vault who explicitly argued *for* a &quot;be brilliant, don&#x27;t worry about stupidity&quot; philosophy \u2014 or if one did, it didn&#x27;t make it into your expanded notes. That might be a thread worth pulling: is there a founder who succeeded *because* they ignored inversion and bet on positive brilliance alone?",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "inversion mental model avoiding stupidity",
+                  "Munger inversion thinking backwards",
+                  "avoiding stupidity rather than being smart",
+                  "invert always invert problem solving"
+                ]
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "inversion avoiding stupidity compounding long-term \"don't want\""
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "inversion mental model avoiding stupidity",
+                "Munger inversion thinking backwards",
+                "avoiding stupidity rather than being smart",
+                "invert always invert problem solving"
+              ],
+              "episode_ids": [
+                "ep-0036",
+                "ep-0043",
+                "ep-0078",
+                "ep-0084",
+                "ep-0088",
+                "ep-0090",
+                "ep-0103",
+                "ep-0134",
+                "ep-0162"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                10.0,
+                9.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_vault"
+              ],
+              "queries": [
+                "inversion avoiding stupidity compounding long-term \"don't want\""
+              ],
+              "episode_ids": [
+                "ep-0034",
+                "ep-0070",
+                "ep-0088",
+                "ep-0090",
+                "ep-0103",
+                "ep-0154",
+                "ep-0162"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                9.5,
+                9.0
+              ]
+            },
+            {
+              "round": 3,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "## Inversion and Avoiding Stupidity: Two Flavors, One Engine\n\nAcross your notes, there are actually **two distinct species** of inversion that founders use \u2014 and they serve different functions but share the same underlying logic. The deeper pattern is that inversion is the operating system that *protects compounding from interruption*.\n\n---\n\n### Preventative Inversion: The Art of Not Dying\n\nThis is the Munger strain. The formulation is simple: **figure out what kills you, then never go there.** Buffett gives Munger full credit, tracing it back to the Prussian mathematician Jacobi: *\"Long ago, Charlie laid out his strongest ambition. All I want to know is where I'm going to die, so I'll never go there.\"* [ep-0088]\n\nWhat's interesting is how *systematic* this becomes across the founders you've studied. It's not just a clever aphorism \u2014 it's a practice:\n\n- **Munger collects stupidities.** Literally. *\"Figuring out the standard stupidities and avoiding them. And I actually collect them\"* \u2014 like a stamp collection of human error [ep-0162]. \n- **Hetty Green handed her son a list of don'ts.** Not a list of what to do. A list of what *not* to do: don't cheat, don't be unfair, don't get arrogant [ep-0103].\n- **Yeager's pilots who died were victims of their own mistakes.** The worst pilots weren't unlucky \u2014 they flew themselves into the ground through stupidity. The connection Senra draws to Munger is explicit: avoiding standard stupidities outperforms chasing brilliance [ep-0162].\n\nThe corollary Munger pounds hardest: *\"Knowing what you don't know is more useful than being brilliant.\"* [ep-0078] That's not humility theater. It's a direct inversion of how most people approach success \u2014 they try to be smart. Munger says the edge is in *not being stupid.* The asymmetry is real: one brilliant move might make you 10x, but one catastrophic stupidity wipes you to zero. Inversion protects the denominator.\n\n---\n\n### Creative Inversion: Working Backwards from Fantasy\n\nThe second species solves a different problem. It's not about *avoiding* a bad outcome \u2014 it's about *reverse-engineering* a good one that seems impossible from the starting point.\n\n- **Edwin Land starts with fantasy.** Not with what's feasible: *\"You always start with a fantasy. Part of the fantasy technique is to visualize something as perfect. Then with the experiments you work back from that fantasy to reality, hacking away at the components.\"* [ep-0134] The SX-70 camera required decades of research \u2014 but starting from \"what can we build today\" would never have produced it.\n- **Onassis didn't knock on doors; he worked backwards.** The breakthrough came when he abandoned the conventional sales approach and asked: who do I need to convince, and what's the chain that leads from them to a purchase? [ep-0084] Both Onassis and Buffett trace this to the exact same Jacobi principle \u2014 *invert, always invert.*\n- **Bushnell at Atari reversed the critical/creative dynamic.** He had employees rank ideas from worst to best, then forced them to figure out how to make the *worst* ideas succeed. *\"Instead of trying to figure out what's wrong with something, which triggers people's critical instincts, they had to figure out what was right with something, which triggers people's creative instincts.\"* [ep-0036] Same inversion tool, completely different application.\n\n---\n\n### The Connection to Compounding\n\nHere's where the two species converge \u2014 and where this question connects to your previous one about reputation. Inversion is what **clears the path for compounding to work uninterrupted.**\n\nPreventative inversion (Munger, Hetty, Yeager) says: don't do anything that could permanently disrupt the compounding. Don't cheat, don't get addicted, don't operate outside your circle of competence, don't bet the farm. Charles Schulz's *\"don't interrupt the compounding\"* [ep-0154] is itself an inverted instruction \u2014 he didn't say \"keep going,\" he said *don't stop.* The framing matters because it makes the threat legible: the enemy isn't lack of brilliance, it's the stupidity of quitting or getting yourself killed.\n\nCreative inversion (Land, Onassis) solves the *direction* problem. Compounding is useless if you're compounding toward the wrong destination. Working backwards from a perfect fantasy ensures you're climbing the right mountain before you spend decades climbing it.\n\n---\n\n### The Tension You May Not Have Named\n\nThere's a paradox buried in your notes that's worth surfacing. Ed Catmull, late in Pixar's history, warns: *\"The attempt to avoid failure makes failure more likely.\"* [ep-0034] Once a company becomes successful, it gets *too good* at preventative inversion \u2014 it becomes risk-averse, stops experimenting, loses the beginner's mind. The very instinct that protected it now kills it.\n\nSpitznagel's Klipp's Paradox is the counterweight: *\"You've got to love to lose money, hate to make money.\"* [ep-0070] Accept many small, survivable losses to capture rare enormous gains. This is inversion applied *to* inversion \u2014 a meta-layer that prevents the Munger-style \"avoid all stupidity\" from calcifying into \"avoid all risk.\" The goal isn't to be flawless. It's to avoid the terminal mistakes so you can survive long enough to make the asymmetric bets.\n\nDalio's shift from *\"I know I'm right\"* to *\"how do I know I'm right?\"* [ep-0043] captures the synthesis perfectly: the posture is preventative (question your own certainty), but the function is creative (it opens you to new hypotheses). Einstein's self-criticism \u2014 *\"testing and destruction of his own well-loved ideas\"* [ep-0090] \u2014 is the same move at the highest level. You destroy your own ideas before reality does, so the ones that survive can compound.\n\n---\n\n### One Gap\n\nYour notes are rich on the *formulations* of inversion across founders, but thinner on whether any founder you've studied *rejected* this approach or used a radically different mental model. The Catmull tension suggests limits to preventative inversion, but I don't see a founder in the vault who explicitly argued *for* a \"be brilliant, don't worry about stupidity\" philosophy \u2014 or if one did, it didn't make it into your expanded notes. That might be a thread worth pulling: is there a founder who succeeded *because* they ignored inversion and bet on positive brilliance alone?"
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault_many": 1,
+            "search_vault": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault_many\n  queries: inversion mental model avoiding stupidity; Munger inversion thinking backwards; avoiding stupidity rather than being smart (+1 more)\n  episodes: ep-0036, ep-0043, ep-0078, ep-0084, ep-0088, ep-0090, ep-0103, ep-0134, ep-0162 top_scores=[10.0, 10.0, 9.0]\nround 2: search_vault\n  queries: inversion avoiding stupidity compounding long-term \"don't want\"\n  episodes: ep-0034, ep-0070, ep-0088, ep-0090, ep-0103, ep-0154, ep-0162 top_scores=[10.0, 9.5, 9.0]\nround 3: (answer)\n  reasoning: ## Inversion and Avoiding Stupidity: Two Flavors, One Engine\n\nAcross your notes, there are actually **two distinct species** of inversion that founders use \u2014 and they serve different functions but sha",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 6683,
+            "retrieval_llm_ms": 282760,
+            "searches": [
+              {
+                "query": "Munger inversion thinking backwards",
+                "vault_search_local_ms": 378,
+                "retrieval_llm_ms": 0,
+                "tool": "search_vault_many",
+                "error": true
+              },
+              {
+                "query": "inversion mental model avoiding stupidity",
+                "vault_search_local_ms": 1092,
+                "retrieval_llm_ms": 47791,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "avoiding stupidity rather than being smart",
+                "vault_search_local_ms": 307,
+                "retrieval_llm_ms": 57995,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "invert always invert problem solving",
+                "vault_search_local_ms": 614,
+                "retrieval_llm_ms": 113737,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "inversion avoiding stupidity compounding long-term \"don't want\"",
+                "vault_search_local_ms": 4292,
+                "retrieval_llm_ms": 63237,
+                "tool": "search_vault"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1061,
+                "total_ms": 1943,
+                "completion_tokens": 118,
+                "tok_per_sec": 133.8
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 10738,
+                "total_ms": 11327,
+                "completion_tokens": 727,
+                "tok_per_sec": 1234.3
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 14124,
+                "total_ms": 39456,
+                "completion_tokens": 2324,
+                "tok_per_sec": 91.7
+              }
+            ],
+            "agent_ttft_ms_mean": 8641,
+            "generation_tok_per_sec_mean": 486.6,
+            "stop_reason": "natural",
+            "agent_steps": 3
+          },
+          "timing_summary": "vault=6683ms retrieval_llm=282760ms ttft=8641ms tok/s=486.6",
+          "timing_accountability": {
+            "wall_ms": 242908,
+            "accounted_ms": 342169,
+            "unaccounted_ms": 0,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 6683,
+              "retrieval_llm_ms": 282760,
+              "openrouter_total_ms": 52726
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

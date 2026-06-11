@@ -1,0 +1,387 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-09T16:29:52",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian multi-founder comparison",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/multi_founder_comparison.yaml",
+      "passed": true,
+      "elapsed_s": 550.173040084017,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'How did Edison and Rockefeller differ in how they built teams?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 550.1725653749891,
+          "tools_called": [
+            "search_vault_many",
+            "search_vault",
+            "search_vault",
+            "list_episode_ids",
+            "load_episode",
+            "load_episode",
+            "load_episode",
+            "load_episode",
+            "search_transcript",
+            "search_vault",
+            "search_vault",
+            "search_transcript"
+          ],
+          "response_text": "Searching vault (parallel)\u2026\n\nSearching vault\u2026\n\nSearching vault\u2026\n\nLooking up episode\u2026\n\nLoading episode\u2026\n\nLoading episode\u2026\n\nLoading episode\u2026\n\nLoading episode\u2026\n\nSearching transcripts\u2026\n\nSearching vault\u2026\n\nSearching vault\u2026\n\nSearching transcripts\u2026\n\n## Edison: the solitary inventor; Rockefeller: the organizational architect\n\nThe cleanest way to frame the difference is this: <b>Edison built a workshop; Rockefeller built an institution.</b> One was the quintessential solo genius who used people as instruments. The other deliberately submerged his own identity into a system of partnerships, built on trust and mutual obligation.\n\n---\n\n### Edison: assistants, not partners\n\nEdison&#x27;s entire orientation was inward. His one ambition, stated plainly, was not wealth or empire but freedom: *&quot;What I want is the perfect workshop. I want none of the rich man&#x27;s usual toys. I want no horses or yachts. I have no time for them.&quot;* [ep-0083] That framing is revealing \u2014 he didn&#x27;t dream of an organization that would outlive him, but of a space where *he* could work without constraint.\n\nHis deafness became a metaphor for his management style. He treated it not as a disability but as a shield: *&quot;He was fortunate to have been spared all the foolish conversation and other meaningless sounds that normal people hear.&quot;* [ep-0003] This wasn&#x27;t a man who wanted to collaborate through dialogue. He wanted to be left alone to think, then emerge with instructions.\n\nHe did have a team \u2014 assistants like Charles Batchelor handled correspondence and lab work \u2014 but the dynamic was that of a master and his instruments, not a partnership of equals. And the telling weakness: Edison repeatedly *&quot;invented things with long-term market appeal only to lose interest or miscalculate what form of his inventions consumers wanted to buy.&quot;* [ep-0190] He was constitutionally incapable of the sustained organizational follow-through that turns invention into industry. He moved on; the company didn&#x27;t.\n\n---\n\n### Rockefeller: partners, not sycophants\n\nRockefeller&#x27;s approach is almost the photographic negative. The book *Titan* opens its analysis with a description that cuts to the core: *&quot;Rockefeller was a unique hybrid in American business: both the instinctive first-generation entrepreneur who founds a company and the analytical second-generation manager who extends and develops it.&quot;* [ep-0016]\n\nHe never owned more than a third of Standard Oil. He *needed* other people and knew it. His operating principle was explicit: *&quot;Don&#x27;t say that I ought to do this or that. We ought to do it. Never forget that we are partners. Whatever is done for the general good is done for the good of us all.&quot;* [ep-0016, ep-0148]\n\nThree practices set him apart:\n\n<b>1. He sought disagreement, not deference.</b> *&quot;He preferred outspoken colleagues to weak-kneed sycophants and welcomed differences of opinion so long as they weren&#x27;t personalized.&quot;* [ep-0016] Edison insulated himself from &quot;foolish conversation&quot;; Rockefeller actively recruited people who would challenge him.\n\n<b>2. He absorbed his adversaries.</b> After competitive battles, *&quot;he winds up getting a lot of these people to work for them in Standard Oil.&quot;* [ep-0016] He didn&#x27;t just defeat rivals \u2014 he turned them into allies, recognizing that the talent on the other side of the table was more valuable than the satisfaction of destroying it.\n\n<b>3. He treated trust as capital.</b> His autobiography returns repeatedly to relationships as the ultimate asset: *&quot;Above all other possessions, is the value of a friend in every department of life without any exception whatsoever.&quot;* And the capstone: *&quot;There can be no permanent success without fair dealing that leads to widespread confidence in the man himself, and that is the real capital.&quot;* [ep-0148]\n\n---\n\n### The deeper pattern\n\nThere&#x27;s a revealing observation buried in ep-0016&#x27;s framing: Rockefeller&#x27;s arguably greatest achievement wasn&#x27;t dominating oil \u2014 it was *&quot;creating one of the first multinational corporations... and setting a business pattern for the next century.&quot;* [ep-0016] The organization *was* the invention.\n\nEdison, by contrast, died with 1,093 patents \u2014 and no lasting company. His name lives on through General Electric, but GE was formed when his rivals merged *around* him, not through him. He was, as Edwin Land put it, a man who *&quot;compressed genius and energy enough for three lifetimes&quot;* [ep-0133] \u2014 but that genius stayed locked inside one man, never fully transferred into an institution that could operate without him.\n\nIt&#x27;s the difference between building a cathedral and being the only person who knows how to lay stone.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "Edison team building management style",
+                  "Rockefeller team building management style"
+                ]
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Thomas Edison teams management hiring people around him"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "John D. Rockefeller Standard Oil partners trust delegation management"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "list_episode_ids",
+              "arguments": {
+                "query": "Edison"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0003"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0083"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0016"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0148"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Edison Menlo Park muckers team hiring laboratory assistants"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Edison delegation management style how he worked with other inventors engineers"
+              }
+            },
+            {
+              "step": 5,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Edison alone solitary individual inventor versus team collaboration"
+              }
+            },
+            {
+              "step": 5,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Rockefeller partners delegating authority Standard Oil lieutenants trust"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "Edison team building management style",
+                "Rockefeller team building management style"
+              ],
+              "episode_ids": [
+                "ep-0005",
+                "ep-0080",
+                "ep-0089",
+                "ep-0118",
+                "ep-0148"
+              ],
+              "rerank_scores_top3": [
+                6.0,
+                6.0,
+                5.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_vault",
+                "search_vault",
+                "list_episode_ids"
+              ],
+              "queries": [
+                "Thomas Edison teams management hiring people around him",
+                "John D. Rockefeller Standard Oil partners trust delegation management",
+                "Edison"
+              ],
+              "episode_ids": [
+                "ep-0002",
+                "ep-0008",
+                "ep-0016",
+                "ep-0029",
+                "ep-0074",
+                "ep-0089",
+                "ep-0120",
+                "ep-0143",
+                "ep-0148",
+                "ep-0159"
+              ],
+              "rerank_scores_top3": [
+                7.0,
+                6.5,
+                6.0
+              ],
+              "reasoning": "The Edison search hit an error and the Rockefeller results were mostly off-target. Let me fix both searches."
+            },
+            {
+              "round": 3,
+              "tools": [
+                "load_episode",
+                "load_episode",
+                "load_episode",
+                "load_episode"
+              ],
+              "queries": [
+                "ep-0003",
+                "ep-0083",
+                "ep-0016",
+                "ep-0148"
+              ],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "reasoning": "Good finds on Rockefeller but the Edison retrieval went sideways \u2014 let me go straight to the source episodes."
+            },
+            {
+              "round": 4,
+              "tools": [
+                "search_transcript",
+                "search_vault"
+              ],
+              "queries": [
+                "Edison Menlo Park muckers team hiring laboratory assistants",
+                "Edison delegation management style how he worked with other inventors engineers"
+              ],
+              "episode_ids": [
+                "ep-0002",
+                "ep-0003",
+                "ep-0009",
+                "ep-0050",
+                "ep-0158",
+                "ep-0174",
+                "ep-0190"
+              ],
+              "rerank_scores_top3": [
+                7.0,
+                2.0,
+                1.0
+              ],
+              "reasoning": "Let me dig deeper into Edison's team-building specifics \u2014 the loaded episodes gave good background but didn't surface his management approach directly."
+            },
+            {
+              "round": 5,
+              "tools": [
+                "search_vault",
+                "search_transcript"
+              ],
+              "queries": [
+                "Edison alone solitary individual inventor versus team collaboration",
+                "Rockefeller partners delegating authority Standard Oil lieutenants trust"
+              ],
+              "episode_ids": [
+                "ep-0002",
+                "ep-0003",
+                "ep-0016",
+                "ep-0030",
+                "ep-0050",
+                "ep-0054",
+                "ep-0124",
+                "ep-0133",
+                "ep-0148",
+                "ep-0163"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.0,
+                8.5
+              ]
+            },
+            {
+              "round": 6,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "## Edison: the solitary inventor; Rockefeller: the organizational architect\n\nThe cleanest way to frame the difference is this: **Edison built a workshop; Rockefeller built an institution.** One was the quintessential solo genius who used people as instruments. The other deliberately submerged his own identity into a system of partnerships, built on trust and mutual obligation.\n\n---\n\n### Edison: assistants, not partners\n\nEdison's entire orientation was inward. His one ambition, stated plainly, was not wealth or empire but freedom: *\"What I want is the perfect workshop. I want none of the rich man's usual toys. I want no horses or yachts. I have no time for them.\"* [ep-0083] That framing is revealing \u2014 he didn't dream of an organization that would outlive him, but of a space where *he* could work without constraint.\n\nHis deafness became a metaphor for his management style. He treated it not as a disability but as a shield: *\"He was fortunate to have been spared all the foolish conversation and other meaningless sounds that normal people hear.\"* [ep-0003] This wasn't a man who wanted to collaborate through dialogue. He wanted to be left alone to think, then emerge with instructions.\n\nHe did have a team \u2014 assistants like Charles Batchelor handled correspondence and lab work \u2014 but the dynamic was that of a master and his instruments, not a partnership of equals. And the telling weakness: Edison repeatedly *\"invented things with long-term market appeal only to lose interest or miscalculate what form of his inventions consumers wanted to buy.\"* [ep-0190] He was constitutionally incapable of the sustained organizational follow-through that turns invention into industry. He moved on; the company didn't.\n\n---\n\n### Rockefeller: partners, not sycophants\n\nRockefeller's approach is almost the photographic negative. The book *Titan* opens its analysis with a description that cuts to the core: *\"Rockefeller was a unique hybrid in American business: both the instinctive first-generation entrepreneur who founds a company and the analytical second-generation manager who extends and develops it.\"* [ep-0016]\n\nHe never owned more than a third of Standard Oil. He *needed* other people and knew it. His operating principle was explicit: *\"Don't say that I ought to do this or that. We ought to do it. Never forget that we are partners. Whatever is done for the general good is done for the good of us all.\"* [ep-0016, ep-0148]\n\nThree practices set him apart:\n\n**1. He sought disagreement, not deference.** *\"He preferred outspoken colleagues to weak-kneed sycophants and welcomed differences of opinion so long as they weren't personalized.\"* [ep-0016] Edison insulated himself from \"foolish conversation\"; Rockefeller actively recruited people who would challenge him.\n\n**2. He absorbed his adversaries.** After competitive battles, *\"he winds up getting a lot of these people to work for them in Standard Oil.\"* [ep-0016] He didn't just defeat rivals \u2014 he turned them into allies, recognizing that the talent on the other side of the table was more valuable than the satisfaction of destroying it.\n\n**3. He treated trust as capital.** His autobiography returns repeatedly to relationships as the ultimate asset: *\"Above all other possessions, is the value of a friend in every department of life without any exception whatsoever.\"* And the capstone: *\"There can be no permanent success without fair dealing that leads to widespread confidence in the man himself, and that is the real capital.\"* [ep-0148]\n\n---\n\n### The deeper pattern\n\nThere's a revealing observation buried in ep-0016's framing: Rockefeller's arguably greatest achievement wasn't dominating oil \u2014 it was *\"creating one of the first multinational corporations... and setting a business pattern for the next century.\"* [ep-0016] The organization *was* the invention.\n\nEdison, by contrast, died with 1,093 patents \u2014 and no lasting company. His name lives on through General Electric, but GE was formed when his rivals merged *around* him, not through him. He was, as Edwin Land put it, a man who *\"compressed genius and energy enough for three lifetimes\"* [ep-0133] \u2014 but that genius stayed locked inside one man, never fully transferred into an institution that could operate without him.\n\nIt's the difference between building a cathedral and being the only person who knows how to lay stone."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault_many": 1,
+            "search_vault": 4,
+            "list_episode_ids": 1,
+            "load_episode": 4,
+            "search_transcript": 2
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault_many\n  queries: Edison team building management style; Rockefeller team building management style\n  episodes: ep-0005, ep-0080, ep-0089, ep-0118, ep-0148 top_scores=[6.0, 6.0, 5.0]\nround 2: search_vault, search_vault, list_episode_ids\n  queries: Thomas Edison teams management hiring people around him; John D. Rockefeller Standard Oil partners trust delegation management; Edison\n  episodes: ep-0002, ep-0008, ep-0016, ep-0029, ep-0074, ep-0089, ep-0120, ep-0143, ep-0148, ep-0159 top_scores=[7.0, 6.5, 6.0]\n  reasoning: The Edison search hit an error and the Rockefeller results were mostly off-target. Let me fix both searches.\nround 3: load_episode, load_episode, load_episode, load_episode\n  queries: ep-0003; ep-0083; ep-0016 (+1 more)\n  reasoning: Good finds on Rockefeller but the Edison retrieval went sideways \u2014 let me go straight to the source episodes.\nround 4: search_transcript, search_vault\n  queries: Edison Menlo Park muckers team hiring laboratory assistants; Edison delegation management style how he worked with other inventors engineers\n  episodes: ep-0002, ep-0003, ep-0009, ep-0050, ep-0158, ep-0174, ep-0190 top_scores=[7.0, 2.0, 1.0]\n  reasoning: Let me dig deeper into Edison's team-building specifics \u2014 the loaded episodes gave good background but didn't surface his management approach directly.\nround 5: search_vault, search_transcript\n  queries: Edison alone solitary individual inventor versus team collaboration; Rockefeller partners delegating authority Standard Oil lieutenants trust\n  episodes: ep-0002, ep-0003, ep-0016, ep-0030, ep-0050, ep-0054, ep-0124, ep-0133, ep-0148, ep-0163 top_scores=[9.5, 9.0, 8.5]\nround 6: (answer)\n  reasoning: ## Edison: the solitary inventor; Rockefeller: the organizational architect\n\nThe cleanest way to frame the difference is this: **Edison built a workshop; Rockefeller built an institution.** One was th",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 14106,
+            "retrieval_llm_ms": 463062,
+            "searches": [
+              {
+                "query": "Edison team building management style",
+                "vault_search_local_ms": 676,
+                "retrieval_llm_ms": 0,
+                "tool": "search_vault_many",
+                "error": true
+              },
+              {
+                "query": "Rockefeller team building management style",
+                "vault_search_local_ms": 826,
+                "retrieval_llm_ms": 80970,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Thomas Edison teams management hiring people around him",
+                "vault_search_local_ms": 589,
+                "retrieval_llm_ms": 65947,
+                "tool": "search_vault"
+              },
+              {
+                "query": "John D. Rockefeller Standard Oil partners trust delegation management",
+                "vault_search_local_ms": 1378,
+                "retrieval_llm_ms": 71161,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Edison Menlo Park muckers team hiring laboratory assistants",
+                "vault_search_local_ms": 57,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Edison delegation management style how he worked with other inventors engineers",
+                "vault_search_local_ms": 2738,
+                "retrieval_llm_ms": 159988,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Edison alone solitary individual inventor versus team collaboration",
+                "vault_search_local_ms": 7801,
+                "retrieval_llm_ms": 84996,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Rockefeller partners delegating authority Standard Oil lieutenants trust",
+                "vault_search_local_ms": 41,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 834,
+                "total_ms": 1128,
+                "completion_tokens": 139,
+                "tok_per_sec": 472.8
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 1390,
+                "total_ms": 3771,
+                "completion_tokens": 199,
+                "tok_per_sec": 83.6
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 1679,
+                "total_ms": 5806,
+                "completion_tokens": 296,
+                "tok_per_sec": 71.7
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 7128,
+                "total_ms": 8559,
+                "completion_tokens": 494,
+                "tok_per_sec": 345.2
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 1454,
+                "total_ms": 2372,
+                "completion_tokens": 140,
+                "tok_per_sec": 152.5
+              },
+              {
+                "label": "agent_round_6",
+                "ttft_ms": 12300,
+                "total_ms": 28663,
+                "completion_tokens": 1639,
+                "tok_per_sec": 100.2
+              }
+            ],
+            "agent_ttft_ms_mean": 4131,
+            "generation_tok_per_sec_mean": 204.3,
+            "stop_reason": "natural",
+            "agent_steps": 6
+          },
+          "timing_summary": "vault=14106ms retrieval_llm=463062ms ttft=4131ms tok/s=204.3",
+          "timing_accountability": {
+            "wall_ms": 550173,
+            "accounted_ms": 527467,
+            "unaccounted_ms": 22706,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 14106,
+              "retrieval_llm_ms": 463062,
+              "openrouter_total_ms": 50299
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

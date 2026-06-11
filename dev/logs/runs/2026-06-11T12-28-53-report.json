@@ -1,0 +1,406 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-11T12:28:53",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian basic Q&A",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/basic_qa.yaml",
+      "passed": true,
+      "elapsed_s": 369.7579155410058,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/start'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.018731667019892484,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 2,
+          "action": "send \"What was Carnegie's key insight about steel?\"",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 369.7380465840106,
+          "tools_called": [
+            "search_vault",
+            "search_vault",
+            "search_transcript",
+            "search_vault",
+            "search_transcript",
+            "search_vault",
+            "load_episode",
+            "search_transcript",
+            "search_vault"
+          ],
+          "response_text": "Carnegie's key insight about steel was deceptively simple: **steel was both cheaper AND more durable than iron \u2014 a rare, almost magical combination where the superior product actually cost less.** This wasn't just a materials-science observation; it was a business revelation.\n\nThe logic, laid out in the transcript, is blunt: \"If there was a cheaper and more durable substance than iron, it would lead to a revolution in the business, not to mention any fortune for those who got in on the ground floor.\" [ep-0073] That's the insight at its purest. Carnegie saw the Bessemer process as a historic one-way substitution event. Railroads, bridges, buildings \u2014 everything built with iron would eventually be rebuilt with steel, because why would anyone use a more expensive, weaker material? He wasn't betting on incremental improvement; he was betting on a complete material replacement.\n\nBut the insight had a second layer, and this is where Carnegie diverged from typical industrialists. He understood that the Bessemer process was fundamentally a **cost-reduction technology** \u2014 it made the superior material the cheaper one. So he built his entire operating philosophy around the idea that cost advantages, unlike revenues or profits, are permanent. His mantra: \"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent.\" [ep-0073]\n\nThese two layers reinforce each other. Bet on steel because it's cheaper and better; then drive costs relentlessly lower so your advantage compounds. He scrapped hundreds of thousands of dollars of Bessemer converters when the open-hearth furnace proved superior \u2014 no sunk-cost hesitation [ep-0073]. He expanded during the Panic of 1873 when construction costs were 25% lower and competitors were paralyzed: \"The best time to expand was when no one else dared to take the risks.\" [ep-0073] He integrated backward into coke through Frick, giving him control over raw material costs.\n\nThe cross-episode parallel is striking. John D. Rockefeller operated with the same cost obsession \u2014 he'd show competitors his books and they'd sell immediately because they couldn't compete [ep-0016]. John Bogle later articulated the same principle for investing: \"Performance comes and goes. Costs go on forever.\" [ep-0057] What's interesting is that Carnegie was the first in the vault's arc to make the host \"understand *why* you should focus on that above all else\" \u2014 costs are the only variable you truly control, and their impact is permanent, not cyclical. That's the insight.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Carnegie key insight about steel"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Carnegie steel costs are permanent vertical integration"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "profits and prices are cyclical costs are forever"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Carnegie steel insight Bessemer mass production why steel over iron"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Carnegie steel insight Bessemer vision saw steel"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Carnegie saw steel cheaper durable than iron insight railroad bridges skyscrapers"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0073"
+              }
+            },
+            {
+              "step": 5,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "cheaper and more durable substance than iron revolution in the business"
+              }
+            },
+            {
+              "step": 5,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Carnegie vision steel replacing iron material substitution cheaper stronger ground floor"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault"
+              ],
+              "queries": [
+                "Carnegie key insight about steel"
+              ],
+              "episode_ids": [
+                "ep-0073",
+                "ep-0074"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.0,
+                7.5
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_vault",
+                "search_transcript"
+              ],
+              "queries": [
+                "Carnegie steel costs are permanent vertical integration",
+                "profits and prices are cyclical costs are forever"
+              ],
+              "episode_ids": [
+                "ep-0004",
+                "ep-0016",
+                "ep-0054",
+                "ep-0056",
+                "ep-0057",
+                "ep-0066",
+                "ep-0070",
+                "ep-0073",
+                "ep-0074",
+                "ep-0088",
+                "ep-0104",
+                "ep-0107",
+                "ep-0121",
+                "ep-0131"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.0,
+                8.5
+              ]
+            },
+            {
+              "round": 3,
+              "tools": [
+                "search_vault",
+                "search_transcript"
+              ],
+              "queries": [
+                "Carnegie steel insight Bessemer mass production why steel over iron",
+                "Carnegie steel insight Bessemer vision saw steel"
+              ],
+              "episode_ids": [
+                "ep-0018",
+                "ep-0070",
+                "ep-0073",
+                "ep-0074",
+                "ep-0075",
+                "ep-0086",
+                "ep-0120",
+                "ep-0122",
+                "ep-0135"
+              ],
+              "rerank_scores_top3": [
+                7.0,
+                6.0,
+                4.0
+              ]
+            },
+            {
+              "round": 4,
+              "tools": [
+                "search_vault",
+                "load_episode"
+              ],
+              "queries": [
+                "Carnegie saw steel cheaper durable than iron insight railroad bridges skyscrapers",
+                "ep-0073"
+              ],
+              "episode_ids": [
+                "ep-0070",
+                "ep-0073",
+                "ep-0074",
+                "ep-0120",
+                "ep-0122",
+                "ep-0130"
+              ],
+              "rerank_scores_top3": [
+                7.5,
+                7.0,
+                6.0
+              ]
+            },
+            {
+              "round": 5,
+              "tools": [
+                "search_transcript",
+                "search_vault"
+              ],
+              "queries": [
+                "cheaper and more durable substance than iron revolution in the business",
+                "Carnegie vision steel replacing iron material substitution cheaper stronger ground floor"
+              ],
+              "episode_ids": [
+                "ep-0003",
+                "ep-0016",
+                "ep-0018",
+                "ep-0025",
+                "ep-0031",
+                "ep-0033",
+                "ep-0045",
+                "ep-0069",
+                "ep-0073",
+                "ep-0074",
+                "ep-0120"
+              ],
+              "rerank_scores_top3": [
+                7.5,
+                7.0,
+                5.0
+              ]
+            },
+            {
+              "round": 6,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "Carnegie's key insight about steel was deceptively simple: **steel was both cheaper AND more durable than iron \u2014 a rare, almost magical combination where the superior product actually cost less.** This wasn't just a materials-science observation; it was a business revelation.\n\nThe logic, laid out in the transcript, is blunt: \"If there was a cheaper and more durable substance than iron, it would lead to a revolution in the business, not to mention any fortune for those who got in on the ground floor.\" [ep-0073] That's the insight at its purest. Carnegie saw the Bessemer process as a historic one-way substitution event. Railroads, bridges, buildings \u2014 everything built with iron would eventually be rebuilt with steel, because why would anyone use a more expensive, weaker material? He wasn't betting on incremental improvement; he was betting on a complete material replacement.\n\nBut the insight had a second layer, and this is where Carnegie diverged from typical industrialists. He understood that the Bessemer process was fundamentally a **cost-reduction technology** \u2014 it made the superior material the cheaper one. So he built his entire operating philosophy around the idea that cost advantages, unlike revenues or profits, are permanent. His mantra: \"Profits and prices were cyclical, subject to any number of transient forces of the marketplace. Costs, however, could be strictly controlled. And in Carnegie's view, any savings achieved in the cost of goods were permanent.\" [ep-0073]\n\nThese two layers reinforce each other. Bet on steel because it's cheaper and better; then drive costs relentlessly lower so your advantage compounds. He scrapped hundreds of thousands of dollars of Bessemer converters when the open-hearth furnace proved superior \u2014 no sunk-cost hesitation [ep-0073]. He expanded during the Panic of 1873 when construction costs were 25% lower and competitors were paralyzed: \"The best time to expand was when no one else dared to take the risks.\" [ep-0073] He integrated backward into coke through Frick, giving him control over raw material costs.\n\nThe cross-episode parallel is striking. John D. Rockefeller operated with the same cost obsession \u2014 he'd show competitors his books and they'd sell immediately because they couldn't compete [ep-0016]. John Bogle later articulated the same principle for investing: \"Performance comes and goes. Costs go on forever.\" [ep-0057] What's interesting is that Carnegie was the first in the vault's arc to make the host \"understand *why* you should focus on that above all else\" \u2014 costs are the only variable you truly control, and their impact is permanent, not cyclical. That's the insight."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 5,
+            "search_transcript": 3,
+            "load_episode": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault\n  queries: Carnegie key insight about steel\n  episodes: ep-0073, ep-0074 top_scores=[9.5, 9.0, 7.5]\nround 2: search_vault, search_transcript\n  queries: Carnegie steel costs are permanent vertical integration; profits and prices are cyclical costs are forever\n  episodes: ep-0004, ep-0016, ep-0054, ep-0056, ep-0057, ep-0066, ep-0070, ep-0073, ep-0074, ep-0088, ep-0104, ep-0107, ep-0121, ep-0131 top_scores=[9.5, 9.0, 8.5]\nround 3: search_vault, search_transcript\n  queries: Carnegie steel insight Bessemer mass production why steel over iron; Carnegie steel insight Bessemer vision saw steel\n  episodes: ep-0018, ep-0070, ep-0073, ep-0074, ep-0075, ep-0086, ep-0120, ep-0122, ep-0135 top_scores=[7.0, 6.0, 4.0]\nround 4: search_vault, load_episode\n  queries: Carnegie saw steel cheaper durable than iron insight railroad bridges skyscrapers; ep-0073\n  episodes: ep-0070, ep-0073, ep-0074, ep-0120, ep-0122, ep-0130 top_scores=[7.5, 7.0, 6.0]\nround 5: search_transcript, search_vault\n  queries: cheaper and more durable substance than iron revolution in the business; Carnegie vision steel replacing iron material substitution cheaper stronger ground floor\n  episodes: ep-0003, ep-0016, ep-0018, ep-0025, ep-0031, ep-0033, ep-0045, ep-0069, ep-0073, ep-0074, ep-0120 top_scores=[7.5, 7.0, 5.0]\nround 6: (answer)\n  reasoning: Carnegie's key insight about steel was deceptively simple: **steel was both cheaper AND more durable than iron \u2014 a rare, almost magical combination where the superior product actually cost less.** Thi",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 16892,
+            "retrieval_llm_ms": 277961,
+            "thread_wait_ms": 0,
+            "expand_retry_ms": 0,
+            "tool_local_ms": 4,
+            "searches": [
+              {
+                "query": "Carnegie key insight about steel",
+                "vault_search_local_ms": 1143,
+                "retrieval_llm_ms": 81679,
+                "wall_ms": 82828,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Carnegie steel costs are permanent vertical integration",
+                "vault_search_local_ms": 874,
+                "retrieval_llm_ms": 64263,
+                "wall_ms": 65143,
+                "tool": "search_vault"
+              },
+              {
+                "query": "profits and prices are cyclical costs are forever",
+                "vault_search_local_ms": 68,
+                "retrieval_llm_ms": 0,
+                "wall_ms": 68,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Carnegie steel insight Bessemer mass production why steel over iron",
+                "vault_search_local_ms": 890,
+                "retrieval_llm_ms": 34659,
+                "wall_ms": 35555,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Carnegie steel insight Bessemer vision saw steel",
+                "vault_search_local_ms": 71,
+                "retrieval_llm_ms": 0,
+                "wall_ms": 71,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Carnegie saw steel cheaper durable than iron insight railroad bridges skyscrapers",
+                "vault_search_local_ms": 7442,
+                "retrieval_llm_ms": 50027,
+                "wall_ms": 57474,
+                "tool": "search_vault"
+              },
+              {
+                "query": "cheaper and more durable substance than iron revolution in the business",
+                "vault_search_local_ms": 72,
+                "retrieval_llm_ms": 0,
+                "wall_ms": 72,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Carnegie vision steel replacing iron material substitution cheaper stronger ground floor",
+                "vault_search_local_ms": 6332,
+                "retrieval_llm_ms": 47333,
+                "wall_ms": 53668,
+                "tool": "search_vault"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1617,
+                "total_ms": 2043,
+                "completion_tokens": 91,
+                "tok_per_sec": 213.6
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 4846,
+                "total_ms": 5871,
+                "completion_tokens": 352,
+                "tok_per_sec": 343.4
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 1490,
+                "total_ms": 3301,
+                "completion_tokens": 150,
+                "tok_per_sec": 82.8
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 3145,
+                "total_ms": 4374,
+                "completion_tokens": 298,
+                "tok_per_sec": 242.5
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 3197,
+                "total_ms": 5347,
+                "completion_tokens": 242,
+                "tok_per_sec": 112.6
+              },
+              {
+                "label": "agent_round_6",
+                "ttft_ms": 5721,
+                "total_ms": 15951,
+                "completion_tokens": 947,
+                "tok_per_sec": 92.6
+              }
+            ],
+            "agent_ttft_ms_mean": 3336,
+            "generation_tok_per_sec_mean": 181.2,
+            "stop_reason": "natural",
+            "agent_steps": 6
+          },
+          "timing_summary": "vault=16892ms retrieval_llm=277961ms ttft=3336ms tok/s=181.2",
+          "timing_accountability": {
+            "wall_ms": 369738,
+            "accounted_ms": 331770,
+            "unaccounted_ms": 37968,
+            "accounted_breakdown": {
+              "search_wall_ms": 294879,
+              "tool_local_ms": 4,
+              "openrouter_total_ms": 36887,
+              "thread_wait_ms": 0,
+              "expand_retry_ms": 0,
+              "parallelism_excess_ms": 0,
+              "vault_search_local_ms": 16892,
+              "retrieval_llm_ms": 277961
+            }
+          }
+        },
+        {
+          "index": 3,
+          "action": "send '/clear'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0006051670061424375,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        }
+      ]
+    }
+  ]
+}

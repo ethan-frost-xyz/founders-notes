@@ -1,0 +1,326 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-09T17:24:10",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian verbatim transcript",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/verbatim_transcript.yaml",
+      "passed": true,
+      "elapsed_s": 135.8287124170456,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send \"What were Rockefeller's exact words about competition in the transcript?\"",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 135.82838679198176,
+          "tools_called": [
+            "search_transcript",
+            "search_transcript",
+            "search_vault",
+            "search_transcript",
+            "search_transcript",
+            "load_episode",
+            "search_transcript"
+          ],
+          "response_text": "Searching transcripts\u2026\n\nSearching transcripts\u2026\n\nSearching vault\u2026\n\nSearching transcripts\u2026\n\nSearching transcripts\u2026\n\nLoading episode\u2026\n\nSearching transcripts\u2026\n\nComposing answer\u2026\n\n&lt;\uff5c\uff5cDSML\uff5c\uff5ctool_calls&gt;\n&lt;\uff5c\uff5cDSML\uff5c\uff5cinvoke name=&quot;search_transcript&quot;&gt;\n&lt;\uff5c\uff5cDSML\uff5c\uff5cparameter name=&quot;k&quot; string=&quot;false&quot;&gt;5&lt;/\uff5c\uff5cDSML\uff5c\uff5cparameter&gt;\n&lt;\uff5c\uff5cDSML\uff5c\uff5cparameter name=&quot;query&quot; string=&quot;true&quot;&gt;episode 148 Rockefeller autobiography transcript competition unintelligent&lt;/\uff5c\uff5cDSML\uff5c\uff5cparameter&gt;\n&lt;/\uff5c\uff5cDSML\uff5c\uff5cinvoke&gt;\n&lt;/\uff5c\uff5cDSML\uff5c\uff5ctool_calls&gt;",
+          "stop_reason": "cap",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Rockefeller competition words",
+                "k": 10
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_transcript",
+              "arguments": {
+                "k": 10,
+                "query": "Rockefeller said competition quote exact words"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Rockefeller direct quote competition monopoly cooperation"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "\"Rockefeller said\" competition",
+                "k": 10
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_transcript",
+              "arguments": {
+                "k": 5,
+                "query": "\"My ideas of business\" Rockefeller"
+              }
+            },
+            {
+              "step": 5,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0148"
+              }
+            },
+            {
+              "step": 6,
+              "tool": "search_transcript",
+              "arguments": {
+                "k": 5,
+                "query": "\"My ideas of business\" \"no doubt\" Rockefeller Standard Oil ep-0148"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_transcript"
+              ],
+              "queries": [
+                "Rockefeller competition words"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0017",
+                "ep-0054",
+                "ep-0058",
+                "ep-0079",
+                "ep-0104",
+                "ep-0117",
+                "ep-0124"
+              ],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_transcript"
+              ],
+              "queries": [
+                "Rockefeller said competition quote exact words"
+              ],
+              "episode_ids": [
+                "ep-0001",
+                "ep-0003",
+                "ep-0007",
+                "ep-0009",
+                "ep-0016",
+                "ep-0101",
+                "ep-0117",
+                "ep-0148",
+                "ep-0166",
+                "ep-0192"
+              ],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 3,
+              "tools": [
+                "search_vault",
+                "search_transcript"
+              ],
+              "queries": [
+                "Rockefeller direct quote competition monopoly cooperation",
+                "\"Rockefeller said\" competition"
+              ],
+              "episode_ids": [
+                "ep-0002",
+                "ep-0003",
+                "ep-0009",
+                "ep-0016",
+                "ep-0124",
+                "ep-0148"
+              ],
+              "rerank_scores_top3": [
+                9.0,
+                6.0,
+                4.0
+              ],
+              "reasoning": "Let me dig deeper for direct Rockefeller quotes \u2014 the transcript hits so far are mostly David Senra paraphrasing. Let me try the expanded notes and a more targeted search."
+            },
+            {
+              "round": 4,
+              "tools": [
+                "search_transcript"
+              ],
+              "queries": [
+                "\"My ideas of business\" Rockefeller"
+              ],
+              "episode_ids": [
+                "ep-0002",
+                "ep-0016",
+                "ep-0090",
+                "ep-0148"
+              ],
+              "rerank_scores_top3": [],
+              "reasoning": "Let me pull the full context from ep-0148 where that cutoff quote appears."
+            },
+            {
+              "round": 5,
+              "tools": [
+                "load_episode"
+              ],
+              "queries": [
+                "ep-0148"
+              ],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "reasoning": "The ep-0148 transcript cuts off right at the critical moment. Let me pull the full context from that episode."
+            },
+            {
+              "round": 6,
+              "tools": [
+                "search_transcript"
+              ],
+              "queries": [
+                "\"My ideas of business\" \"no doubt\" Rockefeller Standard Oil ep-0148"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0148"
+              ],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 7,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "cap",
+              "reasoning": "<\uff5c\uff5cDSML\uff5c\uff5ctool_calls>\n<\uff5c\uff5cDSML\uff5c\uff5cinvoke name=\"search_transcript\">\n<\uff5c\uff5cDSML\uff5c\uff5cparameter name=\"k\" string=\"false\">5</\uff5c\uff5cDSML\uff5c\uff5cparameter>\n<\uff5c\uff5cDSML\uff5c\uff5cparameter name=\"query\" string=\"true\">episode 148 Rockefeller autobiography transcript competition unintelligent</\uff5c\uff5cDSML\uff5c\uff5cparameter>\n</\uff5c\uff5cDSML\uff5c\uff5cinvoke>\n</\uff5c\uff5cDSML\uff5c\uff5ctool_calls>"
+            }
+          ],
+          "tool_call_counts": {
+            "search_transcript": 5,
+            "search_vault": 1,
+            "load_episode": 1
+          },
+          "trace_summary": "stop: cap\n\nround 1: search_transcript\n  queries: Rockefeller competition words\n  episodes: ep-0016, ep-0017, ep-0054, ep-0058, ep-0079, ep-0104, ep-0117, ep-0124\nround 2: search_transcript\n  queries: Rockefeller said competition quote exact words\n  episodes: ep-0001, ep-0003, ep-0007, ep-0009, ep-0016, ep-0101, ep-0117, ep-0148, ep-0166, ep-0192\nround 3: search_vault, search_transcript\n  queries: Rockefeller direct quote competition monopoly cooperation; \"Rockefeller said\" competition\n  episodes: ep-0002, ep-0003, ep-0009, ep-0016, ep-0124, ep-0148 top_scores=[9.0, 6.0, 4.0]\n  reasoning: Let me dig deeper for direct Rockefeller quotes \u2014 the transcript hits so far are mostly David Senra paraphrasing. Let me try the expanded notes and a more targeted search.\nround 4: search_transcript\n  queries: \"My ideas of business\" Rockefeller\n  episodes: ep-0002, ep-0016, ep-0090, ep-0148\n  reasoning: Let me pull the full context from ep-0148 where that cutoff quote appears.\nround 5: load_episode\n  queries: ep-0148\n  reasoning: The ep-0148 transcript cuts off right at the critical moment. Let me pull the full context from that episode.\nround 6: search_transcript\n  queries: \"My ideas of business\" \"no doubt\" Rockefeller Standard Oil ep-0148\n  episodes: ep-0016, ep-0148\nround 7: (answer)\n  reasoning: <\uff5c\uff5cDSML\uff5c\uff5ctool_calls>\n<\uff5c\uff5cDSML\uff5c\uff5cinvoke name=\"search_transcript\">\n<\uff5c\uff5cDSML\uff5c\uff5cparameter name=\"k\" string=\"false\">5</\uff5c\uff5cDSML\uff5c\uff5cparameter>\n<\uff5c\uff5cDSML\uff5c\uff5cparameter name=\"query\" string=\"true\">episode 148 Rockefeller au",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 3588,
+            "retrieval_llm_ms": 64963,
+            "searches": [
+              {
+                "query": "Rockefeller competition words",
+                "vault_search_local_ms": 83,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Rockefeller said competition quote exact words",
+                "vault_search_local_ms": 47,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Rockefeller direct quote competition monopoly cooperation",
+                "vault_search_local_ms": 3346,
+                "retrieval_llm_ms": 64963,
+                "tool": "search_vault"
+              },
+              {
+                "query": "\"Rockefeller said\" competition",
+                "vault_search_local_ms": 27,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "\"My ideas of business\" Rockefeller",
+                "vault_search_local_ms": 29,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "\"My ideas of business\" \"no doubt\" Rockefeller Standard Oil ep-0148",
+                "vault_search_local_ms": 56,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 712,
+                "total_ms": 1208,
+                "completion_tokens": 90,
+                "tok_per_sec": 181.5
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 2557,
+                "total_ms": 3521,
+                "completion_tokens": 280,
+                "tok_per_sec": 290.5
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 3093,
+                "total_ms": 5040,
+                "completion_tokens": 410,
+                "tok_per_sec": 210.6
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 11265,
+                "total_ms": 12319,
+                "completion_tokens": 1133,
+                "tok_per_sec": 1075.0
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 702,
+                "total_ms": 1443,
+                "completion_tokens": 116,
+                "tok_per_sec": 156.5
+              },
+              {
+                "label": "agent_round_6",
+                "ttft_ms": 728,
+                "total_ms": 2782,
+                "completion_tokens": 106,
+                "tok_per_sec": 51.6
+              },
+              {
+                "label": "agent_round_7_cap",
+                "ttft_ms": 544,
+                "total_ms": 2421,
+                "completion_tokens": 123,
+                "tok_per_sec": 65.5
+              }
+            ],
+            "agent_ttft_ms_mean": 2800,
+            "generation_tok_per_sec_mean": 290.2,
+            "stop_reason": "cap",
+            "agent_steps": 7
+          },
+          "timing_summary": "vault=3588ms retrieval_llm=64963ms ttft=2800ms tok/s=290.2",
+          "timing_accountability": {
+            "wall_ms": 135828,
+            "accounted_ms": 97285,
+            "unaccounted_ms": 38543,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 3588,
+              "retrieval_llm_ms": 64963,
+              "openrouter_total_ms": 28734
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

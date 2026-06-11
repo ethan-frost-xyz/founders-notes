@@ -1,0 +1,399 @@
+{
+  "suite": "librarian-live",
+  "generated_at": "2026-06-11T02:07:14",
+  "session_date": "2026-06-11",
+  "run_mode": "sequential",
+  "baseline_path": "dev/logs/runs/2026-06-09-librarian-live-suite-summary.json",
+  "config": {
+    "retrieval_model": "deepseek/deepseek-v4-flash",
+    "librarian_model": "deepseek/deepseek-v4-pro",
+    "runtime_path": "~/.config/founders-telegram/runtime.json",
+    "harness_command": "ingestion/.venv/bin/python dev/mock_telegram_cli.py --suite librarian --live-only -v"
+  },
+  "summary": {
+    "scenarios_in_queue": 11,
+    "harness_pass": 11,
+    "harness_fail": 0,
+    "substantive_pass_estimate": 11,
+    "failed_scenarios": [],
+    "quality_failures": [],
+    "known_flakes": [],
+    "primary_runs_wall_s": 4176.2,
+    "notes": [
+      "Sequential suite via --suite librarian --live-only -v; single combined report",
+      "11/11 harness pass \u2014 multi_hop and thematic_cross_episode flakes fixed vs Jun 9",
+      "verbatim_transcript substantive recovery maintained (natural stop, no DSML)",
+      "multi_turn T3 cap but substantive answer present (vs Jun 10 generic failure)",
+      "expand API empty-response retry observed on basic_qa",
+      "multi_turn wall +78% regression (946s vs 531s baseline)"
+    ]
+  },
+  "baseline_comparison": {
+    "harness_pass_delta": "+2 (9\u219211)",
+    "substantive_pass_delta": "+1 (10\u219211)",
+    "wall_s_delta": 333.0,
+    "wall_s_delta_pct": 8.7,
+    "improved": [
+      "multi_hop.yaml \u2014 harness \u2717\u2192\u2713",
+      "multi_hop.yaml \u2014 substantive \u2717\u2192\u2713",
+      "single_founder_depth.yaml \u2014 wall 574s\u2192247s (-57%)",
+      "thematic_cross_episode.yaml \u2014 harness \u2717\u2192\u2713",
+      "thematic_search.yaml \u2014 wall 64s\u219245s (-30%)",
+      "verbatim_transcript.yaml \u2014 substantive \u2717\u2192\u2713 (cap/DSML\u2192natural/verbatim quotes)"
+    ],
+    "regressed": [
+      "basic_qa.yaml \u2014 wall 114s\u2192167s (+46%)",
+      "basic_qa.yaml \u2014 retrieval_llm 76s\u2192127s",
+      "multi_turn.yaml \u2014 wall 531s\u2192946s (+78%)",
+      "thematic_cross_episode.yaml \u2014 wall 471s\u2192594s (+26%)"
+    ]
+  },
+  "queue": [
+    {
+      "number": 1,
+      "yaml": "basic_qa.yaml",
+      "name": "Librarian basic Q&A",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 167.1,
+      "baseline_elapsed_s": 114.2,
+      "wall_delta_pct": 46.3,
+      "stop_reason": "natural",
+      "tool_call_counts": {
+        "search_vault": 2,
+        "search_transcript": 1
+      },
+      "retrieval_llm_ms": 126977,
+      "baseline_retrieval_llm_ms": 75973,
+      "unaccounted_ms": 16755,
+      "report_path": "dev/logs/runs/2026-06-11T02-07-14-report.json",
+      "quality": "Strong \u2014 Carnegie permanent-cost thesis; extra search_vault round vs baseline"
+    },
+    {
+      "number": 2,
+      "yaml": "episode_resolve.yaml",
+      "name": "Librarian episode resolve NL",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 31.8,
+      "baseline_elapsed_s": 27.7,
+      "wall_delta_pct": 14.8,
+      "stop_reason": "natural",
+      "tool_call_counts": {
+        "load_episode": 2
+      },
+      "retrieval_llm_ms": 0,
+      "baseline_retrieval_llm_ms": 0,
+      "unaccounted_ms": 7126,
+      "report_path": "dev/logs/runs/2026-06-11T02-07-14-report.json",
+      "quality": "Strong \u2014 ep-191 Naval and ep-22 resolved via load_episode"
+    },
+    {
+      "number": 3,
+      "yaml": "multi_founder_comparison.yaml",
+      "name": "Librarian multi-founder comparison",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 575.2,
+      "baseline_elapsed_s": 550.2,
+      "wall_delta_pct": 4.6,
+      "stop_reason": "natural",
+      "tool_call_counts": {
+        "search_vault_many": 1,
+        "search_vault": 2,
+        "load_episode": 4,
+        "search_transcript": 1
+      },
+      "retrieval_llm_ms": 552995,
+      "baseline_retrieval_llm_ms": 463062,
+      "unaccounted_ms": 22999,
+      "report_path": "dev/logs/runs/2026-06-11T02-07-14-report.json",
+      "quality": "Strong \u2014 Edison workshop vs Rockefeller institution; natural stop"
+    },
+    {
+      "number": 4,
+      "yaml": "multi_hop.yaml",
+      "name": "Librarian multi-hop theme",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 504.2,
+      "baseline_elapsed_s": 504.21062274998985,
+      "wall_delta_pct": 0.0,
+      "stop_reason": "natural",
+      "tool_call_counts": {
+        "search_vault_many": 1
+      },
+      "retrieval_llm_ms": 462586,
+      "baseline_retrieval_llm_ms": null,
+      "unaccounted_ms": 8423,
+      "report_path": "dev/logs/runs/2026-06-11T02-07-14-report.json",
+      "quality": "Excellent \u2014 compounding+reputation cross-founder synthesis; harness fixed",
+      "baseline_harness_pass": false,
+      "baseline_substantive_pass": false
+    },
+    {
+      "number": 5,
+      "yaml": "multi_turn.yaml",
+      "name": "Librarian multi-turn session",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 946.3,
+      "baseline_elapsed_s": 531.3,
+      "wall_delta_pct": 78.1,
+      "stop_reason": "cap",
+      "tool_call_counts": {
+        "search_vault": 3,
+        "search_transcript": 4,
+        "search_vault_many": 2,
+        "load_episode": 1,
+        "list_episode_ids": 1
+      },
+      "retrieval_llm_ms": 964348,
+      "baseline_retrieval_llm_ms": null,
+      "unaccounted_ms": 31844,
+      "report_path": "dev/logs/runs/2026-06-11T02-07-14-report.json",
+      "quality": "T2 strong; T3 cap but substantive Knight book answer (1507 chars)",
+      "turns": [
+        {
+          "turn": 2,
+          "elapsed_s": 240.8,
+          "stop_reason": "natural",
+          "tools": [
+            "search_vault"
+          ],
+          "retrieval_llm_ms": 61044,
+          "substantive_pass": true
+        },
+        {
+          "turn": 3,
+          "elapsed_s": 705.5,
+          "stop_reason": "cap",
+          "tools": [
+            "search_vault",
+            "search_transcript",
+            "search_vault_many",
+            "search_transcript",
+            "search_vault",
+            "search_transcript",
+            "search_vault_many",
+            "load_episode",
+            "search_transcript",
+            "list_episode_ids"
+          ],
+          "retrieval_llm_ms": 903304,
+          "substantive_pass": true
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "yaml": "single_founder_depth.yaml",
+      "name": "Librarian single-founder depth",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 247.5,
+      "baseline_elapsed_s": 574.3,
+      "wall_delta_pct": -56.9,
+      "stop_reason": "natural",
+      "tool_call_counts": {
+        "search_vault": 1,
+        "search_vault_many": 1
+      },
+      "retrieval_llm_ms": 290061,
+      "baseline_retrieval_llm_ms": 262686,
+      "unaccounted_ms": 7094,
+      "report_path": "dev/logs/runs/2026-06-11T02-07-14-report.json",
+      "quality": "Excellent \u2014 Buffett inner scorecard; 247s vs 574s baseline"
+    },
+    {
+      "number": 7,
+      "yaml": "thematic_cross_episode.yaml",
+      "name": "Librarian thematic cross-episode",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 594.2,
+      "baseline_elapsed_s": 471.3,
+      "wall_delta_pct": 26.1,
+      "stop_reason": "natural",
+      "tool_call_counts": {
+        "search_vault_many": 3
+      },
+      "retrieval_llm_ms": 1096063,
+      "baseline_retrieval_llm_ms": null,
+      "unaccounted_ms": 7912,
+      "report_path": "dev/logs/runs/2026-06-11T02-07-14-report.json",
+      "quality": "Strong all 3 turns; harness 3/3 (was 1/3)",
+      "baseline_harness_pass": false,
+      "turns": [
+        {
+          "turn": 1,
+          "elapsed_s": 126.2,
+          "harness_pass": true,
+          "tools": [
+            "search_vault_many"
+          ],
+          "retrieval_llm_ms": 197528
+        },
+        {
+          "turn": 2,
+          "elapsed_s": 272.2,
+          "harness_pass": true,
+          "tools": [
+            "search_vault_many"
+          ],
+          "retrieval_llm_ms": 442201
+        },
+        {
+          "turn": 3,
+          "elapsed_s": 195.8,
+          "harness_pass": true,
+          "tools": [
+            "search_vault_many"
+          ],
+          "retrieval_llm_ms": 456334
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "yaml": "thematic_search.yaml",
+      "name": "Librarian thematic search SP6",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 45.0,
+      "baseline_elapsed_s": 64.1,
+      "wall_delta_pct": -29.8,
+      "stop_reason": "natural",
+      "tool_call_counts": {
+        "search_vault": 1
+      },
+      "retrieval_llm_ms": 17708,
+      "baseline_retrieval_llm_ms": 43222,
+      "unaccounted_ms": 5513,
+      "report_path": "dev/logs/runs/2026-06-11T02-07-14-report.json",
+      "quality": "Strong \u2014 single search_vault; 45s vs 64s baseline"
+    },
+    {
+      "number": 9,
+      "yaml": "thin_evidence_probe.yaml",
+      "name": "Librarian thin evidence probe",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 474.5,
+      "baseline_elapsed_s": 401.6,
+      "wall_delta_pct": 18.2,
+      "stop_reason": "cap",
+      "tool_call_counts": {
+        "search_vault": 5,
+        "list_episode_ids": 1,
+        "search_transcript": 2
+      },
+      "retrieval_llm_ms": 394571,
+      "baseline_retrieval_llm_ms": 347433,
+      "unaccounted_ms": 16049,
+      "report_path": "dev/logs/runs/2026-06-11T02-07-14-report.json",
+      "quality": "Strong \u2014 honest no Nadella coverage; cap but complete answer"
+    },
+    {
+      "number": 10,
+      "yaml": "tool_coverage.yaml",
+      "name": "Librarian tool coverage",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 512.7,
+      "baseline_elapsed_s": 466.6,
+      "wall_delta_pct": 9.9,
+      "stop_reason": "cap",
+      "tool_call_counts": {
+        "search_vault_many": 2,
+        "search_transcript": 6,
+        "search_vault": 1,
+        "load_episode": 2,
+        "list_episode_ids": 1
+      },
+      "retrieval_llm_ms": 761748,
+      "baseline_retrieval_llm_ms": null,
+      "unaccounted_ms": 25276,
+      "report_path": "dev/logs/runs/2026-06-11T02-07-14-report.json",
+      "quality": "Strong \u2014 all four tools; T2 cap on verbatim breakup query",
+      "tools_exercised": [
+        "list_episode_ids",
+        "load_episode",
+        "search_transcript",
+        "search_vault",
+        "search_vault_many"
+      ],
+      "turns": [
+        {
+          "turn": 1,
+          "elapsed_s": 87.2,
+          "harness_pass": true,
+          "tools": [
+            "search_vault_many"
+          ],
+          "stop_reason": "natural",
+          "unaccounted_ms": 4695
+        },
+        {
+          "turn": 2,
+          "elapsed_s": 386.3,
+          "harness_pass": true,
+          "tools": [
+            "search_transcript",
+            "search_transcript",
+            "search_vault",
+            "search_transcript",
+            "search_transcript",
+            "search_transcript",
+            "search_vault_many",
+            "load_episode",
+            "search_transcript"
+          ],
+          "stop_reason": "cap",
+          "unaccounted_ms": 25276
+        },
+        {
+          "turn": 3,
+          "elapsed_s": 22.4,
+          "harness_pass": true,
+          "tools": [
+            "load_episode"
+          ],
+          "stop_reason": "natural",
+          "unaccounted_ms": 5565
+        },
+        {
+          "turn": 4,
+          "elapsed_s": 16.8,
+          "harness_pass": true,
+          "tools": [
+            "list_episode_ids"
+          ],
+          "stop_reason": "natural",
+          "unaccounted_ms": 5314
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "yaml": "verbatim_transcript.yaml",
+      "name": "Librarian verbatim transcript",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "baseline_substantive_pass": false,
+      "elapsed_s": 77.6,
+      "baseline_elapsed_s": 135.8,
+      "wall_delta_pct": -42.8,
+      "stop_reason": "natural",
+      "tool_call_counts": {
+        "search_transcript": 4,
+        "load_episode": 1
+      },
+      "retrieval_llm_ms": 0,
+      "baseline_retrieval_llm_ms": 64963,
+      "unaccounted_ms": 23546,
+      "report_path": "dev/logs/runs/2026-06-11T02-07-14-report.json",
+      "quality": "Strong \u2014 verbatim Rockefeller quotes; natural stop, no DSML"
+    }
+  ]
+}

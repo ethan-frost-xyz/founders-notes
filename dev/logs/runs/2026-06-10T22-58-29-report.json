@@ -1,0 +1,271 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-10T22:58:29",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian thin evidence probe",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/thin_evidence_probe.yaml",
+      "passed": true,
+      "elapsed_s": 420.43283012497704,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'What did I note about how Satya Nadella approached acquisitions at Microsoft?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 420.4325889170286,
+          "tools_called": [
+            "search_vault",
+            "search_vault_many",
+            "list_episode_ids",
+            "search_transcript",
+            "search_vault",
+            "search_transcript"
+          ],
+          "response_text": "I'll be straightforward: **the vault doesn't have any episodes covering Satya Nadella.**\n\nI ran multiple searches across every tool \u2014 `search_vault`, `search_vault_many` with three different angles, `search_transcript`, and `list_episode_ids` \u2014 and every result came back about Bill Gates, Steve Jobs, or other founders. Nadella doesn't appear in any episode title, transcript, or expanded note. The Founders podcast has covered the making of Microsoft extensively through Bill Gates (ep-0140, ep-0174) and Paul Allen (ep-0044), but hasn't yet done an episode on Nadella's tenure or his approach to acquisitions like LinkedIn, GitHub, or Mojang.\n\nIf you're interested in the closest adjacent material \u2014 how the Microsoft culture and competitive instincts were forged under Gates, which is the backdrop Nadella inherited \u2014 ep-0140 and ep-0174 cover that deeply. But there's nothing here yet on Nadella's own acquisition philosophy.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Satya Nadella acquisitions Microsoft approach"
+              }
+            },
+            {
+              "step": 1,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "Nadella acquisition strategy",
+                  "Microsoft acquisitions Nadella philosophy",
+                  "Nadella M&A approach"
+                ]
+              }
+            },
+            {
+              "step": 2,
+              "tool": "list_episode_ids",
+              "arguments": {
+                "query": "Satya Nadella"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Nadella acquisition"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Nadella Microsoft CEO LinkedIn GitHub Minecraft Mojang"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Nadella CEO Microsoft"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault",
+                "search_vault_many"
+              ],
+              "queries": [
+                "Satya Nadella acquisitions Microsoft approach",
+                "Nadella acquisition strategy",
+                "Microsoft acquisitions Nadella philosophy",
+                "Nadella M&A approach"
+              ],
+              "episode_ids": [
+                "ep-0001",
+                "ep-0005",
+                "ep-0008",
+                "ep-0016",
+                "ep-0017",
+                "ep-0041",
+                "ep-0044",
+                "ep-0110",
+                "ep-0124",
+                "ep-0140",
+                "ep-0174"
+              ],
+              "rerank_scores_top3": [
+                0.6,
+                0.5,
+                0.5
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "list_episode_ids",
+                "search_transcript"
+              ],
+              "queries": [
+                "Satya Nadella",
+                "Nadella acquisition"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0017",
+                "ep-0019",
+                "ep-0022",
+                "ep-0034",
+                "ep-0041"
+              ],
+              "rerank_scores_top3": [],
+              "reasoning": "The results so far are all returning Bill Gates content, not Nadella. Let me check whether there's a Satya Nadella episode in the vault at all, and try a more direct search."
+            },
+            {
+              "round": 3,
+              "tools": [
+                "search_vault",
+                "search_transcript"
+              ],
+              "queries": [
+                "Nadella Microsoft CEO LinkedIn GitHub Minecraft Mojang",
+                "Nadella CEO Microsoft"
+              ],
+              "episode_ids": [
+                "ep-0005",
+                "ep-0008",
+                "ep-0019",
+                "ep-0031",
+                "ep-0032",
+                "ep-0124",
+                "ep-0140"
+              ],
+              "rerank_scores_top3": [
+                6.5,
+                6.5,
+                6.0
+              ],
+              "reasoning": "Let me try one more angle \u2014 searching for Nadella more broadly across the vault, and also checking if he appears in any episode contexts."
+            },
+            {
+              "round": 4,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "I'll be straightforward: **the vault doesn't have any episodes covering Satya Nadella.**\n\nI ran multiple searches across every tool \u2014 `search_vault`, `search_vault_many` with three different angles, `search_transcript`, and `list_episode_ids` \u2014 and every result came back about Bill Gates, Steve Jobs, or other founders. Nadella doesn't appear in any episode title, transcript, or expanded note. The Founders podcast has covered the making of Microsoft extensively through Bill Gates (ep-0140, ep-0174) and Paul Allen (ep-0044), but hasn't yet done an episode on Nadella's tenure or his approach to acquisitions like LinkedIn, GitHub, or Mojang.\n\nIf you're interested in the closest adjacent material \u2014 how the Microsoft culture and competitive instincts were forged under Gates, which is the backdrop Nadella inherited \u2014 ep-0140 and ep-0174 cover that deeply. But there's nothing here yet on Nadella's own acquisition philosophy."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 2,
+            "search_vault_many": 1,
+            "list_episode_ids": 1,
+            "search_transcript": 2
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault, search_vault_many\n  queries: Satya Nadella acquisitions Microsoft approach; Nadella acquisition strategy; Microsoft acquisitions Nadella philosophy (+1 more)\n  episodes: ep-0001, ep-0005, ep-0008, ep-0016, ep-0017, ep-0041, ep-0044, ep-0110, ep-0124, ep-0140, ep-0174 top_scores=[0.6, 0.5, 0.5]\nround 2: list_episode_ids, search_transcript\n  queries: Satya Nadella; Nadella acquisition\n  episodes: ep-0016, ep-0017, ep-0019, ep-0022, ep-0034, ep-0041\n  reasoning: The results so far are all returning Bill Gates content, not Nadella. Let me check whether there's a Satya Nadella episode in the vault at all, and try a more direct search.\nround 3: search_vault, search_transcript\n  queries: Nadella Microsoft CEO LinkedIn GitHub Minecraft Mojang; Nadella CEO Microsoft\n  episodes: ep-0005, ep-0008, ep-0019, ep-0031, ep-0032, ep-0124, ep-0140 top_scores=[6.5, 6.5, 6.0]\n  reasoning: Let me try one more angle \u2014 searching for Nadella more broadly across the vault, and also checking if he appears in any episode contexts.\nround 4: (answer)\n  reasoning: I'll be straightforward: **the vault doesn't have any episodes covering Satya Nadella.**\n\nI ran multiple searches across every tool \u2014 `search_vault`, `search_vault_many` with three different angles, `",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 3389,
+            "retrieval_llm_ms": 492567,
+            "searches": [
+              {
+                "query": "Satya Nadella acquisitions Microsoft approach",
+                "vault_search_local_ms": 1109,
+                "retrieval_llm_ms": 90678,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Nadella acquisition strategy",
+                "vault_search_local_ms": 465,
+                "retrieval_llm_ms": 33806,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Nadella M&A approach",
+                "vault_search_local_ms": 396,
+                "retrieval_llm_ms": 83584,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Microsoft acquisitions Nadella philosophy",
+                "vault_search_local_ms": 464,
+                "retrieval_llm_ms": 202496,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Nadella acquisition",
+                "vault_search_local_ms": 27,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Nadella Microsoft CEO LinkedIn GitHub Minecraft Mojang",
+                "vault_search_local_ms": 890,
+                "retrieval_llm_ms": 82003,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Nadella CEO Microsoft",
+                "vault_search_local_ms": 38,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1582,
+                "total_ms": 2700,
+                "completion_tokens": 135,
+                "tok_per_sec": 120.8
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 201,
+                "total_ms": 1451,
+                "completion_tokens": 165,
+                "tok_per_sec": 132.0
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 2124,
+                "total_ms": 4275,
+                "completion_tokens": 191,
+                "tok_per_sec": 88.8
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 4118,
+                "total_ms": 9548,
+                "completion_tokens": 360,
+                "tok_per_sec": 66.3
+              }
+            ],
+            "agent_ttft_ms_mean": 2006,
+            "generation_tok_per_sec_mean": 102.0,
+            "stop_reason": "natural",
+            "agent_steps": 4
+          },
+          "timing_summary": "vault=3389ms retrieval_llm=492567ms ttft=2006ms tok/s=102.0",
+          "timing_accountability": {
+            "wall_ms": 420433,
+            "accounted_ms": 513930,
+            "unaccounted_ms": 0,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 3389,
+              "retrieval_llm_ms": 492567,
+              "openrouter_total_ms": 17974
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

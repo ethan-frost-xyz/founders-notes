@@ -1,0 +1,204 @@
+{
+  "suite": "librarian-live-rerun",
+  "generated_at": "2026-06-09T20:55:28",
+  "session_date": "2026-06-09",
+  "config": {
+    "retrieval_model": "deepseek/deepseek-v4-flash",
+    "librarian_model": "deepseek/deepseek-v4-pro",
+    "runtime_path": "~/.config/founders-telegram/runtime.json",
+    "harness_command": "ingestion/.venv/bin/python dev/mock_telegram_cli.py --scenario dev/scenarios/librarian/<FILE>.yaml -v",
+    "scenario_fix_applied_mid_run": "single_founder_depth.yaml tool_called_any (after #6 run)"
+  },
+  "summary": {
+    "scenarios_in_queue": 11,
+    "harness_pass_as_run": 10,
+    "harness_pass_with_scenario_fix": 11,
+    "harness_fail": 1,
+    "substantive_pass_estimate": 10,
+    "failed_scenarios": [],
+    "harness_fail_as_run": ["single_founder_depth.yaml"],
+    "quality_failures": [
+      {
+        "yaml": "multi_turn.yaml",
+        "turn": 3,
+        "issue": "cap hit; DSML tool-call markup leaked in response_text (Knight book follow-up)"
+      }
+    ],
+    "primary_runs_wall_s": 3504.8,
+    "notes": [
+      "Scenario fix for single_founder_depth applied after #6; re-run would expect harness pass",
+      "multi_hop and thematic_cross_episode improved vs baseline after b483e3d alignment",
+      "verbatim_transcript substantive recovery: natural stop, no DSML leak (baseline cap/DSML)",
+      "multi_founder_comparison hit cap this run (baseline natural)",
+      "vault_local spikes on thin_evidence_probe T1 search and tool_coverage T2"
+    ]
+  },
+  "baseline_comparison": {
+    "baseline_file": "dev/logs/runs/2026-06-09-librarian-live-suite-summary.json",
+    "baseline_harness_pass": 9,
+    "baseline_substantive_pass": 10,
+    "baseline_wall_s": 3843.2,
+    "harness_pass_delta": "+1 as-run (+2 with #6 scenario fix)",
+    "substantive_delta": "same 10/11; #11 improved, #5 T3 regressed",
+    "wall_delta_pct": -8.8,
+    "improved_vs_baseline": [
+      "multi_hop.yaml (harness fail → pass)",
+      "thematic_cross_episode.yaml (harness fail → pass)",
+      "verbatim_transcript.yaml (substantive DSML → pass)"
+    ],
+    "regressed_vs_baseline": [
+      "multi_turn.yaml T3 (substantive DSML leak)",
+      "multi_founder_comparison.yaml (natural → cap)",
+      "tool_coverage.yaml wall +39%",
+      "single_founder_depth.yaml harness fail as-run (scenario drift, fixed mid-run)"
+    ]
+  },
+  "queue": [
+    {
+      "number": 1,
+      "yaml": "basic_qa.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 99.2,
+      "stop_reason": "natural",
+      "tool_call_counts": {"search_vault": 2, "search_transcript": 1},
+      "retrieval_llm_ms": 60560,
+      "unaccounted_ms": 10572,
+      "report_path": "dev/logs/runs/2026-06-09T19-08-34-report.json",
+      "baseline_wall_s": 114.2,
+      "wall_delta_pct": -13.1
+    },
+    {
+      "number": 2,
+      "yaml": "episode_resolve.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 28.1,
+      "stop_reason": "natural",
+      "report_path": "dev/logs/runs/2026-06-09T19-10-40-report.json",
+      "baseline_wall_s": 27.7,
+      "wall_delta_pct": 1.4
+    },
+    {
+      "number": 3,
+      "yaml": "multi_founder_comparison.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 533.5,
+      "stop_reason": "cap",
+      "tool_call_counts": {"search_vault_many": 2, "search_vault": 3, "search_transcript": 3, "load_episode": 2},
+      "retrieval_llm_ms": 555620,
+      "report_path": "dev/logs/runs/2026-06-09T19-21-39-report.json",
+      "baseline_wall_s": 550.2,
+      "wall_delta_pct": -3.0,
+      "note": "stop_reason regression: baseline natural"
+    },
+    {
+      "number": 4,
+      "yaml": "multi_hop.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 174.9,
+      "stop_reason": "natural",
+      "tool_call_counts": {"search_vault_many": 1, "search_vault": 1, "search_transcript": 1},
+      "retrieval_llm_ms": 123712,
+      "report_path": "dev/logs/runs/2026-06-09T19-27-09-report.json",
+      "baseline_harness_pass": false,
+      "baseline_wall_s": 158.7,
+      "wall_delta_pct": 10.2
+    },
+    {
+      "number": 5,
+      "yaml": "multi_turn.yaml",
+      "harness_pass": true,
+      "substantive_pass": false,
+      "elapsed_s": 620.4,
+      "stop_reason": "natural",
+      "report_path": "dev/logs/runs/2026-06-09T19-39-31-report.json",
+      "baseline_wall_s": 531.3,
+      "wall_delta_pct": 16.8,
+      "quality_note": "T3 DSML leak at cap"
+    },
+    {
+      "number": 6,
+      "yaml": "single_founder_depth.yaml",
+      "harness_pass": false,
+      "harness_pass_after_scenario_fix": true,
+      "substantive_pass": true,
+      "elapsed_s": 110.8,
+      "stop_reason": "natural",
+      "tool_call_counts": {"search_vault_many": 1, "search_transcript": 1, "load_episode": 1},
+      "retrieval_llm_ms": 42125,
+      "report_path": "dev/logs/runs/2026-06-09T19-44-05-report.json",
+      "baseline_wall_s": 574.3,
+      "wall_delta_pct": -80.7,
+      "failure_mode": "tool_assertion search_vault vs search_vault_many"
+    },
+    {
+      "number": 7,
+      "yaml": "thematic_cross_episode.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 466.4,
+      "stop_reason": "natural",
+      "report_path": "dev/logs/runs/2026-06-09T20-09-28-report.json",
+      "baseline_harness_pass": false,
+      "baseline_wall_s": 471.3,
+      "wall_delta_pct": -1.0
+    },
+    {
+      "number": 8,
+      "yaml": "thematic_search.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 62.7,
+      "stop_reason": "natural",
+      "tool_call_counts": {"search_vault": 1},
+      "retrieval_llm_ms": 34194,
+      "report_path": "dev/logs/runs/2026-06-09T20-14-49-report.json",
+      "baseline_wall_s": 64.1,
+      "wall_delta_pct": -2.2
+    },
+    {
+      "number": 9,
+      "yaml": "thin_evidence_probe.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 457.8,
+      "stop_reason": "natural",
+      "retrieval_llm_ms": 358720,
+      "vault_search_local_ms": 133270,
+      "report_path": "dev/logs/runs/2026-06-09T20-25-09-report.json",
+      "baseline_wall_s": 401.6,
+      "wall_delta_pct": 14.0
+    },
+    {
+      "number": 10,
+      "yaml": "tool_coverage.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 646.5,
+      "stop_reason": "natural",
+      "report_path": "dev/logs/runs/2026-06-09T20-38-58-report.json",
+      "baseline_wall_s": 466.6,
+      "wall_delta_pct": 38.6
+    },
+    {
+      "number": 11,
+      "yaml": "verbatim_transcript.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 304.5,
+      "stop_reason": "natural",
+      "tool_call_counts": {"search_transcript": 4, "search_vault": 1},
+      "retrieval_llm_ms": 123186,
+      "unaccounted_ms": 37031,
+      "report_path": "dev/logs/runs/2026-06-09T20-55-28-report.json",
+      "baseline_wall_s": 135.8,
+      "baseline_stop_reason": "cap",
+      "baseline_substantive_pass": false,
+      "wall_delta_pct": 124.2,
+      "note": "slower but usable answer; baseline DSML leak at cap"
+    }
+  ]
+}

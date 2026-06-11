@@ -1,0 +1,245 @@
+{
+  "passed": false,
+  "scenarios": [
+    {
+      "name": "Librarian thematic cross-episode",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/thematic_cross_episode.yaml",
+      "passed": false,
+      "elapsed_s": 1874.5930123329745,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'What did I note about Rockefeller and competition across episodes?'",
+          "passed": false,
+          "message": "expected tool 'search_vault', got ['search_vault_many', None, None, None]; tools called: ['search_vault_many']",
+          "elapsed_s": 111.60439312498784,
+          "tools_called": [
+            "search_vault_many"
+          ],
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 4498,
+            "retrieval_llm_ms": 166845,
+            "searches": [
+              {
+                "query": "Rockefeller view on competition rivals business philosophy",
+                "vault_search_local_ms": 3149,
+                "retrieval_llm_ms": 17826
+              },
+              {
+                "query": "Rockefeller competitive tactics monopoly Standard Oil",
+                "vault_search_local_ms": 525,
+                "retrieval_llm_ms": 69907
+              },
+              {
+                "query": "Rockefeller competition strategy South Improvement Company",
+                "vault_search_local_ms": 824,
+                "retrieval_llm_ms": 79112
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 704,
+                "total_ms": 1816,
+                "completion_tokens": 98,
+                "tok_per_sec": 88.1
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 4735,
+                "total_ms": 21111,
+                "completion_tokens": 991,
+                "tok_per_sec": 60.5
+              }
+            ],
+            "agent_ttft_ms_mean": 2720,
+            "generation_tok_per_sec_mean": 74.3
+          },
+          "timing_summary": "vault=4498ms retrieval_llm=166845ms ttft=2720ms tok/s=74.3"
+        },
+        {
+          "index": 2,
+          "action": "send 'How do founders think about compounding and long-term reputation?'",
+          "passed": false,
+          "message": "expected tool 'search_vault', got ['search_vault_many', None, None, None]; tools called: ['search_vault_many']",
+          "elapsed_s": 285.4434379169834,
+          "tools_called": [
+            "search_vault_many"
+          ],
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 9313,
+            "retrieval_llm_ms": 421731,
+            "searches": [
+              {
+                "query": "reputation compounding over decades",
+                "vault_search_local_ms": 1906,
+                "retrieval_llm_ms": 29894
+              },
+              {
+                "query": "short-term vs long-term tradeoffs",
+                "vault_search_local_ms": 1566,
+                "retrieval_llm_ms": 48394
+              },
+              {
+                "query": "compounding and long-term thinking",
+                "vault_search_local_ms": 634,
+                "retrieval_llm_ms": 53606
+              },
+              {
+                "query": "compounding as business strategy",
+                "vault_search_local_ms": 884,
+                "retrieval_llm_ms": 59116
+              },
+              {
+                "query": "long-term reputation and trust",
+                "vault_search_local_ms": 4323,
+                "retrieval_llm_ms": 230721
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 2397,
+                "total_ms": 3553,
+                "completion_tokens": 200,
+                "tok_per_sec": 173.0
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 13249,
+                "total_ms": 41902,
+                "completion_tokens": 1815,
+                "tok_per_sec": 63.3
+              }
+            ],
+            "agent_ttft_ms_mean": 7823,
+            "generation_tok_per_sec_mean": 118.2
+          },
+          "timing_summary": "vault=9313ms retrieval_llm=421731ms ttft=7823ms tok/s=118.2"
+        },
+        {
+          "index": 3,
+          "action": "send 'What mental models show up around inversion and avoiding stupidity?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 1477.544890374993,
+          "tools_called": [
+            "search_vault_many",
+            "search_vault",
+            "search_vault",
+            "search_vault",
+            "search_vault",
+            "search_vault",
+            "search_vault",
+            "search_vault",
+            "search_vault"
+          ],
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 39463,
+            "retrieval_llm_ms": 582042,
+            "searches": [
+              {
+                "query": "inversion mental model invert always invert",
+                "vault_search_local_ms": 2483,
+                "retrieval_llm_ms": 0
+              },
+              {
+                "query": "avoiding stupidity rather than seeking brilliance",
+                "vault_search_local_ms": 874,
+                "retrieval_llm_ms": 66658
+              },
+              {
+                "query": "negative thinking avoid ruin error prevention",
+                "vault_search_local_ms": 21198,
+                "retrieval_llm_ms": 74421
+              },
+              {
+                "query": "invert always invert Jacobi Munger inversion thinking",
+                "vault_search_local_ms": 623,
+                "retrieval_llm_ms": 79447
+              },
+              {
+                "query": "Charlie Munger collecting stupidities what not to do",
+                "vault_search_local_ms": 5485,
+                "retrieval_llm_ms": 57488
+              },
+              {
+                "query": "Spitznagel safe haven strategy survive not maximize",
+                "vault_search_local_ms": 1526,
+                "retrieval_llm_ms": 50188
+              },
+              {
+                "query": "Dalio fail well not knocked out survive mistakes",
+                "vault_search_local_ms": 786,
+                "retrieval_llm_ms": 61789
+              },
+              {
+                "query": "permanent loss of capital avoid ruin Buffett first rule",
+                "vault_search_local_ms": 1947,
+                "retrieval_llm_ms": 168245
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 2342,
+                "total_ms": 3283,
+                "completion_tokens": 162,
+                "tok_per_sec": 172.2
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 662,
+                "total_ms": 2302,
+                "completion_tokens": 177,
+                "tok_per_sec": 107.9
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 1008,
+                "total_ms": 2025,
+                "completion_tokens": 78,
+                "tok_per_sec": 76.7
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 621,
+                "total_ms": 2076,
+                "completion_tokens": 148,
+                "tok_per_sec": 101.7
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 1553,
+                "total_ms": 2848,
+                "completion_tokens": 143,
+                "tok_per_sec": 110.4
+              },
+              {
+                "label": "agent_round_6",
+                "ttft_ms": 16991,
+                "total_ms": 21421,
+                "completion_tokens": 1006,
+                "tok_per_sec": 227.1
+              },
+              {
+                "label": "agent_round_7_cap",
+                "ttft_ms": 17882,
+                "total_ms": 58416,
+                "completion_tokens": 2477,
+                "tok_per_sec": 61.1
+              }
+            ],
+            "agent_ttft_ms_mean": 5866,
+            "generation_tok_per_sec_mean": 122.4
+          },
+          "timing_summary": "vault=39463ms retrieval_llm=582042ms ttft=5866ms tok/s=122.4"
+        }
+      ]
+    }
+  ]
+}

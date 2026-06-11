@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "scenarios": [
+    {
+      "name": "Librarian basic Q&A",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/basic_qa.yaml",
+      "passed": true,
+      "elapsed_s": 126.09344949998194,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/start'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0389986670052167,
+          "tools_called": []
+        },
+        {
+          "index": 2,
+          "action": "send \"What was Carnegie's key insight about steel?\"",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 126.05367195798317,
+          "tools_called": [
+            "search_vault",
+            "search_transcript"
+          ],
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 1601,
+            "retrieval_llm_ms": 73201,
+            "searches": [
+              {
+                "query": "Carnegie key insight steel",
+                "vault_search_local_ms": 1566,
+                "retrieval_llm_ms": 73201
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 479,
+                "total_ms": 1208,
+                "completion_tokens": 104,
+                "tok_per_sec": 142.7
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 21325,
+                "total_ms": 35464,
+                "completion_tokens": 1078,
+                "tok_per_sec": 76.2
+              }
+            ],
+            "agent_ttft_ms_mean": 10902,
+            "generation_tok_per_sec_mean": 109.4
+          },
+          "timing_summary": "vault=1601ms retrieval_llm=73201ms ttft=10902ms tok/s=109.4"
+        },
+        {
+          "index": 3,
+          "action": "send '/clear'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0005775829777121544,
+          "tools_called": []
+        }
+      ]
+    }
+  ]
+}

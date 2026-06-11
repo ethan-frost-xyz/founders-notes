@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "scenarios": [
+    {
+      "name": "Librarian multi-hop theme",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/multi_hop.yaml",
+      "passed": true,
+      "elapsed_s": 326.0398199580086,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'How do founders in the vault think about compounding wealth and long-term reputation together?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 326.0396271670179,
+          "tools_called": [
+            "search_vault_many",
+            "search_vault"
+          ],
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 4082,
+            "retrieval_llm_ms": 271071,
+            "searches": [
+              {
+                "query": "reputation long-term brand trust integrity tradeoffs",
+                "vault_search_local_ms": 592,
+                "retrieval_llm_ms": 12410
+              },
+              {
+                "query": "wealth versus reputation tradeoffs legacy compounding",
+                "vault_search_local_ms": 1050,
+                "retrieval_llm_ms": 0
+              },
+              {
+                "query": "compounding wealth long-term thinking capital accumulation",
+                "vault_search_local_ms": 1686,
+                "retrieval_llm_ms": 87938
+              },
+              {
+                "query": "sacrifice short-term profits for long-term reputation trust capital",
+                "vault_search_local_ms": 754,
+                "retrieval_llm_ms": 170723
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 2016,
+                "total_ms": 3038,
+                "completion_tokens": 165,
+                "tok_per_sec": 161.4
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 12811,
+                "total_ms": 13958,
+                "completion_tokens": 662,
+                "tok_per_sec": 577.2
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 10883,
+                "total_ms": 35537,
+                "completion_tokens": 1489,
+                "tok_per_sec": 60.4
+              }
+            ],
+            "agent_ttft_ms_mean": 8570,
+            "generation_tok_per_sec_mean": 266.3
+          },
+          "timing_summary": "vault=4082ms retrieval_llm=271071ms ttft=8570ms tok/s=266.3"
+        }
+      ]
+    }
+  ]
+}

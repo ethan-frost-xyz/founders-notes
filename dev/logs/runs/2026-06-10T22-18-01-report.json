@@ -1,0 +1,170 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-10T22:18:01",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian multi-hop theme",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/multi_hop.yaml",
+      "passed": true,
+      "elapsed_s": 124.32882791600423,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'How do founders in the vault think about compounding wealth and long-term reputation together?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 124.32857491698815,
+          "tools_called": [
+            "search_vault_many"
+          ],
+          "response_text": "The vault reveals a remarkably consistent view across founders: **wealth and reputation aren't two things to balance \u2014 reputation is the mechanism through which wealth actually compounds.** You don't get one at the expense of the other over the long run; you get wealth *because of* reputation, or you don't get it at all.\n\n---\n\n### Reputation is the real capital\n\nJohn D. Rockefeller puts it most directly: \"There is no mystery in business success. The great industrial leaders have told again and again the plan and obvious fact that there can be no permanent success without fair dealing that leads to **widespread confidence in the man himself, and that is the real capital we all prize and work for.**\" [ep-0148] Notice he doesn't call reputation a supplement to capital \u2014 he says it *is* the capital.\n\nPeter Cundill arrives at the same conclusion from the other direction, watching his boss risk the firm on speculative real estate: \"**Reputation and credibility are actually all we have to sell.**\" [ep-0160] When you're in any trust-based business, your name compounds every deal you'll ever do.\n\nCharlie Munger and Jeff Bezos both hammer a deceptively simple line: **\"reputation is persuasive.\"** [ep-0090, ep-0071] Munger repeats the idea obsessively because it's non-obvious \u2014 we think logic wins arguments, but reputation fills the gaps where human memory fails. Bezos applies this to Amazon: keeping the customer first builds a reputation so powerful it becomes a competitive moat.\n\n---\n\n### The indirect route: you need reputation to survive the waiting\n\nThis is where the two concepts fuse. Mark Spitznagel's entire thesis in *The Dao of Capital* is that enormous returns come only through the **indirect route**: \"The entrepreneur who **foresees a profit opportunity in the distant future, and who patiently reinvests earnings into his business year after year** in anticipation, has a much greater opportunity for eventually posting an enormous return than entrepreneurs who are engaged in short\u2011term projects.\" [ep-0070]\n\nBut here's the hidden dependency: you cannot patiently reinvest year after year if you don't have the trust of your creditors, customers, and partners. Henry Ford could endure years of low returns building the River Rouge plant because his reputation bought him patience [ep-0070]. Sam Bronfman, when a desperate Hudson's Bay executive needed 2,000 cases of liquor immediately, refused to price-gouge: \"I don't want your money, he said. Just let me have the same amount back as soon as you can.\" The note on this moment: it would have been \"**foolish to capitalize on his momentary advantage**\" [ep-0116]. Bronfman understood that one short-term win would destroy the relationship that made long-term compounding possible.\n\n---\n\n### The quiet force: don't interrupt the compounding\n\nCharles Schulz provides perhaps the cleanest illustration. Peanuts went from 7 newspapers to 2,000 over 34 years \u2014 not through any single breakthrough, but through the refusal to quit. The lesson: \"**don't interrupt the compounding.**\" [ep-0154] This is the same structure as Klipp's Paradox \u2014 \"love to lose money, hate to make money\" \u2014 accepting small daily losses while waiting years for the explosive payoff [ep-0070]. But Schulz's version is reputation-compounding too: readers built trust in that strip over decades, and that trust was non-fungible.\n\n---\n\n### The counterexample proves the rule\n\nGeorge Westinghouse stood as \"a notable exception\" in an era when industrialists were seen as robber barons \u2014 he was \"an honest industrious who sold the best product for the best price, who relish competition and valued his workers, and who **deserved his hard\u2011earned fortune.**\" [ep-0083] The word \"deserved\" matters. The public didn't resent his wealth *because* his reputation justified it. That's not a tradeoff \u2014 it's the whole game.\n\n---\n\n**The synthesis:** These founders treat reputation as the substrate that makes compounding possible. You can get rich fast without it (plenty of people do), but you can't compound wealth over decades without trust. The \"indirect route\" \u2014 the patient reinvestment, the delayed gratification, the refusal to exploit momentary advantage \u2014 requires other people to believe you'll be good for it years from now. Reputation is what buys you that runway. They don't think about \"balancing\" wealth and reputation any more than a farmer thinks about \"balancing\" soil quality and crop yield.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "compounding wealth long-term perspective",
+                  "reputation as compound interest",
+                  "long-term reputation building",
+                  "wealth and reputation tradeoffs",
+                  "delayed gratification compounding",
+                  "integrity reputation long game"
+                ]
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "compounding wealth long-term perspective",
+                "reputation as compound interest",
+                "long-term reputation building",
+                "wealth and reputation tradeoffs",
+                "delayed gratification compounding",
+                "integrity reputation long game"
+              ],
+              "episode_ids": [
+                "ep-0008",
+                "ep-0031",
+                "ep-0060",
+                "ep-0070",
+                "ep-0071",
+                "ep-0083",
+                "ep-0090",
+                "ep-0111",
+                "ep-0115",
+                "ep-0116",
+                "ep-0143",
+                "ep-0148",
+                "ep-0149",
+                "ep-0154",
+                "ep-0160",
+                "ep-0182"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.0,
+                8.5
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "The vault reveals a remarkably consistent view across founders: **wealth and reputation aren't two things to balance \u2014 reputation is the mechanism through which wealth actually compounds.** You don't get one at the expense of the other over the long run; you get wealth *because of* reputation, or you don't get it at all.\n\n---\n\n### Reputation is the real capital\n\nJohn D. Rockefeller puts it most directly: \"There is no mystery in business success. The great industrial leaders have told again and again the plan and obvious fact that there can be no permanent success without fair dealing that leads to **widespread confidence in the man himself, and that is the real capital we all prize and work for.**\" [ep-0148] Notice he doesn't call reputation a supplement to capital \u2014 he says it *is* the capital.\n\nPeter Cundill arrives at the same conclusion from the other direction, watching his boss risk the firm on speculative real estate: \"**Reputation and credibility are actually all we have to sell.**\" [ep-0160] When you're in any trust-based business, your name compounds every deal you'll ever do.\n\nCharlie Munger and Jeff Bezos both hammer a deceptively simple line: **\"reputation is persuasive.\"** [ep-0090, ep-0071] Munger repeats the idea obsessively because it's non-obvious \u2014 we think logic wins arguments, but reputation fills the gaps where human memory fails. Bezos applies this to Amazon: keeping the customer first builds a reputation so powerful it becomes a competitive moat.\n\n---\n\n### The indirect route: you need reputation to survive the waiting\n\nThis is where the two concepts fuse. Mark Spitznagel's entire thesis in *The Dao of Capital* is that enormous returns come only through the **indirect route**: \"The entrepreneur who **foresees a profit opportunity in the distant future, and who patiently reinvests earnings into his business year after year** in anticipation, has a much greater opportunity for eventually posting an enormous return than entrepreneurs who are engaged in short\u2011term projects.\" [ep-0070]\n\nBut here's the hidden dependency: you cannot patiently reinvest year after year if you don't have the trust of your creditors, customers, and partners. Henry Ford could endure years of low returns building the River Rouge plant because his reputation bought him patience [ep-0070]. Sam Bronfman, when a desperate Hudson's Bay executive needed 2,000 cases of liquor immediately, refused to price-gouge: \"I don't want your money, he said. Just let me have the same amount back as soon as you can.\" The note on this moment: it would have been \"**foolish to capitalize on his momentary advantage**\" [ep-0116]. Bronfman understood that one short-term win would destroy the relationship that made long-term compounding possible.\n\n---\n\n### The quiet force: don't interrupt the compounding\n\nCharles Schulz provides perhaps the cleanest illustration. Peanuts went from 7 newspapers to 2,000 over 34 years \u2014 not through any single breakthrough, but through the refusal to quit. The lesson: \"**don't interrupt the compounding.**\" [ep-0154] This is the same structure as Klipp's Paradox \u2014 \"love to lose money, hate to make money\" \u2014 accepting small daily losses while waiting years for the explosive payoff [ep-0070]. But Schulz's version is reputation-compounding too: readers built trust in that strip over decades, and that trust was non-fungible.\n\n---\n\n### The counterexample proves the rule\n\nGeorge Westinghouse stood as \"a notable exception\" in an era when industrialists were seen as robber barons \u2014 he was \"an honest industrious who sold the best product for the best price, who relish competition and valued his workers, and who **deserved his hard\u2011earned fortune.**\" [ep-0083] The word \"deserved\" matters. The public didn't resent his wealth *because* his reputation justified it. That's not a tradeoff \u2014 it's the whole game.\n\n---\n\n**The synthesis:** These founders treat reputation as the substrate that makes compounding possible. You can get rich fast without it (plenty of people do), but you can't compound wealth over decades without trust. The \"indirect route\" \u2014 the patient reinvestment, the delayed gratification, the refusal to exploit momentary advantage \u2014 requires other people to believe you'll be good for it years from now. Reputation is what buys you that runway. They don't think about \"balancing\" wealth and reputation any more than a farmer thinks about \"balancing\" soil quality and crop yield."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault_many": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault_many\n  queries: compounding wealth long-term perspective; reputation as compound interest; long-term reputation building (+3 more)\n  episodes: ep-0008, ep-0031, ep-0060, ep-0070, ep-0071, ep-0083, ep-0090, ep-0111, ep-0115, ep-0116, ep-0143, ep-0148, ep-0149, ep-0154, ep-0160, ep-0182 top_scores=[9.5, 9.0, 8.5]\nround 2: (answer)\n  reasoning: The vault reveals a remarkably consistent view across founders: **wealth and reputation aren't two things to balance \u2014 reputation is the mechanism through which wealth actually compounds.** You don't ",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 3608,
+            "retrieval_llm_ms": 328105,
+            "searches": [
+              {
+                "query": "compounding wealth long-term perspective",
+                "vault_search_local_ms": 401,
+                "retrieval_llm_ms": 15267,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "delayed gratification compounding",
+                "vault_search_local_ms": 775,
+                "retrieval_llm_ms": 57207,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "long-term reputation building",
+                "vault_search_local_ms": 870,
+                "retrieval_llm_ms": 57229,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "integrity reputation long game",
+                "vault_search_local_ms": 444,
+                "retrieval_llm_ms": 60535,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "wealth and reputation tradeoffs",
+                "vault_search_local_ms": 681,
+                "retrieval_llm_ms": 63769,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "reputation as compound interest",
+                "vault_search_local_ms": 437,
+                "retrieval_llm_ms": 74098,
+                "tool": "search_vault_many"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 2227,
+                "total_ms": 4519,
+                "completion_tokens": 158,
+                "tok_per_sec": 68.9
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 13382,
+                "total_ms": 36733,
+                "completion_tokens": 1412,
+                "tok_per_sec": 60.5
+              }
+            ],
+            "agent_ttft_ms_mean": 7804,
+            "generation_tok_per_sec_mean": 64.7,
+            "stop_reason": "natural",
+            "agent_steps": 2
+          },
+          "timing_summary": "vault=3608ms retrieval_llm=328105ms ttft=7804ms tok/s=64.7",
+          "timing_accountability": {
+            "wall_ms": 124329,
+            "accounted_ms": 372965,
+            "unaccounted_ms": 0,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 3608,
+              "retrieval_llm_ms": 328105,
+              "openrouter_total_ms": 41252
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

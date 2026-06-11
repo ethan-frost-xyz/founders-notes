@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "scenarios": [
+    {
+      "name": "Librarian multi-founder comparison",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/multi_founder_comparison.yaml",
+      "passed": true,
+      "elapsed_s": 548.315345540992,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'How did Edison and Rockefeller differ in how they built teams?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 548.315131292009,
+          "tools_called": [
+            "search_vault_many",
+            "search_vault",
+            "search_transcript",
+            "search_transcript",
+            "load_episode",
+            "load_episode",
+            "search_vault",
+            "search_vault",
+            "search_transcript",
+            "search_transcript"
+          ],
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 8281,
+            "retrieval_llm_ms": 117474,
+            "searches": [
+              {
+                "query": "Rockefeller team building management style how he built teams",
+                "vault_search_local_ms": 1331,
+                "retrieval_llm_ms": 0
+              },
+              {
+                "query": "Edison team building management style how he built teams",
+                "vault_search_local_ms": 570,
+                "retrieval_llm_ms": 87821
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1208,
+                "total_ms": 2232,
+                "completion_tokens": 131,
+                "tok_per_sec": 127.9
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 3861,
+                "total_ms": 7669,
+                "completion_tokens": 202,
+                "tok_per_sec": 53.0
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 2086,
+                "total_ms": 3344,
+                "completion_tokens": 197,
+                "tok_per_sec": 156.6
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 1974,
+                "total_ms": 5981,
+                "completion_tokens": 201,
+                "tok_per_sec": 50.2
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 2160,
+                "total_ms": 4162,
+                "completion_tokens": 207,
+                "tok_per_sec": 103.4
+              },
+              {
+                "label": "agent_round_6",
+                "ttft_ms": 21822,
+                "total_ms": 43498,
+                "completion_tokens": 1472,
+                "tok_per_sec": 67.9
+              }
+            ],
+            "agent_ttft_ms_mean": 5518,
+            "generation_tok_per_sec_mean": 93.2
+          },
+          "timing_summary": "vault=8281ms retrieval_llm=117474ms ttft=5518ms tok/s=93.2"
+        }
+      ]
+    }
+  ]
+}

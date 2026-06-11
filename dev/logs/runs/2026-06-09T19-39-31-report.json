@@ -1,0 +1,485 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-09T19:39:31",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian multi-turn session",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/multi_turn.yaml",
+      "passed": true,
+      "elapsed_s": 620.406092167017,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/start'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.03695529204560444,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 2,
+          "action": "send 'Who founded Nike?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 56.487334417004604,
+          "tools_called": [
+            "search_vault"
+          ],
+          "response_text": "Nike was founded by **Phil Knight** \u2014 though the full story has a co-founder.\n\nKnight started the company in 1964 as **Blue Ribbon Sports**, initially importing Japanese running shoes from Onitsuka Tiger, selling them out of the trunk of his car [ep-0010]. His former University of Oregon track coach, **Bill Bowerman**, was his co-founder. Bowerman brought the engineering obsession \u2014 he was maniacally focused on reducing shoe weight, believing \"lightness was his constant goal\" because fewer ounces meant more speed [ep-0010]. Together they built what became Nike, officially renamed in 1971.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Nike founder Phil Knight"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault"
+              ],
+              "queries": [
+                "Nike founder Phil Knight"
+              ],
+              "episode_ids": [
+                "ep-0010",
+                "ep-0153"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.0,
+                8.5
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "Nike was founded by **Phil Knight** \u2014 though the full story has a co-founder.\n\nKnight started the company in 1964 as **Blue Ribbon Sports**, initially importing Japanese running shoes from Onitsuka Tiger, selling them out of the trunk of his car [ep-0010]. His former University of Oregon track coach, **Bill Bowerman**, was his co-founder. Bowerman brought the engineering obsession \u2014 he was maniacally focused on reducing shoe weight, believing \"lightness was his constant goal\" because fewer ounces meant more speed [ep-0010]. Together they built what became Nike, officially renamed in 1971."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault\n  queries: Nike founder Phil Knight\n  episodes: ep-0010, ep-0153 top_scores=[9.5, 9.0, 8.5]\nround 2: (answer)\n  reasoning: Nike was founded by **Phil Knight** \u2014 though the full story has a co-founder.\n\nKnight started the company in 1964 as **Blue Ribbon Sports**, initially importing Japanese running shoes from Onitsuka Ti",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 1132,
+            "retrieval_llm_ms": 40700,
+            "searches": [
+              {
+                "query": "Nike founder Phil Knight",
+                "vault_search_local_ms": 1132,
+                "retrieval_llm_ms": 40700,
+                "tool": "search_vault"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 552,
+                "total_ms": 1260,
+                "completion_tokens": 77,
+                "tok_per_sec": 108.8
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 746,
+                "total_ms": 3434,
+                "completion_tokens": 223,
+                "tok_per_sec": 83.0
+              }
+            ],
+            "agent_ttft_ms_mean": 649,
+            "generation_tok_per_sec_mean": 95.9,
+            "stop_reason": "natural",
+            "agent_steps": 2
+          },
+          "timing_summary": "vault=1132ms retrieval_llm=40700ms ttft=649ms tok/s=95.9",
+          "timing_accountability": {
+            "wall_ms": 56487,
+            "accounted_ms": 46526,
+            "unaccounted_ms": 9961,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 1132,
+              "retrieval_llm_ms": 40700,
+              "openrouter_total_ms": 4694
+            }
+          }
+        },
+        {
+          "index": 3,
+          "action": "send 'What book did he rely on?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 563.8594705830328,
+          "tools_called": [
+            "search_vault",
+            "search_vault",
+            "load_episode",
+            "search_vault",
+            "search_transcript",
+            "search_vault_many",
+            "search_transcript"
+          ],
+          "response_text": "<\uff5c\uff5cDSML\uff5c\uff5ctool_calls>\n<\uff5c\uff5cDSML\uff5c\uff5cinvoke name=\"search_transcript\">\n<\uff5c\uff5cDSML\uff5c\uff5cparameter name=\"query\" string=\"true\">Phil Knight relied on book read to start</\uff5c\uff5cDSML\uff5c\uff5cparameter>\n</\uff5c\uff5cDSML\uff5c\uff5cinvoke>\n</\uff5c\uff5cDSML\uff5c\uff5ctool_calls>",
+          "stop_reason": "cap",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Phil Knight relied on book reading influenced by"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Phil Knight book he read relied on"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0010"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Phil Knight favorite book that influenced him"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Phil Knight book"
+              }
+            },
+            {
+              "step": 5,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "Phil Knight relied on book to start Nike importing",
+                  "Phil Knight book he read that taught him business",
+                  "Shoe Dog book that inspired Phil Knight"
+                ]
+              }
+            },
+            {
+              "step": 6,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Knight read book"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault"
+              ],
+              "queries": [
+                "Phil Knight relied on book reading influenced by"
+              ],
+              "episode_ids": [],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_vault"
+              ],
+              "queries": [
+                "Phil Knight book he read relied on"
+              ],
+              "episode_ids": [
+                "ep-0003",
+                "ep-0004",
+                "ep-0006",
+                "ep-0009",
+                "ep-0010"
+              ],
+              "rerank_scores_top3": [
+                2.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "round": 3,
+              "tools": [
+                "load_episode"
+              ],
+              "queries": [
+                "ep-0010"
+              ],
+              "episode_ids": [],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 4,
+              "tools": [
+                "search_vault",
+                "search_transcript"
+              ],
+              "queries": [
+                "Phil Knight favorite book that influenced him",
+                "Phil Knight book"
+              ],
+              "episode_ids": [
+                "ep-0003",
+                "ep-0006",
+                "ep-0007",
+                "ep-0009",
+                "ep-0010",
+                "ep-0022",
+                "ep-0028",
+                "ep-0044",
+                "ep-0053",
+                "ep-0063"
+              ],
+              "rerank_scores_top3": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "round": 5,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "Phil Knight relied on book to start Nike importing",
+                "Phil Knight book he read that taught him business",
+                "Shoe Dog book that inspired Phil Knight"
+              ],
+              "episode_ids": [
+                "ep-0002",
+                "ep-0010",
+                "ep-0032",
+                "ep-0060",
+                "ep-0086",
+                "ep-0188"
+              ],
+              "rerank_scores_top3": [
+                8.5,
+                2.0,
+                2.0
+              ]
+            },
+            {
+              "round": 6,
+              "tools": [
+                "search_transcript"
+              ],
+              "queries": [
+                "Knight read book"
+              ],
+              "episode_ids": [
+                "ep-0009",
+                "ep-0010",
+                "ep-0022",
+                "ep-0028",
+                "ep-0053",
+                "ep-0063",
+                "ep-0109",
+                "ep-0153"
+              ],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 7,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "cap",
+              "reasoning": "<\uff5c\uff5cDSML\uff5c\uff5ctool_calls>\n<\uff5c\uff5cDSML\uff5c\uff5cinvoke name=\"search_transcript\">\n<\uff5c\uff5cDSML\uff5c\uff5cparameter name=\"query\" string=\"true\">Phil Knight relied on book read to start</\uff5c\uff5cDSML\uff5c\uff5cparameter>\n</\uff5c\uff5cDSML\uff5c\uff5cinvoke>\n</\uff5c\uff5cDSML\uff5c\uff5ctool_calls>"
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 3,
+            "load_episode": 1,
+            "search_transcript": 2,
+            "search_vault_many": 1
+          },
+          "trace_summary": "stop: cap\n\nround 1: search_vault\n  queries: Phil Knight relied on book reading influenced by\nround 2: search_vault\n  queries: Phil Knight book he read relied on\n  episodes: ep-0003, ep-0004, ep-0006, ep-0009, ep-0010 top_scores=[2.0, 1.0, 1.0]\nround 3: load_episode\n  queries: ep-0010\nround 4: search_vault, search_transcript\n  queries: Phil Knight favorite book that influenced him; Phil Knight book\n  episodes: ep-0003, ep-0006, ep-0007, ep-0009, ep-0010, ep-0022, ep-0028, ep-0044, ep-0053, ep-0063 top_scores=[1.0, 0.0, 0.0]\nround 5: search_vault_many\n  queries: Phil Knight relied on book to start Nike importing; Phil Knight book he read that taught him business; Shoe Dog book that inspired Phil Knight\n  episodes: ep-0002, ep-0010, ep-0032, ep-0060, ep-0086, ep-0188 top_scores=[8.5, 2.0, 2.0]\nround 6: search_transcript\n  queries: Knight read book\n  episodes: ep-0009, ep-0010, ep-0022, ep-0028, ep-0053, ep-0063, ep-0109, ep-0153\nround 7: (answer)\n  reasoning: <\uff5c\uff5cDSML\uff5c\uff5ctool_calls>\n<\uff5c\uff5cDSML\uff5c\uff5cinvoke name=\"search_transcript\">\n<\uff5c\uff5cDSML\uff5c\uff5cparameter name=\"query\" string=\"true\">Phil Knight relied on book read to start</\uff5c\uff5cDSML\uff5c\uff5cparameter>\n</\uff5c\uff5cDSML\uff5c\uff5cinvoke>\n</\uff5c\uff5cDSML\uff5c\uff5cto",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 3849,
+            "retrieval_llm_ms": 544561,
+            "searches": [
+              {
+                "query": "Phil Knight relied on book reading influenced by",
+                "vault_search_local_ms": 776,
+                "retrieval_llm_ms": 12446,
+                "tool": "search_vault",
+                "error": true
+              },
+              {
+                "query": "Phil Knight book he read relied on",
+                "vault_search_local_ms": 880,
+                "retrieval_llm_ms": 175681,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Phil Knight favorite book that influenced him",
+                "vault_search_local_ms": 730,
+                "retrieval_llm_ms": 174978,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Phil Knight book",
+                "vault_search_local_ms": 40,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Phil Knight relied on book to start Nike importing",
+                "vault_search_local_ms": 328,
+                "retrieval_llm_ms": 0,
+                "tool": "search_vault_many",
+                "error": true
+              },
+              {
+                "query": "Shoe Dog book that inspired Phil Knight",
+                "vault_search_local_ms": 423,
+                "retrieval_llm_ms": 55708,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Phil Knight book he read that taught him business",
+                "vault_search_local_ms": 631,
+                "retrieval_llm_ms": 125748,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Knight read book",
+                "vault_search_local_ms": 41,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 783,
+                "total_ms": 1109,
+                "completion_tokens": 84,
+                "tok_per_sec": 257.7
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 435,
+                "total_ms": 774,
+                "completion_tokens": 63,
+                "tok_per_sec": 185.8
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 709,
+                "total_ms": 1650,
+                "completion_tokens": 107,
+                "tok_per_sec": 113.7
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 1659,
+                "total_ms": 3008,
+                "completion_tokens": 175,
+                "tok_per_sec": 129.7
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 4576,
+                "total_ms": 6513,
+                "completion_tokens": 366,
+                "tok_per_sec": 189.0
+              },
+              {
+                "label": "agent_round_6",
+                "ttft_ms": 1260,
+                "total_ms": 1649,
+                "completion_tokens": 150,
+                "tok_per_sec": 385.6
+              },
+              {
+                "label": "agent_round_7_cap",
+                "ttft_ms": 2261,
+                "total_ms": 2902,
+                "completion_tokens": 197,
+                "tok_per_sec": 307.3
+              }
+            ],
+            "agent_ttft_ms_mean": 1669,
+            "generation_tok_per_sec_mean": 224.1,
+            "stop_reason": "cap",
+            "agent_steps": 7
+          },
+          "timing_summary": "vault=3849ms retrieval_llm=544561ms ttft=1669ms tok/s=224.1",
+          "timing_accountability": {
+            "wall_ms": 563859,
+            "accounted_ms": 566015,
+            "unaccounted_ms": 0,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 3849,
+              "retrieval_llm_ms": 544561,
+              "openrouter_total_ms": 17605
+            }
+          }
+        },
+        {
+          "index": 4,
+          "action": "send '/newchat'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.003735832986421883,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 5,
+          "action": "send '/resume'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.017859584011603147,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        }
+      ]
+    }
+  ]
+}

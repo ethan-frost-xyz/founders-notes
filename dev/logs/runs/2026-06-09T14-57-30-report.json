@@ -1,0 +1,100 @@
+{
+  "passed": true,
+  "scenarios": [
+    {
+      "name": "Librarian thin evidence probe",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/thin_evidence_probe.yaml",
+      "passed": true,
+      "elapsed_s": 360.9693437500391,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'What did I note about how Satya Nadella approached acquisitions at Microsoft?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 360.969151834026,
+          "tools_called": [
+            "search_vault",
+            "search_vault",
+            "list_episode_ids",
+            "search_vault",
+            "search_transcript",
+            "search_vault"
+          ],
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 4075,
+            "retrieval_llm_ms": 224781,
+            "searches": [
+              {
+                "query": "Nadella Microsoft M&A strategy LinkedIn GitHub",
+                "vault_search_local_ms": 1099,
+                "retrieval_llm_ms": 88709
+              },
+              {
+                "query": "Microsoft culture transformation Nadella empathy growth mindset",
+                "vault_search_local_ms": 929,
+                "retrieval_llm_ms": 119184
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1056,
+                "total_ms": 1426,
+                "completion_tokens": 76,
+                "tok_per_sec": 205.4
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 996,
+                "total_ms": 1522,
+                "completion_tokens": 88,
+                "tok_per_sec": 167.3
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 551,
+                "total_ms": 1302,
+                "completion_tokens": 80,
+                "tok_per_sec": 106.5
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 2124,
+                "total_ms": 2763,
+                "completion_tokens": 130,
+                "tok_per_sec": 203.4
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 1650,
+                "total_ms": 2307,
+                "completion_tokens": 109,
+                "tok_per_sec": 165.9
+              },
+              {
+                "label": "agent_round_6",
+                "ttft_ms": 1212,
+                "total_ms": 1857,
+                "completion_tokens": 89,
+                "tok_per_sec": 138.0
+              },
+              {
+                "label": "agent_round_7_cap",
+                "ttft_ms": 2277,
+                "total_ms": 3040,
+                "completion_tokens": 166,
+                "tok_per_sec": 217.6
+              }
+            ],
+            "agent_ttft_ms_mean": 1409,
+            "generation_tok_per_sec_mean": 172.0
+          },
+          "timing_summary": "vault=4075ms retrieval_llm=224781ms ttft=1409ms tok/s=172.0"
+        }
+      ]
+    }
+  ]
+}

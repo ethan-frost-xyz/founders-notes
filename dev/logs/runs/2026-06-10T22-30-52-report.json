@@ -1,0 +1,585 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-10T22:30:52",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian multi-turn session",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/multi_turn.yaml",
+      "passed": true,
+      "elapsed_s": 717.5813592500053,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send '/start'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.03735862503526732,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 2,
+          "action": "send 'Who founded Nike?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 27.778912125038914,
+          "tools_called": [
+            "list_episode_ids",
+            "load_episode",
+            "load_episode"
+          ],
+          "response_text": "Nike was founded by **Phil Knight** and **Bill Bowerman**.\n\nPhil Knight was the driving entrepreneurial force. He started the company as Blue Ribbon Sports in 1964, selling shoes out of the trunk of his car \u2014 something his father dismissively called \"jackassing around\" [ep-0010]. Knight's animating philosophy was that work itself should feel like play: \"If my life was to be all work and no play, I wanted my work to be play\" [ep-0010].\n\nBill Bowerman was Knight's former track coach at the University of Oregon and co-founder, serving as the obsessive product mind behind the shoes. His engineering philosophy was rooted in relentless marginal gains \u2014 he was famously obsessed with reducing shoe weight. As he put it, \"One ounce sliced off a pair of shoes is the equivalent to 55 pounds over one mile\" [ep-0010]. Bowerman was a first-principles thinker who rejected conventional wisdom in both coaching and design, and he's the one who famously created the original waffle sole by pouring rubber into his wife's waffle iron [ep-0153].\n\nThe partnership is classic: Knight brought the business vision and relentless salesmanship, Bowerman brought the coach's understanding of what athletes actually needed and the tinkerer's drive to build it. Knight sought a calling; Bowerman paid for his with nerve damage from years of inhaling rubber cement in an unventilated workshop, leaving him unable to run in the shoes he helped create [ep-0153].",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "list_episode_ids",
+              "arguments": {
+                "query": "Nike"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0010"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "load_episode",
+              "arguments": {
+                "episode_id": "ep-0153"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "list_episode_ids"
+              ],
+              "queries": [
+                "Nike"
+              ],
+              "episode_ids": [],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 2,
+              "tools": [
+                "load_episode",
+                "load_episode"
+              ],
+              "queries": [
+                "ep-0010",
+                "ep-0153"
+              ],
+              "episode_ids": [],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 3,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "Nike was founded by **Phil Knight** and **Bill Bowerman**.\n\nPhil Knight was the driving entrepreneurial force. He started the company as Blue Ribbon Sports in 1964, selling shoes out of the trunk of his car \u2014 something his father dismissively called \"jackassing around\" [ep-0010]. Knight's animating philosophy was that work itself should feel like play: \"If my life was to be all work and no play, I wanted my work to be play\" [ep-0010].\n\nBill Bowerman was Knight's former track coach at the University of Oregon and co-founder, serving as the obsessive product mind behind the shoes. His engineering philosophy was rooted in relentless marginal gains \u2014 he was famously obsessed with reducing shoe weight. As he put it, \"One ounce sliced off a pair of shoes is the equivalent to 55 pounds over one mile\" [ep-0010]. Bowerman was a first-principles thinker who rejected conventional wisdom in both coaching and design, and he's the one who famously created the original waffle sole by pouring rubber into his wife's waffle iron [ep-0153].\n\nThe partnership is classic: Knight brought the business vision and relentless salesmanship, Bowerman brought the coach's understanding of what athletes actually needed and the tinkerer's drive to build it. Knight sought a calling; Bowerman paid for his with nerve damage from years of inhaling rubber cement in an unventilated workshop, leaving him unable to run in the shoes he helped create [ep-0153]."
+            }
+          ],
+          "tool_call_counts": {
+            "list_episode_ids": 1,
+            "load_episode": 2
+          },
+          "trace_summary": "stop: natural\n\nround 1: list_episode_ids\n  queries: Nike\nround 2: load_episode, load_episode\n  queries: ep-0010; ep-0153\nround 3: (answer)\n  reasoning: Nike was founded by **Phil Knight** and **Bill Bowerman**.\n\nPhil Knight was the driving entrepreneurial force. He started the company as Blue Ribbon Sports in 1964, selling shoes out of the trunk of h",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 0,
+            "retrieval_llm_ms": 0,
+            "searches": [],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1866,
+                "total_ms": 2226,
+                "completion_tokens": 76,
+                "tok_per_sec": 211.1
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 2185,
+                "total_ms": 3663,
+                "completion_tokens": 164,
+                "tok_per_sec": 111.0
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 4644,
+                "total_ms": 12100,
+                "completion_tokens": 509,
+                "tok_per_sec": 68.3
+              }
+            ],
+            "agent_ttft_ms_mean": 2898,
+            "generation_tok_per_sec_mean": 130.1,
+            "stop_reason": "natural",
+            "agent_steps": 3
+          },
+          "timing_summary": "vault=0ms retrieval_llm=0ms ttft=2898ms tok/s=130.1",
+          "timing_accountability": {
+            "wall_ms": 27779,
+            "accounted_ms": 17989,
+            "unaccounted_ms": 9790,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 0,
+              "retrieval_llm_ms": 0,
+              "openrouter_total_ms": 17989
+            }
+          }
+        },
+        {
+          "index": 3,
+          "action": "send 'What book did he rely on?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 689.7392484170268,
+          "tools_called": [
+            "search_vault",
+            "search_vault",
+            "search_transcript",
+            "search_transcript",
+            "search_vault",
+            "search_transcript",
+            "search_vault",
+            "search_vault_many",
+            "search_transcript",
+            "search_transcript"
+          ],
+          "response_text": "I could not compose an answer from the retrieved evidence. Try a guest name, episode number, or a narrower theme.",
+          "stop_reason": "cap",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Phil Knight book he relied on"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Phil Knight book that influenced him before starting Nike"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "book he read before starting"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Phil Knight read book"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Phil Knight's favorite book or book that inspired him"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "bible book Sun Tzu Art of War"
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Knight carried book everywhere read repeatedly bible"
+              }
+            },
+            {
+              "step": 5,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "Phil Knight bore the book everywhere he went",
+                  "Knight memorized book quotes bible",
+                  "Nike founder book he read repeatedly Zen"
+                ]
+              }
+            },
+            {
+              "step": 6,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "General MacArthur"
+              }
+            },
+            {
+              "step": 6,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "book carried around copy worn"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault"
+              ],
+              "queries": [
+                "Phil Knight book he relied on"
+              ],
+              "episode_ids": [
+                "ep-0009",
+                "ep-0010",
+                "ep-0041"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.0,
+                9.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_vault",
+                "search_transcript"
+              ],
+              "queries": [
+                "Phil Knight book that influenced him before starting Nike",
+                "book he read before starting"
+              ],
+              "episode_ids": [
+                "ep-0003",
+                "ep-0010",
+                "ep-0018",
+                "ep-0027",
+                "ep-0028",
+                "ep-0032",
+                "ep-0033",
+                "ep-0042",
+                "ep-0051",
+                "ep-0070",
+                "ep-0109"
+              ],
+              "rerank_scores_top3": [
+                9.0,
+                8.5,
+                7.5
+              ]
+            },
+            {
+              "round": 3,
+              "tools": [
+                "search_transcript",
+                "search_vault"
+              ],
+              "queries": [
+                "Phil Knight read book",
+                "Phil Knight's favorite book or book that inspired him"
+              ],
+              "episode_ids": [
+                "ep-0009",
+                "ep-0010",
+                "ep-0022",
+                "ep-0028",
+                "ep-0053",
+                "ep-0063",
+                "ep-0070",
+                "ep-0109",
+                "ep-0153"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                8.0,
+                7.5
+              ]
+            },
+            {
+              "round": 4,
+              "tools": [
+                "search_transcript",
+                "search_vault"
+              ],
+              "queries": [
+                "bible book Sun Tzu Art of War",
+                "Knight carried book everywhere read repeatedly bible"
+              ],
+              "episode_ids": [
+                "ep-0002",
+                "ep-0003",
+                "ep-0010",
+                "ep-0011",
+                "ep-0018",
+                "ep-0028",
+                "ep-0034",
+                "ep-0044",
+                "ep-0053",
+                "ep-0063",
+                "ep-0077"
+              ],
+              "rerank_scores_top3": [
+                10.0,
+                5.0,
+                4.0
+              ]
+            },
+            {
+              "round": 5,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "Phil Knight bore the book everywhere he went",
+                "Knight memorized book quotes bible",
+                "Nike founder book he read repeatedly Zen"
+              ],
+              "episode_ids": [
+                "ep-0002",
+                "ep-0007",
+                "ep-0009",
+                "ep-0010",
+                "ep-0070"
+              ],
+              "rerank_scores_top3": [
+                1.5,
+                1.5,
+                0.5
+              ]
+            },
+            {
+              "round": 6,
+              "tools": [
+                "search_transcript",
+                "search_transcript"
+              ],
+              "queries": [
+                "General MacArthur",
+                "book carried around copy worn"
+              ],
+              "episode_ids": [
+                "ep-0001",
+                "ep-0003",
+                "ep-0004",
+                "ep-0005",
+                "ep-0006",
+                "ep-0010",
+                "ep-0011",
+                "ep-0034",
+                "ep-0062",
+                "ep-0082",
+                "ep-0083",
+                "ep-0088",
+                "ep-0096",
+                "ep-0167"
+              ],
+              "rerank_scores_top3": []
+            },
+            {
+              "round": 7,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "cap"
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 4,
+            "search_transcript": 5,
+            "search_vault_many": 1
+          },
+          "trace_summary": "stop: cap\n\nround 1: search_vault\n  queries: Phil Knight book he relied on\n  episodes: ep-0009, ep-0010, ep-0041 top_scores=[9.5, 9.0, 9.0]\nround 2: search_vault, search_transcript\n  queries: Phil Knight book that influenced him before starting Nike; book he read before starting\n  episodes: ep-0003, ep-0010, ep-0018, ep-0027, ep-0028, ep-0032, ep-0033, ep-0042, ep-0051, ep-0070, ep-0109 top_scores=[9.0, 8.5, 7.5]\nround 3: search_transcript, search_vault\n  queries: Phil Knight read book; Phil Knight's favorite book or book that inspired him\n  episodes: ep-0009, ep-0010, ep-0022, ep-0028, ep-0053, ep-0063, ep-0070, ep-0109, ep-0153 top_scores=[9.5, 8.0, 7.5]\nround 4: search_transcript, search_vault\n  queries: bible book Sun Tzu Art of War; Knight carried book everywhere read repeatedly bible\n  episodes: ep-0002, ep-0003, ep-0010, ep-0011, ep-0018, ep-0028, ep-0034, ep-0044, ep-0053, ep-0063, ep-0077 top_scores=[10.0, 5.0, 4.0]\nround 5: search_vault_many\n  queries: Phil Knight bore the book everywhere he went; Knight memorized book quotes bible; Nike founder book he read repeatedly Zen\n  episodes: ep-0002, ep-0007, ep-0009, ep-0010, ep-0070 top_scores=[1.5, 1.5, 0.5]\nround 6: search_transcript, search_transcript\n  queries: General MacArthur; book carried around copy worn\n  episodes: ep-0001, ep-0003, ep-0004, ep-0005, ep-0006, ep-0010, ep-0011, ep-0034, ep-0062, ep-0082, ep-0083, ep-0088, ep-0096, ep-0167\nround 7: (answer)",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 6471,
+            "retrieval_llm_ms": 841619,
+            "searches": [
+              {
+                "query": "Phil Knight book he relied on",
+                "vault_search_local_ms": 1087,
+                "retrieval_llm_ms": 104229,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Phil Knight book that influenced him before starting Nike",
+                "vault_search_local_ms": 674,
+                "retrieval_llm_ms": 125849,
+                "tool": "search_vault"
+              },
+              {
+                "query": "book he read before starting",
+                "vault_search_local_ms": 43,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Phil Knight read book",
+                "vault_search_local_ms": 45,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Phil Knight's favorite book or book that inspired him",
+                "vault_search_local_ms": 916,
+                "retrieval_llm_ms": 121478,
+                "tool": "search_vault"
+              },
+              {
+                "query": "bible book Sun Tzu Art of War",
+                "vault_search_local_ms": 57,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "Knight carried book everywhere read repeatedly bible",
+                "vault_search_local_ms": 911,
+                "retrieval_llm_ms": 72554,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Knight memorized book quotes bible",
+                "vault_search_local_ms": 1508,
+                "retrieval_llm_ms": 90350,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Phil Knight bore the book everywhere he went",
+                "vault_search_local_ms": 549,
+                "retrieval_llm_ms": 150950,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Nike founder book he read repeatedly Zen",
+                "vault_search_local_ms": 620,
+                "retrieval_llm_ms": 176209,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "General MacArthur",
+                "vault_search_local_ms": 29,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              },
+              {
+                "query": "book carried around copy worn",
+                "vault_search_local_ms": 32,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 602,
+                "total_ms": 1553,
+                "completion_tokens": 90,
+                "tok_per_sec": 94.6
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 4785,
+                "total_ms": 6204,
+                "completion_tokens": 259,
+                "tok_per_sec": 182.5
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 4206,
+                "total_ms": 5416,
+                "completion_tokens": 250,
+                "tok_per_sec": 206.6
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 6106,
+                "total_ms": 8115,
+                "completion_tokens": 253,
+                "tok_per_sec": 125.9
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 5073,
+                "total_ms": 8338,
+                "completion_tokens": 142,
+                "tok_per_sec": 43.5
+              },
+              {
+                "label": "agent_round_6",
+                "ttft_ms": 5601,
+                "total_ms": 6663,
+                "completion_tokens": 229,
+                "tok_per_sec": 215.6
+              }
+            ],
+            "agent_ttft_ms_mean": 4396,
+            "generation_tok_per_sec_mean": 144.8,
+            "stop_reason": "cap",
+            "agent_steps": 7
+          },
+          "timing_summary": "vault=6471ms retrieval_llm=841619ms ttft=4396ms tok/s=144.8",
+          "timing_accountability": {
+            "wall_ms": 689739,
+            "accounted_ms": 884379,
+            "unaccounted_ms": 0,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 6471,
+              "retrieval_llm_ms": 841619,
+              "openrouter_total_ms": 36289
+            }
+          }
+        },
+        {
+          "index": 4,
+          "action": "send '/newchat'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0038202080177143216,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        },
+        {
+          "index": 5,
+          "action": "send '/resume'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.0204957079840824,
+          "tools_called": [],
+          "response_text": "",
+          "stop_reason": "natural",
+          "tool_calls": [],
+          "tool_rounds": [],
+          "tool_call_counts": {},
+          "trace_summary": "stop: natural\n"
+        }
+      ]
+    }
+  ]
+}

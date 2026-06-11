@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "scenarios": [
+    {
+      "name": "Librarian thematic search SP6",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/thematic_search.yaml",
+      "passed": true,
+      "elapsed_s": 790.2435065419995,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'What did I note about Rockefeller and competition?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 790.2429642500065,
+          "tools_called": [
+            "search_vault",
+            "search_vault_many"
+          ],
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 916680,
+            "retrieval_llm_ms": 211548,
+            "searches": [
+              {
+                "query": "Rockefeller competition",
+                "vault_search_local_ms": 414985,
+                "retrieval_llm_ms": 61342
+              },
+              {
+                "query": "Rockefeller cost advantage competitors books",
+                "vault_search_local_ms": 164923,
+                "retrieval_llm_ms": 48220
+              },
+              {
+                "query": "Rockefeller crushing competitors Standard Oil tactics",
+                "vault_search_local_ms": 169332,
+                "retrieval_llm_ms": 0
+              },
+              {
+                "query": "Rockefeller co-opting adversaries after competition",
+                "vault_search_local_ms": 167440,
+                "retrieval_llm_ms": 101986
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 207,
+                "total_ms": 500,
+                "completion_tokens": 73,
+                "tok_per_sec": 249.1
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 20,
+                "total_ms": 6433,
+                "completion_tokens": 127,
+                "tok_per_sec": 19.8
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 6325,
+                "total_ms": 20024,
+                "completion_tokens": 946,
+                "tok_per_sec": 69.1
+              }
+            ],
+            "agent_ttft_ms_mean": 2184,
+            "generation_tok_per_sec_mean": 112.7
+          },
+          "timing_summary": "vault=916680ms retrieval_llm=211548ms ttft=2184ms tok/s=112.7"
+        },
+        {
+          "index": 2,
+          "action": "send '/clear'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 0.00039983299211598933,
+          "tools_called": []
+        }
+      ]
+    }
+  ]
+}

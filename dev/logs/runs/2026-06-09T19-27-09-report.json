@@ -1,0 +1,196 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-09T19:27:09",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian multi-hop theme",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/multi_hop.yaml",
+      "passed": true,
+      "elapsed_s": 174.87487237498863,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'How do founders in the vault think about compounding wealth and long-term reputation together?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 174.8743530419888,
+          "tools_called": [
+            "search_vault_many",
+            "search_vault",
+            "search_transcript"
+          ],
+          "response_text": "## The Same Compound Curve, Viewed From Two Angles\n\nAcross the vault, the founders who think most clearly about compounding wealth also think most clearly about reputation \u2014 not as separate priorities, but as **two expressions of the same underlying force**. They understand that both follow compounding math, and that sacrificing either for short-term gain breaks the curve.\n\n---\n\n### Reputation IS the capital that compounds\n\nJohn D. Rockefeller makes this connection most explicitly. Late in his autobiography, he distills the secret of permanent business success into a single insight:\n\n> \"There is no mystery in business success. The great industrial leaders have told again and again the plan and obvious fact that there can be no permanent success without fair dealing that leads to **widespread confidence in the man himself, and that is the real capital we all prize and work for.**\" [ep-0148]\n\nHe doesn't say reputation *helps you get* capital. He says it *is* the real capital. That's a radical reframing: the balance sheet asset and the reputation are not separate \u2014 the second is the deeper, more durable form of the first.\n\nCharlie Munger echoes the same idea from a different angle, repeating \"reputation is persuasive\" so often that it becomes a mantra. The host of ep-0090 notes: \"He has a bunch of ideas that he repeats in different ways because he understands\" this truth [ep-0090]. Jeff Bezos picks up the identical phrase in his 2000 shareholder letter: he knows that reputation fills the gaps where human memory fails, making it a genuine competitive advantage over time [ep-0071].\n\n---\n\n### The short-term sacrifice is the mechanism\n\nThe pattern that connects wealth compounding and reputation compounding is **deliberate short-term loss.** Mark Spitznagel frames this through what he calls Klipp's Paradox: \"You've got to **love to lose money, hate to make money** in the short term\" [ep-0070]. Henry Ford endured years of low returns building the River Rouge plant while competitors made easy money hand-building cars \u2014 because he understood the system he was building would compound [ep-0070].\n\nThe same logic applies to reputation. Sam Bronfman, when a desperate buyer needed 2,000 cases of liquor immediately, refused to charge a premium \u2014 he lent the goods at cost, saying it would be \"**foolish to capitalize on his momentary advantage**\" [ep-0116]. He wasn't being generous out of softness; he was being greedy over the right time horizon. He knew that extracting maximum value from this single transaction would destroy the compounding reputation that would bring decades of transactions.\n\nConrad Hilton is the most vivid example. During the Great Depression he \"stubbornly refused to default on his many bills,\" and as a result \"he found his reputation greatly enhanced among creditors and future backers.\" The payoff: \"They all wanted to sell to Conrad Hilton because he was the one who didn't declare bankruptcy.\" [ep-0067 transcript] His reputation became the very mechanism through which he acquired hotels at favorable terms for decades afterward \u2014 the compound return on a short-term sacrifice.\n\n---\n\n### The tyranny works both ways\n\nJohn Bogle's insight about \"the powerful tyranny of compounding costs\" [ep-0058 transcript] applies to reputation as powerfully as it does to investment fees. A small reputation erosion today \u2014 a deal where you take advantage, a promise you don't keep \u2014 doesn't feel expensive in the moment. But just as 2% in annual fees turns a $184,000 return into $37,000 over 50 years, small acts of bad faith compound into a destroyed reputation that closes every future door.\n\nPeter Cundill saw this clearly from inside a firm where risky speculation threatened the entire enterprise: \"The more I think about this, the more I recognize that **reputation and credibility are actually all we have to sell**\" [ep-0160].\n\n---\n\n### The meta-insight: don't interrupt the compounding\n\nThe Charles Schulz episode captures it in a single phrase: \"**Don't interrupt the compounding**\" [ep-0154]. It was said about his slow, 34-year rise from 7 newspapers to 2,000, but it applies equally to wealth and reputation. The vault's great founders \u2014 Rockefeller, Munger, Bezos, Bronfman, Hilton, Ford \u2014 all share the same instinct: once you have a compounding curve working (whether financial or reputational), the cardinal sin is interrupting it for a short-term gain.\n\nBen Franklin even understood that perception matters alongside reality, deliberately carting paper himself in a wheelbarrow \"rather than having a hired hand do it\" to reinforce his reputation as industrious [ep-0115]. He knew reputation compounds, and he actively fed the curve.\n\n---\n\n**The honest caveat:** The vault's coverage is richest on this theme through Rockefeller, Munger, Bezos, Hilton, Spitznagel, Bronfman, and Franklin. What's less explored is the counterfactual \u2014 founders who *did* sacrifice reputation for short-term gain and paid the compounding price. That would sharpen the thesis further, but the vault mostly studies the ones who got it right.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "compounding wealth long-term time horizon capital allocation",
+                  "long-term reputation trust brand integrity relationships"
+                ]
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "reputation trust integrity long-term relationships compounding"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "long-term reputation trust compound"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "compounding wealth long-term time horizon capital allocation",
+                "long-term reputation trust brand integrity relationships"
+              ],
+              "episode_ids": [
+                "ep-0070",
+                "ep-0154"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.0,
+                8.5
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_vault",
+                "search_transcript"
+              ],
+              "queries": [
+                "reputation trust integrity long-term relationships compounding",
+                "long-term reputation trust compound"
+              ],
+              "episode_ids": [
+                "ep-0019",
+                "ep-0057",
+                "ep-0058",
+                "ep-0063",
+                "ep-0067",
+                "ep-0071",
+                "ep-0076",
+                "ep-0078",
+                "ep-0089",
+                "ep-0090",
+                "ep-0115",
+                "ep-0116",
+                "ep-0148",
+                "ep-0149",
+                "ep-0160"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                9.0,
+                9.0
+              ],
+              "reasoning": "The reputation query failed. Let me re-run that and also pull in more angles."
+            },
+            {
+              "round": 3,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "## The Same Compound Curve, Viewed From Two Angles\n\nAcross the vault, the founders who think most clearly about compounding wealth also think most clearly about reputation \u2014 not as separate priorities, but as **two expressions of the same underlying force**. They understand that both follow compounding math, and that sacrificing either for short-term gain breaks the curve.\n\n---\n\n### Reputation IS the capital that compounds\n\nJohn D. Rockefeller makes this connection most explicitly. Late in his autobiography, he distills the secret of permanent business success into a single insight:\n\n> \"There is no mystery in business success. The great industrial leaders have told again and again the plan and obvious fact that there can be no permanent success without fair dealing that leads to **widespread confidence in the man himself, and that is the real capital we all prize and work for.**\" [ep-0148]\n\nHe doesn't say reputation *helps you get* capital. He says it *is* the real capital. That's a radical reframing: the balance sheet asset and the reputation are not separate \u2014 the second is the deeper, more durable form of the first.\n\nCharlie Munger echoes the same idea from a different angle, repeating \"reputation is persuasive\" so often that it becomes a mantra. The host of ep-0090 notes: \"He has a bunch of ideas that he repeats in different ways because he understands\" this truth [ep-0090]. Jeff Bezos picks up the identical phrase in his 2000 shareholder letter: he knows that reputation fills the gaps where human memory fails, making it a genuine competitive advantage over time [ep-0071].\n\n---\n\n### The short-term sacrifice is the mechanism\n\nThe pattern that connects wealth compounding and reputation compounding is **deliberate short-term loss.** Mark Spitznagel frames this through what he calls Klipp's Paradox: \"You've got to **love to lose money, hate to make money** in the short term\" [ep-0070]. Henry Ford endured years of low returns building the River Rouge plant while competitors made easy money hand-building cars \u2014 because he understood the system he was building would compound [ep-0070].\n\nThe same logic applies to reputation. Sam Bronfman, when a desperate buyer needed 2,000 cases of liquor immediately, refused to charge a premium \u2014 he lent the goods at cost, saying it would be \"**foolish to capitalize on his momentary advantage**\" [ep-0116]. He wasn't being generous out of softness; he was being greedy over the right time horizon. He knew that extracting maximum value from this single transaction would destroy the compounding reputation that would bring decades of transactions.\n\nConrad Hilton is the most vivid example. During the Great Depression he \"stubbornly refused to default on his many bills,\" and as a result \"he found his reputation greatly enhanced among creditors and future backers.\" The payoff: \"They all wanted to sell to Conrad Hilton because he was the one who didn't declare bankruptcy.\" [ep-0067 transcript] His reputation became the very mechanism through which he acquired hotels at favorable terms for decades afterward \u2014 the compound return on a short-term sacrifice.\n\n---\n\n### The tyranny works both ways\n\nJohn Bogle's insight about \"the powerful tyranny of compounding costs\" [ep-0058 transcript] applies to reputation as powerfully as it does to investment fees. A small reputation erosion today \u2014 a deal where you take advantage, a promise you don't keep \u2014 doesn't feel expensive in the moment. But just as 2% in annual fees turns a $184,000 return into $37,000 over 50 years, small acts of bad faith compound into a destroyed reputation that closes every future door.\n\nPeter Cundill saw this clearly from inside a firm where risky speculation threatened the entire enterprise: \"The more I think about this, the more I recognize that **reputation and credibility are actually all we have to sell**\" [ep-0160].\n\n---\n\n### The meta-insight: don't interrupt the compounding\n\nThe Charles Schulz episode captures it in a single phrase: \"**Don't interrupt the compounding**\" [ep-0154]. It was said about his slow, 34-year rise from 7 newspapers to 2,000, but it applies equally to wealth and reputation. The vault's great founders \u2014 Rockefeller, Munger, Bezos, Bronfman, Hilton, Ford \u2014 all share the same instinct: once you have a compounding curve working (whether financial or reputational), the cardinal sin is interrupting it for a short-term gain.\n\nBen Franklin even understood that perception matters alongside reality, deliberately carting paper himself in a wheelbarrow \"rather than having a hired hand do it\" to reinforce his reputation as industrious [ep-0115]. He knew reputation compounds, and he actively fed the curve.\n\n---\n\n**The honest caveat:** The vault's coverage is richest on this theme through Rockefeller, Munger, Bezos, Hilton, Spitznagel, Bronfman, and Franklin. What's less explored is the counterfactual \u2014 founders who *did* sacrifice reputation for short-term gain and paid the compounding price. That would sharpen the thesis further, but the vault mostly studies the ones who got it right."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault_many": 1,
+            "search_vault": 1,
+            "search_transcript": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault_many\n  queries: compounding wealth long-term time horizon capital allocation; long-term reputation trust brand integrity relationships\n  episodes: ep-0070, ep-0154 top_scores=[9.5, 9.0, 8.5]\nround 2: search_vault, search_transcript\n  queries: reputation trust integrity long-term relationships compounding; long-term reputation trust compound\n  episodes: ep-0019, ep-0057, ep-0058, ep-0063, ep-0067, ep-0071, ep-0076, ep-0078, ep-0089, ep-0090, ep-0115, ep-0116, ep-0148, ep-0149, ep-0160 top_scores=[9.5, 9.0, 9.0]\n  reasoning: The reputation query failed. Let me re-run that and also pull in more angles.\nround 3: (answer)\n  reasoning: ## The Same Compound Curve, Viewed From Two Angles\n\nAcross the vault, the founders who think most clearly about compounding wealth also think most clearly about reputation \u2014 not as separate priorities",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 1457,
+            "retrieval_llm_ms": 123712,
+            "searches": [
+              {
+                "query": "compounding wealth long-term time horizon capital allocation",
+                "vault_search_local_ms": 371,
+                "retrieval_llm_ms": 60384,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "long-term reputation trust brand integrity relationships",
+                "vault_search_local_ms": 423,
+                "retrieval_llm_ms": 0,
+                "tool": "search_vault_many",
+                "error": true
+              },
+              {
+                "query": "reputation trust integrity long-term relationships compounding",
+                "vault_search_local_ms": 619,
+                "retrieval_llm_ms": 63328,
+                "tool": "search_vault"
+              },
+              {
+                "query": "long-term reputation trust compound",
+                "vault_search_local_ms": 44,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 1212,
+                "total_ms": 1832,
+                "completion_tokens": 139,
+                "tok_per_sec": 224.2
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 149,
+                "total_ms": 1492,
+                "completion_tokens": 143,
+                "tok_per_sec": 106.5
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 7449,
+                "total_ms": 27042,
+                "completion_tokens": 1542,
+                "tok_per_sec": 78.7
+              }
+            ],
+            "agent_ttft_ms_mean": 2937,
+            "generation_tok_per_sec_mean": 136.5,
+            "stop_reason": "natural",
+            "agent_steps": 3
+          },
+          "timing_summary": "vault=1457ms retrieval_llm=123712ms ttft=2937ms tok/s=136.5",
+          "timing_accountability": {
+            "wall_ms": 174874,
+            "accounted_ms": 155535,
+            "unaccounted_ms": 19339,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 1457,
+              "retrieval_llm_ms": 123712,
+              "openrouter_total_ms": 30366
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

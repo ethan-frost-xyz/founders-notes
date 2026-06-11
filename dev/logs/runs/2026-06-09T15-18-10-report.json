@@ -1,0 +1,101 @@
+{
+  "passed": true,
+  "scenarios": [
+    {
+      "name": "Librarian verbatim transcript",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/verbatim_transcript.yaml",
+      "passed": true,
+      "elapsed_s": 371.82914983300725,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send \"What were Rockefeller's exact words about competition in the transcript?\"",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 371.82861154095735,
+          "tools_called": [
+            "search_transcript",
+            "search_vault",
+            "search_transcript",
+            "search_transcript",
+            "search_transcript",
+            "search_transcript",
+            "search_transcript",
+            "search_transcript",
+            "search_transcript",
+            "search_transcript",
+            "search_transcript",
+            "search_transcript"
+          ],
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 2345,
+            "retrieval_llm_ms": 281843,
+            "searches": [
+              {
+                "query": "Rockefeller quotes about competition exact words",
+                "vault_search_local_ms": 1909,
+                "retrieval_llm_ms": 281843
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 930,
+                "total_ms": 1869,
+                "completion_tokens": 117,
+                "tok_per_sec": 124.6
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 8262,
+                "total_ms": 9332,
+                "completion_tokens": 672,
+                "tok_per_sec": 628.0
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 1349,
+                "total_ms": 2841,
+                "completion_tokens": 169,
+                "tok_per_sec": 113.3
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 6316,
+                "total_ms": 9285,
+                "completion_tokens": 468,
+                "tok_per_sec": 157.6
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 1273,
+                "total_ms": 3153,
+                "completion_tokens": 204,
+                "tok_per_sec": 108.5
+              },
+              {
+                "label": "agent_round_6",
+                "ttft_ms": 6211,
+                "total_ms": 9498,
+                "completion_tokens": 374,
+                "tok_per_sec": 113.8
+              },
+              {
+                "label": "agent_round_7_cap",
+                "ttft_ms": 11927,
+                "total_ms": 12479,
+                "completion_tokens": 781,
+                "tok_per_sec": 1414.9
+              }
+            ],
+            "agent_ttft_ms_mean": 5181,
+            "generation_tok_per_sec_mean": 380.1
+          },
+          "timing_summary": "vault=2345ms retrieval_llm=281843ms ttft=5181ms tok/s=380.1"
+        }
+      ]
+    }
+  ]
+}

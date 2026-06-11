@@ -1,0 +1,277 @@
+{
+  "passed": true,
+  "generated_at": "2026-06-09T20:25:09",
+  "scenario_count": 1,
+  "scenarios": [
+    {
+      "name": "Librarian thin evidence probe",
+      "path": "/Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes/dev/scenarios/librarian/thin_evidence_probe.yaml",
+      "passed": true,
+      "elapsed_s": 457.81700712500606,
+      "llm_mode": "live",
+      "turns": [
+        {
+          "index": 1,
+          "action": "send 'What did I note about how Satya Nadella approached acquisitions at Microsoft?'",
+          "passed": true,
+          "message": "ok",
+          "elapsed_s": 457.81650770799024,
+          "tools_called": [
+            "search_vault",
+            "search_vault",
+            "list_episode_ids",
+            "search_vault_many",
+            "search_transcript"
+          ],
+          "response_text": "I need to be straightforward here: **the vault doesn't have any coverage of Satya Nadella.** \n\nI ran multiple searches \u2014 by name, by his major acquisitions (LinkedIn, GitHub, Activision, Mojang), by his turnaround philosophy \u2014 and every query returned results about other founders (Bill Gates, Steve Jobs, Rockefeller, Bezos, Ben Horowitz, etc.) but nothing about Nadella. Listing episodes by his name returned zero results. There simply isn't a Founders podcast episode covering him in the vault.\n\nWhat I *can* tell you is that the vault has solid coverage of Bill Gates's Microsoft era \u2014 his competitive approach, his view on killing competition early, and his \"products don't compete, companies do\" philosophy [ep-0140][ep-0174]. That could be a useful contrast if you're thinking about how Microsoft's acquisition philosophy shifted from the Gates era to the Nadella era, but you'd need to bring the Nadella side of that equation from outside the vault.\n\nIf you're working from a specific episode on Nadella that you think I should have studied, let me know \u2014 but as it stands, this is a blind spot.",
+          "stop_reason": "natural",
+          "tool_calls": [
+            {
+              "step": 1,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Satya Nadella acquisitions Microsoft approach"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "search_vault",
+              "arguments": {
+                "query": "Nadella acquiring LinkedIn GitHub Mojang"
+              }
+            },
+            {
+              "step": 2,
+              "tool": "list_episode_ids",
+              "arguments": {
+                "query": "Satya Nadella"
+              }
+            },
+            {
+              "step": 3,
+              "tool": "search_vault_many",
+              "arguments": {
+                "queries": [
+                  "Satya Nadella Microsoft CEO culture change",
+                  "Microsoft acquisition strategy LinkedIn GitHub Activision",
+                  "Nadella growth mindset Microsoft turnaround"
+                ]
+              }
+            },
+            {
+              "step": 4,
+              "tool": "search_transcript",
+              "arguments": {
+                "query": "Nadella acquisition LinkedIn GitHub"
+              }
+            }
+          ],
+          "tool_rounds": [
+            {
+              "round": 1,
+              "tools": [
+                "search_vault"
+              ],
+              "queries": [
+                "Satya Nadella acquisitions Microsoft approach"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0019",
+                "ep-0041",
+                "ep-0050",
+                "ep-0088",
+                "ep-0094",
+                "ep-0121",
+                "ep-0124"
+              ],
+              "rerank_scores_top3": [
+                2.0,
+                2.0,
+                2.0
+              ]
+            },
+            {
+              "round": 2,
+              "tools": [
+                "search_vault",
+                "list_episode_ids"
+              ],
+              "queries": [
+                "Nadella acquiring LinkedIn GitHub Mojang",
+                "Satya Nadella"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0019",
+                "ep-0022",
+                "ep-0041",
+                "ep-0140",
+                "ep-0174"
+              ],
+              "rerank_scores_top3": [
+                7.0,
+                7.0,
+                5.0
+              ],
+              "reasoning": "The first search didn't surface anything on Nadella \u2014 let me try a more targeted query and also check which episodes cover him."
+            },
+            {
+              "round": 3,
+              "tools": [
+                "search_vault_many"
+              ],
+              "queries": [
+                "Satya Nadella Microsoft CEO culture change",
+                "Microsoft acquisition strategy LinkedIn GitHub Activision",
+                "Nadella growth mindset Microsoft turnaround"
+              ],
+              "episode_ids": [
+                "ep-0124",
+                "ep-0140",
+                "ep-0174"
+              ],
+              "rerank_scores_top3": [
+                9.5,
+                8.5,
+                8.0
+              ],
+              "reasoning": "Let me try a few more angles to see if Nadella is covered anywhere in the vault."
+            },
+            {
+              "round": 4,
+              "tools": [
+                "search_transcript"
+              ],
+              "queries": [
+                "Nadella acquisition LinkedIn GitHub"
+              ],
+              "episode_ids": [
+                "ep-0016",
+                "ep-0017",
+                "ep-0019",
+                "ep-0022",
+                "ep-0034",
+                "ep-0041"
+              ],
+              "rerank_scores_top3": [],
+              "reasoning": "Let me try one more angle to be thorough \u2014 searching the transcripts directly:"
+            },
+            {
+              "round": 5,
+              "tools": [],
+              "queries": [],
+              "episode_ids": [],
+              "rerank_scores_top3": [],
+              "stop": "natural",
+              "reasoning": "I need to be straightforward here: **the vault doesn't have any coverage of Satya Nadella.** \n\nI ran multiple searches \u2014 by name, by his major acquisitions (LinkedIn, GitHub, Activision, Mojang), by his turnaround philosophy \u2014 and every query returned results about other founders (Bill Gates, Steve Jobs, Rockefeller, Bezos, Ben Horowitz, etc.) but nothing about Nadella. Listing episodes by his name returned zero results. There simply isn't a Founders podcast episode covering him in the vault.\n\nWhat I *can* tell you is that the vault has solid coverage of Bill Gates's Microsoft era \u2014 his competitive approach, his view on killing competition early, and his \"products don't compete, companies do\" philosophy [ep-0140][ep-0174]. That could be a useful contrast if you're thinking about how Microsoft's acquisition philosophy shifted from the Gates era to the Nadella era, but you'd need to bring the Nadella side of that equation from outside the vault.\n\nIf you're working from a specific episode on Nadella that you think I should have studied, let me know \u2014 but as it stands, this is a blind spot."
+            }
+          ],
+          "tool_call_counts": {
+            "search_vault": 2,
+            "list_episode_ids": 1,
+            "search_vault_many": 1,
+            "search_transcript": 1
+          },
+          "trace_summary": "stop: natural\n\nround 1: search_vault\n  queries: Satya Nadella acquisitions Microsoft approach\n  episodes: ep-0016, ep-0019, ep-0041, ep-0050, ep-0088, ep-0094, ep-0121, ep-0124 top_scores=[2.0, 2.0, 2.0]\nround 2: search_vault, list_episode_ids\n  queries: Nadella acquiring LinkedIn GitHub Mojang; Satya Nadella\n  episodes: ep-0016, ep-0019, ep-0022, ep-0041, ep-0140, ep-0174 top_scores=[7.0, 7.0, 5.0]\n  reasoning: The first search didn't surface anything on Nadella \u2014 let me try a more targeted query and also check which episodes cover him.\nround 3: search_vault_many\n  queries: Satya Nadella Microsoft CEO culture change; Microsoft acquisition strategy LinkedIn GitHub Activision; Nadella growth mindset Microsoft turnaround\n  episodes: ep-0124, ep-0140, ep-0174 top_scores=[9.5, 8.5, 8.0]\n  reasoning: Let me try a few more angles to see if Nadella is covered anywhere in the vault.\nround 4: search_transcript\n  queries: Nadella acquisition LinkedIn GitHub\n  episodes: ep-0016, ep-0017, ep-0019, ep-0022, ep-0034, ep-0041\n  reasoning: Let me try one more angle to be thorough \u2014 searching the transcripts directly:\nround 5: (answer)\n  reasoning: I need to be straightforward here: **the vault doesn't have any coverage of Satya Nadella.** \n\nI ran multiple searches \u2014 by name, by his major acquisitions (LinkedIn, GitHub, Activision, Mojang), by h",
+          "timing": {
+            "telegram_pickup_ms": null,
+            "vault_search_local_ms": 133270,
+            "retrieval_llm_ms": 358720,
+            "searches": [
+              {
+                "query": "Satya Nadella acquisitions Microsoft approach",
+                "vault_search_local_ms": 9690,
+                "retrieval_llm_ms": 80462,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Nadella acquiring LinkedIn GitHub Mojang",
+                "vault_search_local_ms": 98995,
+                "retrieval_llm_ms": 139730,
+                "tool": "search_vault"
+              },
+              {
+                "query": "Nadella growth mindset Microsoft turnaround",
+                "vault_search_local_ms": 8917,
+                "retrieval_llm_ms": 0,
+                "tool": "search_vault_many",
+                "error": true
+              },
+              {
+                "query": "Microsoft acquisition strategy LinkedIn GitHub Activision",
+                "vault_search_local_ms": 6636,
+                "retrieval_llm_ms": 66186,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Satya Nadella Microsoft CEO culture change",
+                "vault_search_local_ms": 8994,
+                "retrieval_llm_ms": 72342,
+                "tool": "search_vault_many"
+              },
+              {
+                "query": "Nadella acquisition LinkedIn GitHub",
+                "vault_search_local_ms": 38,
+                "retrieval_llm_ms": 0,
+                "tool": "search_transcript"
+              }
+            ],
+            "openrouter_calls": [
+              {
+                "label": "agent_round_1",
+                "ttft_ms": 642,
+                "total_ms": 808,
+                "completion_tokens": 75,
+                "tok_per_sec": 451.8
+              },
+              {
+                "label": "agent_round_2",
+                "ttft_ms": 1431,
+                "total_ms": 2605,
+                "completion_tokens": 212,
+                "tok_per_sec": 180.6
+              },
+              {
+                "label": "agent_round_3",
+                "ttft_ms": 1032,
+                "total_ms": 2485,
+                "completion_tokens": 155,
+                "tok_per_sec": 106.7
+              },
+              {
+                "label": "agent_round_4",
+                "ttft_ms": 5795,
+                "total_ms": 7885,
+                "completion_tokens": 140,
+                "tok_per_sec": 67.0
+              },
+              {
+                "label": "agent_round_5",
+                "ttft_ms": 3507,
+                "total_ms": 17057,
+                "completion_tokens": 331,
+                "tok_per_sec": 24.4
+              }
+            ],
+            "agent_ttft_ms_mean": 2481,
+            "generation_tok_per_sec_mean": 166.1,
+            "stop_reason": "natural",
+            "agent_steps": 5
+          },
+          "timing_summary": "vault=133270ms retrieval_llm=358720ms ttft=2481ms tok/s=166.1",
+          "timing_accountability": {
+            "wall_ms": 457817,
+            "accounted_ms": 522830,
+            "unaccounted_ms": 0,
+            "accounted_breakdown": {
+              "vault_search_local_ms": 133270,
+              "retrieval_llm_ms": 358720,
+              "openrouter_total_ms": 30840
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
