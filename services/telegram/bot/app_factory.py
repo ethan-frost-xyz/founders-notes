@@ -11,6 +11,7 @@ from handlers import (
     cmd_clear,
     cmd_newchat,
     cmd_pull,
+    cmd_push,
     cmd_reindex,
     cmd_resetcleantemp,
     cmd_resetmodel,
@@ -52,6 +53,7 @@ def _production_commands() -> list[Any]:
         BotCommand("janitor", "Notes ritual"),
         BotCommand("settings", "Models, temp, stream, ops"),
         BotCommand("sync", "Pull + reindex"),
+        BotCommand("push", "Commit + push vault changes"),
         BotCommand("newchat", "Export session, reset"),
         BotCommand("restart", "Restart bot"),
     ]
@@ -130,6 +132,7 @@ def build_application(
         app.add_handler(CommandHandler("pull", cmd_pull))
         app.add_handler(CommandHandler("reindex", cmd_reindex))
         app.add_handler(CommandHandler("sync", cmd_sync))
+        app.add_handler(CommandHandler("push", cmd_push))
         app.add_handler(CommandHandler("restart", cmd_restart))
 
     app.add_handler(CallbackQueryHandler(on_janitor_callback, pattern=r"^janitor:"))

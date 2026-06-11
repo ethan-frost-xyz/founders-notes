@@ -133,5 +133,34 @@ def test_callback_promote_stubs_workflow(bot_config):
         update = callback_update("janitor:promote")
         _run(on_janitor_callback(update, context))  # type: ignore[arg-type]
 
+    assert context.application.bot_data["janitor"].get(111).phase == JanitorPhase.AWAIT_PUSH
+    update.callback_query.message.edit_text.assert_awaited()
+
+
+def test_callback_push_skip_from_await_push(bot_config):
+    context = make_context(bot_config)
+    session = context.application.bot_data["janitor"].get(111)
+    session.phase = JanitorPhase.AWAIT_PUSH
+    session.episode_id = "ep-0100"
+
+    update = callback_update("janitor:push_skip")
+    _run(on_janitor_callback(update, context))  # type: ignore[arg-type]
+
+    assert context.application.bot_data["janitor"].get(111).phase == JanitorPhase.IDLE
+
+
+def test_callback_push_github_success(bot_config):
+    context = make_context(bot_config)
+    session = context.application.bot_data["janitor"].get(111)
+    session.phase = JanitorPhase.AWAIT_PUSH
+    session.episode_id = "ep-0100"
+
+    with patch(
+        "janitor_handlers.run_vault_push_op",
+        return_value=(0, "vault-push: committed and pushed"),
+    ):
+        update = callback_update("janitor:push")
+        _run(on_janitor_callback(update, context))  # type: ignore[arg-type]
+
     assert context.application.bot_data["janitor"].get(111).phase == JanitorPhase.IDLE
     update.callback_query.message.edit_text.assert_awaited()

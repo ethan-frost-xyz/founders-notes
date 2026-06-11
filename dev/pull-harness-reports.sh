@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Pull harness reports (dev/logs/runs/*) from the Mac mini over Tailscale SSH,
-# then git add/commit so they are visible on GitHub (runs/ is tracked; sessions/ is not).
+# Pull harness reports (dev/logs/runs/*) from the Mac mini over Tailscale SSH.
+# On the mini you can instead Telegram /push or vault-push.sh; laptop uses this to sync before commit.
 #
 # Run from the laptop repo root after a remote librarian live suite:
 #   ./dev/pull-harness-reports.sh

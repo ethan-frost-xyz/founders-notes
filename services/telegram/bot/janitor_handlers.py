@@ -9,6 +9,8 @@ from callbacks import (
     CALLBACK_JANITOR_CANCEL,
     CALLBACK_JANITOR_CONFIRM_OVERWRITE,
     CALLBACK_JANITOR_PROMOTE,
+    CALLBACK_JANITOR_PUSH,
+    CALLBACK_JANITOR_PUSH_SKIP,
     CALLBACK_JANITOR_RETRY,
     CALLBACK_JANITOR_RETRY_EXPAND,
 )
@@ -25,6 +27,7 @@ from janitor_phases import (
     file_and_expand,
     folder_name,
     janitor_exit,
+    post_promote_keyboard,
     review_keyboard,
     run_llm_clean,
 )
@@ -37,6 +40,7 @@ from janitor_workflow import (
     run_reindex,
 )
 from messaging import reply_text_chunked
+from ops_runner import release_ops_lock, run_vault_push_op, try_acquire_ops_lock
 from telegram import Message, Update
 from telegram.ext import ContextTypes
 
@@ -120,6 +124,13 @@ async def on_janitor_text(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     session = store.get(uid)
     bot_cfg = _config(context)
     vault_root = bot_cfg.agent.vault_root
+
+    if session.phase == JanitorPhase.AWAIT_PUSH:
+        await update.message.reply_text(
+            "Promote complete. Tap Push to GitHub or Skip.",
+            reply_markup=post_promote_keyboard(),
+        )
+        return True
 
     if session.phase in (JanitorPhase.REVIEW_DRAFT, JanitorPhase.CONFIRM_OVERWRITE):
         await update.message.reply_text(
@@ -313,16 +324,75 @@ async def on_janitor_callback(update: Update, context: ContextTypes.DEFAULT_TYPE
         expanded_rel = f"content/notes/{folder}/{folder}.expanded.md"
         audit = f"Wrote: {notes_rel} → promoted {expanded_rel}"
         idx_code, idx_msg = await asyncio.to_thread(run_reindex, vault_root)
-        store.reset(uid)
         if idx_code != 0:
+            store.reset(uid)
             await reply_text_chunked(
                 query.message,
                 f"{msg}\n{audit}\n\nReindex failed:\n{idx_msg}\n\n"
                 "Run sync-and-index.sh on the Mac mini.",
+                reply_markup=exit_keyboard(),
+            )
+            return
+        session.phase = JanitorPhase.AWAIT_PUSH
+        await reply_text_chunked(
+            query.message,
+            f"Done. {msg}\n{audit}\n{idx_msg}\n\n"
+            "Vault search includes this episode. Push notes to GitHub?",
+            reply_markup=post_promote_keyboard(),
+        )
+        return
+
+    if data == CALLBACK_JANITOR_PUSH_SKIP:
+        if session.phase != JanitorPhase.AWAIT_PUSH:
+            await query.edit_message_text(
+                "Nothing to skip — /janitor to restart.",
+                reply_markup=exit_keyboard(),
+            )
+            return
+        store.reset(uid)
+        await query.edit_message_text(
+            "Skipped push. Back in Librarian mode.",
+            reply_markup=exit_keyboard(),
+        )
+        return
+
+    if data == CALLBACK_JANITOR_PUSH:
+        if session.phase != JanitorPhase.AWAIT_PUSH or not session.episode_id:
+            await query.edit_message_text(
+                "Nothing to push — /janitor to restart.",
+                reply_markup=exit_keyboard(),
+            )
+            return
+        bot_data = context.application.bot_data
+        if not try_acquire_ops_lock(bot_data):
+            await query.edit_message_text(
+                "Another op is already running. Try again later.",
+                reply_markup=post_promote_keyboard(),
+            )
+            return
+        ep_id = session.episode_id
+        await query.edit_message_text(f"Pushing {ep_id} to GitHub…")
+        try:
+            code, push_log = await asyncio.to_thread(
+                run_vault_push_op,
+                vault_root,
+                message=f"vault: Janitor promote {ep_id}",
+                episode_id=ep_id,
+                skip_verify=True,
+            )
+        finally:
+            release_ops_lock(bot_data)
+        store.reset(uid)
+        if code != 0:
+            await reply_text_chunked(
+                query.message,
+                f"Push failed (exit {code}).\n\n{push_log}\n\n"
+                "Use /push later or push from SSH.",
+                reply_markup=exit_keyboard(),
             )
             return
         await reply_text_chunked(
             query.message,
-            f"Done. {msg}\n{audit}\n{idx_msg}\n\n"
-            "Back in Librarian mode — vault search includes this episode.",
+            f"Pushed {ep_id} to GitHub.\n\n{push_log}\n\nBack in Librarian mode.",
+            reply_markup=exit_keyboard(),
         )

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import os
+from functools import partial
 
 from context import (
     config as _config,
@@ -216,6 +217,23 @@ async def cmd_sync(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         label="sync (pull + reindex)",
         fn=run_sync,
         started="Sync started.",
+    )
+
+
+async def cmd_push(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    if await _reject_unauthorized(update, _config(context)):
+        return
+    from ops_runner import run_vault_push_op
+    from ops_telegram import run_ops_job
+
+    vault_root = _config(context).agent.vault_root
+    await run_ops_job(
+        update.message,
+        context.application.bot_data,
+        vault_root,
+        label="vault push",
+        fn=partial(run_vault_push_op, message="vault: push from Mac mini"),
+        started="Push started (pull, commit, push)…",
     )
 
 

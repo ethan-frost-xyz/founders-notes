@@ -50,3 +50,35 @@ def run_sync(vault_root: Path) -> tuple[int, str]:
     if idx_code != 0:
         return idx_code, f"Pull OK.\nReindex failed (exit {idx_code}).\n\n{idx_log}"
     return 0, f"Pull:\n{pull_log}\n\nReindex:\n{idx_log}"
+
+
+def run_vault_push(
+    vault_root: Path,
+    *,
+    message: str = "vault: push from Mac mini",
+    episode_id: str | None = None,
+    dry_run: bool = False,
+    skip_verify: bool = False,
+) -> tuple[int, str]:
+    script = vault_root / "services" / "telegram" / "deploy" / "vault-push.sh"
+    if not script.is_file():
+        return 1, f"vault-push script not found: {script}"
+
+    cmd: list[str] = [str(script), "-m", message]
+    if episode_id:
+        cmd.extend(["--episode", episode_id])
+    if dry_run:
+        cmd.append("--dry-run")
+    if skip_verify:
+        cmd.append("--skip-verify")
+
+    proc = subprocess.run(
+        cmd,
+        cwd=str(vault_root),
+        capture_output=True,
+        text=True,
+    )
+    log = (proc.stdout or "") + (proc.stderr or "")
+    if proc.returncode == 0:
+        _clear_vault_read_caches(vault_root)
+    return proc.returncode, log.strip() or "(no output)"

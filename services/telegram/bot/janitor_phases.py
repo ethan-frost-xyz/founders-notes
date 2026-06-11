@@ -9,6 +9,8 @@ from callbacks import (
     CALLBACK_JANITOR_APPROVE,
     CALLBACK_JANITOR_CONFIRM_OVERWRITE,
     CALLBACK_JANITOR_PROMOTE,
+    CALLBACK_JANITOR_PUSH,
+    CALLBACK_JANITOR_PUSH_SKIP,
     CALLBACK_JANITOR_RETRY,
     CALLBACK_JANITOR_RETRY_EXPAND,
 )
@@ -98,6 +100,18 @@ def review_keyboard() -> InlineKeyboardMarkup:
             [
                 InlineKeyboardButton("Promote & reindex", callback_data=CALLBACK_JANITOR_PROMOTE),
                 InlineKeyboardButton("Retry expand", callback_data=CALLBACK_JANITOR_RETRY_EXPAND),
+            ],
+            janitor_back_row(),
+        ]
+    )
+
+
+def post_promote_keyboard() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("Push to GitHub", callback_data=CALLBACK_JANITOR_PUSH),
+                InlineKeyboardButton("Skip", callback_data=CALLBACK_JANITOR_PUSH_SKIP),
             ],
             janitor_back_row(),
         ]

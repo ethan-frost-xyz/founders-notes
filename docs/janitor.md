@@ -14,7 +14,8 @@ Janitor is a **mode** in the same Telegram bot as the Librarian vault agent. Use
 4. You review the cleaned preview: **reply with text** to revise, or use **Retry** / **Approve** / **← Back**.
 5. On approve: if `{folder}.notes.md` already has timestamp bullets, the bot asks you to **confirm overwrite** (replace, not merge). Otherwise notes are written to `{folder}.notes.md`, then **expand** runs (`expand_datapoints_llm.py` → `.expanded.draft.md`).
 6. You review the draft excerpt; tap **Promote & reindex** to write `.expanded.md` and rebuild `chunks.jsonl` + embeddings on the bot host.
-7. `/librarian` (or automatic reset after promote) returns to vault Q&A; the episode is in the studied corpus once timestamp bullets exist and expanded chunks are indexed.
+7. Optionally tap **Push to GitHub** to commit that episode's notes folder (`vault-push.sh --episode`) or **Skip** to stay local-only on the mini.
+8. Back in Librarian mode; the episode is in the studied corpus once timestamp bullets exist and expanded chunks are indexed (push optional for GitHub/laptop visibility).
 
 ```mermaid
 stateDiagram-v2
@@ -24,7 +25,8 @@ stateDiagram-v2
   AWAIT_NOTES --> PREVIEW: paste bullets
   PREVIEW --> PREVIEW: reply revises or Retry
   PREVIEW --> REVIEW_DRAFT: Approve → file + expand
-  REVIEW_DRAFT --> [*]: Promote and reindex
+  REVIEW_DRAFT --> AWAIT_PUSH: Promote and reindex
+  AWAIT_PUSH --> [*]: Push to GitHub or Skip
   PREVIEW --> CONFIRM_OVERWRITE: Approve (existing bullets)
   CONFIRM_OVERWRITE --> REVIEW_DRAFT: Confirm overwrite
   PREVIEW --> [*]: ← Back

@@ -122,14 +122,17 @@ ssh ethans-mac-mini   # ethanfrost; Host in ~/.ssh/config
 
 Use SSH for logs (`~/Library/Logs/founders-telegram/`) and `~/.config/founders-telegram/runtime.json`. **Model tuning** (`/setmodel`, `/settings`) and Librarian/Janitor daily use need **Telegram only** — no laptop Tailscale required. **Tailscale Funnel** for the GitHub webhook runs **on the mini only**; do not run Funnel on the laptop.
 
-**Harness reports** (`dev/logs/runs/*-report.json`, paired `*-report.md`, suite summaries) are **committed to git** — browse on GitHub or locally after pull. Runs on the mini still write there first; sync then commit:
+**Outbound push (mini → GitHub):** Janitor notes, harness reports, and related whitelisted paths via [`vault-push.sh`](../services/telegram/deploy/vault-push.sh) or Telegram **`/push`** (Settings → Ops → Push). Pull-first (`git pull --ff-only`), path whitelist only — no force push. Janitor offers **Push to GitHub** / **Skip** after promote (episode folder only).
 
 ```bash
-./dev/pull-harness-reports.sh    # rsync mini → laptop (then git add/commit)
-./dev/pull-harness-reports.sh --list
+# Mac mini (or SSH)
+"$VAULT_ROOT/services/telegram/deploy/vault-push.sh"
+"$VAULT_ROOT/services/telegram/deploy/vault-push.sh" --episode ep-0191 -m "vault: Janitor promote ep-0191" --skip-verify
 ```
 
-Or commit and `git push` directly from the mini after a suite. `dev/logs/sessions/` and `dev/logs/sandbox/` remain gitignored.
+**Harness reports** are git-tracked under `dev/logs/runs/`. From the laptop after a mini suite: `./dev/pull-harness-reports.sh`, or `/push` on the mini. `dev/logs/sessions/` and `dev/logs/sandbox/` remain gitignored.
+
+If `vault-push` fails on `pull --ff-only`, reconcile on the laptop (merge to `main`) then `/sync` on the mini before retrying.
 
 ### CI parity
 

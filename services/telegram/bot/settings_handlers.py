@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from functools import partial
 from typing import Any
 
 from callbacks import (
@@ -69,7 +70,10 @@ def _ops_keyboard() -> InlineKeyboardMarkup:
                 InlineKeyboardButton("Pull", callback_data="set:op:pull"),
             ],
             [
+                InlineKeyboardButton("Push", callback_data="set:op:push"),
                 InlineKeyboardButton("Reindex", callback_data="set:op:reindex"),
+            ],
+            [
                 InlineKeyboardButton("Restart", callback_data="set:op:restart"),
             ],
             back_to_settings_row(),
@@ -172,7 +176,7 @@ async def on_settings_callback(update: Update, context: ContextTypes.DEFAULT_TYP
         return
 
     if data.startswith("set:op:"):
-        from ops_runner import run_git_pull, run_reindex_op, run_sync
+        from ops_runner import run_git_pull, run_reindex_op, run_sync, run_vault_push_op
         from ops_telegram import run_ops_job_edit, run_ops_restart
 
         vault_root = bot_cfg.agent.vault_root
@@ -194,6 +198,11 @@ async def on_settings_callback(update: Update, context: ContextTypes.DEFAULT_TYP
                 "reindex",
                 run_reindex_op,
                 "Reindex running… (may take a few minutes)",
+            ),
+            "push": (
+                "vault push",
+                partial(run_vault_push_op, message="vault: push from Mac mini"),
+                "Push running… (pull, commit, push)",
             ),
         }
         if op not in ops_map:

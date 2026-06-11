@@ -142,7 +142,7 @@ Write `dev/logs/runs/YYYY-MM-DD-librarian-live-suite-rerun-summary.json`:
 - Per-scenario `report_path`, timing, tool counts, notes
 - Include `run_mode`: `interactive` or `sequential`
 
-`dev/logs/runs/*-report.json`, `*-report.md`, and suite summary JSONs are **git-tracked** — commit after a rerun so baselines are visible on GitHub (`dev/logs/sessions/` and `sandbox/` stay local).
+`dev/logs/runs/*-report.json`, `*-report.md`, and suite summary JSONs are **git-tracked** — on the mini run `/push` or `vault-push.sh` after a rerun; from laptop use `./dev/pull-harness-reports.sh` then commit (`dev/logs/sessions/` and `sandbox/` stay local).
 
 ## Rules
 

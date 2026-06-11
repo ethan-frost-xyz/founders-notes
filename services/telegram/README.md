@@ -234,9 +234,12 @@ Day-to-day tuning and vault ops without SSH:
 | `/pull` | `git pull --ff-only` on the vault |
 | `/reindex` | Rebuild `chunks.jsonl` + embeddings |
 | `/sync` | `/pull` then `/reindex` (traveling shortcut; cron still uses `sync-and-index.sh`) |
+| `/push` | `vault-push.sh`: pull, commit whitelisted paths, push to GitHub |
 | `/restart` | Exit process; launchd starts a fresh bot |
 
-After `/setmodel embed`, run `/reindex` or `/sync` when idle before trusting search (stale vectors rebuild automatically). Avoid `/pull`/`/sync` during active Librarian or Janitor turns.
+After `/setmodel embed`, run `/reindex` or `/sync` when idle before trusting search (stale vectors rebuild automatically). Avoid `/pull`/`/sync`/`/push` during active Librarian turns. Janitor offers optional **Push to GitHub** after promote.
+
+Shell entry point: [`deploy/vault-push.sh`](deploy/vault-push.sh) (also used by `/push` and Janitor push).
 
 ## Troubleshooting
 

@@ -13,6 +13,7 @@ class JanitorPhase(str, Enum):
     PREVIEW = "preview"
     CONFIRM_OVERWRITE = "confirm_overwrite"
     REVIEW_DRAFT = "review_draft"
+    AWAIT_PUSH = "await_push"
 
 
 @dataclass
