@@ -3,6 +3,13 @@
 from __future__ import annotations
 
 import logging
+import sys
+from pathlib import Path
+
+# bootstrap lives under bot/; add it before import when run as python -m bot
+_BOT_DIR = Path(__file__).resolve().parent
+if str(_BOT_DIR) not in sys.path:
+    sys.path.insert(0, str(_BOT_DIR))
 
 from bootstrap import setup_telegram_paths
 
