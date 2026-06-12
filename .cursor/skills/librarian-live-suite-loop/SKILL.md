@@ -28,7 +28,7 @@ Record the chosen mode in your first reply.
 
 ### Sequential mode
 
-- Expect **~60–90 min** total; use long `block_until_ms`.
+- Expect **~75–100 min** total (15 scenarios); use long `block_until_ms`.
 - **Avoid** bare `--suite librarian --live-only` over SSH — no per-scenario feedback and no report until all finish.
 - **Preferred:** loop queue YAMLs with `--scenario` + `--run-note` each (reports land immediately).
 - If user insists on `--suite`, use `PYTHONUNBUFFERED=1` and `-v` (prints per-scenario summary mid-run when `scenario_count > 1`).
@@ -38,7 +38,7 @@ Record the chosen mode in your first reply.
 
 From **repo root** (see [`docs/operations.md`](../../../docs/operations.md)).
 
-1. Read `dev/scenarios/librarian/RERUN-LIVE-SUITE.md` and baseline `dev/logs/runs/2026-06-09-librarian-live-suite-summary.json`.
+1. Read `dev/scenarios/librarian/RERUN-LIVE-SUITE.md` and baseline `dev/logs/runs/2026-06-09-librarian-live-suite-summary.json` (**#1–11 only**; #12–15 have no baseline row until re-baselined).
 2. Check `~/.config/founders-telegram/runtime.json` — baseline: `deepseek/deepseek-v4-flash` / `deepseek/deepseek-v4-pro`.
 3. Preflight if uncertain: `ingestion/.venv/bin/python dev/mock_telegram_cli.py --preflight`
 4. Skim `git log` since baseline for harness/agent/scenario changes.
@@ -100,7 +100,7 @@ Optional suffix for intent: `… post-PR-36` or `… retry after cap`.
 
 Use a long `block_until_ms` for #3, #5, #6, #7, #9, #10, #12–#15.
 
-**Agentic stress FAIL hints (#12–15):** `tool_rounds_max`, `no_episode_citations`, `response_not_contains_all`, `episode_citations_exclude`, `tool_called_first`, `search_vault_many_queries_min` — see [telegram-mock-harness.md](../../../docs/telegram-mock-harness.md#agentic-stress-scenarios).
+**Tool-routing FAIL hints (#3, #12–15):** `search_vault_many_queries_min` (#3, #15); agentic stress (#12–15): `tool_rounds_max`, `no_episode_citations`, `response_not_contains_all`, `episode_citations_exclude`, `tool_called_first` — see [telegram-mock-harness.md](../../../docs/telegram-mock-harness.md#agentic-stress-scenarios).
 
 ## After each scenario — required summary
 
@@ -147,7 +147,7 @@ Legacy: `retrieval_llm_ms`, `timing.searches[]` with `wall_ms`.
 
 ## Harness fail ≠ bad answer
 
-`expect_live` checks tool names and substrings, not quality. If agent used `search_vault_many` but scenario requires `search_vault`, harness fails while substantive passes. Fix scenario YAML (`tool_called_any`) per [AGENTS.md](../../../AGENTS.md) — do not change librarian mechanics unless asked.
+`expect_live` checks tool names and substrings, not quality. Harness can fail on tool choice (`search_vault` vs `search_vault_many`, `search_transcript` ordering) while the answer is fine — fix scenario YAML per [AGENTS.md](../../../AGENTS.md); do not change librarian mechanics unless asked.
 
 ## When the queue finishes
 
