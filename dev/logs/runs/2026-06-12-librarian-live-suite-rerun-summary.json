@@ -1,0 +1,261 @@
+{
+  "suite": "librarian-live",
+  "generated_at": "2026-06-12T17:45:00",
+  "session_date": "2026-06-12",
+  "run_mode": "interactive",
+  "config": {
+    "retrieval_model": "deepseek/deepseek-v4-flash",
+    "librarian_model": "deepseek/deepseek-v4-pro",
+    "embed_model": "qwen/qwen3-embedding-8b",
+    "runtime_path": "~/.config/founders-telegram/runtime.json",
+    "harness_version": "07f7068",
+    "harness_command": "ingestion/.venv/bin/python dev/mock_telegram_cli.py --scenario dev/scenarios/librarian/<FILE>.yaml -v --run-note librarian-live/2026-06-12 #N <stem> main@07f7068"
+  },
+  "baseline_comparison": {
+    "baseline_summary": "dev/logs/runs/2026-06-09-librarian-live-suite-summary.json",
+    "baseline_harness_pass": 9,
+    "baseline_substantive_pass_estimate": 10,
+    "baseline_primary_runs_wall_s": 3843.2,
+    "jun11_rerun_summary": "dev/logs/runs/2026-06-11-librarian-live-suite-rerun-summary.json",
+    "jun11_harness_pass": 10,
+    "jun11_primary_runs_wall_s": 4517.0
+  },
+  "summary": {
+    "scenarios_in_queue": 15,
+    "harness_pass": 11,
+    "harness_fail": 4,
+    "substantive_pass_estimate": 12,
+    "failed_scenarios": [
+      "ood_decline.yaml",
+      "negative_constraints.yaml",
+      "verbatim_intent.yaml",
+      "tool_efficiency.yaml"
+    ],
+    "agentic_stress": {
+      "scenarios": 4,
+      "harness_pass": 0,
+      "partial_harness_pass": 1,
+      "notes": "#14 verbatim_intent: 2/3 turns pass; #15 tool_efficiency: 1/3 turns pass"
+    },
+    "quality_failures": [
+      {
+        "yaml": "multi_turn.yaml",
+        "issue": "T2 response truncated mid-sentence despite stop_reason natural"
+      },
+      {
+        "yaml": "tool_coverage.yaml",
+        "issue": "T2 generic compose-failure string instead of honest thin-evidence decline"
+      },
+      {
+        "yaml": "ood_decline.yaml",
+        "issue": "over-retrieval (T1 5 rounds); tangential citations; Chesky quote from outside vault"
+      },
+      {
+        "yaml": "negative_constraints.yaml",
+        "issue": "T3 answered from session memory with zero tools; violated Jobs exclusion"
+      }
+    ],
+    "regressions_vs_jun9": [
+      "ood_decline.yaml harness fail (new scenario)",
+      "negative_constraints.yaml harness fail (new scenario)",
+      "verbatim_intent.yaml harness fail on T1 tool_calls_max (new scenario)",
+      "tool_efficiency.yaml harness fail (new scenario)",
+      "basic_qa.yaml wall +55% (177s vs 114s); 4-tool path vs canonical 2-tool",
+      "thematic_cross_episode.yaml wall +60% (752s vs 471s)",
+      "thin_evidence_probe.yaml wall +39% (558s vs 402s)",
+      "multi_hop.yaml wall +73% vs Jun 9 best attempt (273s vs 158s)"
+    ],
+    "improvements_vs_jun9": [
+      "harness 11/15 vs 9/11 (expanded queue includes 4 agentic stress scenarios)",
+      "multi_founder_comparison.yaml wall -28% (395s vs 550s)",
+      "multi_turn.yaml wall -17% (443s vs 531s); no T3 cap",
+      "single_founder_depth.yaml wall -69% (180s vs 574s)",
+      "verbatim_transcript.yaml substantive pass; no DSML leak (was cap+DSML Jun 9)",
+      "multi_hop.yaml and thematic_cross_episode.yaml harness pass (were fail Jun 9)"
+    ],
+    "improvements_vs_jun11": [
+      "verbatim_transcript.yaml harness pass (was fail; DSML leak gone)",
+      "multi_turn.yaml wall -51% (443s vs 900s cap run)",
+      "thematic_search.yaml wall -56% (85s vs 193s)",
+      "tool_coverage.yaml wall -45% (516s vs 936s)"
+    ],
+    "primary_runs_wall_s": 6298.2,
+    "cap_hits_total": 2,
+    "notes": [
+      "All runs on Mac mini via SSH; reports pulled with scp/dev/pull-harness-reports.sh",
+      "Laptop preflight fails without catalog/embeddings.npy",
+      "run_context + librarian-suite-history.json tracking on all 15 runs",
+      "First full 15-scenario queue including agentic stress #12-15"
+    ]
+  },
+  "queue": [
+    {
+      "number": 1,
+      "yaml": "basic_qa.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 177.2,
+      "stop_reason": "natural",
+      "run_note": "librarian-live/2026-06-12 #1 basic_qa main@dad55f3",
+      "report_path": "dev/logs/runs/2026-06-12T11-10-45-report.json",
+      "notes": "4-tool path vs Jun 9 canonical 2-tool; wall +55%"
+    },
+    {
+      "number": 2,
+      "yaml": "episode_resolve.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 26.8,
+      "stop_reason": "natural",
+      "run_note": "librarian-live/2026-06-12 #2 episode_resolve main@07f7068",
+      "report_path": "dev/logs/runs/2026-06-12T11-17-48-report.json"
+    },
+    {
+      "number": 3,
+      "yaml": "multi_founder_comparison.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 395.0,
+      "stop_reason": "natural",
+      "run_note": "librarian-live/2026-06-12 #3 multi_founder_comparison main@07f7068",
+      "report_path": "dev/logs/runs/2026-06-12T11-29-17-report.json",
+      "notes": "Wall -28% vs Jun 9; 4 rounds vs 12 calls"
+    },
+    {
+      "number": 4,
+      "yaml": "multi_hop.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 273.1,
+      "stop_reason": "natural",
+      "run_note": "librarian-live/2026-06-12 #4 multi_hop main@07f7068",
+      "report_path": "dev/logs/runs/2026-06-12T11-45-20-report.json",
+      "notes": "Harness pass vs Jun 9 fail; wall +132% vs Jun 11"
+    },
+    {
+      "number": 5,
+      "yaml": "multi_turn.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 443.4,
+      "stop_reason": "natural",
+      "run_note": "librarian-live/2026-06-12 #5 multi_turn main@07f7068",
+      "report_path": "dev/logs/runs/2026-06-12T11-57-07-report.json",
+      "notes": "No T3 cap vs Jun 11; T2 truncated mid-sentence"
+    },
+    {
+      "number": 6,
+      "yaml": "single_founder_depth.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 179.5,
+      "stop_reason": "natural",
+      "run_note": "librarian-live/2026-06-12 #6 single_founder_depth main@07f7068",
+      "report_path": "dev/logs/runs/2026-06-12T12-04-22-report.json",
+      "notes": "Wall -69% vs Jun 9"
+    },
+    {
+      "number": 7,
+      "yaml": "thematic_cross_episode.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 752.3,
+      "stop_reason": "natural",
+      "run_note": "librarian-live/2026-06-12 #7 thematic_cross_episode main@07f7068",
+      "report_path": "dev/logs/runs/2026-06-12T12-17-36-report.json",
+      "notes": "Harness pass vs Jun 9 fail; T1 wall 496s (slow sub-query)"
+    },
+    {
+      "number": 8,
+      "yaml": "thematic_search.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 84.6,
+      "stop_reason": "natural",
+      "run_note": "librarian-live/2026-06-12 #8 thematic_search main@07f7068",
+      "report_path": "dev/logs/runs/2026-06-12T12-20-03-report.json",
+      "notes": "Ideal 1x search_vault; wall +32% vs Jun 9"
+    },
+    {
+      "number": 9,
+      "yaml": "thin_evidence_probe.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 558.3,
+      "stop_reason": "natural",
+      "run_note": "librarian-live/2026-06-12 #9 thin_evidence_probe main@07f7068",
+      "report_path": "dev/logs/runs/2026-06-12T12-33-15-report.json",
+      "notes": "Honest Nadella absence; wall +39% vs Jun 9"
+    },
+    {
+      "number": 10,
+      "yaml": "tool_coverage.yaml",
+      "harness_pass": true,
+      "substantive_pass": false,
+      "elapsed_s": 515.9,
+      "stop_reason": "natural",
+      "run_note": "librarian-live/2026-06-12 #10 tool_coverage main@07f7068",
+      "report_path": "dev/logs/runs/2026-06-12T12-43-58-report.json",
+      "notes": "T2 generic failure string on verbatim breakup query"
+    },
+    {
+      "number": 11,
+      "yaml": "verbatim_transcript.yaml",
+      "harness_pass": true,
+      "substantive_pass": true,
+      "elapsed_s": 159.7,
+      "stop_reason": "cap",
+      "run_note": "librarian-live/2026-06-12 #11 verbatim_transcript main@07f7068",
+      "report_path": "dev/logs/runs/2026-06-12T12-47-06-report.json",
+      "notes": "Cap but usable answer; no DSML leak (improved vs Jun 9/Jun 11)"
+    },
+    {
+      "number": 12,
+      "yaml": "ood_decline.yaml",
+      "harness_pass": false,
+      "substantive_pass": false,
+      "elapsed_s": 727.9,
+      "stop_reason": "natural",
+      "run_note": "librarian-live/2026-06-12 #12 ood_decline main@07f7068",
+      "report_path": "dev/logs/runs/2026-06-12T12-59-40-report.json",
+      "failure_mode": "tool_rounds_max; response_contains_any; no_episode_citations",
+      "notes": "Correct decline intent; over-retrieved all turns"
+    },
+    {
+      "number": 13,
+      "yaml": "negative_constraints.yaml",
+      "harness_pass": false,
+      "substantive_pass": false,
+      "elapsed_s": 434.7,
+      "stop_reason": "natural",
+      "run_note": "librarian-live/2026-06-12 #13 negative_constraints main@07f7068",
+      "report_path": "dev/logs/runs/2026-06-12T13-10-48-report.json",
+      "failure_mode": "T3 zero tools; session-memory synthesis",
+      "notes": "T1-T2 exclusion compliance strong"
+    },
+    {
+      "number": 14,
+      "yaml": "verbatim_intent.yaml",
+      "harness_pass": false,
+      "substantive_pass": true,
+      "elapsed_s": 127.6,
+      "stop_reason": "natural",
+      "run_note": "librarian-live/2026-06-12 #14 verbatim_intent main@07f7068",
+      "report_path": "dev/logs/runs/2026-06-12T13-14-26-report.json",
+      "failure_mode": "T1 tool_calls_max (6 > 3)",
+      "notes": "T2-T3 pass; strong verbatim quotes"
+    },
+    {
+      "number": 15,
+      "yaml": "tool_efficiency.yaml",
+      "harness_pass": false,
+      "substantive_pass": true,
+      "elapsed_s": 1442.2,
+      "stop_reason": "cap",
+      "run_note": "librarian-live/2026-06-12 #15 tool_efficiency main@07f7068",
+      "report_path": "dev/logs/runs/2026-06-12T13-40-23-report.json",
+      "failure_mode": "T1-T2 tool_calls_max; T1 cap",
+      "notes": "T3 pass; substantive comparisons strong despite retry chains"
+    }
+  ]
+}
