@@ -46,6 +46,22 @@ def index_newest_mtime(vault_root: Path) -> float:
     return max(mtimes) if mtimes else 0.0
 
 
+def _session_exported_at(path: Path) -> str:
+    """ISO exported_at from meta line; empty string if missing."""
+    try:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            row = json.loads(line)
+            if row.get("record") == "meta":
+                return str(row.get("exported_at") or "")
+            break
+    except (OSError, json.JSONDecodeError, TypeError):
+        return ""
+    return ""
+
+
 def _session_owner_id(path: Path) -> int | None:
     """Read user_id from exported meta line; None if missing or unreadable."""
     try:
@@ -187,7 +203,11 @@ class SessionStore:
             for p in self.config.sessions_dir.glob("*.jsonl")
             if _session_owner_id(p) == user_id
         ]
-        return sorted(files, key=lambda p: p.stat().st_mtime, reverse=True)
+        return sorted(
+            files,
+            key=lambda p: (_session_exported_at(p), p.name),
+            reverse=True,
+        )
 
     def resume_latest(self, user_id: int) -> tuple[bool, str]:
         files = self._sessions_for_user(user_id)
@@ -208,7 +228,7 @@ class SessionStore:
         ]
         if not matches:
             return False, f"No session matching {name!r}."
-        path = max(matches, key=lambda p: p.stat().st_mtime)
+        path = max(matches, key=lambda p: (_session_exported_at(p), p.name))
         warn = self.load_session_file(path, user_id)
         msg = f"Resumed {path.name} ({len(self.get(user_id).messages)} messages)."
         if warn:
