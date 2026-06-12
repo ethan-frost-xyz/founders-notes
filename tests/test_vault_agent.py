@@ -480,6 +480,78 @@ def test_run_turn_stream_timing(agent_config: AgentConfig):
     assert any(t.get("record") == "timing" for t in result.tool_trace)
 
 
+def test_run_turn_parallel_tools_execute_concurrently(
+    agent_config: AgentConfig, monkeypatch: pytest.MonkeyPatch
+):
+    import time
+
+    calls: list[str] = []
+    delays = {"search_vault": 0.12, "search_transcript": 0.06}
+
+    def fake_execute_tool(name, arguments, **kwargs):
+        time.sleep(delays.get(name, 0))
+        calls.append(name)
+        if name == "search_vault":
+            return {
+                "query": arguments["query"],
+                "evidence": "vault evidence",
+                "meta": {},
+                "trace_evidence": [{"episode_id": "ep-0016", "rerank_score": 8.0}],
+            }
+        if name == "search_transcript":
+            return {
+                "query": arguments["query"],
+                "hits": [],
+                "evidence": "transcript evidence",
+                "trace_evidence": [],
+            }
+        raise AssertionError(f"unexpected tool {name}")
+
+    monkeypatch.setattr("tool_batch.execute_tool", fake_execute_tool)
+
+    step = 0
+
+    def fake_completion(**kwargs):
+        nonlocal step
+        step += 1
+        if step == 1:
+            return _stream_from_response(
+                _fake_response(
+                    tool_calls=[
+                        _fake_tool_call(
+                            "search_vault",
+                            {"query": "Rockefeller discipline"},
+                            call_id="call_a",
+                        ),
+                        _fake_tool_call(
+                            "search_transcript",
+                            {"query": "Rockefeller discipline"},
+                            call_id="call_b",
+                        ),
+                    ],
+                )
+            )
+        return _stream_from_response(
+            _fake_response(content="Rockefeller valued discipline [ep-0016].")
+        )
+
+    t0 = time.perf_counter()
+    result = VaultAgent(config=agent_config).run_turn(
+        "What did Rockefeller say about discipline?",
+        completion_fn=fake_completion,
+    )
+    elapsed = time.perf_counter() - t0
+
+    assert not result.error
+    assert set(calls) == {"search_vault", "search_transcript"}
+    assert elapsed < 0.20
+    round_entries = [t for t in result.tool_trace if t.get("record") == "round"]
+    assert round_entries[0].get("parallel") is True
+    assert round_entries[0].get("tool_count") == 2
+    tool_steps = [t for t in result.tool_trace if t.get("tool")]
+    assert [t["tool"] for t in tool_steps] == ["search_vault", "search_transcript"]
+
+
 def test_run_turn_emits_spans_with_telemetry(agent_config: AgentConfig):
     from telemetry import TurnTimerCollector
     from turn_timing import TurnTimer

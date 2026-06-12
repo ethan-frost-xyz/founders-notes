@@ -56,6 +56,9 @@ Or: `python lib/reindex_vault.py` / Telegram `/reindex` (runs all steps above).
 | Loop | Model calls tools until it answers or **6 tool-call rounds** (cap forces final synthesis with honesty nudge) |
 | Models | `librarian_model` — loop + synthesis; `retrieval_model` — expand + rerank inside each search |
 | Trace | Per-round `tool_trace` + `trace_summary` (queries, episode_ids, scores, stop reason) |
+| Parallel tools (Stage 1) | Multiple tool calls in one round execute via `execute_tool_batch` in [`tool_batch.py`](../services/telegram/bot/tool_batch.py) — wall time ≈ max(tool latencies), not sum |
+
+**SaC roadmap:** Stage 1 (parallel execution) → Stage 2 (query planner) → Stage 3 (chunking without runtime rerank). See [`.cursor/plans/archive/legacy/AGENTIC-VISION-BRIEF.md`](../.cursor/plans/archive/legacy/AGENTIC-VISION-BRIEF.md).
 
 **Prompt sources:** [`ingestion/prompts/query_expand.md`](../ingestion/prompts/query_expand.md), [`ingestion/prompts/rerank_evidence.md`](../ingestion/prompts/rerank_evidence.md). Persona + composition heuristics: [`AGENTS.md`](../AGENTS.md).
 

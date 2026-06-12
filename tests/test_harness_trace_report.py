@@ -190,6 +190,46 @@ def test_timing_accountability_concurrent_many_uses_max_not_sum():
     assert acc["unaccounted_ms"] == 124329 - (74535 + 41252)
 
 
+def test_timing_accountability_parallel_tool_round_uses_batch_wall():
+    timing = {
+        "vault_search_local_ms": 500,
+        "retrieval_llm_ms": 4000,
+        "thread_wait_ms": 3000,
+        "tool_batches": [
+            {
+                "tool_round": 1,
+                "tools": ["search_vault", "search_transcript"],
+                "wall_ms": 3000,
+                "parallel": True,
+            }
+        ],
+        "searches": [
+            {
+                "query": "vault q",
+                "tool": "search_vault",
+                "tool_round": 1,
+                "vault_search_local_ms": 200,
+                "retrieval_llm_ms": 2800,
+                "wall_ms": 2900,
+            },
+            {
+                "query": "transcript q",
+                "tool": "search_transcript",
+                "tool_round": 1,
+                "vault_search_local_ms": 300,
+                "retrieval_llm_ms": 0,
+                "wall_ms": 300,
+            },
+        ],
+        "openrouter_calls": [{"total_ms": 5000}],
+    }
+    acc = timing_accountability(timing, elapsed_s=10.0)
+    assert acc is not None
+    assert acc["accounted_breakdown"]["search_wall_ms"] == 3000
+    assert acc["accounted_breakdown"]["parallelism_excess_ms"] == 500 + 4000 - 3000
+    assert acc["accounted_ms"] == 3000 + 5000
+
+
 def test_timing_accountability_includes_tool_local():
     timing = {
         "vault_search_local_ms": 0,

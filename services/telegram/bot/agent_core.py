@@ -12,12 +12,12 @@ from agent_streaming import accumulate_streamed_message
 from agent_tools import (
     assistant_message_dict,
     build_trace_summary,
-    execute_tool,
     openrouter_tools,
     tool_result_content,
     trace_evidence_from_result,
     trace_queries,
 )
+from tool_batch import ToolInvocation, execute_tool_batch
 from config import AgentConfig, load_agent_config
 from librarian_prompt import build_system_message
 from reply_sanitize import sanitize_librarian_reply
@@ -281,60 +281,70 @@ class VaultAgent:
                 round_queries: list[str] = []
                 round_evidence: list[dict[str, Any]] = []
 
+                invocations: list[ToolInvocation] = []
                 for tc in msg.tool_calls:
                     name = tc.function.name
                     try:
                         args = json.loads(tc.function.arguments or "{}")
                     except json.JSONDecodeError:
                         args = {}
+                    invocations.append(
+                        ToolInvocation(tool_call_id=tc.id, name=name, arguments=args)
+                    )
+
+                next_round = tool_round + 1
+                batch_results = execute_tool_batch(
+                    invocations,
+                    config=cfg,
+                    history=history,
+                    timing=timing,
+                    telemetry=collector,
+                    on_tool_start=on_tool_start,
+                    tool_round=next_round,
+                )
+
+                for batch_result in batch_results:
+                    inv = batch_result.invocation
+                    name = inv.name
+                    args = inv.arguments
+                    result = batch_result.result
                     round_tools.append(name)
                     round_queries.extend(trace_queries(name, args))
                     trace.append(
                         {
-                            "step": tool_round + 1,
+                            "step": next_round,
                             "tool": name,
                             "arguments": args,
                             "session_id": session_id,
                             "status_label": tool_status_label(name),
+                            "wall_ms": batch_result.wall_ms,
                         }
-                    )
-                    if on_tool_start is not None:
-                        try:
-                            on_tool_start(name, args)
-                        except Exception:
-                            pass
-                    result = execute_tool(
-                        name,
-                        args,
-                        config=cfg,
-                        history=history,
-                        timing=timing,
-                        telemetry=collector,
                     )
                     traced = trace_evidence_from_result(result)
                     round_evidence.extend(traced)
                     turn_evidence.extend(traced)
-                    content = tool_result_content(result)
                     messages.append(
                         {
                             "role": "tool",
-                            "tool_call_id": tc.id,
-                            "content": content,
+                            "tool_call_id": inv.tool_call_id,
+                            "content": tool_result_content(result),
                         }
                     )
 
-                tool_round += 1
-                trace.append(
-                    {
-                        "record": "round",
-                        "round": tool_round,
-                        "tools": round_tools,
-                        "queries": round_queries,
-                        "evidence": round_evidence,
-                        "reasoning": (msg.content or "").strip(),
-                        "session_id": session_id,
-                    }
-                )
+                tool_round = next_round
+                round_record: dict[str, Any] = {
+                    "record": "round",
+                    "round": tool_round,
+                    "tools": round_tools,
+                    "queries": round_queries,
+                    "evidence": round_evidence,
+                    "reasoning": (msg.content or "").strip(),
+                    "session_id": session_id,
+                }
+                if len(invocations) > 1:
+                    round_record["parallel"] = True
+                    round_record["tool_count"] = len(invocations)
+                trace.append(round_record)
 
                 if tool_round >= MAX_TOOL_ROUNDS:
                     stop_reason = "cap"
