@@ -161,11 +161,72 @@ Each turn:
 | `button` | Inline callback data (optional; can follow `send` in same turn) |
 | `expect` | Assertions (see below) |
 
-**Expect keys:** `contains`, `not_contains`, `response_min_length`, `expect_live` (`tool_called`, `tool_called_any`, `tools_called`, `response_contains`, `response_contains_any`, `load_episode_id`, `status_contains`), `phase` (Janitor), `sandbox_file_written` (substring match on sandbox paths). Harness bot keeps status messages (not deleted) so `status_contains: "Searching vault"` is testable.
+**Expect keys:** `contains`, `not_contains`, `not_contains_all`, `response_min_length`, `expect_live` (see table below), `phase` (Janitor), `sandbox_file_written` (substring match on sandbox paths). Harness bot keeps status messages (not deleted) so `status_contains: "Searching vault"` is testable.
+
+**`expect_live` keys (live LLM only):**
+
+| Key | Purpose |
+|-----|---------|
+| `tool_called` | Named tool must appear in trace |
+| `tool_called_any` | At least one listed tool must appear |
+| `tools_called` | Every listed tool must appear |
+| `tool_called_first` | First tool in trace must match (verbatim routing) |
+| `tools_not_called` | Listed tools must not appear |
+| `tool_calls_max` | Max flat tool invocations per turn |
+| `tool_rounds_max` | Max agent tool rounds per turn |
+| `search_vault_many_queries_min` | Min sub-query count on any `search_vault_many` call |
+| `response_contains` / `response_contains_any` / `response_contains_all` | Substrings in final reply |
+| `response_not_contains_all` | Live-only prose exclusions (negative constraints) |
+| `response_contains_episode_citation` | Reply must include `[ep-NNNN]` |
+| `no_episode_citations` | Reply must not include `[ep-NNNN]` (OOD decline) |
+| `episode_citations_exclude` | Cited `[ep-NNNN]` must not include listed ids |
+| `load_episode_id` | `load_episode` resolves to canonical id |
+| `status_contains` | Status line substring |
 
 `tool_called_any` passes when **any** listed tool name appears in the turn trace (live only). Use for cross-episode thematic turns where `search_vault` or `search_vault_many` are both valid per [`AGENTS.md`](../AGENTS.md).
 
-**Agentic Librarian tools (live assertions):** `search_vault`, `search_vault_many`, `search_transcript`, `load_episode`, `list_episode_ids`. Hard-question scenarios live under `dev/scenarios/librarian/` (`multi_founder_comparison`, `thin_evidence_probe`, `verbatim_transcript`, `multi_hop`, `single_founder_depth`).
+**Agentic Librarian tools (live assertions):** `search_vault`, `search_vault_many`, `search_transcript`, `load_episode`, `list_episode_ids`.
+
+Hard-question scenarios under `dev/scenarios/librarian/`:
+
+- *Behavioral* — `thin_evidence_probe` (honest partial answer), `ood_decline` (halt/decline for catalog-absent entities)
+- *Routing* — `verbatim_intent` (transcript-first), `tool_efficiency` (`search_vault_many` required)
+- *Legacy breadth* — `multi_founder_comparison`, `verbatim_transcript`, `multi_hop`, `single_founder_depth`, `thematic_cross_episode`
+
+### Agentic stress scenarios
+
+Four live-only YAML files stress agentic behavior (not pure retrieval ranking):
+
+| File | Pass criteria |
+|------|----------------|
+| `ood_decline.yaml` | ≤2 tool rounds; no `[ep-NNNN]` citations; decline prose. OOD entities in [`fixtures/ood_entities.yaml`](../dev/scenarios/librarian/fixtures/ood_entities.yaml) (CI-verified absent from catalog). |
+| `negative_constraints.yaml` | Search then synthesize without excluded founder names (`response_not_contains_all`) or excluded episode citations (`episode_citations_exclude`). |
+| `verbatim_intent.yaml` | `search_transcript` first; ≤3 tool calls; optional single `search_vault` follow-up. |
+| `tool_efficiency.yaml` | `search_vault_many` with ≥2 sub-queries; ≤6 tool calls; both founders named in answer. |
+
+Example (OOD decline turn):
+
+```yaml
+- send: "What did Brian Chesky note about building Airbnb's early culture?"
+  expect:
+    expect_live:
+      tool_rounds_max: 2
+      no_episode_citations: true
+      response_contains_any: [not in, don't have, no episode, outside]
+```
+
+Example (negative constraint turn):
+
+```yaml
+- send: "How did Gilded Age industrialists think about teams — but do not discuss Rockefeller or Standard Oil."
+  expect:
+    response_min_length: 60
+    expect_live:
+      tool_called_any: [search_vault, search_vault_many]
+      response_not_contains_all: [Rockefeller, Standard Oil]
+      episode_citations_exclude: [ep-0016, ep-0148]
+      response_contains_episode_citation: true
+```
 
 `load_episode_id` checks that a `load_episode` tool call used an `episode_id` that resolves to the canonical id (stable when the model omits `[ep-NNNN]` from prose).
 

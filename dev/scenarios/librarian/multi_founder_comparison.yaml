@@ -5,10 +5,9 @@ turns:
     expect:
       expect_live:
         response_min_length: 80
-        tool_called_any:
-          - search_vault
-          - search_vault_many
+        tool_called: search_vault_many
+        search_vault_many_queries_min: 2
         response_contains_episode_citation: true
-        response_contains_any:
+        response_contains_all:
           - Edison
           - Rockefeller

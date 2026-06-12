@@ -1,0 +1,16 @@
+# Canonical out-of-domain entities for ood_decline.yaml.
+# CI verifies verify_absent tokens do not appear in catalog/episodes.jsonl titles/slugs.
+entities:
+  - name: Brian Chesky
+    topic: Airbnb culture
+    verify_absent:
+      - Brian Chesky
+      - Airbnb
+  - name: Reed Hastings
+    topic: Netflix strategy
+    verify_absent:
+      - Reed Hastings
+      - Netflix
+  - name: Taylor Swift
+    topic: owning her masters
+    verify_absent_note: tangential transcript mentions may exist; entity must not be a studied subject

@@ -5,7 +5,7 @@ description: Run librarian live harness scenarios against a baseline summary, co
 
 # Librarian live suite testing loop
 
-Regression loop for the 11 live librarian scenarios. **Prefer interactive (one-by-one)** — full `--suite` defers all output until the end and can hang invisibly on OpenRouter.
+Regression loop for the 15 live librarian scenarios. **Prefer interactive (one-by-one)** — full `--suite` defers all output until the end and can hang invisibly on OpenRouter.
 
 Canonical prompt and baseline table: [RERUN-LIVE-SUITE.md](../../../dev/scenarios/librarian/RERUN-LIVE-SUITE.md)
 
@@ -16,7 +16,7 @@ Use **AskQuestion** before the first scenario unless the user already chose:
 | Mode | Label | Behavior |
 |------|-------|----------|
 | **Interactive** (default) | One-by-one | One scenario per turn; wait for **proceed**; **always pass `--run-note`** |
-| **Sequential** | Full suite | All 11 in one session — only when user explicitly wants it; use queue-order loop with `--run-note` per file instead of bare `--suite` when possible |
+| **Sequential** | Full suite | All 15 in one session — only when user explicitly wants it; use queue-order loop with `--run-note` per file instead of bare `--suite` when possible |
 
 Record the chosen mode in your first reply.
 
@@ -32,7 +32,7 @@ Record the chosen mode in your first reply.
 - **Avoid** bare `--suite librarian --live-only` over SSH — no per-scenario feedback and no report until all finish.
 - **Preferred:** loop queue YAMLs with `--scenario` + `--run-note` each (reports land immediately).
 - If user insists on `--suite`, use `PYTHONUNBUFFERED=1` and `-v` (prints per-scenario summary mid-run when `scenario_count > 1`).
-- After all 11: post condensed summaries + write `YYYY-MM-DD-librarian-live-suite-rerun-summary.json`.
+- After all 15: post condensed summaries + write `YYYY-MM-DD-librarian-live-suite-rerun-summary.json`.
 
 ## Before the first scenario
 
@@ -78,7 +78,7 @@ Optional suffix for intent: `… post-PR-36` or `… retry after cap`.
 - History row has matching `run_note` + `scenario_yaml`
 - Pull from mini: `./dev/pull-harness-reports.sh`
 
-## Queue (11)
+## Queue (15)
 
 | # | File |
 |---|------|
@@ -93,8 +93,14 @@ Optional suffix for intent: `… post-PR-36` or `… retry after cap`.
 | 9 | `thin_evidence_probe.yaml` |
 | 10 | `tool_coverage.yaml` |
 | 11 | `verbatim_transcript.yaml` |
+| 12 | `ood_decline.yaml` |
+| 13 | `negative_constraints.yaml` |
+| 14 | `verbatim_intent.yaml` |
+| 15 | `tool_efficiency.yaml` |
 
-Use a long `block_until_ms` for #3, #5, #6, #7, #9, #10.
+Use a long `block_until_ms` for #3, #5, #6, #7, #9, #10, #12–#15.
+
+**Agentic stress FAIL hints (#12–15):** `tool_rounds_max`, `no_episode_citations`, `response_not_contains_all`, `episode_citations_exclude`, `tool_called_first`, `search_vault_many_queries_min` — see [telegram-mock-harness.md](../../../docs/telegram-mock-harness.md#agentic-stress-scenarios).
 
 ## After each scenario — required summary
 
@@ -132,7 +138,7 @@ Legacy: `retrieval_llm_ms`, `timing.searches[]` with `wall_ms`.
 
 | Signal | Action |
 |--------|--------|
-| Harness pass rate | Target 11/11 — fix assertions or agent, not reroll alone |
+| Harness pass rate | Target 15/15 — fix assertions or agent, not reroll alone |
 | Wall / retrieval spans | Flag **>25%** vs baseline row |
 | `stop_reason: cap` | Flag new caps; check DSML |
 | Zero tools on thematic Q | Substantive fail even if harness passes |

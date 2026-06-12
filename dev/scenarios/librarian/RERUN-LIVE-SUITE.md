@@ -7,7 +7,7 @@ Copy everything inside the block below into a **new Cursor chat** to replay the 
 ```
 Run the librarian live suite per dev/scenarios/librarian/RERUN-LIVE-SUITE.md.
 
-**First:** ask whether I want **interactive** (one scenario per turn, wait for "proceed") or **sequential** (all 11 in one session via `--suite librarian --live-only -v`).
+**First:** ask whether I want **interactive** (one scenario per turn, wait for "proceed") or **sequential** (all 15 in one session via `--suite librarian --live-only -v`).
 
 Start from #1 unless I specify otherwise.
 
@@ -37,7 +37,7 @@ Start from #1 unless I specify otherwise.
 
 ### What to monitor for improvement
 
-- **Harness pass rate** → target 11/11 (fix assertions or agent, not just reroll)
+- **Harness pass rate** → target 15/15 (fix assertions or agent, not just reroll)
 - **Wall time & retrieval_llm** → lower is better; flag regressions >25% vs baseline row
 - **Agent path** → `observability.agent_path.path_string`; flag redundant tool chains on simple Qs (#1, #8)
 - **Final synthesis TTFT** → `observability.latency.synthesis.final_ttft_ms` (not `agent_ttft_ms_mean`)
@@ -49,6 +49,10 @@ Start from #1 unless I specify otherwise.
 - **Substantive quality** → `response_text` / `*-report.md`; check `observability.synthesis_quality.dsml_leak`
 - **Suite history** → auto-appended to `dev/logs/runs/librarian-suite-history.json` with `delta_vs_baseline`
 - **Known flakes** → `search_vault` vs `search_vault_many` on #4/#7: note whether behavior or assertion changed
+- **OOD (#12)** — `tool_rounds_used ≤ 2`, zero `[ep-NNNN]`, no hallucinated "I noted…" for absent founders
+- **Negative constraints (#13)** — excluded names absent; `episode_citations_exclude` ids not in `response_text`
+- **Verbatim intent (#14)** — `search_transcript` first; flag `search_vault` before transcript
+- **Tool efficiency (#15)** — single `search_vault_many` with ≥2 sub-queries vs N× `search_vault` retry chains
 
 After each scenario, print a **delta vs baseline** line (pass/fail change, wall ±%, tools, stop_reason, retrieval_llm).
 
@@ -56,7 +60,7 @@ Harness auto-appends each librarian suite run to `dev/logs/runs/librarian-suite-
 
 ## Commands
 
-**Sequential (all 11):**
+**Sequential (all 15):**
 cd /Users/ethanfrost/projects/my-github-projects/founders-podcast-brain/founders-notes
 ingestion/.venv/bin/python dev/mock_telegram_cli.py \
   --suite librarian --live-only -v
@@ -67,7 +71,7 @@ ingestion/.venv/bin/python dev/mock_telegram_cli.py \
   --scenario dev/scenarios/librarian/<FILE>.yaml -v \
   --run-note "librarian-live/YYYY-MM-DD #N <stem> <branch>@<sha>"
 
-## Queue (11)
+## Queue (15)
 
 1. basic_qa.yaml
 2. episode_resolve.yaml
@@ -80,6 +84,30 @@ ingestion/.venv/bin/python dev/mock_telegram_cli.py \
 9. thin_evidence_probe.yaml
 10. tool_coverage.yaml
 11. verbatim_transcript.yaml
+12. ood_decline.yaml — OOD halt
+13. negative_constraints.yaml — exclusion compliance
+14. verbatim_intent.yaml — transcript-first routing
+15. tool_efficiency.yaml — `search_vault_many` decomposition
+
+### Baseline placeholders (#12–15)
+
+Re-baseline after first green run on Mac mini:
+
+| # | Scenario | Pass | Wall | Stop | Tools | Notes |
+|---|----------|------|------|------|-------|-------|
+| 12 | ood_decline | TBD | TBD | TBD | TBD | ≤2 rounds, no citations |
+| 13 | negative_constraints | TBD | TBD | TBD | TBD | layered exclusion |
+| 14 | verbatim_intent | TBD | TBD | TBD | TBD | transcript first |
+| 15 | tool_efficiency | TBD | TBD | TBD | TBD | search_vault_many ≥2 queries |
+
+Interactive run-note examples:
+
+```text
+librarian-live/YYYY-MM-DD #12 ood_decline main@<sha>
+librarian-live/YYYY-MM-DD #13 negative_constraints main@<sha>
+librarian-live/YYYY-MM-DD #14 verbatim_intent main@<sha>
+librarian-live/YYYY-MM-DD #15 tool_efficiency main@<sha>
+```
 
 ## After each run, summarize
 

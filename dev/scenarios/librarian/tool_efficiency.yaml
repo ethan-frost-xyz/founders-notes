@@ -1,0 +1,41 @@
+name: Librarian tool efficiency
+llm: live
+tags: [agentic_stress, tool_efficiency]
+category: tool_efficiency
+turns:
+  - send: "Compare how Edison and Rockefeller built and ran their teams — one synthesis, both sides."
+    expect:
+      response_min_length: 80
+      expect_live:
+        tool_called: search_vault_many
+        search_vault_many_queries_min: 2
+        tool_calls_max: 6
+        tool_rounds_max: 4
+        response_contains_episode_citation: true
+        response_contains_all:
+          - Edison
+          - Rockefeller
+  - send: "How did Henry Ford and Andrew Carnegie differ on scale and vertical integration?"
+    expect:
+      response_min_length: 80
+      expect_live:
+        tool_called: search_vault_many
+        search_vault_many_queries_min: 2
+        tool_calls_max: 6
+        tool_rounds_max: 4
+        response_contains_episode_citation: true
+        response_contains_all:
+          - Ford
+          - Carnegie
+  - send: "Contrast Cornelius Vanderbilt and William Randolph Hearst on empire-building through control vs narrative."
+    expect:
+      response_min_length: 80
+      expect_live:
+        tool_called: search_vault_many
+        search_vault_many_queries_min: 2
+        tool_calls_max: 6
+        tool_rounds_max: 4
+        response_contains_episode_citation: true
+        response_contains_all:
+          - Vanderbilt
+          - Hearst

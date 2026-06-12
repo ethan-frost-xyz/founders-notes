@@ -336,6 +336,195 @@ def test_check_expectations_episode_citation_ignored_in_echo_mode():
     assert ok, msg
 
 
+def test_check_expectations_tool_called_first_passes():
+    traces = [
+        {"step": 1, "tool": "search_transcript", "arguments": {"query": "q"}},
+        {"step": 2, "tool": "search_vault", "arguments": {"query": "q2"}},
+    ]
+    ok, msg = _check_expectations(
+        {"tool_called_first": "search_transcript"},
+        replies=[_Reply("quote [ep-0016]")],
+        tool_traces=traces,
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert ok, msg
+
+
+def test_check_expectations_tool_called_first_fails_when_vault_leads():
+    traces = [
+        {"step": 1, "tool": "search_vault", "arguments": {"query": "q"}},
+        {"step": 2, "tool": "search_transcript", "arguments": {"query": "q2"}},
+    ]
+    ok, msg = _check_expectations(
+        {"tool_called_first": "search_transcript"},
+        replies=[_Reply("answer")],
+        tool_traces=traces,
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert not ok
+    assert "first tool" in msg
+
+
+def test_check_expectations_tool_calls_max_passes():
+    traces = [{"step": i, "tool": "search_vault", "arguments": {}} for i in range(3)]
+    ok, msg = _check_expectations(
+        {"tool_calls_max": 3},
+        replies=[_Reply("ok")],
+        tool_traces=traces,
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert ok, msg
+
+
+def test_check_expectations_tool_calls_max_fails():
+    traces = [{"step": i, "tool": "search_vault", "arguments": {}} for i in range(4)]
+    ok, msg = _check_expectations(
+        {"tool_calls_max": 3},
+        replies=[_Reply("ok")],
+        tool_traces=traces,
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert not ok
+    assert "tool calls" in msg
+
+
+def test_check_expectations_tool_rounds_max_passes():
+    traces = [
+        {"record": "round", "round": 1, "tools": ["search_vault"], "queries": [], "evidence": []},
+        {"record": "round", "round": 2, "tools": ["search_vault"], "queries": [], "evidence": []},
+    ]
+    ok, msg = _check_expectations(
+        {"tool_rounds_max": 2},
+        replies=[_Reply("decline")],
+        tool_traces=traces,
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert ok, msg
+
+
+def test_check_expectations_no_episode_citations_passes():
+    ok, msg = _check_expectations(
+        {"no_episode_citations": True},
+        replies=[_Reply("Nothing on Chesky in the vault.")],
+        tool_traces=[],
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert ok, msg
+
+
+def test_check_expectations_no_episode_citations_fails():
+    ok, msg = _check_expectations(
+        {"no_episode_citations": True},
+        replies=[_Reply("See [ep-0016] anyway.")],
+        tool_traces=[],
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert not ok
+
+
+def test_check_expectations_episode_citations_exclude_passes():
+    ok, msg = _check_expectations(
+        {"episode_citations_exclude": ["ep-0016"]},
+        replies=[_Reply("Vanderbilt delegated differently [ep-0054].")],
+        tool_traces=[],
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert ok, msg
+
+
+def test_check_expectations_episode_citations_exclude_fails():
+    ok, msg = _check_expectations(
+        {"episode_citations_exclude": ["ep-0016"]},
+        replies=[_Reply("Rockefeller anyway [ep-0016].")],
+        tool_traces=[],
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert not ok
+    assert "ep-0016" in msg
+
+
+def test_check_expectations_search_vault_many_queries_min_passes():
+    traces = [
+        {
+            "step": 1,
+            "tool": "search_vault_many",
+            "arguments": {"queries": ["Edison teams", "Rockefeller teams"]},
+        }
+    ]
+    ok, msg = _check_expectations(
+        {"search_vault_many_queries_min": 2},
+        replies=[_Reply("Both differ [ep-0043].")],
+        tool_traces=traces,
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert ok, msg
+
+
+def test_check_expectations_search_vault_many_queries_min_fails():
+    traces = [
+        {
+            "step": 1,
+            "tool": "search_vault_many",
+            "arguments": {"queries": ["only one"]},
+        }
+    ]
+    ok, msg = _check_expectations(
+        {"search_vault_many_queries_min": 2},
+        replies=[_Reply("answer")],
+        tool_traces=traces,
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert not ok
+    assert "sub-queries" in msg
+
+
+def test_check_expectations_response_contains_all_passes():
+    ok, msg = _check_expectations(
+        {"response_contains_all": ["Edison", "Rockefeller"]},
+        replies=[_Reply("Edison and Rockefeller differed [ep-0043].")],
+        tool_traces=[],
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert ok, msg
+
+
+def test_check_expectations_tools_not_called_passes():
+    traces = [{"step": 1, "tool": "search_vault", "arguments": {"query": "q"}}]
+    ok, msg = _check_expectations(
+        {"tools_not_called": ["load_episode"]},
+        replies=[_Reply("decline")],
+        tool_traces=traces,
+        janitor_phase=None,
+        sandbox_inspect=None,
+        llm_mode="live",
+    )
+    assert ok, msg
+
+
 def test_enrich_turn_includes_observability():
     traces = _verbatim_transcript_traces()
     enriched = enrich_turn_from_traces(

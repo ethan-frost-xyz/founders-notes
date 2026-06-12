@@ -1,0 +1,42 @@
+name: Librarian OOD decline
+llm: live
+tags: [agentic_stress, ood]
+category: ood_decline
+turns:
+  - send: "What did Brian Chesky note about building Airbnb's early culture?"
+    expect:
+      expect_live:
+        tool_rounds_max: 2
+        no_episode_citations: true
+        response_contains_any:
+          - not in
+          - don't have
+          - no episode
+          - outside
+          - isn't in
+          - not in the vault
+  - send: "Summarize Reed Hastings' content strategy for Netflix from my vault notes."
+    expect:
+      expect_live:
+        tool_rounds_max: 2
+        no_episode_citations: true
+        response_contains_any:
+          - not in
+          - don't have
+          - no episode
+          - outside
+          - isn't in
+          - not in the vault
+  - send: "What did I capture about Taylor Swift's approach to owning her masters?"
+    expect:
+      expect_live:
+        tool_rounds_max: 2
+        no_episode_citations: true
+        response_contains_any:
+          - not in
+          - don't have
+          - no episode
+          - outside
+          - isn't in
+          - not in the vault
+          - tangential

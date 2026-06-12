@@ -1,0 +1,48 @@
+name: Librarian negative constraints
+llm: live
+tags: [agentic_stress, negative_constraint]
+category: negative_constraint
+turns:
+  - send: "How did Gilded Age industrialists think about building teams — but do not discuss Rockefeller or Standard Oil."
+    expect:
+      response_min_length: 60
+      expect_live:
+        response_not_contains_all:
+          - Rockefeller
+          - Standard Oil
+        tool_called_any:
+          - search_vault
+          - search_vault_many
+        episode_citations_exclude:
+          - ep-0016
+          - ep-0148
+        response_contains_episode_citation: true
+  - send: "What mental models show up around compounding wealth — but exclude Warren Buffett and Charlie Munger entirely."
+    expect:
+      response_min_length: 60
+      expect_live:
+        response_not_contains_all:
+          - Buffett
+          - Munger
+        tool_called_any:
+          - search_vault
+          - search_vault_many
+        episode_citations_exclude:
+          - ep-0090
+          - ep-0100
+          - ep-0221
+        response_contains_episode_citation: true
+  - send: "How did founders approach product obsession — but not Steve Jobs or Apple."
+    expect:
+      response_min_length: 60
+      expect_live:
+        response_not_contains_all:
+          - Steve Jobs
+          - Apple
+        tool_called_any:
+          - search_vault
+          - search_vault_many
+        episode_citations_exclude:
+          - ep-0005
+          - ep-0076
+        response_contains_episode_citation: true

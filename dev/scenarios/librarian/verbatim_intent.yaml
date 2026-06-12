@@ -1,0 +1,52 @@
+name: Librarian verbatim intent
+llm: live
+tags: [agentic_stress, verbatim]
+category: verbatim
+turns:
+  - send: "Quote Rockefeller's exact words about competition from the transcript — quotation marks, no paraphrase."
+    expect:
+      response_min_length: 40
+      not_contains_all:
+        - DSML
+        - redacted_reasoning
+        - "<think>"
+      expect_live:
+        tool_called_first: search_transcript
+        tools_called:
+          - search_transcript
+        tool_calls_max: 3
+        response_contains_any:
+          - Rockefeller
+          - ep-
+  - send: "What were Charlie Munger's verbatim words about inversion? Copy from the transcript only."
+    expect:
+      response_min_length: 40
+      not_contains_all:
+        - DSML
+        - redacted_reasoning
+        - "<think>"
+      expect_live:
+        tool_called_first: search_transcript
+        tools_called:
+          - search_transcript
+        tool_calls_max: 3
+        response_contains_any:
+          - Munger
+          - invert
+          - ep-
+  - send: "Give me Phil Knight's exact quote about the 'crazy idea' of importing shoes — transcript only."
+    expect:
+      response_min_length: 40
+      not_contains_all:
+        - DSML
+        - redacted_reasoning
+        - "<think>"
+      expect_live:
+        tool_called_first: search_transcript
+        tools_called:
+          - search_transcript
+        tool_calls_max: 3
+        response_contains_any:
+          - Knight
+          - crazy
+          - ep-

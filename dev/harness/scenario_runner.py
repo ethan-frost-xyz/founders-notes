@@ -15,7 +15,7 @@ from harness.mock_session import MockBotSession, Reply
 from harness.response_report import HarnessReportPaths, write_response_markdown
 from harness.observability import aggregate_observability
 from harness.report_meta import REPORT_SCHEMA_VERSION, harness_git_sha
-from harness.trace_report import enrich_turn_from_traces
+from harness.trace_report import enrich_turn_from_traces, tool_rounds_from_traces
 
 try:
     import yaml
@@ -23,6 +23,7 @@ except ImportError:  # pragma: no cover
     yaml = None  # type: ignore[assignment]
 
 _EPISODE_CITATION_RE = re.compile(r"\[ep-\d{4}\]")
+_EPISODE_CITATION_ID_RE = re.compile(r"\[ep-(\d{4})\]")
 
 
 @dataclass
@@ -236,6 +237,30 @@ def _all_reply_text(replies: list[Reply]) -> str:
     return "\n".join(r.text for r in replies)
 
 
+def _tool_names_from_traces(tool_traces: list[dict[str, Any]]) -> list[str]:
+    return [str(t["tool"]) for t in tool_traces if t.get("tool")]
+
+
+def _tool_rounds_used(tool_traces: list[dict[str, Any]]) -> int:
+    rounds = tool_rounds_from_traces(tool_traces)
+    return max((int(r.get("round") or 0) for r in rounds), default=0)
+
+
+def _episode_citation_ids(text: str) -> list[str]:
+    return [f"ep-{m}" for m in _EPISODE_CITATION_ID_RE.findall(text)]
+
+
+def _max_search_vault_many_queries(tool_traces: list[dict[str, Any]]) -> int:
+    best = 0
+    for entry in tool_traces:
+        if entry.get("tool") != "search_vault_many":
+            continue
+        queries = (entry.get("arguments") or {}).get("queries") or []
+        if isinstance(queries, list):
+            best = max(best, len(queries))
+    return best
+
+
 def _check_expectations(
     expect: dict[str, Any],
     *,
@@ -264,16 +289,25 @@ def _check_expectations(
             if needle_s in combined:
                 return False, f"expected reply not to contain {needle_s!r}"
 
-    min_len = expect.get("response_min_length")
-    if min_len is not None and len(combined) < int(min_len):
-        return False, f"response length {len(combined)} < {min_len}"
-
     live_only = expect.get("expect_live") or {}
     if llm_mode == "live":
         merged = {**expect, **live_only}
+        live_response_not = live_only.get("response_not_contains_all")
+        if live_response_not:
+            for needle in live_response_not:
+                needle_s = str(needle)
+                if needle_s in combined:
+                    return False, f"expected response not to contain {needle_s!r}"
     else:
         merged = {k: v for k, v in expect.items() if k != "expect_live"}
         merged = {**merged, **{k: v for k, v in live_only.items() if k in ("phase", "sandbox_file_written")}}
+
+    min_len = merged.get("response_min_length")
+    if min_len is not None:
+        if llm_mode != "live" and "response_min_length" in live_only and "response_min_length" not in expect:
+            min_len = None
+    if min_len is not None and len(combined) < int(min_len):
+        return False, f"response length {len(combined)} < {min_len}"
 
     tool_called = merged.get("tool_called")
     if tool_called and llm_mode == "live":
@@ -299,6 +333,13 @@ def _check_expectations(
         if not any(n in combined for n in needles):
             return False, f"expected response to contain one of {needles!r}"
 
+    response_all = merged.get("response_contains_all")
+    if response_all and llm_mode == "live":
+        needles = [str(x) for x in response_all]
+        missing = [n for n in needles if n not in combined]
+        if missing:
+            return False, f"expected response to contain all of {needles!r}, missing {missing!r}"
+
     if merged.get("response_contains_episode_citation") and llm_mode == "live":
         if not _EPISODE_CITATION_RE.search(combined):
             return False, "expected response to contain episode citation [ep-NNNN]"
@@ -312,10 +353,63 @@ def _check_expectations(
     tools_called_expect = merged.get("tools_called")
     if tools_called_expect and llm_mode == "live":
         expected_tools = [str(x) for x in tools_called_expect]
-        names = [str(t["tool"]) for t in tool_traces if t.get("tool")]
+        names = _tool_names_from_traces(tool_traces)
         for tool in expected_tools:
             if tool not in names:
                 return False, f"expected tools {expected_tools!r}, got {names!r}"
+
+    tool_called_first = merged.get("tool_called_first")
+    if tool_called_first and llm_mode == "live":
+        names = _tool_names_from_traces(tool_traces)
+        expected_first = str(tool_called_first)
+        if not names:
+            return False, f"expected first tool {expected_first!r}, got no tools"
+        if names[0] != expected_first:
+            return False, f"expected first tool {expected_first!r}, got {names[0]!r}"
+
+    tools_not_called = merged.get("tools_not_called")
+    if tools_not_called and llm_mode == "live":
+        forbidden = [str(x) for x in tools_not_called]
+        names = _tool_names_from_traces(tool_traces)
+        found = [t for t in forbidden if t in names]
+        if found:
+            return False, f"expected tools not called {forbidden!r}, but called {found!r}"
+
+    tool_calls_max = merged.get("tool_calls_max")
+    if tool_calls_max is not None and llm_mode == "live":
+        count = len(_tool_names_from_traces(tool_traces))
+        limit = int(tool_calls_max)
+        if count > limit:
+            return False, f"expected at most {limit} tool calls, got {count}"
+
+    tool_rounds_max = merged.get("tool_rounds_max")
+    if tool_rounds_max is not None and llm_mode == "live":
+        used = _tool_rounds_used(tool_traces)
+        limit = int(tool_rounds_max)
+        if used > limit:
+            return False, f"expected at most {limit} tool rounds, got {used}"
+
+    if merged.get("no_episode_citations") and llm_mode == "live":
+        if _EPISODE_CITATION_RE.search(combined):
+            return False, "expected response with no episode citations [ep-NNNN]"
+
+    episode_citations_exclude = merged.get("episode_citations_exclude")
+    if episode_citations_exclude and llm_mode == "live":
+        banned = {str(x) for x in episode_citations_exclude}
+        cited = set(_episode_citation_ids(combined))
+        overlap = cited & banned
+        if overlap:
+            return False, f"expected no citations for {sorted(banned)!r}, found {sorted(overlap)!r}"
+
+    search_vault_many_queries_min = merged.get("search_vault_many_queries_min")
+    if search_vault_many_queries_min is not None and llm_mode == "live":
+        minimum = int(search_vault_many_queries_min)
+        found = _max_search_vault_many_queries(tool_traces)
+        if found < minimum:
+            return False, (
+                f"expected search_vault_many with at least {minimum} sub-queries, "
+                f"max seen was {found}"
+            )
 
     load_episode_id = merged.get("load_episode_id")
     if load_episode_id and llm_mode == "live":

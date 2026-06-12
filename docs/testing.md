@@ -82,6 +82,8 @@ python dev/mock_telegram_cli.py --suite librarian --live-only -v
 RUN_LIVE_HARNESS=1 pytest tests/test_harness_scenarios.py -k live -q
 ```
 
+15 librarian scenarios including agentic stress (OOD, constraints, verbatim routing, tool efficiency) — see [telegram-mock-harness.md](telegram-mock-harness.md#agentic-stress-scenarios).
+
 Janitor unit tests:
 
 ```bash
