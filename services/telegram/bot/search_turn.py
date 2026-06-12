@@ -36,10 +36,18 @@ def _orchestrator(config: AgentConfig) -> RetrievalOrchestrator:
 class _SearchTiming:
     """Per-search accumulator bridged to TurnTimer."""
 
-    def __init__(self, timer: TurnTimer, query: str, *, tool: str) -> None:
+    def __init__(
+        self,
+        timer: TurnTimer,
+        query: str,
+        *,
+        tool: str,
+        tool_round: int | None = None,
+    ) -> None:
         self._timer = timer
         self._query = query
         self._tool = tool
+        self._tool_round = tool_round
         self._t0 = time.perf_counter()
         self.vault_local_ms = 0
         self.retrieval_llm_ms = 0
@@ -60,6 +68,7 @@ class _SearchTiming:
             retrieval_llm_ms=self.retrieval_llm_ms,
             wall_ms=wall_ms,
             tool=self._tool,
+            tool_round=self._tool_round,
             error=error,
         )
 
@@ -104,10 +113,13 @@ def search_vault_for_turn(
     on_status: Callable[[str], None] | None = None,
     timing: TurnTimer | None = None,
     telemetry: TelemetryCollector | None = None,
+    tool_round: int | None = None,
 ) -> dict[str, Any]:
     """Full expand + hybrid + rerank; returns formatted evidence for the agent loop."""
     search_timing = (
-        _SearchTiming(timing, query, tool="search_vault") if timing is not None else None
+        _SearchTiming(timing, query, tool="search_vault", tool_round=tool_round)
+        if timing is not None
+        else None
     )
     orch = _orchestrator(config)
     failed = False
@@ -144,6 +156,7 @@ def search_vault_many_for_turn(
     on_status: Callable[[str], None] | None = None,
     timing: TurnTimer | None = None,
     telemetry: TelemetryCollector | None = None,
+    tool_round: int | None = None,
 ) -> dict[str, Any]:
     """Concurrent fan-out of retrieve_core per sub-query; labeled results."""
     cleaned = [str(q).strip() for q in queries if str(q).strip()]
@@ -163,7 +176,12 @@ def search_vault_many_for_turn(
 
     def _run_one(idx: int, sub_query: str) -> tuple[int, dict[str, Any]]:
         search_timing = (
-            _SearchTiming(timing, sub_query, tool="search_vault_many")
+            _SearchTiming(
+                timing,
+                sub_query,
+                tool="search_vault_many",
+                tool_round=tool_round,
+            )
             if timing is not None
             else None
         )
@@ -223,6 +241,7 @@ def search_transcript_for_turn(
     k: int = 8,
     timing: TurnTimer | None = None,
     telemetry: TelemetryCollector | None = None,
+    tool_round: int | None = None,
 ) -> dict[str, Any]:
     from _bootstrap import setup_ingestion_paths
 
@@ -246,6 +265,7 @@ def search_transcript_for_turn(
             retrieval_llm_ms=0,
             wall_ms=elapsed_ms,
             tool="search_transcript",
+            tool_round=tool_round,
         )
     if telemetry is not None:
         telemetry.record_phase("retrieval.transcript_search", elapsed_ms)

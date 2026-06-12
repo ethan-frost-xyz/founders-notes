@@ -21,6 +21,7 @@ class TurnTiming:
     expand_retry_ms: int = 0
     tool_local_ms: int = 0
     searches: list[dict[str, Any]] = field(default_factory=list)
+    tool_batches: list[dict[str, Any]] = field(default_factory=list)
     openrouter_calls: list[dict[str, Any]] = field(default_factory=list)
 
 
@@ -68,6 +69,7 @@ class TurnTimer:
         retrieval_llm_ms: int = 0,
         wall_ms: int | None = None,
         tool: str | None = None,
+        tool_round: int | None = None,
         error: bool = False,
     ) -> None:
         with self._lock:
@@ -80,9 +82,29 @@ class TurnTimer:
                 row["wall_ms"] = wall_ms
             if tool:
                 row["tool"] = tool
+            if tool_round is not None:
+                row["tool_round"] = tool_round
             if error:
                 row["error"] = True
             self._data.searches.append(row)
+
+    def record_tool_batch(
+        self,
+        *,
+        tool_round: int,
+        tools: list[str],
+        wall_ms: int,
+        parallel: bool,
+    ) -> None:
+        with self._lock:
+            self._data.tool_batches.append(
+                {
+                    "tool_round": tool_round,
+                    "tools": list(tools),
+                    "wall_ms": wall_ms,
+                    "parallel": parallel,
+                }
+            )
 
     def record_openrouter_stream(
         self,
@@ -125,6 +147,7 @@ class TurnTimer:
                 "expand_retry_ms": self._data.expand_retry_ms,
                 "tool_local_ms": self._data.tool_local_ms,
                 "searches": list(self._data.searches),
+                "tool_batches": list(self._data.tool_batches),
                 "openrouter_calls": list(self._data.openrouter_calls),
             }
         calls = d["openrouter_calls"]

@@ -124,6 +124,7 @@ def _tool_handlers(
     history: list[dict[str, Any]] | None = None,
     timing: TurnTimer | None = None,
     telemetry: TelemetryCollector | None = None,
+    tool_round: int | None = None,
 ) -> dict[str, ToolFn]:
     from search_turn import (
         search_transcript_for_turn,
@@ -139,6 +140,7 @@ def _tool_handlers(
             history=history,
             timing=timing,
             telemetry=telemetry,
+            tool_round=tool_round,
         ),
         "search_vault_many": lambda args: search_vault_many_for_turn(
             list(args.get("queries") or []),
@@ -146,6 +148,7 @@ def _tool_handlers(
             history=history,
             timing=timing,
             telemetry=telemetry,
+            tool_round=tool_round,
         ),
         "search_transcript": lambda args: search_transcript_for_turn(
             str(args["query"]),
@@ -153,6 +156,7 @@ def _tool_handlers(
             k=int(args.get("k") or 8),
             timing=timing,
             telemetry=telemetry,
+            tool_round=tool_round,
         ),
         "load_episode": lambda args: _timed_local_tool(
             timing,
@@ -188,8 +192,15 @@ def execute_tool(
     history: list[dict[str, Any]] | None = None,
     timing: TurnTimer | None = None,
     telemetry: TelemetryCollector | None = None,
+    tool_round: int | None = None,
 ) -> dict[str, Any]:
-    handlers = _tool_handlers(config, history=history, timing=timing, telemetry=telemetry)
+    handlers = _tool_handlers(
+        config,
+        history=history,
+        timing=timing,
+        telemetry=telemetry,
+        tool_round=tool_round,
+    )
     if name not in handlers:
         return {"error": f"unknown tool: {name}"}
     try:

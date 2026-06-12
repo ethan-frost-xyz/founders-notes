@@ -4,124 +4,137 @@
 
 The Founders Librarian is a personal AI study partner built on top of Ethan's private vault of Founders podcast notes, expanded datapoints, and episode transcripts. It is not a search tool or a document Q&A interface. It is designed to feel like a brilliant collaborator who has studied the same material and can reason across it — surfacing patterns, making connections across founders, and being honest when the evidence is thin.
 
-The target experience is closest to Perplexity Pro Search: the user asks a question in natural language, and the system does whatever retrieval work is necessary before delivering a sharp, well-grounded answer with citations. Depth and voice matter more than raw speed.
+The target experience is closest to Perplexity Pro Search: the user asks a question in natural language, and the system does whatever retrieval work is necessary before delivering a sharp, well-grounded answer with citations. Depth and voice matter; latency is now a first-class architectural goal alongside quality.
 
 ***
 
-## What Has Been Built So Far
+## What Has Been Built (v4 — shipped)
 
-The current system is a production-grade hybrid RAG pipeline that runs **once, before the model ever sees the question**:
+The **v4 agentic Librarian loop** is live. The model cold-starts with no pre-retrieved evidence and drives retrieval via a five-tool toolbox:
 
-- **Intent classify** — a rules-based check routes the message to `meta` / `follow_up` / `thematic` and decides whether to retrieve at all
-- **Query expansion** — the user's question is rewritten into 5 semantically diverse variants by an LLM
-- **Hybrid search** — each variant runs both semantic (vector) and keyword search over the vault's `expanded` + `summary` tiers, searched concurrently and fused via RRF (pool capped at ~40)
-- **LLM reranking** — the candidate pool is scored by an LLM and the top ~12 are selected
-- **Transcript fallback** — when the top rerank score is weak (< 6) or the question wants a verbatim quote, a keyword search over raw transcripts is mixed in
-- **Synthesis** — a synthesis LLM receives the pre-assembled evidence block and produces a cited, thematic answer
+- **`search_vault(query)`** — full expand → hybrid search → rerank pipeline on a targeted query
+- **`search_vault_many(queries[])`** — concurrent fan-out across model-supplied sub-queries; results labeled per sub-query
+- **`search_transcript(query)`** — keyword search over raw transcripts (verbatim / triangulation)
+- **`list_episode_ids(query)`** — resolve guest name or episode number to `ep-NNNN`
+- **`load_episode(episode_id)`** — pull one full episode (post + notes + expanded)
 
-Two escape-hatch tools are available to the synthesis turn today: `load_episode` (pull one full episode) and `list_episode_ids` (resolve a guest name or number to `ep-NNNN`). The model tiers are split: a fast/cheap `retrieval_model` handles expand + rerank, and a stronger `librarian_model` handles synthesis.
+The loop runs until the model answers or hits a **6 tool-call round** safety cap (rounds, not sub-queries). Model tiers are split: `librarian_model` drives the loop + synthesis; `retrieval_model` handles expand + rerank inside each search.
 
-Source of truth: [`services/telegram/lib/retrieval/orchestrator.py`](services/telegram/lib/retrieval/orchestrator.py), [`services/telegram/bot/agent.py`](services/telegram/bot/agent.py), [`docs/retrieval.md`](docs/retrieval.md).
+Source of truth: [`services/telegram/bot/agent_core.py`](services/telegram/bot/agent_core.py), [`services/telegram/bot/search_turn.py`](services/telegram/bot/search_turn.py), [`docs/retrieval.md`](docs/retrieval.md).
 
-***
+### Historical context (v3 — superseded)
 
-## The Core Problem with the Current Architecture
-
-The pipeline is single-pass, linear, and **rigidly pre-scripted**. Retrieval is decided and executed before the intelligent model is ever consulted. The model that is actually good at reasoning about what evidence a question needs has no say in how that evidence is gathered.
-
-This produces two failure modes that show up in real use:
-
-1. **Thin or tangential evidence, with no recourse.** If the single pass surfaces weak evidence, the synthesis model is stuck with it. It synthesizes from whatever it was handed, producing answers that feel robotic or confidently vague instead of honestly saying "the vault doesn't really cover this."
-
-2. **Multi-hop and cross-founder questions fall flat.** A question like "how did Edison and Rockefeller differ in how they built teams?" needs evidence about *both* founders held in relationship. A single search pass surfaces one side or a blurry average of both — never a clean two-sided comparison.
-
-There is no feedback loop. There is no way for the model to say "this isn't enough — let me search again from a different angle," and no way to decompose a hard question into the parts it actually contains.
+Before v4, retrieval was **rigidly pre-scripted**: a rules-based intent classifier decided whether to retrieve, then a single linear pipeline (expand → hybrid search → rerank → transcript fallback) ran before the synthesis model ever saw the question. That architecture could not decompose multi-hop questions, triangulate corpora deliberately, or re-search when evidence was thin. v4 replaced it with model-driven retrieval.
 
 ***
 
-## The Vision for the Agentic Layer
+## The Core Problem v4 Solved
 
-Give the model full agency over its own retrieval. Instead of receiving a pre-assembled evidence block passively, the model drives the search process from the start — deciding what to look for, how to decompose it, when to triangulate, and when it has enough to answer well.
+The old pipeline produced two failure modes:
 
-### Cold start, full agency
+1. **Thin or tangential evidence, with no recourse.** The synthesis model was stuck with whatever a single pass surfaced.
+2. **Multi-hop and cross-founder questions fell flat.** One search pass could not hold evidence about two founders in relationship.
 
-The model receives the user's question and a toolbox — and **no pre-retrieved evidence**. It decides every search itself, including the first one. There is no forced up-front retrieval pass. This is the single most important change from the current architecture: the rigid pre-scripted pipeline is replaced by a model that orchestrates retrieval as the question demands.
+v4 gives the model a feedback loop: decompose, triangulate, re-search, and stop when evidence is sufficient.
 
-### The toolbox (5 tools)
+***
 
-The model composes these as the question requires. Each is a thin surface over retrieval logic that already exists — nothing underneath changes.
+## Search-as-Code Roadmap (3 stages)
 
-- **`search_vault(query)`** — thematic / cross-episode retrieval. Runs the full existing pipeline (expand into variants → concurrent hybrid search → RRF → LLM rerank) on the model's targeted query. The everyday workhorse.
-- **`search_vault_many(queries[])`** — **model-driven parallel decomposition.** The model passes its own list of sub-queries (e.g. `["how Edison built teams", "how Rockefeller built teams"]`); each runs the full pipeline concurrently, and results come back **labeled per sub-query** so the model can compare and triangulate. This is the direct fix for multi-hop and multi-founder questions. Soft limit of ~6 sub-queries per call.
-- **`search_transcript(query)`** — keyword search over raw transcripts, as a first-class tool the model can choose deliberately (for verbatim quotes, exact dialogue, or to triangulate transcript against expanded notes). This promotes today's hidden rerank-fallback into something the model controls.
-- **`list_episode_ids(query)`** — resolve a guest name or episode number to a canonical `ep-NNNN`.
-- **`load_episode(episode_id)`** — pull one full episode (post + notes + expanded) when the question is about a single founder in depth.
+This design follows Perplexity's **Search as Code** principle: expose the search stack as atomized, composable primitives the model (or a planner) assembles per question — with parallel fan-out and a distinct tool per corpus. Not literal code execution; this vault is ~1.2k studied-episode vectors, not a web-scale sandbox.
 
-These five are the curated starting set, not a frozen boundary. If a new primitive would measurably help the model — for example a discovery/browse tool over episode summaries to scope which founders are even relevant before deep-searching, or a lower-level raw search that skips expand/rerank for a cheap targeted lookup — it should be added. The bar is "does it help the model answer better," not "stay at five."
+All heavy lifting stays **API-driven** (OpenRouter for LLM steps; local hybrid search over bundled index today; cloud deployment will keep retrieval behind stable APIs).
 
-### A dynamic, non-rigid loop
+```mermaid
+flowchart TB
+  subgraph stage2slot [Stage 2 slot optional]
+    Planner[QueryPlanner]
+    Plan[SearchPlan]
+    Planner --> Plan
+  end
+  subgraph stage1 [Stage 1]
+    Agent[VaultAgent loop]
+    Batch[ToolBatchExecutor]
+    Agent --> Batch
+  end
+  subgraph searchlayer [Search layer stable API]
+    Adapters[search_turn adapters]
+    Orch[RetrievalOrchestrator.retrieve_core]
+    Adapters --> Orch
+  end
+  Plan -.-> Batch
+  Batch --> Adapters
+  subgraph stage3 [Stage 3 future]
+    Index[Chunk index + embeddings]
+    Index -.-> Orch
+  end
+```
 
-The model keeps searching until it judges the evidence sufficient, then answers. There is **no fixed iteration count and no forced minimum** — stopping is the model's own judgment, not a mandatory checklist or procedure. Most questions will resolve quickly; genuinely hard ones can dig as deep as they need.
+| Stage | Goal | Scope | Status |
+|-------|------|-------|--------|
+| **1 — Parallel execution** | Collapse within-round tool wall time from sum → max | `ToolBatchExecutor` in agent loop; timing/harness; retrieval internals unchanged | **Shipped** |
+| **2 — Query planner** | Upfront fast LLM decomposes question into a `SearchPlan` | Optional pre-loop planner; librarian loop may shrink to synthesis-only on hard questions | Future; `SearchPlan` → `execute_tool_batch` seam reserved |
+| **3 — Ingestion chunking** | Eliminate runtime LLM rerank | Chunk boundaries + index build; `retrieve_core` becomes search-only | Future |
 
-A hard safety ceiling of **6 search rounds** prevents a runaway loop. The ceiling counts **tool-call rounds, not sub-queries**: one `search_vault_many` call is a single round no matter how many sub-queries it contains. The ceiling bounds reasoning loops — it never penalizes decomposition breadth on a single hard question.
+### Stage 1 detail: parallel tool execution
 
-### Composition guidance, not just tools
+When the librarian model emits multiple tool calls in one round (e.g. `search_vault` + `search_transcript`), the agent loop must execute them **concurrently**, not serially. `search_vault_many` already parallelizes sub-queries internally; Stage 1 fixes the outer loop.
 
-A custom toolset underperforms when the model is only handed tool descriptions. The prompt ([`AGENTS.md`](AGENTS.md)) must teach the model *how to wield* the toolbox: decompose multi-founder questions with `search_vault_many`, triangulate `search_transcript` against expanded notes, and actively seek disconfirming evidence before committing to a comparison. This guidance is written as **soft heuristics, never as mandatory steps** — it sharpens the model's judgment without making the backend rigid again.
+**OpenRouter burst profile:** parallel tools multiply concurrent expand + rerank calls. Stage 1 relies on existing 429 retry (`execute_openrouter_with_retry`) — no proactive semaphore. Monitor `expand_retry_ms` in harness timing after deploy.
 
-### The model tiers stay split
+### Agentic layer principles (unchanged from v4)
 
-The strong `librarian_model` drives the loop — judging evidence, deciding to search again, writing each query, and producing the final answer. The cheap/fast `retrieval_model` does the grunt work *inside* each search (expand + rerank). The decision to re-search needs the same intelligence as synthesis; the costly model stays out of the mechanical retrieval steps.
+**Cold start, full agency** — no pre-retrieved evidence; the model decides every search.
 
-### The voice stays consistent
+**Dynamic loop** — no fixed minimum rounds; 6-round safety cap on tool-call rounds (not sub-queries).
 
-The agentic layer changes the retrieval architecture, not the synthesis persona. The Librarian still sounds like a sharp, opinionated thought partner. It still makes cross-episode connections. It still flags when evidence is thin. The only difference is that it now goes and gathers the right evidence itself before answering.
+**Composition guidance** — [`AGENTS.md`](AGENTS.md) teaches decomposition (`search_vault_many`), triangulation (`search_transcript`), and disconfirming evidence as soft heuristics, not mandatory steps.
 
-### Quality first; speed is a later problem
+**Model tiers stay split** — strong model for loop + synthesis; cheap model for expand + rerank inside each search.
 
-Answer quality is the only thing that matters right now. Cost is not a concern. Latency and speed are explicitly **deferred future optimization**, not a design constraint on this layer. A deeper, slower answer to a hard question is the right trade-off today; making it fast comes later.
+**Voice stays consistent** — sharp, opinionated thought partner; honest about thin evidence.
 
-### A legible loop, built for tuning
-
-Because the near-term goal is tuning answer quality, the loop must be **inspectable**. Every turn should record the trail of what the model did — the queries and sub-queries it issued, the evidence each search returned, why it chose to search again, and why it decided to stop. This trail (today's `tool_trace`) is the primary instrument for reading real answers, diagnosing weak ones, and iterating on the tools and the composition guidance.
-
-The *end-user presentation* of that activity — live status messages in Telegram, how much of the reasoning trail to surface to the reader — is deliberately **deferred**. Near-term effort goes to making the loop legible for testing and fine-tuning, not to UX polish.
+**Legible loop** — `tool_trace` records every tool call, sub-query, batch parallelism, and stop reason for tuning. End-user UX polish for live status is deferred.
 
 ***
 
 ## Influence: Perplexity "Search as Code" and 2026 agentic-RAG patterns
 
-This design borrows a principle from Perplexity's June 2026 "Search as Code" architecture and the broader agentic-RAG literature: stop treating search as one monolithic, pre-scripted endpoint, and instead **expose the search stack as atomized, composable primitives that the model assembles per question** — with parallel fan-out over sub-queries and a distinct tool per corpus. That principle is exactly what motivates `search_vault_many` (decomposition / parallel fan-out) and `search_transcript` (a separate corpus the model can triangulate against).
-
-What is **explicitly out of scope**: Perplexity runs model-generated Python in a secure sandbox over a web-scale search stack doing thousands of operations per minute. This vault is ~1.2k studied-episode vectors on a Mac mini. A code-generation sandbox would be massive over-engineering here. The brief takes the *granularity, decomposition, and triangulation* principles — not literal code execution.
+Atomized primitives, parallel fan-out, distinct corpus per tool — not a monolithic pre-scripted endpoint. What is **explicitly out of scope**: model-generated Python in a secure sandbox over web-scale search. The brief takes *granularity, decomposition, and triangulation* — not literal code execution.
 
 ***
 
-## What the Coding Agent Should Build
+## Stage 2 / 3 interface contract (design now, build later)
 
-The change is at the orchestration and tool-surface layer, not the retrieval internals.
+```python
+# Stage 2 (future) — services/telegram/lib/retrieval/search_plan.py
+@dataclass
+class SearchPlan:
+    sub_queries: list[str]
+    include_transcript: bool = False
+    # maps to list[ToolInvocation] for execute_tool_batch
 
-- Give the `librarian_model` the **five tools** above as OpenRouter/OpenAI-format tool definitions.
-- **Remove the mandatory up-front retrieval call** so the turn cold-starts with no evidence; drop the rules-based retrieve/skip pre-gating (`classify_intent`) and trust the model not to search for a greeting.
-- Implement `search_vault` as a thin adapter over the existing `retrieve_for_turn()` pipeline.
-- Implement `search_vault_many` as a concurrent fan-out of that same pipeline across the model's sub-queries, returning results labeled per sub-query.
-- Expose `search_transcript` over the existing `search_transcript_evidence()`.
-- Run the agent loop until the model stops calling tools and answers, or the **6-round** safety cap (rounds, not sub-queries) is hit.
-- Preserve and extend the per-round trace (`tool_trace`) so every tool call, sub-query, and stop/continue decision is captured — the loop must stay inspectable for tuning.
-- Add the composition guidance to [`AGENTS.md`](AGENTS.md), and update its now-inaccurate "Retrieval already ran before you see this message" line — under cold start, retrieval has *not* run.
+# Stage 3 (future) — orchestrator.retrieve_core gains rerank=False path
+# when chunk quality makes LLM rerank redundant
+```
 
-Everything underneath stays exactly as it is: the chunks pipeline, embeddings, RRF merge, and reranker are unchanged. The change is *who decides when retrieval runs* — and that is now the model.
+`execute_tool_batch` + unchanged `search_turn` adapters = the stable seam. Planner and chunking both plug in without rewriting the agent loop.
 
 ***
 
 ## Success Criteria
 
-The system is working correctly when:
+**Quality (unchanged):**
 
-- Multi-hop and cross-founder questions come back noticeably sharper and better-grounded, because the model decomposed them and triangulated the evidence
-- Thin-evidence questions get an honest "the vault doesn't really cover this" instead of confident, vague filler
-- The synthesis voice stays consistent regardless of how many search rounds ran
-- It is judged primarily by **reading real answers** — Ethan's qualitative read is the bar
-- A small, repeatable set of hard questions (multi-founder comparisons, thin-evidence probes) lives in the mock harness ([`docs/telegram-mock-harness.md`](docs/telegram-mock-harness.md)) so quality stays testable as prompts are tuned
+- Multi-hop and cross-founder questions come back sharper because the model decomposed and triangulated
+- Thin-evidence questions get an honest decline instead of confident filler
+- Synthesis voice stays consistent regardless of search rounds
+- Judged by reading real answers + live harness scenarios ([`docs/telegram-mock-harness.md`](docs/telegram-mock-harness.md))
 
-Speed and cost are explicitly **not** part of the success bar for this layer.
+**Latency (Stage 1+):**
+
+- Within-round multi-tool turns show wall time ≈ max(tool latencies), not sum
+- `timing_accountability.parallelism_excess_ms` drops when tools run in parallel
+- Harness pass/fail does not regress at the same 6-round cap
+
+Cost remains secondary. Cloud deployment (public website) will require API-driven retrieval throughout — Stage 1 interfaces are modular for that path.

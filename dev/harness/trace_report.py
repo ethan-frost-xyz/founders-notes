@@ -119,14 +119,27 @@ def _search_accountable_ms(
     *,
     vault_ms: int,
     retrieval_ms: int,
+    tool_batches: list[dict[str, Any]] | None = None,
 ) -> int:
     if not searches:
         return vault_ms + retrieval_ms
+
+    parallel_rounds = {
+        int(batch["tool_round"]): int(batch["wall_ms"])
+        for batch in (tool_batches or [])
+        if batch.get("parallel") and batch.get("tool_round") is not None
+    }
 
     total = 0
     i = 0
     while i < len(searches):
         row = searches[i]
+        tool_round = row.get("tool_round")
+        if tool_round is not None and tool_round in parallel_rounds:
+            while i < len(searches) and searches[i].get("tool_round") == tool_round:
+                i += 1
+            total += parallel_rounds[tool_round]
+            continue
         if row.get("tool") == "search_vault_many":
             batch_walls: list[int] = []
             while i < len(searches) and searches[i].get("tool") == "search_vault_many":
@@ -149,6 +162,7 @@ def timing_accountability(timing: dict[str, Any] | None, elapsed_s: float) -> di
     expand_retry_ms = int(timing.get("expand_retry_ms") or 0)
     tool_local_ms = int(timing.get("tool_local_ms") or 0)
     searches = list(timing.get("searches") or [])
+    tool_batches = list(timing.get("tool_batches") or [])
     openrouter_total_ms = sum(
         int(c.get("total_ms") or 0) for c in (timing.get("openrouter_calls") or [])
     )
@@ -156,6 +170,7 @@ def timing_accountability(timing: dict[str, Any] | None, elapsed_s: float) -> di
         searches,
         vault_ms=vault_ms,
         retrieval_ms=retrieval_ms,
+        tool_batches=tool_batches,
     )
     accounted_ms = search_wall_ms + tool_local_ms + openrouter_total_ms
     wall_ms = int(round(elapsed_s * 1000))
